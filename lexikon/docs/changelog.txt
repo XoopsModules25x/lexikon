@@ -1,0 +1,124 @@
+---------------------------------------
+1.51 Final  2013-07-11
+---------------------------------------
+
+- changed to standard Editor selection
+- added removal of HTML special characters/tags in Category list
+
+---------------------------------------
+1.51 Beta 2  2013-04-26
+---------------------------------------
+
+- Converted names of language constants to match folder name (in preparation for cloning)
+- changed tables look & feel to follow XOOPS Standards
+- extracted summary to Dashboard
+- fixed deprecated notices
+-
+
+---------------------------------------
+1.51 Beta 1  2013-02-27
+---------------------------------------
+
+- Converted to XOOPS 2.5.5 Admin GUI (Mamba)
+
+---------------------------------------
+Lexikon version 1.5 b
+---------------------------------------
+- Added XOOPS group permissions
+- Updated plugins with permission query
+- Added upload of category Image
+- Added text/ad-box to frontpage
+- Added tag support
+- Improved blocks
+   . Added block pausescroller/ticker/marquee
+   . Added marquee to block newest terms
+- modified some options (moved to xoops_version.php)
+
+---------------------------------------
+Lexikon version 1.4
+---------------------------------------
+- Improved blocks
+   . Added block Authors
+   . Updated block Spotlight
+   . Added Marquee to latest/top terms
+- Improved Wysiwyg formoptions
+   . Updated Xoopseditors
+   . Added editors to user frontend
+- Added ModuleAdmin GUI
+- Added option to set category layout
+- Added notification by mail on approval
+- Added check for existing terms upon submission
+- Updated social bookmarks
+- Fixed a variety of small bugs
+- Fixed Captcha
+- Fixed RSS Feeds
+
+---------------------------------------
+Lexikon version 1.3
+---------------------------------------
+- Added block spotlight
+- Added search in glossary comments
+- Added sortable admin Items Summary
+- Added webmastercontent
+- Added Initial selection is now possible
+- Changed linkterms (more options)
+- Fixed pagenav pageinitial 'other'
+- Updated waiting.plugin.php
+- Added option RSS for user/guests
+
+---------------------------------------
+Lexikon version 1.2
+---------------------------------------
+- Improved blocks
+   . Added block categories
+   . Updated block alphabet
+- Updated increment author's posts count
+- Added statistics
+- Improved Usability
+   . Added Keywords highlighting search
+   . Added word censor
+   . Added list and profile of authors
+   . Added Xoops notifications
+   . Added Addthis.com bookmarks option
+- Fixed assignment of terms with accented or umlaut initials
+- Changed linkterms (added option)
+- Changed captcha, rendernav (backend) and some other things
+
+---------------------------------------
+Lexikon version 0.6
+---------------------------------------
+- Improved system integration
+   . Fixed user submissions to be displayed in userinfo.php
+   . Added increment author's posts count on each submission
+   . Updated waiting.plugin.php added sitemap.plugin.php
+- Fixed microlinks in block randomterm
+- Improved categoryhandling
+   . Fixed category listings by weight
+   . Changed Category-names are now clickable in all listings
+   . Removed option catsperindex (unused)
+- Improved search
+   . Added highlight reference (local)
+   . Removed autocomplete function
+   . Fixed searchresults' microlinks
+- Improved blocks
+   . Added block alphabet
+   . Fixed some errors in blocks
+   . Updated gijoe's myblocksadmin to v. 0.43
+   . Added clonable blocks
+   . Fixed Terms option block 0/1 remained unused
+- Improved comments
+   . Changed comments handling (added icon)
+   . Fixed comments to non existent IDs
+   . Fixed display comments icon only when allowed by module's options
+- Changed linkterms (added options popup and tooltip)
+- Changed use of HTML in field Reference
+- Added validations in entry.php
+- Added picture labels
+- Removed cleantags
+- Fixed offline terms were visible when accessed directly
+- Changed rendernav (number of pages) and some other things
+
+---------------------------------------
+Lexikon version 0.5
+---------------------------------------
+Initial Release
