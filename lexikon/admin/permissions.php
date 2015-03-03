@@ -53,28 +53,27 @@ echo "
 	</tr></table>
 	</form>";
 
-
 switch($permtoset) {
-	case 1:
-		$title = _AM_LEXIKON_VIEWFORM;
-		$perm_name = "lexikon_view";
-		$permdesc = _AM_LEXIKON_VIEWFORM_DSC;
-		break;
-	case 2:
-		$title = _AM_LEXIKON_SUBMITFORM;
-		$perm_name = "lexikon_submit";
-		$permdesc = _AM_LEXIKON_SUBMITFORM_DSC;
-		break;
-	case 3:
-		$title = _AM_LEXIKON_APPROVEFORM;
-		$perm_name = "lexikon_approve";
-		$permdesc = _AM_LEXIKON_APPROVEFORM_DSC."<br />"._AM_LEXIKON_APPROVEPERM_WARN;
-		break;
-	case 4:
-		$title = _AM_LEXIKON_REQUESTFORM;
-		$perm_name = "lexikon_request";
-		$permdesc = _AM_LEXIKON_REQUESTFORM_DSC;
-		break;
+    case 1:
+        $title = _AM_LEXIKON_VIEWFORM;
+        $perm_name = "lexikon_view";
+        $permdesc = _AM_LEXIKON_VIEWFORM_DSC;
+        break;
+    case 2:
+        $title = _AM_LEXIKON_SUBMITFORM;
+        $perm_name = "lexikon_submit";
+        $permdesc = _AM_LEXIKON_SUBMITFORM_DSC;
+        break;
+    case 3:
+        $title = _AM_LEXIKON_APPROVEFORM;
+        $perm_name = "lexikon_approve";
+        $permdesc = _AM_LEXIKON_APPROVEFORM_DSC."<br />"._AM_LEXIKON_APPROVEPERM_WARN;
+        break;
+    case 4:
+        $title = _AM_LEXIKON_REQUESTFORM;
+        $perm_name = "lexikon_request";
+        $permdesc = _AM_LEXIKON_REQUESTFORM_DSC;
+        break;
 }
 $modid = $xoopsModule->getVar('mid');
 $permform = new XoopsGroupPermForm($title, $modid, $perm_name, $permdesc, "admin/permissions.php");
@@ -82,13 +81,12 @@ $catstree = new XoopsTree($xoopsDB->prefix("lxcategories"), "categoryID", "");
 $catsresult=$xoopsDB->query("SELECT categoryID, name FROM ".$xoopsDB->prefix("lxcategories")." ORDER BY weight");
 while($myrow = $xoopsDB->fetchArray($catsresult)) {
   $catid = $myrow['categoryID'];
-  $cattitle = $myts->htmlSpecialChars($myrow['name']);	  
+  $cattitle = $myts->htmlSpecialChars($myrow['name']);
   $permform->addItem($catid, $cattitle);
 
-}	   
+}
     
 echo $permform->render();
 unset ($permform);
 
-xoops_cp_footer();	
-?>
+xoops_cp_footer();

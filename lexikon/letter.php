@@ -43,15 +43,15 @@ $xoopsTpl->assign('totalother', $howmanyother);
 
 // To display the list of categories
 if ( $xoopsModuleConfig['multicats'] == 1 ) {
-	$xoopsTpl -> assign ( 'block0', lx_CatsArray() );
-	$xoopsTpl->assign('layout', CONFIG_CATEGORY_LAYOUT_PLAIN);
-	if (lx_getmoduleoption('useshots')) {
-		$xoopsTpl->assign('show_screenshot', true);
-		$xoopsTpl->assign('logo_maximgwidth', $xoopsModuleConfig['logo_maximgwidth']);
-		$xoopsTpl->assign('lang_noscreenshot', _MD_LEXIKON_NOSHOTS);
-	} else {
-		$xoopsTpl->assign('show_screenshot', false);
-	}
+    $xoopsTpl -> assign ( 'block0', lx_CatsArray() );
+    $xoopsTpl->assign('layout', CONFIG_CATEGORY_LAYOUT_PLAIN);
+    if (lx_getmoduleoption('useshots')) {
+        $xoopsTpl->assign('show_screenshot', true);
+        $xoopsTpl->assign('logo_maximgwidth', $xoopsModuleConfig['logo_maximgwidth']);
+        $xoopsTpl->assign('lang_noscreenshot', _MD_LEXIKON_NOSHOTS);
+    } else {
+        $xoopsTpl->assign('show_screenshot', false);
+    }
 }
 
 // No initial: we need to see all letters
@@ -62,8 +62,8 @@ if ( !$init ) {
     // How many entries will we show in this page?
     //$queryA = "SELECT w. * , c.name AS catname FROM ".$xoopsDB -> prefix( 'lxentries' )." w LEFT JOIN ".$xoopsDB -> prefix( 'lxcategories' )." c ON w.categoryID = c.categoryID WHERE w.submit = '0' AND w.offline = '0' ORDER BY w.term ASC";
     //$resultA = $xoopsDB -> query ($queryA, $xoopsModuleConfig['indexperpage'], $start );
-	  $queryA = "SELECT * FROM " . $xoopsDB -> prefix( 'lxentries' ) . " WHERE offline = '0' AND submit = '0' ".$catperms." ORDER BY term ASC";
-	  $resultA = $xoopsDB -> query ($queryA, $xoopsModuleConfig['indexperpage'], $start );
+      $queryA = "SELECT * FROM " . $xoopsDB -> prefix( 'lxentries' ) . " WHERE offline = '0' AND submit = '0' ".$catperms." ORDER BY term ASC";
+      $resultA = $xoopsDB -> query ($queryA, $xoopsModuleConfig['indexperpage'], $start );
 
     $allentries = $xoopsDB -> query( "SELECT entryID FROM " . $xoopsDB -> prefix( "lxentries" ) . " WHERE submit ='0' AND offline = '0' ".$catperms." ORDER BY term ASC " );
     $totalentries = $xoopsDB -> getRowsNum( $allentries );
@@ -78,8 +78,8 @@ if ( !$init ) {
             $eachentry['catid'] = intval($categoryID);
             $resultF = $xoopsDB -> query ( "SELECT name FROM " . $xoopsDB -> prefix ( "lxcategories") . " WHERE categoryID = $categoryID ORDER BY name ASC" );
             while (list( $name) = $xoopsDB->fetchRow($resultF)){
-				$eachentry['catname'] = $myts -> htmlSpecialChars( $name );
-            	}
+                $eachentry['catname'] = $myts -> htmlSpecialChars( $name );
+                }
         }
 
         $eachentry['id'] = intval($entryID);
@@ -111,7 +111,7 @@ if ( !$init ) {
     $xoopsTpl -> assign ( 'pageinitial', _MD_LEXIKON_ALL );
 
     lx_create_pagetitle($myts->htmlSpecialChars(_MD_LEXIKON_BROWSELETTER. ' - ' ._MD_LEXIKON_ALL));
-} else	// $init does exist
+} else    // $init does exist
 {
     $pagetype = 1;
     // There IS an initial letter, so we want to show just that letter's terms
@@ -156,12 +156,12 @@ if ( !$init ) {
                 $eachentry['catname'] = $myts -> htmlSpecialChars( $name );
             }
         }
-		    $eachentry['id'] = intval($entryID);
+            $eachentry['id'] = intval($entryID);
         $eachentry['term'] = ucfirst($myts -> htmlSpecialChars( $term ));
         //$eachentry['init'] = $init;
         if ($init == '#') {
             $eachentry['init'] = _MD_LEXIKON_OTHER;
-        } else { 
+        } else {
             $eachentry['init'] = $init;
         }
 
@@ -202,17 +202,16 @@ if ($xoopsModuleConfig['syndication'] == 1) $xoopsTpl->assign('syndication', tru
 if ($xoopsUser) $xoopsTpl->assign('syndication', true);
 // Meta data
 if ( $publishedwords != 0 ) {
-	$meta_description = xoops_substr(lx_html2text( $eachentry['definition'] ), 0, 150 );
-	if ($xoopsModuleConfig['multicats'] == 1 ) {
-		lx_extract_keywords($xoopsModule->name(). ' ,'.$eachentry['term'].', '.$meta_description);
-		lx_get_metadescription($myts->htmlSpecialChars($xoopsModule->name()).' '.$eachentry['catname'].' '.$eachentry['term']);
-	} else {
-		lx_extract_keywords($myts->htmlSpecialChars($xoopsModule->name()). ', '.$eachentry['term']. ', '.$meta_description);
-		lx_get_metadescription($myts->htmlSpecialChars($xoopsModule->name()).' '.$eachentry['term'].' '. $meta_description);
-	}
+    $meta_description = xoops_substr(lx_html2text( $eachentry['definition'] ), 0, 150 );
+    if ($xoopsModuleConfig['multicats'] == 1 ) {
+        lx_extract_keywords($xoopsModule->name(). ' ,'.$eachentry['term'].', '.$meta_description);
+        lx_get_metadescription($myts->htmlSpecialChars($xoopsModule->name()).' '.$eachentry['catname'].' '.$eachentry['term']);
+    } else {
+        lx_extract_keywords($myts->htmlSpecialChars($xoopsModule->name()). ', '.$eachentry['term']. ', '.$meta_description);
+        lx_get_metadescription($myts->htmlSpecialChars($xoopsModule->name()).' '.$eachentry['term'].' '. $meta_description);
+    }
 }
 
 $xoopsTpl->assign("xoops_module_header", '<link rel="stylesheet" type="text/css" href="style.css" />');
 
 include( XOOPS_ROOT_PATH . "/footer.php" );
-?>

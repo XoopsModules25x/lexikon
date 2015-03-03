@@ -26,11 +26,11 @@ if (empty($entryID)) {
 function printPage($entryID) {
     global $xoopsConfig, $xoopsDB, $xoopsModule, $xoopsModuleConfig, $myts;
     $result1 = $xoopsDB->query("SELECT * FROM ".$xoopsDB->prefix("lxentries")." WHERE entryID = '$entryID' and submit = '0' order by datesub");
-	$Ok = $xoopsDB -> getRowsNum( $result1 );
-	if ( $Ok <= 0 ) {
-		redirect_header( "javascript:history.go(-1)", 3, _ERRORS );
-		exit();
-	}
+    $Ok = $xoopsDB -> getRowsNum( $result1 );
+    if ( $Ok <= 0 ) {
+        redirect_header( "javascript:history.go(-1)", 3, _ERRORS );
+        exit();
+    }
     list( $entryID, $categoryID, $term, $init, $definition, $ref, $url, $uid, $submit, $datesub, $counter, $html, $smiley, $xcodes, $breaks, $block, $offline, $notifypub ) = $xoopsDB -> fetchrow($result1);
 
     $result2 = $xoopsDB -> query ( "SELECT name FROM " . $xoopsDB -> prefix ("lxcategories") . " WHERE categoryID = '$categoryID'");
@@ -53,7 +53,7 @@ function printPage($entryID) {
     echo "<html>\n<head>\n";
     echo "<title>" . $xoopsConfig['sitename']." ".$term." ". _MD_LEXIKON_PRINTTERM. "</title>\n";
     echo "<meta http-equiv='Content-Type' content='text/html; charset=" . _CHARSET . "' />\n";
-    echo "<meta name='keywords' content= $term  />\n"; 
+    echo "<meta name='keywords' content= $term  />\n";
     echo "<meta name='AUTHOR' content='" . $xoopsConfig['sitename'] . "' />\n";
     echo "<meta name='COPYRIGHT' content='Copyright (c) 2004 by " . $xoopsConfig['sitename'] . "' />\n";
     echo "<meta name='DESCRIPTION' content='" . $xoopsConfig['slogan'] . "' />\n";
@@ -77,5 +77,3 @@ function printPage($entryID) {
 }
 
 printPage($entryID);
-
-?>

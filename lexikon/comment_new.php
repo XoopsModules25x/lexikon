@@ -30,7 +30,7 @@ global $xoopsModuleConfig, $xoopsUser;
 $com_itemid = isset($_GET['com_itemid']) ? intval($_GET['com_itemid']) : 0;
 //--- verify that the user can post comments
 if(!isset($xoopsModuleConfig)) die();
-if($xoopsModuleConfig['com_rule'] == 0) die();	// Comments deactivated
+if($xoopsModuleConfig['com_rule'] == 0) die();    // Comments deactivated
 if($xoopsModuleConfig['com_anonpost'] == 0 && !is_object($xoopsUser)) die(); // Anonymous users can't post
 
 if ($com_itemid > 0) {
@@ -45,6 +45,5 @@ if ($com_itemid > 0) {
     $com_replytitle = $row['term'];
     include XOOPS_ROOT_PATH.'/include/comment_new.php';
 } else {
-		exit();
-	}
-?>
+        exit();
+    }

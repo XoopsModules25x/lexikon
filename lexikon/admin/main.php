@@ -78,30 +78,30 @@ list( $totaloffline ) = $xoopsDB -> fetchRow( $result05 );
 //echo "<br /><br />";
 //--- category dropdown
 if ($xoopsModuleConfig['multicats'] == 1) {
-	$cattree = new XoopsTree( $xoopsDB->prefix("lxcategories"), "categoryID", "0" );
-	echo "<table class='outer' width='100%'><tr ><td colspan=\"2\" class='even'><strong>" . _AM_LEXIKON_INVENTORY . "</strong></td></tr>";
-	echo "<tr class=\"odd\" ><td width=\"30%\" align=\"left\">";
-	echo '<form method=get action=\"category.php\">';
-	$cattree -> makeMySelBox("name", "weight DESC",0,1,"",'window.location="category.php?op=mod&amp;categoryID="+this.value');
-	echo "</form>";
-	echo "</td><td align=\"left\">";
-	echo "<input type='button' name='button' onClick=\"location='category.php?op=addcat'\" value=' " . _AM_LEXIKON_CREATECAT . "' >&nbsp;&nbsp;";
-	echo "<input type='button' name='button' onclick=\"location='entry.php?op=add'\" value='" . _AM_LEXIKON_CREATEENTRY . "'>&nbsp;&nbsp;";
-	echo "</td></tr>";
-	echo "</table><P><br/>";
+    $cattree = new XoopsTree( $xoopsDB->prefix("lxcategories"), "categoryID", "0" );
+    echo "<table class='outer' width='100%'><tr ><td colspan=\"2\" class='even'><strong>" . _AM_LEXIKON_INVENTORY . "</strong></td></tr>";
+    echo "<tr class=\"odd\" ><td width=\"30%\" align=\"left\">";
+    echo '<form method=get action=\"category.php\">';
+    $cattree -> makeMySelBox("name", "weight DESC",0,1,"",'window.location="category.php?op=mod&amp;categoryID="+this.value');
+    echo "</form>";
+    echo "</td><td align=\"left\">";
+    echo "<input type='button' name='button' onClick=\"location='category.php?op=addcat'\" value=' " . _AM_LEXIKON_CREATECAT . "' >&nbsp;&nbsp;";
+    echo "<input type='button' name='button' onclick=\"location='entry.php?op=add'\" value='" . _AM_LEXIKON_CREATEENTRY . "'>&nbsp;&nbsp;";
+    echo "</td></tr>";
+    echo "</table><P><br/>";
 } else {
-	//--- create button
-	echo "<form><div style=\"margin-bottom: 12px;\">";
-	echo "<input type='button' name='button' onclick=\"location='entry.php?op=add'\" value='" . _AM_LEXIKON_CREATEENTRY . "'>&nbsp;&nbsp;";
-	echo "</div></form>";
-	echo "<br/><span style=\"color: #567; margin: 3px 0 12px 0; font-size: small; display: block; \"><b>" . _AM_LEXIKON_ALLITEMSMSG . "</b></span>";
+    //--- create button
+    echo "<form><div style=\"margin-bottom: 12px;\">";
+    echo "<input type='button' name='button' onclick=\"location='entry.php?op=add'\" value='" . _AM_LEXIKON_CREATEENTRY . "'>&nbsp;&nbsp;";
+    echo "</div></form>";
+    echo "<br/><span style=\"color: #567; margin: 3px 0 12px 0; font-size: small; display: block; \"><b>" . _AM_LEXIKON_ALLITEMSMSG . "</b></span>";
 }
 // database update
 if (!lx_FieldExists('logourl',$xoopsDB->prefix('lxcategories')) || (lx_FieldExists('parent',$xoopsDB->prefix('lxcategories')))) {
-	$i++;
-	echo "<table><tr><td  style='border-bottom: 1px dotted #cfcfcf; line-height: 16px;'><img src='".XOOPS_URL."/modules/".$xoopsModule->getVar('dirname')."/images/dialog-important.png"."' alt='' hspace='0' vspace='0' align='left' style='margin-right: 10px; '><A href='upgrade.php'>" . _AM_LEXIKON_PLEASE_UPGRADE. "</A></td></tr></table></P>";
+    $i++;
+    echo "<table><tr><td  style='border-bottom: 1px dotted #cfcfcf; line-height: 16px;'><img src='".XOOPS_URL."/modules/".$xoopsModule->getVar('dirname')."/images/dialog-important.png"."' alt='' hspace='0' vspace='0' align='left' style='margin-right: 10px; '><A href='upgrade.php'>" . _AM_LEXIKON_PLEASE_UPGRADE. "</A></td></tr></table></P>";
 }
-	
+    
 //--- navigation bar
 $showingtxt = '';
 $selectedtxt = '';
@@ -122,73 +122,73 @@ $ordertxtasc='';
 $ordertxtdesc='';
 
 switch ($sortsel) {
-	case 'term':
-	$sorttxtterm = "selected='selected'";
-	break;
-	
-	case 'datesub':
-	$sorttxtcreated = "selected='selected'";
-	break;
-	
-	case 'uid':
-	$sorttxtauthor = "selected='selected'";
-	break;
+    case 'term':
+    $sorttxtterm = "selected='selected'";
+    break;
+    
+    case 'datesub':
+    $sorttxtcreated = "selected='selected'";
+    break;
+    
+    case 'uid':
+    $sorttxtauthor = "selected='selected'";
+    break;
 
-	case 'categoryID':
-	$sorttxtcats = "selected='selected'";
-	break;
-		
-	default :
-	$sorttxtentryID = "selected='selected'";
-	break;
+    case 'categoryID':
+    $sorttxtcats = "selected='selected'";
+    break;
+        
+    default :
+    $sorttxtentryID = "selected='selected'";
+    break;
 }
 
 switch ($ordersel) {
-	case 'ASC':
-	$ordertxtasc = "selected='selected'";
-	break;
-	
-	default :
-	$ordertxtdesc = "selected='selected'";
-	break;
+    case 'ASC':
+    $ordertxtasc = "selected='selected'";
+    break;
+    
+    default :
+    $ordertxtdesc = "selected='selected'";
+    break;
 }
 
 switch ($statussel) {
-	case '0' :
-	//default:
-	$selectedtxt0 = "selected='selected'";
-	$caption = _ALL;
-	$cond = "";
-	$status_explanation = _AM_LEXIKON_ALL_EXP;
-	break;
-	
-	case '1' :
-	$selectedtxt1 = "selected='selected'";
-	$caption = _AM_LEXIKON_SUBMITTED;
-	$cond = " WHERE submit = 1 AND request = 0 ";
-	$status_explanation = _AM_LEXIKON_SUBMITTED_EXP;
-	break;
-	
-	case '2' :
-	$selectedtxt2 = "selected='selected'";
-	$caption = _AM_LEXIKON_PUBLISHED;
-	$cond = " WHERE offline = 0 ";
-	$status_explanation = _AM_LEXIKON_PUBLISHED_EXP;
-	break;
-	
-	case '3' :
-	$selectedtxt3 = "selected='selected'";
-	$caption = _AM_LEXIKON_SHOWOFFLINE;
-	$cond = " WHERE offline = 1 ";
-	$status_explanation = _AM_LEXIKON_OFFLINE_EXP;
-	break;
-	
-	case '4' :
-	$selectedtxt4 = "selected='selected'";
-	$caption = _AM_LEXIKON_SHOWREQUESTS;
-	$cond = " WHERE submit= 1 AND request = 1 ";
-	$status_explanation = _AM_LEXIKON_REQ_ITEM_EXP;
-	break;
+    case '0' :
+    //default:
+    $selectedtxt0 = "selected='selected'";
+    $caption = _ALL;
+    $cond = "";
+    $status_explanation = _AM_LEXIKON_ALL_EXP;
+    break;
+    
+    case '1' :
+    $selectedtxt1 = "selected='selected'";
+    $caption = _AM_LEXIKON_SUBMITTED;
+    $cond = " WHERE submit = 1 AND request = 0 ";
+    $status_explanation = _AM_LEXIKON_SUBMITTED_EXP;
+    break;
+    
+    case '2' :
+    $selectedtxt2 = "selected='selected'";
+    $caption = _AM_LEXIKON_PUBLISHED;
+    $cond = " WHERE offline = 0 ";
+    $status_explanation = _AM_LEXIKON_PUBLISHED_EXP;
+    break;
+    
+    case '3' :
+    $selectedtxt3 = "selected='selected'";
+    $caption = _AM_LEXIKON_SHOWOFFLINE;
+    $cond = " WHERE offline = 1 ";
+    $status_explanation = _AM_LEXIKON_OFFLINE_EXP;
+    break;
+    
+    case '4' :
+    $selectedtxt4 = "selected='selected'";
+    $caption = _AM_LEXIKON_SHOWREQUESTS;
+    $cond = " WHERE submit= 1 AND request = 1 ";
+    $status_explanation = _AM_LEXIKON_REQ_ITEM_EXP;
+    break;
 }
 // -- Code to show selected terms
 echo "<form name='pick' id='pick' action='" . $_SERVER['PHP_SELF'] . "' method='POST' style='margin: 0;'>";
@@ -222,19 +222,18 @@ echo "
 	</table>
 	</form>";
 
-
 // Get number of entries in the selected state
 $statusSelected = ($statussel == 0) ? -1 : $statussel;
 $results = $xoopsDB -> query( "SELECT COUNT(*)
                                 FROM " . $xoopsDB -> prefix( "lxentries" ) . "
-                                " . $cond . " 
+                                " . $cond . "
                                 ORDER BY " . $sortsel . " " . $ordersel . "
                                 " );
 list( $numrows ) = $xoopsDB -> fetchRow( $results );
 // creating the content
 $sql = "SELECT entryID, categoryID, term, uid, datesub, offline
 	   FROM ".$xoopsDB->prefix('lxentries')."
-	   ".$cond." 
+	   ".$cond."
 	   ORDER BY ".$sortsel." ".$ordersel." ";
 
 $items = $xoopsDB -> query( $sql, $xoopsModuleConfig['perpage'], $startentry );//missing nav. extras
@@ -244,71 +243,71 @@ lx_buildTable();
 
 if ($numrows > 0) {
     $class   = "odd";
-	while ( list( $entryID, $categoryID, $term, $uid, $created, $offline) = $xoopsDB -> fetchrow( $items ) ) {
-		// Creating the items
-		$resultcn = $xoopsDB -> query( "SELECT name
+    while ( list( $entryID, $categoryID, $term, $uid, $created, $offline) = $xoopsDB -> fetchrow( $items ) ) {
+        // Creating the items
+        $resultcn = $xoopsDB -> query( "SELECT name
 									   FROM " . $xoopsDB -> prefix( "lxcategories" ) . "
 									   WHERE categoryID = '$categoryID'" );
-		list( $name ) = $xoopsDB -> fetchrow( $resultcn );
-		$catname = $myts -> htmlSpecialChars( $name );
-		$sentby = XoopsUserUtility::getUnameFromId($uid);
-		$term = $myts -> htmlSpecialChars( $term );
-		$created= formatTimestamp( $created, 's' );
-		$modify = "<a href='entry.php?op=mod&entryID=" . $entryID . "'><img src=" . $pathIcon16."/edit.png width='16' height='16' ALT='"._AM_LEXIKON_EDITENTRY."'></a>&nbsp;";
-		$delete = "<a href='entry.php?op=del&entryID=" . $entryID . "'><img src=" . $pathIcon16."/delete.png width='16' height='16' ALT='"._AM_LEXIKON_DELETEENTRY."'></a>";
+        list( $name ) = $xoopsDB -> fetchrow( $resultcn );
+        $catname = $myts -> htmlSpecialChars( $name );
+        $sentby = XoopsUserUtility::getUnameFromId($uid);
+        $term = $myts -> htmlSpecialChars( $term );
+        $created= formatTimestamp( $created, 's' );
+        $modify = "<a href='entry.php?op=mod&entryID=" . $entryID . "'><img src=" . $pathIcon16."/edit.png width='16' height='16' ALT='"._AM_LEXIKON_EDITENTRY."'></a>&nbsp;";
+        $delete = "<a href='entry.php?op=del&entryID=" . $entryID . "'><img src=" . $pathIcon16."/delete.png width='16' height='16' ALT='"._AM_LEXIKON_DELETEENTRY."'></a>";
 
-		for ( $i = 0; $i < $totalItemsOnPage; $i++ ) {
-			$approve = '';
-			switch ($items) {
-				//case _LEXIKON_STATUS_SUBMITTED :
-				case '1' :
-				$statustxt = "<img src=" . XOOPS_URL . "/modules/" . $xoopsModule->dirname() . "/images/icon/off.gif alt='"._AM_LEXIKON_ENTRYISOFF."'>";
-				break;
-				
-				//case _LEXIKON_STATUS_PUBLISHED :
-				case '2' :
-				$statustxt = "<img src=" . XOOPS_URL . "/modules/" . $xoopsModule->dirname() . "/images/icon/on.gif alt='"._AM_LEXIKON_ENTRYISON."'>";
-				break;
-				
-				//case _LEXIKON_STATUS_OFFLINE :
-				case '3' :
-				$statustxt = "<img src=" . XOOPS_URL . "/modules/" . $xoopsModule->dirname() . "/images/icon/off.gif alt='"._AM_LEXIKON_ENTRYISOFF."'>";
-				break;
-				
-				//case _LEXIKON_STATUS_REQ :
-				case '4' :
-				$statustxt = "<img src=" . XOOPS_URL . "/modules/" . $xoopsModule->dirname() . "/images/icon/off.gif alt='"._AM_LEXIKON_ENTRYISOFF."'>";
-				break;
-				
-				case "default" :
-				default :
-				if ( $offline == 0 ) {
-					$statustxt = "<img src=" . XOOPS_URL . "/modules/" . $xoopsModule->dirname() . "/images/icon/on.gif alt='"._AM_LEXIKON_ENTRYISON."'>";
-				} else {
-					$statustxt = "<img src=" . XOOPS_URL . "/modules/" . $xoopsModule->dirname() . "/images/icon/off.gif alt='"._AM_LEXIKON_ENTRYISOFF."'>";
-				}
-				$approve = "";
-				break;
-			}
+        for ( $i = 0; $i < $totalItemsOnPage; $i++ ) {
+            $approve = '';
+            switch ($items) {
+                //case _LEXIKON_STATUS_SUBMITTED :
+                case '1' :
+                $statustxt = "<img src=" . XOOPS_URL . "/modules/" . $xoopsModule->dirname() . "/images/icon/off.gif alt='"._AM_LEXIKON_ENTRYISOFF."'>";
+                break;
+                
+                //case _LEXIKON_STATUS_PUBLISHED :
+                case '2' :
+                $statustxt = "<img src=" . XOOPS_URL . "/modules/" . $xoopsModule->dirname() . "/images/icon/on.gif alt='"._AM_LEXIKON_ENTRYISON."'>";
+                break;
+                
+                //case _LEXIKON_STATUS_OFFLINE :
+                case '3' :
+                $statustxt = "<img src=" . XOOPS_URL . "/modules/" . $xoopsModule->dirname() . "/images/icon/off.gif alt='"._AM_LEXIKON_ENTRYISOFF."'>";
+                break;
+                
+                //case _LEXIKON_STATUS_REQ :
+                case '4' :
+                $statustxt = "<img src=" . XOOPS_URL . "/modules/" . $xoopsModule->dirname() . "/images/icon/off.gif alt='"._AM_LEXIKON_ENTRYISOFF."'>";
+                break;
+                
+                case "default" :
+                default :
+                if ( $offline == 0 ) {
+                    $statustxt = "<img src=" . XOOPS_URL . "/modules/" . $xoopsModule->dirname() . "/images/icon/on.gif alt='"._AM_LEXIKON_ENTRYISON."'>";
+                } else {
+                    $statustxt = "<img src=" . XOOPS_URL . "/modules/" . $xoopsModule->dirname() . "/images/icon/off.gif alt='"._AM_LEXIKON_ENTRYISOFF."'>";
+                }
+                $approve = "";
+                break;
+            }
 
             echo "<tr class='" . $class . "'>";
             $class = ($class == "even") ? "odd" : "even";
 
-			echo "<td  align='center'>".$entryID."</td>";
-			echo "<td  align='left'>" . $catname . "</td>";
-			echo "<td  align='left'><a href='../entry.php?entryID=" . $entryID . "'>" . $term . "</td>";
-			echo "<td  align='center'>" . $sentby . "</td>";
-			echo "<td  align='center'>" . $created . "</td>";
-			echo "<td  align='center'>" . $statustxt . "</td>";
-			echo "<td  align='center'> ". $approve . $modify . $delete . "</td>";
-			echo "</tr>";
-		}
-	}
+            echo "<td  align='center'>".$entryID."</td>";
+            echo "<td  align='left'>" . $catname . "</td>";
+            echo "<td  align='left'><a href='../entry.php?entryID=" . $entryID . "'>" . $term . "</td>";
+            echo "<td  align='center'>" . $sentby . "</td>";
+            echo "<td  align='center'>" . $created . "</td>";
+            echo "<td  align='center'>" . $statustxt . "</td>";
+            echo "<td  align='center'> ". $approve . $modify . $delete . "</td>";
+            echo "</tr>";
+        }
+    }
 } else {
-	// that is no item corresponding the status 
-	echo "<tr>";
-	echo "<td class='head' align='center' colspan= '7'>" . _AM_LEXIKON_NOITEMSSEL . "</td>";
-	echo "</tr>";
+    // that is no item corresponding the status
+    echo "<tr>";
+    echo "<td class='head' align='center' colspan= '7'>" . _AM_LEXIKON_NOITEMSSEL . "</td>";
+    echo "</tr>";
 }
 echo "</table>\n";
 
@@ -320,5 +319,3 @@ echo "</div>";
 
 //----
 xoops_cp_footer();
-
-?>

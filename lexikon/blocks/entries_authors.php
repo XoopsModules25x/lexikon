@@ -16,7 +16,7 @@ function b_lx_author_show($options) {
     if (!isset($lxConfig)) {
         $config_handler = &xoops_gethandler('config');
         $lxConfig = &$config_handler->getConfigsByCat(0, $lexikon->getVar('mid'));
-    }    
+    }
     include_once XOOPS_ROOT_PATH.'/modules/lexikon/include/functions.php';
     
     $block = array();
@@ -48,6 +48,6 @@ function b_lx_author_edit($options) {
     $average_select->addOption('average', _MB_LEXIKON_AVERAGE);
     $average_select->addOption('total', _MB_LEXIKON_TOTALS);
     $form->addElement($average_select);
+
     return $form->render();
 }
-?>

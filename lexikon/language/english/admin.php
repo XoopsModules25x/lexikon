@@ -142,7 +142,7 @@ define("_AM_LEXIKON_ABOUT_SUBMIT_BUG_TEXT","Submit a Bug");
 define("_AM_LEXIKON_ABOUT_SUBMIT_FEATURE","Suggest a new feature for this module");
 define("_AM_LEXIKON_ABOUT_SUBMIT_FEATURE_TEXT","Submit a feature request");
 
-// Import 
+// Import
 define("_AM_LEXIKON_MODULEHEADIMPORTWB","Wordbook &mdash;&gt; Lexikon Import Script");
 define("_AM_LEXIKON_MODULEHEADIMPORT","Dictionary &mdash;&gt; Lexikon Import Script");
 define("_AM_LEXIKON_MODULEHEADIMPORTGLO","Glossaire &mdash;&gt; Lexikon Import Script");

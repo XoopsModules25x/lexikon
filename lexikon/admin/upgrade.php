@@ -23,7 +23,7 @@ function showerror($msg) {
     }
 }
 if ($go) {
-	if (is_object($xoopsUser) && $xoopsUser->isAdmin($xoopsModule->mid())) {
+    if (is_object($xoopsUser) && $xoopsUser->isAdmin($xoopsModule->mid())) {
         // 0) update the categories table
         if (!lx_FieldExists('logourl',$xoopsDB->prefix('lxcategories'))) {
             $sql=$xoopsDB->queryF("ALTER TABLE ".$xoopsDB->prefix("lxcategories")." ADD logourl varchar ( 150 ) NOT NULL DEFAULT '' AFTER weight");
@@ -35,7 +35,7 @@ if ($go) {
             showerror('Update table "lxcategories" ...');
         }
 
-		// 2) if multicats OFF set categoryID to '1' (prior '0')
+        // 2) if multicats OFF set categoryID to '1' (prior '0')
         if ($xoopsModuleConfig['multicats'] == 0) {
             $result = $xoopsDB -> query( "SELECT COUNT(*)
                                            FROM " . $xoopsDB -> prefix( "lxentries" ) . "
@@ -45,18 +45,18 @@ if ($go) {
                 $xoopsDB -> queryF( "UPDATE " . $xoopsDB -> prefix( "lxentries" ) . " SET categoryID = 1 WHERE categoryID = 0 " );
                 showerror('Update table "lxentries" ...');
             }
-		}
+        }
     // 3) tag module
         if (!lx_FieldExists('item_tag',$xoopsDB->prefix('lxentries'))) {
             $sql=$xoopsDB->queryF("ALTER TABLE ".$xoopsDB->prefix("lxentries")." ADD item_tag TEXT NOT NULL DEFAULT '' AFTER comments");
             showerror('Update table "lxentries" ...');
         }
     //-------------
-		echo "<BR/><BR/><H3>Update finished!</H3><BR/><a href='index.php'>Back to Admin</a>";
-	} else {
-		printf("<center><H2>%s</H2></center>\n",_AM_LEXIKON_UPGR_ACCESS_ERROR);
-	}
-	 xoops_cp_footer();
+        echo "<BR/><BR/><H3>Update finished!</H3><BR/><a href='index.php'>Back to Admin</a>";
+    } else {
+        printf("<center><H2>%s</H2></center>\n",_AM_LEXIKON_UPGR_ACCESS_ERROR);
+    }
+     xoops_cp_footer();
 } else {
     echo "<table class='outer' style='width: 60%' cellspacing='1' cellpadding='0' align='center'>
     <tr class='odd'><td align='left'><h2>Upgradescript Lexikon</h2>
@@ -69,5 +69,3 @@ if ($go) {
     </form></td></tr></table>";
     xoops_cp_footer();
 }
-
-?>

@@ -288,4 +288,3 @@ case "default":
     echo "</div>";
 }
 xoops_cp_footer();
-?>

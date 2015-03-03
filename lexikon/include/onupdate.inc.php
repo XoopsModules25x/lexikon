@@ -15,5 +15,3 @@ if ( $ref == '' || strpos( $ref , XOOPS_URL.'/modules/system/admin.php' ) === 0 
     include dirname( __FILE__ ) . "/updateblock.inc.php" ;
 
 }
-
-?>

@@ -98,4 +98,3 @@ if (!$tpl->is_cached('db:lexikon_rss.html')) {
   }
 }
 $tpl->display('db:lexikon_rss.html');
-?>

@@ -17,7 +17,6 @@ $pathIcon32      = $module->getInfo('icons32');
 $pathModuleAdmin = $module->getInfo('dirmoduleadmin');
 $pathLanguage    = $path . $pathModuleAdmin;
 
-
 if (!file_exists($fileinc = $pathLanguage . '/language/' . $GLOBALS['xoopsConfig']['language'] . '/' . 'main.php')) {
     $fileinc = $pathLanguage . '/language/english/main.php';
 }
@@ -54,7 +53,6 @@ $i++;
 $adminmenu[$i]['title'] = _MI_LEXIKON_IMPORT;
 $adminmenu[$i]['link'] = "admin/importwordbook.php";
 $adminmenu[$i]["icon"]  = $pathIcon32 . '/compfile.png';
-
 
 $i++;
 $adminmenu[$i]['title'] = _AM_MODULEADMIN_ABOUT;

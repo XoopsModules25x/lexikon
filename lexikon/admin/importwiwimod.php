@@ -80,9 +80,9 @@ function DefinitionImport($delete) {
      * delete all entries and categories + comments
      ****/
 
-    if ( $delete )	{
+    if ( $delete )    {
         // delete notifications
-		xoops_notification_deletebymodule($xoopsModule->getVar('mid'));
+        xoops_notification_deletebymodule($xoopsModule->getVar('mid'));
         //get all entries
         $result3=$xoopsDB->query("SELECT entryID FROM ".$xoopsDB->prefix("lxentries")."");
         //delete comments for each entry
@@ -96,7 +96,7 @@ function DefinitionImport($delete) {
           xoops_groupperm_deletebymoditem($xoopsModule->getVar('mid'), 'lexikon_submit', $categoryID);
           xoops_groupperm_deletebymoditem($xoopsModule->getVar('mid'), 'lexikon_approve', $categoryID);
           xoops_groupperm_deletebymoditem($xoopsModule->getVar('mid'), 'lexikon_request', $categoryID);
-        }        
+        }
         // delete everything
         $sqlquery1=$xoopsDB->queryF("TRUNCATE TABLE ".$xoopsDB->prefix("lxentries"));
         $sqlquery2=$xoopsDB->queryF("TRUNCATE TABLE ".$xoopsDB->prefix("lxcategories"));
@@ -115,12 +115,12 @@ function DefinitionImport($delete) {
         $wiwi = array();
         $wiwi['id'] = $sqlfetch["id"];
         $wiwi['title'] = $sqlfetch["title"];
-		//$wiwi['body'] = import2db($sqlfetch["body"]);
+        //$wiwi['body'] = import2db($sqlfetch["body"]);
         $wiwi['body'] = $myts -> addSlashes(import2db($sqlfetch["body"]));
         $wiwi['u_id'] = import2db($sqlfetch["u_id"]);
         $wiwi['lastmodified'] = $fecha++;
         $wiwi['visible'] = $sqlfetch["visible"];
-		//$wiwi['html'] = 1;
+        //$wiwi['html'] = 1;
         $wiwicounter = $wiwicounter + 1;
 
         if ( $delete ) {
@@ -207,7 +207,7 @@ $op = isset($_GET['op']) ? $_GET['op'] : (isset($_POST['op']) ? $_POST['op'] : '
 
 switch ($op) {
 case "import":
-	$delete = ( isset( $_GET['delete'] ) ) ? intval($_GET['delete']) : intval($_POST['delete']);
+    $delete = ( isset( $_GET['delete'] ) ) ? intval($_GET['delete']) : intval($_POST['delete']);
     DefinitionImport($delete);
     break;
 case 'main':
@@ -215,4 +215,3 @@ default:
     FormImport();
     break;
 }
-?>

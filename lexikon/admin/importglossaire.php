@@ -27,7 +27,6 @@ include( "admin_header.php" );
 $myts =& MyTextSanitizer::getInstance();
 $op = '';
 
-
 /****
  * Available operations
  ****/
@@ -79,9 +78,9 @@ function DefinitionImport($delete) {
     /****
      * delete all entries and categories without comments
      ****/
-    if ( $delete )	{
+    if ( $delete )    {
         // delete notifications
-		xoops_notification_deletebymodule($xoopsModule->getVar('mid'));
+        xoops_notification_deletebymodule($xoopsModule->getVar('mid'));
         //get all entries
         $result3=$xoopsDB->query("SELECT entryID FROM ".$xoopsDB->prefix("lxentries")."");
         //delete comments for each entry
@@ -170,9 +169,8 @@ function DefinitionImport($delete) {
     xoops_cp_footer();
 }
 
-
 /****
- * IMPORT FORM 
+ * IMPORT FORM
  ****/
 function FormImport() {
     global $xoopsConfig, $xoopsDB, $xoopsModule;
@@ -209,7 +207,6 @@ function FormImport() {
 
 }
 
-
 global $op;
 $op = isset($_GET['op']) ? $_GET['op'] : (isset($_POST['op']) ? $_POST['op'] : '');
 switch ($op) {
@@ -221,4 +218,3 @@ default:
     FormImport();
     break;
 }
-?>

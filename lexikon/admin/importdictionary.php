@@ -78,7 +78,7 @@ function DefinitionImport($delete) {
      ****/
     if ($delete) {
         // delete notifications
-		xoops_notification_deletebymodule($xoopsModule->getVar('mid'));
+        xoops_notification_deletebymodule($xoopsModule->getVar('mid'));
         //get all entries
         $result3=$xoopsDB->query("select entryID from ".$xoopsDB->prefix("lxentries")."");
         //now for each entry, delete the coments
@@ -97,7 +97,6 @@ function DefinitionImport($delete) {
         $sqlquery1=$xoopsDB->queryF("TRUNCATE TABLE ".$xoopsDB->prefix("lxentries"));
         $sqlquery2=$xoopsDB->queryF("TRUNCATE TABLE ".$xoopsDB->prefix("lxcategories"));
     }
-
 
     /****
      * Import ENTRIES
@@ -239,4 +238,3 @@ default:
     FormImport();
     break;
 }
-?>

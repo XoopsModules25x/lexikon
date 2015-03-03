@@ -26,10 +26,10 @@
  *	<li>Call the tag_block_cloud_show in your defined block function:<br />
  *		<code>
  *			function newbb_block_tag_cloud_show($options) {
- *				$catid		= $options[4];	// Not used by newbb, Only for demonstration 
+ *				$catid		= $options[4];	// Not used by newbb, Only for demonstration
  *				if(!@include_once XOOPS_ROOT_PATH."/modules/tag/blocks/block.php"){
- *					return null; 
- *				} 
+ *					return null;
+ *				}
  *				$block_content = tag_block_cloud_show($options, "newbb", $catid);
  *				return $block_content;
  *			}
@@ -40,10 +40,10 @@
  *		<code>
  *			function newbb_block_tag_cloud_edit($options) {
  *				if(!@include_once XOOPS_ROOT_PATH."/modules/tag/blocks/block.php"){
- *					return null; 
- *				} 
+ *					return null;
+ *				}
  *				$form = tag_block_cloud_edit($options);
- *				$form .= $CODE_FOR_GET_CATID;	// Not used by newbb, Only for demonstration 
+ *				$form .= $CODE_FOR_GET_CATID;	// Not used by newbb, Only for demonstration
  *				return $form;
  *			}
  *		</code>
@@ -56,9 +56,9 @@
  *	</li>
  * </ul>
  *
- * {@link TagTag} 
+ * {@link TagTag}
  *
- * @param	array 	$options:  
+ * @param	array 	$options:
  *					$options[0] - number of tags to display
  *					$options[1] - time duration, in days, 0 for all the time
  *					$options[2] - max font size (px or %)
@@ -68,29 +68,29 @@
 function lexikon_tag_block_cloud_show($options) {
     $module_handler = &xoops_gethandler('module');
     $module = &$module_handler->getByDirname('lexikon');
-	include_once XOOPS_ROOT_PATH."/modules/tag/blocks/block.php";
-	//$module_dirname = basename( dirname( dirname( __FILE__ ) ) ) ;
-	//return tag_block_cloud_show($options, $module_dirname);
-	return tag_block_cloud_show($options, $module->getVar('dirname'));
+    include_once XOOPS_ROOT_PATH."/modules/tag/blocks/block.php";
+    //$module_dirname = basename( dirname( dirname( __FILE__ ) ) ) ;
+    //return tag_block_cloud_show($options, $module_dirname);
+    return tag_block_cloud_show($options, $module->getVar('dirname'));
 }
 
 function lexikon_tag_block_cloud_edit($options) {
-	include_once XOOPS_ROOT_PATH."/modules/tag/blocks/block.php";
-	return tag_block_cloud_edit($options);
+    include_once XOOPS_ROOT_PATH."/modules/tag/blocks/block.php";
+
+    return tag_block_cloud_edit($options);
 }
 
 function lexikon_tag_block_top_show($options) {
-	include_once XOOPS_ROOT_PATH."/modules/tag/blocks/block.php";
+    include_once XOOPS_ROOT_PATH."/modules/tag/blocks/block.php";
     $module_handler = &xoops_gethandler('module');
     $module = &$module_handler->getByDirname('lexikon');
     //$module_dirname = basename( dirname( dirname( __FILE__ ) ) ) ;
-	//return tag_block_top_show($options, $module_dirname);
-	return tag_block_top_show($options, $module->getVar('dirname'));
+    //return tag_block_top_show($options, $module_dirname);
+    return tag_block_top_show($options, $module->getVar('dirname'));
 }
 
 function lexikon_tag_block_top_edit($options) {
-	include_once XOOPS_ROOT_PATH."/modules/tag/blocks/block.php";
-	return tag_block_top_edit($options);
-}
+    include_once XOOPS_ROOT_PATH."/modules/tag/blocks/block.php";
 
-?>
+    return tag_block_top_edit($options);
+}

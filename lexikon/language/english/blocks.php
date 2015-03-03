@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /**
  * $Id: blocks.php v 1.0 8 May 2004 hsalazar Exp $
  * Module: Lexikon - glossary module
@@ -80,4 +80,3 @@ define("_MB_LEXIKON_COMPUTING","Compute Method");
 define("_MB_LEXIKON_AVERAGE","Average");
 define("_MB_LEXIKON_TOTALS","Total");
 define("_MB_LEXIKON_RATING","Rating");
-?>

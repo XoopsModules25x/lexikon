@@ -28,7 +28,7 @@ function b_lxcategories_show( $options ) {
 
     $cats = $gperm_handler -> getItemIds("lexikon_view", $groups, $module_id);
     $totalcats= count($cats);
-	
+    
     $block = array();
     $sql = "SELECT categoryID, name, total FROM " . $xoopsDB -> prefix( "lxcategories" ) . " WHERE ".$catperms." ORDER BY " . $options[0] . " DESC";
     //xoops 2.0.13
@@ -48,18 +48,18 @@ function b_lxcategories_show( $options ) {
             $block['catstuff'][] = $catlist;
         }
     }
+
     return $block;
 }
 
 function b_lxcategories_edit( $options ) {
   $form = "" . _MB_LEXIKON_ORDER . "&nbsp;<select name='options[]'>";
-	$form .= "<option value='weight' ".(($options[0]=='weight')?" selected='selected'":"").">"._MB_LEXIKON_WEIGHT."</option>\n";
-	$form .= "<option value='name' ".(($options[0]=='name')?" selected='selected'":"").">"._MB_LEXIKON_NAME."</option>\n";
-	$form .= "<option value='total' ".(($options[0]=='total')?" selected='selected'":"").">"._MB_LEXIKON_TOTAL."</option>\n";
-	$form .= "</select>\n<br/>";
+    $form .= "<option value='weight' ".(($options[0]=='weight')?" selected='selected'":"").">"._MB_LEXIKON_WEIGHT."</option>\n";
+    $form .= "<option value='name' ".(($options[0]=='name')?" selected='selected'":"").">"._MB_LEXIKON_NAME."</option>\n";
+    $form .= "<option value='total' ".(($options[0]=='total')?" selected='selected'":"").">"._MB_LEXIKON_TOTAL."</option>\n";
+    $form .= "</select>\n<br/>";
 
   $form .= "&nbsp;" . _MB_LEXIKON_DISP . "&nbsp;<input type='text' name='options[]' value='" . $options[1] . "' />&nbsp;" . _MB_LEXIKON_CATS . "";
 
    return $form;
 }
-?>

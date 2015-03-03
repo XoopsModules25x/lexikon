@@ -65,7 +65,7 @@ if ($authortermstotal >=$xoopsModuleConfig['indexperpage']) {
 if ($authortermstotal == 0) {
     $xoopsTpl -> assign ( 'nothing', sprintf(_MD_LEXIKON_AUTHORPROFILENOTERM, $authname) );
 } else {
-	$xoopsTpl -> assign ( 'nothing', false );
+    $xoopsTpl -> assign ( 'nothing', false );
 }
 // get infotext
 $result2 = $xoopsDB -> query( "SELECT COUNT(*)
@@ -104,4 +104,3 @@ if (isset($xoTheme) && is_object($xoTheme)) {
 }
 
 include_once XOOPS_ROOT_PATH.'/footer.php';
-?>

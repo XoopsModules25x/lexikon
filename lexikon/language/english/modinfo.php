@@ -70,7 +70,6 @@ $cf++;
 define("_MI_LEXIKON_AUTOAPPROVE","$cf. Approve entries automatically?");
 define("_MI_LEXIKON_AUTOAPPROVEDSC","If set to 'Yes', XOOPS will publish submitted entries without admin intervention.");
 
-
 $cf++;
 
 define("_MI_LEXIKON_ALLOWADMINHITS","$cf. Will the admin hits be included in the counter?");
@@ -148,7 +147,6 @@ define('_MI_LEXIKON_LOGOWIDTH',"$cf. Width of the category images in the menue:"
 
 define("_MI_LEXIKON_LOGOWIDTHDSC","Size of thumbnails in the menue (default:20px)");
 
-
 $cf++;
 define('_MI_LEXIKON_IMCATWD',"$cf. Width of the category images in category view:");
 define("_MI_LEXIKON_IMCATWDDSC","Size of thumbnails in category view mode (default:50px)");
@@ -159,7 +157,6 @@ $cf++;
 
 define("_MI_LEXIKON_SYNDICATION","$cf. Enable Webmaster Content Syndication ?");
 define("_MI_LEXIKON_SYNDICATIONDSC","If you set this option to 'Yes', users will have access to content syndication.");
-
 
 // bookmarks
 define("_MI_LEXIKON_ADDTHIS1","Use Addthis Popup window");
@@ -189,11 +186,9 @@ define("_MI_LEXIKON_ADMENU10","About");
 define("_MI_LEXIKON_ADMENU11","Comments");
 define("_MI_LEXIKON_ADMENU12","Statistics");
 
-
 // SubMenues xoops 2.2.x
 define("_MI_LEXIKON_CONFIGCAT_EXTENDED","&raquo; Extended Configuration");
 define("_MI_LEXIKON_CONFIGCAT_EXTENDEDDSC" , "special options.");
-
 
 //Names of Blocks and Block information
 
@@ -205,8 +200,6 @@ define("_MI_LEXIKON_CATS","Lexikon Categories");
 define("_MI_LEXIKON_SPOT","Lexikon Spotlight");
 define("_MI_LEXIKON_BNAME8","Lexikon Authors");
 define("_MI_LEXIKON_BNAME9","Scrolling Definitions");
-
-
 
 // Notification event descriptions and mail templates
 define('_MI_LEXIKON_NOTIFY','Global');
@@ -250,7 +243,6 @@ define('_MI_LEXIKON_TERM_APPROVE_NOTIFY','Term Approved');
 define('_MI_LEXIKON_TERM_APPROVE_NOTIFYCAP','Notify me when this term is approved.');
 define('_MI_LEXIKON_TERM_APPROVE_NOTIFYDSC','Receive notification when this term is approved.');
 define('_MI_LEXIKON_TERM_APPROVE_NOTIFYSBJ','[{X_SITENAME}] {X_MODULE} auto-notify : Term approved');
-
 
 //
 define("_MI_LEXIKON_IMPORT","Import");

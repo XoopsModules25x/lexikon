@@ -21,8 +21,8 @@ $groups = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOU
 $module_id = $xoopsModule->getVar('mid');
 $perm_itemid = isset($_POST['categoryID']) ? intval($_POST['categoryID']) :  0;
 if (!$gperm_handler->checkRight('lexikon_request', $perm_itemid, $groups, $module_id)) {
-	redirect_header('javascript:history.go(-1)', 3, _ERRORS);
-	exit();
+    redirect_header('javascript:history.go(-1)', 3, _ERRORS);
+    exit();
 }
 if ( empty($_POST['submit']) ) {
     $xoopsOption['template_main'] = 'lx_request.html';
@@ -75,31 +75,31 @@ if ( empty($_POST['submit']) ) {
     $init = substr($reqterm, 0, 1);
 
     $xoopsDB -> query ( "INSERT INTO ".$xoopsDB->prefix("lxentries")." (entryID, term, init, ref, url, uid, submit, datesub, html, smiley, xcodes, offline, notifypub, request ) VALUES ('', '$reqterm', '$init', '$ref', '$url', '$user', '$submit', '$date', '$html', '$smiley', '$xcodes', '$offline', '$notifypub', '$request' )");
-	  $newid = $xoopsDB -> getInsertId();
+      $newid = $xoopsDB -> getInsertId();
     // Increment author's posts count
-	if (is_object($xoopsUser) && !empty($user)) {
-		$member_handler = &xoops_gethandler('member');
-		$submitter =& $member_handler -> getUser($user);
-		if (is_object($submitter) ) {
-			$submitter -> setVar('posts',$submitter -> getVar('posts') + 1);
-			$res=$member_handler -> insertUser($submitter, true);
-			unset($submitter);
-		}
-	}
-	// trigger Notification
-	if(!empty($xoopsModuleConfig['notification_enabled']) ){
-		global $xoopsModule;
-		if ($newid == 0) {
-			$newid = $xoopsDB->getInsertId();
-		}
-		$notification_handler =& xoops_gethandler('notification');
-		$tags = array();
-		$tags['ITEM_NAME'] = $reqterm;
-		$tags['DATESUB'] = formatTimestamp( $date, 'd M Y' );
-		$tags['ITEM_URL'] = XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/submit.php?suggest='. $newid;
-		$notification_handler->triggerEvent('global', 0, 'term_request', $tags);
-	}
-	$adminmail = $xoopsConfig['adminmail'];
+    if (is_object($xoopsUser) && !empty($user)) {
+        $member_handler = &xoops_gethandler('member');
+        $submitter =& $member_handler -> getUser($user);
+        if (is_object($submitter) ) {
+            $submitter -> setVar('posts',$submitter -> getVar('posts') + 1);
+            $res=$member_handler -> insertUser($submitter, true);
+            unset($submitter);
+        }
+    }
+    // trigger Notification
+    if(!empty($xoopsModuleConfig['notification_enabled']) ){
+        global $xoopsModule;
+        if ($newid == 0) {
+            $newid = $xoopsDB->getInsertId();
+        }
+        $notification_handler =& xoops_gethandler('notification');
+        $tags = array();
+        $tags['ITEM_NAME'] = $reqterm;
+        $tags['DATESUB'] = formatTimestamp( $date, 'd M Y' );
+        $tags['ITEM_URL'] = XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/submit.php?suggest='. $newid;
+        $notification_handler->triggerEvent('global', 0, 'term_request', $tags);
+    }
+    $adminmail = $xoopsConfig['adminmail'];
 
     if ($xoopsUser) {
         $logname = $xoopsUser->getVar("uname", "E");
@@ -137,28 +137,28 @@ if ( empty($_POST['submit']) ) {
     //send 'received!' mail
     //if (lx_getmoduleoption('mailtosender') && $address) {
     if ( $xoopsModuleConfig['mailtosender'] == 1 && $address) {
-		$conf_subject = _MD_LEXIKON_THANKS2;
-		$userMessage = sprintf(_MD_LEXIKON_GOODDAY2, $logname);
-		$userMessage .= "\n\n";
-		$userMessage .= sprintf(_MD_LEXIKON_THANKYOU,$xoopsConfig['sitename']);
-		$userMessage .= "\n";
-		$userMessage .= sprintf(_MD_LEXIKON_REQUESTSENT,$xoopsConfig['sitename']);
-		$userMessage .= "\n";
-		$userMessage .= "--------------\n";
-		$userMessage .= "".$xoopsConfig['sitename']." "._MD_LEXIKON_WEBMASTER."\n";
-		$userMessage .= "".$xoopsConfig['adminmail']."";
-		$xoopsMailer =& getMailer();
-		$xoopsMailer->useMail();
-		$xoopsMailer->setToEmails($address);
-		$xoopsMailer->setFromEmail($xoopsConfig['adminmail']);
-		$xoopsMailer->setFromName($xoopsConfig['sitename']);
-		$xoopsMailer->setSubject($conf_subject);
-		$xoopsMailer->setBody($userMessage);
-		$xoopsMailer->send();
+        $conf_subject = _MD_LEXIKON_THANKS2;
+        $userMessage = sprintf(_MD_LEXIKON_GOODDAY2, $logname);
+        $userMessage .= "\n\n";
+        $userMessage .= sprintf(_MD_LEXIKON_THANKYOU,$xoopsConfig['sitename']);
+        $userMessage .= "\n";
+        $userMessage .= sprintf(_MD_LEXIKON_REQUESTSENT,$xoopsConfig['sitename']);
+        $userMessage .= "\n";
+        $userMessage .= "--------------\n";
+        $userMessage .= "".$xoopsConfig['sitename']." "._MD_LEXIKON_WEBMASTER."\n";
+        $userMessage .= "".$xoopsConfig['adminmail']."";
+        $xoopsMailer =& getMailer();
+        $xoopsMailer->useMail();
+        $xoopsMailer->setToEmails($address);
+        $xoopsMailer->setFromEmail($xoopsConfig['adminmail']);
+        $xoopsMailer->setFromName($xoopsConfig['sitename']);
+        $xoopsMailer->setSubject($conf_subject);
+        $xoopsMailer->setBody($userMessage);
+        $xoopsMailer->send();
 
         $messagesent = sprintf(_MD_LEXIKON_MESSAGESENT,$xoopsConfig['sitename'])."<br />"._MD_LEXIKON_THANKS1."";
         $messagesent .= sprintf(_MD_LEXIKON_SENTCONFIRMMAIL,$address);
-	   //}
+       //}
     //if ($xoopsModuleConfig['mailtoadmin'] == 1) {
         //$messagesent .= sprintf(_MD_LEXIKON_SENTCONFIRMMAIL,$address);
     } else {
@@ -167,4 +167,3 @@ if ( empty($_POST['submit']) ) {
     }
     redirect_header("index.php", 2, $messagesent );
 }
-?>

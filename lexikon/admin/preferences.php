@@ -24,30 +24,29 @@ include_once XOOPS_ROOT_PATH."/modules/lexikon/admin/functions.php";
 include_once XOOPS_ROOT_PATH."/kernel/module.php";
 $xoopsModule = XoopsModule::getByDirname("lexikon");
 
-
 ob_start();
 //lx_adminmenu(0, _PREFERENCES);
 $btnsbar = ob_get_contents();
 ob_end_clean();
 
 function addAdminMenu($buf) {
-	global $btnsbar;
-	
-	$pattern = array(
-	"#admin.php?#",
-	"#(<div class='content'>)#",
-	);
-	$replace = array(
-	"preferences.php?",
-	" $1 <br />".$btnsbar . "<div style='clear: both' class='content'>",
-	);
-	$html = preg_replace($pattern,$replace,$buf);
-	return $html;
-	
-	//		ereg("(.*)(<div class='content'>.*)",$buf,$regs);
-	//		return $regs[1].$btnsbar.$regs[2];
-}
+    global $btnsbar;
+    
+    $pattern = array(
+    "#admin.php?#",
+    "#(<div class='content'>)#",
+    );
+    $replace = array(
+    "preferences.php?",
+    " $1 <br />".$btnsbar . "<div style='clear: both' class='content'>",
+    );
+    $html = preg_replace($pattern,$replace,$buf);
 
+    return $html;
+    
+    //		ereg("(.*)(<div class='content'>.*)",$buf,$regs);
+    //		return $regs[1].$btnsbar.$regs[2];
+}
 
 /*
 * Display and capture preferences screen
@@ -60,4 +59,3 @@ chdir(XOOPS_ROOT_PATH."/modules/system/");
 ob_start("addAdminMenu");
 include XOOPS_ROOT_PATH."/modules/system/admin.php";
 ob_end_flush();
-?>

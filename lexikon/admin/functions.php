@@ -47,10 +47,10 @@ function lx_adminMenu ($currentoption = 0, $breadcrumb = '' ) {
 
     $tpl = new XoopsTpl();
     $tpl->assign( array(
-                      'headermenu'	=> $headermenu,
-                      'adminmenu'		=> $adminmenu,
-                      'current'		=> $currentoption,
-                      'breadcrumb'	=> $breadcrumb,
+                      'headermenu'    => $headermenu,
+                      'adminmenu'        => $adminmenu,
+                      'current'        => $currentoption,
+                      'breadcrumb'    => $breadcrumb,
                       'headermenucount' => count($headermenu)
                   ) );
     $tpl->display( 'db:lx_adminmenu.html' );
@@ -67,6 +67,7 @@ function lx_adminMenu ($currentoption = 0, $breadcrumb = '' ) {
 function lx_FieldExists($fieldname, $table) {
     global $xoopsDB;
     $result=$xoopsDB->queryF("SHOW COLUMNS FROM	$table LIKE '$fieldname'");
+
     return($xoopsDB->getRowsNum($result) > 0);
 }
 
@@ -82,6 +83,7 @@ function lx_AddField($field, $table) {
     global $xoopsDB;
     //naja !
     $result=$xoopsDB->queryF("ALTER TABLE " . $table . " ADD ".$field."");
+
     return $result;
 }
 /**
@@ -99,12 +101,13 @@ function lx_alterTable($field, $table) {
     //if ($result) {
     if ($xoopsDB->getRowsNum($result) == 0) {
         $sql = "ALTER TABLE ".$xoopsDB->prefix($table)." ADD `".$field."`";
+
         return $xoopsDB->query($sql);
         //   }
     }
+
     return true;
 }
-
 
 /*
  * Sub-Menu for Importscripts
@@ -113,7 +116,7 @@ function lx_alterTable($field, $table) {
 */
 
 function lx_importMenu ($currentoption = 0, $breadcrumb = '' ) {
-	global $cf;
+    global $cf;
     echo "<style type=\"text/css\">
     br {clear: left;}
     img {border:0;}
@@ -248,113 +251,111 @@ function lx_collapsableBar($tablename = '', $iconname = '') {
  * adapted from news module 1.0
  */
 function lx_GetStatistics($limit){
-	$ret=array();
-	$db =& XoopsDatabaseFactory::getDatabaseConnection();
-	$tbls=$db->prefix('lxentries');
-	$tblt=$db->prefix('lxcategories');
+    $ret=array();
+    $db =& XoopsDatabaseFactory::getDatabaseConnection();
+    $tbls=$db->prefix('lxentries');
+    $tblt=$db->prefix('lxcategories');
 
-	$db =& XoopsDatabaseFactory::getDatabaseConnection();
-	// Number of Definitions per Category, including offline and submitted terms
-	$ret2=array();
-	$sql="SELECT count(s.entryID) as cpt, s.categoryID, t.name FROM $tbls s, $tblt t WHERE s.categoryID=t.categoryID GROUP BY s.categoryID ORDER BY t.name";
-	$result = $db->query($sql);
-	while ($myrow = $db->fetchArray($result) ) {
-		$ret2[$myrow['categoryID']]=$myrow;
-	}
-	$ret['termspercategory']=$ret2;
-	unset($ret2);
+    $db =& XoopsDatabaseFactory::getDatabaseConnection();
+    // Number of Definitions per Category, including offline and submitted terms
+    $ret2=array();
+    $sql="SELECT count(s.entryID) as cpt, s.categoryID, t.name FROM $tbls s, $tblt t WHERE s.categoryID=t.categoryID GROUP BY s.categoryID ORDER BY t.name";
+    $result = $db->query($sql);
+    while ($myrow = $db->fetchArray($result) ) {
+        $ret2[$myrow['categoryID']]=$myrow;
+    }
+    $ret['termspercategory']=$ret2;
+    unset($ret2);
 
-	// Total reads per category
-	$ret2=array();
-	$sql="SELECT Sum(counter) as cpt, categoryID FROM $tbls GROUP BY categoryID ORDER BY categoryID";
-	$result = $db->query($sql);
-	while ($myrow = $db->fetchArray($result) ) {
-		$ret2[$myrow['categoryID']]=$myrow['cpt'];
-	}
-	$ret['readspercategory']=$ret2;
+    // Total reads per category
+    $ret2=array();
+    $sql="SELECT Sum(counter) as cpt, categoryID FROM $tbls GROUP BY categoryID ORDER BY categoryID";
+    $result = $db->query($sql);
+    while ($myrow = $db->fetchArray($result) ) {
+        $ret2[$myrow['categoryID']]=$myrow['cpt'];
+    }
+    $ret['readspercategory']=$ret2;
 
+    // unused terms per category i.e. offline or submitted
+    $ret2=array();
+    $sql="SELECT Count(entryID) as cpt, categoryID FROM $tbls WHERE offline > 0 OR submit > 0 GROUP BY categoryID ORDER BY categoryID";
+    $result = $db->query($sql);
+    while ($myrow = $db->fetchArray($result) ) {
+        $ret2[$myrow['categoryID']]=$myrow['cpt'];
+    }
+    $ret['offlinepercategory']=$ret2;
+    unset($ret2);
 
-	// unused terms per category i.e. offline or submitted
-	$ret2=array();
-	$sql="SELECT Count(entryID) as cpt, categoryID FROM $tbls WHERE offline > 0 OR submit > 0 GROUP BY categoryID ORDER BY categoryID";
-	$result = $db->query($sql);
-	while ($myrow = $db->fetchArray($result) ) {
-		$ret2[$myrow['categoryID']]=$myrow['cpt'];
-	}
-	$ret['offlinepercategory']=$ret2;
-	unset($ret2);
+    // Number of unique authors per category
+    $ret2=array();
+    $sql="SELECT Count(Distinct(uid)) as cpt, categoryID FROM $tbls GROUP BY categoryID ORDER BY categoryID";
+    $result = $db->query($sql);
+    while ($myrow = $db->fetchArray($result) ) {
+        $ret2[$myrow['categoryID']]=$myrow['cpt'];
+    }
+    $ret['authorspercategory']=$ret2;
+    unset($ret2);
 
-	// Number of unique authors per category
-	$ret2=array();
-	$sql="SELECT Count(Distinct(uid)) as cpt, categoryID FROM $tbls GROUP BY categoryID ORDER BY categoryID";
-	$result = $db->query($sql);
-	while ($myrow = $db->fetchArray($result) ) {
-		$ret2[$myrow['categoryID']]=$myrow['cpt'];
-	}
-	$ret['authorspercategory']=$ret2;
-	unset($ret2);
+    // Most read terms
+    $ret2=array();
+    $sql="SELECT s.entryID, s.uid, s.term, s.counter, s.categoryID, t.name  FROM $tbls s, $tblt t WHERE s.categoryID=t.categoryID ORDER BY s.counter DESC";
+    $result = $db->query($sql,intval($limit));
+    while ($myrow = $db->fetchArray($result) ) {
+        $ret2[$myrow['entryID']]=$myrow;
+    }
+    $ret['mostreadterms']=$ret2;
+    unset($ret2);
 
-	// Most read terms
-	$ret2=array();
-	$sql="SELECT s.entryID, s.uid, s.term, s.counter, s.categoryID, t.name  FROM $tbls s, $tblt t WHERE s.categoryID=t.categoryID ORDER BY s.counter DESC";
-	$result = $db->query($sql,intval($limit));
-	while ($myrow = $db->fetchArray($result) ) {
-		$ret2[$myrow['entryID']]=$myrow;
-	}
-	$ret['mostreadterms']=$ret2;
-	unset($ret2);
+    // Less read terms
+    $ret2=array();
+    $sql="SELECT s.entryID, s.uid, s.term, s.counter, s.categoryID, t.name  FROM $tbls s, $tblt t WHERE s.categoryID=t.categoryID ORDER BY s.counter";
+    $result = $db->query($sql,intval($limit));
+    while ($myrow = $db->fetchArray($result) ) {
+        $ret2[$myrow['entryID']]=$myrow;
+    }
+    $ret['lessreadterms']=$ret2;
+    unset($ret2);
 
-	// Less read terms
-	$ret2=array();
-	$sql="SELECT s.entryID, s.uid, s.term, s.counter, s.categoryID, t.name  FROM $tbls s, $tblt t WHERE s.categoryID=t.categoryID ORDER BY s.counter";
-	$result = $db->query($sql,intval($limit));
-	while ($myrow = $db->fetchArray($result) ) {
-		$ret2[$myrow['entryID']]=$myrow;
-	}
-	$ret['lessreadterms']=$ret2;
-	unset($ret2);
+    // Most read authors
+    $ret2=array();
+    $sql="SELECT Sum(counter) as cpt, uid FROM $tbls GROUP BY uid ORDER BY cpt DESC";
+    $result = $db->query($sql,intval($limit));
+    while ($myrow = $db->fetchArray($result) ) {
+        $ret2[$myrow['uid']]=$myrow['cpt'];
+    }
+    $ret['mostreadauthors']=$ret2;
+    unset($ret2);
 
-	// Most read authors
-	$ret2=array();
-	$sql="SELECT Sum(counter) as cpt, uid FROM $tbls GROUP BY uid ORDER BY cpt DESC";
-	$result = $db->query($sql,intval($limit));
-	while ($myrow = $db->fetchArray($result) ) {
-		$ret2[$myrow['uid']]=$myrow['cpt'];
-	}
-	$ret['mostreadauthors']=$ret2;
-	unset($ret2);
+    // Biggest contributors
+    $ret2=array();
+    $sql="SELECT Count(*) as cpt, uid FROM $tbls GROUP BY uid ORDER BY cpt DESC";
+    $result = $db->query($sql,intval($limit));
+    while ($myrow = $db->fetchArray($result) ) {
+        $ret2[$myrow['uid']]=$myrow['cpt'];
+    }
+    $ret['biggestcontributors']=$ret2;
+    unset($ret2);
 
-	// Biggest contributors
-	$ret2=array();
-	$sql="SELECT Count(*) as cpt, uid FROM $tbls GROUP BY uid ORDER BY cpt DESC";
-	$result = $db->query($sql,intval($limit));
-	while ($myrow = $db->fetchArray($result) ) {
-		$ret2[$myrow['uid']]=$myrow['cpt'];
-	}
-	$ret['biggestcontributors']=$ret2;
-	unset($ret2);
-
-	return $ret;
+    return $ret;
 }
 
 //-- build a table header
 function lx_buildTable(){
-	global $xoopsConfig, $xoopsModuleConfig, $xoopsModule;
-	echo "<div style='color: #2F5376; margin: 6px 0 0 0; '>";
-	echo "<table width='100%' cellspacing='2' cellpadding='3' border='0' class='outer'>";
+    global $xoopsConfig, $xoopsModuleConfig, $xoopsModule;
+    echo "<div style='color: #2F5376; margin: 6px 0 0 0; '>";
+    echo "<table width='100%' cellspacing='2' cellpadding='3' border='0' class='outer'>";
     //echo "<tr><td colspan='7' class='odd'>";
     //echo "<strong>". _AM_LEXIKON_INVENTORY . "</strong></td></tr>";
-	echo "<tr >";
-	echo "<th width='40px'  align='center'><b>" . _AM_LEXIKON_ENTRYID . "</b></td>";
-	echo "<th width='100px'  align='center'><b>" . _AM_LEXIKON_ENTRYCATNAME . "</b></td>";
-	echo "<th align='center'><b>" . _AM_LEXIKON_TERM . "</b></td>";
-	echo "<th width='90px'  align='center'><b>" . _AM_LEXIKON_AUTHOR . "</b></td>";
-	echo "<th width='90px'  align='center'><b>" . _AM_LEXIKON_ENTRYCREATED . "</b></td>";
-	echo "<th width='40px'  align='center'><b>" . _AM_LEXIKON_STATUS . "</b></td>";
-	echo "<th width='60px'  align='center'><b>" . _AM_LEXIKON_ACTION . "</b></td>";
-	echo "</tr>";
+    echo "<tr >";
+    echo "<th width='40px'  align='center'><b>" . _AM_LEXIKON_ENTRYID . "</b></td>";
+    echo "<th width='100px'  align='center'><b>" . _AM_LEXIKON_ENTRYCATNAME . "</b></td>";
+    echo "<th align='center'><b>" . _AM_LEXIKON_TERM . "</b></td>";
+    echo "<th width='90px'  align='center'><b>" . _AM_LEXIKON_AUTHOR . "</b></td>";
+    echo "<th width='90px'  align='center'><b>" . _AM_LEXIKON_ENTRYCREATED . "</b></td>";
+    echo "<th width='40px'  align='center'><b>" . _AM_LEXIKON_STATUS . "</b></td>";
+    echo "<th width='60px'  align='center'><b>" . _AM_LEXIKON_ACTION . "</b></td>";
+    echo "</tr>";
 }
-
 
 /**
  * save_permissions()
@@ -362,26 +363,27 @@ function lx_buildTable(){
  */
 
 function lx_save_Permissions($groups, $id, $perm_name) {
-	$result = true;
-	$hModule = & xoops_gethandler('module');
-	$lxModule = & $hModule -> getByDirname('lexikon');
+    $result = true;
+    $hModule = & xoops_gethandler('module');
+    $lxModule = & $hModule -> getByDirname('lexikon');
 
-	$module_id = $lxModule -> getVar('mid');
-	$gperm_handler = & xoops_gethandler('groupperm');
+    $module_id = $lxModule -> getVar('mid');
+    $gperm_handler = & xoops_gethandler('groupperm');
 
-	/*
-	* First, if the permissions are already there, delete them
-	*/
-	$gperm_handler -> deleteByModule($module_id, $perm_name, $id);
-	/*
-	*  Save the new permissions
-	*/
-	if (is_array($groups)){
-		foreach ($groups as $group_id){
-			$gperm_handler -> addRight($perm_name, $id, $group_id, $module_id);
-		}
-	}
-	return $result;
+    /*
+    * First, if the permissions are already there, delete them
+    */
+    $gperm_handler -> deleteByModule($module_id, $perm_name, $id);
+    /*
+    *  Save the new permissions
+    */
+    if (is_array($groups)){
+        foreach ($groups as $group_id){
+            $gperm_handler -> addRight($perm_name, $id, $group_id, $module_id);
+        }
+    }
+
+    return $result;
 }
 
 //-- Initial Selector

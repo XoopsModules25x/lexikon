@@ -1,7 +1,7 @@
 <?php
 /**
  * $Id: content.php v 1.0 18 Dec 2011 Yerres Exp $
- * Module: Lexikon 
+ * Module: Lexikon
  * Version: v 1.00
  * Release Date: 18 Dec 2011
  * Author: Yerres
@@ -41,4 +41,3 @@ if (isset($xoTheme) && is_object($xoTheme)) {
 }
 
 include XOOPS_ROOT_PATH."/footer.php";
-?>
