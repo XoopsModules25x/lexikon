@@ -19,4 +19,4 @@ define("META_KEYWORDS_ORDER",             1 ) ;     // Default order of meta key
                                                     // 3 = Same as '2', but most frequent words appear first in the list
 //define("CONFIG_WYSIWYG_GUESTS",           false ) ; // Allow users/guests the use of wysiwyg editors on submissions ?
 //define("CONFIG_TAGS_SUBMIT",              false ) ; // Allow users the enter tags for submitted terms ?
-?>
+;

@@ -92,7 +92,6 @@ function categoryDefault() {
         <th width='60'  align='center'><b>" . _AM_LEXIKON_ACTION . "</b></td>
         </tr>";
 
-
         $class   = "odd";
         if ( $numrows > 0 ) // That is, if there ARE columns in the system
         {
@@ -139,10 +138,10 @@ function categoryDefault() {
  * Code to edit categories
  **/
 function categoryEdit( $categoryID = '' ) {
-	include_once XOOPS_ROOT_PATH."/class/xoopsformloader.php";
-	include_once XOOPS_ROOT_PATH."/class/uploader.php";
-	include_once XOOPS_ROOT_PATH . '/class/xoopsform/grouppermform.php';
-	
+    include_once XOOPS_ROOT_PATH."/class/xoopsformloader.php";
+    include_once XOOPS_ROOT_PATH."/class/uploader.php";
+    include_once XOOPS_ROOT_PATH . '/class/xoopsform/grouppermform.php';
+    
     $weight = 1;
     $name = '';
     $description = '';
@@ -161,12 +160,12 @@ function categoryEdit( $categoryID = '' ) {
         $myts =& MyTextSanitizer::getInstance();
         $name = $myts->htmlSpecialChars($name);
         //permissions
-		$member_handler = & xoops_gethandler('member');
-		$group_list = & $member_handler -> getGroupList();
-		$gperm_handler = & xoops_gethandler('groupperm');
+        $member_handler = & xoops_gethandler('member');
+        $group_list = & $member_handler -> getGroupList();
+        $gperm_handler = & xoops_gethandler('groupperm');
 
-		$groups = $gperm_handler -> getGroupIds("lexikon_view", $categoryID, $xoopsModule -> getVar('mid'));
-		$groups = $groups;
+        $groups = $gperm_handler -> getGroupIds("lexikon_view", $categoryID, $xoopsModule -> getVar('mid'));
+        $groups = $groups;
         if ( $xoopsDB -> getRowsNum( $result ) == 0 ) {
             redirect_header( "index.php", 1, _AM_LEXIKON_NOCATTOEDIT );
             exit();
@@ -200,33 +199,33 @@ function categoryEdit( $categoryID = '' ) {
     //CategoryImage
     if ($xoopsModuleConfig['useshots'] == 1) {
         //CategoryImage :: Common querys from Article module by phppp
-	   $image_option_tray = new XoopsFormElementTray("<b>"._AM_LEXIKON_CATIMGUPLOAD."</b>", "<br />");
-	   $image_option_tray->addElement(new XoopsFormFile("", "userfile",""));
-	   $sform->addElement($image_option_tray);
-	   unset($image_tray);
-	   unset($image_option_tray);
+       $image_option_tray = new XoopsFormElementTray("<b>"._AM_LEXIKON_CATIMGUPLOAD."</b>", "<br />");
+       $image_option_tray->addElement(new XoopsFormFile("", "userfile",""));
+       $sform->addElement($image_option_tray);
+       unset($image_tray);
+       unset($image_option_tray);
 
-	   $path_catimg = "modules/".$xoopsModule->getVar('dirname')."/images/uploads";
-	   $image_option_tray = new XoopsFormElementTray(_AM_LEXIKON_CATIMAGE."<br />"._AM_LEXIKON_CATIMG_DSC."<br />".$path_catimg, "<br />");
-	   //$image_option_tray = new XoopsFormElementTray(_AM_LEXIKON_CATIMAGE.'');
-	   $image_array =& XoopsLists::getImgListAsArray(XOOPS_ROOT_PATH."/".$path_catimg."/");
-	   array_unshift($image_array, _NONE);
+       $path_catimg = "modules/".$xoopsModule->getVar('dirname')."/images/uploads";
+       $image_option_tray = new XoopsFormElementTray(_AM_LEXIKON_CATIMAGE."<br />"._AM_LEXIKON_CATIMG_DSC."<br />".$path_catimg, "<br />");
+       //$image_option_tray = new XoopsFormElementTray(_AM_LEXIKON_CATIMAGE.'');
+       $image_array =& XoopsLists::getImgListAsArray(XOOPS_ROOT_PATH."/".$path_catimg."/");
+       array_unshift($image_array, _NONE);
 
-	   $image_select = new XoopsFormSelect("", "logourl", $logourl);
-	   $image_select->addOptionArray($image_array);
-	   $image_select->setExtra("onchange=\"showImgSelected('img', 'logourl', '/".$path_catimg."/', '', '" . XOOPS_URL . "')\"");
-	   $image_tray = new XoopsFormElementTray("", "&nbsp;");
-	   $image_tray->addElement($image_select);
-	   if (!empty($logourl) && file_exists(XOOPS_ROOT_PATH . "/" .$path_catimg."/" . $logourl)){
-		   $image_tray->addElement(new XoopsFormLabel("", "<div style=\"padding: 4px;\"><img src=\"" . XOOPS_URL . "/" .$path_catimg."/" . $logourl . "\" name=\"img\" id=\"img\" alt=\"\" /></div>"));
-		   } else {
-		   $image_tray->addElement(new XoopsFormLabel("", "<div style=\"padding: 4px;\"><img src=\"" . XOOPS_URL . "/" .$path_catimg."/blank.gif\" name=\"img\" id=\"img\" alt=\"\" /></div>"));
-	   }
-	   $image_option_tray->addElement($image_tray);
-	   $sform->addElement($image_option_tray);        
+       $image_select = new XoopsFormSelect("", "logourl", $logourl);
+       $image_select->addOptionArray($image_array);
+       $image_select->setExtra("onchange=\"showImgSelected('img', 'logourl', '/".$path_catimg."/', '', '" . XOOPS_URL . "')\"");
+       $image_tray = new XoopsFormElementTray("", "&nbsp;");
+       $image_tray->addElement($image_select);
+       if (!empty($logourl) && file_exists(XOOPS_ROOT_PATH . "/" .$path_catimg."/" . $logourl)){
+           $image_tray->addElement(new XoopsFormLabel("", "<div style=\"padding: 4px;\"><img src=\"" . XOOPS_URL . "/" .$path_catimg."/" . $logourl . "\" name=\"img\" id=\"img\" alt=\"\" /></div>"));
+           } else {
+           $image_tray->addElement(new XoopsFormLabel("", "<div style=\"padding: 4px;\"><img src=\"" . XOOPS_URL . "/" .$path_catimg."/blank.gif\" name=\"img\" id=\"img\" alt=\"\" /></div>"));
+       }
+       $image_option_tray->addElement($image_tray);
+       $sform->addElement($image_option_tray);
     }
-	$sform -> addElement(new XoopsFormSelectGroup(_AM_LEXIKON_CAT_GROUPSVIEW, "groups", true, $groups, 5, true));
-	
+    $sform -> addElement(new XoopsFormSelectGroup(_AM_LEXIKON_CAT_GROUPSVIEW, "groups", true, $groups, 5, true));
+    
     $button_tray = new XoopsFormElementTray( '', '' );
     $hidden = new XoopsFormHidden( 'op', 'addcategory' );
     $button_tray -> addElement( $hidden );
@@ -283,16 +282,16 @@ function categoryDelete($categoryID = '') {
         $result3=$xoopsDB->query("SELECT entryID from ".$xoopsDB->prefix("lxentries")." where categoryID = $idc");
         //now for each entry, delete the coments
         while ( list($entryID)=$xoopsDB->fetchRow($result3) ) {
-			xoops_comment_delete($xoopsModule->getVar('mid'), $entryID);
-			xoops_notification_deletebyitem($xoopsModule->getVar('mid'), 'term', $entryID);
+            xoops_comment_delete($xoopsModule->getVar('mid'), $entryID);
+            xoops_notification_deletebyitem($xoopsModule->getVar('mid'), 'term', $entryID);
         }
         $xoopsDB->query("DELETE FROM ".$xoopsDB->prefix('lxcategories')." WHERE categoryID='$idc'");
         $result2 = $xoopsDB -> query( "DELETE FROM " .$xoopsDB -> prefix("lxentries")." WHERE categoryID = $idc");
         // remove permissions
-		xoops_groupperm_deletebymoditem($xoopsModule->getVar('mid'), 'lexikon_view', $categoryID);
-		xoops_groupperm_deletebymoditem($xoopsModule->getVar('mid'), 'lexikon_submit', $categoryID);
-		xoops_groupperm_deletebymoditem($xoopsModule->getVar('mid'), 'lexikon_approve', $categoryID);
-		xoops_groupperm_deletebymoditem($xoopsModule->getVar('mid'), 'lexikon_request', $categoryID);
+        xoops_groupperm_deletebymoditem($xoopsModule->getVar('mid'), 'lexikon_view', $categoryID);
+        xoops_groupperm_deletebymoditem($xoopsModule->getVar('mid'), 'lexikon_submit', $categoryID);
+        xoops_groupperm_deletebymoditem($xoopsModule->getVar('mid'), 'lexikon_approve', $categoryID);
+        xoops_groupperm_deletebymoditem($xoopsModule->getVar('mid'), 'lexikon_request', $categoryID);
         // delete notifications
         xoops_notification_deletebyitem($xoopsModule->getVar('mid'), 'global', $categoryID);
         xoops_notification_deletebyitem($xoopsModule->getVar('mid'), 'category', $categoryID);
@@ -305,11 +304,9 @@ function categoryDelete($categoryID = '') {
     }
 }
 
-
-
 function categorySave ($categoryID = '') {
-	include_once XOOPS_ROOT_PATH."/class/xoopsformloader.php";
-	include_once XOOPS_ROOT_PATH."/class/uploader.php";
+    include_once XOOPS_ROOT_PATH."/class/xoopsformloader.php";
+    include_once XOOPS_ROOT_PATH."/class/uploader.php";
     Global $xoopsUser, $xoopsConfig, $xoopsModuleConfig, $xoopsModule, $xoopsDB, $myts, $categoryID;
     //print_r ($_POST);
     $categoryID = isset( $_POST['categoryID'] ) ? intval( $_POST['categoryID'] ) : intval( $_GET['categoryID'] );
@@ -320,33 +317,33 @@ function categorySave ($categoryID = '') {
     $description = $myts -> xoopsCodeDecode($myts->censorString($description), $allowimage = 1);
     $name = $myts->addSlashes($_POST['name']);
     $logourl = $myts->addSlashes($_POST["logourl"]);
-	$groups = isset($_POST['groups']) ? $_POST['groups'] : array();
-	// image upload
-	$logourl = "";
-	$maxfilesize = 30000;
-	$maxfilewidth = 128;
-	$maxfileheight = 128;
-	  if (!empty($_FILES['userfile']['name'])) { 
-		$allowed_mimetypes = array('image/gif', 'image/jpeg', 'image/pjpeg', 'image/x-png', 'image/png');
-		$uploader = new XoopsMediaUploader(XOOPS_ROOT_PATH ."/modules/".$xoopsModule->getVar('dirname')."/images/uploads/", $allowed_mimetypes, $maxfilesize, $maxfilewidth, $maxfileheight);
-		if ($uploader->fetchMedia($_POST['xoops_upload_file'][0])) {
-		  if (!$uploader->upload()) {
-			 echo $uploader->getErrors();
-		  } else {
-			 echo '<h4>'._AM_LEXIKON_FILESUCCESS.'</h4>';
-			 $logourl = $uploader->getSavedFileName();
-		  }
-		} else {
-		  echo $uploader->getErrors();
-		}
-	 }
-	$logourl = empty($logourl)?(empty($_POST['logourl'])?"":$_POST['logourl']):$logourl;
-	
+    $groups = isset($_POST['groups']) ? $_POST['groups'] : array();
+    // image upload
+    $logourl = "";
+    $maxfilesize = 30000;
+    $maxfilewidth = 128;
+    $maxfileheight = 128;
+      if (!empty($_FILES['userfile']['name'])) {
+        $allowed_mimetypes = array('image/gif', 'image/jpeg', 'image/pjpeg', 'image/x-png', 'image/png');
+        $uploader = new XoopsMediaUploader(XOOPS_ROOT_PATH ."/modules/".$xoopsModule->getVar('dirname')."/images/uploads/", $allowed_mimetypes, $maxfilesize, $maxfilewidth, $maxfileheight);
+        if ($uploader->fetchMedia($_POST['xoops_upload_file'][0])) {
+          if (!$uploader->upload()) {
+             echo $uploader->getErrors();
+          } else {
+             echo '<h4>'._AM_LEXIKON_FILESUCCESS.'</h4>';
+             $logourl = $uploader->getSavedFileName();
+          }
+        } else {
+          echo $uploader->getErrors();
+        }
+     }
+    $logourl = empty($logourl)?(empty($_POST['logourl'])?"":$_POST['logourl']):$logourl;
+    
     // Run the query and update the data
     if ( !$_POST['categoryID'] ) {
-        if ( $xoopsDB -> query( "INSERT INTO " . $xoopsDB -> prefix( "lxcategories" ) . " (categoryID, name, description, weight, logourl) 
+        if ( $xoopsDB -> query( "INSERT INTO " . $xoopsDB -> prefix( "lxcategories" ) . " (categoryID, name, description, weight, logourl)
 								 VALUES ('', '$name', '$description', '$weight', '$logourl')" ) ) {
-			$newid = $xoopsDB->getInsertId();
+            $newid = $xoopsDB->getInsertId();
             // Increment author's posts count (only if it's a new definition)
             if (is_object($xoopsUser) && empty($categoryID)) {
                 $member_handler = &xoops_gethandler('member');
@@ -357,19 +354,19 @@ function categorySave ($categoryID = '') {
                     unset($submitter);
                 }
             }
-			//notification
-			if(!empty($xoopsModuleConfig['notification_enabled']) ){
-				if ($newid == 0) {
-					$newid = $xoopsDB -> getInsertId();
-				}
-				global $xoopsModule;
-				$notification_handler =& xoops_gethandler('notification');
-				$tags = array();
-				$tags['ITEM_NAME'] = $name;
-				$tags['ITEM_URL'] = XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/category.php?categoryID=' . $newid;
-				$notification_handler->triggerEvent( 'global', 0, 'new_category', $tags);
-			}
-			lx_save_Permissions($groups, $categoryID, "lexikon_view");
+            //notification
+            if(!empty($xoopsModuleConfig['notification_enabled']) ){
+                if ($newid == 0) {
+                    $newid = $xoopsDB -> getInsertId();
+                }
+                global $xoopsModule;
+                $notification_handler =& xoops_gethandler('notification');
+                $tags = array();
+                $tags['ITEM_NAME'] = $name;
+                $tags['ITEM_URL'] = XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/category.php?categoryID=' . $newid;
+                $notification_handler->triggerEvent( 'global', 0, 'new_category', $tags);
+            }
+            lx_save_Permissions($groups, $categoryID, "lexikon_view");
             redirect_header( "category.php", 1, _AM_LEXIKON_CATCREATED );
             exit();
         } else {
@@ -378,10 +375,10 @@ function categorySave ($categoryID = '') {
         }
     } else {
         if ( $xoopsDB -> queryF( "
-								UPDATE " . $xoopsDB -> prefix( "lxcategories" ) . " 
-								SET name = '$name', description = '$description', weight = '$weight' , logourl = '$logourl' 
+								UPDATE " . $xoopsDB -> prefix( "lxcategories" ) . "
+								SET name = '$name', description = '$description', weight = '$weight' , logourl = '$logourl'
 								WHERE categoryID = '$categoryID'" ) ) {
-			lx_save_Permissions($groups, $categoryID, "lexikon_view");
+            lx_save_Permissions($groups, $categoryID, "lexikon_view");
             redirect_header( "category.php", 1, _AM_LEXIKON_CATMODIFIED );
             exit();
         } else {
@@ -390,7 +387,6 @@ function categorySave ($categoryID = '') {
         }
     }
 }
-
 
 /**
  * Available operations
@@ -404,7 +400,6 @@ if (isset($_POST['op'])) {
         $op=$_GET['op'];
     }
 }
-
 
 switch ( $op ) {
 case "mod":
@@ -424,11 +419,9 @@ case "del":
     categoryDelete();
     break;
 
-
 case "default":
 default:
     categoryDefault();
     break;
 }
 xoops_cp_footer();
-?>

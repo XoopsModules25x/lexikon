@@ -139,7 +139,6 @@ define("_MD_LEXIKON_REQUESTSUGGEST","(Click the next words to suggest a definiti
 define("_MD_LEXIKON_ENTRYISOFF","Sorry, this definition is currently offline.");
 define("_MD_LEXIKON_ITEMEXISTS","Sorry. The Term already exists.");
 
-
 //RSS syndication
 define('_MD_LEXIKON_INCATS','Recent entries in %s');
 define('_MD_LEXIKON_INCATS_DESC','Recent entries in the category %s from %s');
@@ -203,7 +202,6 @@ define("_MD_LEXIKON_SYNEXPLAIN1","click  'select' and copy the HTML-Code using C
 define("_MD_LEXIKON_SYNEXPLAIN2","Add the below script where you wish the content to appear (using CTRL+V or the contextal menue of the mouse (->Insert)).");
 define("_MD_LEXIKON_SYNEXPLAIN3","Feel free to modify layout and appearence so that it best suits your personal preferences.");
 
-
 // mail admin side
 define("_MD_LEXIKON_SUBJECTREQ","Your requested definition at %s");
 define("_MD_LEXIKON_SUBJECTSUB","Your submitted definition at %s");
@@ -214,11 +212,9 @@ define("_MD_LEXIKON_CONFMOD","Modification approved!");
 define("_MD_LEXIKON_APPROVED","Your request has been approved by the webmaster of %s and will now appear in our glossary.");
 define("_MD_LEXIKON_REGARDS","Best Regards");
 define("_MD_LEXIKON_DEFINITIONMOD","Glossary modification");
-	// ...user side
+    // ...user side
 define("_MD_LEXIKON_THANKS3","Thank you for submitting a definition.");
 define("_MD_LEXIKON_THANKSREVIEW","Thank you for the modification.");
 define("_MD_LEXIKON_THANKYOU2","Thank you for updating a definition.\nYou will receive a message as soon as the modifications have been revised.");
 define("_MD_LEXIKON_THANKYOU3","Thank you for submitting a definition.\nYou will receive a message as soon as the definition has been approved.");
 define("_MD_LEXIKON_SUBMISSIONSENT","Message to %s sent.");
-
-?>

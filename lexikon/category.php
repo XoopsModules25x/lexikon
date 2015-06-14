@@ -28,8 +28,8 @@ $allowed_cats = $gperm_handler->getItemIds("lexikon_view", $groups, $module_id);
 $catids = implode(',', $allowed_cats);
 $catperms = " AND categoryID IN ($catids) ";
 if (!$gperm_handler->checkRight('lexikon_view', $categoryID, $groups, $xoopsModule->getVar('mid'))) {
-	redirect_header('index.php', 3, _NOPERM);
-	exit();
+    redirect_header('index.php', 3, _NOPERM);
+    exit();
 }
 // If there's no entries yet in the system...
 $publishedwords = lx_countWords();
@@ -48,15 +48,15 @@ $xoopsTpl->assign('totalother', $howmanyother);
 
 // get the list of Maincategories :: or return to mainpage
 if ( $xoopsModuleConfig['multicats'] == 1 ) {
-	$xoopsTpl -> assign ( 'block0', lx_CatsArray() );
-	$xoopsTpl->assign('layout', CONFIG_CATEGORY_LAYOUT_PLAIN);
-	if ( $xoopsModuleConfig['useshots'] == 1 ) {
-		$xoopsTpl->assign('show_screenshot', true);
-		$xoopsTpl->assign('logo_maximgwidth', $xoopsModuleConfig['logo_maximgwidth']);
-		$xoopsTpl->assign('lang_noscreenshot', _MD_LEXIKON_NOSHOTS);
-	} else {
-		$xoopsTpl->assign('show_screenshot', false);
-	}
+    $xoopsTpl -> assign ( 'block0', lx_CatsArray() );
+    $xoopsTpl->assign('layout', CONFIG_CATEGORY_LAYOUT_PLAIN);
+    if ( $xoopsModuleConfig['useshots'] == 1 ) {
+        $xoopsTpl->assign('show_screenshot', true);
+        $xoopsTpl->assign('logo_maximgwidth', $xoopsModuleConfig['logo_maximgwidth']);
+        $xoopsTpl->assign('lang_noscreenshot', _MD_LEXIKON_NOSHOTS);
+    } else {
+        $xoopsTpl->assign('show_screenshot', false);
+    }
 } else {  // if glossaries are disabled in module options
     redirect_header( "index.php", 3, _MD_LEXIKON_SINGLECAT );
 }
@@ -120,55 +120,55 @@ if ( !$categoryID ) {
         exit();
     }
     while (list( $categoryID, $name, $description, $total, $logourl ) = $xoopsDB->fetchRow($catdata)) {
-		if ($gperm_handler->checkRight('lexikon_view', $categoryID, $groups, $xoopsModule->getVar('mid'))) {
-			if ( $total == 0 ) {
-				redirect_header( "javascript:history.go(-1)", 1, _MD_LEXIKON_NOENTRIESINCAT );
-				exit();
-			}
-			$singlecat = array();
-			$singlecat['dir'] = $xoopsModule->dirname();
-			$singlecat['id'] = $categoryID;
-			$singlecat['name'] = $myts -> htmlSpecialChars( $name );
-			$singlecat['description'] = $myts -> displayTarea( $description, 1, 1, 1, 1, 1 );
-			$singlecat['image'] = $myts -> htmlSpecialChars( $logourl );
-	
-			// Total entries in this category
-			//$entriesincat = lx_countByCategory($categoryID);
-			$entriesincat = intval($total);
-			$singlecat['total'] = intval($entriesincat);
-			$xoopsTpl -> assign( 'singlecat', $singlecat );
-	
-			// Entries to show in current page
-			$entriesarray = array();
-	
-			// Now we retrieve a specific number of entries according to start variable
-			$queryB = "SELECT entryID, term, definition, html, smiley, xcodes, breaks, comments FROM " . $xoopsDB -> prefix( 'lxentries' ) . " WHERE categoryID = '$categoryID' AND submit ='0' AND offline = '0' ORDER BY term ASC";
-			$resultB = $xoopsDB -> query( $queryB, $xoopsModuleConfig['indexperpage'], $start );
-	
-			//while (list( $entryID, $term, $definition ) = $xoopsDB->fetchRow($resultB))
-			while (list( $entryID, $term, $definition, $html, $smiley, $xcodes, $breaks, $comments ) = $xoopsDB->fetchRow($resultB)) {
-				$eachentry = array();
-				$xoopsModule = XoopsModule::getByDirname("lexikon");
-				$eachentry['dir'] = $xoopsModule->dirname();
-				$eachentry['id'] = $entryID;
-				$eachentry['term'] = ucfirst($myts -> htmlSpecialChars( $term ));
-				if ( !XOOPS_USE_MULTIBYTES ) {
-					$eachentry['definition'] = $myts -> displayTarea( $definition, $html, $smiley, $xcodes, 1, $breaks );
-				}
-				if (($xoopsModuleConfig['com_rule'] != 0) || (($xoopsModuleConfig['com_rule'] != 0) && is_object($xoopsUser))) {
-					if ($comments != 0) {
-						$eachentry['comments'] = "<a href='entry.php?entryID=".$eachentry['id']."'>".$comments."&nbsp;"._COMMENTS."</a>";
-					} else {
-						$eachentry['comments'] = '';
-					}
-				}
-	
-				// Functional links
-				$microlinks = lx_serviceLinks( $eachentry );
-				$eachentry['microlinks'] = $microlinks;
-				$entriesarray['single'][] = $eachentry;
-			}
-		}
+        if ($gperm_handler->checkRight('lexikon_view', $categoryID, $groups, $xoopsModule->getVar('mid'))) {
+            if ( $total == 0 ) {
+                redirect_header( "javascript:history.go(-1)", 1, _MD_LEXIKON_NOENTRIESINCAT );
+                exit();
+            }
+            $singlecat = array();
+            $singlecat['dir'] = $xoopsModule->dirname();
+            $singlecat['id'] = $categoryID;
+            $singlecat['name'] = $myts -> htmlSpecialChars( $name );
+            $singlecat['description'] = $myts -> displayTarea( $description, 1, 1, 1, 1, 1 );
+            $singlecat['image'] = $myts -> htmlSpecialChars( $logourl );
+    
+            // Total entries in this category
+            //$entriesincat = lx_countByCategory($categoryID);
+            $entriesincat = intval($total);
+            $singlecat['total'] = intval($entriesincat);
+            $xoopsTpl -> assign( 'singlecat', $singlecat );
+    
+            // Entries to show in current page
+            $entriesarray = array();
+    
+            // Now we retrieve a specific number of entries according to start variable
+            $queryB = "SELECT entryID, term, definition, html, smiley, xcodes, breaks, comments FROM " . $xoopsDB -> prefix( 'lxentries' ) . " WHERE categoryID = '$categoryID' AND submit ='0' AND offline = '0' ORDER BY term ASC";
+            $resultB = $xoopsDB -> query( $queryB, $xoopsModuleConfig['indexperpage'], $start );
+    
+            //while (list( $entryID, $term, $definition ) = $xoopsDB->fetchRow($resultB))
+            while (list( $entryID, $term, $definition, $html, $smiley, $xcodes, $breaks, $comments ) = $xoopsDB->fetchRow($resultB)) {
+                $eachentry = array();
+                $xoopsModule = XoopsModule::getByDirname("lexikon");
+                $eachentry['dir'] = $xoopsModule->dirname();
+                $eachentry['id'] = $entryID;
+                $eachentry['term'] = ucfirst($myts -> htmlSpecialChars( $term ));
+                if ( !XOOPS_USE_MULTIBYTES ) {
+                    $eachentry['definition'] = $myts -> displayTarea( $definition, $html, $smiley, $xcodes, 1, $breaks );
+                }
+                if (($xoopsModuleConfig['com_rule'] != 0) || (($xoopsModuleConfig['com_rule'] != 0) && is_object($xoopsUser))) {
+                    if ($comments != 0) {
+                        $eachentry['comments'] = "<a href='entry.php?entryID=".$eachentry['id']."'>".$comments."&nbsp;"._COMMENTS."</a>";
+                    } else {
+                        $eachentry['comments'] = '';
+                    }
+                }
+    
+                // Functional links
+                $microlinks = lx_serviceLinks( $eachentry );
+                $eachentry['microlinks'] = $microlinks;
+                $entriesarray['single'][] = $eachentry;
+            }
+        }
     }
     $navstring = "categoryID=".$singlecat['id']."&start";
     $pagenav = new XoopsPageNav( $entriesincat, $xoopsModuleConfig['indexperpage'], $start, $navstring);
@@ -193,5 +193,3 @@ if ($xoopsUser) $xoopsTpl->assign('syndication', true);
 $xoopsTpl->assign("xoops_module_header", '<link rel="stylesheet" type="text/css" href="style.css" />');
 
 include( XOOPS_ROOT_PATH . "/footer.php" );
-
-?>

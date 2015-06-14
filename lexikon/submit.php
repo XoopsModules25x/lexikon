@@ -55,18 +55,18 @@ $groups = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOU
 $module_id = $xoopsModule->getVar('mid');
 $perm_itemid = isset($_POST['categoryID']) ? intval($_POST['categoryID']) :  0;
 if (!$gperm_handler->checkRight('lexikon_submit', $perm_itemid, $groups, $module_id)) {
-	redirect_header('javascript:history.go(-1)', 3, _MD_LEXIKON_MUSTREGFIRST);
-	exit();
+    redirect_header('javascript:history.go(-1)', 3, _MD_LEXIKON_MUSTREGFIRST);
+    exit();
 }
 $totalcats = $gperm_handler->getItemIds("lexikon_submit", $groups, $module_id);
 $permitsubmit =count($totalcats);
 if ( $permitsubmit == 0 && $xoopsModuleConfig['multicats'] == '1') {
-	redirect_header( "index.php", 3, _NOPERM );
-	exit();
+    redirect_header( "index.php", 3, _NOPERM );
+    exit();
 }
 switch ( $op ) {
 case 'post':
-  //--- Captcha 
+  //--- Captcha
   if ($xoopsModuleConfig['captcha'] != 0) {
        xoops_load('XoopsCaptcha');
        if(@include_once XOOPS_ROOT_PATH."/class/captcha/xoopscaptcha.php") {
@@ -81,14 +81,14 @@ case 'post':
   }
   //-------
 
-	Global $xoTheme, $xoopsUser,$xoopsModule,$xoopsModuleConfig;
-	include_once XOOPS_ROOT_PATH."/modules/".$xoopsModule->getVar('dirname')."/include/functions.php";
-	$myts = & MyTextSanitizer :: getInstance();
-	//permissions
-	$gperm_handler =& xoops_gethandler('groupperm');
-	$groups = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
-	$module_id = $xoopsModule->getVar('mid');
-	$perm_itemid = isset($_POST['categoryID']) ? intval($_POST['categoryID']) :  0;
+    Global $xoTheme, $xoopsUser,$xoopsModule,$xoopsModuleConfig;
+    include_once XOOPS_ROOT_PATH."/modules/".$xoopsModule->getVar('dirname')."/include/functions.php";
+    $myts = & MyTextSanitizer :: getInstance();
+    //permissions
+    $gperm_handler =& xoops_gethandler('groupperm');
+    $groups = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
+    $module_id = $xoopsModule->getVar('mid');
+    $perm_itemid = isset($_POST['categoryID']) ? intval($_POST['categoryID']) :  0;
 
     $html = 1;
     if ( $xoopsUser ) {
@@ -130,9 +130,9 @@ case 'post':
     if (empty($url)) {
         $url = "";
     }
-    // this is for terms with umlaut or accented initials 
+    // this is for terms with umlaut or accented initials
     $term4sql = lx_sanitizeFieldName($myts->htmlspecialchars($_POST['term']));
- 	  $init = substr($term4sql, 0, 1);
+      $init = substr($term4sql, 0, 1);
     $init = preg_match("/[a-zA-Z]/", $init)  ?  strtoupper($init) : '#';
     
     $datesub = time();
@@ -155,51 +155,51 @@ case 'post':
      // verify that the term not exists
     if (lx_TermExists($term,$xoopsDB->prefix('lxentries')))  redirect_header("javascript:history.go(-1)", 2,  _MD_LEXIKON_ITEMEXISTS . "<br />" . $term );
     $result = $xoopsDB -> query( "INSERT INTO " . $xoopsDB -> prefix( "lxentries" ) . " (entryID, categoryID, term, init, definition, ref, url, uid, submit, datesub, html, smiley, xcodes, breaks, block, offline, notifypub ) VALUES ('', '$categoryID', '$term', '$init', '$definition', '$ref', '$url', '$uid', '$submit', '$datesub', '$html', '$smiley', '$xcodes', '$breaks','$block', '$offline', '$notifypub')" );
-	  $newid = $xoopsDB -> getInsertId();
+      $newid = $xoopsDB -> getInsertId();
     // Increment author's posts count
     //if ( $xoopsModuleConfig['autoapprove'] == 1 ) {
-		//if (is_object($xoopsUser) && empty($entryID)) {
-		if (is_object($xoopsUser) && empty($entryID) && $autoapprove) {
-		  $member_handler = &xoops_gethandler('member');
-			$submitter =& $member_handler -> getUser($uid);
-			if (is_object($submitter) ) {
-				$submitter -> setVar('posts',$submitter -> getVar('posts') + 1);
-				$res=$member_handler -> insertUser($submitter, true);
-				unset($submitter);
-			}
-		}
-	//}
-	// trigger Notification
-	if(!empty($xoopsModuleConfig['notification_enabled']) ){
-		global $xoopsModule;
-		if ($newid == 0) {
-			$newid = $xoopsDB->getInsertId();
-		}
-		$notification_handler =& xoops_gethandler('notification');
-		$tags = array();
-		$shortdefinition = $myts -> htmlSpecialChars(xoops_substr( strip_tags( $definition ),0,45));
-		$tags['ITEM_NAME'] = $term;
-		$tags['ITEM_BODY'] = $shortdefinition;
-		$tags['DATESUB'] = formatTimestamp( $datesub, 'd M Y' );
-		$tags['ITEM_URL'] = XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/admin/entry.php?op=mod&entryID='. $newid;
-		$sql = "SELECT name FROM " . $xoopsDB->prefix("lxcategories") . " WHERE categoryID=" . $categoryID;
-		$result = $xoopsDB->query($sql);
-		$row = $xoopsDB->fetchArray($result);
-		$tags['CATEGORY_NAME'] = $row['name'];
-		$tags['CATEGORY_URL'] = XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/category.php?categoryID=' . $categoryID;
-		if ( $xoopsModuleConfig['autoapprove'] == 1 ) {
-			$notification_handler->triggerEvent('category', $categoryID, 'new_post', $tags);
-			$notification_handler->triggerEvent('global', 0, 'new_post', $tags);
-			//sample: $notification_handler->triggerEvent($category, $item_id, $events, $tags, $user_list=array(), $module_id=null, $omit_user_id=null)			
-		} else {
-			$notification_handler->triggerEvent('global', 0, 'term_submit', $tags);
-			$notification_handler->triggerEvent('category', 0, 'term_submit', $tags);
-			if ($notifypub) {
-				include_once XOOPS_ROOT_PATH . '/include/notification_constants.php';
-				$notification_handler->subscribe('term', $newid, 'approve', XOOPS_NOTIFICATION_MODE_SENDONCETHENDELETE);
-			}
-		}
-	}
+        //if (is_object($xoopsUser) && empty($entryID)) {
+        if (is_object($xoopsUser) && empty($entryID) && $autoapprove) {
+          $member_handler = &xoops_gethandler('member');
+            $submitter =& $member_handler -> getUser($uid);
+            if (is_object($submitter) ) {
+                $submitter -> setVar('posts',$submitter -> getVar('posts') + 1);
+                $res=$member_handler -> insertUser($submitter, true);
+                unset($submitter);
+            }
+        }
+    //}
+    // trigger Notification
+    if(!empty($xoopsModuleConfig['notification_enabled']) ){
+        global $xoopsModule;
+        if ($newid == 0) {
+            $newid = $xoopsDB->getInsertId();
+        }
+        $notification_handler =& xoops_gethandler('notification');
+        $tags = array();
+        $shortdefinition = $myts -> htmlSpecialChars(xoops_substr( strip_tags( $definition ),0,45));
+        $tags['ITEM_NAME'] = $term;
+        $tags['ITEM_BODY'] = $shortdefinition;
+        $tags['DATESUB'] = formatTimestamp( $datesub, 'd M Y' );
+        $tags['ITEM_URL'] = XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/admin/entry.php?op=mod&entryID='. $newid;
+        $sql = "SELECT name FROM " . $xoopsDB->prefix("lxcategories") . " WHERE categoryID=" . $categoryID;
+        $result = $xoopsDB->query($sql);
+        $row = $xoopsDB->fetchArray($result);
+        $tags['CATEGORY_NAME'] = $row['name'];
+        $tags['CATEGORY_URL'] = XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/category.php?categoryID=' . $categoryID;
+        if ( $xoopsModuleConfig['autoapprove'] == 1 ) {
+            $notification_handler->triggerEvent('category', $categoryID, 'new_post', $tags);
+            $notification_handler->triggerEvent('global', 0, 'new_post', $tags);
+            //sample: $notification_handler->triggerEvent($category, $item_id, $events, $tags, $user_list=array(), $module_id=null, $omit_user_id=null)
+        } else {
+            $notification_handler->triggerEvent('global', 0, 'term_submit', $tags);
+            $notification_handler->triggerEvent('category', 0, 'term_submit', $tags);
+            if ($notifypub) {
+                include_once XOOPS_ROOT_PATH . '/include/notification_constants.php';
+                $notification_handler->subscribe('term', $newid, 'approve', XOOPS_NOTIFICATION_MODE_SENDONCETHENDELETE);
+            }
+        }
+    }
     if ( $result ) {
         if (!is_object($xoopsUser)) {
             $username = _MD_LEXIKON_GUEST;
@@ -235,42 +235,42 @@ case 'post':
         //if ( $xoopsModuleConfig['autoapprove'] == 1 ) {
         if ( $autoapprove == 1 ) {
             redirect_header( "index.php", 2, _MD_LEXIKON_RECEIVEDANDAPPROVED );
-		} else {
-			//send received mail
-			//if (lx_getmoduleoption('mailtosender') && $usermail) {
-			if ( $xoopsModuleConfig['mailtosender'] == 1 && $usermail) {
-				$conf_subject = _MD_LEXIKON_THANKS3;
-				$userMessage = sprintf(_MD_LEXIKON_GOODDAY2, $username);
-				$userMessage .= "\n\n";
-				$userMessage .= sprintf(_MD_LEXIKON_THANKYOU3,$xoopsConfig['sitename']);
-				$userMessage .= "\n";
-				$userMessage .= sprintf(_MD_LEXIKON_SUBMISSIONSENT,$xoopsConfig['sitename']);
-				$userMessage .= "\n";
-				$userMessage .= "--------------\n";
-				$userMessage .= "".$xoopsConfig['sitename']." "._MD_LEXIKON_WEBMASTER."\n";
-				$userMessage .= "".$xoopsConfig['adminmail']."";
+        } else {
+            //send received mail
+            //if (lx_getmoduleoption('mailtosender') && $usermail) {
+            if ( $xoopsModuleConfig['mailtosender'] == 1 && $usermail) {
+                $conf_subject = _MD_LEXIKON_THANKS3;
+                $userMessage = sprintf(_MD_LEXIKON_GOODDAY2, $username);
+                $userMessage .= "\n\n";
+                $userMessage .= sprintf(_MD_LEXIKON_THANKYOU3,$xoopsConfig['sitename']);
+                $userMessage .= "\n";
+                $userMessage .= sprintf(_MD_LEXIKON_SUBMISSIONSENT,$xoopsConfig['sitename']);
+                $userMessage .= "\n";
+                $userMessage .= "--------------\n";
+                $userMessage .= "".$xoopsConfig['sitename']." "._MD_LEXIKON_WEBMASTER."\n";
+                $userMessage .= "".$xoopsConfig['adminmail']."";
 
-				$xoopsMailer =& getMailer();
-				$xoopsMailer->useMail();
-				$xoopsMailer->multimailer->IsHTML(true);
-				$xoopsMailer->setToEmails($usermail);
-				$xoopsMailer->setFromEmail($xoopsConfig['adminmail']);
-				$xoopsMailer->setFromName($xoopsConfig['sitename']);
-				$xoopsMailer->setSubject($conf_subject);
-				$xoopsMailer->setBody($userMessage);
-				$xoopsMailer->send();
-				$messagesent = _MD_LEXIKON_RECEIVED."<br />"._MD_LEXIKON_THANKS1."";
-				$messagesent .= sprintf(_MD_LEXIKON_SENTCONFIRMMAIL,$usermail);
-			} else {
-				$messagesent = sprintf(_MD_LEXIKON_RECEIVED)."<br />"._MD_LEXIKON_THANKS1."";
-			}
-			redirect_header("index.php", 2, $messagesent );
-		   }
-		} else {
-			redirect_header( "submit.php", 2, _MD_LEXIKON_ERRORSAVINGDB );
-		}
-		exit();
-		break;
+                $xoopsMailer =& getMailer();
+                $xoopsMailer->useMail();
+                $xoopsMailer->multimailer->IsHTML(true);
+                $xoopsMailer->setToEmails($usermail);
+                $xoopsMailer->setFromEmail($xoopsConfig['adminmail']);
+                $xoopsMailer->setFromName($xoopsConfig['sitename']);
+                $xoopsMailer->setSubject($conf_subject);
+                $xoopsMailer->setBody($userMessage);
+                $xoopsMailer->send();
+                $messagesent = _MD_LEXIKON_RECEIVED."<br />"._MD_LEXIKON_THANKS1."";
+                $messagesent .= sprintf(_MD_LEXIKON_SENTCONFIRMMAIL,$usermail);
+            } else {
+                $messagesent = sprintf(_MD_LEXIKON_RECEIVED)."<br />"._MD_LEXIKON_THANKS1."";
+            }
+            redirect_header("index.php", 2, $messagesent );
+           }
+        } else {
+            redirect_header( "submit.php", 2, _MD_LEXIKON_ERRORSAVINGDB );
+        }
+        exit();
+        break;
 
 case 'form':
 default:
@@ -320,4 +320,3 @@ default:
     include XOOPS_ROOT_PATH . '/footer.php';
     break;
 }
-?>

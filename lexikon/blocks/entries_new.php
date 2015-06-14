@@ -27,7 +27,7 @@ function b_lxentries_new_show( $options ) {
     $allowed_cats = $gperm_handler->getItemIds("lexikon_view", $groups, $module_id);
     $catids = implode(',', $allowed_cats);
     $catperms = " AND categoryID IN ($catids) ";
-	
+    
     $words = $xoopsDB -> query( "SELECT entryID FROM " . $xoopsDB -> prefix( "lxentries" ) . " WHERE offline = '0' AND submit='0' AND request='0' AND block = '1' " );
     $totalwords = $xoopsDB -> getRowsNum( $words );
 
@@ -42,7 +42,6 @@ function b_lxentries_new_show( $options ) {
     $sql = "SELECT entryID, categoryID, term, datesub FROM " . $xoopsDB -> prefix( "lxentries" ) . " WHERE datesub < ".time()." AND datesub > 0 AND offline = '0' ".$catperms." ORDER BY " . $options[0] . " DESC";
     $result = $xoopsDB->query ($sql, $options[1], 0);
 
-
     if ( $totalwords > 0 ) // If there are definitions
     {
         while (list( $entryID, $categoryID, $term, $datesub ) = $xoopsDB->fetchRow($result)) {
@@ -56,43 +55,43 @@ function b_lxentries_new_show( $options ) {
             $block['newstuff'][] = $newentries;
         }
     }
+
     return $block;
 }
 
 function b_lxentries_new_edit( $options ) {
-	$form  = "<table width='100%' border='0'  class='bg2'>";
-	$form .= "<tr><th width='50%'>"._OPTIONS."</th><th width='50%'>"._MB_LEXIKON_SETTINGS."</th></tr>";
-	$form .= "<tr><td class='even'>"._MB_LEXIKON_ORDER."</td><td class='odd'>";
-	$form .= "&nbsp;<select name='options[0]'>";
-	$form .= "<option value='datesub' ".(($options[0]=='datesub')?" selected='selected'":"").">"._MB_LEXIKON_DATE."</option>\n";
-	$form .= "<option value='counter' ".(($options[0]=='counter')?" selected='selected'":"").">"._MB_LEXIKON_HITS."</option>\n";
-	$form .= "<option value='term' ".(($options[0]=='term')?" selected='selected'":"").">"._MB_LEXIKON_NAME."</option>\n";
-	$form .= "</select>\n<br /></td></tr>";
-	//---
+    $form  = "<table width='100%' border='0'  class='bg2'>";
+    $form .= "<tr><th width='50%'>"._OPTIONS."</th><th width='50%'>"._MB_LEXIKON_SETTINGS."</th></tr>";
+    $form .= "<tr><td class='even'>"._MB_LEXIKON_ORDER."</td><td class='odd'>";
+    $form .= "&nbsp;<select name='options[0]'>";
+    $form .= "<option value='datesub' ".(($options[0]=='datesub')?" selected='selected'":"").">"._MB_LEXIKON_DATE."</option>\n";
+    $form .= "<option value='counter' ".(($options[0]=='counter')?" selected='selected'":"").">"._MB_LEXIKON_HITS."</option>\n";
+    $form .= "<option value='term' ".(($options[0]=='term')?" selected='selected'":"").">"._MB_LEXIKON_NAME."</option>\n";
+    $form .= "</select>\n<br /></td></tr>";
+    //---
   $form .= "<tr><td class='even'>" . _MB_LEXIKON_DISP . "</td><td class='odd'><input type='text' name='options[]' value='" . $options[1] . "' />&nbsp;" . _MB_LEXIKON_TERMS . "<br /></td></tr>";
   //---
-	$form .= "<tr><td class='even'>"._MB_LEXIKON_MARQUEE."</td><td class='odd'>";
-	$form .= "<input type='radio' name='options[2]' value='1'".(($options[2]==1)?" checked='checked'":"")." />"._YES."&nbsp;";
-	$form .= "<input type='radio' name='options[2]' value='0'".(($options[2]==0)?" checked='checked'":"")." />"._NO."<br /></td></tr>";
+    $form .= "<tr><td class='even'>"._MB_LEXIKON_MARQUEE."</td><td class='odd'>";
+    $form .= "<input type='radio' name='options[2]' value='1'".(($options[2]==1)?" checked='checked'":"")." />"._YES."&nbsp;";
+    $form .= "<input type='radio' name='options[2]' value='0'".(($options[2]==0)?" checked='checked'":"")." />"._NO."<br /></td></tr>";
   //---
   $form .= "<tr><td class='even'>"._MB_LEXIKON_ALTERNATE."</td><td class='odd'>";
-	$form .= "<input type='radio' name='options[3]' value='1'".(($options[3]==1)?" checked='checked'":"")." />"._YES."&nbsp;";
-	$form .= "<input type='radio' name='options[3]' value='0'".(($options[3]==0)?" checked='checked'":"")." />"._NO."<br /></td></tr>";
+    $form .= "<input type='radio' name='options[3]' value='1'".(($options[3]==1)?" checked='checked'":"")." />"._YES."&nbsp;";
+    $form .= "<input type='radio' name='options[3]' value='0'".(($options[3]==0)?" checked='checked'":"")." />"._NO."<br /></td></tr>";
   $form .= "</td></tr>";
   //---
-	$form .= "<tr><td class='even'>"._MB_LEXIKON_SHOWDATE."</td><td class='odd'>";
-	$form .= "<input type='radio' name='options[4]' value='1'".(($options[4]==1)?" checked='checked'":"")." />"._YES."&nbsp;";
-	$form .= "<input type='radio' name='options[4]' value='0'".(($options[4]==0)?" checked='checked'":"")." />"._NO."<br /></td></tr>";
+    $form .= "<tr><td class='even'>"._MB_LEXIKON_SHOWDATE."</td><td class='odd'>";
+    $form .= "<input type='radio' name='options[4]' value='1'".(($options[4]==1)?" checked='checked'":"")." />"._YES."&nbsp;";
+    $form .= "<input type='radio' name='options[4]' value='0'".(($options[4]==0)?" checked='checked'":"")." />"._NO."<br /></td></tr>";
   //---
   $form .= "<tr><td class='even'>"._MB_LEXIKON_DIRECTION."</td><td class='odd'><select name='options[5]'>";
   $form .= "<option value='up' ".(($options[5]=='up')?" selected='selected'":"").">"._MB_LEXIKON_UP."</option>\n";
   $form .= "<option value='down' ".(($options[5]=='down')?" selected='selected'":"").">"._MB_LEXIKON_DOWN."</option>\n";
   $form .= "</select></td></tr>\n";
   //---
-	$form .= "<tr><td class='even'>"._MB_LEXIKON_BSPEED."</td><td class='odd'><input type='text' name='options[6]' size='16' maxlength=2 value='".$options[6]."' /></td></tr>";
+    $form .= "<tr><td class='even'>"._MB_LEXIKON_BSPEED."</td><td class='odd'><input type='text' name='options[6]' size='16' maxlength=2 value='".$options[6]."' /></td></tr>";
   $form .= "<tr><td class='even'>"._MB_LEXIKON_BACKGROUNDCOLOR."</td><td class='odd'><input type='text' name='options[7]' size='16'  value='".$options[7]."' /></td></tr>";
   $form .= "</table>";
-	//----
+    //----
   return $form;
 }
-?>

@@ -108,8 +108,7 @@ class lx_keyhighlighter {
         $this->preg_keywords = preg_replace ('/[^\w ]/si', '', $this->keywords);
         $buffer = preg_replace_callback ("/(\>(((?" . ">[^><]+)|(?R))*)\<)/is", array (&$this, 'replace'), $buffer);
         $buffer = xoops_substr ($buffer, 1, -1, $trimmarker = '');
+
         return $buffer;
     }
 }
-
-?>

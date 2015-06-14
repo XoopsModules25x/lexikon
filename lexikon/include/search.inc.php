@@ -18,35 +18,35 @@ function lx_search( $queryarray, $andor, $limit, $offset, $userid ) {
   include_once XOOPS_ROOT_PATH.'/modules/lexikon/include/common.inc.php';
   include_once XOOPS_ROOT_PATH."/modules/lexikon/include/functions.php";
   $highlight = lx_getmoduleoption('config_highlighter');
-	//if ( is_object($xoopsUser) ) {
-		$searchincomments = CONFIG_SEARCH_COMMENTS;
-	//	} else {
-	//		$searchincomments = false ;
-	//	}
-	$module_handler =& xoops_gethandler('module');
-	$module =& $module_handler->getByDirname('lexikon');
+    //if ( is_object($xoopsUser) ) {
+        $searchincomments = CONFIG_SEARCH_COMMENTS;
+    //	} else {
+    //		$searchincomments = false ;
+    //	}
+    $module_handler =& xoops_gethandler('module');
+    $module =& $module_handler->getByDirname('lexikon');
   $module_id = $module->getVar('mid');
-	// Permissions
+    // Permissions
     $gperm_handler =& xoops_gethandler('groupperm');
-	$groups = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
-	$allowed_cats = $gperm_handler->getItemIds("lexikon_view", $groups, $module_id);
-	$catids= implode(',', $allowed_cats);
-		    
-	$sql = "SELECT entryID, categoryID, term, definition, ref, uid, datesub FROM " . $xoopsDB -> prefix( "lxentries" ) . " WHERE submit = 0 AND offline = 0 ";
-	$sql .= " AND categoryID IN ($catids) ";
+    $groups = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
+    $allowed_cats = $gperm_handler->getItemIds("lexikon_view", $groups, $module_id);
+    $catids= implode(',', $allowed_cats);
+            
+    $sql = "SELECT entryID, categoryID, term, definition, ref, uid, datesub FROM " . $xoopsDB -> prefix( "lxentries" ) . " WHERE submit = 0 AND offline = 0 ";
+    $sql .= " AND categoryID IN ($catids) ";
 
     if ( $userid != 0 ) {
         $sql .= " AND uid=".$userid." ";
     }
-	if ($highlight) {
-		if ($queryarray == ''){
-			$keywords= '';
-			$hightlight_key = '';
-		} else {
-			$keywords=implode('+', $queryarray);
-			//$keywords='&keywords='.urlencode(trim(implode(' ',$queryarray)));
-			$hightlight_key = "&amp;keywords=" . $keywords;
-		}
+    if ($highlight) {
+        if ($queryarray == ''){
+            $keywords= '';
+            $hightlight_key = '';
+        } else {
+            $keywords=implode('+', $queryarray);
+            //$keywords='&keywords='.urlencode(trim(implode(' ',$queryarray)));
+            $hightlight_key = "&amp;keywords=" . $keywords;
+        }
     }
     // because count() returns 1 even if a supplied variable
     // is not an array, we must check if $querryarray is really an array
@@ -66,21 +66,21 @@ function lx_search( $queryarray, $andor, $limit, $offset, $userid ) {
     $i = 0;
 
     while ( $myrow = $xoopsDB -> fetchArray( $result ) ) {
-		$display = true;
-		if($module_id && $gperm_handler) {
-			if (!$gperm_handler->checkRight("lexikon_view", $myrow['categoryID'], $groups, $module_id)) {
-			//if (!$gperm_handler->checkRight("lexikon_view", $categoryID, $groups, $module_id)) {
-				$display = false;
-				}
-		}
-		if ($display) {
-			$ret[$i]['image'] = "images/lx.png";
-			$ret[$i]['link'] = "entry.php?entryID=" . $myrow['entryID'] . $hightlight_key;
-			$ret[$i]['title'] = $myrow['term'];
-			$ret[$i]['time'] = $myrow['datesub'];
-			$ret[$i]['uid'] = $myrow['uid'];
-			$i++;
-		}
+        $display = true;
+        if($module_id && $gperm_handler) {
+            if (!$gperm_handler->checkRight("lexikon_view", $myrow['categoryID'], $groups, $module_id)) {
+            //if (!$gperm_handler->checkRight("lexikon_view", $categoryID, $groups, $module_id)) {
+                $display = false;
+                }
+        }
+        if ($display) {
+            $ret[$i]['image'] = "images/lx.png";
+            $ret[$i]['link'] = "entry.php?entryID=" . $myrow['entryID'] . $hightlight_key;
+            $ret[$i]['title'] = $myrow['term'];
+            $ret[$i]['time'] = $myrow['datesub'];
+            $ret[$i]['uid'] = $myrow['uid'];
+            $i++;
+        }
     }
     //return $ret;
     //}
@@ -108,13 +108,13 @@ function lx_search( $queryarray, $andor, $limit, $offset, $userid ) {
         $result = $xoopsDB->query( $sql, $limit, $offset );
         while ($myrow = $xoopsDB->fetchArray($result)) {
             $display=true;
-			//permission
-			/*if($module_id && $gperm_handler) {
-				if (!$gperm_handler->checkRight("lexikon_view", $myrow['com_itemid'], $groups, $module_id)) {
-				//if (!$gperm_handler->checkRight("lexikon_view", $myrow['categoryID'], $groups, $xoopsModule -> getVar('mid'))) {
-					$display = false;
-				}
-			}*/
+            //permission
+            /*if($module_id && $gperm_handler) {
+                if (!$gperm_handler->checkRight("lexikon_view", $myrow['com_itemid'], $groups, $module_id)) {
+                //if (!$gperm_handler->checkRight("lexikon_view", $myrow['categoryID'], $groups, $xoopsModule -> getVar('mid'))) {
+                    $display = false;
+                }
+            }*/
             list( $entryID, $offline ) = $xoopsDB->fetchRow($xoopsDB->query("
                                          SELECT entryID, offline
                                          FROM ".$xoopsDB->prefix("lxentries")." WHERE entryID = ".$myrow['com_itemid'].""));
@@ -135,6 +135,6 @@ function lx_search( $queryarray, $andor, $limit, $offset, $userid ) {
             }
         }
     }
+
     return $ret;
 }
-?>

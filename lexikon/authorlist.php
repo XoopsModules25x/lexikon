@@ -120,4 +120,3 @@ if (isset($xoTheme) && is_object($xoTheme)) {
 }
 
 include_once XOOPS_ROOT_PATH.'/footer.php';
-?>

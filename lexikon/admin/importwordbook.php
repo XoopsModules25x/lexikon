@@ -81,13 +81,13 @@ function DefinitionImport($delete) {
     /****
      * delete all entries and categories without comments
      ****/
-    if ( $delete )	{
+    if ( $delete )    {
         // delete notifications
-		xoops_notification_deletebymodule($xoopsModule->getVar('mid'));
+        xoops_notification_deletebymodule($xoopsModule->getVar('mid'));
         //get all entries
         $resultE=$xoopsDB->query("SELECT entryID FROM ".$xoopsDB->prefix("lxentries")."");
         while ( list($entryID)=$xoopsDB->fetchRow($resultE) ) {
-			//delete comments for each entry
+            //delete comments for each entry
             xoops_comment_delete($xoopsModule->getVar('mid'), $entryID);
         }
         $resultC=$xoopsDB->query("SELECT categoryID FROM ".$xoopsDB->prefix("lxcategories")."");
@@ -282,7 +282,6 @@ function FormImport() {
 
 }
 
-
 $op = isset($_GET['op']) ? $_GET['op'] : (isset($_POST['op']) ? $_POST['op'] : '');
 
 switch ($op) {
@@ -295,4 +294,3 @@ default:
     FormImport();
     break;
 }
-?>

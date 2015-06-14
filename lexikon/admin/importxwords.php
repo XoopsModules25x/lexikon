@@ -27,7 +27,6 @@ include( "admin_header.php" );
 
 $op = '';
 
-
 /****
  * Available operations
  ****/
@@ -82,9 +81,9 @@ function DefinitionImport($delete) {
     /****
      * delete all entries and categories. Xwords has no comments.
      ****/
-    if ( $delete )	{
+    if ( $delete )    {
         // delete notifications
-		xoops_notification_deletebymodule($xoopsModule->getVar('mid'));
+        xoops_notification_deletebymodule($xoopsModule->getVar('mid'));
         //get all entries
         $result3=$xoopsDB->query("SELECT entryID FROM ".$xoopsDB->prefix("lxentries")."");
         //delete comments for each entry
@@ -278,4 +277,3 @@ default:
     FormImport();
     break;
 }
-?>

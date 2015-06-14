@@ -31,5 +31,3 @@ if ( is_object( $xoopsUser ) ) {
 
 $submit_button = new XoopsFormButton("", "submit", _MD_LEXIKON_SUBMIT, "submit");
 $rform->addElement($submit_button);
-
-?>

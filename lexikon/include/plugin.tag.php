@@ -23,7 +23,7 @@ if (!defined('XOOPS_ROOT_PATH')){ exit(); }
  * @var		array	$items	associative array of items: [modid][catid][itemid]
  *
  * @return	boolean
- * 
+ *
  */
 
 function lexikon_tag_iteminfo(&$items){
@@ -64,4 +64,3 @@ function lexikon_tag_iteminfo(&$items){
     }
 
 }
-?>

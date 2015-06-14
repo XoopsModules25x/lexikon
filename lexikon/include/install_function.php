@@ -29,30 +29,28 @@
 //error_reporting(E_ALL);
 
 function xoops_module_install_lexikon(&$xoopsModule) {
-	
-	$module_id = $xoopsModule->getVar('mid');
-	$gpermHandler =& xoops_gethandler('groupperm');
-	$configHandler =& xoops_gethandler('config');
-	
-	/**
-	 * Default public category permission mask
-	 */
-	
-	// Access right
-	$gpermHandler->addRight('lexikon_view', 1, XOOPS_GROUP_ADMIN, $module_id);
-	$gpermHandler->addRight('lexikon_view', 1, XOOPS_GROUP_USERS, $module_id);
-	$gpermHandler->addRight('lexikon_view', 1, XOOPS_GROUP_ANONYMOUS, $module_id);
-	
-	// Public submit
-	$gpermHandler->addRight('lexikon_submit', 1, XOOPS_GROUP_ADMIN, $module_id);
-	$gpermHandler->addRight('lexikon_submit', 1, XOOPS_GROUP_USERS, $module_id);
-	
-	// Public request
-	$gpermHandler->addRight('lexikon_request', 1, XOOPS_GROUP_ADMIN, $module_id);
-	$gpermHandler->addRight('lexikon_request', 1, XOOPS_GROUP_USERS, $module_id);
-	$gpermHandler->addRight('lexikon_request', 1, XOOPS_GROUP_ANONYMOUS, $module_id);
-	
-	return true;
+    
+    $module_id = $xoopsModule->getVar('mid');
+    $gpermHandler =& xoops_gethandler('groupperm');
+    $configHandler =& xoops_gethandler('config');
+    
+    /**
+     * Default public category permission mask
+     */
+    
+    // Access right
+    $gpermHandler->addRight('lexikon_view', 1, XOOPS_GROUP_ADMIN, $module_id);
+    $gpermHandler->addRight('lexikon_view', 1, XOOPS_GROUP_USERS, $module_id);
+    $gpermHandler->addRight('lexikon_view', 1, XOOPS_GROUP_ANONYMOUS, $module_id);
+    
+    // Public submit
+    $gpermHandler->addRight('lexikon_submit', 1, XOOPS_GROUP_ADMIN, $module_id);
+    $gpermHandler->addRight('lexikon_submit', 1, XOOPS_GROUP_USERS, $module_id);
+    
+    // Public request
+    $gpermHandler->addRight('lexikon_request', 1, XOOPS_GROUP_ADMIN, $module_id);
+    $gpermHandler->addRight('lexikon_request', 1, XOOPS_GROUP_USERS, $module_id);
+    $gpermHandler->addRight('lexikon_request', 1, XOOPS_GROUP_ANONYMOUS, $module_id);
+    
+    return true;
 }
-
-?>

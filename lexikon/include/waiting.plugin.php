@@ -26,4 +26,3 @@ function b_waiting_lexikon() {
 
     return $ret ;
 }
-?>

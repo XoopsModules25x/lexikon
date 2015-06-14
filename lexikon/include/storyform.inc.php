@@ -23,26 +23,26 @@ $sform = new XoopsThemeForm( _MD_LEXIKON_SUB_SMNAME, "storyform", xoops_getenv( 
 if ($xoopsModuleConfig['multicats'] == '1') {
     // perms adapted category select
     $groups = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
-	$gperm_handler =& xoops_gethandler('groupperm');
-	$allowed_cats =& $gperm_handler->getItemIds("lexikon_submit", $groups, $xoopsModule->getVar('mid'));
-	if (is_array($allowed_cats)) {
-		$mytree = new XoopsTree( $xoopsDB->prefix( "lxcategories" ), "categoryID" , "0" );
-		$categoryselect = new XoopsFormSelect(_MD_LEXIKON_ENTRYCATEGORY, 'categoryID', $allowed_cats);
-		$tbl = array();
-		$tbl = $mytree->getChildTreeArray(0,'name');
-		foreach($tbl as $oneline) {
-			if (in_array($oneline['categoryID'], $allowed_cats)) {
-				if ($oneline['prefix']=='.') {
-					$oneline['prefix']='';
-				}
-		
-				$oneline['prefix'] = str_replace('.','-',$oneline['prefix']);
-				//if (in_array($oneline['categoryID'], $allowed_cats)) {
-					$categoryselect->addOption($oneline['categoryID'], $oneline['prefix'].' '.$oneline['name']);
-					}
-				}
-		}
-	$sform->addElement( $categoryselect, true );
+    $gperm_handler =& xoops_gethandler('groupperm');
+    $allowed_cats =& $gperm_handler->getItemIds("lexikon_submit", $groups, $xoopsModule->getVar('mid'));
+    if (is_array($allowed_cats)) {
+        $mytree = new XoopsTree( $xoopsDB->prefix( "lxcategories" ), "categoryID" , "0" );
+        $categoryselect = new XoopsFormSelect(_MD_LEXIKON_ENTRYCATEGORY, 'categoryID', $allowed_cats);
+        $tbl = array();
+        $tbl = $mytree->getChildTreeArray(0,'name');
+        foreach($tbl as $oneline) {
+            if (in_array($oneline['categoryID'], $allowed_cats)) {
+                if ($oneline['prefix']=='.') {
+                    $oneline['prefix']='';
+                }
+        
+                $oneline['prefix'] = str_replace('.','-',$oneline['prefix']);
+                //if (in_array($oneline['categoryID'], $allowed_cats)) {
+                    $categoryselect->addOption($oneline['categoryID'], $oneline['prefix'].' '.$oneline['name']);
+                    }
+                }
+        }
+    $sform->addElement( $categoryselect, true );
 /*    ob_start();
     $sform -> addElement( new XoopsFormHidden( 'categoryID', $categoryID ) );
     $mytree -> makeMySelBox( "name", "name", $categoryID );
@@ -108,5 +108,3 @@ $button_tray -> addElement( new XoopsFormButton( '', 'post', _MD_LEXIKON_CREATE,
 $sform -> addElement( $button_tray );
 
 unset( $hidden );
-
-?>

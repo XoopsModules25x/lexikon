@@ -77,6 +77,6 @@ function b_lxentries_random_show() {
     }
 
     $block['content'] .= "<div style=\"text-align: right; font-size: x-small;\"><a href=\"".XOOPS_URL."/modules/" .$lexikon->dirname(). "/index.php\">"._MB_LEXIKON_SEEMORE."</a></div>";
+
     return $block;
 }
-?>

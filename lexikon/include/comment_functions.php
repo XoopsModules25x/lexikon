@@ -10,4 +10,3 @@ function lexikon_com_update($entry_ID, $total_num) {
 function lexikon_com_approve(&$comment) {
     // notification mail here
 }
-?>

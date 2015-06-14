@@ -13,5 +13,3 @@ include("../../mainfile.php");
 
 include_once XOOPS_ROOT_PATH."/modules/".$xoopsModule->dirname()."/include/functions.php";
 $myts = & MyTextSanitizer :: getInstance();
-
-?>
