@@ -8,9 +8,9 @@
 [![Latest Pre-Release](https://img.shields.io/github/tag/XoopsModules25x/lexikon.svg?style=flat)](https://github.com/XoopsModules25x/lexikon/tags/)
 [![Latest Version](https://img.shields.io/github/release/XoopsModules25x/lexikon.svg?style=flat)](https://github.com/XoopsModules25x/lexikon/releases/)
 
-Lexikon module for [XOOPS CMS](http://xoops.org) is a module to create a glossary ordered by categories, with users participation who - among permissions - are allowed to send definitions or request for new entries.
+Lexikon module for [XOOPS CMS](http://xoops.org) is a module to create a glossary ordered by category, with users participation who - based on permissions - are allowed to send definitions or request new entries.
 
-[![Tutorial Available](http://xoops.org/images/tutorial-available-blue.svg)](https://www.gitbook.com/book/xoops/lexikon-tutorial/) Tutorial: see [GitBook](https://www.gitbook.com/book/xoops/lexikon-tutorial/).
+[![Tutorial Available](http://xoops.org/images/tutorial-available-blue.svg)](https://xoops.gitbooks.io/lexikon-tutorial/) Tutorial: see [GitBook](https://xoops.gitbooks.io/lexikon-tutorial/).
 To contribute to the Tutorial, [fork it on GitHub](https://github.com/XoopsDocs/lexikon-tutorial)
 
 [![Translations on Transifex](http://xoops.org/images/translations-transifex-blue.svg)](https://www.transifex.com/xoops)
