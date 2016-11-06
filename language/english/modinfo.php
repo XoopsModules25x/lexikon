@@ -141,7 +141,7 @@ define("_MI_LEXIKON_METANUM_70","70");
 define("_MI_LEXIKON_METANUM_80","80");
 $cf++;
 define('_MI_LEXIKON_USESHOTS',"$cf. Use category images?");
-define("_MI_LEXIKON_USESHOTSDSC","If set to 'yes', will display the category image.<BR/> <em>The Uploadfolder is: modules/lexikon/images/uploads</em>");
+define("_MI_LEXIKON_USESHOTSDSC","If set to 'yes', will display the category image.<BR/> <em>The Uploadfolder is: uploads/lexikon/categories/images</em>");
 $cf++;
 define('_MI_LEXIKON_LOGOWIDTH',"$cf. Width of the category images in the menue:");
 
@@ -157,6 +157,15 @@ $cf++;
 
 define("_MI_LEXIKON_SYNDICATION","$cf. Enable Webmaster Content Syndication ?");
 define("_MI_LEXIKON_SYNDICATIONDSC","If you set this option to 'Yes', users will have access to content syndication.");
+
+// new configs in version 1.52
+$cf++;
+define("_MI_LEXIKON_IMGUPLOADWD","$cf. Max height/width for image upload");
+define("_MI_LEXIKON_IMGUPLOADWD_DESC","Define the maximum height/width in pixel for uploading an image");
+$cf++;
+define("_MI_LEXIKON_IMGUPLOADSIZE","$cf. Max size for image upload");
+define("_MI_LEXIKON_IMGUPLOADSIZE_DESC","Define the maximum size in bytes (10485760 = 1 MB) for uploading an image");
+// end new configs in 1.52
 
 // bookmarks
 define("_MI_LEXIKON_ADDTHIS1","Use Addthis Popup window");

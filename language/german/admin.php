@@ -159,7 +159,7 @@ define("_AM_LEXIKON_UPGR_ACCESS_ERROR","Error, to use the upgrade script, you mu
 //categories
 define("_AM_LEXIKON_SELECT","Ausw&auml;hlen...");
 define("_AM_LEXIKON_SHOTIMAGE","Kategorie-Bild");
-define("_AM_LEXIKON_SHOTIMAGEDSC",'<div style:\float:\'right\'; align=\'right\';\>Screenshot image must be a valid image file under modules/lexikon/images/uploads directory (ex. shot.gif). Leave it blank if there is no image file.</DIV>');
+define("_AM_LEXIKON_SHOTIMAGEDSC",'<div style:\float:\'right\'; align=\'right\';\>Screenshot image must be a valid image file under uploads/lexikon/categories/images directory (ex. shot.gif). Leave it blank if there is no image file.</DIV>');
 define("_AM_LEXIKON_LOGOUP","Bild Upload");
 define("_AM_LEXIKON_NONE","---Keines---");
 define("_AM_LEXIKON_CATIMGUPLOAD","Kategoriebild hochladen");
@@ -218,3 +218,6 @@ define("_AM_LEXIKON_TOTALENTRIES2","Veröffentlichte Einträge: <span style=' fo
 define("_AM_LEXIKON_TOTALCATS2","Verfügbare Kategorien: <span style=' font-weight: bold'> %s </span> ");
 define("_AM_LEXIKON_TOTALSUBM2","Eingesendete Einträge: <span style=' font-weight: bold'> %s </span> ");
 define("_AM_LEXIKON_TOTALREQ2","Angefragte Einträge: <span style='font-weight: bold'> %s </span> ");
+
+// 1.52
+define("_AM_LEXIKON_IMGUPLOAD_DESC","Maximale Bildbreite/-höhe in Pixel: %w<br>Maximale Dateigröße in Bytes (10485760 = 1 MB): %s");

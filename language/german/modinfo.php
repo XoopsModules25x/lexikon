@@ -108,7 +108,7 @@ define("_MI_LEXIKON_METANUM_70","70");
 define("_MI_LEXIKON_METANUM_80","80");
 $cf++;
 define("_MI_LEXIKON_USESHOTS","$cf. Thumbnails als Kategoriebilder:");
-define("_MI_LEXIKON_USESHOTSDSC","Unterst&uuml;tzte Dateitypen: JPG, GIF, PNG.<br />Thumbnails werden zur Darstellung der Kategoriebilder benutzt. Einstellung `Nein` bewirkt, dass keine Kategorienbilder dargestellt werden.<br /> <em>Das Uploadverzeichnis für Kategoriebilder ist modules/lexikon/images/uploads</em>");
+define("_MI_LEXIKON_USESHOTSDSC","Unterst&uuml;tzte Dateitypen: JPG, GIF, PNG.<br />Thumbnails werden zur Darstellung der Kategoriebilder benutzt. Einstellung `Nein` bewirkt, dass keine Kategorienbilder dargestellt werden.<br /> <em>Das Uploadverzeichnis für Kategoriebilder ist uploads/lexikon/categories/images</em>");
 $cf++;
 define("_MI_LEXIKON_LOGOWIDTH","$cf. Maximale Breite der Kategoriebilder im Menü:");
 define("_MI_LEXIKON_LOGOWIDTHDSC","default:20px");
@@ -121,6 +121,15 @@ define("_MI_LEXIKON_RSSDSC","Wenn diese Option gewählt wird, sind die Inhalte f
 $cf++;
 define("_MI_LEXIKON_SYNDICATION","$cf. Webmastercontent Syndikation verwenden?");
 define("_MI_LEXIKON_SYNDICATIONDSC","Wenn diese Option gewählt wird, haben Benutzer und Gäste Zugang zum WebmasterContent.");
+// new configs in version 1.52
+$cf++;
+define("_MI_LEXIKON_IMGUPLOADWD","$cf. Maximale Höhe/Breite Bildupload");
+define("_MI_LEXIKON_IMGUPLOADWD_DESC","Definieren Sie die maximale Höhe/Breite in Pixel, die ein Bild beim Hochladen haben darf");
+$cf++;
+define("_MI_LEXIKON_IMGUPLOADSIZE","$cf. Maximale Größe Bildupload");
+define("_MI_LEXIKON_IMGUPLOADSIZE_DESC","Definieren Sie die maximale Größe in Bytes (10485760 = 1 MB), die ein Bild beim Hochladen haben darf");
+// end new configs in 1.52
+
 // bookmarks
 define("_MI_LEXIKON_ADDTHIS1","Addthis Popup Fenster");
 define("_MI_LEXIKON_ADDTHIS2","Addthis dropdown Auswahlbox");

@@ -13,34 +13,35 @@
 
 if( ! defined( 'XOOPS_ROOT_PATH' ) ) die( 'XOOPS root path not defined' ) ;
 
-$modversion['name'] = _MI_LEXIKON_MD_NAME;
-$modversion['version'] = "1.51";
-$modversion['description'] = _MI_LEXIKON_MD_DESC;
-$modversion['author'] = "Yerres";
-$modversion['credits'] = "hsalazar, Mondarse, Catzwolf, and many more";
-$modversion['help']        = 'page=help';
-$modversion['license']     = 'GNU GPL 2.0 or later';
-$modversion['license_url'] = "www.gnu.org/licenses/gpl-2.0.html";
-$modversion['official'] = 0;
-$modversion['image'] = "images/lx_slogo.png";
-$modversion['dirname'] = "lexikon";
-$modversion['onInstall'] = 'include/install_function.php';
+$modversion['name']           = _MI_LEXIKON_MD_NAME;
+$modversion['version']        = "1.52";
+$modversion['description']    = _MI_LEXIKON_MD_DESC;
+$modversion['author']         = "Yerres";
+$modversion['credits']        = "hsalazar, Mondarse, Catzwolf, and many more";
+$modversion['help']           = 'page=help';
+$modversion['license']        = 'GNU GPL 2.0 or later';
+$modversion['license_url']    = "www.gnu.org/licenses/gpl-2.0.html";
+$modversion['official']       = 0;
+$modversion['image']          = "images/lx_slogo.png";
+$modversion['dirname']        = "lexikon";
+$modversion['onInstall']      = 'include/install_function.php';
+$modversion['onUpdate']       = 'include/update_function.php';
 
 $modversion['dirmoduleadmin'] = '/Frameworks/moduleclasses/moduleadmin';
 $modversion['icons16']        = '../../Frameworks/moduleclasses/icons/16';
 $modversion['icons32']        = '../../Frameworks/moduleclasses/icons/32';
 
-$modversion["license_file"] = XOOPS_URL."/modules/lexikon/gpl.txt";
-$modversion['license_url'] = "www.gnu.org/licenses/gpl-2.0.html";
+$modversion["license_file"]   = XOOPS_URL."/modules/lexikon/gpl.txt";
+$modversion['license_url']    = "www.gnu.org/licenses/gpl-2.0.html";
 $modversion['status_version'] = '1.5';
-$modversion["module_status"] = "beta";
-$modversion["release"] = "2012-05-10";
-$modversion['last_update'] = '2012/05/10';
+$modversion["module_status"]  = "beta";
+$modversion["release"]        = "2012-05-10";
+$modversion['last_update']    = '2012/05/10';
 
 $modversion['release_date']        = '2013/02/27';
 $modversion["module_website_url"]  = "www.xoops.org";
 $modversion["module_website_name"] = "XOOPS";
-$modversion["module_status"]       = "Beta 3";
+$modversion["module_status"]       = "Beta 1";
 $modversion['min_php']             = '5.2';
 $modversion['min_xoops']           = "2.5.6";
 $modversion['min_admin']           = '1.1';
@@ -49,14 +50,14 @@ $modversion['min_db']              = array(
     'mysqli' => '5.0.7'
 );
 
-$modversion["author_word"] = "-";
-$modversion["module_website_url"] = "http://www.xoops.org/";
+$modversion["author_word"]         = "-";
+$modversion["module_website_url"]  = "http://www.xoops.org/";
 $modversion["module_website_name"] = "XOOPS";
 
 // Admin things
-$modversion['hasAdmin'] = 1;
+$modversion['hasAdmin']   = 1;
 $modversion['adminindex'] = "admin/index.php";
-$modversion['adminmenu'] = "admin/menu.php";
+$modversion['adminmenu']  = "admin/menu.php";
 
 // Sql
 $modversion['sqlfile']['mysql'] = "sql/mysql.sql";
@@ -591,6 +592,23 @@ $modversion['config'][] = array(
     'valuetype'    => 'text',
     'default'        => 50);
 
+//Uploads : max width/height for image upload 
+$modversion['config'][] = array(
+    'name'            => 'imguploadwd',
+    'title'        => "_MI_LEXIKON_IMGUPLOADWD",
+    'description'    => "_MI_LEXIKON_IMGUPLOADWD_DESC",
+    'formtype'        => 'textbox',
+    'valuetype'    => 'text',
+    'default'        => 200);
+//Uploads : max size for image upload 
+$modversion['config'][] = array(
+    'name'            => 'imguploadsize',
+    'title'        => "_MI_LEXIKON_IMGUPLOADSIZE",
+    'description'    => "_MI_LEXIKON_IMGUPLOADSIZE_DESC",
+    'formtype'        => 'textbox',
+    'valuetype'    => 'text',
+    'default'        => 10485760); // 1 MB
+    
 //to activate RSS Syndication for users / guests
 $modversion['config'][] = array(
     'name'            => 'syndication',

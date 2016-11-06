@@ -63,7 +63,7 @@ h3.cat
 		   <{foreach item=catlinks from=$block0.categories}>
 			<td >
 			<{if $catlinks.image != "" && $show_screenshot == true}>
-				  <a href="<{$xoops_url}>/modules/<{$lang_moduledirname}>/category.php?categoryID=<{$catlinks.id}>" target="_parent"><img src="<{$xoops_url}>/modules/<{$lang_moduledirname}>/images/uploads/<{$catlinks.image}>" width="<{$logo_maximgwidth}>" align="left" class="floatLeft" alt="[<{$catlinks.name}>]&nbsp;[<{$catlinks.total}>]" /></A>
+				  <a href="<{$xoops_url}>/modules/<{$lang_moduledirname}>/category.php?categoryID=<{$catlinks.id}>" target="_parent"><img src="<{$xoops_url}>/uploads/<{$lang_moduledirname}>/categories/images/<{$catlinks.image}>" width="<{$logo_maximgwidth}>" align="left" class="floatLeft" alt="[<{$catlinks.name}>]&nbsp;[<{$catlinks.total}>]" /></A>
 			<{/if}>
 			<{if $catlinks.count > 0}>
 			   <{if $catlinks.total > 0}><a href="<{$xoops_url}>/modules/<{$lang_moduledirname}>/category.php?categoryID=<{$catlinks.id}>" title="[<{$catlinks.total}>]"><{/if}><{$catlinks.linktext}>
@@ -85,7 +85,7 @@ h3.cat
 			<{foreach item=catlinks from=$block0.categories}>
 			<{if $catlinks.image != "" && $show_screenshot == true}>
 			<a href="<{$xoops_url}>/modules/<{$lang_moduledirname}>/category.php?categoryID=<{$category.id}>" target="_parent">
-			<img src="<{$xoops_url}>/modules/<{$lang_moduledirname}>/images/uploads/<{$catlinks.image}>" width="<{$logo_maximgwidth}>" align="middle" alt="[<{$catlinks.total}>]" /></A>
+			<img src="<{$xoops_url}>/uploads/<{$lang_moduledirname}>/categories/images/<{$catlinks.image}>" width="<{$logo_maximgwidth}>" align="middle" alt="[<{$catlinks.total}>]" /></A>
 			<{/if}>
 			   <{if $catlinks.total > 0}><a href="<{$xoops_url}>/modules/<{$lang_moduledirname}>/category.php?categoryID=<{$catlinks.id}>" title="[<{$catlinks.total}>]"><{/if}><{$catlinks.linktext}>
 			   <{if $catlinks.total > 0}></a> <{/if}>[<{$catlinks.total}>] |
@@ -105,7 +105,7 @@ h3.cat
 	<h3 class="cat">
 	<{if $eachcat.image != "" && $show_screenshot == '1'}>
 	<a href="<{$xoops_url}>/modules/<{$lang_moduledirname}>/category.php?categoryID=<{$eachcat.id}>" target="_parent">
-	<img src="<{$xoops_url}>/modules/lexikon/images/uploads/<{$eachcat.image}>" width="<{$imgcatwd}>" align="bottom" vspace="2" hspace="2" border="0" alt="[<{$eachcat.name}>]" /></A>
+	<img src="<{$xoops_url}>/uploads/<{$lang_moduledirname}>/categories/images/<{$eachcat.image}>" width="<{$imgcatwd}>" align="bottom" vspace="2" hspace="2" border="0" alt="[<{$eachcat.name}>]" /></A>
 	<{/if}>
 	
 	<a href="<{$xoops_url}>/modules/<{$eachcat.dir}>/category.php?categoryID=<{$eachcat.id}>"><{$eachcat.name}></a></h3>
@@ -129,7 +129,7 @@ h3.cat
 	<h2 class="cat"><{$singlecat.name|spacify}></h2>
 	<div class="introcen">
 	<{if $singlecat.image != "" && $show_screenshot == '1'}>
-	<img src="<{$xoops_url}>/modules/lexikon/images/uploads/<{$singlecat.image}>" width="<{$imgcatwd}>" align="center"  vspace="2" hspace="2" border="0" alt="[<{$singlecat.name}>]" /><BR /><{/if}>
+	<img src="<{$xoops_url}>/uploads/<{$lang_moduledirname}>/categories/images/<{$singlecat.image}>" width="<{$imgcatwd}>" align="center"  vspace="2" hspace="2" border="0" alt="[<{$singlecat.name}>]" /><BR /><{/if}>
 	<{$singlecat.description}></div>
 
 	<div class="letters"><{$smarty.const._MD_LEXIKON_WEHAVE}> <{$singlecat.total}> <{$smarty.const._MD_LEXIKON_ENTRIESINCAT}>

@@ -83,10 +83,11 @@ function categoryDefault() {
                FROM " . $xoopsDB -> prefix( "lxcategories" ) . "
                ORDER BY weight";
         $resultC2 = $xoopsDB -> query( $sql, $xoopsModuleConfig['perpage'], $startcat );
-
+        
         echo "<th width='40'  align='center'><b>" . _AM_LEXIKON_ID . "</b></td>
         <th  align='center'><b>" . _AM_LEXIKON_WEIGHT . "</b></td>
-        <th width='30%'  align='center'><b>" . _AM_LEXIKON_CATNAME . "</b></td>
+        <th width='20%'  align='center'><b>" . _AM_LEXIKON_CATNAME . "</b></td>
+        <th width='10%'  align='center'><b>" . _AM_LEXIKON_SHOTIMAGE . "</b></td>
         <th width='10'  align='center'><b>" . _AM_LEXIKON_ENTRIES . "</b></td>
         <th width='*'  align='center'><b>" . _AM_LEXIKON_DESCRIP . "</b></td>
         <th width='60'  align='center'><b>" . _AM_LEXIKON_ACTION . "</b></td>
@@ -95,7 +96,7 @@ function categoryDefault() {
         $class   = "odd";
         if ( $numrows > 0 ) // That is, if there ARE columns in the system
         {
-            while ( list( $categoryID, $name, $description, $total, $weight ) = $xoopsDB -> fetchrow( $resultC2 ) )
+            while ( list( $categoryID, $name, $description, $total, $weight, $logourl ) = $xoopsDB -> fetchrow( $resultC2 ) )
                 //while ( list( $categoryID, $name, $description, $total, $weight, ) = $xoopsDB -> fetchrow( $resultC2 ) )
             {
                 $name = $myts -> htmlSpecialChars( $name );
@@ -111,6 +112,7 @@ function categoryDefault() {
                 <td  align='center'>" . $categoryID . "</td>
                 <td  width='10' align='center'>" . $weight . "</td>
                 <td  align='left'><a href='../category.php?categoryID=" . $categoryID . "'>" . $name . "</td>
+                <td  align='center'><img src=" . XOOPS_URL ."/uploads/lexikon/categories/images/" . $logourl . " width='30px' alt='" . $name . "'></td>
                 <td  align='left'>" . $total . "</td>
                 <td  align='left'>" . $description . "</td>
                 <td  align='center'> $modify $delete </td>
@@ -199,13 +201,18 @@ function categoryEdit( $categoryID = '' ) {
     //CategoryImage
     if ($xoopsModuleConfig['useshots'] == 1) {
         //CategoryImage :: Common querys from Article module by phppp
-       $image_option_tray = new XoopsFormElementTray("<b>"._AM_LEXIKON_CATIMGUPLOAD."</b>", "<br />");
+
+       $title = "<b>"._AM_LEXIKON_CATIMGUPLOAD."</b><br>"._AM_LEXIKON_IMGUPLOAD_DESC;
+       $title = str_replace("%w", $xoopsModuleConfig['imguploadwd'], $title);
+       $title = str_replace("%s", $xoopsModuleConfig['imguploadsize'], $title);
+        
+       $image_option_tray = new XoopsFormElementTray($title, "<br />");
        $image_option_tray->addElement(new XoopsFormFile("", "userfile",""));
        $sform->addElement($image_option_tray);
        unset($image_tray);
        unset($image_option_tray);
 
-       $path_catimg = "modules/".$xoopsModule->getVar('dirname')."/images/uploads";
+       $path_catimg = "uploads/".$xoopsModule->getVar('dirname')."/categories/images";
        $image_option_tray = new XoopsFormElementTray(_AM_LEXIKON_CATIMAGE."<br />"._AM_LEXIKON_CATIMG_DSC."<br />".$path_catimg, "<br />");
        //$image_option_tray = new XoopsFormElementTray(_AM_LEXIKON_CATIMAGE.'');
        $image_array = XoopsLists::getImgListAsArray(XOOPS_ROOT_PATH."/".$path_catimg."/");
@@ -320,12 +327,12 @@ function categorySave ($categoryID = '') {
     $groups = isset($_POST['groups']) ? $_POST['groups'] : array();
     // image upload
     $logourl = "";
-    $maxfilesize = 30000;
-    $maxfilewidth = 128;
-    $maxfileheight = 128;
+    $maxfilesize = $xoopsModuleConfig['imguploadsize'];
+    $maxfilewidth = $xoopsModuleConfig['imguploadwd'];
+    $maxfileheight = $xoopsModuleConfig['imguploadwd'];
       if (!empty($_FILES['userfile']['name'])) {
         $allowed_mimetypes = array('image/gif', 'image/jpeg', 'image/pjpeg', 'image/x-png', 'image/png');
-        $uploader = new XoopsMediaUploader(XOOPS_ROOT_PATH ."/modules/".$xoopsModule->getVar('dirname')."/images/uploads/", $allowed_mimetypes, $maxfilesize, $maxfilewidth, $maxfileheight);
+        $uploader = new XoopsMediaUploader(XOOPS_ROOT_PATH ."/uploads/".$xoopsModule->getVar('dirname')."/categories/images/", $allowed_mimetypes, $maxfilesize, $maxfilewidth, $maxfileheight);
         if ($uploader->fetchMedia($_POST['xoops_upload_file'][0])) {
           if (!$uploader->upload()) {
              echo $uploader->getErrors();

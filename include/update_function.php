@@ -24,34 +24,26 @@
 //  along with this program; if not, write to the Free Software              //
 //  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
 //  ------------------------------------------------------------------------ //
-//from extgallery
+//
 
 //error_reporting(E_ALL);
 
-function xoops_module_install_lexikon(&$xoopsModule) {
-    
-    $module_id = $xoopsModule->getVar('mid');
-    $gpermHandler = xoops_gethandler('groupperm');
-    $configHandler = xoops_gethandler('config');
-    
-    /**
-     * Default public category permission mask
-     */
-    
-    // Access right
-    $gpermHandler->addRight('lexikon_view', 1, XOOPS_GROUP_ADMIN, $module_id);
-    $gpermHandler->addRight('lexikon_view', 1, XOOPS_GROUP_USERS, $module_id);
-    $gpermHandler->addRight('lexikon_view', 1, XOOPS_GROUP_ANONYMOUS, $module_id);
-    
-    // Public submit
-    $gpermHandler->addRight('lexikon_submit', 1, XOOPS_GROUP_ADMIN, $module_id);
-    $gpermHandler->addRight('lexikon_submit', 1, XOOPS_GROUP_USERS, $module_id);
-    
-    // Public request
-    $gpermHandler->addRight('lexikon_request', 1, XOOPS_GROUP_ADMIN, $module_id);
-    $gpermHandler->addRight('lexikon_request', 1, XOOPS_GROUP_USERS, $module_id);
-    $gpermHandler->addRight('lexikon_request', 1, XOOPS_GROUP_ANONYMOUS, $module_id);
-    
+function xoops_module_update_lexikon(&$module, $prev_version = null)
+{
+    $ret = null;
+    if ($prev_version < 152) {
+        $ret = xoops_module_update_lexikon_v152($module);
+    }
+    $errors = $module->getErrors();
+    if (!empty($errors)) {
+        print_r($errors);
+    }
+
+    return $ret;
+}
+
+function xoops_module_update_lexikon_v152(&$xoopsModule) {
+       
     /**
      * Create default upload directories
      */
