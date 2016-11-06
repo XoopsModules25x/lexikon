@@ -10,7 +10,7 @@
 
 // -- General Stuff -- //
 include( "admin_header.php" );
-$myts =& MyTextSanitizer::getInstance();
+$myts = MyTextSanitizer::getInstance();
 xoops_cp_header();
 xoops_load('XoopsUserUtility');
 $indexAdmin = new ModuleAdmin();
@@ -33,7 +33,7 @@ function categoryDefault() {
     
     global $xoopsUser, $xoopsConfig, $xoopsDB, $xoopsModuleConfig, $xoopsModule, $entryID, $pathIcon16;
 
-    $myts =& MyTextSanitizer::getInstance();
+    $myts = MyTextSanitizer::getInstance();
 //    lx_adminMenu(1, _AM_LEXIKON_CATS);
     $result01 = $xoopsDB -> query( "SELECT COUNT(*)
                                    FROM " . $xoopsDB -> prefix( "lxcategories" ) . " " );
@@ -157,12 +157,12 @@ function categoryEdit( $categoryID = '' ) {
                                      WHERE categoryID = '$categoryID'" );
 
         list( $categoryID, $name, $description, $total, $weight, $logourl ) = $xoopsDB -> fetchrow( $result );
-        $myts =& MyTextSanitizer::getInstance();
+        $myts = MyTextSanitizer::getInstance();
         $name = $myts->htmlSpecialChars($name);
         //permissions
-        $member_handler = & xoops_gethandler('member');
-        $group_list = & $member_handler -> getGroupList();
-        $gperm_handler = & xoops_gethandler('groupperm');
+        $member_handler = xoops_gethandler('member');
+        $group_list = $member_handler -> getGroupList();
+        $gperm_handler = xoops_gethandler('groupperm');
 
         $groups = $gperm_handler -> getGroupIds("lexikon_view", $categoryID, $xoopsModule -> getVar('mid'));
         $groups = $groups;
@@ -174,13 +174,13 @@ function categoryEdit( $categoryID = '' ) {
             redirect_header( "index.php", 1, _AM_LEXIKON_NOCATTOEDIT );
             exit();
         }
-        //$myts =& MyTextSanitizer::getInstance();
+        //$myts = MyTextSanitizer::getInstance();
 //        lx_adminMenu(1, _AM_LEXIKON_CATS);
 
         echo "<h3 style=\"color: #2F5376; margin-top: 6px; \">" . _AM_LEXIKON_CATSHEADER . "</h3>";
         $sform = new XoopsThemeForm( _AM_LEXIKON_MODCAT . ": $name" , "op", xoops_getenv( 'PHP_SELF' ) );
     } else {
-        //$myts =& MyTextSanitizer::getInstance();
+        //$myts = MyTextSanitizer::getInstance();
 //        lx_adminMenu(1, _AM_LEXIKON_CATS);
          $groups = true;
         echo "<h3 style=\"color: #2F5376; margin-top: 6px; \">" . _AM_LEXIKON_CATSHEADER . "</h3>";
@@ -208,7 +208,7 @@ function categoryEdit( $categoryID = '' ) {
        $path_catimg = "modules/".$xoopsModule->getVar('dirname')."/images/uploads";
        $image_option_tray = new XoopsFormElementTray(_AM_LEXIKON_CATIMAGE."<br />"._AM_LEXIKON_CATIMG_DSC."<br />".$path_catimg, "<br />");
        //$image_option_tray = new XoopsFormElementTray(_AM_LEXIKON_CATIMAGE.'');
-       $image_array =& XoopsLists::getImgListAsArray(XOOPS_ROOT_PATH."/".$path_catimg."/");
+       $image_array = XoopsLists::getImgListAsArray(XOOPS_ROOT_PATH."/".$path_catimg."/");
        array_unshift($image_array, _NONE);
 
        $image_select = new XoopsFormSelect("", "logourl", $logourl);
@@ -341,13 +341,13 @@ function categorySave ($categoryID = '') {
     
     // Run the query and update the data
     if ( !$_POST['categoryID'] ) {
-        if ( $xoopsDB -> query( "INSERT INTO " . $xoopsDB -> prefix( "lxcategories" ) . " (categoryID, name, description, weight, logourl)
-								 VALUES ('', '$name', '$description', '$weight', '$logourl')" ) ) {
+        if ( $xoopsDB -> query( "INSERT INTO " . $xoopsDB -> prefix( "lxcategories" ) . " (name, description, weight, logourl)
+								 VALUES ('$name', '$description', '$weight', '$logourl')" ) ) {
             $newid = $xoopsDB->getInsertId();
             // Increment author's posts count (only if it's a new definition)
             if (is_object($xoopsUser) && empty($categoryID)) {
-                $member_handler = &xoops_gethandler('member');
-                $submitter =& $member_handler -> getUser($uid);
+                $member_handler = xoops_gethandler('member');
+                $submitter = $member_handler -> getUser($uid);
                 if (is_object($submitter) ) {
                     $submitter -> setVar('posts',$submitter -> getVar('posts') + 1);
                     $res=$member_handler -> insertUser($submitter, true);
@@ -360,7 +360,7 @@ function categorySave ($categoryID = '') {
                     $newid = $xoopsDB -> getInsertId();
                 }
                 global $xoopsModule;
-                $notification_handler =& xoops_gethandler('notification');
+                $notification_handler = xoops_gethandler('notification');
                 $tags = array();
                 $tags['ITEM_NAME'] = $name;
                 $tags['ITEM_URL'] = XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/category.php?categoryID=' . $newid;

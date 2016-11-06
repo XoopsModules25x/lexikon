@@ -35,7 +35,7 @@ case "default":
     default:
     xoops_cp_header();
     global $xoopsUser, $xoopsConfig, $xoopsDB, $xoopsModuleConfig, $xoopsModule;
-    $myts =& MyTextSanitizer::getInstance();
+    $myts = MyTextSanitizer::getInstance();
 //    lx_adminMenu(9, _AM_LEXIKON_IMPORT);
 }
 /****
@@ -56,7 +56,7 @@ function import2db($text) {
 
 function DefinitionImport($delete) {
     global $xoopsConfig, $xoopsDB, $xoopsModule;
-    $myts =& MyTextSanitizer::getInstance();
+    $myts = MyTextSanitizer::getInstance();
     $sqlquery = $xoopsDB->query("SELECT count(entryID) as count FROM ".$xoopsDB->prefix("xwords_ent"));
     list( $count ) = $xoopsDB->fetchRow( $sqlquery ) ;
     if ( $count < 1 ) {
@@ -156,8 +156,8 @@ function DefinitionImport($delete) {
             // update user posts count
             if ($ret1) {
                 if ($uid) {
-                    $member_handler = &xoops_gethandler('member');
-                    $submitter =& $member_handler -> getUser($uid);
+                    $member_handler = xoops_gethandler('member');
+                    $submitter = $member_handler -> getUser($uid);
                     if (is_object($submitter) ) {
                         $submitter -> setVar('posts',$submitter -> getVar('posts') + 1);
                         $res=$member_handler -> insertUser($submitter, true);

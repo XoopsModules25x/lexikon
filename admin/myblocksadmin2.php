@@ -35,11 +35,11 @@ foreach( $group_defs as $def ) {
 if( ! is_object( $xoopsModule ) ) redirect_header( XOOPS_URL.'/user.php' , 1 , _NOPERM ) ;
 
 // set target_module if specified by $_GET['dirname']
-$module_handler =& xoops_gethandler('module');
+$module_handler = xoops_gethandler('module');
 if( ! empty( $_GET['dirname'] ) ) {
-    $target_module =& $module_handler->getByDirname($_GET['dirname']);
+    $target_module = $module_handler->getByDirname($_GET['dirname']);
 }/* else if( ! empty( $_GET['mid'] ) ) {
-    $target_module =& $module_handler->get( intval( $_GET['mid'] ) );
+    $target_module = $module_handler->get( intval( $_GET['mid'] ) );
 }*/
 
 if( ! empty( $target_module ) && is_object( $target_module ) ) {
@@ -58,11 +58,11 @@ if( ! empty( $target_module ) && is_object( $target_module ) ) {
 }
 
 // check access right (needs system_admin of BLOCK)
-$sysperm_handler =& xoops_gethandler('groupperm');
+$sysperm_handler = xoops_gethandler('groupperm');
 if (!$sysperm_handler->checkRight('system_admin', XOOPS_SYSTEM_BLOCK, $xoopsUser->getGroups())) redirect_header( XOOPS_URL.'/user.php' , 1 , _NOPERM ) ;
 
 // get blocks owned by the module (Imported from xoopsblock.php then modified)
-$db =& XoopsDatabaseFactory::getDatabaseConnection();
+$db = XoopsDatabaseFactory::getDatabaseConnection();
 $sql = "SELECT bid,name,show_func,func_file,template FROM ".$db->prefix("newblocks")." WHERE mid='$target_mid'";
 $result = $db->query($sql);
 $block_arr = array();
@@ -80,7 +80,7 @@ function list_blockinstances()
 {
     global $query4redirect , $block_arr , $xoopsGTicket ;
 
-    $myts =& MyTextSanitizer::getInstance() ;
+    $myts = MyTextSanitizer::getInstance() ;
 
     // cachetime options
     $cachetimes = array('0' => _NOCACHE, '30' => sprintf(_SECONDS, 30), '60' => _MINUTE, '300' => sprintf(_MINUTES, 5), '1800' => sprintf(_MINUTES, 30), '3600' => _HOUR, '18000' => sprintf(_HOURS, 5), '86400' => _DAY, '259200' => sprintf(_DAYS, 3), '604800' => _WEEK, '2592000' => _MONTH);
@@ -102,8 +102,8 @@ function list_blockinstances()
     $crit = new Criteria("bid", "(".implode(",",array_keys($block_arr)).")", "IN");
     $criteria = new CriteriaCompo($crit);
     $criteria->setSort('visible DESC, side ASC, weight');
-    $instance_handler =& xoops_gethandler('blockinstance');
-    $instances =& $instance_handler->getObjects($criteria, true, true);
+    $instance_handler = xoops_gethandler('blockinstance');
+    $instances = $instance_handler->getObjects($criteria, true, true);
 
     //Get modules and pages for visible in
     $module_list[_AM_SYSTEMLEVEL]["0-2"] = _AM_ADMINBLOCK;
@@ -111,8 +111,8 @@ function list_blockinstances()
     $module_list[_AM_SYSTEMLEVEL]["0-0"] = _AM_ALLPAGES;
     $criteria = new CriteriaCompo(new Criteria('hasmain', 1));
     $criteria->add(new Criteria('isactive', 1));
-    $module_handler =& xoops_gethandler('module');
-    $module_main =& $module_handler->getObjects($criteria, true, true);
+    $module_handler = xoops_gethandler('module');
+    $module_main = $module_handler->getObjects($criteria, true, true);
     if (count($module_main) > 0) {
         foreach (array_keys($module_main) as $mid) {
             $module_list[$module_main[$mid]->getVar('name')][$mid."-0"] = _AM_ALLMODULEPAGES;

@@ -14,7 +14,7 @@ $xoopsOption['template_main'] = 'lx_profile.html';
 include_once XOOPS_ROOT_PATH.'/header.php';
 global $xoopsModule, $xoopsUser;
 include_once XOOPS_ROOT_PATH.'/modules/'.$xoopsModule->getVar('dirname').'/include/functions.php';
-$myts =& MyTextSanitizer::getInstance();
+$myts = MyTextSanitizer::getInstance();
 
 if (empty($xoopsUser) && !$xoopsModuleConfig['authorprofile']) {
     redirect_header(XOOPS_URL."/user.php", 3, _MD_LEXIKON_MUSTREGFIRST);
@@ -33,10 +33,10 @@ if (!$data ) {
     exit();
 }
 //permissions
-$gperm_handler =& xoops_gethandler('groupperm');
+$gperm_handler = xoops_gethandler('groupperm');
 $groups = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
-$module_handler =& xoops_gethandler('module');
-$module =& $module_handler->getByDirname('lexikon');
+$module_handler = xoops_gethandler('module');
+$module = $module_handler->getByDirname('lexikon');
 $module_id = $module->getVar('mid');
 $allowed_cats = $gperm_handler->getItemIds("lexikon_view", $groups, $module_id);
 $catids = implode(',', $allowed_cats);

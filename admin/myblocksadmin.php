@@ -39,11 +39,11 @@ foreach( $group_defs as $def ) {
 if( ! is_object( $xoopsModule ) ) redirect_header( XOOPS_URL.'/user.php' , 1 , _NOPERM ) ;
 
 // set target_module if specified by $_GET['dirname']
-$module_handler =& xoops_gethandler('module');
+$module_handler = xoops_gethandler('module');
 if( ! empty( $_GET['dirname'] ) ) {
-    $target_module =& $module_handler->getByDirname($_GET['dirname']);
+    $target_module = $module_handler->getByDirname($_GET['dirname']);
 }/* else if( ! empty( $_GET['mid'] ) ) {
-    $target_module =& $module_handler->get( intval( $_GET['mid'] ) );
+    $target_module = $module_handler->get( intval( $_GET['mid'] ) );
 }*/
 
 if( ! empty( $target_module ) && is_object( $target_module ) ) {
@@ -62,12 +62,12 @@ if( ! empty( $target_module ) && is_object( $target_module ) ) {
 }
 
 // check access right (needs system_admin of BLOCK)
-$sysperm_handler =& xoops_gethandler('groupperm');
+$sysperm_handler = xoops_gethandler('groupperm');
 if (!$sysperm_handler->checkRight('system_admin', XOOPS_SYSTEM_BLOCK, $xoopsUser->getGroups())) redirect_header( XOOPS_URL.'/user.php' , 1 , _NOPERM ) ;
 
 // get blocks owned by the module (Imported from xoopsblock.php then modified)
-//$block_arr =& XoopsBlock::getByModule( $target_mid ) ;
-$db =& XoopsDatabaseFactory::getDatabaseConnection();
+//$block_arr = XoopsBlock::getByModule( $target_mid ) ;
+$db = XoopsDatabaseFactory::getDatabaseConnection();
 $sql = "SELECT * FROM ".$db->prefix("newblocks")." WHERE mid='$target_mid' ORDER BY visible DESC,side,weight";
 $result = $db->query($sql);
 $block_arr = array();
@@ -161,16 +161,16 @@ function list_blocks() {
         }
 
         // target modules
-        $db =& XoopsDatabaseFactory::getDatabaseConnection();
+        $db = XoopsDatabaseFactory::getDatabaseConnection();
         $result = $db->query( "SELECT module_id FROM ".$db->prefix('block_module_link')." WHERE block_id='$bid'" ) ;
         $selected_mids = array();
         while ( list( $selected_mid ) = $db->fetchRow( $result ) ) {
             $selected_mids[] = intval( $selected_mid ) ;
         }
-        $module_handler =& xoops_gethandler('module');
+        $module_handler = xoops_gethandler('module');
         $criteria = new CriteriaCompo(new Criteria('hasmain', 1));
         $criteria->add(new Criteria('isactive', 1));
-        $module_list =& $module_handler->getList($criteria);
+        $module_list = $module_handler->getList($criteria);
         $module_list[-1] = _AM_TOPPAGE;
         $module_list[0] = _AM_ALLPAGES;
         ksort($module_list);

@@ -16,15 +16,15 @@ include XOOPS_ROOT_PATH . "/class/xoopslists.php";
 include XOOPS_ROOT_PATH . "/class/xoopsformloader.php";
 
 $guesteditoruse = $xoopsModuleConfig['wysiwyg_guests'];
-$myts =& MyTextSanitizer::getInstance();
+$myts = MyTextSanitizer::getInstance();
 $mytree = new XoopsTree( $xoopsDB -> prefix( "lxcategories" ), "categoryID", "0" );
 $sform = new XoopsThemeForm( _MD_LEXIKON_SUB_SMNAME, "storyform", xoops_getenv( 'PHP_SELF' ) );
 
 if ($xoopsModuleConfig['multicats'] == '1') {
     // perms adapted category select
     $groups = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
-    $gperm_handler =& xoops_gethandler('groupperm');
-    $allowed_cats =& $gperm_handler->getItemIds("lexikon_submit", $groups, $xoopsModule->getVar('mid'));
+    $gperm_handler = xoops_gethandler('groupperm');
+    $allowed_cats = $gperm_handler->getItemIds("lexikon_submit", $groups, $xoopsModule->getVar('mid'));
     if (is_array($allowed_cats)) {
         $mytree = new XoopsTree( $xoopsDB->prefix( "lxcategories" ), "categoryID" , "0" );
         $categoryselect = new XoopsFormSelect(_MD_LEXIKON_ENTRYCATEGORY, 'categoryID', $allowed_cats);
@@ -51,7 +51,7 @@ if ($xoopsModuleConfig['multicats'] == '1') {
 */
 }
 // This part is common to edit/add
-$myts =& MyTextSanitizer::getInstance();
+$myts = MyTextSanitizer::getInstance();
 $term = $myts->htmlSpecialChars($term);
 $sform -> addElement( new XoopsFormText( _MD_LEXIKON_ENTRY, 'term', 50, 80, $term ), true );
 

@@ -30,7 +30,7 @@ include( "admin_header.php" );
 include_once XOOPS_ROOT_PATH.'/class/xoopstree.php';
 include_once XOOPS_ROOT_PATH."/class/xoopslists.php";
 include_once XOOPS_ROOT_PATH . '/class/xoopsform/grouppermform.php';
-$myts =& MyTextSanitizer::getInstance();
+$myts = MyTextSanitizer::getInstance();
 xoops_cp_header();
 //lx_adminmenu(4, _AM_LEXIKON_PERMFORM);
 $indexAdmin = new ModuleAdmin();

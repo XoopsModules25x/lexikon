@@ -10,12 +10,12 @@
 if( ! defined( 'XOOPS_ROOT_PATH' ) ) die( 'XOOPS root path not defined' ) ;
 
 function b_lx_author_show($options) {
-    $myts =& MyTextSanitizer::getInstance();
-    $module_handler = &xoops_gethandler('module');
-    $lexikon = &$module_handler->getByDirname('lexikon');
+    $myts = MyTextSanitizer::getInstance();
+    $module_handler = xoops_gethandler('module');
+    $lexikon = $module_handler->getByDirname('lexikon');
     if (!isset($lxConfig)) {
-        $config_handler = &xoops_gethandler('config');
-        $lxConfig = &$config_handler->getConfigsByCat(0, $lexikon->getVar('mid'));
+        $config_handler = xoops_gethandler('config');
+        $lxConfig = $config_handler->getConfigsByCat(0, $lexikon->getVar('mid'));
     }
     include_once XOOPS_ROOT_PATH.'/modules/lexikon/include/functions.php';
     

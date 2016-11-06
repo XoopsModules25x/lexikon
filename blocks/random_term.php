@@ -12,17 +12,17 @@ if( ! defined( 'XOOPS_ROOT_PATH' ) ) die( 'XOOPS root path not defined' ) ;
 
 function b_lxentries_random_show() {
     global $xoopsDB, $xoopsUser, $xoopsConfig, $xoopsModule;
-    $myts =& MyTextSanitizer::getInstance();
+    $myts = MyTextSanitizer::getInstance();
 
-    $module_handler = &xoops_gethandler('module');
-    $lexikon = &$module_handler->getByDirname('lexikon');
+    $module_handler = xoops_gethandler('module');
+    $lexikon = $module_handler->getByDirname('lexikon');
 
     if (!isset($lxConfig)) {
-        $config_handler = &xoops_gethandler('config');
-        $lxConfig = &$config_handler->getConfigsByCat(0, $lexikon->getVar('mid'));
+        $config_handler = xoops_gethandler('config');
+        $lxConfig = $config_handler->getConfigsByCat(0, $lexikon->getVar('mid'));
     }
     $groups = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
-    $gperm_handler =& xoops_gethandler('groupperm');
+    $gperm_handler = xoops_gethandler('groupperm');
     $module_id = $lexikon->getVar('mid');
     $allowed_cats = $gperm_handler->getItemIds("lexikon_view", $groups, $module_id);
     $catids = implode(',', $allowed_cats);

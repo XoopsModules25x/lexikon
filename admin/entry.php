@@ -10,7 +10,7 @@
  */
 
 include( "admin_header.php" );
-$myts =& MyTextSanitizer::getInstance();
+$myts = MyTextSanitizer::getInstance();
 xoops_cp_header();
 $indexAdmin = new ModuleAdmin();
 echo $indexAdmin->addNavigation('entry.php');
@@ -35,7 +35,7 @@ function entryDefault() {
     $startsub = isset( $_GET['startsub'] ) ? intval( $_GET['startsub'] ) : 0;
     $datesub = isset( $_GET['datesub'] ) ? intval( $_GET['datesub'] ) : 0;
 
-    $myts =& MyTextSanitizer::getInstance();
+    $myts = MyTextSanitizer::getInstance();
 
     $result01 = $xoopsDB -> query( "SELECT COUNT(*)
                                    FROM " . $xoopsDB -> prefix( "lxcategories" ) . " " );
@@ -154,7 +154,7 @@ function entryDefault() {
 // -- Edit function --
 function entryEdit( $entryID = '' ) {
   global $xoopsUser, $xoopsConfig, $xoopsDB, $xoopsModuleConfig, $xoopsModule, $init;
-  $myts =& MyTextSanitizer::getInstance();
+  $myts = MyTextSanitizer::getInstance();
   /**
    * Clear all variables before we start
    */
@@ -332,7 +332,7 @@ function entryEdit( $entryID = '' ) {
 /* Save */
 function entrySave ($entryID = '') {
     Global $xoopsUser, $xoopsConfig, $xoopsModuleConfig, $xoopsModule, $xoopsDB;
-    $myts =& MyTextSanitizer::getInstance();
+    $myts = MyTextSanitizer::getInstance();
     $entryID = isset($_POST['entryID']) ? intval($_POST['entryID']) : intval($_GET['entryID']);
     if ($xoopsModuleConfig['multicats'] == 1) {
         $categoryID = isset($_POST['categoryID']) ? intval($_POST['categoryID']) : intval($_GET['categoryID']);
@@ -372,12 +372,12 @@ function entrySave ($entryID = '') {
     if ( !$entryID ) {
         // verify that the term does not exists
         if (lx_TermExists($term,$xoopsDB->prefix('lxentries')))  redirect_header("javascript:history.go(-1)", 2,  _AM_LEXIKON_ITEMEXISTS . "<br />" . $term );
-        if ( $xoopsDB -> query( "INSERT INTO " . $xoopsDB -> prefix( "lxentries" ) . " (entryID, categoryID, term, init, definition, ref, url, uid, submit, datesub, html, smiley, xcodes, breaks, block, offline, notifypub, request ) VALUES ('', '$categoryID', '$term', '$init', '$definition', '$ref', '$url', '$uid', '$submit', '$date', '$html', '$smiley', '$xcodes', '$breaks', '$block', '$offline', '$notifypub', '$request' )" ) ) {
+        if ( $xoopsDB -> query( "INSERT INTO " . $xoopsDB -> prefix( "lxentries" ) . " (categoryID, term, init, definition, ref, url, uid, submit, datesub, html, smiley, xcodes, breaks, block, offline, notifypub, request ) VALUES ('$categoryID', '$term', '$init', '$definition', '$ref', '$url', '$uid', '$submit', '$date', '$html', '$smiley', '$xcodes', '$breaks', '$block', '$offline', '$notifypub', '$request' )" ) ) {
               $newid = $xoopsDB->getInsertId();
             // Increment author's posts count (only if it's a new definition)
             if (is_object($xoopsUser) && empty($entryID)) {
-                $member_handler = &xoops_gethandler('member');
-                $submitter =& $member_handler -> getUser($uid);
+                $member_handler = xoops_gethandler('member');
+                $submitter = $member_handler -> getUser($uid);
                 if (is_object($submitter) ) {
                     $submitter -> setVar('posts',$submitter -> getVar('posts') + 1);
                     $res=$member_handler -> insertUser($submitter, true);
@@ -390,7 +390,7 @@ function entrySave ($entryID = '') {
                 if ($newid == 0) {
                     $newid = $xoopsDB->getInsertId();
                 }
-                $notification_handler =& xoops_gethandler('notification');
+                $notification_handler = xoops_gethandler('notification');
                 $tags = array();
                 $shortdefinition = $myts -> htmlSpecialChars(xoops_substr( strip_tags( $definition ),0,45));
                 $tags['ITEM_NAME'] = $term;
@@ -416,7 +416,7 @@ function entrySave ($entryID = '') {
             // trigger Notification only if its a new submission
             if(!empty($xoopsModuleConfig['notification_enabled']) ){
                 global $xoopsModule;
-                $notification_handler =& xoops_gethandler('notification');
+                $notification_handler = xoops_gethandler('notification');
                 $tags = array();
                 $shortdefinition = $myts -> htmlSpecialChars(xoops_substr( strip_tags( $definition ),0,45));
                 $tags['ITEM_NAME'] = $term;
@@ -451,7 +451,7 @@ function entrySave ($entryID = '') {
                 $userMessage .= "__________________\n";
                 $userMessage .= "".$xoopsConfig['sitename']." "._MD_LEXIKON_WEBMASTER."\n";
                 $userMessage .= "".$xoopsConfig['adminmail']."";
-                $xoopsMailer =& getMailer();
+                $xoopsMailer = getMailer();
                 $xoopsMailer->useMail();
                 $xoopsMailer->setToEmails($user->getVar('email'));
                 $xoopsMailer->setFromEmail($xoopsConfig['adminmail']);
@@ -490,7 +490,7 @@ function entryDelete($entryID = '') {
         // update user posts
         if (!empty($uid)) {
             $submitter = new xoopsUser($uid);
-            $member_handler =& xoops_gethandler('member');
+            $member_handler = xoops_gethandler('member');
             $member_handler->updateUserByField($submitter, 'posts', $submitter->getVar('posts') - 1);
         }
         redirect_header("entry.php",1,sprintf( _AM_LEXIKON_ENTRYISDELETED, $term ) );

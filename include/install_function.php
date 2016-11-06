@@ -31,8 +31,8 @@
 function xoops_module_install_lexikon(&$xoopsModule) {
     
     $module_id = $xoopsModule->getVar('mid');
-    $gpermHandler =& xoops_gethandler('groupperm');
-    $configHandler =& xoops_gethandler('config');
+    $gpermHandler = xoops_gethandler('groupperm');
+    $configHandler = xoops_gethandler('config');
     
     /**
      * Default public category permission mask

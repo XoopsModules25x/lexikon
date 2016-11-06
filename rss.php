@@ -23,14 +23,14 @@ $tpl = new XoopsTpl();
 $tpl->caching = 0;
 $tpl->cache_lifetime = 3600;
 
-$db =&XoopsDatabaseFactory::getDatabaseConnection();
-$myts =&MyTextSanitizer::getInstance();
+$db = XoopsDatabaseFactory::getDatabaseConnection();
+$myts = MyTextSanitizer::getInstance();
 $category_rss = isset($_GET['categoryID']) ? $_GET['categoryID'] : 0;
 //permissions
-$gperm_handler =& xoops_gethandler('groupperm');
+$gperm_handler = xoops_gethandler('groupperm');
 $groups = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
-$module_handler =& xoops_gethandler('module');
-$module =& $module_handler->getByDirname('lexikon');
+$module_handler = xoops_gethandler('module');
+$module = $module_handler->getByDirname('lexikon');
 $module_id = $module->getVar('mid');
 $allowed_cats = $gperm_handler->getItemIds("lexikon_view", $groups, $module_id);
 $catids = implode(',', $allowed_cats);

@@ -14,7 +14,7 @@
     include XOOPS_ROOT_PATH."/header.php";
     
     global $xoTheme, $xoopsDB, $xoopsModule, $xoopsModuleConfig, $searchtype;
-    $myts =& MyTextSanitizer::getInstance();
+    $myts = MyTextSanitizer::getInstance();
     // -- options
     include_once XOOPS_ROOT_PATH.'/modules/lexikon/include/common.inc.php';
     $highlight = false;
@@ -25,15 +25,15 @@
     include_once XOOPS_ROOT_PATH . '/class/pagenav.php';
     
     // Check if search is enabled site-wide
-    $config_handler =& xoops_gethandler('config');
-    $xoopsConfigSearch =& $config_handler->getConfigsByCat(XOOPS_CONF_SEARCH);
+    $config_handler = xoops_gethandler('config');
+    $xoopsConfigSearch = $config_handler->getConfigsByCat(XOOPS_CONF_SEARCH);
     if ($xoopsConfigSearch['enable_search'] != 1) {
         header('location: '.XOOPS_URL.'/modules/' .$xoopsModule->dirname(). '/index.php');
         exit();
     }
 
     // permissions
-    $gperm_handler =& xoops_gethandler('groupperm');
+    $gperm_handler = xoops_gethandler('groupperm');
     $groups = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
     $module_id = $xoopsModule->getVar('mid');
     $allowed_cats = $gperm_handler->getItemIds("lexikon_view", $groups, $module_id);

@@ -40,7 +40,7 @@ $modversion['last_update'] = '2012/05/10';
 $modversion['release_date']        = '2013/02/27';
 $modversion["module_website_url"]  = "www.xoops.org";
 $modversion["module_website_name"] = "XOOPS";
-$modversion["module_status"]       = "Beta 2";
+$modversion["module_status"]       = "Beta 3";
 $modversion['min_php']             = '5.2';
 $modversion['min_xoops']           = "2.5.6";
 $modversion['min_admin']           = '1.1';
@@ -78,12 +78,12 @@ $modversion['system_menu'] = 1;
 $modversion["use_smarty"] = 1;
 
 global $xoopsUser, $xoopsDB,  $xoopsModuleConfig;
-$module_handler = &xoops_gethandler('module');
-$lexikon =& $module_handler->getByDirname($modversion['dirname']);
+$module_handler = xoops_gethandler('module');
+$lexikon = $module_handler->getByDirname($modversion['dirname']);
 if ($lexikon) {
     if (!isset($lxConfig)) {
-            $config_handler = &xoops_gethandler('config');
-            $lxConfig = &$config_handler->getConfigsByCat(0, $lexikon->getVar('mid'));
+            $config_handler = xoops_gethandler('config');
+            $lxConfig = $config_handler->getConfigsByCat(0, $lexikon->getVar('mid'));
     }
 }
 $i = 0;
@@ -111,7 +111,7 @@ if (isset($lxConfig['contentsyndication']) && $lxConfig["contentsyndication"] ==
 }
 if ($lexikon) {
     $groups = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
-    $gperm_handler =& xoops_gethandler('groupperm');
+    $gperm_handler = xoops_gethandler('groupperm');
     if ($gperm_handler->checkRight("lexikon_submit", 0, $groups, $lexikon->getVar('mid'))) {
         $modversion['sub'][$i]['name'] = _MI_LEXIKON_SUB_SMNAME1;
         $modversion['sub'][$i]['url'] = "submit.php";
@@ -119,7 +119,7 @@ if ($lexikon) {
     }
     
     $groups = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
-    $gperm_handler =& xoops_gethandler('groupperm');
+    $gperm_handler = xoops_gethandler('groupperm');
     if ($gperm_handler->checkRight("lexikon_request", 0, $groups, $lexikon->getVar('mid'))) {
         $modversion['sub'][$i]['name'] = constant("_MI_LEXIKON_SUB_SMNAME2");
         $modversion['sub'][$i]['url'] = "request.php";
@@ -132,7 +132,7 @@ $i++;
 //if ( isset($xoopsModuleConfig['catsinmenu']) && $xoopsModuleConfig['catsinmenu'] == 1 && $xoopsModuleConfig['multicats']) {
 #if (isset($xoopsModuleConfig['catsinmenu']) && $xoopsModuleConfig['catsinmenu'] == 1 && isset($xoopsModuleConfig['multicats']) && $xoopsModuleConfig["multicats"] == 1) {
 if (isset($lxConfig['catsinmenu']) && $lxConfig['catsinmenu'] == 1 && isset($lxConfig['multicats']) && $lxConfig["multicats"] == 1) {
-    $myts = & MyTextSanitizer ::getInstance();
+    $myts = MyTextSanitizer ::getInstance();
     $sql = $xoopsDB->query( "SELECT categoryID, name FROM " . $xoopsDB->prefix( "lxcategories" ) . " ORDER BY weight ASC" );
     while ( list( $categoryID, $name ) = $xoopsDB->fetchRow( $sql ) ) {
         if ($gperm_handler->checkRight('lexikon_view', $categoryID, $groups, $lexikon->getVar('mid'))) {

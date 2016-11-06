@@ -16,7 +16,7 @@ global $xoopsUser, $xoTheme, $xoopsTpl, $authortermstotal, $xoopsModule;
 include_once XOOPS_ROOT_PATH.'/modules/'.$xoopsModule->dirname().'/include/functions.php';
 include_once XOOPS_ROOT_PATH.'/modules/lexikon/include/common.inc.php';
 $authorlistext = false;
-$myts =& MyTextSanitizer::getInstance();
+$myts = MyTextSanitizer::getInstance();
 
 if (empty($xoopsUser) && !$xoopsModuleConfig['authorprofile']) {
     redirect_header(XOOPS_URL."/user.php", 3, _MD_LEXIKON_MUSTREGFIRST);
@@ -28,10 +28,10 @@ if ( $xoopsDB -> getRowsNum( $result ) == '0' && $xoopsModuleConfig['multicats']
     exit();
 }
 //permissions
-$gperm_handler =& xoops_gethandler('groupperm');
+$gperm_handler = xoops_gethandler('groupperm');
 $groups = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
-$module_handler =& xoops_gethandler('module');
-$module =& $module_handler->getByDirname('lexikon');
+$module_handler = xoops_gethandler('module');
+$module = $module_handler->getByDirname('lexikon');
 $module_id = $module->getVar('mid');
 $allowed_cats = $gperm_handler->getItemIds("lexikon_view", $groups, $module_id);
 $catids = implode(',', $allowed_cats);
@@ -43,7 +43,7 @@ $uid_ids = array();
 $uid_ids = lx_getAuthors();
 if (count($uid_ids) > 0) {
     $lst_uid = implode(',', $uid_ids);
-    $member_handler =& xoops_gethandler('member');
+    $member_handler = xoops_gethandler('member');
     $criteria = new Criteria('uid', '('.$lst_uid.')', 'IN');
     $tbl_users = $member_handler->getUsers($criteria);
     $iu = 0;

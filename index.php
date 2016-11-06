@@ -14,7 +14,7 @@ $xoopsOption['template_main'] = 'lx_index.html';
 include_once( XOOPS_ROOT_PATH . "/header.php" );
 include_once XOOPS_ROOT_PATH.'/modules/lexikon/include/common.inc.php';
 global $xoTheme, $xoopsUser;
-$myts =& MyTextSanitizer::getInstance();
+$myts = MyTextSanitizer::getInstance();
 
 // Disable cache since content differs for each user
 //$xoopsConfig["module_cache"][$xoopsModule->getVar("mid")] = 0;
@@ -24,7 +24,7 @@ $xoopsTpl->assign('multicats', intval($xoopsModuleConfig['multicats']));
 $rndlength = !empty($xoopsModuleConfig['rndlength']) ? intval($xoopsModuleConfig['rndlength']) : 150 ;
 
 //permissions
-$gperm_handler =& xoops_gethandler('groupperm');
+$gperm_handler = xoops_gethandler('groupperm');
 $groups = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
 $module_id= $xoopsModule->getVar('mid');
 $perm_itemid = isset($categoryID) ? intval($categoryID) :  0;
