@@ -166,7 +166,7 @@ define('_AM_LEXIKON_UPGR_ACCESS_ERROR',"Error, to use the upgrade script, you mu
 //categories
 define('_AM_LEXIKON_SELECT','Select...');
 define("_AM_LEXIKON_SHOTIMAGE","Category Image");
-define("_AM_LEXIKON_SHOTIMAGEDSC","<div style:\float:'right'; align='right'\>Screenshot image must be a valid image file under modules/lexikon/images/uploads directory (ex. shot.gif). Leave it blank if there is no image file.</DIV>");
+define("_AM_LEXIKON_SHOTIMAGEDSC","<div style:\float:'right'; align='right'\>Screenshot image must be a valid image file under uploads/lexikon/categories/images directory (ex. shot.gif). Leave it blank if there is no image file.</DIV>");
 define("_AM_LEXIKON_LOGOUP","Upload Image");
 define("_AM_LEXIKON_NONE","---NONE---");
 define("_AM_LEXIKON_CATIMGUPLOAD","Upload a category Image");
@@ -230,3 +230,6 @@ define("_AM_LEXIKON_TOTALENTRIES2","Published entries: <span style=' font-weight
 define("_AM_LEXIKON_TOTALCATS2","Categories available: <span style=' font-weight: bold'> %s </span> ");
 define("_AM_LEXIKON_TOTALSUBM2","Submitted entries: <span style=' font-weight: bold'> %s </span> ");
 define("_AM_LEXIKON_TOTALREQ2","Requested entries: <span style='font-weight: bold'> %s </span> ");
+
+// 1.52
+define("_AM_LEXIKON_IMGUPLOAD_DESC","Max image width/height in pixel: %w<br>Max file size in bytes (10485760 = 1 MB): %s");

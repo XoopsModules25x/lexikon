@@ -17,7 +17,7 @@ $tpl = new XoopsTpl();
 $tpl ->xoops_setCaching(0);
 
 Global  $xoopsUser, $xoopsDB, $xoopsConfig, $xoopsModuleConfig;
-$myts = & MyTextSanitizer :: getInstance();
+$myts = MyTextSanitizer :: getInstance();
 
 //if ( !is_object( $xoopsUser ) && $xoopsModuleConfig['contentsyndication'] == 0 ) {
 if ( $xoopsModuleConfig['contentsyndication'] == 0 ) {
@@ -26,7 +26,7 @@ if ( $xoopsModuleConfig['contentsyndication'] == 0 ) {
 }
 //permissions
 $groups = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
-$gperm_handler =& xoops_gethandler('groupperm');
+$gperm_handler = xoops_gethandler('groupperm');
 $module_id = $xoopsModule->getVar('mid');
 
 $tpl->assign('multicats', intval($xoopsModuleConfig['multicats']));

@@ -12,7 +12,7 @@ include( "header.php" );
 $xoopsOption['template_main'] = 'lx_content.html';
 include XOOPS_ROOT_PATH."/header.php";
 global $xoTheme, $xoopsUser, $xoopsModuleConfig;
-$myts =& MyTextSanitizer::getInstance();
+$myts = MyTextSanitizer::getInstance();
 if ( !is_object( $xoopsUser ) && $xoopsModuleConfig['contentsyndication'] == 0 ) {
     redirect_header(XOOPS_URL."/user.php?xoops_redirect=".parse_url($_SERVER['PHP_SELF']), 5, _NOPERM);
     exit();

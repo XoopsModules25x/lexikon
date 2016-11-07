@@ -12,18 +12,18 @@ if( ! defined( 'XOOPS_ROOT_PATH' ) ) die( 'XOOPS root path not defined' ) ;
 
 function b_scrolling_term_show( $options ) {
     global $xoopsDB, $xoopsUser;
-    $myts = & MyTextSanitizer :: getInstance();
+    $myts = MyTextSanitizer :: getInstance();
 
-    $module_handler = &xoops_gethandler('module');
-    $lexikon = &$module_handler->getByDirname('lexikon');
+    $module_handler = xoops_gethandler('module');
+    $lexikon = $module_handler->getByDirname('lexikon');
     if (!isset($lxConfig)) {
-        $config_handler = &xoops_gethandler('config');
-        $lxConfig = &$config_handler->getConfigsByCat(0, $lexikon->getVar('mid'));
+        $config_handler = xoops_gethandler('config');
+        $lxConfig = $config_handler->getConfigsByCat(0, $lexikon->getVar('mid'));
     }
     include_once XOOPS_ROOT_PATH.'/modules/lexikon/include/functions.php';
     
     $groups = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
-    $gperm_handler =& xoops_gethandler('groupperm');
+    $gperm_handler = xoops_gethandler('groupperm');
     $module_id = $lexikon->getVar('mid');
     $allowed_cats = $gperm_handler->getItemIds("lexikon_view", $groups, $module_id);
         
@@ -78,7 +78,7 @@ function b_scrolling_term_show( $options ) {
 
 function b_scrolling_term_edit( $options ){
     global $xoopsDB;
-    $myts = & MyTextSanitizer :: getInstance();
+    $myts = MyTextSanitizer :: getInstance();
     $form  = "<table width='100%' border='0'  class='bg2'>";
     $form .= "<tr><th width='50%'>"._OPTIONS."</th><th width='50%'>"._MB_LEXIKON_SETTINGS."</th></tr>";
     $form .= "<tr><td class='even'>"._MB_LEXIKON_BLIMIT."</td><td class='odd'><input type='text' name='options[0]' size='16' maxlength=3 value='".$options[0]."' /></td></tr>";

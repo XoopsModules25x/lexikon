@@ -8,13 +8,13 @@ function lexikon_notify_iteminfo($category, $item_id){
     /*global $xoopsModule, $xoopsModuleConfig, $xoopsConfig;
 
     if (empty($xoopsModule) || $xoopsModule->getVar('dirname') != 'lexikon') {
-        $module_handler =& xoops_gethandler('module');
-        $module =& $module_handler->getByDirname('lexikon');
-        $config_handler =& xoops_gethandler('config');
-        $config =& $config_handler->getConfigsByCat(0,$module->getVar('mid'));
+        $module_handler = xoops_gethandler('module');
+        $module = $module_handler->getByDirname('lexikon');
+        $config_handler = xoops_gethandler('config');
+        $config = $config_handler->getConfigsByCat(0,$module->getVar('mid'));
     } else {
-        $module =& $xoopsModule;
-        $config =& $xoopsModuleConfig;
+        $module = $xoopsModule;
+        $config = $xoopsModuleConfig;
     }*/
     if(strpos(dirname(__FILE__),'/')>0) {
         $pathparts = explode("/", dirname(__FILE__));

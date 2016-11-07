@@ -50,7 +50,7 @@ if ($suggest > 0) {
     $termino = '';
 }
 //--- Permissions ---
-$gperm_handler =& xoops_gethandler('groupperm');
+$gperm_handler = xoops_gethandler('groupperm');
 $groups = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
 $module_id = $xoopsModule->getVar('mid');
 $perm_itemid = isset($_POST['categoryID']) ? intval($_POST['categoryID']) :  0;
@@ -83,9 +83,9 @@ case 'post':
 
     Global $xoTheme, $xoopsUser,$xoopsModule,$xoopsModuleConfig;
     include_once XOOPS_ROOT_PATH."/modules/".$xoopsModule->getVar('dirname')."/include/functions.php";
-    $myts = & MyTextSanitizer :: getInstance();
+    $myts = MyTextSanitizer :: getInstance();
     //permissions
-    $gperm_handler =& xoops_gethandler('groupperm');
+    $gperm_handler = xoops_gethandler('groupperm');
     $groups = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
     $module_id = $xoopsModule->getVar('mid');
     $perm_itemid = isset($_POST['categoryID']) ? intval($_POST['categoryID']) :  0;
@@ -160,8 +160,8 @@ case 'post':
     //if ( $xoopsModuleConfig['autoapprove'] == 1 ) {
         //if (is_object($xoopsUser) && empty($entryID)) {
         if (is_object($xoopsUser) && empty($entryID) && $autoapprove) {
-          $member_handler = &xoops_gethandler('member');
-            $submitter =& $member_handler -> getUser($uid);
+          $member_handler = xoops_gethandler('member');
+            $submitter = $member_handler -> getUser($uid);
             if (is_object($submitter) ) {
                 $submitter -> setVar('posts',$submitter -> getVar('posts') + 1);
                 $res=$member_handler -> insertUser($submitter, true);
@@ -175,7 +175,7 @@ case 'post':
         if ($newid == 0) {
             $newid = $xoopsDB->getInsertId();
         }
-        $notification_handler =& xoops_gethandler('notification');
+        $notification_handler = xoops_gethandler('notification');
         $tags = array();
         $shortdefinition = $myts -> htmlSpecialChars(xoops_substr( strip_tags( $definition ),0,45));
         $tags['ITEM_NAME'] = $term;
@@ -220,7 +220,7 @@ case 'post':
             }
             $adminMessage .= "\n".$_SERVER['HTTP_USER_AGENT']."\n";
             $subject = $xoopsConfig['sitename']." - "._MD_LEXIKON_DEFINITIONSUB;
-            $xoopsMailer =& getMailer();
+            $xoopsMailer = getMailer();
             $xoopsMailer->useMail();
             $xoopsMailer->multimailer->IsHTML(true);
             $xoopsMailer->setToEmails($xoopsConfig['adminmail']);
@@ -250,7 +250,7 @@ case 'post':
                 $userMessage .= "".$xoopsConfig['sitename']." "._MD_LEXIKON_WEBMASTER."\n";
                 $userMessage .= "".$xoopsConfig['adminmail']."";
 
-                $xoopsMailer =& getMailer();
+                $xoopsMailer = getMailer();
                 $xoopsMailer->useMail();
                 $xoopsMailer->multimailer->IsHTML(true);
                 $xoopsMailer->setToEmails($usermail);
@@ -276,7 +276,7 @@ case 'form':
 default:
     global $xoopsUser, $_SERVER;
     include_once XOOPS_ROOT_PATH."/modules/".$xoopsModule->dirname()."/include/functions.php";// to create pagetitle
-    $myts = & MyTextSanitizer :: getInstance();
+    $myts = MyTextSanitizer :: getInstance();
     if (!is_object($xoopsUser)) {
         $name = _MD_LEXIKON_GUEST;
     } else {

@@ -252,11 +252,11 @@ function lx_collapsableBar($tablename = '', $iconname = '') {
  */
 function lx_GetStatistics($limit){
     $ret=array();
-    $db =& XoopsDatabaseFactory::getDatabaseConnection();
+    $db = XoopsDatabaseFactory::getDatabaseConnection();
     $tbls=$db->prefix('lxentries');
     $tblt=$db->prefix('lxcategories');
 
-    $db =& XoopsDatabaseFactory::getDatabaseConnection();
+    $db = XoopsDatabaseFactory::getDatabaseConnection();
     // Number of Definitions per Category, including offline and submitted terms
     $ret2=array();
     $sql="SELECT count(s.entryID) as cpt, s.categoryID, t.name FROM $tbls s, $tblt t WHERE s.categoryID=t.categoryID GROUP BY s.categoryID ORDER BY t.name";
@@ -364,11 +364,11 @@ function lx_buildTable(){
 
 function lx_save_Permissions($groups, $id, $perm_name) {
     $result = true;
-    $hModule = & xoops_gethandler('module');
-    $lxModule = & $hModule -> getByDirname('lexikon');
+    $hModule = xoops_gethandler('module');
+    $lxModule = $hModule -> getByDirname('lexikon');
 
     $module_id = $lxModule -> getVar('mid');
-    $gperm_handler = & xoops_gethandler('groupperm');
+    $gperm_handler = xoops_gethandler('groupperm');
 
     /*
     * First, if the permissions are already there, delete them

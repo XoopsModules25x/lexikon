@@ -11,7 +11,7 @@
 //file obsolete . remains for compatibility reasons
 
 include( "admin_header.php" );
-$myts =& MyTextSanitizer::getInstance();
+$myts = MyTextSanitizer::getInstance();
 $op = '';
 
 if ( isset( $_GET['op'] ) ) $op = $_GET['op'];
@@ -31,7 +31,7 @@ case "default":
     xoops_cp_header();
     global $xoopsUser, $xoopsConfig, $xoopsDB, $xoopsModuleConfig, $xoopsModule, $entryID;
 
-    $myts =& MyTextSanitizer::getInstance();
+    $myts = MyTextSanitizer::getInstance();
 //    lx_adminMenu(3, _AM_LEXIKON_SUBMITS);
     
     $result01 = $xoopsDB -> query( "SELECT COUNT(*)

@@ -16,7 +16,7 @@ global $xoTheme, $xoopsUser, $xoopsModuleConfig, $xoopsModule;
     exit();
 }*/
 // permissions
-$gperm_handler =& xoops_gethandler('groupperm');
+$gperm_handler = xoops_gethandler('groupperm');
 $groups = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
 $module_id = $xoopsModule->getVar('mid');
 $perm_itemid = isset($_POST['categoryID']) ? intval($_POST['categoryID']) :  0;
@@ -53,7 +53,7 @@ if ( empty($_POST['submit']) ) {
     extract($_POST);
 
     $display = "D";
-    $myts =& MyTextSanitizer::getInstance();
+    $myts = MyTextSanitizer::getInstance();
     $usermail = (isset($_POST['usermail'])) ? $myts->stripSlashesGPC($_POST['usermail']) : '';
     $username = (isset($_POST['username'])) ? $myts->stripSlashesGPC($_POST['username']) : '';
     $reqterm = (isset($_POST['reqterm'])) ? $myts->htmlSpecialChars($_POST['reqterm']) : '';
@@ -78,8 +78,8 @@ if ( empty($_POST['submit']) ) {
       $newid = $xoopsDB -> getInsertId();
     // Increment author's posts count
     if (is_object($xoopsUser) && !empty($user)) {
-        $member_handler = &xoops_gethandler('member');
-        $submitter =& $member_handler -> getUser($user);
+        $member_handler = xoops_gethandler('member');
+        $submitter = $member_handler -> getUser($user);
         if (is_object($submitter) ) {
             $submitter -> setVar('posts',$submitter -> getVar('posts') + 1);
             $res=$member_handler -> insertUser($submitter, true);
@@ -92,7 +92,7 @@ if ( empty($_POST['submit']) ) {
         if ($newid == 0) {
             $newid = $xoopsDB->getInsertId();
         }
-        $notification_handler =& xoops_gethandler('notification');
+        $notification_handler = xoops_gethandler('notification');
         $tags = array();
         $tags['ITEM_NAME'] = $reqterm;
         $tags['DATESUB'] = formatTimestamp( $date, 'd M Y' );
@@ -124,7 +124,7 @@ if ( empty($_POST['submit']) ) {
         }
         $adminMessage .= "\n".$_SERVER['HTTP_USER_AGENT']."\n";
         $subject = $xoopsConfig['sitename']." - "._MD_LEXIKON_DEFINITIONREQ;
-        $xoopsMailer =& getMailer();
+        $xoopsMailer = getMailer();
         $xoopsMailer->useMail();
         $xoopsMailer->setToEmails($xoopsConfig['adminmail']);
         $xoopsMailer->setFromEmail($address);
@@ -147,7 +147,7 @@ if ( empty($_POST['submit']) ) {
         $userMessage .= "--------------\n";
         $userMessage .= "".$xoopsConfig['sitename']." "._MD_LEXIKON_WEBMASTER."\n";
         $userMessage .= "".$xoopsConfig['adminmail']."";
-        $xoopsMailer =& getMailer();
+        $xoopsMailer = getMailer();
         $xoopsMailer->useMail();
         $xoopsMailer->setToEmails($address);
         $xoopsMailer->setFromEmail($xoopsConfig['adminmail']);

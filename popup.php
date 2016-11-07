@@ -16,7 +16,7 @@ xoops_header(false);
 $entryID = isset($_GET['entryID']) ? intval((int)$_GET['entryID']) : 0;
 if (!$entryID){exit();}
 //global $xoopsModuleConfig;
-$myts =& MyTextSanitizer::getInstance();
+$myts = MyTextSanitizer::getInstance();
 
 $sqlquery=$xoopsDB->query("SELECT * FROM ".$xoopsDB->prefix("lxentries")." WHERE entryID=$entryID");
 $sqlfetch=$xoopsDB->fetchArray($sqlquery);

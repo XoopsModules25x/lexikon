@@ -47,4 +47,4 @@ $pathModuleAdmin = $xoopsModule->getInfo('dirmoduleadmin');
 
 include_once $GLOBALS['xoops']->path($pathModuleAdmin.'/moduleadmin.php');
 
-$myts =& MyTextSanitizer::getInstance();
+$myts = MyTextSanitizer::getInstance();

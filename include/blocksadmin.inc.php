@@ -85,7 +85,7 @@ if (isset($_POST['previewblock'])) {
     $block['name'] = $myblock->getVar('name');
   }
 
-  $myts =& MyTextSanitizer::getInstance();
+  $myts = MyTextSanitizer::getInstance();
   $myblock->setVar('title', $myts->stripSlashesGPC($btitle));
   $myblock->setVar('content', $myts->stripSlashesGPC($bcontent));
 //  $dummyhtml = '<html><head><meta http-equiv="content-type" content="text/html; charset='._CHARSET.'" /><meta http-equiv="content-language" content="'._LANGCODE.'" /><title>'.$xoopsConfig['sitename'].'</title><link rel="stylesheet" type="text/css" media="all" href="'.getcss($xoopsConfig['theme_set']).'" /></head><body><table><tr><th>'.$myblock->getVar('title').'</th></tr><tr><td>'.$myblock->getContent('S', $bctype).'</td></tr></table></body></html>';
@@ -102,7 +102,7 @@ if (isset($_POST['previewblock'])) {
   $block['visible'] = $bvisible;
   $block['title'] = $myblock->getVar('title', 'E');
   $block['content'] = $myblock->getVar('content','n');
-  $block['modules'] =& $bmodule;
+  $block['modules'] = $bmodule;
   $block['ctype'] = isset($bctype) ? $bctype : $myblock->getVar('c_type');
   $block['is_custom'] = true;
   $block['cachetime'] = intval($bcachetime);
@@ -289,8 +289,8 @@ if ( $op == 'delete_ok' ) {
         }
         $myblock->delete();
         if ($myblock->getVar('template') != '' && ! defined('XOOPS_ORETEKI') ) {
-            $tplfile_handler =& xoops_gethandler('tplfile');
-            $btemplate =& $tplfile_handler->find($GLOBALS['xoopsConfig']['template_set'], 'block', $bid);
+            $tplfile_handler = xoops_gethandler('tplfile');
+            $btemplate = $tplfile_handler->find($GLOBALS['xoopsConfig']['template_set'], 'block', $bid);
             if (count($btemplate) > 0) {
                 $tplman->delete($btemplate[0]);
             }
@@ -327,7 +327,7 @@ if ( $op == 'edit' ) {
   // edit_block($bid); GIJ imported from blocksadmin.php
         $myblock = new XoopsBlock($bid);
 
-        $db =& XoopsDatabaseFactory::getDatabaseConnection();
+        $db = XoopsDatabaseFactory::getDatabaseConnection();
         $sql = 'SELECT module_id FROM '.$db->prefix('block_module_link').' WHERE block_id='.intval($bid);
         $result = $db->query($sql);
         $modules = array();
@@ -350,7 +350,7 @@ if ($op == 'clone') {
     xoops_cp_header();
     $myblock = new XoopsBlock($bid);
 
-    $db =& XoopsDatabaseFactory::getDatabaseConnection();
+    $db = XoopsDatabaseFactory::getDatabaseConnection();
     $sql = 'SELECT module_id FROM '.$db->prefix('block_module_link').' WHERE block_id='.intval($bid);
     $result = $db->query($sql);
     $modules = array();
@@ -386,14 +386,14 @@ if ($op == 'clone_ok') {
     else $options = explode( '|' , $_POST['options'] ) ;
 
     // for backward compatibility
-    // $cblock =& $block->clone(); or $cblock =& $block->xoopsClone();
+    // $cblock = $block->clone(); or $cblock = $block->xoopsClone();
     $cblock = new XoopsBlock() ;
     foreach( $block->vars as $k => $v ) {
         $cblock->assignVar( $k , $v['value'] ) ;
     }
     $cblock->setNew();
 
-    $myts =& MyTextSanitizer::getInstance();
+    $myts = MyTextSanitizer::getInstance();
     $cblock->setVar('side', $_POST['bside']);
     $cblock->setVar('weight', $_POST['bweight']);
     $cblock->setVar('visible', $_POST['bvisible']);
@@ -416,16 +416,16 @@ if ($op == 'clone_ok') {
         exit();
     }
 /*	if ($cblock->getVar('template') != '') {
-        $tplfile_handler =& xoops_gethandler('tplfile');
-        $btemplate =& $tplfile_handler->find($GLOBALS['xoopsConfig']['template_set'], 'block', $bid);
+        $tplfile_handler = xoops_gethandler('tplfile');
+        $btemplate = $tplfile_handler->find($GLOBALS['xoopsConfig']['template_set'], 'block', $bid);
         if (count($btemplate) > 0) {
-            $tplclone =& $btemplate[0]->clone();
+            $tplclone = $btemplate[0]->clone();
             $tplclone->setVar('tpl_id', 0);
             $tplclone->setVar('tpl_refid', $newid);
             $tplman->insert($tplclone);
         }
     } */
-    $db =& XoopsDatabaseFactory::getDatabaseConnection();
+    $db = XoopsDatabaseFactory::getDatabaseConnection();
     $bmodule = (isset($_POST['bmodule']) && is_array($_POST['bmodule'])) ? $_POST['bmodule'] : array(-1) ; // GIJ +
     foreach( $bmodule as $bmid ) {
         $sql = 'INSERT INTO '.$db->prefix('block_module_link').' (block_id, module_id) VALUES ('.$newid.', '.$bmid.')';
@@ -433,7 +433,7 @@ if ($op == 'clone_ok') {
     }
 
 /*	global $xoopsUser;
-    $groups =& $xoopsUser->getGroups();
+    $groups = $xoopsUser->getGroups();
     $count = count($groups);
     for ($i = 0; $i < $count; $i++) {
         $sql = "INSERT INTO ".$db->prefix('group_permission')." (gperm_groupid, gperm_itemid, gperm_modid, gperm_name) VALUES (".$groups[$i].", ".$newid.", 1, 'block_read')";
@@ -493,7 +493,7 @@ if ($op == 'clone_ok') {
         }
         $msg = _AM_DBUPDATED;
         if ($myblock->store() != false) {
-            $db =& XoopsDatabaseFactory::getDatabaseConnection();
+            $db = XoopsDatabaseFactory::getDatabaseConnection();
             $sql = sprintf("DELETE FROM %s WHERE block_id = %u", $db->prefix('block_module_link'), $bid);
             $db->query($sql);
             foreach ($bmodule as $bmid) {
@@ -529,16 +529,16 @@ if ($op == 'clone_ok') {
     {
         global $xoopsDB ;
 
-        $instance_handler =& xoops_gethandler('blockinstance');
-        $block_handler =& xoops_gethandler('block') ;
+        $instance_handler = xoops_gethandler('blockinstance');
+        $block_handler = xoops_gethandler('block') ;
         if ($id > 0) {
             // update
-            $instance =& $instance_handler->get($id);
+            $instance = $instance_handler->get($id);
             if( $bside >= 0 ) $instance->setVar('side', $bside);
             if( ! empty($options) ) $instance->setVar('options', $options);
         } else {
             // insert
-            $instance =& $instance_handler->create();
+            $instance = $instance_handler->create();
             $instance->setVar( 'bid' , $bid ) ;
             $instance->setVar('side', $bside);
             $block = $block_handler->get( $bid ) ;

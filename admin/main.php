@@ -11,7 +11,7 @@
 include( "admin_header.php" );
 xoops_cp_header();
 
-$myts =& MyTextSanitizer::getInstance();
+$myts = MyTextSanitizer::getInstance();
 global $xoopsUser, $xoopsConfig, $xoopsModuleConfig, $xoopsModule, $entryID;
 xoops_load('XoopsUserUtility');
 $indexAdmin = new ModuleAdmin();

@@ -14,18 +14,18 @@ if( ! defined( 'XOOPS_ROOT_PATH' ) ) die( 'XOOPS root path not defined' ) ;
 function b_lxspot_show( $options )
     {
     global $xoopsDB, $xoopsUser;
-    $myts = & MyTextSanitizer :: getInstance();
+    $myts = MyTextSanitizer :: getInstance();
     xoops_load('XoopsUserUtility');
 
     $module_name = 'lexikon' ;
-    $module_handler = &xoops_gethandler('module');
-    $lexikon = &$module_handler->getByDirname('lexikon');
+    $module_handler = xoops_gethandler('module');
+    $lexikon = $module_handler->getByDirname('lexikon');
     if (!isset($lxConfig)) {
-        $config_handler = &xoops_gethandler('config');
-        $lxConfig = &$config_handler->getConfigsByCat(0, $lexikon->getVar('mid'));
+        $config_handler = xoops_gethandler('config');
+        $lxConfig = $config_handler->getConfigsByCat(0, $lexikon->getVar('mid'));
     }
 
-    $gperm_handler =& xoops_gethandler('groupperm');
+    $gperm_handler = xoops_gethandler('groupperm');
   $groups = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
     $module_id = $lexikon->getVar('mid');
     /*$allowed_cats = $gperm_handler->getItemIds("lexikon_view", $groups, $module_id);
@@ -82,7 +82,7 @@ function b_lxspot_show( $options )
     // Retrieve the category name
     $resultB = $xoopsDB -> query( "SELECT name, logourl FROM ". $xoopsDB -> prefix( "lxcategories" ) . " WHERE categoryID = " . $options[0] . " " );
     list ( $name, $logourl ) = $xoopsDB -> fetchRow( $resultB );
-    if ($lexikon =& $module_handler->getByDirname('lexikon')){
+    if ($lexikon = $module_handler->getByDirname('lexikon')){
         if ( $gperm_handler -> checkRight( 'lexikon_view', $options[0], $groups, $module_id ) ){
             // get the items
             $block['userID'] = (intval( $authorID ));
@@ -134,7 +134,7 @@ function b_lxspot_show( $options )
 
 function b_lxspot_edit( $options ){
     global $xoopsDB;
-    $myts = & MyTextSanitizer :: getInstance();
+    $myts = MyTextSanitizer :: getInstance();
     $resultcat = $xoopsDB -> query ( "SELECT categoryID, name FROM " . $xoopsDB -> prefix ( "lxcategories") . " ORDER BY categoryID" );
     $form  = "<table border='0'>";
     $form .= "<tr><td>"._MB_LEXIKON_SELECTCAT."</td><td><select name=\"options[]\">";

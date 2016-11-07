@@ -10,7 +10,7 @@
  */
 
 include( "admin_header.php" );
-$myts =& MyTextSanitizer::getInstance();
+$myts = MyTextSanitizer::getInstance();
 if (!isset($op)) {
     $op = '';
 }
@@ -41,8 +41,9 @@ if (!isset($op)) {
 
 function lx_Statistics(){
     global $xoopsModule, $xoopsConfig, $xoopsModuleConfig;
+    xoops_load('XoopsUserUtility');
     xoops_cp_header();
-    $myts =& MyTextSanitizer::getInstance();
+    $myts = MyTextSanitizer::getInstance();
    
 //    lx_adminMenu(3, _INFO);
     

@@ -25,11 +25,11 @@ function lx_getLinkedUnameFromId($userid = 0, $name= 0) {
 
     $userid = intval($userid);
     if ($userid > 0) {
-        $member_handler =& xoops_gethandler('member');
-        $user =& $member_handler->getUser($userid);
+        $member_handler = xoops_gethandler('member');
+        $user = $member_handler->getUser($userid);
 
         if (is_object($user)) {
-            $ts =& MyTextSanitizer::getInstance();
+            $ts = MyTextSanitizer::getInstance();
             $username = $user->getVar('uname');
             $usernameu = $user->getVar('name');
 
@@ -70,7 +70,7 @@ function lx_getuserForm($user) {
 function lx_calculateTotals() {
     global $xoopsUser, $xoopsDB, $xoopsModule;
     $groups = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
-    $gperm_handler =& xoops_gethandler('groupperm');
+    $gperm_handler = xoops_gethandler('groupperm');
 
     $result01 = $xoopsDB -> query( "SELECT categoryID, total FROM " . $xoopsDB -> prefix( "lxcategories" ) . " " );
     list ( $totalcategories ) = $xoopsDB -> getRowsNum( $result01 );
@@ -85,7 +85,7 @@ function lx_calculateTotals() {
 function lx_countByCategory( $c ) {
     global $xoopsUser, $xoopsDB, $xoopsModule;
     $groups = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
-    $gperm_handler =& xoops_gethandler('groupperm');
+    $gperm_handler = xoops_gethandler('groupperm');
     $count = 0;
     $sql = $xoopsDB -> query( "SELECT entryID FROM " . $xoopsDB -> prefix( "lxentries" ) . " WHERE offline = '0' AND categoryID = '$c'" );
     while ( $myrow = $xoopsDB -> fetchArray( $sql ) ) {
@@ -99,7 +99,7 @@ function lx_countByCategory( $c ) {
 
 function lx_countCats () {
     global $xoopsUser, $xoopsModule;
-    $gperm_handler = & xoops_gethandler('groupperm');
+    $gperm_handler = xoops_gethandler('groupperm');
     $groups = (is_object($xoopsUser)) ? $xoopsUser -> getGroups() : XOOPS_GROUP_ANONYMOUS;
     $totalcats = $gperm_handler->getItemIds("lexikon_view", $groups, $xoopsModule->getVar('mid'));
 
@@ -108,10 +108,10 @@ function lx_countCats () {
 
 function lx_countWords () {
     global $xoopsUser, $xoopsDB;
-    $gperm_handler =& xoops_gethandler('groupperm');
+    $gperm_handler = xoops_gethandler('groupperm');
     $groups = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
-      $module_handler = &xoops_gethandler('module');
-    $module = &$module_handler->getByDirname('lexikon');
+      $module_handler = xoops_gethandler('module');
+    $module = $module_handler->getByDirname('lexikon');
     $module_id = $module->getVar('mid');
       $allowed_cats = $gperm_handler->getItemIds("lexikon_view", $groups, $module_id);
       $catids = implode(',', $allowed_cats);
@@ -126,9 +126,9 @@ function lx_countWords () {
 // To display the list of categories
 function lx_CatsArray(){
     global $xoopsDB, $xoopsModuleConfig,$xoopsUser,$xoopsModule;
-    $myts =& MyTextSanitizer::getInstance();
+    $myts = MyTextSanitizer::getInstance();
     $groups = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
-    $gperm_handler =& xoops_gethandler('groupperm');
+    $gperm_handler = xoops_gethandler('groupperm');
     $block0 = array();
     $count = 1;
     $resultcat = $xoopsDB -> query ( "SELECT categoryID, name, total, logourl FROM " . $xoopsDB -> prefix ( "lxcategories") . " ORDER BY weight ASC" );
@@ -157,10 +157,10 @@ function lx_CatsArray(){
 
 function lx_alphaArray () {
     global $xoopsUser, $xoopsDB, $xoopsModule;
-    $gperm_handler =& xoops_gethandler('groupperm');
+    $gperm_handler = xoops_gethandler('groupperm');
     $groups = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
-      $module_handler = &xoops_gethandler('module');
-    $module = &$module_handler->getByDirname('lexikon');
+      $module_handler = xoops_gethandler('module');
+    $module = $module_handler->getByDirname('lexikon');
     $module_id = $module->getVar('mid');
     $allowed_cats = $gperm_handler->getItemIds("lexikon_view", $groups, $module_id);
     $catids = implode(',', $allowed_cats);
@@ -206,7 +206,7 @@ function lx_serviceLinks ( $variable ) {
     global $xoopsUser, $xoopsDB, $xoopsModule, $xoopsModuleConfig, $xoopsConfig, $entrytype;
 
     $module_handler  = xoops_gethandler('module');
-    $moduleInfo =& $module_handler->get($xoopsModule->getVar('mid'));
+    $moduleInfo = $module_handler->get($xoopsModule->getVar('mid'));
     $pathIcon16 = $xoopsModule->getInfo('icons16');
 
     $srvlinks = "";
@@ -234,7 +234,7 @@ function lx_serviceLinksnew ( $variable ) {
 
 function lx_showSearchForm() {
     global $xoopsUser, $xoopsDB, $xoopsModule, $xoopsModuleConfig, $xoopsConfig;
-    $gperm_handler =& xoops_gethandler('groupperm');
+    $gperm_handler = xoops_gethandler('groupperm');
     $groups = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
     
     $searchform = "<table width=\"100%\">";
@@ -304,12 +304,12 @@ function lx_extract_keywords($content) {
     if (isset($_SESSION['xoops_keywords_limit'])) {    // Search the "Minimum keyword length"
         $limit = $_SESSION['xoops_keywords_limit'];
     } else {
-        $config_handler =& xoops_gethandler('config');
-        $xoopsConfigSearch =& $config_handler->getConfigsByCat(XOOPS_CONF_SEARCH);
+        $config_handler = xoops_gethandler('config');
+        $xoopsConfigSearch = $config_handler->getConfigsByCat(XOOPS_CONF_SEARCH);
         $limit=$xoopsConfigSearch['keyword_min'];
         $_SESSION['xoops_keywords_limit']=$limit;
     }
-    $myts =& MyTextSanitizer::getInstance();
+    $myts = MyTextSanitizer::getInstance();
     $content = str_replace ("<br />", " ", $content);
     $content= $myts->undoHtmlSpecialChars($content);
     $content= strip_tags($content);
@@ -349,9 +349,9 @@ function lx_extract_keywords($content) {
         }
     } else {
         if (!isset($config_handler) || !is_object($config_handler)) {
-            $config_handler =& xoops_gethandler('config');
+            $config_handler = xoops_gethandler('config');
         }
-        $xoopsConfigMetaFooter =& $config_handler->getConfigsByCat(XOOPS_CONF_METAFOOTER);
+        $xoopsConfigMetaFooter = $config_handler->getConfigsByCat(XOOPS_CONF_METAFOOTER);
         if (isset($xoTheme) && is_object($xoTheme)) {
             $xoTheme->addMeta( 'meta', 'keywords', $xoopsConfigMetaFooter['meta_keywords']);
         } else {    // Compatibility for old Xoops versions
@@ -363,7 +363,7 @@ function lx_extract_keywords($content) {
 // Create meta description based on content
 function lx_get_metadescription($content) {
     global $xoopsTpl, $xoTheme;
-    $myts =& MyTextSanitizer::getInstance();
+    $myts = MyTextSanitizer::getInstance();
     $content= $myts->undoHtmlSpecialChars($myts->displayTarea($content));
     if (isset($xoTheme) && is_object($xoTheme)) {
         $xoTheme->addMeta( 'meta', 'description', strip_tags($content));
@@ -375,7 +375,7 @@ function lx_get_metadescription($content) {
 // Create pagetitles
 function lx_create_pagetitle($article='', $topic='') {
     global $xoopsModule, $xoopsTpl;
-    $myts =& MyTextSanitizer::getInstance();
+    $myts = MyTextSanitizer::getInstance();
     $content='';
     if (!empty($article)) $content .= strip_tags($myts->displayTarea($article));
     if (!empty($topic)) {
@@ -450,11 +450,11 @@ function lx_getmoduleoption($option, $repmodule='lexikon') {
             $retval= $xoopsModuleConfig[$option];
         }
     } else {
-        $module_handler =& xoops_gethandler('module');
-        $module =& $module_handler->getByDirname($repmodule);
-        $config_handler =& xoops_gethandler('config');
+        $module_handler = xoops_gethandler('module');
+        $module = $module_handler->getByDirname($repmodule);
+        $config_handler = xoops_gethandler('config');
         if ($module) {
-            $moduleConfig =& $config_handler->getConfigsByCat(0, $module->getVar('mid'));
+            $moduleConfig = $config_handler->getConfigsByCat(0, $module->getVar('mid'));
             if (isset($moduleConfig[$option])) {
                 $retval= $moduleConfig[$option];
             }
@@ -607,8 +607,8 @@ function lx_val_user_data($uids) {
         return false;
     }
     if ($uids > 0) {
-        $member_handler =& xoops_gethandler('member');
-        $user =& $member_handler->getUser($uids);
+        $member_handler = xoops_gethandler('member');
+        $user = $member_handler->getUser($uids);
         if (!is_object($user)) {
             return false;
         }
@@ -626,12 +626,12 @@ function lx_val_user_data($uids) {
 function lx_AuthorProfile($uid ) {
     include_once XOOPS_ROOT_PATH . '/class/pagenav.php';
     global $authortermstotal, $xoopsTpl, $xoopsDB, $xoopsUser, $xoopsModuleConfig;
-    $myts =& MyTextSanitizer::getInstance();
+    $myts = MyTextSanitizer::getInstance();
     //permissions
-    $gperm_handler =& xoops_gethandler('groupperm');
+    $gperm_handler = xoops_gethandler('groupperm');
     $groups = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
-    $module_handler =& xoops_gethandler('module');
-    $module =& $module_handler->getByDirname('lexikon');
+    $module_handler = xoops_gethandler('module');
+    $module = $module_handler->getByDirname('lexikon');
     $module_id = $module->getVar('mid');
     $allowed_cats = $gperm_handler->getItemIds("lexikon_view", $groups, $module_id);
     $catids = implode(',', $allowed_cats);
@@ -677,8 +677,8 @@ function lx_getLinkedProfileFromId($userid) {
     global $uid, $xoopsModule;
     $userid = intval($uid);
     if ($userid > 0) {
-        $member_handler =& xoops_gethandler('member');
-        $user =& $member_handler->getUser($userid);
+        $member_handler = xoops_gethandler('member');
+        $user = $member_handler->getUser($userid);
         if (is_object($user)) {
             $linkeduser = '<A TITLE="'._MD_LEXIKON_AUTHORPROFILETEXT.'" HREF="'.XOOPS_URL.'/modules/'.$xoopsModule->dirname().'/profile.php?uid='.$uid.'">'. $user->getVar('uname').'</a>';
             //$linkeduser = XoopsUserUtility::getUnameFromId ( $uid );
@@ -762,7 +762,7 @@ function lexikon_block_getAuthors($limit = 5, $sort = "count", $name = 'uname', 
     if ($name != "uname")
         $name = "name"; //making sure that there is not invalid information in field value
     $ret = array();
-    $db =&XoopsDatabaseFactory::getDatabaseConnection();
+    $db = XoopsDatabaseFactory::getDatabaseConnection();
     if ($sort == "count") {
         $sql = "SELECT u.".$name." AS name, u.uid , count( n.entryID ) AS count
               FROM ".$db->prefix("users")." u, ".$db->prefix("lxentries")." n

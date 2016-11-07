@@ -66,8 +66,8 @@
  */
 
 function lexikon_tag_block_cloud_show($options) {
-    $module_handler = &xoops_gethandler('module');
-    $module = &$module_handler->getByDirname('lexikon');
+    $module_handler = xoops_gethandler('module');
+    $module = $module_handler->getByDirname('lexikon');
     include_once XOOPS_ROOT_PATH."/modules/tag/blocks/block.php";
     //$module_dirname = basename( dirname( dirname( __FILE__ ) ) ) ;
     //return tag_block_cloud_show($options, $module_dirname);
@@ -82,8 +82,8 @@ function lexikon_tag_block_cloud_edit($options) {
 
 function lexikon_tag_block_top_show($options) {
     include_once XOOPS_ROOT_PATH."/modules/tag/blocks/block.php";
-    $module_handler = &xoops_gethandler('module');
-    $module = &$module_handler->getByDirname('lexikon');
+    $module_handler = xoops_gethandler('module');
+    $module = $module_handler->getByDirname('lexikon');
     //$module_dirname = basename( dirname( dirname( __FILE__ ) ) ) ;
     //return tag_block_top_show($options, $module_dirname);
     return tag_block_top_show($options, $module->getVar('dirname'));

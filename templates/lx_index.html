@@ -59,7 +59,7 @@
 		   <{foreach item=catlinks from=$block0.categories}>
 			<td >
 			<{if $catlinks.image != "" && $show_screenshot == true}>
-				  <a href="<{$xoops_url}>/modules/<{$lang_moduledirname}>/category.php?categoryID=<{$catlinks.id}>" target="_parent"><img src="<{$xoops_url}>/modules/<{$lang_moduledirname}>/images/uploads/<{$catlinks.image}>" width="<{$logo_maximgwidth}>" align="left" class="floatLeft" alt="[<{$catlinks.name}>]&nbsp;[<{$catlinks.total}>]" /></A>
+				  <a href="<{$xoops_url}>/modules/<{$lang_moduledirname}>/category.php?categoryID=<{$catlinks.id}>" target="_parent"><img src="<{$xoops_url}>/uploads/<{$lang_moduledirname}>/categories/images/<{$catlinks.image}>" width="<{$logo_maximgwidth}>" align="left" class="floatLeft" alt="[<{$catlinks.name}>]&nbsp;[<{$catlinks.total}>]" /></A>
 			<{/if}>
 			<{if $catlinks.count > 0}>
 			   <{if $catlinks.total > 0}><a href="<{$xoops_url}>/modules/<{$lang_moduledirname}>/category.php?categoryID=<{$catlinks.id}>" title="[<{$catlinks.total}>]"><{/if}><{$catlinks.linktext}>
@@ -81,7 +81,7 @@
 			<{foreach item=catlinks from=$block0.categories}>
 			<{if $catlinks.image != "" && $show_screenshot == true}>
 			<a href="<{$xoops_url}>/modules/<{$lang_moduledirname}>/category.php?categoryID=<{$category.id}>" target="_parent">
-			<img src="<{$xoops_url}>/modules/<{$lang_moduledirname}>/images/uploads/<{$catlinks.image}>" width="<{$logo_maximgwidth}>" align="middle" alt="[<{$catlinks.total}>]" /></A>
+			<img src="<{$xoops_url}>/uploads/<{$lang_moduledirname}>/categories/images/<{$catlinks.image}>" width="<{$logo_maximgwidth}>" align="middle" alt="[<{$catlinks.total}>]" /></A>
 			<{/if}>
 			   <{if $catlinks.total > 0}><a href="<{$xoops_url}>/modules/<{$lang_moduledirname}>/category.php?categoryID=<{$catlinks.id}>" title="[<{$catlinks.total}>]"><{/if}><{$catlinks.linktext}>
 			   <{if $catlinks.total > 0}></a> <{/if}>[<{$catlinks.total}>] |

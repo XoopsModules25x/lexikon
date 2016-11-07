@@ -13,34 +13,35 @@
 
 if( ! defined( 'XOOPS_ROOT_PATH' ) ) die( 'XOOPS root path not defined' ) ;
 
-$modversion['name'] = _MI_LEXIKON_MD_NAME;
-$modversion['version'] = "1.51";
-$modversion['description'] = _MI_LEXIKON_MD_DESC;
-$modversion['author'] = "Yerres";
-$modversion['credits'] = "hsalazar, Mondarse, Catzwolf, and many more";
-$modversion['help']        = 'page=help';
-$modversion['license']     = 'GNU GPL 2.0 or later';
-$modversion['license_url'] = "www.gnu.org/licenses/gpl-2.0.html";
-$modversion['official'] = 0;
-$modversion['image'] = "images/lx_slogo.png";
-$modversion['dirname'] = "lexikon";
-$modversion['onInstall'] = 'include/install_function.php';
+$modversion['name']           = _MI_LEXIKON_MD_NAME;
+$modversion['version']        = "1.52";
+$modversion['description']    = _MI_LEXIKON_MD_DESC;
+$modversion['author']         = "Yerres";
+$modversion['credits']        = "hsalazar, Mondarse, Catzwolf, and many more";
+$modversion['help']           = 'page=help';
+$modversion['license']        = 'GNU GPL 2.0 or later';
+$modversion['license_url']    = "www.gnu.org/licenses/gpl-2.0.html";
+$modversion['official']       = 0;
+$modversion['image']          = "images/lx_slogo.png";
+$modversion['dirname']        = "lexikon";
+$modversion['onInstall']      = 'include/install_function.php';
+$modversion['onUpdate']       = 'include/update_function.php';
 
 $modversion['dirmoduleadmin'] = '/Frameworks/moduleclasses/moduleadmin';
 $modversion['icons16']        = '../../Frameworks/moduleclasses/icons/16';
 $modversion['icons32']        = '../../Frameworks/moduleclasses/icons/32';
 
-$modversion["license_file"] = XOOPS_URL."/modules/lexikon/gpl.txt";
-$modversion['license_url'] = "www.gnu.org/licenses/gpl-2.0.html";
+$modversion["license_file"]   = XOOPS_URL."/modules/lexikon/gpl.txt";
+$modversion['license_url']    = "www.gnu.org/licenses/gpl-2.0.html";
 $modversion['status_version'] = '1.5';
-$modversion["module_status"] = "beta";
-$modversion["release"] = "2012-05-10";
-$modversion['last_update'] = '2012/05/10';
+$modversion["module_status"]  = "beta";
+$modversion["release"]        = "2012-05-10";
+$modversion['last_update']    = '2012/05/10';
 
 $modversion['release_date']        = '2013/02/27';
 $modversion["module_website_url"]  = "www.xoops.org";
 $modversion["module_website_name"] = "XOOPS";
-$modversion["module_status"]       = "Beta 2";
+$modversion["module_status"]       = "Beta 1";
 $modversion['min_php']             = '5.2';
 $modversion['min_xoops']           = "2.5.6";
 $modversion['min_admin']           = '1.1';
@@ -49,14 +50,14 @@ $modversion['min_db']              = array(
     'mysqli' => '5.0.7'
 );
 
-$modversion["author_word"] = "-";
-$modversion["module_website_url"] = "http://www.xoops.org/";
+$modversion["author_word"]         = "-";
+$modversion["module_website_url"]  = "http://www.xoops.org/";
 $modversion["module_website_name"] = "XOOPS";
 
 // Admin things
-$modversion['hasAdmin'] = 1;
+$modversion['hasAdmin']   = 1;
 $modversion['adminindex'] = "admin/index.php";
-$modversion['adminmenu'] = "admin/menu.php";
+$modversion['adminmenu']  = "admin/menu.php";
 
 // Sql
 $modversion['sqlfile']['mysql'] = "sql/mysql.sql";
@@ -78,12 +79,12 @@ $modversion['system_menu'] = 1;
 $modversion["use_smarty"] = 1;
 
 global $xoopsUser, $xoopsDB,  $xoopsModuleConfig;
-$module_handler = &xoops_gethandler('module');
-$lexikon =& $module_handler->getByDirname($modversion['dirname']);
+$module_handler = xoops_gethandler('module');
+$lexikon = $module_handler->getByDirname($modversion['dirname']);
 if ($lexikon) {
     if (!isset($lxConfig)) {
-            $config_handler = &xoops_gethandler('config');
-            $lxConfig = &$config_handler->getConfigsByCat(0, $lexikon->getVar('mid'));
+            $config_handler = xoops_gethandler('config');
+            $lxConfig = $config_handler->getConfigsByCat(0, $lexikon->getVar('mid'));
     }
 }
 $i = 0;
@@ -111,7 +112,7 @@ if (isset($lxConfig['contentsyndication']) && $lxConfig["contentsyndication"] ==
 }
 if ($lexikon) {
     $groups = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
-    $gperm_handler =& xoops_gethandler('groupperm');
+    $gperm_handler = xoops_gethandler('groupperm');
     if ($gperm_handler->checkRight("lexikon_submit", 0, $groups, $lexikon->getVar('mid'))) {
         $modversion['sub'][$i]['name'] = _MI_LEXIKON_SUB_SMNAME1;
         $modversion['sub'][$i]['url'] = "submit.php";
@@ -119,7 +120,7 @@ if ($lexikon) {
     }
     
     $groups = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
-    $gperm_handler =& xoops_gethandler('groupperm');
+    $gperm_handler = xoops_gethandler('groupperm');
     if ($gperm_handler->checkRight("lexikon_request", 0, $groups, $lexikon->getVar('mid'))) {
         $modversion['sub'][$i]['name'] = constant("_MI_LEXIKON_SUB_SMNAME2");
         $modversion['sub'][$i]['url'] = "request.php";
@@ -132,7 +133,7 @@ $i++;
 //if ( isset($xoopsModuleConfig['catsinmenu']) && $xoopsModuleConfig['catsinmenu'] == 1 && $xoopsModuleConfig['multicats']) {
 #if (isset($xoopsModuleConfig['catsinmenu']) && $xoopsModuleConfig['catsinmenu'] == 1 && isset($xoopsModuleConfig['multicats']) && $xoopsModuleConfig["multicats"] == 1) {
 if (isset($lxConfig['catsinmenu']) && $lxConfig['catsinmenu'] == 1 && isset($lxConfig['multicats']) && $lxConfig["multicats"] == 1) {
-    $myts = & MyTextSanitizer ::getInstance();
+    $myts = MyTextSanitizer ::getInstance();
     $sql = $xoopsDB->query( "SELECT categoryID, name FROM " . $xoopsDB->prefix( "lxcategories" ) . " ORDER BY weight ASC" );
     while ( list( $categoryID, $name ) = $xoopsDB->fetchRow( $sql ) ) {
         if ($gperm_handler->checkRight('lexikon_view', $categoryID, $groups, $lexikon->getVar('mid'))) {
@@ -591,6 +592,23 @@ $modversion['config'][] = array(
     'valuetype'    => 'text',
     'default'        => 50);
 
+//Uploads : max width/height for image upload 
+$modversion['config'][] = array(
+    'name'            => 'imguploadwd',
+    'title'        => "_MI_LEXIKON_IMGUPLOADWD",
+    'description'    => "_MI_LEXIKON_IMGUPLOADWD_DESC",
+    'formtype'        => 'textbox',
+    'valuetype'    => 'text',
+    'default'        => 200);
+//Uploads : max size for image upload 
+$modversion['config'][] = array(
+    'name'            => 'imguploadsize',
+    'title'        => "_MI_LEXIKON_IMGUPLOADSIZE",
+    'description'    => "_MI_LEXIKON_IMGUPLOADSIZE_DESC",
+    'formtype'        => 'textbox',
+    'valuetype'    => 'text',
+    'default'        => 10485760); // 1 MB
+    
 //to activate RSS Syndication for users / guests
 $modversion['config'][] = array(
     'name'            => 'syndication',

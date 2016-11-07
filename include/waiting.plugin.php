@@ -2,7 +2,7 @@
 // waiting Plugin for Lexikon glossary module
 
 function b_waiting_lexikon() {
-    $xoopsDB =& XoopsDatabaseFactory::getDatabaseConnection();
+    $xoopsDB = XoopsDatabaseFactory::getDatabaseConnection();
     $ret = array() ;
 
     // Waiting
