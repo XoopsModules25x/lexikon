@@ -20,9 +20,9 @@
 <{* Category block *}>
 <{if $multicats == 1}>
     <div class="clearer">
-        <fieldset class="item" style="border:1px solid #778;margin:1em 0em;text-align:left;background-color:trans;">
+        <fieldset class="item" style="border:1px solid #778;margin:1em 0;text-align:left;background-color:trans;">
             <legend><{$smarty.const._MD_LEXIKON_BROWSECAT}></legend>
-            <div class="letters" style="margin:1em 0em;width:100%;padding:0em;text-align:center;line-height:1.3em;">
+            <div class="letters" style="margin:1em 0;width:100%;padding:0;text-align:center;line-height:1.3em;">
                 <{foreach item=catlinks from=$block0.categories}>
                     <{if $catlinks.image != "" && $show_screenshot == '1'}>
                         <a href="<{$xoops_url}>/modules/<{$lang_moduledirname}>/category.php?categoryID=<{$category.id}>"

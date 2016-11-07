@@ -1,5 +1,5 @@
 <{if $block.layout == 1}>
-<table style="border: 1px solid rgb(255,255, 255); padding: 2px 4px;" align="center">
+<table style="border: 1px solid #ffffff; padding: 2px 4px;" align="center">
     <tbody>
     <tr>
         <{/if}>

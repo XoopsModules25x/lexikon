@@ -686,7 +686,7 @@ function myblocksadmin_update_blockinstance(
         }
     } else {
         // insert
-        $instance =& $instanceHandler->create();
+        $instance = $instanceHandler->create();
         $instance->setVar('bid', $bid);
         $instance->setVar('side', $bside);
         $block = $blockHandler->get($bid);

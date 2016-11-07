@@ -298,7 +298,7 @@ class lexikontree
      * @param string|\unknown_type $order
      * @param array|\unknown_type  $parray
      *
-     * @return unknown
+     * @return array|unknown|unknown_type
      */
     public function getAllChild($sel_id = 0, $order = '', $parray = array())
     {
@@ -327,7 +327,7 @@ class lexikontree
      * @param  string|\unknown_type $order
      * @param  array|\unknown_type  $parray
      * @param  string|\unknown_type $r_prefix
-     * @return unknown
+     * @return array|unknown|unknown_type
      */
     public function getChildTreeArray($sel_id = 0, $order = '', $parray = array(), $r_prefix = '')
     {

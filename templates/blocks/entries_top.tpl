@@ -4,7 +4,7 @@
              scrolldelay=5 <{if $block.alternate}>behavior="alternate"<{/if}>>
         <ul>
             <{foreach item=popentries from=$block.popstuff}>
-                <li style="display:outline; margin:0px; padding:0;list-style-type: none;list-style-position: outside;line-height:12px;">
+                <li style="display:outline; margin:0; padding:0;list-style-type: none;list-style-position: outside;line-height:12px;">
                     <a href="<{$xoops_url}>/modules/<{$popentries.dir}>/entry.php?entryID=<{$popentries.id}>"><{$popentries.linktext}></a>
                     <{if $block.showcounter}><span style='color: gray; font-size: 85%;'>[<{$popentries.counter}>
                         ]</span><{/if}>

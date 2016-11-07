@@ -124,7 +124,7 @@ if (empty($_POST['submit'])) {
         }
         $adminMessage .= "\n" . $_SERVER['HTTP_USER_AGENT'] . "\n";
         $subject     = $xoopsConfig['sitename'] . ' - ' . _MD_LEXIKON_DEFINITIONREQ;
-        $xoopsMailer =& getMailer();
+        $xoopsMailer =& xoops_getMailer();
         $xoopsMailer->useMail();
         $xoopsMailer->setToEmails($xoopsConfig['adminmail']);
         $xoopsMailer->setFromEmail($address);
@@ -147,7 +147,7 @@ if (empty($_POST['submit'])) {
         $userMessage .= "--------------\n";
         $userMessage .= '' . $xoopsConfig['sitename'] . ' ' . _MD_LEXIKON_WEBMASTER . "\n";
         $userMessage .= '' . $xoopsConfig['adminmail'] . '';
-        $xoopsMailer =& getMailer();
+        $xoopsMailer =& xoops_getMailer();
         $xoopsMailer->useMail();
         $xoopsMailer->setToEmails($address);
         $xoopsMailer->setFromEmail($xoopsConfig['adminmail']);

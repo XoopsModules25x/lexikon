@@ -28,5 +28,5 @@
 // URL: http://www.myweb.ne.jp/, http://xoops.org/, http://jp.xoops.org/ //
 // Project: XOOPS Project                                                    //
 // ------------------------------------------------------------------------- //
-include dirname(dirname(__DIR__)) . '/mainfile.php';
+include __DIR__ . '/../../mainfile.php';
 include XOOPS_ROOT_PATH . '/include/notification_update.php';

@@ -8,5 +8,5 @@
  * @since          1.00
  * @package        module::tag
  */
-include dirname(dirname(__DIR__)) . '/mainfile.php';
+include __DIR__ . '/../../mainfile.php';
 include XOOPS_ROOT_PATH . '/modules/tag/list.tag.php';

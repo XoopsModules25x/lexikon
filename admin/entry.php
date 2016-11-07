@@ -499,7 +499,7 @@ function entrySave($entryID = '')
                 $userMessage .= "__________________\n";
                 $userMessage .= '' . $xoopsConfig['sitename'] . ' ' . _MD_LEXIKON_WEBMASTER . "\n";
                 $userMessage .= '' . $xoopsConfig['adminmail'] . '';
-                $xoopsMailer =& getMailer();
+                $xoopsMailer =& xoops_getMailer();
                 $xoopsMailer->useMail();
                 $xoopsMailer->setToEmails($user->getVar('email'));
                 $xoopsMailer->setFromEmail($xoopsConfig['adminmail']);

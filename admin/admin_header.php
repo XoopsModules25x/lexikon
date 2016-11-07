@@ -28,9 +28,9 @@ global $xoopsModule;
 $moduleDirName = $GLOBALS['xoopsModule']->getVar('dirname');
 
 //if functions.php file exist
-require_once dirname(__DIR__) . '/include/functions.php';
+require_once __DIR__ . '/../include/functions.php';
 //include_once XOOPS_ROOT_PATH."/modules/lexikon/include/functions.php";
-include_once dirname(__DIR__) . '/admin/functions.php';
+include_once __DIR__ . '/../admin/functions.php';
 include_once XOOPS_ROOT_PATH . '/kernel/module.php';
 //include_once XOOPS_ROOT_PATH."/class/lexikontree.php"; -- LionHell
 include_once XOOPS_ROOT_PATH . '/modules/lexikon/class/lexikontree.php'; // -- LionHell

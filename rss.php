@@ -10,7 +10,7 @@
 
 global $xoopsModule, $xoopsUser;
 
-include dirname(dirname(__DIR__)) . '/mainfile.php';
+include __DIR__ . '/../../mainfile.php';
 $GLOBALS['xoopsLogger']->activated = false;
 if (function_exists('mb_http_output')) {
     mb_http_output('pass');

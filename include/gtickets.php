@@ -24,8 +24,8 @@ if (!class_exists('XoopsGTicket')) {
             if (defined('XOOPS_ROOT_PATH') && !empty($xoopsConfig['language'])
                 && false === strpos($xoopsConfig['language'], '/')
             ) {
-                if (file_exists(dirname(__DIR__) . '/language/' . $xoopsConfig['language'] . '/gticket_messages.phtml')) {
-                    include dirname(__DIR__) . '/language/' . $xoopsConfig['language'] . '/gticket_messages.phtml';
+                if (file_exists(__DIR__ . '/../language/' . $xoopsConfig['language'] . '/gticket_messages.phtml')) {
+                    include __DIR__ . '/../language/' . $xoopsConfig['language'] . '/gticket_messages.phtml';
                 }
             }
 

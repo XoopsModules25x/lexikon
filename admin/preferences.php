@@ -6,7 +6,7 @@
  * Licence: GNU
  */
 
-include_once dirname(dirname(dirname(__DIR__))) . '/mainfile.php';
+include_once __DIR__ . '/../../../mainfile.php';
 
 include_once XOOPS_ROOT_PATH . '/kernel/module.php';
 include_once XOOPS_ROOT_PATH . '/modules/lexikon/class/lexikontree.php'; // -- LionHell
@@ -14,10 +14,10 @@ include_once XOOPS_ROOT_PATH . '/class/xoopslists.php';
 include_once XOOPS_ROOT_PATH . '/class/pagenav.php';
 include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
 
-if (file_exists(dirname(__DIR__) . '/language/' . $xoopsConfig['language'] . '/main.php')) {
-    include dirname(__DIR__) . '/language/' . $xoopsConfig['language'] . '/main.php';
+if (file_exists(__DIR__ . '/../language/' . $xoopsConfig['language'] . '/main.php')) {
+    include __DIR__ . '/../language/' . $xoopsConfig['language'] . '/main.php';
 } else {
-    include dirname(__DIR__) . '/language/english/main.php';
+    include __DIR__ . '/../language/english/main.php';
 }
 include_once XOOPS_ROOT_PATH . '/modules/lexikon/include/functions.php';
 include_once XOOPS_ROOT_PATH . '/modules/lexikon/admin/functions.php';

@@ -7,11 +7,11 @@
 
 defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
 
-include_once dirname(dirname(dirname(__DIR__))) . '/include/cp_header.php';
+include_once __DIR__ . '/../../../include/cp_header.php';
 
 include_once __DIR__ . '/mygrouppermform.php';
 include_once XOOPS_ROOT_PATH . '/class/xoopsblock.php';
-include_once dirname(__DIR__) . '/include/gtickets.php';
+include_once __DIR__ . '/../include/gtickets.php';
 
 $xoops_system_path = XOOPS_ROOT_PATH . '/modules/system';
 

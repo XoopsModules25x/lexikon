@@ -220,7 +220,7 @@ switch ($op) {
                 }
                 $adminMessage .= "\n" . $_SERVER['HTTP_USER_AGENT'] . "\n";
                 $subject     = $xoopsConfig['sitename'] . ' - ' . _MD_LEXIKON_DEFINITIONSUB;
-                $xoopsMailer =& getMailer();
+                $xoopsMailer =& xoops_getMailer();
                 $xoopsMailer->useMail();
                 $xoopsMailer->multimailer->isHTML(true);
                 $xoopsMailer->setToEmails($xoopsConfig['adminmail']);
@@ -250,7 +250,7 @@ switch ($op) {
                     $userMessage .= '' . $xoopsConfig['sitename'] . ' ' . _MD_LEXIKON_WEBMASTER . "\n";
                     $userMessage .= '' . $xoopsConfig['adminmail'] . '';
 
-                    $xoopsMailer =& getMailer();
+                    $xoopsMailer =& xoops_getMailer();
                     $xoopsMailer->useMail();
                     $xoopsMailer->multimailer->isHTML(true);
                     $xoopsMailer->setToEmails($usermail);

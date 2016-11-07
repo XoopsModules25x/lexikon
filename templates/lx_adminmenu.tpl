@@ -75,7 +75,7 @@
     }
 
     #buttonbar a:hover {
-        background-position: 0% -150px;
+        background-position: 0 -150px;
     }
 
     #buttonbar a:hover span {

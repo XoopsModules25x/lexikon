@@ -12,39 +12,35 @@
 
 defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
 
-$modversion['name']        = _MI_LEXIKON_MD_NAME;
-$modversion['version']     = '1.52';
-$modversion['description'] = _MI_LEXIKON_MD_DESC;
-$modversion['author']      = 'Yerres';
-$modversion['credits']     = 'hsalazar, Mondarse, Catzwolf, and many more';
-$modversion['help']        = 'page=help';
-$modversion['license']     = 'GNU GPL 2.0 or later';
-$modversion['license_url'] = 'www.gnu.org/licenses/gpl-2.0.html';
-$modversion['official']    = 0; //1 indicates supported by XOOPS Dev Team, 0 means 3rd party supported
-$modversion['image']       = 'assets/images/logoModule.png';
-$modversion['dirname']     = basename(__DIR__);
-$modversion['onInstall']   = 'include/install_function.php';
+$modversion['version']       = '1.52';
+$modversion['module_status'] = 'Beta 1';
+$modversion['release_date']  = '2016/11/05';
+$modversion['name']          = _MI_LEXIKON_MD_NAME;
+$modversion['description']   = _MI_LEXIKON_MD_DESC;
+$modversion['author']        = 'Yerres';
+$modversion['credits']       = 'hsalazar, Mondarse, Catzwolf, and many more';
+$modversion['help']          = 'page=help';
+$modversion['license']       = 'GNU GPL 2.0 or later';
+$modversion['license_url']   = 'www.gnu.org/licenses/gpl-2.0.html';
+$modversion['official']      = 0; //1 indicates supported by XOOPS Dev Team, 0 means 3rd party supported
+$modversion['image']         = 'assets/images/logoModule.png';
+$modversion['dirname']       = basename(__DIR__);
+$modversion['onInstall']     = 'include/install_function.php';
 
 $modversion['dirmoduleadmin'] = '/Frameworks/moduleclasses/moduleadmin';
 $modversion['icons16']        = '../../Frameworks/moduleclasses/icons/16';
 $modversion['icons32']        = '../../Frameworks/moduleclasses/icons/32';
 
-$modversion['license_file']   = XOOPS_URL . '/modules/lexikon/gpl.txt';
-$modversion['status_version'] = '1.52';
-$modversion['release']        = '2012-05-10';
-$modversion['last_update']    = '2015/01/12';
-
-$modversion['module_status']       = 'Beta 1';
-$modversion['release_date']        = '2016/09/28';
+$modversion['license_file']        = XOOPS_URL . '/modules/lexikon/gpl.txt';
+$modversion['status_version']      = '1.52';
+$modversion['release']             = '2012-05-10';
+$modversion['last_update']         = '2015/01/12';
 $modversion['module_website_url']  = 'www.xoops.org';
 $modversion['module_website_name'] = 'XOOPS';
 $modversion['min_php']             = '5.5';
 $modversion['min_xoops']           = '2.5.8';
 $modversion['min_admin']           = '1.2';
-$modversion['min_db']              = array(
-    'mysql'  => '5.0.7',
-    'mysqli' => '5.0.7'
-);
+$modversion['min_db']              = array('mysql' => '5.1');
 
 $modversion['author_word']         = '-';
 $modversion['module_website_url']  = 'http://xoops.org/';
@@ -81,7 +77,7 @@ $lexikon       = $moduleHandler->getByDirname($modversion['dirname']);
 if ($lexikon) {
     if (!isset($lxConfig)) {
         $configHandler = xoops_getHandler('config');
-        $lxConfig       =& $configHandler->getConfigsByCat(0, $lexikon->getVar('mid'));
+        $lxConfig      =& $configHandler->getConfigsByCat(0, $lexikon->getVar('mid'));
     }
 }
 $i = 0;
@@ -108,7 +104,7 @@ if (isset($lxConfig['contentsyndication']) && $lxConfig['contentsyndication'] ==
     ++$i;
 }
 if ($lexikon) {
-    $groups        = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
+    $groups       = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
     $gpermHandler = xoops_getHandler('groupperm');
     if ($gpermHandler->checkRight('lexikon_submit', 0, $groups, $lexikon->getVar('mid'))) {
         $modversion['sub'][$i]['name'] = _MI_LEXIKON_SUB_SMNAME1;
@@ -116,7 +112,7 @@ if ($lexikon) {
         ++$i;
     }
 
-    $groups        = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
+    $groups       = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
     $gpermHandler = xoops_getHandler('groupperm');
     if ($gpermHandler->checkRight('lexikon_request', 0, $groups, $lexikon->getVar('mid'))) {
         $modversion['sub'][$i]['name'] = constant('_MI_LEXIKON_SUB_SMNAME2');
@@ -464,7 +460,7 @@ $modversion['config'][] = array(
 // WYSIWYG - Form-Options for XOOPS
 xoops_load('XoopsEditorHandler');
 $editorHandler = XoopsEditorHandler::getInstance();
-$editorList     = array_flip($editorHandler->getList());
+$editorList    = array_flip($editorHandler->getList());
 
 $modversion['config'][] = array(
     'name'        => 'form_options',

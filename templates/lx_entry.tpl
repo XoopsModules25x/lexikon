@@ -97,9 +97,9 @@
 <{else}>
     <{if $multicats == 1}>
         <div class="clearer">
-            <fieldset class="item" style="border:1px solid #778;margin:1em 0em;text-align:left;background-color:trans;">
+            <fieldset class="item" style="border:1px solid #778;margin:1em 0;text-align:left;background-color:trans;">
                 <legend><{$smarty.const._MD_LEXIKON_BROWSECAT}></legend>
-                <div class="letters" style="margin:1em 0em;width:100%;padding:0em;text-align:center;line-height:1.3em;">
+                <div class="letters" style="margin:1em 0;width:100%;padding:0;text-align:center;line-height:1.3em;">
                     <{foreach item=catlinks from=$block0.categories}>
                         <{if $catlinks.image != "" && $show_screenshot == true}>
                             <a href="<{$xoops_url}>/modules/<{$lang_moduledirname}>/category.php?categoryID=<{$category.id}>"
@@ -139,7 +139,7 @@
     <{/if}>
 
     <div class="clearer">
-        <div align="right" style="margin:0em 1.0em 0em 0em;"><br><span class="standard"><span style="color: #4e505c; ">
+        <div align="right" style="margin:0 1.0em 0 0;"><br><span class="standard"><span style="color: #4e505c; ">
 <{$smarty.const._MD_LEXIKON_SUBMITTED}>
                     <{if $showsubmitter }><{$submitter}><{/if}> <{$submittedon}><br>
                     <{$counter}> </span></span></p></div>

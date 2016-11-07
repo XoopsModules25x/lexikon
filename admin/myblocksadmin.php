@@ -5,7 +5,7 @@
 //                          GIJOE <http://www.peak.ne.jp/>                   //
 // ------------------------------------------------------------------------- //
 
-include_once dirname(dirname(dirname(__DIR__))) . '/include/cp_header.php';
+include_once __DIR__ . '/../../../include/cp_header.php';
 
 if (false !== strpos(XOOPS_VERSION, 'XOOPS 2.2')) {
     include __DIR__ . '/myblocksadmin2.php';
@@ -14,7 +14,7 @@ if (false !== strpos(XOOPS_VERSION, 'XOOPS 2.2')) {
 
 include_once __DIR__ . '/mygrouppermform.php';
 include_once XOOPS_ROOT_PATH . '/class/xoopsblock.php';
-include_once dirname(__DIR__) . '/include/gtickets.php';// GIJ
+include_once __DIR__ . '/../include/gtickets.php';// GIJ
 
 $xoops_system_path = XOOPS_ROOT_PATH . '/modules/system';
 
@@ -312,9 +312,9 @@ function get_block_configs()
 {
     $error_reporting_level = error_reporting(0);
     if (preg_match('/^[.0-9a-zA-Z_-]+$/', @$_GET['dirname'])) {
-        include dirname(dirname(__DIR__)) . '/' . $_GET['dirname'] . '/xoops_version.php';
+        include __DIR__ . '/../../' . $_GET['dirname'] . '/xoops_version.php';
     } else {
-        include dirname(__DIR__) . '/xoops_version.php';
+        include __DIR__ . '/../xoops_version.php';
     }
     error_reporting($error_reporting_level);
     if (empty($modversion['blocks'])) {

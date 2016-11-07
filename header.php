@@ -9,7 +9,7 @@
  */
 
 global $xoopsModule;
-include dirname(dirname(__DIR__)) . '/mainfile.php';
+include __DIR__ . '/../../mainfile.php';
 xoops_load('XoopsRequest');
 
 include_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->dirname() . '/include/functions.php';
