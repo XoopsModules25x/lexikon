@@ -147,7 +147,7 @@ case 'post':
         $submit = 0;
         $offline = 0;
     }*/
-    if (!$gperm_handler->checkRight('lexikon_approve', $perm_itemid, $groups, $module_id)) {
+    if ($gperm_handler->checkRight('lexikon_approve', $perm_itemid, $groups, $module_id)) {
         $submit = 0;
         $offline = 0;
         $autoapprove = 1;
