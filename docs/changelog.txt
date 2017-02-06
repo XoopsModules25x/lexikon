@@ -1,20 +1,66 @@
----------------------------------------
-1.52 Beta 1  2016-11-06
----------------------------------------
+1.52 Beta 2         2017-02-06
+=================================
+- started conversion to XMF (mamba)
+- standard copyright headers (mamba)
+- Hardening to type safe (mamba)
+- moved functions to Utility class (mamba)
+- adjusted DB defaults for 'item_tag' (mamba)
+- changed extensions to .tpl (mamba)
+- redirect changes it case of error (aerograf/bleekk)
 
+
+1.52 Beta 1       NOT RELEASED
+=================================
+- moved all images, CSS, and JS files to /assets (mamba)
+- renamed .html Smarty templates to .tpl (mamba)
+- removed @version (mamba)
+- PSR-2 code cosmetics (mamba)
+- addNavigation(basename(__FILE__))  (mamba)
+- dirname(__FILE__) to __DIR__ (mamba)
+- XOOPS 2.5.8, PHP 7 (mamba)
+- replaced < b /> with < b > (mamba)
+- Unnecessary double quotes (mamba)
+- reference mismatch (mamba)
+- Hardening to type safe (mamba)
+- update Help (mamba)
+- changed _handler to Handler (mamba)
+- removed 'exit()' from redirect_header calls (mamba)
+- replaced intval with (int) (mamba)
 - fixed reference notices (goffy)
 - changed upload directory for cat image to root/uploads/lexikon/categories/images (goffy)
 - created new configs imguploadwd and imguploadsize (goffy)
 
+
 ---------------------------------------
-1.51 Final  2013-07-11
+1.51.8              2014-03-07
+---------------------------------------
+
+- Fixed XoopsTree deprecated, following Trabis dirty method found on xoops.org
+
+Remaining bugs: Tags keywords not saved on item creation. Must be re-entered on item edit.
+
+---------------------------------------
+1.51.7               2014-03-07
+---------------------------------------
+
+- Filter by letter (initial) fixed.
+- French translation by LionHell.
+- Replaced text by language constant in importwordbook.php
+- Category image by default fixed.
+- HTML bug on category startpage fixed.
+- XoopsUserUtlity bug in statistics.php fixed.
+
+Remaining bugs: XoopsTree deprecated , tags keywords not saved on item creation. Must be re-entered on item edit.
+
+---------------------------------------
+1.51 Final                2013-07-11
 ---------------------------------------
 
 - changed to standard Editor selection
 - added removal of HTML special characters/tags in Category list
 
 ---------------------------------------
-1.51 Beta 2  2013-04-26
+1.51 Beta 2                2013-04-26
 ---------------------------------------
 
 - Converted names of language constants to match folder name (in preparation for cloning)
@@ -24,13 +70,13 @@
 -
 
 ---------------------------------------
-1.51 Beta 1  2013-02-27
+1.51 Beta 1                2013-02-27
 ---------------------------------------
 
 - Converted to XOOPS 2.5.5 Admin GUI (Mamba)
 
 ---------------------------------------
-Lexikon version 1.5 b
+1.5 b
 ---------------------------------------
 - Added XOOPS group permissions
 - Updated plugins with permission query
@@ -43,7 +89,7 @@ Lexikon version 1.5 b
 - modified some options (moved to xoops_version.php)
 
 ---------------------------------------
-Lexikon version 1.4
+1.4
 ---------------------------------------
 - Improved blocks
    . Added block Authors
@@ -62,7 +108,7 @@ Lexikon version 1.4
 - Fixed RSS Feeds
 
 ---------------------------------------
-Lexikon version 1.3
+1.3
 ---------------------------------------
 - Added block spotlight
 - Added search in glossary comments
@@ -75,7 +121,7 @@ Lexikon version 1.3
 - Added option RSS for user/guests
 
 ---------------------------------------
-Lexikon version 1.2
+1.2
 ---------------------------------------
 - Improved blocks
    . Added block categories
@@ -93,7 +139,7 @@ Lexikon version 1.2
 - Changed captcha, rendernav (backend) and some other things
 
 ---------------------------------------
-Lexikon version 0.6
+0.6
 ---------------------------------------
 - Improved system integration
    . Fixed user submissions to be displayed in userinfo.php
@@ -127,6 +173,6 @@ Lexikon version 0.6
 - Changed rendernav (number of pages) and some other things
 
 ---------------------------------------
-Lexikon version 0.5
+0.5
 ---------------------------------------
 Initial Release

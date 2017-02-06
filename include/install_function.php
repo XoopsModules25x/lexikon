@@ -1,57 +1,54 @@
 <?php
-// $Id$
-//  ------------------------------------------------------------------------ //
-//                XOOPS - PHP Content Management System                      //
-//                    Copyright (c) 2000 XOOPS.org                           //
-//                       <http://www.xoops.org/>                             //
-// ------------------------------------------------------------------------- //
-//  This program is free software; you can redistribute it and/or modify     //
-//  it under the terms of the GNU General Public License as published by     //
-//  the Free Software Foundation; either version 2 of the License, or        //
-//  (at your option) any later version.                                      //
-//                                                                           //
-//  You may not change or alter any portion of this comment or credits       //
-//  of supporting developers from this source code or any supporting         //
-//  source code which is considered copyrighted (c) material of the          //
-//  original comment or credit authors.                                      //
-//                                                                           //
-//  This program is distributed in the hope that it will be useful,          //
-//  but WITHOUT ANY WARRANTY; without even the implied warranty of           //
-//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            //
-//  GNU General Public License for more details.                             //
-//                                                                           //
-//  You should have received a copy of the GNU General Public License        //
-//  along with this program; if not, write to the Free Software              //
-//  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
-//  ------------------------------------------------------------------------ //
+/*
+ * You may not change or alter any portion of this comment or credits
+ * of supporting developers from this source code or any supporting source code
+ * which is considered copyrighted (c) material of the original comment or credit authors.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ */
+
+/**
+ * @copyright    {@link http://xoops.org/ XOOPS Project}
+ * @license      {@link http://www.gnu.org/licenses/gpl-2.0.html GNU GPL 2 or later}
+ * @package
+ * @since
+ * @author       XOOPS Development Team
+ */
+
 //from extgallery
 
 //error_reporting(E_ALL);
 
-function xoops_module_install_lexikon(&$xoopsModule) {
-    
+/**
+ * @param $xoopsModule
+ * @return bool
+ */
+function xoops_module_install_lexikon(XoopsObject $xoopsModule)
+{
     $module_id = $xoopsModule->getVar('mid');
-    $gpermHandler = xoops_gethandler('groupperm');
-    $configHandler = xoops_gethandler('config');
-    
+    $gpermHandler  = xoops_getHandler('groupperm');
+    $configHandler = xoops_getHandler('config');
+
     /**
      * Default public category permission mask
      */
-    
+
     // Access right
     $gpermHandler->addRight('lexikon_view', 1, XOOPS_GROUP_ADMIN, $module_id);
     $gpermHandler->addRight('lexikon_view', 1, XOOPS_GROUP_USERS, $module_id);
     $gpermHandler->addRight('lexikon_view', 1, XOOPS_GROUP_ANONYMOUS, $module_id);
-    
+
     // Public submit
     $gpermHandler->addRight('lexikon_submit', 1, XOOPS_GROUP_ADMIN, $module_id);
     $gpermHandler->addRight('lexikon_submit', 1, XOOPS_GROUP_USERS, $module_id);
-    
+
     // Public request
     $gpermHandler->addRight('lexikon_request', 1, XOOPS_GROUP_ADMIN, $module_id);
     $gpermHandler->addRight('lexikon_request', 1, XOOPS_GROUP_USERS, $module_id);
     $gpermHandler->addRight('lexikon_request', 1, XOOPS_GROUP_ANONYMOUS, $module_id);
-    
+
     /**
      * Create default upload directories
      */
@@ -65,14 +62,14 @@ function xoops_module_install_lexikon(&$xoopsModule) {
         chmod($p_lexikon, 0777);
     }
     copy($indexFile, $p_lexikon.'/index.html');
-    // Making of categories folder 
+    // Making of categories folder
     $pl_categories = $p_lexikon.'/categories';
     if(!is_dir($pl_categories)) {
         mkdir($pl_categories, 0777);
         chmod($pl_categories, 0777);
     }
     copy($indexFile, $pl_categories.'/index.html');
-    
+
     $plc_images = $pl_categories.'/images';
     if(!is_dir($plc_images)) {
         mkdir($plc_images, 0777);
@@ -80,14 +77,14 @@ function xoops_module_install_lexikon(&$xoopsModule) {
     }
     copy($indexFile, $plc_images.'/index.html');
     copy($blankFile, $plc_images.'/blank.gif');
-    // Making of entries folder 
+    // Making of entries folder
     $pl_entries = $p_lexikon.'/entries';
     if(!is_dir($pl_entries)) {
         mkdir($pl_entries, 0777);
         chmod($pl_entries, 0777);
     }
     copy($indexFile, $pl_entries.'/index.html');
-    
+
     $ple_images = $pl_entries.'/images';
     if(!is_dir($ple_images)) {
         mkdir($ple_images, 0777);
@@ -95,6 +92,6 @@ function xoops_module_install_lexikon(&$xoopsModule) {
     }
     copy($indexFile, $ple_images.'/index.html');
     copy($blankFile, $ple_images.'/blank.gif');
-    
+
     return true;
 }

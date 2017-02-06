@@ -10,31 +10,30 @@
  */
 
 /**
- * @copyright    The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright    XOOPS Project (http://xoops.org)
  * @license      GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package
  * @since
- * @author     XOOPS Development Team
- * @version    $Id $
+ * @author       XOOPS Development Team
  */
 
-require_once dirname(dirname(dirname(dirname(__FILE__)))) . '/include/cp_header.php';
-include_once dirname(__FILE__) . '/admin_header.php';
+require_once __DIR__ . '/../../../include/cp_header.php';
+require_once __DIR__ . '/admin_header.php';
 
 xoops_cp_header();
 
-    $indexAdmin = new ModuleAdmin();
+$adminObject  = \Xmf\Module\Admin::getInstance();
 
 //IndexTable();
-$summary = lexikon_summary();
+$summary = LexikonUtility::getSummary();
 
-$indexAdmin->addInfoBox(_AM_LEXIKON_SUMMARY);
-$indexAdmin->addInfoBoxLine(_AM_LEXIKON_SUMMARY,   _AM_LEXIKON_TOTALENTRIES2,$summary['publishedEntries'],  'Green');
-$indexAdmin->addInfoBoxLine(_AM_LEXIKON_SUMMARY,   _AM_LEXIKON_TOTALCATS2, $summary['availableCategories'], 'Green');
-$indexAdmin->addInfoBoxLine(_AM_LEXIKON_SUMMARY,   _AM_LEXIKON_TOTALSUBM2, $summary['submittedEntries'],  'Red');
-$indexAdmin->addInfoBoxLine(_AM_LEXIKON_SUMMARY,   _AM_LEXIKON_TOTALREQ2,$summary['requestedEntries'],  'Red');
+$adminObject->addInfoBox(_AM_LEXIKON_SUMMARY);
+$adminObject->addInfoBoxLine(sprintf(_AM_LEXIKON_TOTALENTRIES2, '<span class="green">' . $summary['publishedEntries'] . '</span>'),'','green');
+$adminObject->addInfoBoxLine(sprintf(_AM_LEXIKON_TOTALCATS2, '<span class="green">' .$summary['availableCategories']. '</span>'),'','green');
+$adminObject->addInfoBoxLine(sprintf(_AM_LEXIKON_TOTALSUBM2, '<span class="red">' .$summary['submittedEntries']. '</span>'),'','red');
+$adminObject->addInfoBoxLine(sprintf(_AM_LEXIKON_TOTALREQ2, '<span class="red">' .$summary['requestedEntries']. '</span>'),'','red');
 
-    echo $indexAdmin->addNavigation('index.php');
-    echo $indexAdmin->renderIndex();
+$adminObject->displayNavigation(basename(__FILE__));
+$adminObject->displayIndex();
 
-include "admin_footer.php";
+require_once __DIR__ . '/admin_footer.php';

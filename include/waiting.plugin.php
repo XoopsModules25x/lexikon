@@ -1,28 +1,32 @@
 <?php
 // waiting Plugin for Lexikon glossary module
 
-function b_waiting_lexikon() {
+/**
+ * @return array
+ */
+function b_waiting_lexikon()
+{
     $xoopsDB = XoopsDatabaseFactory::getDatabaseConnection();
-    $ret = array() ;
+    $ret     = array();
 
     // Waiting
-    $block = array();
-    $result = $xoopsDB->query("SELECT COUNT(*) FROM ".$xoopsDB->prefix("lxentries")." WHERE submit=1 AND request=0 ");
-    if ( $result ) {
-        $block['adminlink'] = XOOPS_URL."/modules/lexikon/admin/main.php?statussel=1" ;
+    $block  = array();
+    $result = $xoopsDB->query('SELECT COUNT(*) FROM ' . $xoopsDB->prefix('lxentries') . ' WHERE submit=1 AND request=0 ');
+    if ($result) {
+        $block['adminlink'] = XOOPS_URL . '/modules/lexikon/admin/main.php?statussel=1';
         list($block['pendingnum']) = $xoopsDB->fetchRow($result);
-        $block['lang_linkname'] = _PI_WAITING_SUBMITTED ;
+        $block['lang_linkname'] = _PI_WAITING_SUBMITTED;
     }
-    $ret[] = $block ;
+    $ret[] = $block;
 
     // Request
-    $result = $xoopsDB->query("SELECT COUNT(*) FROM ".$xoopsDB->prefix("lxentries")." WHERE submit=1 AND request=1 ");
-    if ( $result ) {
-        $block['adminlink'] = XOOPS_URL."/modules/lexikon/admin/main.php?statussel=4" ;
+    $result = $xoopsDB->query('SELECT COUNT(*) FROM ' . $xoopsDB->prefix('lxentries') . ' WHERE submit=1 AND request=1 ');
+    if ($result) {
+        $block['adminlink'] = XOOPS_URL . '/modules/lexikon/admin/main.php?statussel=4';
         list($block['pendingnum']) = $xoopsDB->fetchRow($result);
-        $block['lang_linkname'] = _PI_WAITING_REQUESTS ;
+        $block['lang_linkname'] = _PI_WAITING_REQUESTS;
     }
-    $ret[] = $block ;
+    $ret[] = $block;
 
-    return $ret ;
+    return $ret;
 }
