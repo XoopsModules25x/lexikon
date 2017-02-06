@@ -3,7 +3,7 @@
         <{if $block.showpicask == 1}>
             <{if $block.catimage}>
                 <div style="float: left; width: 80px; margin-right: 10px; border: 1px solid black; "><img
-                            src="<{$xoops_url}>/modules/lexikon/assets/images/uploads/<{$block.catimage}>" width="80"
+                            src="<{$xoops_url}>/uploads/lexikon/categories/images/<{$block.catimage}>" width="80"
                             ALT="<{$block.name}>"/></div>
             <{/if}>
         <{/if}>
@@ -44,7 +44,7 @@
             <{if $block.showpicask == 1}>
                 <{if $block.catimage}>
                     <div style="float: left; width: 80px; margin: 10px 10px 0 2px; border: 1px solid black; "><img
-                                src="<{$xoops_url}>/modules/lexikon/assets/images/uploads/<{$block.catimage}>"
+                                src="<{$xoops_url}>/uploads/lexikon/categories/images/<{$block.catimage}>"
                                 width="80" ALT="<{$block.name}>"/></div>
                 <{/if}>
             <{/if}>

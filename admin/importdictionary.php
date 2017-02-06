@@ -23,7 +23,7 @@
 // ------------------------------------------------------------------------ //
 //////////////////////////////////////////////////////////////////////////////
 
-include_once __DIR__ . '/admin_header.php';
+require_once __DIR__ . '/admin_header.php';
 $op = '';
 
 /****
@@ -67,7 +67,7 @@ function import2db($text)
 function DefinitionImport($delete)
 {
     global $xoopsConfig, $xoopsDB, $xoopsModule, $myts;
-    $sqlQuery = $xoopsDB->query('SELECT count(id) as count FROM ' . $xoopsDB->prefix('dictionary'));
+    $sqlQuery = $xoopsDB->query('SELECT count(id) AS count FROM ' . $xoopsDB->prefix('dictionary'));
     list($count) = $xoopsDB->fetchRow($sqlQuery);
     if ($count < 1) {
         redirect_header('index.php', 1, 'Database for import missing or empty!');
@@ -92,7 +92,7 @@ function DefinitionImport($delete)
         // delete notifications
         xoops_notification_deletebymodule($xoopsModule->getVar('mid'));
         //get all entries
-        $result3 = $xoopsDB->query('select entryID from ' . $xoopsDB->prefix('lxentries') . '');
+        $result3 = $xoopsDB->query('SELECT entryID FROM ' . $xoopsDB->prefix('lxentries') . '');
         //now for each entry, delete the coments
         while (list($entryID) = $xoopsDB->fetchRow($result3)) {
             xoops_comment_delete($xoopsModule->getVar('mid'), $entryID);
@@ -138,7 +138,7 @@ function DefinitionImport($delete)
             } else {
                 $row2['submit'] = 0;
             }
-            $comments   = (int)$row2['comments'];
+            $comments = (int)$row2['comments'];
             ++$glocounter;
 
             if ($delete) {
@@ -162,7 +162,7 @@ function DefinitionImport($delete)
             if ($ret1) {
                 if ($uid) {
                     $memberHandler = xoops_getHandler('member');
-                    $submitter      = $memberHandler->getUser($uid);
+                    $submitter     = $memberHandler->getUser($uid);
                     if (is_object($submitter)) {
                         $submitter->setVar('posts', $submitter->getVar('posts') + 1);
                         $res = $memberHandler->insertUser($submitter, true);
@@ -177,7 +177,7 @@ function DefinitionImport($delete)
      ****/
 
     $sqlQuery = $xoopsDB->query('
-                              SELECT mid from ' . $xoopsDB->prefix('modules') . "
+                              SELECT mid FROM ' . $xoopsDB->prefix('modules') . "
                               WHERE dirname = 'dictionary'");
     list($dicID) = $xoopsDB->fetchRow($sqlQuery);
     echo '<p>Dictionary Module ID: ' . $dicID . '</p>';
@@ -210,7 +210,7 @@ function FormImport()
     global $xoopsConfig, $xoopsDB, $xoopsModule;
     lx_importMenu(9);
     /** @var XoopsModuleHandler $moduleHandler */
-    $moduleHandler = xoops_getHandler('module');
+    $moduleHandler    = xoops_getHandler('module');
     $dictionaryModule = $moduleHandler->getByDirname('dictionary');
     $got_options      = false;
     if (is_object($dictionaryModule)) {
@@ -220,7 +220,11 @@ function FormImport()
         echo '</tr>';
 
         echo '<tr>';
-        echo "<td class='head' width = '200' align='center'><img src='" . XOOPS_URL . '/modules/' . $xoopsModule->dirname() . '/assets/images/dialog-important.png'
+        echo "<td class='head' width = '200' align='center'><img src='"
+             . XOOPS_URL
+             . '/modules/'
+             . $xoopsModule->dirname()
+             . '/assets/images/dialog-important.png'
              . "' alt='' hspace='0' vspace='0' align='middle' style='margin-right: 10px;  margin-top: 20px;'></td>";
         echo "<td class='even' align='center'><br><B><span style='font-size: x-small; color: red; '>" . _AM_LEXIKON_IMPORTWARN . '</span></B><P></td>';
         echo '</tr>';

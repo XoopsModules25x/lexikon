@@ -45,6 +45,7 @@ if (!class_exists('XoopsGTicket')) {
         }
 
         // render form as plain html
+
         /**
          * @param  string $salt
          * @param  int    $timeout
@@ -57,6 +58,7 @@ if (!class_exists('XoopsGTicket')) {
         }
 
         // returns an object of XoopsFormHidden including theh ticket
+
         /**
          * @param  string $salt
          * @param  int    $timeout
@@ -69,6 +71,7 @@ if (!class_exists('XoopsGTicket')) {
         }
 
         // add a ticket as Hidden Element into XoopsForm
+
         /**
          * @param        $form
          * @param string $salt
@@ -81,6 +84,7 @@ if (!class_exists('XoopsGTicket')) {
         }
 
         // returns an array for xoops_confirm() ;
+
         /**
          * @param  string $salt
          * @param  int    $timeout
@@ -93,6 +97,7 @@ if (!class_exists('XoopsGTicket')) {
         }
 
         // return GET parameter string.
+
         /**
          * @param  string $salt
          * @param  bool   $noamp
@@ -106,6 +111,7 @@ if (!class_exists('XoopsGTicket')) {
         }
 
         // issue a ticket
+
         /**
          * @param  string $salt
          * @param  int    $timeout
@@ -117,7 +123,8 @@ if (!class_exists('XoopsGTicket')) {
             global $xoopsModule;
 
             if ('' === $salt) {
-                $salt = '$2y$07$' . strtr(base64_encode(mcrypt_create_iv(16, MCRYPT_DEV_URANDOM)), '+', '.');
+                // $salt = '$2y$07$' . strtr(base64_encode(mcrypt_create_iv(16, MCRYPT_DEV_URANDOM)), '+', '.');
+                $salt = '$2y$07$' . str_replace('+', '.', base64_encode(mcrypt_create_iv(16, MCRYPT_DEV_URANDOM)));
             }
             // create a token
             list($usec, $sec) = explode(' ', microtime());
@@ -155,6 +162,7 @@ if (!class_exists('XoopsGTicket')) {
         }
 
         // check a ticket
+
         /**
          * @param  bool   $post
          * @param  string $area
@@ -249,6 +257,7 @@ if (!class_exists('XoopsGTicket')) {
         }
 
         // draw form for repost
+
         /**
          * @param string $area
          */
@@ -280,20 +289,25 @@ if (!class_exists('XoopsGTicket')) {
                 if (is_array($val)) {
                     list($tmp_table, $tmp_form) = $this->extract_post_recursive(htmlspecialchars($key, ENT_QUOTES), $val);
                     $table .= $tmp_table;
-                    $form .= $tmp_form;
+                    $form  .= $tmp_form;
                 } else {
                     if (get_magic_quotes_gpc()) {
                         $val = stripslashes($val);
                     }
                     $table .= '<tr><th>' . htmlspecialchars($key, ENT_QUOTES) . '</th><td>' . htmlspecialchars($val, ENT_QUOTES) . '</td></tr>' . "\n";
-                    $form .= '<input type="hidden" name="' . htmlspecialchars($key, ENT_QUOTES) . '" value="' . htmlspecialchars($val, ENT_QUOTES) . '" />' . "\n";
+                    $form  .= '<input type="hidden" name="' . htmlspecialchars($key, ENT_QUOTES) . '" value="' . htmlspecialchars($val, ENT_QUOTES) . '" />' . "\n";
                 }
             }
             $table .= '</table>';
-            $form .= $this->getTicketHtml(__LINE__, 300, $area) . '<input type="submit" value="' . $this->messages['btn_repost'] . '" /></form>';
+            $form  .= $this->getTicketHtml(__LINE__, 300, $area) . '<input type="submit" value="' . $this->messages['btn_repost'] . '" /></form>';
 
-            echo '<html><head><title>' . $this->messages['err_general'] . '</title><style>table,td,th {border:solid black 1px; border-collapse:collapse;}</style></head><body>' . sprintf($this->messages['fmt_prompt4repost'], $this->getErrors())
-                 . $table . $form . '</body></html>';
+            echo '<html><head><title>'
+                 . $this->messages['err_general']
+                 . '</title><style>table,td,th {border:solid black 1px; border-collapse:collapse;}</style></head><body>'
+                 . sprintf($this->messages['fmt_prompt4repost'], $this->getErrors())
+                 . $table
+                 . $form
+                 . '</body></html>';
         }
 
         /**
@@ -312,13 +326,13 @@ if (!class_exists('XoopsGTicket')) {
                 if (is_array($val)) {
                     list($tmp_table, $tmp_form) = $this->extract_post_recursive($key_name . '[' . htmlspecialchars($key, ENT_QUOTES) . ']', $val);
                     $table .= $tmp_table;
-                    $form .= $tmp_form;
+                    $form  .= $tmp_form;
                 } else {
                     if (get_magic_quotes_gpc()) {
                         $val = stripslashes($val);
                     }
                     $table .= '<tr><th>' . $key_name . '[' . htmlspecialchars($key, ENT_QUOTES) . ']</th><td>' . htmlspecialchars($val, ENT_QUOTES) . '</td></tr>' . "\n";
-                    $form .= '<input type="hidden" name="' . $key_name . '[' . htmlspecialchars($key, ENT_QUOTES) . ']" value="' . htmlspecialchars($val, ENT_QUOTES) . '" />' . "\n";
+                    $form  .= '<input type="hidden" name="' . $key_name . '[' . htmlspecialchars($key, ENT_QUOTES) . ']" value="' . htmlspecialchars($val, ENT_QUOTES) . '" />' . "\n";
                 }
             }
 
@@ -332,6 +346,7 @@ if (!class_exists('XoopsGTicket')) {
         }
 
         // Ticket Using
+
         /**
          * @return bool
          */
@@ -345,6 +360,7 @@ if (!class_exists('XoopsGTicket')) {
         }
 
         // return errors
+
         /**
          * @param  bool $ashtml
          * @return array|string

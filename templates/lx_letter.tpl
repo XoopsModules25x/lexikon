@@ -66,7 +66,7 @@
                             <{if $catlinks.image != "" && $show_screenshot == true}>
                                 <a href="<{$xoops_url}>/modules/<{$lang_moduledirname}>/category.php?categoryID=<{$catlinks.id}>"
                                    target="_parent"><img
-                                            src="<{$xoops_url}>/modules/<{$lang_moduledirname}>/assets/images/uploads/<{$catlinks.image}>"
+                                            src="<{$xoops_url}>/uploads/<{$lang_moduledirname}>/categories/images/<{$catlinks.image}>"
                                             width="<{$logo_maximgwidth}>" align="left" class="floatLeft"
                                             alt="[<{$catlinks.name}>]&nbsp;[<{$catlinks.total}>]"/></A>
                             <{/if}>
@@ -93,7 +93,7 @@
                         <{if $catlinks.image != "" && $show_screenshot == true}>
                             <a href="<{$xoops_url}>/modules/<{$lang_moduledirname}>/category.php?categoryID=<{$category.id}>"
                                target="_parent">
-                                <img src="<{$xoops_url}>/modules/<{$lang_moduledirname}>/assets/images/uploads/<{$catlinks.image}>"
+                                <img src="<{$xoops_url}>/uploads/<{$lang_moduledirname}>/categories/images/<{$catlinks.image}>"
                                      width="<{$logo_maximgwidth}>" align="middle"
                                      alt="[<{$catlinks.total}>]"/></A>
                         <{/if}>

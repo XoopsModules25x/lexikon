@@ -10,7 +10,7 @@
  */
 //file obsolete . remains for compatibility reasons
 
-include_once __DIR__ . '/admin_header.php';
+require_once __DIR__ . '/admin_header.php';
 $myts = MyTextSanitizer::getInstance();
 $op   = '';
 
@@ -77,8 +77,14 @@ switch ($op) {
          **/
 
         lx_collapsableBar('lexikonsub', 'lexikonsubicon');
-        echo "  <img  onclick=\"toggle('toptable'); toggleIcon('toptableicon');\" id='lexikonsubicon' name='lexikonsubicon' src='" . XOOPS_URL . "/modules/lexikon/assets/images/close12.gif' alt='' /></a>&nbsp;" . _AM_LEXIKON_SHOWSUBMISSIONS . ' ('
-             . $totalsubmitted . ')' . '<br>';
+        echo "  <img  onclick=\"toggle('toptable'); toggleIcon('toptableicon');\" id='lexikonsubicon' name='lexikonsubicon' src='"
+             . XOOPS_URL
+             . "/modules/lexikon/assets/images/close12.gif' alt='' /></a>&nbsp;"
+             . _AM_LEXIKON_SHOWSUBMISSIONS
+             . ' ('
+             . $totalsubmitted
+             . ')'
+             . '<br>';
         echo "  <div id='lexikonsub' style='float:left; width:100%;'><table class='outer' width='100%' border='0'>";
         /*      <tr>
                 <td colspan='7' class='odd'>
@@ -149,8 +155,14 @@ switch ($op) {
          **/
 
         lx_collapsableBar('lexikonreq', 'lexikonreqicon');
-        echo "  <img  onclick=\"toggle('toptable'); toggleIcon('toptableicon');\" id='lexikonreqicon' name='lexikonreqicon' src='" . XOOPS_URL . "/modules/lexikon/assets/images/close12.gif' alt='' /></a>&nbsp;" . _AM_LEXIKON_SHOWREQUESTS . ' ('
-             . $totalrequested . ')' . '<br>';
+        echo "  <img  onclick=\"toggle('toptable'); toggleIcon('toptableicon');\" id='lexikonreqicon' name='lexikonreqicon' src='"
+             . XOOPS_URL
+             . "/modules/lexikon/assets/images/close12.gif' alt='' /></a>&nbsp;"
+             . _AM_LEXIKON_SHOWREQUESTS
+             . ' ('
+             . $totalrequested
+             . ')'
+             . '<br>';
         echo "  <div id='lexikonreq' style='float:left; width:100%;'><table class='outer' width='100%' border='0'>";
         /*      <tr>
                 <td colspan='7' class='odd'>
@@ -159,7 +171,7 @@ switch ($op) {
         */
         $resultS2 = $xoopsDB->query('SELECT COUNT(*)
                                    FROM ' . $xoopsDB->prefix('lxentries') . "
-                                   WHERE submit = '1' and request = '1'");
+                                   WHERE submit = '1' AND request = '1'");
         list($numrowsX) = $xoopsDB->fetchRow($resultS2);
 
         $sql4     = 'SELECT entryID, categoryID, term, uid, datesub
@@ -219,8 +231,14 @@ switch ($op) {
          * Code to show offline entries
          **/
         lx_collapsableBar('lexikonoff', 'lexikonofficon');
-        echo "  <img  onclick=\"toggle('toptable'); toggleIcon('toptableicon');\" id='lexikonofficon' name='lexikonofficon' src='" . XOOPS_URL . "/modules/lexikon/assets/images/close12.gif' alt='' /></a>&nbsp;" . _AM_LEXIKON_SHOWOFFLINE . ' ('
-             . $totaloffline . ')' . '</legend><br>';
+        echo "  <img  onclick=\"toggle('toptable'); toggleIcon('toptableicon');\" id='lexikonofficon' name='lexikonofficon' src='"
+             . XOOPS_URL
+             . "/modules/lexikon/assets/images/close12.gif' alt='' /></a>&nbsp;"
+             . _AM_LEXIKON_SHOWOFFLINE
+             . ' ('
+             . $totaloffline
+             . ')'
+             . '</legend><br>';
         echo "  <div id='lexikonoff' style='float:left; width:100%;'><table class='outer' width='100%' border='0'>";
         /*      <tr>
                 <td colspan='7' class='odd'>

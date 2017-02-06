@@ -10,7 +10,7 @@ function domticker(content, divId, divClass, delay, fadeornot) {
     this.delay = delay //Delay between msg change, in miliseconds.
     this.mouseoverBol = 0 //Boolean to indicate whether mouse is currently over ticker (and pause it if it is)
     this.pointer = 1
-    this.opacitystring = (typeof fadeornot != "undefined") ? "width: 96%; filter:progid:DXImageTransform.Microsoft.alpha(opacity=100); -moz-opacity: 1" : ""
+    this.opacitystring = (typeof fadeornot !== "undefined") ? "width: 96%; filter:progid:DXImageTransform.Microsoft.alpha(opacity=100); -moz-opacity: 1" : ""
     if (this.opacitystring != "") this.delay += 500 //add 1/2 sec to account for fade effect, if enabled
     this.opacitysetting = 0.2 //Opacity value when reset. Internal use.
     document.write('<div id="' + divId + '" class="' + divClass + '"><div style="' + this.opacitystring + '">' + content[0] + '</div></div>')

@@ -23,14 +23,14 @@ function b_lxcategories_show($options)
     $lexikon       = $moduleHandler->getByDirname('lexikon');
     if (!isset($lxConfig)) {
         $configHandler = xoops_getHandler('config');
-        $lxConfig       =& $configHandler->getConfigsByCat(0, $lexikon->getVar('mid'));
+        $lxConfig      = $configHandler->getConfigsByCat(0, $lexikon->getVar('mid'));
     }
-    $groups        = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
+    $groups       = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
     $gpermHandler = xoops_getHandler('groupperm');
-    $module_id     = $lexikon->getVar('mid');
-    $allowed_cats  = $gpermHandler->getItemIds('lexikon_view', $groups, $module_id);
-    $catids        = implode(',', $allowed_cats);
-    $catperms      = " categoryID IN ($catids) ";
+    $module_id    = $lexikon->getVar('mid');
+    $allowed_cats = $gpermHandler->getItemIds('lexikon_view', $groups, $module_id);
+    $catids       = implode(',', $allowed_cats);
+    $catperms     = " categoryID IN ($catids) ";
 
     $cats      = $gpermHandler->getItemIds('lexikon_view', $groups, $module_id);
     $totalcats = count($cats);

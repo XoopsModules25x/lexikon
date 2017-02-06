@@ -8,17 +8,17 @@
  * Licence: GNU
  */
 
-include_once __DIR__ . '/admin_header.php';
+require_once __DIR__ . '/admin_header.php';
 xoops_cp_header();
 
 $myts = MyTextSanitizer::getInstance();
 global $xoopsUser, $xoopsConfig, $xoopsModuleConfig, $xoopsModule, $entryID;
 xoops_load('XoopsUserUtility');
-$indexAdmin = new ModuleAdmin();
-echo $indexAdmin->addNavigation(basename(__FILE__));
-$indexAdmin->addItemButton(_AM_LEXIKON_CREATECAT, 'category.php?op=addcat', 'add');
-$indexAdmin->addItemButton(_AM_LEXIKON_CREATEENTRY, 'entry.php?op=add', 'add');
-echo $indexAdmin->renderButton('left');
+$adminObject  = \Xmf\Module\Admin::getInstance();
+$adminObject->displayNavigation(basename(__FILE__));
+$adminObject->addItemButton(_AM_LEXIKON_CREATECAT, 'category.php?op=addcat', 'add');
+$adminObject->addItemButton(_AM_LEXIKON_CREATEENTRY, 'entry.php?op=add', 'add');
+$adminObject->displayButton('left');
 //include_once XOOPS_ROOT_PATH . "/class/xoopslists.php";
 include_once XOOPS_ROOT_PATH . '/class/pagenav.php';
 
@@ -102,8 +102,14 @@ if (!lx_FieldExists('logourl', $xoopsDB->prefix('lxcategories'))
     || lx_FieldExists('parent', $xoopsDB->prefix('lxcategories'))
 ) {
     ++$i;
-    echo "<table><tr><td  style='border-bottom: 1px dotted #cfcfcf; line-height: 16px;'><img src='" . XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/assets/images/dialog-important.png'
-         . "' alt='' hspace='0' vspace='0' align='left' style='margin-right: 10px; '><A href='upgrade.php'>" . _AM_LEXIKON_PLEASE_UPGRADE . '</A></td></tr></table></P>';
+    echo "<table><tr><td  style='border-bottom: 1px dotted #cfcfcf; line-height: 16px;'><img src='"
+         . XOOPS_URL
+         . '/modules/'
+         . $xoopsModule->getVar('dirname')
+         . '/assets/images/dialog-important.png'
+         . "' alt='' hspace='0' vspace='0' align='left' style='margin-right: 10px; '><A href='upgrade.php'>"
+         . _AM_LEXIKON_PLEASE_UPGRADE
+         . '</A></td></tr></table></P>';
 }
 
 //--- navigation bar
@@ -142,7 +148,7 @@ switch ($sortsel) {
         $sorttxtcats = 'selected';
         break;
 
-    default :
+    default:
         $sorttxtentryID = 'selected';
         break;
 }
@@ -152,13 +158,13 @@ switch ($ordersel) {
         $ordertxtasc = 'selected';
         break;
 
-    default :
+    default:
         $ordertxtdesc = 'selected';
         break;
 }
 
 switch ($statussel) {
-    case '0' :
+    case '0':
         //default:
         $selectedtxt0       = 'selected';
         $caption            = _ALL;
@@ -166,28 +172,28 @@ switch ($statussel) {
         $status_explanation = _AM_LEXIKON_ALL_EXP;
         break;
 
-    case '1' :
+    case '1':
         $selectedtxt1       = 'selected';
         $caption            = _AM_LEXIKON_SUBMITTED;
         $cond               = ' WHERE submit = 1 AND request = 0 ';
         $status_explanation = _AM_LEXIKON_SUBMITTED_EXP;
         break;
 
-    case '2' :
+    case '2':
         $selectedtxt2       = 'selected';
         $caption            = _AM_LEXIKON_PUBLISHED;
         $cond               = ' WHERE offline = 0 ';
         $status_explanation = _AM_LEXIKON_PUBLISHED_EXP;
         break;
 
-    case '3' :
+    case '3':
         $selectedtxt3       = 'selected';
         $caption            = _AM_LEXIKON_SHOWOFFLINE;
         $cond               = ' WHERE offline = 1 ';
         $status_explanation = _AM_LEXIKON_OFFLINE_EXP;
         break;
 
-    case '4' :
+    case '4':
         $selectedtxt4       = 'selected';
         $caption            = _AM_LEXIKON_SHOWREQUESTS;
         $cond               = ' WHERE submit= 1 AND request = 1 ';
@@ -264,27 +270,27 @@ if ($numrows > 0) {
             $approve = '';
             switch ($items) {
                 //case _LEXIKON_STATUS_SUBMITTED :
-                case '1' :
+                case '1':
                     $statustxt = '<img src=' . XOOPS_URL . '/modules/' . $xoopsModule->dirname() . "/assets/images/icon/off.gif alt='" . _AM_LEXIKON_ENTRYISOFF . "'>";
                     break;
 
                 //case _LEXIKON_STATUS_PUBLISHED :
-                case '2' :
+                case '2':
                     $statustxt = '<img src=' . XOOPS_URL . '/modules/' . $xoopsModule->dirname() . "/assets/images/icon/on.gif alt='" . _AM_LEXIKON_ENTRYISON . "'>";
                     break;
 
                 //case _LEXIKON_STATUS_OFFLINE :
-                case '3' :
+                case '3':
                     $statustxt = '<img src=' . XOOPS_URL . '/modules/' . $xoopsModule->dirname() . "/assets/images/icon/off.gif alt='" . _AM_LEXIKON_ENTRYISOFF . "'>";
                     break;
 
                 //case _LEXIKON_STATUS_REQ :
-                case '4' :
+                case '4':
                     $statustxt = '<img src=' . XOOPS_URL . '/modules/' . $xoopsModule->dirname() . "/assets/images/icon/off.gif alt='" . _AM_LEXIKON_ENTRYISOFF . "'>";
                     break;
 
-                case 'default' :
-                default :
+                case 'default':
+                default:
                     if ($offline == 0) {
                         $statustxt = '<img src=' . XOOPS_URL . '/modules/' . $xoopsModule->dirname() . "/assets/images/icon/on.gif alt='" . _AM_LEXIKON_ENTRYISON . "'>";
                     } else {

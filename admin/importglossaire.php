@@ -23,7 +23,7 @@
 // ------------------------------------------------------------------------ //
 //////////////////////////////////////////////////////////////////////////////
 
-include_once __DIR__ . '/admin_header.php';
+require_once __DIR__ . '/admin_header.php';
 $myts = MyTextSanitizer::getInstance();
 $op   = '';
 
@@ -69,7 +69,7 @@ function import2db($text)
 function DefinitionImport($delete)
 {
     global $xoopsConfig, $xoopsDB, $xoopsModule;
-    $sqlQuery = $xoopsDB->query('SELECT count(id) as count FROM ' . $xoopsDB->prefix('glossaire'));
+    $sqlQuery = $xoopsDB->query('SELECT count(id) AS count FROM ' . $xoopsDB->prefix('glossaire'));
     list($count) = $xoopsDB->fetchRow($sqlQuery);
     if ($count < 1) {
         redirect_header('importwordbook.php', 1, _AM_LEXIKON_MODULEIMPORTEMPTY10);
@@ -147,7 +147,7 @@ function DefinitionImport($delete)
         if ($ret1) {
             if ($uid) {
                 $memberHandler = xoops_getHandler('member');
-                $submitter      = $memberHandler->getUser($uid);
+                $submitter     = $memberHandler->getUser($uid);
                 if (is_object($submitter)) {
                     $submitter->setVar('posts', $submitter->getVar('posts') + 1);
                     $res = $memberHandler->insertUser($submitter, true);
@@ -189,7 +189,7 @@ function FormImport()
     global $xoopsConfig, $xoopsDB, $xoopsModule;
     lx_importMenu(9);
     /** @var XoopsModuleHandler $moduleHandler */
-    $moduleHandler = xoops_getHandler('module');
+    $moduleHandler   = xoops_getHandler('module');
     $glossaireModule = $moduleHandler->getByDirname('glossaire');
     $got_options     = false;
     if (is_object($glossaireModule)) {
@@ -199,7 +199,11 @@ function FormImport()
         echo '</tr>';
 
         echo '<tr>';
-        echo "<td class='head' width = '200' align='center'><img src='" . XOOPS_URL . '/modules/' . $xoopsModule->dirname() . '/assets/images/dialog-important.png'
+        echo "<td class='head' width = '200' align='center'><img src='"
+             . XOOPS_URL
+             . '/modules/'
+             . $xoopsModule->dirname()
+             . '/assets/images/dialog-important.png'
              . "' alt='' hspace='0' vspace='0' align='middle' style='margin-right: 10px; margin-top: 20px; '></td>";
         echo "<td class='even' align='center'><br><B><span style='font-size: x-small; color: red'>" . _AM_LEXIKON_IMPORTWARN . '</span></B><P></td>';
         echo '</tr>';

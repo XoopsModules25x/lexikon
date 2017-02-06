@@ -1,3 +1,13 @@
+1.52 Beta 2       NOT RELEASED
+=================================
+- started conversion to XMF (mamba)
+- standard copyright headers (mamba)
+- Hardening to type safe (mamba)
+- moved functions to Utility class (mamba)
+- adjusted DB defaults for 'item_tag' (mamba)
+- changed extensions to .tpl (mamba)
+
+
 1.52 Beta 1       NOT RELEASED
 =================================
 - moved all images, CSS, and JS files to /assets (mamba)
@@ -15,6 +25,9 @@
 - changed _handler to Handler (mamba)
 - removed 'exit()' from redirect_header calls (mamba)
 - replaced intval with (int) (mamba)
+- fixed reference notices (goffy)
+- changed upload directory for cat image to root/uploads/lexikon/categories/images (goffy)
+- created new configs imguploadwd and imguploadsize (goffy)
 
 
 ---------------------------------------

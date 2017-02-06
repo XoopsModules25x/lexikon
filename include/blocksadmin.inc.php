@@ -1,33 +1,22 @@
 <?php
-//
-//  ------------------------------------------------------------------------ //
-//                XOOPS - PHP Content Management System                      //
-//                  Copyright (c) 2000-2016 XOOPS.org                        //
-//                       <http://xoops.org/>                             //
-//  ------------------------------------------------------------------------ //
-//  This program is free software; you can redistribute it and/or modify     //
-//  it under the terms of the GNU General Public License as published by     //
-//  the Free Software Foundation; either version 2 of the License, or        //
-//  (at your option) any later version.                                      //
-//                                                                           //
-//  You may not change or alter any portion of this comment or credits       //
-//  of supporting developers from this source code or any supporting         //
-//  source code which is considered copyrighted (c) material of the          //
-//  original comment or credit authors.                                      //
-//                                                                           //
-//  This program is distributed in the hope that it will be useful,          //
-//  but WITHOUT ANY WARRANTY; without even the implied warranty of           //
-//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            //
-//  GNU General Public License for more details.                             //
-//                                                                           //
-//  You should have received a copy of the GNU General Public License        //
-//  along with this program; if not, write to the Free Software              //
-//  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
-//  ------------------------------------------------------------------------ //
-// Author: Kazumi Ono (AKA onokazu)                                          //
-// URL: http://www.myweb.ne.jp/, http://xoops.org/, http://jp.xoops.org/ //
-// Project: XOOPS Project                                                    //
-// ------------------------------------------------------------------------- //
+/*
+ * You may not change or alter any portion of this comment or credits
+ * of supporting developers from this source code or any supporting source code
+ * which is considered copyrighted (c) material of the original comment or credit authors.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ */
+
+/**
+ * @copyright    XOOPS Project http://xoops.org/
+ * @license      GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @package
+ * @since
+ * @author       XOOPS Development Team, Kazumi Ono (AKA onokazu)
+ */
+
 
 if (!is_object($xoopsUser) || !is_object($xoopsModule) || !$xoopsUser->isAdmin($xoopsModule->mid())) {
     exit('Access Denied');
@@ -344,7 +333,7 @@ if ($op === 'delete_ok') {
     $myblock->delete();
     if ($myblock->getVar('template') != '' && !defined('XOOPS_ORETEKI')) {
         $tplfileHandler = xoops_getHandler('tplfile');
-        $btemplate       =& $tplfileHandler->find($GLOBALS['xoopsConfig']['template_set'], 'block', $bid);
+        $btemplate      =& $tplfileHandler->find($GLOBALS['xoopsConfig']['template_set'], 'block', $bid);
         if (count($btemplate) > 0) {
             $tplman->delete($btemplate[0]);
         }
@@ -365,7 +354,8 @@ if ($op === 'delete') {
         $message = _AM_MODULECANT;
         redirect_header('admin.php?fct=blocksadmin', 4, $message);
     } else {
-        xoops_confirm(array('fct' => 'blocksadmin', 'op' => 'delete_ok', 'bid' => $myblock->getVar('bid')) + $xoopsGTicket->getTicketArray(__LINE__, 1800, 'myblocksadmin'), 'admin.php', sprintf(_AM_RUSUREDEL, $myblock->getVar('title')));
+        xoops_confirm(array('fct' => 'blocksadmin', 'op' => 'delete_ok', 'bid' => $myblock->getVar('bid')) + $xoopsGTicket->getTicketArray(__LINE__, 1800, 'myblocksadmin'), 'admin.php',
+                      sprintf(_AM_RUSUREDEL, $myblock->getVar('title')));
     }
     // end of delete_block() GIJ
     xoops_cp_footer();
@@ -611,7 +601,7 @@ function myblocksadmin_update_block(
         $myblock->setVar('name', $name);
     }
     $msg = _AM_DBUPDATED;
-    if ($myblock->store() != false) {
+    if ($myblock->store() !== false) {
         $db  = XoopsDatabaseFactory::getDatabaseConnection();
         $sql = sprintf('DELETE FROM %s WHERE block_id = %u', $db->prefix('block_module_link'), $bid);
         $db->query($sql);
@@ -629,8 +619,8 @@ function myblocksadmin_update_block(
                 }
             }
         } else {
-            if ($xoopsTpl->is_cached('db:system_dummy.html', 'block' . $bid)) {
-                if (!$xoopsTpl->clear_cache('db:system_dummy.html', 'block' . $bid)) {
+            if ($xoopsTpl->is_cached('db:system_dummy.tpl', 'block' . $bid)) {
+                if (!$xoopsTpl->clear_cache('db:system_dummy.tpl', 'block' . $bid)) {
                     $msg = 'Unable to clear cache for block ID' . $bid;
                 }
             }
@@ -708,7 +698,15 @@ function myblocksadmin_update_blockinstance(
             $page   = explode('-', $mid);
             $mid    = $page[0];
             $pageid = $page[1];
-            $GLOBALS['xoopsDB']->query('INSERT INTO ' . $GLOBALS['xoopsDB']->prefix('block_module_link') . ' VALUES (' . $instance->getVar('instanceid') . ', ' . (int)$mid . ', ' . (int)$pageid . ')');
+            $GLOBALS['xoopsDB']->query('INSERT INTO '
+                                       . $GLOBALS['xoopsDB']->prefix('block_module_link')
+                                       . ' VALUES ('
+                                       . $instance->getVar('instanceid')
+                                       . ', '
+                                       . (int)$mid
+                                       . ', '
+                                       . (int)$pageid
+                                       . ')');
         }
 
         return _MD_AM_DBUPDATED;

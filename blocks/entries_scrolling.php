@@ -24,14 +24,14 @@ function b_scrolling_term_show($options)
     $lexikon       = $moduleHandler->getByDirname('lexikon');
     if (!isset($lxConfig)) {
         $configHandler = xoops_getHandler('config');
-        $lxConfig       =& $configHandler->getConfigsByCat(0, $lexikon->getVar('mid'));
+        $lxConfig      = $configHandler->getConfigsByCat(0, $lexikon->getVar('mid'));
     }
-    include_once XOOPS_ROOT_PATH . '/modules/lexikon/include/functions.php';
+    include_once XOOPS_ROOT_PATH . '/modules/lexikon/class/Utility.php';
 
-    $groups        = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
+    $groups       = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
     $gpermHandler = xoops_getHandler('groupperm');
-    $module_id     = $lexikon->getVar('mid');
-    $allowed_cats  = $gpermHandler->getItemIds('lexikon_view', $groups, $module_id);
+    $module_id    = $lexikon->getVar('mid');
+    $allowed_cats = $gpermHandler->getItemIds('lexikon_view', $groups, $module_id);
 
     $block                = array();
     $block['speed']       = isset($options[1]) && $options[1] != '' ? $options[1] : '';
@@ -69,9 +69,9 @@ function b_scrolling_term_show($options)
             if ($options[5] > 0) {
                 $html                = $html == 1 ? 1 : 0;
                 $definition          = preg_replace("/'/", '’', $definition);
-                $items['definition'] = lx_truncate_tagsafe($myts->displayTarea($definition, $html), $options[5] + 3);
+                $items['definition'] = LexikonUtility::truncateTagSafe($myts->displayTarea($definition, $html), $options[5] + 3);
                 // terms with images
-                //$items['definition'] = lx_truncate_tagsafe(strip_tags($myts->displayTarea($definition, $html), $options[5]+3));
+                //$items['definition'] = LexikonUtility::truncateTagSafe(strip_tags($myts->displayTarea($definition, $html), $options[5]+3));
             } else {
                 $items['definition'] = '';
             }
@@ -138,15 +138,15 @@ function b_scrolling_term_edit($options)
     //--- get allowed categories
     $isAll       = empty($options[10]) ? true : false;
     $options_cat = array_slice($options, 10);
-    $form .= "<tr><td class='even'>" . _MB_LEXIKON_CATEGORY . "</td><td class='odd'><select name=\"options[]\" multiple=\"multiple\">";
-    $form .= "<option value=\"0\" ";
+    $form        .= "<tr><td class='even'>" . _MB_LEXIKON_CATEGORY . "</td><td class='odd'><select name=\"options[]\" multiple=\"multiple\">";
+    $form        .= "<option value=\"0\" ";
     if ($isAll) {
         $form .= " selected=\"selected\"";
     }
-    $form .= '>' . _ALL . '</option>';
+    $form      .= '>' . _ALL . '</option>';
     $resultcat = $xoopsDB->query('SELECT categoryID, name FROM ' . $xoopsDB->prefix('lxcategories') . ' ORDER BY categoryID ASC');
     while (list($categoryID, $name) = $xoopsDB->fetchRow($resultcat)) {
-        $sel = ($isAll || in_array($categoryID, $options_cat)) ? ' selected' : '';
+        $sel  = ($isAll || in_array($categoryID, $options_cat)) ? ' selected' : '';
         $form .= '<option value=' . $categoryID . " $sel>$categoryID : $name</option>\n";
     }
     $form .= "</select></td></tr>\n";

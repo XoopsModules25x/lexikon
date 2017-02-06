@@ -13,7 +13,7 @@ include __DIR__ . '/header.php';
 $GLOBALS['xoopsOption']['template_main'] = 'lx_profile.tpl';
 include_once XOOPS_ROOT_PATH . '/header.php';
 global $xoopsModule, $xoopsUser;
-include_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->getVar('dirname') . '/include/functions.php';
+include_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->getVar('dirname') . '/class/Utility.php';
 $myts = MyTextSanitizer::getInstance();
 
 if (empty($xoopsUser) && !$xoopsModuleConfig['authorprofile']) {
@@ -25,13 +25,13 @@ $uid = isset($_GET['uid']) ? (int)$_GET['uid'] : 0;
 if (empty($uid)) {
     redirect_header('index.php', 2, _ERRORS);
 }
-$data = lx_val_user_data($uid);
+$data = LexikonUtility::getUserData($uid);
 if (!$data) {
     redirect_header('index.php', 2, _MD_LEXIKON_UNKNOWNERROR);
 }
 //permissions
 $gpermHandler = xoops_getHandler('groupperm');
-$groups        = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
+$groups       = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
 /** @var XoopsModuleHandler $moduleHandler */
 $moduleHandler = xoops_getHandler('module');
 $module        = $moduleHandler->getByDirname('lexikon');
@@ -78,7 +78,7 @@ if (!$totalwaiting) {
 }
 
 // Get all terms of this author
-lx_AuthorProfile($uid);
+LexikonUtility::getAuthorProfile($uid);
 
 // various strings
 $xoopsTpl->assign('lang_modulename', $xoopsModule->name());

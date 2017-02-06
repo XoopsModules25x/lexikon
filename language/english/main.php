@@ -226,4 +226,3 @@ define('_MD_LEXIKON_SUBMISSIONSENT', 'Message to %s sent.');
 define('_MD_AM_ADGS', 'ADGS');
 define('_MD_AM_DBUPDATED', 'Database updated');
 define('_MD_LEXIKON_MUSTREGFIRST', 'You must register first');
-

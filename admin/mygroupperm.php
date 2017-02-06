@@ -39,7 +39,7 @@ if (!is_object($module) || !$module->getVar('isactive')) {
     redirect_header(XOOPS_URL . '/admin.php', 1, _MODULENOEXIST);
 }
 $memberHandler = xoops_getHandler('member');
-$group_list     = $memberHandler->getGroupList();
+$group_list    = $memberHandler->getGroupList();
 if (is_array($_POST['perms']) && !empty($_POST['perms'])) {
     $gpermHandler = xoops_getHandler('groupperm');
     foreach ($_POST['perms'] as $perm_name => $perm_data) {
@@ -62,7 +62,10 @@ if (is_array($_POST['perms']) && !empty($_POST['perms'])) {
                             foreach ($parent_ids as $pid) {
                                 if ($pid != 0 && !in_array($pid, array_keys($item_ids))) {
                                     // one of the parent items were not selected, so skip this item
-                                    $msg[] = sprintf(_MD_AM_PERMADDNG, '<b>' . $perm_name . '</b>', '<b>' . $perm_data['itemname'][$item_id] . '</b>', '<b>' . $group_list[$group_id] . '</b>') . ' (' . _MD_AM_PERMADDNGP . ')';
+                                    $msg[] = sprintf(_MD_AM_PERMADDNG, '<b>' . $perm_name . '</b>', '<b>' . $perm_data['itemname'][$item_id] . '</b>', '<b>' . $group_list[$group_id] . '</b>')
+                                             . ' ('
+                                             . _MD_AM_PERMADDNGP
+                                             . ')';
                                     continue 2;
                                 }
                             }

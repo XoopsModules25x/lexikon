@@ -13,8 +13,8 @@
 defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
 
 $modversion['version']       = '1.52';
-$modversion['module_status'] = 'Beta 1';
-$modversion['release_date']  = '2016/11/05';
+$modversion['module_status'] = 'Beta 2';
+$modversion['release_date']  = '2017/02/05';
 $modversion['name']          = _MI_LEXIKON_MD_NAME;
 $modversion['description']   = _MI_LEXIKON_MD_DESC;
 $modversion['author']        = 'Yerres';
@@ -26,10 +26,13 @@ $modversion['official']      = 0; //1 indicates supported by XOOPS Dev Team, 0 m
 $modversion['image']         = 'assets/images/logoModule.png';
 $modversion['dirname']       = basename(__DIR__);
 $modversion['onInstall']     = 'include/install_function.php';
+$modversion['onUpdate']       = 'include/update_function.php';
 
-$modversion['dirmoduleadmin'] = '/Frameworks/moduleclasses/moduleadmin';
-$modversion['icons16']        = '../../Frameworks/moduleclasses/icons/16';
-$modversion['icons32']        = '../../Frameworks/moduleclasses/icons/32';
+//$modversion['dirmoduleadmin'] = '/Frameworks/moduleclasses/moduleadmin';
+//$modversion['icons16']        = '../../Frameworks/moduleclasses/icons/16';
+//$modversion['icons32']        = '../../Frameworks/moduleclasses/icons/32';
+$modversion['modicons16'] = 'assets/images/icons/16';
+$modversion['modicons32'] = 'assets/images/icons/32';
 
 $modversion['license_file']        = XOOPS_URL . '/modules/lexikon/gpl.txt';
 $modversion['status_version']      = '1.52';
@@ -77,7 +80,7 @@ $lexikon       = $moduleHandler->getByDirname($modversion['dirname']);
 if ($lexikon) {
     if (!isset($lxConfig)) {
         $configHandler = xoops_getHandler('config');
-        $lxConfig      =& $configHandler->getConfigsByCat(0, $lexikon->getVar('mid'));
+        $lxConfig      = $configHandler->getConfigsByCat(0, $lexikon->getVar('mid'));
     }
 }
 $i = 0;
@@ -618,6 +621,24 @@ $modversion['config'][] = array(
     'valuetype'   => 'text',
     'default'     => 50
 );
+
+//Uploads : max width/height for image upload
+$modversion['config'][] = array(
+    'name'            => 'imguploadwd',
+    'title'        => "_MI_LEXIKON_IMGUPLOADWD",
+    'description'    => "_MI_LEXIKON_IMGUPLOADWD_DESC",
+    'formtype'        => 'textbox',
+    'valuetype'    => 'text',
+    'default'        => 200);
+
+//Uploads : max size for image upload
+$modversion['config'][] = array(
+    'name'            => 'imguploadsize',
+    'title'        => "_MI_LEXIKON_IMGUPLOADSIZE",
+    'description'    => "_MI_LEXIKON_IMGUPLOADSIZE_DESC",
+    'formtype'        => 'textbox',
+    'valuetype'    => 'text',
+    'default'        => 10485760); // 1 MB
 
 //to activate RSS Syndication for users / guests
 $modversion['config'][] = array(

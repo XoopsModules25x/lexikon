@@ -9,13 +9,13 @@
  * Licence: GNU
  */
 
-include_once __DIR__ . '/admin_header.php';
+require_once __DIR__ . '/admin_header.php';
 $myts = MyTextSanitizer::getInstance();
 xoops_cp_header();
-$indexAdmin = new ModuleAdmin();
-echo $indexAdmin->addNavigation(basename(__FILE__));
-$indexAdmin->addItemButton(_AM_LEXIKON_CREATEENTRY, 'entry.php?op=add', 'add');
-echo $indexAdmin->renderButton('left');
+$adminObject  = \Xmf\Module\Admin::getInstance();
+$adminObject->displayNavigation(basename(__FILE__));
+$adminObject->addItemButton(_AM_LEXIKON_CREATEENTRY, 'entry.php?op=add', 'add');
+$adminObject->displayButton('left');
 
 $op = '';
 #if ( isset( $_GET['op'] ) ) $op = $_GET['op'];
@@ -259,7 +259,7 @@ function entryEdit($entryID = '')
 
     // Author selector
     ob_start();
-    lx_getuserForm((int)$uid);
+    LexikonUtility::getUserForm((int)$uid);
     $sform->addElement(new XoopsFormLabel(_AM_LEXIKON_AUTHOR, ob_get_contents()));
     ob_end_clean();
 
@@ -273,7 +273,7 @@ function entryEdit($entryID = '')
     $sform->addElement(new XoopsFormText(_AM_LEXIKON_ENTRYTERM, 'term', 50, 80, $term), true);
 
     // set editor according to the module's option "form_options"
-    $editor = lx_getWysiwygForm(_AM_LEXIKON_ENTRYDEF, 'definition', $definition, 15, 60);
+    $editor = LexikonUtility::getWysiwygForm(_AM_LEXIKON_ENTRYDEF, 'definition', $definition, 15, 60);
     if ($definition == _MD_LEXIKON_WRITEHERE) {
         $editor->setExtra('onfocus="this.select()"');
     }
@@ -411,17 +411,18 @@ function entrySave($entryID = '')
     // Save to database
     if (!$entryID) {
         // verify that the term does not exists
-        if (lx_TermExists($term, $xoopsDB->prefix('lxentries'))) {
+        if (LexikonUtility::isTermPresent($term, $xoopsDB->prefix('lxentries'))) {
             redirect_header('javascript:history.go(-1)', 2, _AM_LEXIKON_ITEMEXISTS . '<br>' . $term);
         }
-        if ($xoopsDB->query('INSERT INTO ' . $xoopsDB->prefix('lxentries')
-                            . " (entryID, categoryID, term, init, definition, ref, url, uid, submit, datesub, html, smiley, xcodes, breaks, block, offline, notifypub, request ) VALUES ('', '$categoryID', '$term', '$init', '$definition', '$ref', '$url', '$uid', '$submit', '$date', '$html', '$smiley', '$xcodes', '$breaks', '$block', '$offline', '$notifypub', '$request' )")
+        if ($xoopsDB->query('INSERT INTO '
+                            . $xoopsDB->prefix('lxentries')
+                            . " (entryID, categoryID, term, init, definition, ref, url, uid, submit, datesub, html, smiley, xcodes, breaks, block, offline, notifypub, request ) VALUES (0, '$categoryID', '$term', '$init', '$definition', '$ref', '$url', '$uid', '$submit', '$date', '$html', '$smiley', '$xcodes', '$breaks', '$block', '$offline', '$notifypub', '$request' )")
         ) {
             $newid = $xoopsDB->getInsertId();
             // Increment author's posts count (only if it's a new definition)
             if (is_object($xoopsUser) && empty($entryID)) {
                 $memberHandler = xoops_getHandler('member');
-                $submitter      = $memberHandler->getUser($uid);
+                $submitter     = $memberHandler->getUser($uid);
                 if (is_object($submitter)) {
                     $submitter->setVar('posts', $submitter->getVar('posts') + 1);
                     $res = $memberHandler->insertUser($submitter, true);
@@ -434,7 +435,7 @@ function entrySave($entryID = '')
                 if ($newid == 0) {
                     $newid = $xoopsDB->getInsertId();
                 }
-                $notificationHandler  = xoops_getHandler('notification');
+                $notificationHandler   = xoops_getHandler('notification');
                 $tags                  = array();
                 $shortdefinition       = $myts->htmlSpecialChars(xoops_substr(strip_tags($definition), 0, 45));
                 $tags['ITEM_NAME']     = $term;
@@ -450,19 +451,20 @@ function entrySave($entryID = '')
                 $notificationHandler->triggerEvent('category', $categoryID, 'new_post', $tags);
                 //$notificationHandler->triggerEvent('term', $newid, 'approve', $tags);
             }
-            lx_calculateTotals();
+            LexikonUtility::calculateTotals();
             redirect_header('entry.php', 1, _AM_LEXIKON_ENTRYCREATEDOK);
         } else {
             redirect_header('index.php', 1, _AM_LEXIKON_ENTRYNOTCREATED);
         }
     } else { // That is, $entryID exists, thus we're editing an entry
-        if ($xoopsDB->query('UPDATE ' . $xoopsDB->prefix('lxentries')
+        if ($xoopsDB->query('UPDATE '
+                            . $xoopsDB->prefix('lxentries')
                             . " SET term = '$term', categoryID = '$categoryID', init = '$init', definition = '$definition', ref = '$ref', url = '$url', uid = '$uid', submit = '$submit', datesub = '$date', html = '$html', smiley = '$smiley', xcodes = '$xcodes', breaks = '$breaks', block = '$block', offline = '$offline', notifypub = '$notifypub', request = '$request' WHERE entryID = '$entryID'")
         ) {
             // trigger Notification only if its a new submission
             if (!empty($xoopsModuleConfig['notification_enabled'])) {
                 global $xoopsModule;
-                $notificationHandler  = xoops_getHandler('notification');
+                $notificationHandler   = xoops_getHandler('notification');
                 $tags                  = array();
                 $shortdefinition       = $myts->htmlSpecialChars(xoops_substr(strip_tags($definition), 0, 45));
                 $tags['ITEM_NAME']     = $term;
@@ -479,7 +481,7 @@ function entrySave($entryID = '')
                 $notificationHandler->triggerEvent('term', $entryID, 'approve', $tags);
             }
 
-            lx_calculateTotals();
+            LexikonUtility::calculateTotals();
             if ($notifypub == '0') {
                 redirect_header('entry.php', 1, _AM_LEXIKON_ENTRYMODIFIED);
             } else {
@@ -543,7 +545,7 @@ function entryDelete($entryID = '')
         xoops_notification_deletebyitem($xoopsModule->getVar('mid'), 'term', $entryID);
         // update user posts
         if (!empty($uid)) {
-            $submitter      = new xoopsUser($uid);
+            $submitter     = new xoopsUser($uid);
             $memberHandler = xoops_getHandler('member');
             $memberHandler->updateUserByField($submitter, 'posts', $submitter->getVar('posts') - 1);
         }

@@ -10,7 +10,7 @@
 
 include_once __DIR__ . '/../../../include/cp_header.php';
 xoops_cp_header();
-include_once __DIR__ . '/admin_header.php';
+require_once __DIR__ . '/admin_header.php';
 global $xoopsModuleConfig, $xoopsUser, $xoopsModule, $xoopsDB;
 $go = isset($_POST['go']) ? $_POST['go'] : 0;
 
@@ -31,7 +31,7 @@ if ($go) {
     if (is_object($xoopsUser) && $xoopsUser->isAdmin($xoopsModule->mid())) {
         // 0) update the categories table
         if (!lx_FieldExists('logourl', $xoopsDB->prefix('lxcategories'))) {
-            $sql = $xoopsDB->queryF('ALTER TABLE ' . $xoopsDB->prefix('lxcategories') . " ADD logourl varchar ( 150 ) NOT NULL DEFAULT '' AFTER weight");
+            $sql = $xoopsDB->queryF('ALTER TABLE ' . $xoopsDB->prefix('lxcategories') . " ADD logourl VARCHAR ( 150 ) NOT NULL DEFAULT '' AFTER weight");
             showerror('Update table "lxcategories" ...');
         }
         // 1) if downgrade
@@ -53,13 +53,13 @@ if ($go) {
         }
         // 3) tag module
         if (!lx_FieldExists('item_tag', $xoopsDB->prefix('lxentries'))) {
-            $sql = $xoopsDB->queryF('ALTER TABLE ' . $xoopsDB->prefix('lxentries') . " ADD item_tag TEXT NOT NULL DEFAULT '' AFTER comments");
+            $sql = $xoopsDB->queryF('ALTER TABLE ' . $xoopsDB->prefix('lxentries') . " ADD item_tag text NULL AFTER comments");
             showerror('Update table "lxentries" ...');
         }
         //-------------
         echo "<br><br><H3>Update finished!</H3><br><a href='index.php'>Back to Admin</a>";
     } else {
-        printf("<div style='text-align: center;'><H2>%s</H2></div>\n", _AM_LEXIKON_UPGR_ACCESS_ERROR);
+        printf("<div class='center;'><H2>%s</H2></div>\n", _AM_LEXIKON_UPGR_ACCESS_ERROR);
     }
     xoops_cp_footer();
 } else {

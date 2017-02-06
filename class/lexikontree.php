@@ -48,13 +48,14 @@ class lexikontree
     public function LexikonTree($table_name, $id_name, $pid_name)
     {
         //        $GLOBALS['xoopsLogger']->addDeprecated("Class '" . __CLASS__ . "' is deprecated, check 'XoopsObjectTree' in tree.php");
-        $this->db = XoopsDatabaseFactory::getDatabaseConnection();
+        $this->db    = XoopsDatabaseFactory::getDatabaseConnection();
         $this->table = $table_name;
         $this->id    = $id_name;
         $this->pid   = $pid_name;
     }
 
     // returns an array of first child objects for a given id($sel_id)
+
     /**
      * @param        $sel_id
      * @param string $order
@@ -82,6 +83,7 @@ class lexikontree
     }
 
     // returns an array of all FIRST child ids of a given id($sel_id)
+
     /**
      * @param $sel_id
      *
@@ -104,6 +106,7 @@ class lexikontree
     }
 
     //returns an array of ALL child ids for a given id($sel_id)
+
     /**
      * @param        $sel_id
      * @param string $order
@@ -132,6 +135,7 @@ class lexikontree
     }
 
     //returns an array of ALL parent ids for a given id($sel_id)
+
     /**
      * @param        $sel_id
      * @param string $order
@@ -237,6 +241,7 @@ class lexikontree
     }
 
     //generates nicely formatted linked path from the root id to a given id
+
     /**
      * @param        $sel_id
      * @param        $title
@@ -294,9 +299,9 @@ class lexikontree
     /**
      * Enter description here...
      *
-     * @param int|\unknown_type    $sel_id
-     * @param string|\unknown_type $order
-     * @param array|\unknown_type  $parray
+     * @param int|mixed    $sel_id
+     * @param string|mixed $order
+     * @param array|mixed  $parray
      *
      * @return array|unknown|unknown_type
      */
@@ -323,10 +328,10 @@ class lexikontree
     /**
      * Enter description here...
      *
-     * @param  int|\unknown_type    $sel_id
-     * @param  string|\unknown_type $order
-     * @param  array|\unknown_type  $parray
-     * @param  string|\unknown_type $r_prefix
+     * @param  int|mixed    $sel_id
+     * @param  string|mixed $order
+     * @param  array|mixed  $parray
+     * @param  string|mixed $r_prefix
      * @return array|unknown|unknown_type
      */
     public function getChildTreeArray($sel_id = 0, $order = '', $parray = array(), $r_prefix = '')

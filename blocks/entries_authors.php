@@ -15,21 +15,21 @@ defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
  */
 function b_lx_author_show($options)
 {
-    $myts          = MyTextSanitizer::getInstance();
+    $myts = MyTextSanitizer::getInstance();
     /** @var XoopsModuleHandler $moduleHandler */
     $moduleHandler = xoops_getHandler('module');
     $lexikon       = $moduleHandler->getByDirname('lexikon');
     if (!isset($lxConfig)) {
         $configHandler = xoops_getHandler('config');
-        $lxConfig       =& $configHandler->getConfigsByCat(0, $lexikon->getVar('mid'));
+        $lxConfig      = $configHandler->getConfigsByCat(0, $lexikon->getVar('mid'));
     }
-    include_once XOOPS_ROOT_PATH . '/modules/lexikon/include/functions.php';
+    include_once XOOPS_ROOT_PATH . '/modules/lexikon/class/Utility.php';
 
     $block = array();
     if (!isset($options[3])) {
         $options[3] = 'average';
     }
-    $authors = lexikon_block_getAuthors($options[1], $options[0], $options[2], $options[3]);
+    $authors = LexikonUtility::getBlockAuthors($options[1], $options[0], $options[2], $options[3]);
     if (is_array($authors) && count($authors) > 0) {
         $block['authors'] = $authors;
     }

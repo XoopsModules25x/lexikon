@@ -24,9 +24,9 @@ function lx_search($queryarray, $andor, $limit, $offset, $userid)
     $highlight        = false;
     $searchincomments = false;
     include_once XOOPS_ROOT_PATH . '/modules/lexikon/include/common.inc.php';
-    include_once XOOPS_ROOT_PATH . '/modules/lexikon/include/functions.php';
+    include_once XOOPS_ROOT_PATH . '/modules/lexikon/class/Utility.php';
     $hightlight_key = '';
-    $highlight      = lx_getmoduleoption('config_highlighter');
+    $highlight      = LexikonUtility::getModuleOption('config_highlighter');
     //if ( is_object($xoopsUser) ) {
     $searchincomments = CONFIG_SEARCH_COMMENTS;
     //  } else {
@@ -38,9 +38,9 @@ function lx_search($queryarray, $andor, $limit, $offset, $userid)
     $module_id     = $module->getVar('mid');
     // Permissions
     $gpermHandler = xoops_getHandler('groupperm');
-    $groups        = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
-    $allowed_cats  = $gpermHandler->getItemIds('lexikon_view', $groups, $module_id);
-    $catids        = implode(',', $allowed_cats);
+    $groups       = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
+    $allowed_cats = $gpermHandler->getItemIds('lexikon_view', $groups, $module_id);
+    $catids       = implode(',', $allowed_cats);
 
     $sql = 'SELECT entryID, categoryID, term, definition, ref, uid, datesub FROM ' . $xoopsDB->prefix('lxentries') . ' WHERE submit = 0 AND offline = 0 ';
     $sql .= " AND categoryID IN ($catids) ";
@@ -69,7 +69,7 @@ function lx_search($queryarray, $andor, $limit, $offset, $userid)
         }
         $sql .= ') ';
     }
-    $sql .= 'ORDER BY entryID DESC';
+    $sql    .= 'ORDER BY entryID DESC';
     $result = $xoopsDB->query($sql, $limit, $offset);
     $ret    = array();
     $i      = 0;
@@ -112,8 +112,8 @@ function lx_search($queryarray, $andor, $limit, $offset, $userid)
             }
             $sql .= ') ';
         }
-        $i = $ind;
-        $sql .= 'ORDER BY com_created DESC';
+        $i      = $ind;
+        $sql    .= 'ORDER BY com_created DESC';
         $result = $xoopsDB->query($sql, $limit, $offset);
         while ($myrow = $xoopsDB->fetchArray($result)) {
             $display = true;

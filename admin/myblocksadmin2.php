@@ -124,7 +124,7 @@ function list_blockinstances()
     $criteria = new CriteriaCompo($crit);
     $criteria->setSort('visible DESC, side ASC, weight');
     $instanceHandler = xoops_getHandler('blockinstance');
-    $instances        =& $instanceHandler->getObjects($criteria, true, true);
+    $instances       =& $instanceHandler->getObjects($criteria, true, true);
 
     //Get modules and pages for visible in
     $module_list[_AM_SYSTEMLEVEL]['0-2'] = _AM_ADMINBLOCK;
@@ -139,7 +139,7 @@ function list_blockinstances()
         foreach (array_keys($module_main) as $mid) {
             $module_list[$module_main[$mid]->getVar('name')][$mid . '-0'] = _AM_ALLMODULEPAGES;
             $pages                                                        = $module_main[$mid]->getInfo('pages');
-            if ($pages == false) {
+            if ($pages === false) {
                 $pages = $module_main[$mid]->getInfo('sub');
             }
             if (is_array($pages) && $pages != array()) {
@@ -171,24 +171,24 @@ function list_blockinstances()
             $scoln = '#FF0000';
         } else {
             switch ($instances[$i]->getVar('side')) {
-                default :
-                case XOOPS_SIDEBLOCK_LEFT :
+                default:
+                case XOOPS_SIDEBLOCK_LEFT:
                     $ssel0 = ' checked';
                     $scol0 = '#00FF00';
                     break;
-                case XOOPS_SIDEBLOCK_RIGHT :
+                case XOOPS_SIDEBLOCK_RIGHT:
                     $ssel1 = ' checked';
                     $scol1 = '#00FF00';
                     break;
-                case XOOPS_CENTERBLOCK_LEFT :
+                case XOOPS_CENTERBLOCK_LEFT:
                     $ssel2 = ' checked';
                     $scol2 = '#00FF00';
                     break;
-                case XOOPS_CENTERBLOCK_RIGHT :
+                case XOOPS_CENTERBLOCK_RIGHT:
                     $ssel4 = ' checked';
                     $scol4 = '#00FF00';
                     break;
-                case XOOPS_CENTERBLOCK_CENTER :
+                case XOOPS_CENTERBLOCK_CENTER:
                     $ssel3 = ' checked';
                     $scol3 = '#00FF00';
                     break;
@@ -325,7 +325,11 @@ function list_groups2()
 {
     global $target_mid, $target_mname, $xoopsDB;
 
-    $result = $xoopsDB->query('SELECT i.instanceid,i.title FROM ' . $xoopsDB->prefix('block_instance') . ' i LEFT JOIN ' . $xoopsDB->prefix('newblocks') . " b ON i.bid=b.bid WHERE b.mid='$target_mid'");
+    $result = $xoopsDB->query('SELECT i.instanceid,i.title FROM '
+                              . $xoopsDB->prefix('block_instance')
+                              . ' i LEFT JOIN '
+                              . $xoopsDB->prefix('newblocks')
+                              . " b ON i.bid=b.bid WHERE b.mid='$target_mid'");
 
     $item_list = array();
     while (list($iid, $title) = $xoopsDB->fetchRow($result)) {

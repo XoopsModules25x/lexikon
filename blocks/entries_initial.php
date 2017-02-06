@@ -24,14 +24,14 @@ function b_lxentries_alpha_show($options)
     $lexikon       = $moduleHandler->getByDirname('lexikon');
     if (!isset($lxConfig)) {
         $configHandler = xoops_getHandler('config');
-        $lxConfig       =& $configHandler->getConfigsByCat(0, $lexikon->getVar('mid'));
+        $lxConfig      = $configHandler->getConfigsByCat(0, $lexikon->getVar('mid'));
     }
-    $groups        = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
+    $groups       = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
     $gpermHandler = xoops_getHandler('groupperm');
-    $module_id     = $lexikon->getVar('mid');
-    $allowed_cats  = $gpermHandler->getItemIds('lexikon_view', $groups, $module_id);
-    $catids        = implode(',', $allowed_cats);
-    $catperms      = " AND categoryID IN ($catids) ";
+    $module_id    = $lexikon->getVar('mid');
+    $allowed_cats = $gpermHandler->getItemIds('lexikon_view', $groups, $module_id);
+    $catids       = implode(',', $allowed_cats);
+    $catperms     = " AND categoryID IN ($catids) ";
 
     $block = array();
     // To handle options in the template
@@ -53,7 +53,13 @@ function b_lxentries_alpha_show($options)
         $letterlinks = array();
         $initial     = $chr;
         ++$count;
-        $sql                     = $xoopsDB->query('SELECT init FROM ' . $xoopsDB->prefix('lxentries') . " WHERE init = '$initial' AND datesub < '" . time() . "' AND datesub > '0' AND offline= '0' AND submit='0' AND request='0' " . $catperms . ' ');
+        $sql                     = $xoopsDB->query('SELECT init FROM '
+                                                   . $xoopsDB->prefix('lxentries')
+                                                   . " WHERE init = '$initial' AND datesub < '"
+                                                   . time()
+                                                   . "' AND datesub > '0' AND offline= '0' AND submit='0' AND request='0' "
+                                                   . $catperms
+                                                   . ' ');
         $howmany                 = $xoopsDB->getRowsNum($sql);
         $letterlinks['total']    = $howmany;
         $letterlinks['id']       = $chr;

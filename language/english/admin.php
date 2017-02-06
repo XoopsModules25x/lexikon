@@ -62,7 +62,8 @@ define('_AM_LEXIKON_ENTRYISON', 'Entry is online');
 define('_AM_LEXIKON_ENTRYMODIFIED', 'The definition was modified successfully!');
 define('_AM_LEXIKON_ENTRYNOTCREATED', 'Sorry. It was not possible to create this entry!');
 define('_AM_LEXIKON_ENTRYNOTUPDATED', 'Sorry. It was not possible to update the entry!');
-define('_AM_LEXIKON_ENTRYREFERENCE', "Reference<span style='font-size: xx-small; font-weight: normal; display: block;'>(Write here the source of your<br>definition, such as a book,<br>article, or person.)</span>");
+define('_AM_LEXIKON_ENTRYREFERENCE',
+       "Reference<span style='font-size: xx-small; font-weight: normal; display: block;'>(Write here the source of your<br>definition, such as a book,<br>article, or person.)</span>");
 define('_AM_LEXIKON_ENTRYTERM', '[*] Term');
 define('_AM_LEXIKON_ENTRYURL', "Related site<span style='font-size: xx-small; font-weight: normal; display: block;'>(Please enter a valid URL with<br>or without the HTTP prefix.)</span>");
 define('_AM_LEXIKON_ITEMEXISTS', 'A term with that name already exists in the glossary. Please choose another term!');
@@ -168,12 +169,14 @@ define('_AM_LEXIKON_UPGR_ACCESS_ERROR', 'Error, to use the upgrade script, you m
 //categories
 define('_AM_LEXIKON_SELECT', 'Select...');
 define('_AM_LEXIKON_SHOTIMAGE', 'Category Image');
-define('_AM_LEXIKON_SHOTIMAGEDSC', "<div style:\float:'right'; align='right'\>Screenshot image must be a valid image file under modules/lexikon/assets/images/uploads directory (ex. shot.gif). Leave it blank if there is no image file.</DIV>");
+define('_AM_LEXIKON_SHOTIMAGEDSC',
+       "<div style:\float:'right'; align='right'\>Screenshot image must be a valid image file under uploads/lexikon/categories/images directory (ex. shot.gif). Leave it blank if there is no image file.</DIV>");
 define('_AM_LEXIKON_LOGOUP', 'Upload Image');
 define('_AM_LEXIKON_NONE', '---NONE---');
 define('_AM_LEXIKON_CATIMGUPLOAD', 'Upload a category Image');
 define('_AM_LEXIKON_CATIMG_DSC', 'Category images are kept in');
-define('_AM_LEXIKON_CAT_GROUPSVIEW', "Category Access Permissions:<div style='padding-top: 8px;'><span style='font-weight: normal;'>Select user groups who will have access to this Category.</span></div>");
+define('_AM_LEXIKON_CAT_GROUPSVIEW',
+       "Category Access Permissions:<div style='padding-top: 8px;'><span style='font-weight: normal;'>Select user groups who will have access to this Category.</span></div>");
 define('_AM_LEXIKON_FILESUCCESS', 'Image uploaded successfully');
 
 define('_AM_LEXIKON_SENTCONFIRMMAIL', 'The Approval has been sent to <b>%s</b> as a confirmation email.');
@@ -239,6 +242,7 @@ define('_AM_LEXIKON_BACK', 'Back');
 define('_AM_LEXIKON_MODULEWORDBOOKNOTFOUND', 'Module Wordbook not found on this site.');
 
 //1.52
+define("_AM_LEXIKON_IMGUPLOAD_DESC","Max image width/height in pixel: %w<br>Max file size in bytes (10485760 = 1 MB): %s");
 define('_AM_LEXIKON_NOCATTOEDIT', 'No Category to Edit');
 define('_AM_LEXIKON_NOENTRYTOEDIT', 'No Entry to Edit');
 

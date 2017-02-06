@@ -95,7 +95,8 @@ define('_MI_LEXIKON_LINKTERMSDSC', "If set to 'yes', will automatically link in 
 
 ++$cf;
 define('_MI_LEXIKON_FORM_OPTIONS', "$cf. Form Option");
-define('_MI_LEXIKON_FORM_OPTIONSDSC', 'What kind of editor would you like to use. <br>Please note that if you choose any other editor than the Xoops-DHTML-Editor, it must be installed under class/xoopseditor.');
+define('_MI_LEXIKON_FORM_OPTIONSDSC',
+       'What kind of editor would you like to use. <br>Please note that if you choose any other editor than the Xoops-DHTML-Editor, it must be installed under class/xoopseditor.');
 
 ++$cf;
 define('_MI_LEXIKON_EDIGUEST', "$cf. Form Options for submissions");
@@ -142,7 +143,7 @@ define('_MI_LEXIKON_METANUM_70', '70');
 define('_MI_LEXIKON_METANUM_80', '80');
 ++$cf;
 define('_MI_LEXIKON_USESHOTS', "$cf. Use category images?");
-define('_MI_LEXIKON_USESHOTSDSC', "If set to 'yes', will display the category image.<br> <em>The Uploadfolder is: modules/lexikon/assets/images/uploads</em>");
+define('_MI_LEXIKON_USESHOTSDSC', "If set to 'yes', will display the category image.<br> <em>The Uploadfolder is: uploads/lexikon/categories/images</em>");
 ++$cf;
 define('_MI_LEXIKON_LOGOWIDTH', "$cf. Width of the category images in the menue:");
 
@@ -158,6 +159,16 @@ define('_MI_LEXIKON_RSSDSC', "If you set this option to 'Yes', newest entries wi
 
 define('_MI_LEXIKON_SYNDICATION', "$cf. Enable Webmaster Content Syndication?");
 define('_MI_LEXIKON_SYNDICATIONDSC', "If you set this option to 'Yes', users will have access to content syndication.");
+
+// new configs in version 1.52
+$cf++;
+define("_MI_LEXIKON_IMGUPLOADWD","$cf. Max height/width for image upload");
+define("_MI_LEXIKON_IMGUPLOADWD_DESC","Define the maximum height/width in pixel for uploading an image");
+$cf++;
+define("_MI_LEXIKON_IMGUPLOADSIZE","$cf. Max size for image upload");
+define("_MI_LEXIKON_IMGUPLOADSIZE_DESC","Define the maximum size in bytes (10485760 = 1 MB) for uploading an image");
+// end new configs in 1.52
+
 
 // bookmarks
 define('_MI_LEXIKON_ADDTHIS1', 'Use Addthis Popup window');
@@ -251,8 +262,7 @@ define('_MI_LEXIKON_IMPORT', 'Import');
 //1.52
 //Help
 define('_MI_LEXIKON_DIRNAME', basename(dirname(dirname(__DIR__))));
-define('_MI_LEXIKON_HELP_HEADER', __DIR__.'/help/helpheader.html');
+define('_MI_LEXIKON_HELP_HEADER', __DIR__ . '/help/helpheader.html');
 define('_MI_LEXIKON_BACK_2_ADMIN', 'Back to Administration of ');
 define('_MI_LEXIKON_HELP_OVERVIEW', 'Overview');
 define('_MI_LEXIKON_NAME', 'Lexikon');
-

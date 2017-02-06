@@ -22,23 +22,23 @@ $xoopsTpl->assign('multicats', (int)$xoopsModuleConfig['multicats']);
 
 // Permission
 $gpermHandler = xoops_getHandler('groupperm');
-$groups        = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
-$module_id     = $xoopsModule->getVar('mid');
-$allowed_cats  = $gpermHandler->getItemIds('lexikon_view', $groups, $module_id);
-$catids        = implode(',', $allowed_cats);
-$catperms      = " AND categoryID IN ($catids) ";
+$groups       = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
+$module_id    = $xoopsModule->getVar('mid');
+$allowed_cats = $gpermHandler->getItemIds('lexikon_view', $groups, $module_id);
+$catids       = implode(',', $allowed_cats);
+$catperms     = " AND categoryID IN ($catids) ";
 if (!$gpermHandler->checkRight('lexikon_view', $categoryID, $groups, $xoopsModule->getVar('mid'))) {
     redirect_header('index.php', 3, _NOPERM);
 }
 // If there's no entries yet in the system...
-$publishedwords = lx_countWords();
+$publishedwords = LexikonUtility::countWords();
 if ($publishedwords == 0) {
     redirect_header(XOOPS_URL, 1, _MD_LEXIKON_STILLNOTHINGHERE);
 }
 $xoopsTpl->assign('publishedwords', $publishedwords);
 
 // To display the list of linked initials
-$alpha = lx_alphaArray();
+$alpha = LexikonUtility::getAlphaArray();
 $xoopsTpl->assign('alpha', $alpha);
 
 list($howmanyother) = $xoopsDB->fetchRow($xoopsDB->query('SELECT COUNT(*) FROM ' . $xoopsDB->prefix('lxentries') . " WHERE init = '#' AND offline ='0' " . $catperms . ''));
@@ -46,7 +46,7 @@ $xoopsTpl->assign('totalother', $howmanyother);
 
 // get the list of Maincategories :: or return to mainpage
 if ($xoopsModuleConfig['multicats'] == 1) {
-    $xoopsTpl->assign('block0', lx_CatsArray());
+    $xoopsTpl->assign('block0', LexikonUtility::getCategoryArray());
     $xoopsTpl->assign('layout', CONFIG_CATEGORY_LAYOUT_PLAIN);
     if ($xoopsModuleConfig['useshots'] == 1) {
         $xoopsTpl->assign('show_screenshot', true);
@@ -101,11 +101,11 @@ if (!$categoryID) {
     $xoopsTpl->assign('catsarray', $catsarray);
     $xoopsTpl->assign('pagetype', '0');
 
-    lx_create_pagetitle($myts->htmlSpecialChars(_MD_LEXIKON_ALLCATS));
+    LexikonUtility::createPageTitle($myts->htmlSpecialChars(_MD_LEXIKON_ALLCATS));
     // Meta data
     $meta_description = xoops_substr(strip_tags($eachcat['description']), 0, 150);
-    lx_extract_keywords($myts->htmlSpecialChars($xoopsModule->name()) . ', ' . $eachcat['name'] . ', ' . $meta_description);
-    lx_get_metadescription($myts->htmlSpecialChars($xoopsModule->name()) . ' ' . $eachcat['name'] . ' ' . $meta_description);
+    LexikonUtility::extractKeywords($myts->htmlSpecialChars($xoopsModule->name()) . ', ' . $eachcat['name'] . ', ' . $meta_description);
+    LexikonUtility::getMetaDescription($myts->htmlSpecialChars($xoopsModule->name()) . ' ' . $eachcat['name'] . ' ' . $meta_description);
 } else {
     // There IS a $categoryID, thus we show only that category's description
 
@@ -128,7 +128,7 @@ if (!$categoryID) {
             $singlecat['image']       = $myts->htmlSpecialChars($logourl);
 
             // Total entries in this category
-            //$entriesincat = lx_countByCategory($categoryID);
+            //$entriesincat = LexikonUtility::countByCategory($categoryID);
             $entriesincat       = (int)$total;
             $singlecat['total'] = (int)$entriesincat;
             $xoopsTpl->assign('singlecat', $singlecat);
@@ -137,7 +137,9 @@ if (!$categoryID) {
             $entriesarray = array();
 
             // Now we retrieve a specific number of entries according to start variable
-            $queryB  = 'SELECT entryID, term, definition, html, smiley, xcodes, breaks, comments FROM ' . $xoopsDB->prefix('lxentries') . " WHERE categoryID = '$categoryID' AND submit ='0' AND offline = '0' ORDER BY term ASC";
+            $queryB  = 'SELECT entryID, term, definition, html, smiley, xcodes, breaks, comments FROM '
+                       . $xoopsDB->prefix('lxentries')
+                       . " WHERE categoryID = '$categoryID' AND submit ='0' AND offline = '0' ORDER BY term ASC";
             $resultB = $xoopsDB->query($queryB, $xoopsModuleConfig['indexperpage'], $start);
 
             //while (list( $entryID, $term, $definition ) = $xoopsDB->fetchRow($resultB))
@@ -162,7 +164,7 @@ if (!$categoryID) {
                 }
 
                 // Functional links
-                $microlinks               = lx_serviceLinks($eachentry);
+                $microlinks               = LexikonUtility::getServiceLinks($eachentry);
                 $eachentry['microlinks']  = $microlinks;
                 $entriesarray['single'][] = $eachentry;
             }
@@ -179,8 +181,8 @@ if (!$categoryID) {
     // Meta data
     if ($entriesincat > 0) {
         $meta_description = xoops_substr(strip_tags($singlecat['description']), 0, 150);
-        lx_extract_keywords($myts->htmlSpecialChars($xoopsModule->name()) . ', ' . $singlecat['name'] . ', ' . $eachentry['term'] . ', ' . $meta_description);
-        lx_get_metadescription($myts->htmlSpecialChars($xoopsModule->name()) . ' ' . $singlecat['name'] . '  ' . $eachentry['term'] . ' ' . $meta_description);
+        LexikonUtility::extractKeywords($myts->htmlSpecialChars($xoopsModule->name()) . ', ' . $singlecat['name'] . ', ' . $eachentry['term'] . ', ' . $meta_description);
+        LexikonUtility::getMetaDescription($myts->htmlSpecialChars($xoopsModule->name()) . ' ' . $singlecat['name'] . '  ' . $eachentry['term'] . ' ' . $meta_description);
     }
 }
 

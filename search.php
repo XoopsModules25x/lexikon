@@ -19,14 +19,14 @@ $myts = MyTextSanitizer::getInstance();
 include_once XOOPS_ROOT_PATH . '/modules/lexikon/include/common.inc.php';
 $highlight = false;
 $highlight = ($xoopsModuleConfig['config_highlighter'] = 1) ? 1 : 0;
-//$highlight = lx_getmoduleoption('config_highlighter');
+//$highlight = LexikonUtility::getModuleOption('config_highlighter');
 $hightlight_key = '';
 
 include_once XOOPS_ROOT_PATH . '/class/pagenav.php';
 
 // Check if search is enabled site-wide
-$configHandler    = xoops_getHandler('config');
-$xoopsConfigSearch =& $configHandler->getConfigsByCat(XOOPS_CONF_SEARCH);
+$configHandler     = xoops_getHandler('config');
+$xoopsConfigSearch = $configHandler->getConfigsByCat(XOOPS_CONF_SEARCH);
 if ($xoopsConfigSearch['enable_search'] != 1) {
     header('location: ' . XOOPS_URL . '/modules/' . $xoopsModule->dirname() . '/index.php');
     exit();
@@ -34,10 +34,10 @@ if ($xoopsConfigSearch['enable_search'] != 1) {
 
 // permissions
 $gpermHandler = xoops_getHandler('groupperm');
-$groups        = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
-$module_id     = $xoopsModule->getVar('mid');
-$allowed_cats  = $gpermHandler->getItemIds('lexikon_view', $groups, $module_id);
-$catids        = implode(',', $allowed_cats);
+$groups       = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
+$module_id    = $xoopsModule->getVar('mid');
+$allowed_cats = $gpermHandler->getItemIds('lexikon_view', $groups, $module_id);
+$catids       = implode(',', $allowed_cats);
 
 extract($_GET);
 extract($_POST, EXTR_OVERWRITE);
@@ -51,7 +51,7 @@ $queries    = array();
 
 if ($xoopsModuleConfig['multicats'] == 1) {
     $xoopsTpl->assign('multicats', 1);
-    $totalcats = lx_countCats();
+    $totalcats = LexikonUtility::countCats();
     $xoopsTpl->assign('totalcats', $totalcats);
 } else {
     $xoopsTpl->assign('multicats', 0);
@@ -81,7 +81,7 @@ if ($xoopsModuleConfig['multicats'] == 1) {
 }
 
 // Counter
-$publishedwords = lx_countWords();
+$publishedwords = LexikonUtility::countWords();
 $xoopsTpl->assign('publishedwords', $publishedwords);
 
 // If there's no term here (calling directly search page)
@@ -89,12 +89,18 @@ if (!$query) {
     // Display message saying there's no term and explaining how to search
     $xoopsTpl->assign('intro', _MD_LEXIKON_NOSEARCHTERM);
     // Display search form
-    $searchform = lx_showSearchForm();
+    $searchform = LexikonUtility::showSearchForm();
     $xoopsTpl->assign('searchform', $searchform);
 } else {
     // IF results, count number
     $catrestrict = " categoryID IN ($catids) ";
-    $searchquery = $xoopsDB->query('SELECT COUNT(*) as nrows FROM ' . $xoopsDB->prefix('lxentries') . " w WHERE offline='0' AND " . $catrestrict . ' ' . $andcatid . " AND $searchtype   ORDER BY term DESC");
+    $searchquery = $xoopsDB->query('SELECT COUNT(*) as nrows FROM '
+                                   . $xoopsDB->prefix('lxentries')
+                                   . " w WHERE offline='0' AND "
+                                   . $catrestrict
+                                   . ' '
+                                   . $andcatid
+                                   . " AND $searchtype   ORDER BY term DESC");
     list($results) = $xoopsDB->fetchRow($searchquery);
 
     if ($results == 0) {
@@ -102,7 +108,7 @@ if (!$query) {
         $xoopsTpl->assign('intro', _MD_LEXIKON_NORESULTS);
 
         // Display search form
-        $searchform = lx_showSearchForm();
+        $searchform = LexikonUtility::showSearchForm();
         $xoopsTpl->assign('searchform', $searchform);
         // $results > 0 -> there were search results
     } else {
@@ -133,10 +139,19 @@ if (!$query) {
             $andcatid2 = '';
         }
         $catsallow = " w.categoryID IN ($catids) ";
-        $queryA    = 'SELECT w.entryID, w.categoryID, w.term, w.init, w.definition, w.datesub, w.ref, c.name AS catname FROM ' . $xoopsDB->prefix('lxentries') . ' w LEFT JOIN ' . $xoopsDB->prefix('lxcategories')
-                     . " c ON w.categoryID = c.categoryID WHERE w.offline = '0' AND " . $catsallow . ' ' . $andcatid2 . ' AND ' . $searchtype . ' ';
-        $queryA .= '  ORDER BY w.term ASC';
-        $resultA = $xoopsDB->query($queryA, $xoopsModuleConfig['indexperpage'], $start);
+        $queryA    = 'SELECT w.entryID, w.categoryID, w.term, w.init, w.definition, w.datesub, w.ref, c.name AS catname FROM '
+                     . $xoopsDB->prefix('lxentries')
+                     . ' w LEFT JOIN '
+                     . $xoopsDB->prefix('lxcategories')
+                     . " c ON w.categoryID = c.categoryID WHERE w.offline = '0' AND "
+                     . $catsallow
+                     . ' '
+                     . $andcatid2
+                     . ' AND '
+                     . $searchtype
+                     . ' ';
+        $queryA    .= '  ORDER BY w.term ASC';
+        $resultA   = $xoopsDB->query($queryA, $xoopsModuleConfig['indexperpage'], $start);
 
         while (list($entryID, $categoryID, $term, $init, $definition, $datesub, $ref, $catname) = $xoopsDB->fetchRow($resultA)) {
             $eachresult               = array();
@@ -146,15 +161,15 @@ if (!$query) {
             $eachresult['categoryID'] = $categoryID;
             $eachresult['term']       = ucfirst($myts->htmlSpecialChars($term));
             $eachresult['date']       = formatTimestamp($datesub, $xoopsModuleConfig['dateformat']);
-            $eachresult['ref']        = lx_getHTMLHighlight($query, $myts->htmlSpecialChars($ref), '<b style="background-color: #FFFF80; ">', '</b>');
+            $eachresult['ref']        = LexikonUtility::getHTMLHighlight($query, $myts->htmlSpecialChars($ref), '<b style="background-color: #FFFF80; ">', '</b>');
             $eachresult['catname']    = $myts->htmlSpecialChars($catname);
             $tempdef                  = $myts->displayTarea($definition, 1, 1, 1, 1, 1);
-            $eachresult['definition'] = lx_getHTMLHighlight($query, $tempdef, '<b style="background-color: #FFFF80; ">', '</b>');
+            $eachresult['definition'] = LexikonUtility::getHTMLHighlight($query, $tempdef, '<b style="background-color: #FFFF80; ">', '</b>');
             if ($highlight) {
                 $eachresult['keywords'] = $hightlight_key;
             }
             // Functional links
-            $microlinks               = lx_serviceLinks($eachresult);
+            $microlinks               = LexikonUtility::getServiceLinks($eachresult);
             $eachresult['microlinks'] = $microlinks;
             $resultset['match'][]     = $eachresult;
         }
@@ -169,7 +184,7 @@ if (!$query) {
         $xoopsTpl->assign('resultset', $resultset);
 
         // Display search form
-        $searchform = lx_showSearchForm();
+        $searchform = LexikonUtility::showSearchForm();
         $xoopsTpl->assign('searchform', $searchform);
     }
 }

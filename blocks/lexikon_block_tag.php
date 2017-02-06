@@ -50,7 +50,7 @@
  *    <li>Create your tag_block_cloud template, for example newbb_block_tag_cloud.html;</li>
  *    <li>Include tag_block_cloud template in your created block template:<br>
  *        <code>
- *            <{include file="db:tag_block_cloud.html"}>
+ *            <{include file="db:tag_block_cloud.tpl"}>
  *        </code>
  *    </li>
  * </ul>

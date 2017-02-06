@@ -49,9 +49,9 @@ if ($suggest > 0) {
 }
 //--- Permissions ---
 $gpermHandler = xoops_getHandler('groupperm');
-$groups        = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
-$module_id     = $xoopsModule->getVar('mid');
-$perm_itemid   = isset($_POST['categoryID']) ? (int)$_POST['categoryID'] : 0;
+$groups       = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
+$module_id    = $xoopsModule->getVar('mid');
+$perm_itemid  = isset($_POST['categoryID']) ? (int)$_POST['categoryID'] : 0;
 if (!$gpermHandler->checkRight('lexikon_submit', $perm_itemid, $groups, $module_id)) {
     redirect_header('javascript:history.go(-1)', 3, _MD_LEXIKON_MUSTREGFIRST);
 }
@@ -78,13 +78,13 @@ switch ($op) {
         //-------
 
         global $xoTheme, $xoopsUser, $xoopsModule, $xoopsModuleConfig;
-        include_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->getVar('dirname') . '/include/functions.php';
+        include_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->getVar('dirname') . '/class/Utility.php';
         $myts = MyTextSanitizer:: getInstance();
         //permissions
         $gpermHandler = xoops_getHandler('groupperm');
-        $groups        = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
-        $module_id     = $xoopsModule->getVar('mid');
-        $perm_itemid   = isset($_POST['categoryID']) ? (int)$_POST['categoryID'] : 0;
+        $groups       = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
+        $module_id    = $xoopsModule->getVar('mid');
+        $perm_itemid  = isset($_POST['categoryID']) ? (int)$_POST['categoryID'] : 0;
 
         $html = 1;
         if ($xoopsUser) {
@@ -128,7 +128,7 @@ switch ($op) {
             $url = '';
         }
         // this is for terms with umlaut or accented initials
-        $term4sql = lx_sanitizeFieldName($myts->htmlspecialchars($_POST['term']));
+        $term4sql = LexikonUtility::sanitizeFieldName($myts->htmlspecialchars($_POST['term']));
         $init     = substr($term4sql, 0, 1);
         $init     = preg_match('/[a-zA-Z]/', $init) ? strtoupper($init) : '#';
 
@@ -144,16 +144,17 @@ switch ($op) {
             $submit = 0;
             $offline = 0;
         }*/
-        if (!$gpermHandler->checkRight('lexikon_approve', $perm_itemid, $groups, $module_id)) {
+        if ($gpermHandler->checkRight('lexikon_approve', $perm_itemid, $groups, $module_id)) {
             $submit      = 0;
             $offline     = 0;
             $autoapprove = 1;
         }
         // verify that the term not exists
-        if (lx_TermExists($term, $xoopsDB->prefix('lxentries'))) {
+        if (LexikonUtility::isTermPresent($term, $xoopsDB->prefix('lxentries'))) {
             redirect_header('javascript:history.go(-1)', 2, _MD_LEXIKON_ITEMEXISTS . '<br>' . $term);
         }
-        $result = $xoopsDB->query('INSERT INTO ' . $xoopsDB->prefix('lxentries')
+        $result = $xoopsDB->query('INSERT INTO '
+                                  . $xoopsDB->prefix('lxentries')
                                   . " (entryID, categoryID, term, init, definition, ref, url, uid, submit, datesub, html, smiley, xcodes, breaks, block, offline, notifypub ) VALUES ('', '$categoryID', '$term', '$init', '$definition', '$ref', '$url', '$uid', '$submit', '$datesub', '$html', '$smiley', '$xcodes', '$breaks','$block', '$offline', '$notifypub')");
         $newid  = $xoopsDB->getInsertId();
         // Increment author's posts count
@@ -161,7 +162,7 @@ switch ($op) {
         //if (is_object($xoopsUser) && empty($entryID)) {
         if (is_object($xoopsUser) && empty($entryID) && $autoapprove) {
             $memberHandler = xoops_getHandler('member');
-            $submitter      = $memberHandler->getUser($uid);
+            $submitter     = $memberHandler->getUser($uid);
             if (is_object($submitter)) {
                 $submitter->setVar('posts', $submitter->getVar('posts') + 1);
                 $res = $memberHandler->insertUser($submitter, true);
@@ -175,7 +176,7 @@ switch ($op) {
             if ($newid == 0) {
                 $newid = $xoopsDB->getInsertId();
             }
-            $notificationHandler  = xoops_getHandler('notification');
+            $notificationHandler   = xoops_getHandler('notification');
             $tags                  = array();
             $shortdefinition       = $myts->htmlSpecialChars(xoops_substr(strip_tags($definition), 0, 45));
             $tags['ITEM_NAME']     = $term;
@@ -219,8 +220,8 @@ switch ($op) {
                     $adminMessage .= _MD_LEXIKON_NOTIFYONPUB;
                 }
                 $adminMessage .= "\n" . $_SERVER['HTTP_USER_AGENT'] . "\n";
-                $subject     = $xoopsConfig['sitename'] . ' - ' . _MD_LEXIKON_DEFINITIONSUB;
-                $xoopsMailer =& xoops_getMailer();
+                $subject      = $xoopsConfig['sitename'] . ' - ' . _MD_LEXIKON_DEFINITIONSUB;
+                $xoopsMailer  =& xoops_getMailer();
                 $xoopsMailer->useMail();
                 $xoopsMailer->multimailer->isHTML(true);
                 $xoopsMailer->setToEmails($xoopsConfig['adminmail']);
@@ -237,18 +238,18 @@ switch ($op) {
                 redirect_header('index.php', 2, _MD_LEXIKON_RECEIVEDANDAPPROVED);
             } else {
                 //send received mail
-                //if (lx_getmoduleoption('mailtosender') && $usermail) {
+                //if (LexikonUtility::getModuleOption('mailtosender') && $usermail) {
                 if ($xoopsModuleConfig['mailtosender'] == 1 && $usermail) {
                     $conf_subject = _MD_LEXIKON_THANKS3;
                     $userMessage  = sprintf(_MD_LEXIKON_GOODDAY2, $username);
-                    $userMessage .= "\n\n";
-                    $userMessage .= sprintf(_MD_LEXIKON_THANKYOU3, $xoopsConfig['sitename']);
-                    $userMessage .= "\n";
-                    $userMessage .= sprintf(_MD_LEXIKON_SUBMISSIONSENT, $xoopsConfig['sitename']);
-                    $userMessage .= "\n";
-                    $userMessage .= "--------------\n";
-                    $userMessage .= '' . $xoopsConfig['sitename'] . ' ' . _MD_LEXIKON_WEBMASTER . "\n";
-                    $userMessage .= '' . $xoopsConfig['adminmail'] . '';
+                    $userMessage  .= "\n\n";
+                    $userMessage  .= sprintf(_MD_LEXIKON_THANKYOU3, $xoopsConfig['sitename']);
+                    $userMessage  .= "\n";
+                    $userMessage  .= sprintf(_MD_LEXIKON_SUBMISSIONSENT, $xoopsConfig['sitename']);
+                    $userMessage  .= "\n";
+                    $userMessage  .= "--------------\n";
+                    $userMessage  .= '' . $xoopsConfig['sitename'] . ' ' . _MD_LEXIKON_WEBMASTER . "\n";
+                    $userMessage  .= '' . $xoopsConfig['adminmail'] . '';
 
                     $xoopsMailer =& xoops_getMailer();
                     $xoopsMailer->useMail();
@@ -275,7 +276,7 @@ switch ($op) {
     case 'form':
     default:
         global $xoopsUser, $_SERVER;
-        include_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->dirname() . '/include/functions.php';// to create pagetitle
+        include_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->dirname() . '/class/Utility.php';// to create pagetitle
         $myts = MyTextSanitizer:: getInstance();
         if (!is_object($xoopsUser)) {
             $name = _MD_LEXIKON_GUEST;

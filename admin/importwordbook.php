@@ -23,7 +23,7 @@
 // ------------------------------------------------------------------------ //
 //////////////////////////////////////////////////////////////////////////////
 
-include_once __DIR__ . '/admin_header.php';
+require_once __DIR__ . '/admin_header.php';
 $op = '';
 
 /****
@@ -33,8 +33,8 @@ switch ($op) {
     case 'default':
     default:
         xoops_cp_header();
-        $indexAdmin = new ModuleAdmin();
-        echo $indexAdmin->addNavigation(basename(__FILE__));
+        $adminObject  = \Xmf\Module\Admin::getInstance();
+        $adminObject->displayNavigation(basename(__FILE__));
 
         global $xoopsUser, $xoopsConfig, $xoopsDB, $xoopsModuleConfig, $xoopsModule;
         $myts = MyTextSanitizer::getInstance();
@@ -72,7 +72,7 @@ function import2db($text)
 function DefinitionImport($delete)
 {
     global $xoopsUser, $xoopsConfig, $xoopsDB, $xoopsModule, $entryID, $myts;
-    $sqlQuery = $xoopsDB->query('SELECT count(entryID) as count FROM ' . $xoopsDB->prefix('wbentries'));
+    $sqlQuery = $xoopsDB->query('SELECT count(entryID) AS count FROM ' . $xoopsDB->prefix('wbentries'));
     list($count) = $xoopsDB->fetchRow($sqlQuery);
     if ($count < 1) {
         redirect_header('index.php', 1, _AM_LEXIKON_MODULEIMPORTEMPTY10);
@@ -171,7 +171,7 @@ function DefinitionImport($delete)
             if ($ret1) {
                 if ($uid) {
                     $memberHandler = xoops_getHandler('member');
-                    $submitter      = $memberHandler->getUser($uid);
+                    $submitter     = $memberHandler->getUser($uid);
                     if (is_object($submitter)) {
                         $submitter->setVar('posts', $submitter->getVar('posts') + 1);
                         $res = $memberHandler->insertUser($submitter, true);
@@ -263,7 +263,7 @@ function FormImport()
     lx_importMenu(9);
 
     /** @var XoopsModuleHandler $moduleHandler */
-    $moduleHandler = xoops_getHandler('module');
+    $moduleHandler  = xoops_getHandler('module');
     $wordbookModule = $moduleHandler->getByDirname('wordbook');
     $got_options    = false;
     if (is_object($wordbookModule)) {
@@ -273,7 +273,11 @@ function FormImport()
         echo '</tr>';
 
         echo '<tr>';
-        echo "<td class='head' width = '200' align='center'><img src='" . XOOPS_URL . '/modules/' . $xoopsModule->dirname() . '/assets/images/dialog-important.png'
+        echo "<td class='head' width = '200' align='center'><img src='"
+             . XOOPS_URL
+             . '/modules/'
+             . $xoopsModule->dirname()
+             . '/assets/images/dialog-important.png'
              . "' alt='' hspace='0' vspace='0' align='middle' style='margin-right: 10px; margin-top: 20px;'></td>";
         echo "<td class='even' align='center'><br><B><span style='font-size: x-small; color: red'>" . _AM_LEXIKON_IMPORTWARN . '</span></B><P></td>';
         echo '</tr>';

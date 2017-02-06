@@ -17,7 +17,7 @@ function lexikon_notify_iteminfo($category, $item_id)
         $moduleHandler = xoops_getHandler('module');
         $module = $moduleHandler->getByDirname('lexikon');
         $configHandler = xoops_getHandler('config');
-        $config =& $configHandler->getConfigsByCat(0,$module->getVar('mid'));
+        $config = $configHandler->getConfigsByCat(0,$module->getVar('mid'));
     } else {
         $module =& $xoopsModule;
         $config =& $xoopsModuleConfig;

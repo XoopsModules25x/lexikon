@@ -19,7 +19,7 @@ if (file_exists(__DIR__ . '/../language/' . $xoopsConfig['language'] . '/main.ph
 } else {
     include __DIR__ . '/../language/english/main.php';
 }
-include_once XOOPS_ROOT_PATH . '/modules/lexikon/include/functions.php';
+include_once XOOPS_ROOT_PATH . '/modules/lexikon/class/Utility.php';
 include_once XOOPS_ROOT_PATH . '/modules/lexikon/admin/functions.php';
 include_once XOOPS_ROOT_PATH . '/kernel/module.php';
 $xoopsModule = XoopsModule::getByDirname('lexikon');

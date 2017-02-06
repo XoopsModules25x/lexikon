@@ -24,14 +24,14 @@ function b_lxentries_top_show($options)
     $lexikon       = $moduleHandler->getByDirname('lexikon');
     if (!isset($lxConfig)) {
         $configHandler = xoops_getHandler('config');
-        $lxConfig       =& $configHandler->getConfigsByCat(0, $lexikon->getVar('mid'));
+        $lxConfig      = $configHandler->getConfigsByCat(0, $lexikon->getVar('mid'));
     }
-    $groups        = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
+    $groups       = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
     $gpermHandler = xoops_getHandler('groupperm');
-    $module_id     = $lexikon->getVar('mid');
-    $allowed_cats  = $gpermHandler->getItemIds('lexikon_view', $groups, $module_id);
-    $catids        = implode(',', $allowed_cats);
-    $catperms      = " AND categoryID IN ($catids) ";
+    $module_id    = $lexikon->getVar('mid');
+    $allowed_cats = $gpermHandler->getItemIds('lexikon_view', $groups, $module_id);
+    $catids       = implode(',', $allowed_cats);
+    $catperms     = " AND categoryID IN ($catids) ";
 
     $words      = $xoopsDB->query('SELECT entryID FROM ' . $xoopsDB->prefix('lxentries') . " WHERE offline = '0' AND submit='0' AND request='0' AND block = '1'");
     $totalwords = $xoopsDB->getRowsNum($words);
@@ -44,7 +44,15 @@ function b_lxentries_top_show($options)
     $block['speed']       = isset($options[6]) && $options[6] != '' ? $options[6] : '2';
     $block['bgcolor']     = isset($options[7]) && $options[7] != '' ? $options[7] : '#FFFFFF';
 
-    $sql    = 'SELECT entryID, categoryID, term, counter FROM ' . $xoopsDB->prefix('lxentries') . ' WHERE datesub < ' . time() . " AND datesub > 0 AND offline = '0' " . $catperms . ' ORDER BY ' . $options[0] . ' DESC';
+    $sql    = 'SELECT entryID, categoryID, term, counter FROM '
+              . $xoopsDB->prefix('lxentries')
+              . ' WHERE datesub < '
+              . time()
+              . " AND datesub > 0 AND offline = '0' "
+              . $catperms
+              . ' ORDER BY '
+              . $options[0]
+              . ' DESC';
     $result = $xoopsDB->query($sql, $options[1], 0);
 
     if ($totalwords > 0) { // If there are definitions

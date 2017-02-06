@@ -22,9 +22,9 @@ $sform          = new XoopsThemeForm(_MD_LEXIKON_SUB_SMNAME, 'storyform', xoops_
 
 if ($xoopsModuleConfig['multicats'] == '1') {
     // perms adapted category select
-    $groups        = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
+    $groups       = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
     $gpermHandler = xoops_getHandler('groupperm');
-    $allowed_cats  =& $gpermHandler->getItemIds('lexikon_submit', $groups, $xoopsModule->getVar('mid'));
+    $allowed_cats =& $gpermHandler->getItemIds('lexikon_submit', $groups, $xoopsModule->getVar('mid'));
     if (is_array($allowed_cats)) {
         $mytree         = new LexikonTree($xoopsDB->prefix('lxcategories'), 'categoryID', '0');
         $categoryselect = new XoopsFormSelect(_MD_LEXIKON_ENTRYCATEGORY, 'categoryID', $allowed_cats);
@@ -55,7 +55,7 @@ $myts = MyTextSanitizer::getInstance();
 $term = $myts->htmlSpecialChars($term);
 $sform->addElement(new XoopsFormText(_MD_LEXIKON_ENTRY, 'term', 50, 80, $term), true);
 
-/*$editor = lx_getWysiwygForm( _MD_LEXIKON_DEFINITION, 'definition', _MD_LEXIKON_WRITEHERE, 15, 60 );
+/*$editor = LexikonUtility::getWysiwygForm( _MD_LEXIKON_DEFINITION, 'definition', _MD_LEXIKON_WRITEHERE, 15, 60 );
   if ($definition == _MD_LEXIKON_WRITEHERE) {
       $editor -> setExtra( 'onfocus="this.select()"' );
   }
@@ -66,7 +66,7 @@ $sform->addElement(new XoopsFormText(_MD_LEXIKON_ENTRY, 'term', 50, 80, $term), 
 if (isset($guesteditoruse)) {
     //if (isset($xoopsUser) && is_object($xoopsUser) ) {
     if ($xoopsUser) {
-        $editor = lx_getWysiwygForm(_MD_LEXIKON_DEFINITION, 'definition', _MD_LEXIKON_WRITEHERE, 15, 60);
+        $editor = LexikonUtility::getWysiwygForm(_MD_LEXIKON_DEFINITION, 'definition', _MD_LEXIKON_WRITEHERE, 15, 60);
         if ($definition == _MD_LEXIKON_WRITEHERE) {
             $editor->setExtra('onfocus="this.select()"');
         }
@@ -91,9 +91,9 @@ if (is_object($xoopsUser)) {
     $sform->addElement($notify_checkbox);
 }
 //--- Captcha - Ohne Gewähr
-if (lx_getmoduleoption('captcha') == 1) {
+if (LexikonUtility::getModuleOption('captcha') == 1) {
     $skipMember = 1;
-} elseif (lx_getmoduleoption('captcha') == 2) {
+} elseif (LexikonUtility::getModuleOption('captcha') == 2) {
     $skipMember = 0;
 }
 if ($xoopsModuleConfig['captcha'] != 0) {

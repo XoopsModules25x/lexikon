@@ -25,9 +25,9 @@ if ($xoopsModuleConfig['contentsyndication'] == 0) {
     exit();
 }
 //permissions
-$groups        = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
+$groups       = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
 $gpermHandler = xoops_getHandler('groupperm');
-$module_id     = $xoopsModule->getVar('mid');
+$module_id    = $xoopsModule->getVar('mid');
 
 $tpl->assign('multicats', (int)$xoopsModuleConfig['multicats']);
 
@@ -47,8 +47,12 @@ if ($numrows > 1) {
     $entrynumber = 0;
 }
 //$resultZ = $xoopsDB -> query ( " SELECT entryID, categoryID, term, definition FROM ".$xoopsDB->prefix("lxentries")." WHERE offline = '0' AND submit = '0' AND request = '0' LIMIT $entrynumber, 1");
-$resultZ = $xoopsDB->query('SELECT a.entryID, a.categoryID, a.term, a.definition, a.offline, b.* FROM ' . $xoopsDB->prefix('lxentries') . ' a, ' . $xoopsDB->prefix('group_permission')
-                           . " b WHERE a.categoryID = b.gperm_itemid AND b.gperm_modid = $module_id AND b.gperm_name = \"lexikon_view\" AND b.gperm_groupid = $groups[0]  AND a.datesub < " . time()
+$resultZ = $xoopsDB->query('SELECT a.entryID, a.categoryID, a.term, a.definition, a.offline, b.* FROM '
+                           . $xoopsDB->prefix('lxentries')
+                           . ' a, '
+                           . $xoopsDB->prefix('group_permission')
+                           . " b WHERE a.categoryID = b.gperm_itemid AND b.gperm_modid = $module_id AND b.gperm_name = \"lexikon_view\" AND b.gperm_groupid = $groups[0]  AND a.datesub < "
+                           . time()
                            . " AND a.offline = '0' AND a.submit = '0' LIMIT $entrynumber, 1");
 
 $zerotest = $xoopsDB->getRowsNum($resultZ);

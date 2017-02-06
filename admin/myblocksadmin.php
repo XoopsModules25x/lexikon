@@ -104,7 +104,11 @@ function list_blocks()
 
     // displaying TH
     lx_collapsableBar('default', 'defaultIcon');
-    echo "<img  onclick=\"toggle('default'); toggleIcon('defaultIcon');\" id='defaultIcon' src='" . XOOPS_URL . "/modules/lexikon/assets/images/close12.gif' alt='' /></a>&nbsp; " . _AM_BADMIN . '<br><br>';
+    echo "<img  onclick=\"toggle('default'); toggleIcon('defaultIcon');\" id='defaultIcon' src='"
+         . XOOPS_URL
+         . "/modules/lexikon/assets/images/close12.gif' alt='' /></a>&nbsp; "
+         . _AM_BADMIN
+         . '<br><br>';
     echo "<div id='default' style='float:left; width:100%;'>";
     echo "
     <form action='admin.php' name='blockadmin' method='post'>
@@ -137,36 +141,36 @@ function list_blocks()
             $scoln = '#FF9966';
         } else {
             switch ($block_arr[$i]->getVar('side')) {
-                default :
-                case XOOPS_SIDEBLOCK_LEFT :
+                default:
+                case XOOPS_SIDEBLOCK_LEFT:
                     $ssel0 = ' checked';
                     $scol0 = '#00FF00';
                     break;
-                case XOOPS_SIDEBLOCK_RIGHT :
+                case XOOPS_SIDEBLOCK_RIGHT:
                     $ssel1 = ' checked';
                     $scol1 = '#00FF00';
                     break;
-                case XOOPS_CENTERBLOCK_LEFT :
+                case XOOPS_CENTERBLOCK_LEFT:
                     $ssel2 = ' checked';
                     $scol2 = '#00FF00';
                     break;
-                case XOOPS_CENTERBLOCK_RIGHT :
+                case XOOPS_CENTERBLOCK_RIGHT:
                     $ssel4 = ' checked';
                     $scol4 = '#00FF00';
                     break;
-                case XOOPS_CENTERBLOCK_CENTER :
+                case XOOPS_CENTERBLOCK_CENTER:
                     $ssel3 = ' checked';
                     $scol3 = '#00FF00';
                     break;
-                case XOOPS_CENTERBLOCK_BOTTOMLEFT :
+                case XOOPS_CENTERBLOCK_BOTTOMLEFT:
                     $ssel5 = ' checked';
                     $scol5 = '#00FF00';
                     break;
-                case XOOPS_CENTERBLOCK_BOTTOMRIGHT :
+                case XOOPS_CENTERBLOCK_BOTTOMRIGHT:
                     $ssel6 = ' checked';
                     $scol6 = '#00FF00';
                     break;
-                case XOOPS_CENTERBLOCK_BOTTOM :
+                case XOOPS_CENTERBLOCK_BOTTOM:
                     $ssel7 = ' checked';
                     $scol7 = '#00FF00';
                     break;

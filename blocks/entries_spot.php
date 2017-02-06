@@ -21,18 +21,18 @@ function b_lxspot_show($options)
     $myts = MyTextSanitizer:: getInstance();
     xoops_load('XoopsUserUtility');
 
-    $module_name   = 'lexikon';
+    $module_name = 'lexikon';
     /** @var XoopsModuleHandler $moduleHandler */
     $moduleHandler = xoops_getHandler('module');
     $lexikon       = $moduleHandler->getByDirname('lexikon');
     if (!isset($lxConfig)) {
         $configHandler = xoops_getHandler('config');
-        $lxConfig       =& $configHandler->getConfigsByCat(0, $lexikon->getVar('mid'));
+        $lxConfig      = $configHandler->getConfigsByCat(0, $lexikon->getVar('mid'));
     }
 
     $gpermHandler = xoops_getHandler('groupperm');
-    $groups        = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
-    $module_id     = $lexikon->getVar('mid');
+    $groups       = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
+    $module_id    = $lexikon->getVar('mid');
     /*$allowed_cats = $gpermHandler->getItemIds("lexikon_view", $groups, $module_id);
     $catids = implode(',', $allowed_cats);
     $catperms = " AND categoryID IN ($catids) ";*/
@@ -103,15 +103,32 @@ function b_lxspot_show($options)
             $block['hits'] = (int)$counter;
             if (($lxConfig['com_rule'] != 0) || (($lxConfig['com_rule'] != 0) && is_object($xoopsUser))) {
                 if ($comments != 0) {
-                    $block['comments'] = "<a href='" . XOOPS_URL . '/modules/' . $lexikon->dirname() . '/entry.php?entryID=' . $block['termID'] . "'>" . _COMMENTS . '&nbsp;:&nbsp; ' . $comments . '</a>';
+                    $block['comments'] = "<a href='"
+                                         . XOOPS_URL
+                                         . '/modules/'
+                                         . $lexikon->dirname()
+                                         . '/entry.php?entryID='
+                                         . $block['termID']
+                                         . "'>"
+                                         . _COMMENTS
+                                         . '&nbsp;:&nbsp; '
+                                         . $comments
+                                         . '</a>';
                 } else {
                     $block['comments'] = "<a href='" . XOOPS_URL . '/modules/' . $lexikon->dirname() . '/entry.php?entryID=' . $block['termID'] . "'>" . _COMMENTS . '?</a>';
                 }
             }
 
             // get the other terms
-            $resultC = $xoopsDB->query('SELECT entryID, term, datesub FROM ' . $xoopsDB->prefix('lxentries') . ' WHERE categoryID = ' . $options[0] . ' AND entryID != ' . $block['termID'] . ' AND submit = 0 AND offline = 0 AND block= 1 ORDER BY '
-                                       . $options[7] . ' DESC ', $options[1], 0);
+            $resultC = $xoopsDB->query('SELECT entryID, term, datesub FROM '
+                                       . $xoopsDB->prefix('lxentries')
+                                       . ' WHERE categoryID = '
+                                       . $options[0]
+                                       . ' AND entryID != '
+                                       . $block['termID']
+                                       . ' AND submit = 0 AND offline = 0 AND block= 1 ORDER BY '
+                                       . $options[7]
+                                       . ' DESC ', $options[1], 0);
 
             $i = 0;
             while ($myrow = $xoopsDB->fetchArray($resultC)) {
@@ -145,7 +162,7 @@ function b_lxspot_edit($options)
     $myts      = MyTextSanitizer:: getInstance();
     $resultcat = $xoopsDB->query('SELECT categoryID, name FROM ' . $xoopsDB->prefix('lxcategories') . ' ORDER BY categoryID');
     $form      = "<table border='0'>";
-    $form .= '<tr><td>' . _MB_LEXIKON_SELECTCAT . "</td><td><select name=\"options[]\">";
+    $form      .= '<tr><td>' . _MB_LEXIKON_SELECTCAT . "</td><td><select name=\"options[]\">";
     while (list($categoryID, $name) = $xoopsDB->fetchRow($resultcat)) {
         $form .= '<option value=' . $categoryID . ' ' . (($options[0] == $categoryID) ? ' selected' : '') . ">$categoryID : $name</option>\n";
     }
@@ -180,8 +197,20 @@ function b_lxspot_edit($options)
     $form .= "<option value='term' " . (($options[7] === 'term') ? ' selected' : '') . '>' . _MB_LEXIKON_NAME . "</option>\n";
     $form .= "</select>\n";
 
-    $form .= "&nbsp;<tr><td style='vertical-align: top;'>" . _MB_LEXIKON_CHARS . "</td><td>&nbsp;<input type='text' name='options[8]' value='" . $myts->htmlSpecialChars($options[8]) . "' />&nbsp;" . _MB_LEXIKON_LENGTH . '';
-    $form .= "&nbsp;<tr><td style='vertical-align: top;'>" . _MB_LEXIKON_CHARSTERM . "</td><td>&nbsp;<input type='text' name='options[9]' value='" . $myts->htmlSpecialChars($options[9]) . "' />&nbsp;" . _MB_LEXIKON_LENGTH . '';
+    $form .= "&nbsp;<tr><td style='vertical-align: top;'>"
+             . _MB_LEXIKON_CHARS
+             . "</td><td>&nbsp;<input type='text' name='options[8]' value='"
+             . $myts->htmlSpecialChars($options[8])
+             . "' />&nbsp;"
+             . _MB_LEXIKON_LENGTH
+             . '';
+    $form .= "&nbsp;<tr><td style='vertical-align: top;'>"
+             . _MB_LEXIKON_CHARSTERM
+             . "</td><td>&nbsp;<input type='text' name='options[9]' value='"
+             . $myts->htmlSpecialChars($options[9])
+             . "' />&nbsp;"
+             . _MB_LEXIKON_LENGTH
+             . '';
 
     $form .= '</td></tr>';
     $form .= '</table>';

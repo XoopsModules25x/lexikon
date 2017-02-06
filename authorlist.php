@@ -13,7 +13,7 @@ include __DIR__ . '/header.php';
 $GLOBALS['xoopsOption']['template_main'] = 'lx_authorlist.tpl';
 include_once XOOPS_ROOT_PATH . '/header.php';
 global $xoopsUser, $xoTheme, $xoopsTpl, $authortermstotal, $xoopsModule;
-include_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->dirname() . '/include/functions.php';
+include_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->dirname() . '/class/Utility.php';
 include_once XOOPS_ROOT_PATH . '/modules/lexikon/include/common.inc.php';
 $authorlistext = false;
 $myts          = MyTextSanitizer::getInstance();
@@ -21,13 +21,13 @@ $myts          = MyTextSanitizer::getInstance();
 if (empty($xoopsUser) && !$xoopsModuleConfig['authorprofile']) {
     redirect_header(XOOPS_URL . '/user.php', 3, _MD_LEXIKON_MUSTREGFIRST);
 }
-$result = $xoopsDB->query('SELECT * FROM ' . $xoopsDB->prefix('lxcategories') . '');
+$result = $xoopsDB->query('SELECT * FROM ' . $xoopsDB->prefix('lxcategories') . ' ');
 if ($xoopsDB->getRowsNum($result) == '0' && $xoopsModuleConfig['multicats'] == '1') {
     redirect_header('index.php', 3, _AM_LEXIKON_NOCOLEXISTS);
 }
 //permissions
 $gpermHandler = xoops_getHandler('groupperm');
-$groups        = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
+$groups       = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
 /** @var XoopsModuleHandler $moduleHandler */
 $moduleHandler = xoops_getHandler('module');
 $module        = $moduleHandler->getByDirname('lexikon');
@@ -39,13 +39,13 @@ $catperms      = " AND categoryID IN ($catids) ";
 // --- display a list of the authors of the site ---
 
 $uid_ids = array();
-$uid_ids = lx_getAuthors();
+$uid_ids = LexikonUtility::getAuthors();
 if (count($uid_ids) > 0) {
-    $lst_uid        = implode(',', $uid_ids);
+    $lst_uid       = implode(',', $uid_ids);
     $memberHandler = xoops_getHandler('member');
-    $criteria       = new Criteria('uid', '(' . $lst_uid . ')', 'IN');
-    $tbl_users      = $memberHandler->getUsers($criteria);
-    $iu             = 0;
+    $criteria      = new Criteria('uid', '(' . $lst_uid . ')', 'IN');
+    $tbl_users     = $memberHandler->getUsers($criteria);
+    $iu            = 0;
 
     foreach ($tbl_users as $one_user) {
         $uname = '';
@@ -53,8 +53,15 @@ if (count($uid_ids) > 0) {
         if (CONFIG_EXTENDED_AUTHORLIST) {
             $xoopsTpl->assign('authorlistext', true);
             if (is_object($xoopsUser)) {
-                $user_pmlink = "<a href='javascript:openWithSelfMain(\"" . XOOPS_URL . '/pmlite.php?send2=1&amp;to_userid=' . $one_user->getVar('uid') . "\",\"pmlite\",450,370);'><img src='" . XOOPS_URL . "/images/icons/pm.gif' border='0' alt=\""
-                               . sprintf(_SENDPMTO, $one_user->getVar('uname')) . "\"/></A>";
+                $user_pmlink = "<a href='javascript:openWithSelfMain(\""
+                               . XOOPS_URL
+                               . '/pmlite.php?send2=1&amp;to_userid='
+                               . $one_user->getVar('uid')
+                               . "\",\"pmlite\",450,370);'><img src='"
+                               . XOOPS_URL
+                               . "/images/icons/pm.gif' border='0' alt=\""
+                               . sprintf(_SENDPMTO, $one_user->getVar('uname'))
+                               . "\"/></A>";
             } else {
                 $user_pmlink = '';
             }
@@ -63,7 +70,13 @@ if (count($uid_ids) > 0) {
                     || ($one_user->getVar('user_viewemail') == 1
                         && $one_user->getVar('email') != '')
                 ) {
-                    $user_maillink = "<a href='mailto:" . $one_user->getVar('email') . "'><img src='" . XOOPS_URL . "/images/icons/email.gif' border='0' alt=\"" . sprintf(_SENDEMAILTO, $one_user->getVar('uname')) . "\"/></A>";
+                    $user_maillink = "<a href='mailto:"
+                                     . $one_user->getVar('email')
+                                     . "'><img src='"
+                                     . XOOPS_URL
+                                     . "/images/icons/email.gif' border='0' alt=\""
+                                     . sprintf(_SENDEMAILTO, $one_user->getVar('uname'))
+                                     . "\"/></A>";
                 } else {
                     $user_maillink = '';
                 }
