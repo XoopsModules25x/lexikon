@@ -398,7 +398,7 @@ public static function getServiceLinks($variable)
         /** @var XoopsModuleHandler $moduleHandler */
         $moduleHandler = xoops_getHandler('module');
     $moduleInfo    = $moduleHandler->get($xoopsModule->getVar('mid'));
-    $pathIcon16    =& $xoopsModule->getInfo('icons16');
+    $pathIcon16    = \Xmf\Module\Admin::iconUrl('', 16);
 
     $srvlinks = '';
     if ($xoopsUser) {
@@ -408,16 +408,14 @@ public static function getServiceLinks($variable)
                              . "\" href=\"admin/entry.php?op=mod&entryID="
                              . $variable['id']
                              . "\" target=\"_blank\"><img src=\""
-                             . $pathIcon16
-                             . "/edit.png\"   border=\"0\" alt=\""
+                             . $pathIcon16 . "/edit.png\"   border=\"0\" alt=\""
                              . _MD_LEXIKON_EDITTERM
                              . "\" width=\"16\" height=\"16\"></a>&nbsp;<a TITLE=\""
                              . _DELETE
                              . "\" href=\"admin/entry.php?op=del&entryID="
                              . $variable['id']
                              . "\" target=\"_self\"><img src=\""
-                             . $pathIcon16
-                             . "/delete.png\"   border=\"0\" alt=\""
+                             . $pathIcon16 . "/delete.png\"   border=\"0\" alt=\""
                              . _MD_LEXIKON_DELTERM
                              . "\" width=\"16\" height=\"16\"></a>&nbsp;";
         }
@@ -428,8 +426,7 @@ public static function getServiceLinks($variable)
                          . "\" href=\"print.php?entryID="
                          . $variable['id']
                          . "\" target=\"_blank\"><img src=\""
-                         . $pathIcon16
-                         . "/printer.png\"    border=\"0\" alt=\""
+                         . $pathIcon16 . "/printer.png\"    border=\"0\" alt=\""
                          . _MD_LEXIKON_PRINTTERM
                          . "\" width=\"16\" height=\"16\"></a>&nbsp;<a TITLE=\""
                          . _MD_LEXIKON_SENDTOFRIEND
@@ -444,8 +441,7 @@ public static function getServiceLinks($variable)
                          . '/entry.php?entryID='
                          . $variable['id']
                          . " \" target=\"_blank\"><img src=\""
-                         . $pathIcon16
-                         . "/mail_replay.png\"   border=\"0\" alt=\""
+                         . $pathIcon16 . "/mail_replay.png\"   border=\"0\" alt=\""
                          . _MD_LEXIKON_SENDTOFRIEND
                          . "\" width=\"16\" height=\"16\"></a>&nbsp;";
         if (($xoopsModuleConfig['com_rule'] != 0)
