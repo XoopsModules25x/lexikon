@@ -69,3 +69,4 @@ function lexikon_tag_iteminfo(&$items)
         }
     }
 }
+
