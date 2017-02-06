@@ -82,7 +82,7 @@ if (!$entryID) {
                                  WHERE entryID = $entryID");
     // verify result
     if ($xoopsDB->getRowsNum($result) <= 0) {
-        redirect_header('javascript:history.go(-1)', 2, _MD_LEXIKON_UNKNOWNERROR);
+        redirect_header(XOOPS_URL.'/modules/lexikon/index.php', 2, _MD_LEXIKON_UNKNOWNERROR);
     }
 }
 

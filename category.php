@@ -118,7 +118,7 @@ if (!$categoryID) {
     while (list($categoryID, $name, $description, $total, $logourl) = $xoopsDB->fetchRow($catdata)) {
         if ($gpermHandler->checkRight('lexikon_view', $categoryID, $groups, $xoopsModule->getVar('mid'))) {
             if ($total == 0) {
-                redirect_header('javascript:history.go(-1)', 1, _MD_LEXIKON_NOENTRIESINCAT);
+                redirect_header(XOOPS_URL.'/modules/lexikon/index.php', 1, _MD_LEXIKON_NOENTRIESINCAT);
             }
             $singlecat                = array();
             $singlecat['dir']         = $xoopsModule->dirname();
