@@ -114,15 +114,15 @@ function entryDefault()
             $catname = $myts->htmlSpecialChars($name);
             $term    = $myts->htmlSpecialChars($term);
             $created = formatTimestamp($created, 's');
-            $modify  = "<a href='entry.php?op=mod&entryID=" . $entryID . "'><img src=" . $pathIcon16 . "/edit.png width='16' height='16' ALT='" . _AM_LEXIKON_EDITENTRY . "'></a>";
-            $delete  = "<a href='entry.php?op=del&entryID=" . $entryID . "'><img src=" . $pathIcon16 . "/delete.png width='16' height='16' ALT='" . _AM_LEXIKON_DELETEENTRY . "'></a>";
+            $modify  = "<a href='entry.php?op=mod&entryID=" . $entryID . '\'><img src=' . $pathIcon16 . "/edit.png width='16' height='16' ALT='" . _AM_LEXIKON_EDITENTRY . '\'></a>';
+            $delete  = "<a href='entry.php?op=del&entryID=" . $entryID . '\'><img src=' . $pathIcon16 . "/delete.png width='16' height='16' ALT='" . _AM_LEXIKON_DELETEENTRY . '\'></a>';
 
             if ($offline == 0) {
-                $status = '<img src=' . XOOPS_URL . '/modules/' . $xoopsModule->dirname() . "/assets/images/icon/on.gif alt='" . _AM_LEXIKON_ENTRYISON . "'>";
+                $status = '<img src=' . XOOPS_URL . '/modules/' . $xoopsModule->dirname() . "/assets/images/icon/on.gif alt='" . _AM_LEXIKON_ENTRYISON . '\'>';
             } else {
-                $status = '<img src=' . XOOPS_URL . '/modules/' . $xoopsModule->dirname() . "/assets/images/icon/off.gif alt='" . _AM_LEXIKON_ENTRYISOFF . "'>";
+                $status = '<img src=' . XOOPS_URL . '/modules/' . $xoopsModule->dirname() . "/assets/images/icon/off.gif alt='" . _AM_LEXIKON_ENTRYISOFF . '\'>';
             }
-            echo "<tr class='" . $class . "'>";
+            echo "<tr class='" . $class . '\'>';
             $class = ($class === 'even') ? 'odd' : 'even';
 
             echo "<td align='center'>" . $entryID . '</td>';
@@ -131,7 +131,7 @@ function entryDefault()
                 echo "<td class='odd' align='left'>" . $catname . '</td>';
             }
             //echo "<td class='$class'align='left'>" . $term . "</td>";
-            echo "<td class='odd'align='left'><a href='../entry.php?entryID=" . $entryID . "'>" . $term . "</td>
+            echo "<td class='odd'align='left'><a href='../entry.php?entryID=" . $entryID . '\'>' . $term . "</td>
             <td class='odd' align='center'>" . $sentby . "</td>
             <td class='odd' align='center'>" . $created . "</td>
             <td class='odd' align='center'>" . $status . "</td>
@@ -225,7 +225,7 @@ function entryEdit($entryID = '')
 
         //        lx_adminMenu(2, _AM_LEXIKON_ADMINENTRYMNGMT);
 
-        echo "<h3 style=\"color: #2F5376; margin-top: 6px; \">" . _AM_LEXIKON_ADMINENTRYMNGMT . '</h3>';
+        echo '<h3 style="color: #2F5376; margin-top: 6px; ">' . _AM_LEXIKON_ADMINENTRYMNGMT . '</h3>';
         $sform = new XoopsThemeForm(_AM_LEXIKON_MODENTRY . ": $term", 'op', xoops_getenv('PHP_SELF'));
     } else { // there's no parameter, so we're adding an entry
         $result01 = $xoopsDB->query('SELECT COUNT(*) FROM ' . $xoopsDB->prefix('lxcategories') . ' ');
@@ -235,7 +235,7 @@ function entryEdit($entryID = '')
         }
         //        lx_adminMenu(2, _AM_LEXIKON_ADMINENTRYMNGMT);
         $uid = $xoopsUser->getVar('uid');
-        echo "<h3 style=\"color: #2F5376; margin-top: 6px; \">" . _AM_LEXIKON_ADMINENTRYMNGMT . '</h3>';
+        echo '<h3 style="color: #2F5376; margin-top: 6px; ">' . _AM_LEXIKON_ADMINENTRYMNGMT . '</h3>';
         $sform = new XoopsThemeForm(_AM_LEXIKON_NEWENTRY, 'op', xoops_getenv('PHP_SELF'));
     }
 
@@ -501,7 +501,7 @@ function entrySave($entryID = '')
                 $userMessage .= "__________________\n";
                 $userMessage .= '' . $xoopsConfig['sitename'] . ' ' . _MD_LEXIKON_WEBMASTER . "\n";
                 $userMessage .= '' . $xoopsConfig['adminmail'] . '';
-                $xoopsMailer =& xoops_getMailer();
+                $xoopsMailer = xoops_getMailer();
                 $xoopsMailer->useMail();
                 $xoopsMailer->setToEmails($user->getVar('email'));
                 $xoopsMailer->setFromEmail($xoopsConfig['adminmail']);

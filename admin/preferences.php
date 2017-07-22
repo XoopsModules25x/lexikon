@@ -43,7 +43,7 @@ function addAdminMenu($buf)
     );
     $replace = array(
         'preferences.php?',
-        " $1 <br>" . $btnsbar . "<div style='clear: both;' class='content'>"
+        ' $1 <br>' . $btnsbar . "<div style='clear: both;' class='content'>"
     );
     $html    = preg_replace($pattern, $replace, $buf);
 

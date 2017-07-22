@@ -45,7 +45,7 @@ function printPage($entryID)
     $datetime     = formatTimestamp($datesub, 'D, d-M-Y, H:i');
     $categoryname = $myts->htmlSpecialChars($name);
     $term         = $myts->htmlSpecialChars($term);
-    $definition   = str_replace('[pagebreak]', "<br style=\"page-break-after:always;\">", $definition);
+    $definition   = str_replace('[pagebreak]', '<br style="page-break-after:always;">', $definition);
     $definition   =& $myts->displayTarea($definition, $html, $smiley, $xcodes, '', $breaks);
     if ($authorname == '') {
         $authorname = $myts->htmlSpecialChars($username);

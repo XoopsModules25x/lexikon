@@ -2,7 +2,7 @@
 /**
  * Lexikon XOOPS glossary Module
  *
- * @copyright      XOOPS Project (http://xoops.org)
+ * @copyright      XOOPS Project (https://xoops.org)
  * @license        http://www.fsf.org/copyleft/gpl.html GNU public license
  * @author         Yerres
  * @since          0.5
@@ -46,7 +46,7 @@ $modversion['min_admin']           = '1.2';
 $modversion['min_db']              = array('mysql' => '5.1');
 
 $modversion['author_word']         = '-';
-$modversion['module_website_url']  = 'http://xoops.org/';
+$modversion['module_website_url']  = 'https://xoops.org/';
 $modversion['module_website_name'] = 'XOOPS';
 
 // Admin things
@@ -625,8 +625,8 @@ $modversion['config'][] = array(
 //Uploads : max width/height for image upload
 $modversion['config'][] = array(
     'name'            => 'imguploadwd',
-    'title'        => "_MI_LEXIKON_IMGUPLOADWD",
-    'description'    => "_MI_LEXIKON_IMGUPLOADWD_DESC",
+    'title'        => '_MI_LEXIKON_IMGUPLOADWD',
+    'description'    => '_MI_LEXIKON_IMGUPLOADWD_DESC',
     'formtype'        => 'textbox',
     'valuetype'    => 'text',
     'default'        => 200);
@@ -634,8 +634,8 @@ $modversion['config'][] = array(
 //Uploads : max size for image upload
 $modversion['config'][] = array(
     'name'            => 'imguploadsize',
-    'title'        => "_MI_LEXIKON_IMGUPLOADSIZE",
-    'description'    => "_MI_LEXIKON_IMGUPLOADSIZE_DESC",
+    'title'        => '_MI_LEXIKON_IMGUPLOADSIZE',
+    'description'    => '_MI_LEXIKON_IMGUPLOADSIZE_DESC',
     'formtype'        => 'textbox',
     'valuetype'    => 'text',
     'default'        => 10485760); // 1 MB

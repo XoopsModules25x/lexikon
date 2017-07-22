@@ -69,7 +69,7 @@ function b_lxcategories_edit($options)
     $form .= "<option value='total' " . (($options[0] === 'total') ? ' selected' : '') . '>' . _MB_LEXIKON_TOTAL . "</option>\n";
     $form .= "</select>\n<br>";
 
-    $form .= '&nbsp;' . _MB_LEXIKON_DISP . "&nbsp;<input type='text' name='options[]' value='" . $options[1] . "' />&nbsp;" . _MB_LEXIKON_CATS . '';
+    $form .= '&nbsp;' . _MB_LEXIKON_DISP . "&nbsp;<input type='text' name='options[]' value='" . $options[1] . '\' />&nbsp;' . _MB_LEXIKON_CATS . '';
 
     return $form;
 }

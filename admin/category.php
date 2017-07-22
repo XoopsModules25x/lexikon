@@ -89,16 +89,16 @@ function categoryDefault()
                 $name = $myts->htmlSpecialChars($name);
                 //                $description = $myts -> htmlSpecialChars(xoops_substr( strip_tags( $description ),0,60));
                 $description = strip_tags(htmlspecialchars_decode($description));
-                $modify      = "<a href='category.php?op=mod&categoryID=" . $categoryID . "'><img src=" . $pathIcon16 . "/edit.png width='16' height='16' ALT='" . _AM_LEXIKON_EDITCAT . "'></a>";
-                $delete      = "<a href='category.php?op=del&categoryID=" . $categoryID . "'><img src=" . $pathIcon16 . "/delete.png  width='16' height='16' ALT='" . _AM_LEXIKON_DELETECAT . "'></a>";
+                $modify      = "<a href='category.php?op=mod&categoryID=" . $categoryID . '\'><img src=' . $pathIcon16 . "/edit.png width='16' height='16' ALT='" . _AM_LEXIKON_EDITCAT . '\'></a>';
+                $delete      = "<a href='category.php?op=del&categoryID=" . $categoryID . '\'><img src=' . $pathIcon16 . "/delete.png  width='16' height='16' ALT='" . _AM_LEXIKON_DELETECAT . '\'></a>';
 
-                echo "<tr class='" . $class . "'>";
+                echo "<tr class='" . $class . '\'>';
                 $class = ($class === 'even') ? 'odd' : 'even';
 
                 echo "
                 <td  align='center'>" . $categoryID . "</td>
                 <td  width='10' align='center'>" . $weight . "</td>
-                <td  align='left'><a href='../category.php?categoryID=" . $categoryID . "'>" . $name . "</td>
+                <td  align='left'><a href='../category.php?categoryID=" . $categoryID . '\'>' . $name . "</td>
                 <td  align='left'>" . $total . "</td>
                 <td  align='left'>" . $description . "</td>
                 <td  align='center'> $modify $delete </td>
@@ -163,13 +163,13 @@ function categoryEdit($categoryID = '')
         //$myts = MyTextSanitizer::getInstance();
         //        lx_adminMenu(1, _AM_LEXIKON_CATS);
 
-        echo "<h3 style=\"color: #2F5376; margin-top: 6px; \">" . _AM_LEXIKON_CATSHEADER . '</h3>';
+        echo '<h3 style="color: #2F5376; margin-top: 6px; ">' . _AM_LEXIKON_CATSHEADER . '</h3>';
         $sform = new XoopsThemeForm(_AM_LEXIKON_MODCAT . ": $name", 'op', xoops_getenv('PHP_SELF'));
     } else {
         //$myts = MyTextSanitizer::getInstance();
         //        lx_adminMenu(1, _AM_LEXIKON_CATS);
         $groups = true;
-        echo "<h3 style=\"color: #2F5376; margin-top: 6px; \">" . _AM_LEXIKON_CATSHEADER . '</h3>';
+        echo '<h3 style="color: #2F5376; margin-top: 6px; ">' . _AM_LEXIKON_CATSHEADER . '</h3>';
         $sform = new XoopsThemeForm(_AM_LEXIKON_NEWCAT, 'op', xoops_getenv('PHP_SELF'));
     }
 
@@ -191,7 +191,7 @@ function categoryEdit($categoryID = '')
         unset($image_tray);
         unset($image_option_tray);
 
-        $path_catimg       = "uploads/".$xoopsModule->getVar('dirname')."/categories/images";
+        $path_catimg       = 'uploads/' . $xoopsModule->getVar('dirname') . '/categories/images';
         $image_option_tray = new XoopsFormElementTray(_AM_LEXIKON_CATIMAGE . '<br>' . _AM_LEXIKON_CATIMG_DSC . '<br>' . $path_catimg, '<br>');
         //$image_option_tray = new XoopsFormElementTray(_AM_LEXIKON_CATIMAGE.'');
         $image_array = XoopsLists::getImgListAsArray(XOOPS_ROOT_PATH . '/' . $path_catimg . '/');
@@ -199,14 +199,14 @@ function categoryEdit($categoryID = '')
 
         $image_select = new XoopsFormSelect('', 'logourl', $logourl);
         $image_select->addOptionArray($image_array);
-        $image_select->setExtra("onchange=\"showImgSelected('img', 'logourl', '/" . $path_catimg . "/', '', '" . XOOPS_URL . "')\"");
+        $image_select->setExtra("onchange=\"showImgSelected('img', 'logourl', '/" . $path_catimg . "/', '', '" . XOOPS_URL . '\')"');
         $image_tray = new XoopsFormElementTray('', '&nbsp;');
         $image_tray->addElement($image_select);
         if (!empty($logourl) && file_exists(XOOPS_ROOT_PATH . '/' . $path_catimg . '/' . $logourl)) {
             $image_tray->addElement(new XoopsFormLabel('',
-                                                       "<div style=\"padding: 4px;\"><img src=\"" . XOOPS_URL . '/' . $path_catimg . '/' . $logourl . "\" name=\"img\" id=\"img\" alt=\"\" /></div>"));
+                                                       '<div style="padding: 4px;"><img src="' . XOOPS_URL . '/' . $path_catimg . '/' . $logourl . '" name="img" id="img" alt="" /></div>'));
         } else {
-            $image_tray->addElement(new XoopsFormLabel('', "<div style=\"padding: 4px;\"><img src=\"" . XOOPS_URL . '/' . $path_catimg . "/blank.gif\" name=\"img\" id=\"img\" alt=\"\" /></div>"));
+            $image_tray->addElement(new XoopsFormLabel('', '<div style="padding: 4px;"><img src="' . XOOPS_URL . '/' . $path_catimg . '/blank.gif" name="img" id="img" alt="" /></div>'));
         }
         $image_option_tray->addElement($image_tray);
         $sform->addElement($image_option_tray);
@@ -318,7 +318,7 @@ function categorySave($categoryID = '')
     $maxfileheight = $xoopsModuleConfig['imguploadwd'];
     if (!empty($_FILES['userfile']['name'])) {
         $allowed_mimetypes = array('image/gif', 'image/jpeg', 'image/pjpeg', 'image/x-png', 'image/png');
-        $uploader          = new XoopsMediaUploader(XOOPS_ROOT_PATH ."/uploads/".$xoopsModule->getVar('dirname')."/categories/images/", $allowed_mimetypes, $maxfilesize, $maxfilewidth, $maxfileheight);
+        $uploader          = new XoopsMediaUploader(XOOPS_ROOT_PATH . '/uploads/' . $xoopsModule->getVar('dirname') . '/categories/images/', $allowed_mimetypes, $maxfilesize, $maxfilewidth, $maxfileheight);
 
         if ($uploader->fetchMedia($_POST['xoops_upload_file'][0])) {
             if (!$uploader->upload()) {

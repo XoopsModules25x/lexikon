@@ -124,8 +124,8 @@ switch ($op) {
                 $catname = $myts->htmlSpecialChars($name);
                 $term    = $myts->htmlSpecialChars($term);
                 $created = formatTimestamp($created, 's');
-                $modify  = "<a href='entry.php?op=mod&entryID=" . $entryID . "'><img src=" . $pathIcon16 . "/edit.png width='16' height='16' ALT='" . _AM_LEXIKON_EDITSUBM . "'></a>";
-                $delete  = "<a href='entry.php?op=del&entryID=" . $entryID . "'><img src=" . $pathIcon16 . "/delete.png width='16' height='16' ALT='" . _AM_LEXIKON_DELETESUBM . "'></a>";
+                $modify  = "<a href='entry.php?op=mod&entryID=" . $entryID . '\'><img src=' . $pathIcon16 . "/edit.png width='16' height='16' ALT='" . _AM_LEXIKON_EDITSUBM . '\'></a>';
+                $delete  = "<a href='entry.php?op=del&entryID=" . $entryID . '\'><img src=' . $pathIcon16 . "/delete.png width='16' height='16' ALT='" . _AM_LEXIKON_DELETESUBM . '\'></a>';
                 //$approve = "<a href='entry.php?op=add&entryID=" . $entryID . "'><img src=" . XOOPS_URL . "/modules/" . $xoopsModule->dirname() . "/assets/images/icon/approve.gif  width='20' height='20' ALT='"._AM_LEXIKON_APPROVESUBM."'></a>";
 
                 echo "<tr>
@@ -202,8 +202,8 @@ switch ($op) {
                 $catname = $myts->htmlSpecialChars($name);
                 $term    = $myts->htmlSpecialChars($term);
                 $created = formatTimestamp($created, 's');
-                $modify  = "<a href='entry.php?op=mod&entryID=" . $entryID . "'><img src=" . $pathIcon16 . "/edit.png width='16' height='16' ALT='" . _AM_LEXIKON_EDITSUBM . "'></a>";
-                $delete  = "<a href='entry.php?op=del&entryID=" . $entryID . "'><img src=" . $pathIcon16 . "/delete.png width='16' height='16' ALT='" . _AM_LEXIKON_DELETESUBM . "'></a>";
+                $modify  = "<a href='entry.php?op=mod&entryID=" . $entryID . '\'><img src=' . $pathIcon16 . "/edit.png width='16' height='16' ALT='" . _AM_LEXIKON_EDITSUBM . '\'></a>';
+                $delete  = "<a href='entry.php?op=del&entryID=" . $entryID . '\'><img src=' . $pathIcon16 . "/delete.png width='16' height='16' ALT='" . _AM_LEXIKON_DELETESUBM . '\'></a>';
 
                 echo '<tr>';
                 echo "<td class='even' align='center'>" . $entryID . '</td>';
@@ -278,8 +278,8 @@ switch ($op) {
                 $catname = $myts->htmlSpecialChars($name);
                 $term    = $myts->htmlSpecialChars($term);
                 $created = formatTimestamp($created, 's');
-                $modify  = "<a href='entry.php?op=mod&entryID=" . $entryID . "'><img src=" . $pathIcon16 . "/edit.png width='16' height='16' ALT='" . _AM_LEXIKON_EDITSUBM . "'></a>";
-                $delete  = "<a href='entry.php?op=del&entryID=" . $entryID . "'><img src=" . $pathIcon16 . "/delete.png width='16' height='16' ALT='" . _AM_LEXIKON_DELETESUBM . "'></a>";
+                $modify  = "<a href='entry.php?op=mod&entryID=" . $entryID . '\'><img src=' . $pathIcon16 . "/edit.png width='16' height='16' ALT='" . _AM_LEXIKON_EDITSUBM . '\'></a>';
+                $delete  = "<a href='entry.php?op=del&entryID=" . $entryID . '\'><img src=' . $pathIcon16 . "/delete.png width='16' height='16' ALT='" . _AM_LEXIKON_DELETESUBM . '\'></a>';
 
                 echo '<tr>';
                 echo "<td class='even' align='center'>" . $entryID . '</td>';

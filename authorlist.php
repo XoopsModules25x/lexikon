@@ -61,7 +61,7 @@ if (count($uid_ids) > 0) {
                                . XOOPS_URL
                                . "/images/icons/pm.gif' border='0' alt=\""
                                . sprintf(_SENDPMTO, $one_user->getVar('uname'))
-                               . "\"/></A>";
+                               . '"/></A>';
             } else {
                 $user_pmlink = '';
             }
@@ -72,11 +72,11 @@ if (count($uid_ids) > 0) {
                 ) {
                     $user_maillink = "<a href='mailto:"
                                      . $one_user->getVar('email')
-                                     . "'><img src='"
+                                     . '\'><img src=\''
                                      . XOOPS_URL
                                      . "/images/icons/email.gif' border='0' alt=\""
                                      . sprintf(_SENDEMAILTO, $one_user->getVar('uname'))
-                                     . "\"/></A>";
+                                     . '"/></A>';
                 } else {
                     $user_maillink = '';
                 }
@@ -85,14 +85,14 @@ if (count($uid_ids) > 0) {
             }
             if ($one_user->getVar('url') != '') {
                 $url          = $one_user->getVar('url');
-                $user_wwwlink = "<a href='" . $one_user->getVar('url') . "'><img src='" . XOOPS_URL . "/images/icons/www.gif' border='0' alt='" . _VISITWEBSITE . "' /></a>";
+                $user_wwwlink = "<a href='" . $one_user->getVar('url') . '\'><img src=\'' . XOOPS_URL . "/images/icons/www.gif' border='0' alt='" . _VISITWEBSITE . '\' /></a>';
             } else {
                 $user_wwwlink = '';
             }
             // authortotals
             list($num) = $xoopsDB->fetchRow($xoopsDB->query('SELECT COUNT(*)
                                             FROM ' . $xoopsDB->prefix('lxentries') . "
-                                            WHERE uid='" . $one_user->getVar('uid') . "' " . $catperms . ' '));
+                                            WHERE uid='" . $one_user->getVar('uid') . '\' ' . $catperms . ' '));
             $authortotal = $num;
             // location
             if ($one_user->getVar('user_from') != '') {
@@ -118,7 +118,7 @@ if (count($uid_ids) > 0) {
             list($num) = $xoopsDB->fetchRow($xoopsDB->query('
                                             SELECT COUNT(*)
                                             FROM ' . $xoopsDB->prefix('lxentries') . "
-                                            WHERE uid='" . $one_user->getVar('uid') . "' " . $catperms . ' '));
+                                            WHERE uid='" . $one_user->getVar('uid') . '\' ' . $catperms . ' '));
 
             $authortotal = $num;
             ++$iu;

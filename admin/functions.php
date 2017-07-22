@@ -22,7 +22,7 @@ if (is_object($xoopsUser)) {
  * Each time you select an option in the admin panel of the news module, this option is highlighted in this menu
  * @package          lexikon
  * @orig             author: hsalazar, The smartfactory
- * @copyright    (c) XOOPS Project (http://xoops.org)
+ * @copyright    (c) XOOPS Project (https://xoops.org)
  * @param int    $currentoption
  * @param string $breadcrumb
  */
@@ -109,7 +109,7 @@ function lx_AddField($field, $table)
 function lx_alterTable($field, $table)
 {
     global $xoopsDB;
-    $sql    = 'SHOW COLUMNS FROM ' . $table . " LIKE '" . $field . "'";
+    $sql    = 'SHOW COLUMNS FROM ' . $table . " LIKE '" . $field . '\'';
     $result = $xoopsDB->queryF($sql);
     //if ($result) {
     if ($xoopsDB->getRowsNum($result) == 0) {
@@ -125,7 +125,7 @@ function lx_alterTable($field, $table)
 /*
  * Sub-Menu for Importscripts
  * @package lexikon
- * @copyright (c) XOOPS Project (http://xoops.org)
+ * @copyright (c) XOOPS Project (https://xoops.org)
 */
 
 /**
@@ -135,7 +135,7 @@ function lx_alterTable($field, $table)
 function lx_importMenu($currentoption = 0, $breadcrumb = '')
 {
     global $cf;
-    echo "<style type=\"text/css\">
+    echo '<style type="text/css">
     br {clear: left;}
     img {border:0;}
     #menu {width:400px; position:relative;  height:80px; margin:1em auto auto 2em;}
@@ -152,7 +152,7 @@ function lx_importMenu($currentoption = 0, $breadcrumb = '')
     filter: progid:DXImageTransform.Microsoft.Alpha(opacity=100);
     -moz-opacity: 1.00; opacity:1;
 }
-    </style>";
+    </style>';
     echo " <TABLE BORDER=0 CELLPADDING=1 CELLSPACING=2 width='98%'>
     <tr><td width='200' VALIGN='top'>
     <h3>Import Menu</h3><span style='font-size:1'>";
@@ -173,38 +173,38 @@ function lx_importMenu($currentoption = 0, $breadcrumb = '')
     if (is_object($wordbookModule)) {
         $wb_imgurl = XOOPS_URL . '/modules/wordbook/images';
         ++$cf;
-        echo "<a href=\"importwordbook.php\">
-        <img src=\"" . $wb_imgurl . "/wb_slogo.png\" alt=\"wb_slogo.png\" title=\"Wordbook\" height=\"39\" width=\"69\"><span>Import Wordbook</span></a>";
+        echo '<a href="importwordbook.php">
+        <img src="' . $wb_imgurl . '/wb_slogo.png" alt="wb_slogo.png" title="Wordbook" height="39" width="69"><span>Import Wordbook</span></a>';
     } //else { echo "". 'wordbook' ."";}
     $dictionaryModule = $moduleHandler->getByDirname('dictionary');
     $got_options      = false;
     if (is_object($dictionaryModule)) {
         $dic_imgurl = XOOPS_URL . '/modules/dictionary/images';
         ++$cf;
-        echo "<a href=\"importdictionary.php\">
-        <img src=\"" . $dic_imgurl . "/dictionary_logo.png\" alt=\"Dictionary\" title=\"Dictionary\" height=\"39\" width=\"69\"><span>Import Dictionary</span></a>";
+        echo '<a href="importdictionary.php">
+        <img src="' . $dic_imgurl . '/dictionary_logo.png" alt="Dictionary" title="Dictionary" height="39" width="69"><span>Import Dictionary</span></a>';
     } //else { echo "<B>&middot;</B>". 'dictionary' ."";}
     $glossaireModule = $moduleHandler->getByDirname('glossaire');
     $got_options     = false;
     if (is_object($glossaireModule)) {
         $glo_imgurl = XOOPS_URL . '/modules/glossaire.';
         ++$cf;
-        echo "<a href=\"importglossaire.php\">
-        <img src=\"" . $glo_imgurl . "/glossaire_logo.jpg\" alt=\"Glossaire\" title=\"Glossaire\" height=\"31\" width=\"88\"><span>Import Glossaire</span></a>";
+        echo '<a href="importglossaire.php">
+        <img src="' . $glo_imgurl . '/glossaire_logo.jpg" alt="Glossaire" title="Glossaire" height="31" width="88"><span>Import Glossaire</span></a>';
     } //else { echo "<B>&middot;</B>". 'glossaire' ."";}
     $wiwimodModule = $moduleHandler->getByDirname('wiwimod');
     $got_options   = false;
     if (is_object($wiwimodModule)) {
         $wiwi_imgurl = XOOPS_URL . '/modules/wiwimod/images';
         ++$cf;
-        echo "<a href=\"importwiwimod.php\"><img src=\"" . $wiwi_imgurl . "/wiwilogo.gif\" alt=\"Wiwimod\" title=\"Wiwimod\" height=\"39\" width=\"69\"><span>Import Wiwimod</span></a>";
+        echo '<a href="importwiwimod.php"><img src="' . $wiwi_imgurl . '/wiwilogo.gif" alt="Wiwimod" title="Wiwimod" height="39" width="69"><span>Import Wiwimod</span></a>';
     } //else { echo "<B>&middot;</B>". 'wiwimod' ."";}
     $xwordsModule = $moduleHandler->getByDirname('xwords');
     $got_options  = false;
     if (is_object($xwordsModule)) {
         $xwd_imgurl = XOOPS_URL . '/modules/xwords/images';
         ++$cf;
-        echo "<a href=\"importxwords.php\"><img src=\"" . $xwd_imgurl . "/xwords_slogo.png\" alt=\"Xwords\" title=\"Xwords\" height=\"39\" width=\"69\"><span>Import Xwords</span></a>";
+        echo '<a href="importxwords.php"><img src="' . $xwd_imgurl . '/xwords_slogo.png" alt="Xwords" title="Xwords" height="39" width="69"><span>Import Xwords</span></a>';
     }// else { echo "<B>&middot;</B>". 'xwords' ."";}
     echo '</div></td><tr></TABLE>';
 }
@@ -212,7 +212,7 @@ function lx_importMenu($currentoption = 0, $breadcrumb = '')
 /**
  * collapsable bar for items lists
  * @package       lexikon
- * @copyright (c) XOOPS Project (http://xoops.org)
+ * @copyright (c) XOOPS Project (https://xoops.org)
  * @param string $tablename
  * @param string $iconname
  */
@@ -236,7 +236,7 @@ function lx_collapsableBar($tablename = '', $iconname = '')
                 obj = document.layers[id];
             }
             if (obj) {
-                if (obj.style.display == "none") {
+                if (obj.style.display === "none") {
                     obj.style.display = "";
                 } else {
                     obj.style.display = "none";
@@ -265,7 +265,7 @@ function lx_collapsableBar($tablename = '', $iconname = '')
     </script>
     <?php
     // HTML Error Fixed by 5Vision
-    echo "<div style=\"color: #2F5376; margin: 6px 0 0 0; \"><a href=\"#\" onClick=\"toggle('" . $tablename . "'); toggleIcon('" . $iconname . "');\">";
+    echo "<div style=\"color: #2F5376; margin: 6px 0 0 0; \"><a href=\"#\" onClick=\"toggle('" . $tablename . '\'); toggleIcon(\'' . $iconname . '\');">';
 }
 
 /**

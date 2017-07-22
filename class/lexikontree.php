@@ -9,7 +9,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright       XOOPS Project (http://xoops.org)
+ * @copyright       XOOPS Project (https://xoops.org)
  * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @package         kernel
  * @since           2.0.0
@@ -28,7 +28,7 @@
  * @subpackage LexikonTree
  * @access     public
  */
-class lexikontree
+class LexikonTree
 {
     public $table; //table with parent-child structure
     public $id; //name of unique id for records in table $table
@@ -45,7 +45,7 @@ class lexikontree
      * @param $pid_name
      * @return lexikontree
      */
-    public function LexikonTree($table_name, $id_name, $pid_name)
+    public function __construct($table_name, $id_name, $pid_name)
     {
         //        $GLOBALS['xoopsLogger']->addDeprecated("Class '" . __CLASS__ . "' is deprecated, check 'XoopsObjectTree' in tree.php");
         $this->db    = XoopsDatabaseFactory::getDatabaseConnection();
@@ -66,7 +66,7 @@ class lexikontree
     {
         $sel_id = (int)$sel_id;
         $arr    = array();
-        $sql    = 'SELECT * FROM ' . $this->table . ' WHERE ' . $this->pid . '=' . $sel_id . '';
+        $sql    = 'SELECT * FROM ' . $this->table . ' WHERE ' . $this->pid . '=' . $sel_id . ' ';
         if ($order != '') {
             $sql .= " ORDER BY $order";
         }
@@ -206,9 +206,9 @@ class lexikontree
             $sel_name = $this->id;
         }
         $myts = MyTextSanitizer::getInstance();
-        echo "<select name='" . $sel_name . "'";
+        echo "<select name='" . $sel_name . '\'';
         if ($onchange != '') {
-            echo " onchange='" . $onchange . "'";
+            echo " onchange='" . $onchange . '\'';
         }
         echo ">\n";
         $sql = 'SELECT ' . $this->id . ', ' . $title . ' FROM ' . $this->table . ' WHERE ' . $this->pid . '=0';
@@ -262,7 +262,7 @@ class lexikontree
         list($parentid, $name) = $this->db->fetchRow($result);
         $myts = MyTextSanitizer::getInstance();
         $name = $myts->htmlspecialchars($name);
-        $path = "<a href='" . $funcURL . '&amp;' . $this->id . '=' . $sel_id . "'>" . $name . '</a>' . $path . '';
+        $path = "<a href='" . $funcURL . '&amp;' . $this->id . '=' . $sel_id . '\'>' . $name . '</a>' . $path . '';
         if ($parentid == 0) {
             return $path;
         }
@@ -303,12 +303,12 @@ class lexikontree
      * @param string|mixed $order
      * @param array|mixed  $parray
      *
-     * @return array|unknown|unknown_type
+     * @return array|mixed
      */
     public function getAllChild($sel_id = 0, $order = '', $parray = array())
     {
         $sel_id = (int)$sel_id;
-        $sql    = 'SELECT * FROM ' . $this->table . ' WHERE ' . $this->pid . '=' . $sel_id . '';
+        $sql    = 'SELECT * FROM ' . $this->table . ' WHERE ' . $this->pid . '=' . $sel_id . ' ';
         if ($order != '') {
             $sql .= " ORDER BY $order";
         }
@@ -332,12 +332,12 @@ class lexikontree
      * @param  string|mixed $order
      * @param  array|mixed  $parray
      * @param  string|mixed $r_prefix
-     * @return array|unknown|unknown_type
+     * @return array|mixed
      */
     public function getChildTreeArray($sel_id = 0, $order = '', $parray = array(), $r_prefix = '')
     {
         $sel_id = (int)$sel_id;
-        $sql    = 'SELECT * FROM ' . $this->table . ' WHERE ' . $this->pid . '=' . $sel_id . '';
+        $sql    = 'SELECT * FROM ' . $this->table . ' WHERE ' . $this->pid . '=' . $sel_id . ' ';
         if ($order != '') {
             $sql .= " ORDER BY $order";
         }

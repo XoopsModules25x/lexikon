@@ -87,7 +87,7 @@ if (!$init) {
 
         if (($xoopsModuleConfig['com_rule'] != 0) || (($xoopsModuleConfig['com_rule'] != 0) && is_object($xoopsUser))) {
             if ($comments != 0) {
-                $eachentry['comments'] = "<a href='entry.php?entryID=" . $eachentry['id'] . "'>" . $comments . '&nbsp;' . _COMMENTS . '</a>';
+                $eachentry['comments'] = "<a href='entry.php?entryID=" . $eachentry['id'] . '\'>' . $comments . '&nbsp;' . _COMMENTS . '</a>';
             } else {
                 $eachentry['comments'] = '';
             }
@@ -177,7 +177,7 @@ if (!$init) {
 
         if (($xoopsModuleConfig['com_rule'] != 0) || (($xoopsModuleConfig['com_rule'] != 0) && is_object($xoopsUser))) {
             if ($comments != 0) {
-                $eachentry['comments'] = "<a href='entry.php?entryID=" . $eachentry['id'] . "'>" . $comments . '&nbsp;' . _COMMENTS . '</a>';
+                $eachentry['comments'] = "<a href='entry.php?entryID=" . $eachentry['id'] . '\'>' . $comments . '&nbsp;' . _COMMENTS . '</a>';
             } else {
                 $eachentry['comments'] = '';
             }

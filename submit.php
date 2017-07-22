@@ -42,7 +42,7 @@ if (isset($_POST['post'])) {
 $suggest = isset($_GET['suggest']) ? (int)((int)$_GET['suggest']) : 0;
 
 if ($suggest > 0) {
-    $terminosql = $xoopsDB->query('SELECT term FROM ' . $xoopsDB->prefix('lxentries') . ' WHERE datesub < ' . time() . " AND datesub > 0 AND request = '1' AND entryID = '" . $suggest . "'");
+    $terminosql = $xoopsDB->query('SELECT term FROM ' . $xoopsDB->prefix('lxentries') . ' WHERE datesub < ' . time() . " AND datesub > 0 AND request = '1' AND entryID = '" . $suggest . '\'');
     list($termino) = $xoopsDB->fetchRow($terminosql);
 } else {
     $termino = '';
@@ -251,7 +251,7 @@ switch ($op) {
                     $userMessage  .= '' . $xoopsConfig['sitename'] . ' ' . _MD_LEXIKON_WEBMASTER . "\n";
                     $userMessage  .= '' . $xoopsConfig['adminmail'] . '';
 
-                    $xoopsMailer =& xoops_getMailer();
+                    $xoopsMailer = xoops_getMailer();
                     $xoopsMailer->useMail();
                     $xoopsMailer->multimailer->isHTML(true);
                     $xoopsMailer->setToEmails($usermail);

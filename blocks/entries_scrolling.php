@@ -1,7 +1,7 @@
 <?php
 /** entries_scrolling.php v.1
  * XOOPS - PHP Content Management System
- * Copyright (c) 2011 <http://xoops.org/>
+ * Copyright (c) 2011 <https://xoops.org/>
  *
  * Module: lexikon 1.5 beta
  * Author : Yerres
@@ -56,8 +56,7 @@ function b_scrolling_term_show($options)
       SELECT entryID, term, definition, datesub, html
       FROM ' . $xoopsDB->prefix('lxentries') . '
       WHERE datesub < ' . time() . " AND datesub > 0 AND offline = '0' AND submit = '0' AND request = '0' AND  categoryID IN (" . $categories . ')
-      ORDER BY ' . $options[8] . ' ' . $options[9] . '
-      LIMIT 0, ' . $options[0] . ' ');
+      ORDER BY ' . $options[8] . ' ' . $options[9] . ' LIMIT 0, ' . $options[0] . ' ');
     $totals = $xoopsDB->getRowsNum($sql);
 
     if ($totals > 1) {
@@ -97,9 +96,9 @@ function b_scrolling_term_edit($options)
     $myts = MyTextSanitizer:: getInstance();
     $form = "<table width='100%' border='0'  class='bg2'>";
     $form .= "<tr><th width='50%'>" . _OPTIONS . "</th><th width='50%'>" . _MB_LEXIKON_SETTINGS . '</th></tr>';
-    $form .= "<tr><td class='even'>" . _MB_LEXIKON_BLIMIT . "</td><td class='odd'><input type='text' name='options[0]' size='16' maxlength=3 value='" . $options[0] . "' /></td></tr>";
-    $form .= "<tr><td class='even'>" . _MB_LEXIKON_BSPEED . "</td><td class='odd'><input type='text' name='options[1]' size='16' maxlength=2 value='" . $options[1] . "' /></td></tr>";
-    $form .= "<tr><td class='even'>" . _MB_LEXIKON_BACKGROUNDCOLOR . "</td><td class='odd'><input type='text' name='options[2]' size='16'  value='" . $options[2] . "' /></td></tr>";
+    $form .= "<tr><td class='even'>" . _MB_LEXIKON_BLIMIT . "</td><td class='odd'><input type='text' name='options[0]' size='16' maxlength=3 value='" . $options[0] . '\' /></td></tr>';
+    $form .= "<tr><td class='even'>" . _MB_LEXIKON_BSPEED . "</td><td class='odd'><input type='text' name='options[1]' size='16' maxlength=2 value='" . $options[1] . '\' /></td></tr>';
+    $form .= "<tr><td class='even'>" . _MB_LEXIKON_BACKGROUNDCOLOR . "</td><td class='odd'><input type='text' name='options[2]' size='16'  value='" . $options[2] . '\' /></td></tr>';
     //---
     $form .= "<tr><td class='even'>" . _MB_LEXIKON_DIRECTION . "</td><td class='odd'><select name='options[3]'>";
     $form .= "<option value='up' " . (($options[3] === 'up') ? ' selected' : '') . '>' . _MB_LEXIKON_UP . "</option>\n";
@@ -112,7 +111,7 @@ function b_scrolling_term_edit($options)
     $form .= "<input type='radio' name='options[4]' value='1'" . (($options[4] == 1) ? ' checked' : '') . ' />' . _YES . '&nbsp;';
     $form .= "<input type='radio' name='options[4]' value='0'" . (($options[4] == 0) ? ' checked' : '') . ' />' . _NO . '<br></td></tr>';
     //---
-    $form .= "<tr><td class='even'>" . _MB_LEXIKON_CHARS . " </td><td class='odd'><input type='text' name='options[5]' value='" . $options[5] . "' /></td></tr>";
+    $form .= "<tr><td class='even'>" . _MB_LEXIKON_CHARS . " </td><td class='odd'><input type='text' name='options[5]' value='" . $options[5] . '\' /></td></tr>';
     //---
     $form .= "<tr><td class='even'>" . _MB_LEXIKON_TERMSTOSHOW . ' ' . _MB_LEXIKON_SHOWDATE . "</td><td class='odd'>";
     $form .= "<input type='radio' name='options[6]' value='1'" . (($options[6] == 1) ? ' checked' : '') . ' />' . _YES . '&nbsp;';
@@ -139,9 +138,9 @@ function b_scrolling_term_edit($options)
     $isAll       = empty($options[10]) ? true : false;
     $options_cat = array_slice($options, 10);
     $form        .= "<tr><td class='even'>" . _MB_LEXIKON_CATEGORY . "</td><td class='odd'><select name=\"options[]\" multiple=\"multiple\">";
-    $form        .= "<option value=\"0\" ";
+    $form        .= '<option value="0" ';
     if ($isAll) {
-        $form .= " selected=\"selected\"";
+        $form .= ' selected="selected"';
     }
     $form      .= '>' . _ALL . '</option>';
     $resultcat = $xoopsDB->query('SELECT categoryID, name FROM ' . $xoopsDB->prefix('lxcategories') . ' ORDER BY categoryID ASC');

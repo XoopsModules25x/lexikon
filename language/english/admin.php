@@ -242,7 +242,7 @@ define('_AM_LEXIKON_BACK', 'Back');
 define('_AM_LEXIKON_MODULEWORDBOOKNOTFOUND', 'Module Wordbook not found on this site.');
 
 //1.52
-define("_AM_LEXIKON_IMGUPLOAD_DESC","Max image width/height in pixel: %w<br>Max file size in bytes (10485760 = 1 MB): %s");
+define('_AM_LEXIKON_IMGUPLOAD_DESC', 'Max image width/height in pixel: %w<br>Max file size in bytes (10485760 = 1 MB): %s');
 define('_AM_LEXIKON_NOCATTOEDIT', 'No Category to Edit');
 define('_AM_LEXIKON_NOENTRYTOEDIT', 'No Entry to Edit');
 

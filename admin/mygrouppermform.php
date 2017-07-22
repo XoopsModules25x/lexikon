@@ -10,7 +10,7 @@
  */
 
 /**
- * @copyright    XOOPS Project http://xoops.org/
+ * @copyright    XOOPS Project https://xoops.org/
  * @license      GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package
  * @since
@@ -190,13 +190,13 @@ class MyXoopsGroupPermForm extends XoopsForm
         $ret      = '<h4>' . $this->getTitle() . '</h4>' . $this->_permDesc . '<br>';
         $ret      .= "<form name='"
                      . $this->getName()
-                     . "' id='"
+                     . '\' id=\''
                      . $this->getName()
-                     . "' action='"
+                     . '\' action=\''
                      . $this->getAction()
-                     . "' method='"
+                     . '\' method=\''
                      . $this->getMethod()
-                     . "'"
+                     . '\''
                      . $this->getExtra()
                      . ">\n<table width='100%' class='outer' cellspacing='1'>\n";
         $elements =& $this->getElements();
@@ -367,25 +367,25 @@ class MyXoopsGroupFormCheckBox extends XoopsFormElement
     public function _renderOptionTree(&$tree, $option, $prefix, $parentIds = array())
     {
         $tree .= $prefix
-                 . "<input type=\"checkbox\" name=\""
+                 . '<input type="checkbox" name="'
                  . $this->getName()
                  . '[groups]['
                  . $this->_groupId
                  . ']['
                  . $option['id']
-                 . "]\" id=\""
+                 . ']" id="'
                  . $this->getName()
                  . '[groups]['
                  . $this->_groupId
                  . ']['
                  . $option['id']
-                 . "]\" onclick=\"";
+                 . ']" onclick="';
         // If there are parent elements, add javascript that will
         // make them selecteded when this element is checked to make
         // sure permissions to parent items are added as well.
         foreach ($parentIds as $pid) {
             $parent_ele = $this->getName() . '[groups][' . $this->_groupId . '][' . $pid . ']';
-            $tree       .= "var ele = xoopsGetElementById('" . $parent_ele . "'); if (ele.checked !== true) {ele.checked = this.checked;}";
+            $tree       .= "var ele = xoopsGetElementById('" . $parent_ele . '\'); if (ele.checked !== true) {ele.checked = this.checked;}';
         }
         // If there are child elements, add javascript that will
         // make them unchecked when this element is unchecked to make
@@ -393,7 +393,7 @@ class MyXoopsGroupFormCheckBox extends XoopsFormElement
         // is no permission to this item.
         foreach ($option['allchild'] as $cid) {
             $child_ele = $this->getName() . '[groups][' . $this->_groupId . '][' . $cid . ']';
-            $tree      .= "var ele = xoopsGetElementById('" . $child_ele . "'); if (this.checked !== true) {ele.checked = false;}";
+            $tree      .= "var ele = xoopsGetElementById('" . $child_ele . '\'); if (this.checked !== true) {ele.checked = false;}';
         }
         $tree .= '" value="1"';
         if (isset($this->_value) && in_array($option['id'], $this->_value)) {
@@ -401,17 +401,17 @@ class MyXoopsGroupFormCheckBox extends XoopsFormElement
         }
         $tree .= ' />'
                  . $option['name']
-                 . "<input type=\"hidden\" name=\""
+                 . '<input type="hidden" name="'
                  . $this->getName()
                  . '[parents]['
                  . $option['id']
-                 . "]\" value=\""
+                 . ']" value="'
                  . implode(':', $parentIds)
-                 . "\" /><input type=\"hidden\" name=\""
+                 . '" /><input type="hidden" name="'
                  . $this->getName()
                  . '[itemname]['
                  . $option['id']
-                 . "]\" value=\""
+                 . ']" value="'
                  . htmlspecialchars($option['name'])
                  . "\" /><br>\n";
         if (isset($option['children'])) {

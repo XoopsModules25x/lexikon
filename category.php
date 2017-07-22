@@ -157,7 +157,7 @@ if (!$categoryID) {
                         && is_object($xoopsUser))
                 ) {
                     if ($comments != 0) {
-                        $eachentry['comments'] = "<a href='entry.php?entryID=" . $eachentry['id'] . "'>" . $comments . '&nbsp;' . _COMMENTS . '</a>';
+                        $eachentry['comments'] = "<a href='entry.php?entryID=" . $eachentry['id'] . '\'>' . $comments . '&nbsp;' . _COMMENTS . '</a>';
                     } else {
                         $eachentry['comments'] = '';
                     }

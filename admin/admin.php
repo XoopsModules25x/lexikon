@@ -10,7 +10,7 @@
  */
 
 /**
- * @copyright    XOOPS Project http://xoops.org/
+ * @copyright    XOOPS Project https://xoops.org/
  * @license      GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package
  * @since
@@ -18,7 +18,9 @@
  */
 
 
-$admin_mydirname = basename(dirname(__DIR__));
+$moduleDirName = basename(dirname(__DIR__));
+
+
 
 $fct = empty($_POST['fct']) ? '' : trim($_POST['fct']);
 $fct = empty($_GET['fct']) ? $fct : trim($_GET['fct']);
@@ -124,7 +126,7 @@ if (false != $error) {
                 $category = isset($modversion['category']) ? (int)$modversion['category'] : 0;
                 if (false != $all_ok || in_array($modversion['category'], $ok_syscats)) {
                     echo "<td class='$class' align='center' valign='bottom' width='19%'>";
-                    echo "<a href='" . XOOPS_URL . '/modules/system/admin.php?fct=' . $file . "'><b>" . trim($modversion['name']) . "</b></a>\n";
+                    echo "<a href='" . XOOPS_URL . '/modules/system/admin.php?fct=' . $file . '\'><b>' . trim($modversion['name']) . "</b></a>\n";
                     echo '</td>';
                     ++$counter;
                     $class = ($class === 'even') ? 'odd' : 'even';

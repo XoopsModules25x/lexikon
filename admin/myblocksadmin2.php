@@ -124,7 +124,7 @@ function list_blockinstances()
     $criteria = new CriteriaCompo($crit);
     $criteria->setSort('visible DESC, side ASC, weight');
     $instanceHandler = xoops_getHandler('blockinstance');
-    $instances       =& $instanceHandler->getObjects($criteria, true, true);
+    $instances       = $instanceHandler->getObjects($criteria, true, true);
 
     //Get modules and pages for visible in
     $module_list[_AM_SYSTEMLEVEL]['0-2'] = _AM_ADMINBLOCK;

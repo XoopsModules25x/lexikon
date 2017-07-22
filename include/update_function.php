@@ -28,6 +28,11 @@
 
 //error_reporting(E_ALL);
 
+/**
+ * @param      $module
+ * @param null $prev_version
+ * @return bool|null
+ */
 function xoops_module_update_lexikon(&$module, $prev_version = null)
 {
     $ret = null;
@@ -42,6 +47,10 @@ function xoops_module_update_lexikon(&$module, $prev_version = null)
     return $ret;
 }
 
+/**
+ * @param $xoopsModule
+ * @return bool
+ */
 function xoops_module_update_lexikon_v152(&$xoopsModule) {
        
     /**

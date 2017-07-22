@@ -10,7 +10,7 @@
  */
 
 /**
- * @copyright    XOOPS Project http://xoops.org/
+ * @copyright    XOOPS Project https://xoops.org/
  * @license      GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package
  * @since
@@ -43,7 +43,7 @@ if (isset($_GET['op'])) {
 }
 
 if (isset($_POST['previewblock'])) {
-    //if ( !admin_refcheck("/modules/$admin_mydirname/admin/") ) {
+    //if ( !admin_refcheck("/modules/$moduleDirName/admin/") ) {
     //  exit('Invalid Referer');
     //}
     if (!$xoopsGTicket->check(true, 'myblocksadmin')) {
@@ -163,7 +163,7 @@ if (isset($_POST['previewblock'])) {
 }
 
 /* if ($op == 'previewpopup') {
-  if ( !admin_refcheck("/modules/$admin_mydirname/admin/") ) {
+  if ( !admin_refcheck("/modules/$moduleDirName/admin/") ) {
     exit('Invalid Referer');
   }
   $file = str_replace('..', '', XOOPS_CACHE_PATH.'/'.trim($_GET['file']));
@@ -182,7 +182,7 @@ if (isset($_POST['previewblock'])) {
 } */
 
 if ($op === 'order') {
-    //if ( !admin_refcheck("/modules/$admin_mydirname/admin/") ) {
+    //if ( !admin_refcheck("/modules/$moduleDirName/admin/") ) {
     //  exit('Invalid Referer');
     //}
     if (!$xoopsGTicket->check(true, 'myblocksadmin')) {
@@ -273,7 +273,7 @@ if ($op === 'order2') {
 }
 
 /* if ($op == 'save') {
-  if ( !admin_refcheck("/modules/$admin_mydirname/admin/") ) {
+  if ( !admin_refcheck("/modules/$moduleDirName/admin/") ) {
     exit('Invalid Referer');
   }
   if ( ! $xoopsGTicket->check( true , 'myblocksadmin' ) ) {
@@ -292,7 +292,7 @@ if ($op === 'order2') {
 } */
 
 if ($op === 'update') {
-    //if ( !admin_refcheck("/modules/$admin_mydirname/admin/") ) {
+    //if ( !admin_refcheck("/modules/$moduleDirName/admin/") ) {
     //  exit('Invalid Referer');
     //}
     if (!$xoopsGTicket->check(true, 'myblocksadmin')) {
@@ -319,7 +319,7 @@ if ($op === 'update') {
 }
 
 if ($op === 'delete_ok') {
-    //if ( !admin_refcheck("/modules/$admin_mydirname/admin/") ) {
+    //if ( !admin_refcheck("/modules/$moduleDirName/admin/") ) {
     //  exit('Invalid Referer');
     //}
     if (!$xoopsGTicket->check(true, 'myblocksadmin')) {
@@ -603,10 +603,10 @@ function myblocksadmin_update_block(
     $msg = _AM_DBUPDATED;
     if ($myblock->store() !== false) {
         $db  = XoopsDatabaseFactory::getDatabaseConnection();
-        $sql = sprintf('DELETE FROM %s WHERE block_id = %u', $db->prefix('block_module_link'), $bid);
+        $sql = sprintf('DELETE FROM "%s" WHERE block_id = "%u"', $db->prefix('block_module_link'), $bid);
         $db->query($sql);
         foreach ($bmodule as $bmid) {
-            $sql = sprintf('INSERT INTO %s (block_id, module_id) VALUES (%u, %d)', $db->prefix('block_module_link'), $bid, (int)$bmid);
+            $sql = sprintf('INSERT INTO "%s" (block_id, module_id) VALUES ("%u", "%d")', $db->prefix('block_module_link'), $bid, (int)$bmid);
             $db->query($sql);
         }
         include_once XOOPS_ROOT_PATH . '/class/template.php';

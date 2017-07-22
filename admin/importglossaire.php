@@ -75,7 +75,7 @@ function DefinitionImport($delete)
         redirect_header('importwordbook.php', 1, _AM_LEXIKON_MODULEIMPORTEMPTY10);
     }
 
-    $delete       = 0;
+//    $delete       = 0;
     $glocounter   = 0;
     $errorcounter = 0;
 
@@ -132,12 +132,12 @@ function DefinitionImport($delete)
             $insert = $xoopsDB->queryF('
                                        INSERT INTO ' . $xoopsDB->prefix('lxentries') . "
                                        (entryID, init, term, definition, url, submit, datesub, offline, comments)
-                                       VALUES ('" . $glo['id'] . "','" . $glo['lettre'] . "','" . $glo['nom'] . "','" . $glo['definition'] . "','','','" . $glo['affiche'] . "','','')");
+                                       VALUES ('" . $glo['id'] . '\',\'' . $glo['lettre'] . '\',\'' . $glo['nom'] . '\',\'' . $glo['definition'] . '\',\'\',\'\',\'' . $glo['affiche'] . '\',\'\',\'\')');
         } else {
             $insert = $xoopsDB->queryF('
                                        INSERT INTO ' . $xoopsDB->prefix('lxentries') . "
                                        (entryID, init, term, definition, url, submit, datesub, offline, comments)
-                                       VALUES ('','" . $glo['lettre'] . "','" . $glo['nom'] . "','" . $glo['definition'] . "','','','" . $glo['affiche'] . "','','')");
+                                       VALUES ('','" . $glo['lettre'] . '\',\'' . $glo['nom'] . '\',\'' . $glo['definition'] . '\',\'\',\'\',\'' . $glo['affiche'] . '\',\'\',\'\')');
         }
         if (!$insert) {
             ++$errorcounter;
@@ -166,8 +166,8 @@ function DefinitionImport($delete)
     echo '<p>Lexikon Module ID: ' . $xoopsModule->getVar('mid') . '<br>';
 
     $comentario = $xoopsDB->queryF('UPDATE ' . $xoopsDB->prefix('xoopscomments') . "
-                                   SET com_modid = '" . $xoopsModule->getVar('mid') . "'
-                                   WHERE  com_modid = '" . $gloID . "'");
+                                   SET com_modid = '" . $xoopsModule->getVar('mid') . '\'
+                                   WHERE  com_modid = \'' . $gloID . '\'');
     if (!$comentario) {
         showerror('Import comments failed:  ...');
     } else {
@@ -204,7 +204,7 @@ function FormImport()
              . '/modules/'
              . $xoopsModule->dirname()
              . '/assets/images/dialog-important.png'
-             . "' alt='' hspace='0' vspace='0' align='middle' style='margin-right: 10px; margin-top: 20px; '></td>";
+             . '\' alt=\'\' hspace=\'0\' vspace=\'0\' align=\'middle\' style=\'margin-right: 10px; margin-top: 20px; \'></td>';
         echo "<td class='even' align='center'><br><B><span style='font-size: x-small; color: red'>" . _AM_LEXIKON_IMPORTWARN . '</span></B><P></td>';
         echo '</tr>';
 
@@ -216,8 +216,8 @@ function FormImport()
         </td>';
         echo "</tr><tr><td width = '200' class='head' align='center'>&nbsp;</td>";
         echo "<td class='even' align='center'>
-        <input type='submit' name='button' id='import' value='" . _AM_LEXIKON_IMPORT . "'>&nbsp;
-        <input type='button' name='cancel' value='" . _CANCEL . "' onclick='history.go(-1);'></td>";
+        <input type='submit' name='button' id='import' value='" . _AM_LEXIKON_IMPORT . '\'>&nbsp;
+        <input type=\'button\' name=\'cancel\' value=\'' . _CANCEL . '\' onclick=\'history.go(-1);\'></td>';
         echo "</tr></table><br>\n";
     } else {
         echo "<br><B><span style='color:red'>Module Glossaire not found on this site.</span></B><br><A HREF='index.php'>Back</A><P>";

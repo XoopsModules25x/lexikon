@@ -261,7 +261,7 @@ function FormImport()
              . '/modules/'
              . $xoopsModule->dirname()
              . '/assets/images/dialog-important.png'
-             . "' alt='' hspace='0' vspace='0' align='middle' style='margin-right: 10px; margin-top: 20px;'></td>";
+             . '\' alt=\'\' hspace=\'0\' vspace=\'0\' align=\'middle\' style=\'margin-right: 10px; margin-top: 20px;\'></td>';
         echo "<td class='even' align='center'><br><B><span style='font-size: x-small; color: red'>" . _AM_LEXIKON_IMPORTWARN . '</span></B><P></td>';
         echo '</tr>';
 
@@ -273,8 +273,8 @@ function FormImport()
         </td>';
         echo "</tr><tr><td width = '200' class='head' align='center'>&nbsp;</td>";
         echo "<td class='even' align='center'>
-        <input type='submit' name='button' id='import' value='" . _AM_LEXIKON_IMPORT . "'>&nbsp;
-        <input type='button' name='cancel' value='" . _CANCEL . "' onclick='history.go(-1);'></td>";
+        <input type='submit' name='button' id='import' value='" . _AM_LEXIKON_IMPORT . '\'>&nbsp;
+        <input type=\'button\' name=\'cancel\' value=\'' . _CANCEL . '\' onclick=\'history.go(-1);\'></td>';
         echo "</tr></table><br>\n";
     } else {
         echo "<br><B><span style='color:red'>Module Xwords not found on this site.</span></B><br><A HREF='index.php'>Back</A><P>";

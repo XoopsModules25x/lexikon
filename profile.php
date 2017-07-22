@@ -47,7 +47,7 @@ $authname = $thisuser->getVar('uname');
 // get usertotals
 list($num) = $xoopsDB->fetchRow($xoopsDB->query('SELECT COUNT(*)
                                 FROM ' . $xoopsDB->prefix('lxentries') . "
-                                WHERE uid='" . $uid . "' " . $catperms . "
+                                WHERE uid='" . $uid . '\' ' . $catperms . "
                                 AND submit = '0' AND request = '0'
                                 AND offline = '0'
                                 "));
@@ -66,10 +66,7 @@ if ($authortermstotal == 0) {
     $xoopsTpl->assign('nothing', false);
 }
 // get infotext
-$result2 = $xoopsDB->query('SELECT COUNT(*)
-                              FROM ' . $xoopsDB->prefix('lxentries') . "
-                              WHERE uid='" . $uid . "' " . $catperms . "
-                              AND offline = '1' ");
+$result2 = $xoopsDB->query('SELECT COUNT(*) FROM ' . $xoopsDB->prefix('lxentries') . " WHERE uid='" . $uid . "' " . $catperms . " AND offline = '1' ");
 list($totalwaiting) = $xoopsDB->fetchRow($result2);
 if (!$totalwaiting) {
     $xoopsTpl->assign('waiting', constant('_MD_LEXIKON_NOWAITINGTERMS'));
