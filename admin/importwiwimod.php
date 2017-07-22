@@ -23,6 +23,8 @@
 // ------------------------------------------------------------------------ //
 //////////////////////////////////////////////////////////////////////////////
 
+use Xmf\Request;
+
 require_once __DIR__ . '/admin_header.php';
 $op = '';
 
@@ -96,12 +98,12 @@ function DefinitionImport($delete)
         // delete notifications
         xoops_notification_deletebymodule($xoopsModule->getVar('mid'));
         //get all entries
-        $result3 = $xoopsDB->query('SELECT entryID FROM ' . $xoopsDB->prefix('lxentries') . '');
+        $result3 = $xoopsDB->query('SELECT entryID FROM ' . $xoopsDB->prefix('lxentries') . ' ');
         //delete comments for each entry
         while (list($entryID) = $xoopsDB->fetchRow($result3)) {
             xoops_comment_delete($xoopsModule->getVar('mid'), $entryID);
         }
-        $resultC = $xoopsDB->query('SELECT categoryID FROM ' . $xoopsDB->prefix('lxcategories') . '');
+        $resultC = $xoopsDB->query('SELECT categoryID FROM ' . $xoopsDB->prefix('lxcategories') . ' ');
         while (list($categoryID) = $xoopsDB->fetchRow($resultC)) {
             // delete permissions
             xoops_groupperm_deletebymoditem($xoopsModule->getVar('mid'), 'lexikon_view', $categoryID);
@@ -137,22 +139,8 @@ function DefinitionImport($delete)
 
         if ($delete) {
             $insert = $xoopsDB->queryF('
-                                       INSERT INTO '
-                                       . $xoopsDB->prefix('lxentries')
-                                       . " (entryID, term, definition, uid, datesub, offline, html)
-                                       VALUES ('"
-                                       . $wiwi['id']
-                                       . '\',\''
-                                       . $wiwi['title']
-                                       . '\',\''
-                                       . $wiwi['body']
-                                       . '\',\''
-                                       . $wiwi['u_id']
-                                       . '\',\''
-                                       . $wiwi['lastmodified']
-                                       . '\',\''
-                                       . $wiwi['visible']
-                                       . '\',\'1\')');
+                                       INSERT INTO ' . $xoopsDB->prefix('lxentries') . " (entryID, term, definition, uid, datesub, offline, html)
+                                       VALUES ('" . $wiwi['id'] . '\',\'' . $wiwi['title'] . '\',\'' . $wiwi['body'] . '\',\'' . $wiwi['u_id'] . '\',\'' . $wiwi['lastmodified'] . '\',\'' . $wiwi['visible'] . '\',\'1\')');
         } else {
             $insert = $xoopsDB->queryF('
                                        INSERT INTO ' . $xoopsDB->prefix('lxentries') . " (entryID, term, definition, uid, datesub, offline, html)
@@ -209,12 +197,7 @@ function FormImport()
         echo '</tr>';
 
         echo '<tr>';
-        echo "<td class='head' width = '200' align='center'><img src='"
-             . XOOPS_URL
-             . '/modules/'
-             . $xoopsModule->dirname()
-             . '/assets/images/dialog-important.png'
-             . '\' alt=\'\' hspace=\'0\' vspace=\'0\' align=\'middle\' style=\'margin-right: 10px;  margin-top: 20px;\'></td>';
+        echo "<td class='head' width = '200' align='center'><img src='" . XOOPS_URL . '/modules/' . $xoopsModule->dirname() . '/assets/images/dialog-important.png' . '\' alt=\'\' hspace=\'0\' vspace=\'0\' align=\'middle\' style=\'margin-right: 10px;  margin-top: 20px;\'></td>';
         echo "<td class='even' align='center'><br><B><span style='font-size: x-small; color: red'>" . _AM_LEXIKON_IMPORTWARN . '</span></B><P></td>';
         echo '</tr>';
 
@@ -235,7 +218,7 @@ function FormImport()
     xoops_cp_footer();
 }
 
-$op = isset($_GET['op']) ? $_GET['op'] : (isset($_POST['op']) ? $_POST['op'] : '');
+$op = Request::getCmd('op', '');
 
 switch ($op) {
     case 'import':

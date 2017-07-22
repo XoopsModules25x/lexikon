@@ -53,13 +53,7 @@ function b_lxentries_alpha_show($options)
         $letterlinks = array();
         $initial     = $chr;
         ++$count;
-        $sql                     = $xoopsDB->query('SELECT init FROM '
-                                                   . $xoopsDB->prefix('lxentries')
-                                                   . " WHERE init = '$initial' AND datesub < '"
-                                                   . time()
-                                                   . '\' AND datesub > \'0\' AND offline= \'0\' AND submit=\'0\' AND request=\'0\' '
-                                                   . $catperms
-                                                   . ' ');
+        $sql                     = $xoopsDB->query('SELECT init FROM ' . $xoopsDB->prefix('lxentries') . " WHERE init = '$initial' AND datesub < '" . time() . '\' AND datesub > \'0\' AND offline= \'0\' AND submit=\'0\' AND request=\'0\' ' . $catperms . ' ');
         $howmany                 = $xoopsDB->getRowsNum($sql);
         $letterlinks['total']    = $howmany;
         $letterlinks['id']       = $chr;
@@ -79,10 +73,10 @@ function b_lxentries_alpha_show($options)
 function b_lxentries_alpha_edit($options)
 {
     $form = _ALIGN;
-    $form .= "<input type='radio' name='options[0]' value='1'" . (($options[0] == 1) ? ' checked' : '') . ' />' . _YES . '&nbsp;';
-    $form .= "<input type='radio' name='options[0]' value='0'" . (($options[0] == 0) ? ' checked' : '') . ' />' . _NO . '<br>';
+    $form .= "<input type='radio' name='options[0]' value='1'" . (($options[0] == 1) ? ' checked' : '') . '>' . _YES . '&nbsp;';
+    $form .= "<input type='radio' name='options[0]' value='0'" . (($options[0] == 0) ? ' checked' : '') . '>' . _NO . '<br>';
 
-    $form .= '' . _MB_LEXIKON_LETTERS . " <input type='text' name='options[]' value='" . $options[1] . '\' />&nbsp; <br>';
+    $form .= '' . _MB_LEXIKON_LETTERS . " <input type='text' name='options[]' value='" . $options[1] . '\'>&nbsp; <br>';
 
     //------------
     return $form;

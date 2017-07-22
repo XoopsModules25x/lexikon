@@ -8,7 +8,7 @@
  * Licence: GNU
  */
 
-include_once __DIR__ . '/../../../include/cp_header.php';
+require_once __DIR__ . '/../../../include/cp_header.php';
 xoops_cp_header();
 require_once __DIR__ . '/admin_header.php';
 global $xoopsModuleConfig, $xoopsUser, $xoopsModule, $xoopsDB;
@@ -53,7 +53,7 @@ if ($go) {
         }
         // 3) tag module
         if (!lx_FieldExists('item_tag', $xoopsDB->prefix('lxentries'))) {
-            $sql = $xoopsDB->queryF('ALTER TABLE ' . $xoopsDB->prefix('lxentries') . ' ADD item_tag text NULL AFTER comments');
+            $sql = $xoopsDB->queryF('ALTER TABLE ' . $xoopsDB->prefix('lxentries') . ' ADD item_tag TEXT NULL AFTER comments');
             showerror('Update table "lxentries" ...');
         }
         //-------------
@@ -69,8 +69,8 @@ if ($go) {
     The script will adapt the database-structure to the new module-functions.<br>
     Excute only once. Dont forget to update the Module-templates. <br><br>
     <form method='post' action='upgrade.php' name='frmAct'>
-    <input type='hidden' name='go' value='1' />
-    <input type='submit' name='sbt' value='Start' class='formButton' />
+    <input type='hidden' name='go' value='1'>
+    <input type='submit' name='sbt' value='Start' class='formButton'>
     </form></td></tr></table>";
     xoops_cp_footer();
 }

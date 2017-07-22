@@ -11,8 +11,8 @@
 include __DIR__ . '/header.php';
 
 $GLOBALS['xoopsOption']['template_main'] = 'lx_index.tpl';
-include_once XOOPS_ROOT_PATH . '/header.php';
-include_once XOOPS_ROOT_PATH . '/modules/lexikon/include/common.inc.php';
+require_once XOOPS_ROOT_PATH . '/header.php';
+require_once XOOPS_ROOT_PATH . '/modules/lexikon/include/common.inc.php';
 global $xoTheme, $xoopsUser;
 $myts = MyTextSanitizer::getInstance();
 
@@ -59,7 +59,7 @@ $xoopsTpl->assign('searchform', LexikonUtility::showSearchForm());
 $alpha = LexikonUtility::getAlphaArray();
 $xoopsTpl->assign('alpha', $alpha);
 
-list($howmanyother) = $xoopsDB->fetchRow($xoopsDB->query('SELECT COUNT(*) FROM ' . $xoopsDB->prefix('lxentries') . " WHERE init = '#' AND offline ='0' " . $catperms . ''));
+list($howmanyother) = $xoopsDB->fetchRow($xoopsDB->query('SELECT COUNT(*) FROM ' . $xoopsDB->prefix('lxentries') . " WHERE init = '#' AND offline ='0' " . $catperms . ' '));
 $xoopsTpl->assign('totalother', $howmanyother);
 
 // To display the tree of categories
@@ -76,13 +76,8 @@ if ($xoopsModuleConfig['multicats'] == 1) {
 }
 // To display the recent entries block
 $block1   = array();
-$result05 = $xoopsDB->query('SELECT entryID, categoryID, term, datesub FROM '
-                            . $xoopsDB->prefix('lxentries')
-                            . ' WHERE datesub < '
-                            . time()
-                            . " AND datesub > 0 AND submit = '0' AND offline = '0' AND request = '0' "
-                            . $catperms
-                            . ' ORDER BY datesub DESC', (int)$xoopsModuleConfig['blocksperpage'], 0);
+$result05 = $xoopsDB->query('SELECT entryID, categoryID, term, datesub FROM ' . $xoopsDB->prefix('lxentries') . ' WHERE datesub < ' . time() . " AND datesub > 0 AND submit = '0' AND offline = '0' AND request = '0' " . $catperms . ' ORDER BY datesub DESC', (int)$xoopsModuleConfig['blocksperpage'],
+                            0);
 if ($publishedwords > 0) { // If there are definitions
     //while (list( $entryID, $term, $datesub ) = $xoopsDB->fetchRow($result05)) {
     while (list($entryID, $categoryID, $term, $datesub) = $xoopsDB->fetchRow($result05)) {
@@ -100,13 +95,7 @@ if ($publishedwords > 0) { // If there are definitions
 
 // To display the most read entries block
 $block2   = array();
-$result06 = $xoopsDB->query('SELECT entryID, term, counter FROM '
-                            . $xoopsDB->prefix('lxentries')
-                            . ' WHERE datesub < '
-                            . time()
-                            . " AND datesub > 0 AND submit = '0' AND offline = '0' AND request = '0' "
-                            . $catperms
-                            . ' ORDER BY counter DESC', (int)$xoopsModuleConfig['blocksperpage'], 0);
+$result06 = $xoopsDB->query('SELECT entryID, term, counter FROM ' . $xoopsDB->prefix('lxentries') . ' WHERE datesub < ' . time() . " AND datesub > 0 AND submit = '0' AND offline = '0' AND request = '0' " . $catperms . ' ORDER BY counter DESC', (int)$xoopsModuleConfig['blocksperpage'], 0);
 // If there are definitions
 if ($publishedwords > 0) {
     while (list($entryID, $term, $counter) = $xoopsDB->fetchRow($result06)) {
@@ -132,11 +121,7 @@ if ($numrows > 1) {
     $entrynumber = 0;
 }
 
-$resultZ = $xoopsDB->query('SELECT entryID, categoryID, term, definition, html, smiley, xcodes, breaks FROM '
-                           . $xoopsDB->prefix('lxentries')
-                           . " WHERE submit = 'O' AND offline = '0' "
-                           . $catperms
-                           . " LIMIT $entrynumber, 1");
+$resultZ = $xoopsDB->query('SELECT entryID, categoryID, term, definition, html, smiley, xcodes, breaks FROM ' . $xoopsDB->prefix('lxentries') . " WHERE submit = 'O' AND offline = '0' " . $catperms . " LIMIT $entrynumber, 1");
 
 $zerotest = $xoopsDB->getRowsNum($resultZ);
 if ($zerotest != 0) {
@@ -166,11 +151,7 @@ if ($xoopsUser && $xoopsUser->isAdmin()) {
     $xoopsTpl->assign('userisadmin', 1);
 
     $blockS      = array();
-    $resultS     = $xoopsDB->query('SELECT entryID, term FROM '
-                                   . $xoopsDB->prefix('lxentries')
-                                   . ' WHERE datesub < '
-                                   . time()
-                                   . " AND datesub > 0 AND submit = '1' AND offline = '1' AND request = '0' ORDER BY term");
+    $resultS     = $xoopsDB->query('SELECT entryID, term FROM ' . $xoopsDB->prefix('lxentries') . ' WHERE datesub < ' . time() . " AND datesub > 0 AND submit = '1' AND offline = '1' AND request = '0' ORDER BY term");
     $totalSwords = $xoopsDB->getRowsNum($resultS);
 
     if ($totalSwords > 0) { // If there are definitions
@@ -255,6 +236,6 @@ if (isset($xoTheme) && is_object($xoTheme)) {
 } else {
     $xoopsTpl->assign('xoops_meta_description', $meta_description);
 }
-$xoopsTpl->assign('xoops_module_header', '<link rel="stylesheet" type="text/css" href="assets/css/style.css" />');
+$xoopsTpl->assign('xoops_module_header', '<link rel="stylesheet" type="text/css" href="assets/css/style.css">');
 
 include XOOPS_ROOT_PATH . '/footer.php';

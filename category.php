@@ -8,16 +8,18 @@
  * Licence: GNU
  */
 
+use Xmf\Request;
+
 include __DIR__ . '/header.php';
 $GLOBALS['xoopsOption']['template_main'] = 'lx_category.tpl';
-include_once XOOPS_ROOT_PATH . '/header.php';
+require_once XOOPS_ROOT_PATH . '/header.php';
 global $xoTheme, $xoopsUser;
 $myts = MyTextSanitizer::getInstance();
-include_once XOOPS_ROOT_PATH . '/modules/lexikon/include/common.inc.php';
+require_once XOOPS_ROOT_PATH . '/modules/lexikon/include/common.inc.php';
 $limit      = $xoopsModuleConfig['indexperpage'];
 $categoryID = isset($_GET['categoryID']) ? (int)$_GET['categoryID'] : 0;
-include_once XOOPS_ROOT_PATH . '/class/pagenav.php';
-$start = isset($_GET['start']) ? (int)$_GET['start'] : 0;
+require_once XOOPS_ROOT_PATH . '/class/pagenav.php';
+$start = Request::getInt('start', 0, 'GET');
 $xoopsTpl->assign('multicats', (int)$xoopsModuleConfig['multicats']);
 
 // Permission
@@ -41,7 +43,7 @@ $xoopsTpl->assign('publishedwords', $publishedwords);
 $alpha = LexikonUtility::getAlphaArray();
 $xoopsTpl->assign('alpha', $alpha);
 
-list($howmanyother) = $xoopsDB->fetchRow($xoopsDB->query('SELECT COUNT(*) FROM ' . $xoopsDB->prefix('lxentries') . " WHERE init = '#' AND offline ='0' " . $catperms . ''));
+list($howmanyother) = $xoopsDB->fetchRow($xoopsDB->query('SELECT COUNT(*) FROM ' . $xoopsDB->prefix('lxentries') . " WHERE init = '#' AND offline ='0' " . $catperms . ' '));
 $xoopsTpl->assign('totalother', $howmanyother);
 
 // get the list of Maincategories :: or return to mainpage
@@ -113,7 +115,7 @@ if (!$categoryID) {
     $catdata = $xoopsDB->query('SELECT categoryID, name, description, total, logourl FROM ' . $xoopsDB->prefix('lxcategories') . " WHERE categoryID = '$categoryID' ");
     // verify ID
     if ($xoopsDB->getRowsNum($catdata) <= 0) {
-        redirect_header(XOOPS_URL.'/modules/lexikon/index.php', 2, _MD_LEXIKON_UNKNOWNERROR);
+        redirect_header(XOOPS_URL . '/modules/lexikon/index.php', 2, _MD_LEXIKON_UNKNOWNERROR);
     }
     while (list($categoryID, $name, $description, $total, $logourl) = $xoopsDB->fetchRow($catdata)) {
         if ($gpermHandler->checkRight('lexikon_view', $categoryID, $groups, $xoopsModule->getVar('mid'))) {
@@ -137,9 +139,7 @@ if (!$categoryID) {
             $entriesarray = array();
 
             // Now we retrieve a specific number of entries according to start variable
-            $queryB  = 'SELECT entryID, term, definition, html, smiley, xcodes, breaks, comments FROM '
-                       . $xoopsDB->prefix('lxentries')
-                       . " WHERE categoryID = '$categoryID' AND submit ='0' AND offline = '0' ORDER BY term ASC";
+            $queryB  = 'SELECT entryID, term, definition, html, smiley, xcodes, breaks, comments FROM ' . $xoopsDB->prefix('lxentries') . " WHERE categoryID = '$categoryID' AND submit ='0' AND offline = '0' ORDER BY term ASC";
             $resultB = $xoopsDB->query($queryB, $xoopsModuleConfig['indexperpage'], $start);
 
             //while (list( $entryID, $term, $definition ) = $xoopsDB->fetchRow($resultB))
@@ -154,8 +154,7 @@ if (!$categoryID) {
                 }
                 if (($xoopsModuleConfig['com_rule'] != 0)
                     || (($xoopsModuleConfig['com_rule'] != 0)
-                        && is_object($xoopsUser))
-                ) {
+                        && is_object($xoopsUser))) {
                     if ($comments != 0) {
                         $eachentry['comments'] = "<a href='entry.php?entryID=" . $eachentry['id'] . '\'>' . $comments . '&nbsp;' . _COMMENTS . '</a>';
                     } else {
@@ -194,6 +193,6 @@ if ($xoopsModuleConfig['syndication'] == 1) {
 if ($xoopsUser) {
     $xoopsTpl->assign('syndication', true);
 }
-$xoopsTpl->assign('xoops_module_header', '<link rel="stylesheet" type="text/css" href="assets/css/style.css" />');
+$xoopsTpl->assign('xoops_module_header', '<link rel="stylesheet" type="text/css" href="assets/css/style.css">');
 
 include XOOPS_ROOT_PATH . '/footer.php';

@@ -27,13 +27,13 @@
 // adapted from News 1.5
 
 require_once __DIR__ . '/admin_header.php';
-include_once XOOPS_ROOT_PATH . '/class/xoopstree.php';
-include_once XOOPS_ROOT_PATH . '/class/xoopslists.php';
-include_once XOOPS_ROOT_PATH . '/class/xoopsform/grouppermform.php';
+require_once XOOPS_ROOT_PATH . '/class/xoopstree.php';
+require_once XOOPS_ROOT_PATH . '/class/xoopslists.php';
+require_once XOOPS_ROOT_PATH . '/class/xoopsform/grouppermform.php';
 $myts = MyTextSanitizer::getInstance();
 xoops_cp_header();
 //lx_adminmenu(4, _AM_LEXIKON_PERMFORM);
-$adminObject  = \Xmf\Module\Admin::getInstance();
+$adminObject = \Xmf\Module\Admin::getInstance();
 $adminObject->displayNavigation(basename(__FILE__));
 
 $permtoset                = isset($_POST['permtoset']) ? (int)$_POST['permtoset'] : 1;

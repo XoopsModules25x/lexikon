@@ -226,3 +226,51 @@ define('_MD_LEXIKON_SUBMISSIONSENT', 'Message to %s sent.');
 define('_MD_AM_ADGS', 'ADGS');
 define('_MD_AM_DBUPDATED', 'Database updated');
 define('_MD_LEXIKON_MUSTREGFIRST', 'You must register first');
+
+/**
+ * Get local Alphabet
+ * @return array
+ */
+function getAlphabet()
+{
+    $alphabet = array(
+        '0',
+        '1',
+        '2',
+        '3',
+        '4',
+        '5',
+        '6',
+        '7',
+        '8',
+        '9',
+        'A',
+        'B',
+        'C',
+        'D',
+        'E',
+        'F',
+        'G',
+        'H',
+        'I',
+        'J',
+        'K',
+        'L',
+        'M',
+        'N',
+        'O',
+        'P',
+        'Q',
+        'R',
+        'S',
+        'T',
+        'U',
+        'V',
+        'W',
+        'X',
+        'Y',
+        'Z'
+    );
+
+    return $alphabet;
+}

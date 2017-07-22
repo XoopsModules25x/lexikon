@@ -25,8 +25,8 @@ if (isset($_POST['op'])) {
 switch ($op) {
     case 'default':
     default:
-        include_once XOOPS_ROOT_PATH . '/class/xoopslists.php';
-        include_once XOOPS_ROOT_PATH . '/class/pagenav.php';
+        require_once XOOPS_ROOT_PATH . '/class/xoopslists.php';
+        require_once XOOPS_ROOT_PATH . '/class/pagenav.php';
 
         $startentry = isset($_GET['startentry']) ? (int)$_GET['startentry'] : 0;
         $startcat   = isset($_GET['startcat']) ? (int)$_GET['startcat'] : 0;
@@ -77,14 +77,7 @@ switch ($op) {
          **/
 
         lx_collapsableBar('lexikonsub', 'lexikonsubicon');
-        echo "  <img  onclick=\"toggle('toptable'); toggleIcon('toptableicon');\" id='lexikonsubicon' name='lexikonsubicon' src='"
-             . XOOPS_URL
-             . "/modules/lexikon/assets/images/close12.gif' alt='' /></a>&nbsp;"
-             . _AM_LEXIKON_SHOWSUBMISSIONS
-             . ' ('
-             . $totalsubmitted
-             . ')'
-             . '<br>';
+        echo "  <img  onclick=\"toggle('toptable'); toggleIcon('toptableicon');\" id='lexikonsubicon' name='lexikonsubicon' src='" . XOOPS_URL . "/modules/lexikon/assets/images/close12.gif' alt=''></a>&nbsp;" . _AM_LEXIKON_SHOWSUBMISSIONS . ' (' . $totalsubmitted . ')' . '<br>';
         echo "  <div id='lexikonsub' style='float:left; width:100%;'><table class='outer' width='100%' border='0'>";
         /*      <tr>
                 <td colspan='7' class='odd'>
@@ -155,14 +148,7 @@ switch ($op) {
          **/
 
         lx_collapsableBar('lexikonreq', 'lexikonreqicon');
-        echo "  <img  onclick=\"toggle('toptable'); toggleIcon('toptableicon');\" id='lexikonreqicon' name='lexikonreqicon' src='"
-             . XOOPS_URL
-             . "/modules/lexikon/assets/images/close12.gif' alt='' /></a>&nbsp;"
-             . _AM_LEXIKON_SHOWREQUESTS
-             . ' ('
-             . $totalrequested
-             . ')'
-             . '<br>';
+        echo "  <img  onclick=\"toggle('toptable'); toggleIcon('toptableicon');\" id='lexikonreqicon' name='lexikonreqicon' src='" . XOOPS_URL . "/modules/lexikon/assets/images/close12.gif' alt=''></a>&nbsp;" . _AM_LEXIKON_SHOWREQUESTS . ' (' . $totalrequested . ')' . '<br>';
         echo "  <div id='lexikonreq' style='float:left; width:100%;'><table class='outer' width='100%' border='0'>";
         /*      <tr>
                 <td colspan='7' class='odd'>
@@ -231,14 +217,7 @@ switch ($op) {
          * Code to show offline entries
          **/
         lx_collapsableBar('lexikonoff', 'lexikonofficon');
-        echo "  <img  onclick=\"toggle('toptable'); toggleIcon('toptableicon');\" id='lexikonofficon' name='lexikonofficon' src='"
-             . XOOPS_URL
-             . "/modules/lexikon/assets/images/close12.gif' alt='' /></a>&nbsp;"
-             . _AM_LEXIKON_SHOWOFFLINE
-             . ' ('
-             . $totaloffline
-             . ')'
-             . '</legend><br>';
+        echo "  <img  onclick=\"toggle('toptable'); toggleIcon('toptableicon');\" id='lexikonofficon' name='lexikonofficon' src='" . XOOPS_URL . "/modules/lexikon/assets/images/close12.gif' alt=''></a>&nbsp;" . _AM_LEXIKON_SHOWOFFLINE . ' (' . $totaloffline . ')' . '</legend><br>';
         echo "  <div id='lexikonoff' style='float:left; width:100%;'><table class='outer' width='100%' border='0'>";
         /*      <tr>
                 <td colspan='7' class='odd'>

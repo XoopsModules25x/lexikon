@@ -22,7 +22,7 @@ define('_MI_LEXIKON_SUB_SMNAME4', 'neuer Eintrag');
 define('_MI_LEXIKON_SUB_SMNAME6', 'Autorenliste');
 define('_MI_LEXIKON_SUB_SMNAME7', 'Webmastercontent');
 // module option
-$cf=1;
+$cf = 1;
 define('_MI_LEXIKON_MULTICATS', "$cf. Ben&ouml;tigen Sie Glossar-Kategorien?");
 define('_MI_LEXIKON_MULTICATSDSC', "Falls 'Ja' k&ouml;nnen diverse Kategorien benutzt werden, ansonsten gibt es nur eine automatische Kategorie.");
 define('_MI_LEXIKON_ALLOWSUBMIT', "$cf. D&uuml;rfen User Eintr&auml;ge einschicken?");
@@ -66,8 +66,7 @@ define('_MI_LEXIKON_LINKTERMS', "$cf. Links anzeigen zu anderen Begriffen in den
 define('_MI_LEXIKON_LINKTERMSDSC', "Falls 'Ja' wird in den Definitionen automatisch zu anderen Eintr&auml;gen im Glossar verlinkt.");
 $cf++;
 define('_MI_LEXIKON_FORM_OPTIONS', "$cf. Eingabe Optionen");
-define('_MI_LEXIKON_FORM_OPTIONSDSC',
-       'Hier kann gew&auml;hlt werden welcher Editor zur Eingabe verwendet wird. Wurde kein spezieller Editor installiert, kann nur kompakt oder DHTML gew&auml;hlt werden. <em>Der Editor muss auf der Site im Verzeichnis class/xoopseditor installiert sein.</em>');
+define('_MI_LEXIKON_FORM_OPTIONSDSC', 'Hier kann gew&auml;hlt werden welcher Editor zur Eingabe verwendet wird. Wurde kein spezieller Editor installiert, kann nur kompakt oder DHTML gew&auml;hlt werden. <em>Der Editor muss auf der Site im Verzeichnis class/xoopseditor installiert sein.</em>');
 $cf++;
 define('_MI_LEXIKON_EDIGUEST', "$cf. Eingabe Optionen für Einsendungen");
 define('_MI_LEXIKON_EDIGUESTDSC', 'Sollen Benutzer und Gäste Editoren für Einsendungen verwenden dürfen?');
@@ -110,7 +109,7 @@ define('_MI_LEXIKON_METANUM_80', '80');
 $cf++;
 define('_MI_LEXIKON_USESHOTS', "$cf. Thumbnails als Kategoriebilder:");
 define('_MI_LEXIKON_USESHOTSDSC',
-       'Unterst&uuml;tzte Dateitypen: JPG, GIF, PNG.<br />Thumbnails werden zur Darstellung der Kategoriebilder benutzt. Einstellung `Nein` bewirkt, dass keine Kategorienbilder dargestellt werden.<br /> <em>Das Uploadverzeichnis für Kategoriebilder ist uploads/lexikon/categories/images</em>');
+       'Unterst&uuml;tzte Dateitypen: JPG, GIF, PNG.<br>Thumbnails werden zur Darstellung der Kategoriebilder benutzt. Einstellung `Nein` bewirkt, dass keine Kategorienbilder dargestellt werden.<br> <em>Das Uploadverzeichnis für Kategoriebilder ist uploads/lexikon/categories/images</em>');
 $cf++;
 define('_MI_LEXIKON_LOGOWIDTH', "$cf. Maximale Breite der Kategoriebilder im Menü:");
 define('_MI_LEXIKON_LOGOWIDTHDSC', 'default:20px');

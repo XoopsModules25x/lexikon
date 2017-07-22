@@ -26,7 +26,7 @@ $modversion['official']      = 0; //1 indicates supported by XOOPS Dev Team, 0 m
 $modversion['image']         = 'assets/images/logoModule.png';
 $modversion['dirname']       = basename(__DIR__);
 $modversion['onInstall']     = 'include/install_function.php';
-$modversion['onUpdate']       = 'include/update_function.php';
+$modversion['onUpdate']      = 'include/update_function.php';
 
 //$modversion['dirmoduleadmin'] = '/Frameworks/moduleclasses/moduleadmin';
 //$modversion['icons16']        = '../../Frameworks/moduleclasses/icons/16';
@@ -41,9 +41,9 @@ $modversion['last_update']         = '2015/01/12';
 $modversion['module_website_url']  = 'www.xoops.org';
 $modversion['module_website_name'] = 'XOOPS';
 $modversion['min_php']             = '5.5';
-$modversion['min_xoops']           = '2.5.8';
+$modversion['min_xoops']           = '2.5.9';
 $modversion['min_admin']           = '1.2';
-$modversion['min_db']              = array('mysql' => '5.1');
+$modversion['min_db']              = array('mysql' => '5.5');
 
 $modversion['author_word']         = '-';
 $modversion['module_website_url']  = 'https://xoops.org/';
@@ -129,8 +129,7 @@ $modversion['sub'][$i]['url']  = 'search.php';
 //if ( isset($xoopsModuleConfig['catsinmenu']) && $xoopsModuleConfig['catsinmenu'] == 1 && $xoopsModuleConfig['multicats']) {
 #if (isset($xoopsModuleConfig['catsinmenu']) && $xoopsModuleConfig['catsinmenu'] == 1 && isset($xoopsModuleConfig['multicats']) && $xoopsModuleConfig["multicats"] == 1) {
 if (isset($lxConfig['catsinmenu']) && $lxConfig['catsinmenu'] == 1 && isset($lxConfig['multicats'])
-    && $lxConfig['multicats'] == 1
-) {
+    && $lxConfig['multicats'] == 1) {
     $myts = MyTextSanitizer::getInstance();
     $sql  = $xoopsDB->query('SELECT categoryID, name FROM ' . $xoopsDB->prefix('lxcategories') . ' ORDER BY weight ASC');
     while (list($categoryID, $name) = $xoopsDB->fetchRow($sql)) {
@@ -624,21 +623,23 @@ $modversion['config'][] = array(
 
 //Uploads : max width/height for image upload
 $modversion['config'][] = array(
-    'name'            => 'imguploadwd',
-    'title'        => '_MI_LEXIKON_IMGUPLOADWD',
-    'description'    => '_MI_LEXIKON_IMGUPLOADWD_DESC',
-    'formtype'        => 'textbox',
-    'valuetype'    => 'text',
-    'default'        => 200);
+    'name'        => 'imguploadwd',
+    'title'       => '_MI_LEXIKON_IMGUPLOADWD',
+    'description' => '_MI_LEXIKON_IMGUPLOADWD_DESC',
+    'formtype'    => 'textbox',
+    'valuetype'   => 'text',
+    'default'     => 200
+);
 
 //Uploads : max size for image upload
 $modversion['config'][] = array(
-    'name'            => 'imguploadsize',
-    'title'        => '_MI_LEXIKON_IMGUPLOADSIZE',
-    'description'    => '_MI_LEXIKON_IMGUPLOADSIZE_DESC',
-    'formtype'        => 'textbox',
-    'valuetype'    => 'text',
-    'default'        => 10485760); // 1 MB
+    'name'        => 'imguploadsize',
+    'title'       => '_MI_LEXIKON_IMGUPLOADSIZE',
+    'description' => '_MI_LEXIKON_IMGUPLOADSIZE_DESC',
+    'formtype'    => 'textbox',
+    'valuetype'   => 'text',
+    'default'     => 10485760
+); // 1 MB
 
 //to activate RSS Syndication for users / guests
 $modversion['config'][] = array(

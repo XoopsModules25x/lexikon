@@ -23,7 +23,7 @@ function b_lx_author_show($options)
         $configHandler = xoops_getHandler('config');
         $lxConfig      = $configHandler->getConfigsByCat(0, $lexikon->getVar('mid'));
     }
-    include_once XOOPS_ROOT_PATH . '/modules/lexikon/class/Utility.php';
+    require_once XOOPS_ROOT_PATH . '/modules/lexikon/class/utility.php';
 
     $block = array();
     if (!isset($options[3])) {
@@ -44,7 +44,7 @@ function b_lx_author_show($options)
  */
 function b_lx_author_edit($options)
 {
-    include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
+    require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
     $form = new XoopsFormElementTray('', '<br>');
 
     $sort_select = new XoopsFormSelect(_MB_LEXIKON_ORDER, 'options[0]', $options[0]);

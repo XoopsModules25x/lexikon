@@ -11,14 +11,14 @@
 
 global $term, $definition, $ref, $url, $xoopsUser, $xoopsModule, $xoopsModuleConfig;
 
-include_once XOOPS_ROOT_PATH . '/modules/lexikon/class/lexikontree.php'; // -- LionHell
+require_once XOOPS_ROOT_PATH . '/modules/lexikon/class/lexikontree.php'; // -- LionHell
 include XOOPS_ROOT_PATH . '/class/xoopslists.php';
 include XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
 
 $guesteditoruse = $xoopsModuleConfig['wysiwyg_guests'];
 $myts           = MyTextSanitizer::getInstance();
 $mytree         = new LexikonTree($xoopsDB->prefix('lxcategories'), 'categoryID', '0');
-$sform          = new XoopsThemeForm(_MD_LEXIKON_SUB_SMNAME, 'storyform', xoops_getenv('PHP_SELF'));
+$sform          = new XoopsThemeForm(_MD_LEXIKON_SUB_SMNAME, 'storyform', xoops_getenv('PHP_SELF'), 'post', true);
 
 if ($xoopsModuleConfig['multicats'] == '1') {
     // perms adapted category select

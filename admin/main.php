@@ -19,8 +19,8 @@ $adminObject->displayNavigation(basename(__FILE__));
 $adminObject->addItemButton(_AM_LEXIKON_CREATECAT, 'category.php?op=addcat', 'add');
 $adminObject->addItemButton(_AM_LEXIKON_CREATEENTRY, 'entry.php?op=add', 'add');
 $adminObject->displayButton('left');
-//include_once XOOPS_ROOT_PATH . "/class/xoopslists.php";
-include_once XOOPS_ROOT_PATH . '/class/pagenav.php';
+//require_once XOOPS_ROOT_PATH . "/class/xoopslists.php";
+require_once XOOPS_ROOT_PATH . '/class/pagenav.php';
 
 $startentry = isset($_GET['startentry']) ? (int)$_GET['startentry'] : 0;
 $entryID    = isset($_POST['entryID']) ? (int)$_POST['entryID'] : 0;
@@ -99,9 +99,8 @@ if ($xoopsModuleConfig['multicats'] == 1) {
 }
 // database update
 if (!lx_FieldExists('logourl', $xoopsDB->prefix('lxcategories'))
-    || lx_FieldExists('parent', $xoopsDB->prefix('lxcategories'))
-) {
-//    ++$i;
+    || lx_FieldExists('parent', $xoopsDB->prefix('lxcategories'))) {
+    //    ++$i;
     echo "<table><tr><td  style='border-bottom: 1px dotted #cfcfcf; line-height: 16px;'><img src='"
          . XOOPS_URL
          . '/modules/'

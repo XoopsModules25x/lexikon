@@ -61,9 +61,9 @@ define('_AM_LEXIKON_ENTRYISON', 'Eintrag ist online');
 define('_AM_LEXIKON_ENTRYMODIFIED', 'Der Eintrag wurde erfolgreich ver&auml;ndert!');
 define('_AM_LEXIKON_ENTRYNOTCREATED', 'Verzeihung, es war nicht m&ouml;glich, diesen Eintrag zu erstellen!');
 define('_AM_LEXIKON_ENTRYNOTUPDATED', 'Verzeihung, es war nicht m&ouml;glich, diesen Eintrag zu aktualisieren!');
-define('_AM_LEXIKON_ENTRYREFERENCE', 'Referenz<span style=\'font-size: xx-small; font-weight: normal; display: block;\'>(Schreiben Sie die Quelle Ihrer<br />Definition, wie Buch,<br />Artikel oder Person.)</span>');
+define('_AM_LEXIKON_ENTRYREFERENCE', 'Referenz<span style=\'font-size: xx-small; font-weight: normal; display: block;\'>(Schreiben Sie die Quelle Ihrer<br>Definition, wie Buch,<br>Artikel oder Person.)</span>');
 define('_AM_LEXIKON_ENTRYTERM', '[*] Begriff');
-define('_AM_LEXIKON_ENTRYURL', 'Verkn&uuml;pfte Site<span style=\'font-size: xx-small; font-weight: normal; display: block;\'>(Bitte geben sie eine g&uuml;ltige URL<br />mit oder ohne HTTP-Pr&auml;fix an)</span>');
+define('_AM_LEXIKON_ENTRYURL', 'Verkn&uuml;pfte Site<span style=\'font-size: xx-small; font-weight: normal; display: block;\'>(Bitte geben sie eine g&uuml;ltige URL<br>mit oder ohne HTTP-Pr&auml;fix an)</span>');
 define('_AM_LEXIKON_ITEMEXISTS', 'Ein Begriff mit diesem Namen existiert bereits im Lexikon. Bitte w&auml;hlen Sie einen anderen Begriff!');
 define('_AM_LEXIKON_FILEEXISTS', 'Eine Datei mit diesem Namen existiert bereits auf dem Server. Bitte w&auml;hlen Sie eine andere Datei!');
 define('_AM_LEXIKON_GOMOD', 'Zum Modul');
@@ -112,7 +112,7 @@ define('_AM_LEXIKON_SHOWOFFLINE', 'Offline');
 define('_AM_LEXIKON_INIT', 'Buchstabe');
 //mondarse
 define('_AM_LEXIKON_IMPORT', 'Importieren');
-define('_AM_LEXIKON_IMPORTWARN', 'Achtung!!<br />Machen Sie immer ein Backup Ihrer Datenbank bevor sie importieren. Das Import-Skript kann unter Umständen Korruption/Verlust von Daten verursachen.');
+define('_AM_LEXIKON_IMPORTWARN', 'Achtung!!<br>Machen Sie immer ein Backup Ihrer Datenbank bevor sie importieren. Das Import-Skript kann unter Umständen Korruption/Verlust von Daten verursachen.');
 // update. menue
 define('_AM_LEXIKON_UPDATEMODULE', 'Update Modul Templates');
 define('_AM_LEXIKON_MCOMMENTS', 'Kommentare');
@@ -138,7 +138,7 @@ define('_AM_LEXIKON_ABOUT_SUBMIT_BUG', 'Bugreport für dieses Modul einsenden');
 define('_AM_LEXIKON_ABOUT_SUBMIT_BUG_TEXT', 'Fehler melden');
 define('_AM_LEXIKON_ABOUT_SUBMIT_FEATURE', 'Anfrage für neues Feature einsenden');
 define('_AM_LEXIKON_ABOUT_SUBMIT_FEATURE_TEXT', 'Featureanfrage einsenden');
-// Import 
+// Import
 define('_AM_LEXIKON_MODULEHEADIMPORTWB', 'Wordbook &mdash;&gt; Lexikon Import Skript');
 define('_AM_LEXIKON_MODULEHEADIMPORT', 'Dictionary &mdash;&gt; Lexikon Import Skript');
 define('_AM_LEXIKON_MODULEHEADIMPORTGLO', 'Glossaire &mdash;&gt; Lexikon Import Skript');
@@ -165,7 +165,7 @@ define('_AM_LEXIKON_LOGOUP', 'Bild Upload');
 define('_AM_LEXIKON_NONE', '---Keines---');
 define('_AM_LEXIKON_CATIMGUPLOAD', 'Kategoriebild hochladen');
 define('_AM_LEXIKON_CATIMG_DSC', 'Kategoriebilder sind gespeichert in');
-define('_AM_LEXIKON_CAT_GROUPSVIEW', 'Kategorie Zugriffsberechtigungen:<div style=\'padding-top: 8px;\'><span style=\'font-weight: normal;\'>Bitte Usergruppe ausw&auml;hlen, die zu Zugriff<br />auf diese Kategorie haben soll.</span></div>');
+define('_AM_LEXIKON_CAT_GROUPSVIEW', 'Kategorie Zugriffsberechtigungen:<div style=\'padding-top: 8px;\'><span style=\'font-weight: normal;\'>Bitte Usergruppe ausw&auml;hlen, die zu Zugriff<br>auf diese Kategorie haben soll.</span></div>');
 define('_AM_LEXIKON_FILESUCCESS', 'Bild wurde hochgeladen');
 define('_AM_LEXIKON_SENTCONFIRMMAIL', 'Die Freischaltung wurde als Bestätigungsmail an <b>%s</b> geschickt.');
 define('_AM_LEXIKON_NOTIFYPUBLISH', 'Per E-mail von Veröffentlichung benachrichtigen');
@@ -206,20 +206,20 @@ define('_AM_LEXIKON_APPROVEFORM', 'Genehmigen');
 define('_AM_LEXIKON_SUBMITFORM', 'Einsenden');
 define('_AM_LEXIKON_REQUESTFORM', 'Anfordern');
 define('_AM_LEXIKON_VIEWFORM_DSC', 'Kategorie betrachten - Berechtigungen');
-define('_AM_LEXIKON_APPROVEFORM_DSC', 'Automatically approve frontside submissions by these groups. <br /> Not yet implemented!');
+define('_AM_LEXIKON_APPROVEFORM_DSC', 'Automatically approve frontside submissions by these groups. <br> Not yet implemented!');
 define('_AM_LEXIKON_APPROVEPERM_WARN',
        'Due to certain aspects of this module including copyright infringement, local moral or legal issues and the possibility of malicious code in submitted media files, it is recommended that automatic approval by anonymous users should not be allowed.  All submissions should be reviewed by a module admin.');
 define('_AM_LEXIKON_SUBMITFORM_DSC', 'Allow users to submit an entry and, if published, modify that entry.');
 define('_AM_LEXIKON_REQUESTFORM_DSC', 'The specified group will have access to a request form.');
-define('_AM_LEXIKON_MODIFYFORM_DSC', 'Die angegebene Gruppe wird die Berechtigung zum Bearbeiten der Definitionen haben.<br />Ein User ist immer berechtigt, seine eigenen Einträge zu bearbeiten.');
+define('_AM_LEXIKON_MODIFYFORM_DSC', 'Die angegebene Gruppe wird die Berechtigung zum Bearbeiten der Definitionen haben.<br>Ein User ist immer berechtigt, seine eigenen Einträge zu bearbeiten.');
 
 //1.51
 
 define('_AM_LEXIKON_SUMMARY', 'Lexikon Zusammenfassung');
-define('_AM_LEXIKON_TOTALENTRIES2', "Veröffentlichte Einträge: <span style=' font-weight: bold'> %s </span> ");
-define('_AM_LEXIKON_TOTALCATS2', "Verfügbare Kategorien: <span style=' font-weight: bold'> %s </span> ");
-define('_AM_LEXIKON_TOTALSUBM2', "Eingesendete Einträge: <span style=' font-weight: bold'> %s </span> ");
-define('_AM_LEXIKON_TOTALREQ2', "Angefragte Einträge: <span style='font-weight: bold'> %s </span> ");
+define('_AM_LEXIKON_TOTALENTRIES2', "Veröffentlichte Einträge: <span style=' font-weight: bold;'> %s </span> ");
+define('_AM_LEXIKON_TOTALCATS2', "Verfügbare Kategorien: <span style=' font-weight: bold;'> %s </span> ");
+define('_AM_LEXIKON_TOTALSUBM2', "Eingesendete Einträge: <span style=' font-weight: bold;'> %s </span> ");
+define('_AM_LEXIKON_TOTALREQ2', "Angefragte Einträge: <span style='font-weight: bold;'> %s </span> ");
 
 // 1.52
 define('_AM_LEXIKON_IMGUPLOAD_DESC', 'Maximale Bildbreite/-höhe in Pixel: %w<br>Maximale Dateigröße in Bytes (10485760 = 1 MB): %s');

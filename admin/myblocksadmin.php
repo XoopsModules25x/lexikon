@@ -5,16 +5,16 @@
 //                          GIJOE <http://www.peak.ne.jp/>                   //
 // ------------------------------------------------------------------------- //
 
-include_once __DIR__ . '/../../../include/cp_header.php';
+require_once __DIR__ . '/../../../include/cp_header.php';
 
 if (false !== strpos(XOOPS_VERSION, 'XOOPS 2.2')) {
     include __DIR__ . '/myblocksadmin2.php';
     exit;
 }
 
-include_once __DIR__ . '/mygrouppermform.php';
-include_once XOOPS_ROOT_PATH . '/class/xoopsblock.php';
-include_once __DIR__ . '/../include/gtickets.php';// GIJ
+require_once __DIR__ . '/mygrouppermform.php';
+require_once XOOPS_ROOT_PATH . '/class/xoopsblock.php';
+require_once __DIR__ . '/../include/gtickets.php';// GIJ
 
 $xoops_system_path = XOOPS_ROOT_PATH . '/modules/system';
 
@@ -26,9 +26,9 @@ if (!file_exists("$xoops_system_path/language/$language/admin/blocksadmin.php"))
 
 // to prevent from notice that constants already defined
 $error_reporting_level = error_reporting(0);
-include_once "$xoops_system_path/constants.php";
-include_once "$xoops_system_path/language/$language/admin.php";
-include_once "$xoops_system_path/language/$language/admin/blocksadmin.php";
+require_once "$xoops_system_path/constants.php";
+require_once "$xoops_system_path/language/$language/admin.php";
+require_once "$xoops_system_path/language/$language/admin/blocksadmin.php";
 
 error_reporting($error_reporting_level);
 
@@ -85,7 +85,7 @@ while ($myrow = $db->fetchArray($result)) {
 
 function list_blocks()
 {
-    global $query4redirect, $block_arr, $xoopsGTicket;
+    global $query4redirect, $block_arr;
 
     // cachetime options
     $cachetimes = array(
@@ -104,11 +104,7 @@ function list_blocks()
 
     // displaying TH
     lx_collapsableBar('default', 'defaultIcon');
-    echo "<img  onclick=\"toggle('default'); toggleIcon('defaultIcon');\" id='defaultIcon' src='"
-         . XOOPS_URL
-         . "/modules/lexikon/assets/images/close12.gif' alt='' /></a>&nbsp; "
-         . _AM_BADMIN
-         . '<br><br>';
+    echo "<img  onclick=\"toggle('default'); toggleIcon('defaultIcon');\" id='defaultIcon' src='" . XOOPS_URL . "/modules/lexikon/assets/images/close12.gif' alt=''></a>&nbsp; " . _AM_BADMIN . '<br><br>';
     echo "<div id='default' style='float:left; width:100%;'>";
     echo "
     <form action='admin.php' name='blockadmin' method='post'>
@@ -228,8 +224,7 @@ function list_blocks()
                 if ($block_arr[$i]->getVar('show_func') == $bconf['show_func']
                     && $block_arr[$i]->getVar('func_file') == $bconf['file']
                     && (empty($bconf['template'])
-                        || $block_arr[$i]->getVar('template') == $bconf['template'])
-                ) {
+                        || $block_arr[$i]->getVar('template') == $bconf['template'])) {
                     if (!empty($bconf['can_clone'])) {
                         $can_clone = true;
                     }
@@ -248,32 +243,32 @@ function list_blocks()
             <td class='$class'>
                 $name
                 <br>
-                <input type='text' name='title[$bid]' value='$title' size='20' />
+                <input type='text' name='title[$bid]' value='$title' size='20'>
             </td>
             <td class='$class' align='center' nowrap='nowrap' width='125px'>
       <div align='center' >
-        <input type='radio' name='side[$bid]' value='" . XOOPS_CENTERBLOCK_LEFT . "'$ssel2 />
-        <input type='radio' name='side[$bid]' value='" . XOOPS_CENTERBLOCK_CENTER . "'$ssel3 />
-        <input type='radio' name='side[$bid]' value='" . XOOPS_CENTERBLOCK_RIGHT . "'$ssel4 />
+        <input type='radio' name='side[$bid]' value='" . XOOPS_CENTERBLOCK_LEFT . "'$ssel2>
+        <input type='radio' name='side[$bid]' value='" . XOOPS_CENTERBLOCK_CENTER . "'$ssel3>
+        <input type='radio' name='side[$bid]' value='" . XOOPS_CENTERBLOCK_RIGHT . "'$ssel4>
       </div>
       <div>
-        <span style='float:right;'><input type='radio' name='side[$bid]' value='" . XOOPS_SIDEBLOCK_RIGHT . "'$ssel1 /></span>
-        <div align='left'><input type='radio' name='side[$bid]' value='" . XOOPS_SIDEBLOCK_LEFT . "'$ssel0 /></div>
+        <span style='float:right;'><input type='radio' name='side[$bid]' value='" . XOOPS_SIDEBLOCK_RIGHT . "'$ssel1></span>
+        <div align='left'><input type='radio' name='side[$bid]' value='" . XOOPS_SIDEBLOCK_LEFT . "'$ssel0></div>
       </div>
       <div align='center'>
-        <input type='radio' name='side[$bid]' value='" . XOOPS_CENTERBLOCK_BOTTOMLEFT . "'$ssel5 />
-        <input type='radio' name='side[$bid]' value='" . XOOPS_CENTERBLOCK_BOTTOM . "'$ssel7 />
-        <input type='radio' name='side[$bid]' value='" . XOOPS_CENTERBLOCK_BOTTOMRIGHT . "'$ssel6 />
+        <input type='radio' name='side[$bid]' value='" . XOOPS_CENTERBLOCK_BOTTOMLEFT . "'$ssel5>
+        <input type='radio' name='side[$bid]' value='" . XOOPS_CENTERBLOCK_BOTTOM . "'$ssel7>
+        <input type='radio' name='side[$bid]' value='" . XOOPS_CENTERBLOCK_BOTTOMRIGHT . "'$ssel6>
       </div>
       <br>
         <div style='float:left;width:30%;'>&nbsp;</div>
                 <div style='float:left;background-color:$scoln;'>
-                    <input type='radio' name='side[$bid]' value='-1'  $sseln />
+                    <input type='radio' name='side[$bid]' value='-1'  $sseln>
                 </div>
                 <div style='float:left;'>" . _NONE . "</div>
             </td>
             <td class='$class' align='center'>
-                <input type='text' name=weight[$bid] value='$weight' size='3' maxlength='5' style='text-align:right;' />
+                <input type='text' name=weight[$bid] value='$weight' size='3' maxlength='5' style='text-align:right;'>
             </td>
             <td class='$class' align='center'>
                 <select name='bmodule[$bid][]' size='5' multiple='multiple'>
@@ -287,7 +282,7 @@ function list_blocks()
             </td>
             <td class='$class' align='right'>
                 <a href='admin.php?fct=blocksadmin&amp;op=edit&amp;bid=$bid'>" . _EDIT . "</a>{$delete_link}{$clone_link}
-                <input type='hidden' name='bid[$bid]' value='$bid' />
+                <input type='hidden' name='bid[$bid]' value='$bid'>
             </td>
         </tr>\n";
 
@@ -297,11 +292,11 @@ function list_blocks()
     echo "
         <tr>
             <td class='foot' align='center' colspan='6'>
-                <input type='hidden' name='query4redirect' value='$query4redirect' />
-                <input type='hidden' name='fct' value='blocksadmin' />
-                <input type='hidden' name='op' value='order' />
-                " . $xoopsGTicket->getTicketHtml(__LINE__, 1800, 'myblocksadmin') . "
-                <input type='submit' name='submit' value='" . _SUBMIT . "' />
+                <input type='hidden' name='query4redirect' value='$query4redirect'>
+                <input type='hidden' name='fct' value='blocksadmin'>
+                <input type='hidden' name='op' value='order'>
+                " . $GLOBALS['xoopsSecurity']->getTokenHTML('myblocksadmin') . "
+                <input type='submit' name='submit' value='" . _SUBMIT . "'>
             </td>
         </tr>
         </table>
@@ -332,7 +327,7 @@ function list_groups()
 {
     global $target_mid, $target_mname, $block_arr;
     lx_collapsableBar('groups', 'groupIcon');
-    echo "<img  onclick=\"toggle('groups'); toggleIcon('groupsIcon');\" id='groupsIcon' src='" . XOOPS_URL . "/modules/lexikon/assets/images/close12.gif' alt='' /></a>&nbsp; " . _MD_AM_ADGS . ' <br>';
+    echo "<img  onclick=\"toggle('groups'); toggleIcon('groupsIcon');\" id='groupsIcon' src='" . XOOPS_URL . "/modules/lexikon/assets/images/close12.gif' alt=''></a>&nbsp; " . _MD_AM_ADGS . ' <br>';
     echo "<div id='groups' style='float:left; width:100%;'>";
     $item_list = array();
     foreach (array_keys($block_arr) as $i) {
@@ -352,8 +347,8 @@ function list_groups()
 }
 
 if (!empty($_POST['submit'])) {
-    if (!$xoopsGTicket->check(true, 'myblocksadmin')) {
-        redirect_header(XOOPS_URL . '/', 3, $xoopsGTicket->getErrors());
+    if (!$GLOBALS['xoopsSecurity']->check(true, $_REQUEST['myblocksadmin'])) {
+        redirect_header(XOOPS_URL . '/', 3, $GLOBALS['xoopsSecurity']->getErrors());
     }
 
     include __DIR__ . '/mygroupperm.php';
@@ -361,7 +356,7 @@ if (!empty($_POST['submit'])) {
 }
 
 xoops_cp_header();
-include_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->dirname() . '/admin/functions.php';
+require_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->dirname() . '/admin/functions.php';
 //lx_adminMenu(3, _AM_LEXIKON_BLOCKS);
 
 if (!empty($block_arr)) {

@@ -12,7 +12,7 @@
 require_once __DIR__ . '/admin_header.php';
 $myts = MyTextSanitizer::getInstance();
 xoops_cp_header();
-$adminObject  = \Xmf\Module\Admin::getInstance();
+$adminObject = \Xmf\Module\Admin::getInstance();
 $adminObject->displayNavigation(basename(__FILE__));
 $adminObject->addItemButton(_AM_LEXIKON_CREATEENTRY, 'entry.php?op=add', 'add');
 $adminObject->displayButton('left');
@@ -26,8 +26,8 @@ error_reporting(E_ERROR | E_WARNING | E_PARSE);
 function entryDefault()
 {
     global $xoopsUser, $xoopsConfig, $xoopsDB, $xoopsModuleConfig, $xoopsModule, $entryID, $pathIcon16;
-    include_once XOOPS_ROOT_PATH . '/class/xoopslists.php';
-    include_once XOOPS_ROOT_PATH . '/class/pagenav.php';
+    require_once XOOPS_ROOT_PATH . '/class/xoopslists.php';
+    require_once XOOPS_ROOT_PATH . '/class/pagenav.php';
     xoops_load('XoopsUserUtility');
     //    lx_adminMenu(2, _AM_LEXIKON_ENTRIES);
 
@@ -226,7 +226,7 @@ function entryEdit($entryID = '')
         //        lx_adminMenu(2, _AM_LEXIKON_ADMINENTRYMNGMT);
 
         echo '<h3 style="color: #2F5376; margin-top: 6px; ">' . _AM_LEXIKON_ADMINENTRYMNGMT . '</h3>';
-        $sform = new XoopsThemeForm(_AM_LEXIKON_MODENTRY . ": $term", 'op', xoops_getenv('PHP_SELF'));
+        $sform = new XoopsThemeForm(_AM_LEXIKON_MODENTRY . ": $term", 'op', xoops_getenv('PHP_SELF'), 'post', true);
     } else { // there's no parameter, so we're adding an entry
         $result01 = $xoopsDB->query('SELECT COUNT(*) FROM ' . $xoopsDB->prefix('lxcategories') . ' ');
         list($totalcats) = $xoopsDB->fetchRow($result01);
@@ -236,7 +236,7 @@ function entryEdit($entryID = '')
         //        lx_adminMenu(2, _AM_LEXIKON_ADMINENTRYMNGMT);
         $uid = $xoopsUser->getVar('uid');
         echo '<h3 style="color: #2F5376; margin-top: 6px; ">' . _AM_LEXIKON_ADMINENTRYMNGMT . '</h3>';
-        $sform = new XoopsThemeForm(_AM_LEXIKON_NEWENTRY, 'op', xoops_getenv('PHP_SELF'));
+        $sform = new XoopsThemeForm(_AM_LEXIKON_NEWENTRY, 'op', xoops_getenv('PHP_SELF'), 'post', true);
     }
 
     $sform->setExtra('enctype="multipart/form-data"');
@@ -288,7 +288,7 @@ function entryEdit($entryID = '')
     $moduleHandler = xoops_getHandler('module');
     $tagsModule    = $moduleHandler->getByDirname('tag');
     if (is_object($tagsModule)) {
-        include_once XOOPS_ROOT_PATH . '/modules/tag/include/formtag.php';
+        require_once XOOPS_ROOT_PATH . '/modules/tag/include/formtag.php';
         $sform->addElement(new TagFormTag('item_tag', 60, 255, $entryID, $catid = 0));
     }
     // Code to take entry offline, for maintenance purposes
@@ -369,7 +369,7 @@ function entrySave($entryID = '')
     $myts    = MyTextSanitizer::getInstance();
     $entryID = isset($_POST['entryID']) ? (int)$_POST['entryID'] : (int)$_GET['entryID'];
     if ($xoopsModuleConfig['multicats'] == 1) {
-        $categoryID = isset($_POST['categoryID']) ? (int)$_POST['categoryID'] : (int)$_GET['categoryID'];
+        $categoryID = Request::getInt('categoryID', 0);
     } else {
         $categoryID = 1;
     }
@@ -416,8 +416,7 @@ function entrySave($entryID = '')
         }
         if ($xoopsDB->query('INSERT INTO '
                             . $xoopsDB->prefix('lxentries')
-                            . " (entryID, categoryID, term, init, definition, ref, url, uid, submit, datesub, html, smiley, xcodes, breaks, block, offline, notifypub, request ) VALUES (0, '$categoryID', '$term', '$init', '$definition', '$ref', '$url', '$uid', '$submit', '$date', '$html', '$smiley', '$xcodes', '$breaks', '$block', '$offline', '$notifypub', '$request' )")
-        ) {
+                            . " (entryID, categoryID, term, init, definition, ref, url, uid, submit, datesub, html, smiley, xcodes, breaks, block, offline, notifypub, request ) VALUES (0, '$categoryID', '$term', '$init', '$definition', '$ref', '$url', '$uid', '$submit', '$date', '$html', '$smiley', '$xcodes', '$breaks', '$block', '$offline', '$notifypub', '$request' )")) {
             $newid = $xoopsDB->getInsertId();
             // Increment author's posts count (only if it's a new definition)
             if (is_object($xoopsUser) && empty($entryID)) {
@@ -459,8 +458,7 @@ function entrySave($entryID = '')
     } else { // That is, $entryID exists, thus we're editing an entry
         if ($xoopsDB->query('UPDATE '
                             . $xoopsDB->prefix('lxentries')
-                            . " SET term = '$term', categoryID = '$categoryID', init = '$init', definition = '$definition', ref = '$ref', url = '$url', uid = '$uid', submit = '$submit', datesub = '$date', html = '$html', smiley = '$smiley', xcodes = '$xcodes', breaks = '$breaks', block = '$block', offline = '$offline', notifypub = '$notifypub', request = '$request' WHERE entryID = '$entryID'")
-        ) {
+                            . " SET term = '$term', categoryID = '$categoryID', init = '$init', definition = '$definition', ref = '$ref', url = '$url', uid = '$uid', submit = '$submit', datesub = '$date', html = '$html', smiley = '$smiley', xcodes = '$xcodes', breaks = '$breaks', block = '$block', offline = '$offline', notifypub = '$notifypub', request = '$request' WHERE entryID = '$entryID'")) {
             // trigger Notification only if its a new submission
             if (!empty($xoopsModuleConfig['notification_enabled'])) {
                 global $xoopsModule;

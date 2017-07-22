@@ -29,18 +29,18 @@ if (is_object($xoopsUser)) {
 
 function lx_adminMenu($currentoption = 0, $breadcrumb = '')
 {
-    include_once XOOPS_ROOT_PATH . '/class/template.php';
+    require_once XOOPS_ROOT_PATH . '/class/template.php';
 
     global $xoopsDB, $xoopsModule, $xoopsConfig;
     if (file_exists(XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->dirname() . '/language/' . $xoopsConfig['language'] . '/modinfo.php')) {
-        include_once XOOPS_ROOT_PATH . '/modules/lexikon/language/' . $xoopsConfig['language'] . '/modinfo.php';
+        require_once XOOPS_ROOT_PATH . '/modules/lexikon/language/' . $xoopsConfig['language'] . '/modinfo.php';
     } else {
-        include_once XOOPS_ROOT_PATH . '/modules/lexikon/language/english/modinfo.php';
+        require_once XOOPS_ROOT_PATH . '/modules/lexikon/language/english/modinfo.php';
     }
     if (file_exists(XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->dirname() . '/language/' . $xoopsConfig['language'] . '/admin.php')) {
-        include_once XOOPS_ROOT_PATH . '/modules/lexikon/language/' . $xoopsConfig['language'] . '/admin.php';
+        require_once XOOPS_ROOT_PATH . '/modules/lexikon/language/' . $xoopsConfig['language'] . '/admin.php';
     } else {
-        include_once XOOPS_ROOT_PATH . '/modules/lexikon/language/english/admin.php';
+        require_once XOOPS_ROOT_PATH . '/modules/lexikon/language/english/admin.php';
     }
 
     include __DIR__ . '/menu.php';
@@ -90,7 +90,7 @@ function lx_AddField($field, $table)
 {
     global $xoopsDB;
     //naja !
-    $result = $xoopsDB->queryF('ALTER TABLE ' . $table . ' ADD ' . $field . '');
+    $result = $xoopsDB->queryF('ALTER TABLE ' . $table . ' ADD ' . $field . ' ');
 
     return $result;
 }
@@ -166,7 +166,7 @@ function lx_importMenu($currentoption = 0, $breadcrumb = '')
     <div id=\"menu\">";
     // show only modules located on the system
     /** @var XoopsModuleHandler $moduleHandler */
-    $moduleHandler = xoops_getHandler('module');
+    $moduleHandler  = xoops_getHandler('module');
     $wordbookModule = $moduleHandler->getByDirname('wordbook');
     $got_options    = false;
     $cf             = 0;
@@ -398,7 +398,7 @@ function lx_save_Permissions($groups, $id, $perm_name)
     $hModule  = xoops_getHandler('module');
     $lxModule = $hModule->getByDirname('lexikon');
 
-    $module_id     = $lxModule->getVar('mid');
+    $module_id    = $lxModule->getVar('mid');
     $gpermHandler = xoops_getHandler('groupperm');
 
     /*

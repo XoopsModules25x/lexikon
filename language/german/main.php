@@ -7,7 +7,7 @@
  * Author: hsalazar
  * Licence: GNU
  */
-define('_MD_LEXIKON_NOCOLEXISTS', 'Verzeihung, aber es ist bis jetzt noch keine Kategorie angelegt worden.<br />Bitte teilen Sie dies dem Webmaster mit.');
+define('_MD_LEXIKON_NOCOLEXISTS', 'Verzeihung, aber es ist bis jetzt noch keine Kategorie angelegt worden.<br>Bitte teilen Sie dies dem Webmaster mit.');
 define('_MD_LEXIKON_ALL', 'Alle');
 define('_MD_LEXIKON_ALLCATS', 'Alle Kategorien');
 define('_MD_LEXIKON_ALLOFTHEM', '0 : Alle Kategorien');
@@ -63,7 +63,7 @@ define('_MD_LEXIKON_NORESULTS', 'Es gibt keine &Uuml;bereinstimmungen mit dem Su
 define('_MD_LEXIKON_NOSEARCHTERM', 'Sie haben keinen Suchbegriff angegeben. Bitte holen Sie es jetzt nach.');
 define('_MD_LEXIKON_NOTERMSINLETTER', 'Es gibt keine Eintr&auml;ge die mit diesem Buchstaben beginnen.');
 define('_MD_LEXIKON_NOTIFY', 'Bei Ver&ouml;ffentlichung benachrichtigen?');
-define('_MD_LEXIKON_NOTIFYONPUB', 'Der User wollte benachrichtigt werden, wenn wir etwas mit der Definition machen.<br />');
+define('_MD_LEXIKON_NOTIFYONPUB', 'Der User wollte benachrichtigt werden, wenn wir etwas mit der Definition machen.<br>');
 define('_MD_LEXIKON_OTHER', 'Andere');
 define('_MD_LEXIKON_POPULARENT', 'Popul&auml;re Eintrage');
 define('_MD_LEXIKON_POSTED', 'Ver&ouml;ffentlicht');
@@ -73,7 +73,7 @@ define('_MD_LEXIKON_RANDOMTERM', 'Zuf&auml;lliger Begriff');
 define('_MD_LEXIKON_RECEIVED', 'Wir haben den Eintrag erhalten. Wir werden ihn schnellstm&ouml;glich bearbeiten.');
 define('_MD_LEXIKON_RECEIVEDANDAPPROVED', 'Wir haben den Eintrag erhalten. Da automatische Freigabe eingeschaltet ist, wird der Eintrag sofort ver&ouml;ffentlicht.');
 define('_MD_LEXIKON_RECENTENT', 'Aktuelle Eintr&auml;ge');
-define('_MD_LEXIKON_REFERENCE', "Referenz<br /><span style='font-size: x-small; font-weight: normal; display: block;line-height:1em;'>(Sie k&ouml;nnen optional die Quelle der Definition angeben.)</span>");
+define('_MD_LEXIKON_REFERENCE', "Referenz<br><span style='font-size: x-small; font-weight: normal; display: block;line-height:1em;'>(Sie k&ouml;nnen optional die Quelle der Definition angeben.)</span>");
 define('_MD_LEXIKON_REQRCVD', 'Wir haben Ihre Anfrage erhalten und werden sie schnellstm&ouml;glich bearbeiten.');
 define('_MD_LEXIKON_REQSEND', 'Anfrage abgeschickt');
 define('_MD_LEXIKON_REQTERM', '[*] Zu definierender Begriff');
@@ -91,7 +91,8 @@ define('_MD_LEXIKON_SENDSTORY', 'Diesen Eintrag an einen Freund schicken');
 define('_MD_LEXIKON_SENDTOFRIEND', 'Diesen Begriff an einen Freund schicken');
 define('_MD_LEXIKON_SENT', 'Eingeschickt am: ');
 define('_MD_LEXIKON_SENTCONFIRMMAIL', 'Ihre Kommentare wurde als Best&auml;tigungsmail an <b>%s</b> geschickt.');
-define('_MD_LEXIKON_STILLNOTHINGHERE', "<h4 style='margin: 0;'>W&ouml;rterbuch leer</h4>Verzeihung: Wir haben noch keine Eintr&auml;ge in unserem W&ouml;rterbuch. Sie k&ouml;nnen uns helfen, in dem Sie Begriffe deren Bedeutung Sie gerne wissen w&uuml;rden, anfragen. Falls Sie ein registrierter User sind, k&ouml;nnen Sie uns auch helfen, in dem Sie Definitionen einschicken die Sie kennen.");
+define('_MD_LEXIKON_STILLNOTHINGHERE',
+       "<h4 style='margin: 0;'>W&ouml;rterbuch leer</h4>Verzeihung: Wir haben noch keine Eintr&auml;ge in unserem W&ouml;rterbuch. Sie k&ouml;nnen uns helfen, in dem Sie Begriffe deren Bedeutung Sie gerne wissen w&uuml;rden, anfragen. Falls Sie ein registrierter User sind, k&ouml;nnen Sie uns auch helfen, in dem Sie Definitionen einschicken die Sie kennen.");
 define('_MD_LEXIKON_SUB_SMNAME', 'F&uuml;llen Sie dieses Formular aus um Ihren Eintrag einzuschicken');
 define('_MD_LEXIKON_SUB_SNEWNAME', 'Einen Eintrag schicken an %s');
 define('_MD_LEXIKON_SUB_SNEWNAMEDESC', 'Bitte f&uuml;llen Sie das folgende Formular aus, um einen neuen Eintrag einzuschicken. Je nach Einstellung wird der Eintrag vorher gepr&uuml;ft oder automatisch freigegeben.');
@@ -107,7 +108,7 @@ define('_MD_LEXIKON_SUBMITTER', 'Einsender: ');
 define('_MD_LEXIKON_TERM', 'zu suchende Begriff(e)');
 define('_MD_LEXIKON_TERMS', 'Begriffe');
 define('_MD_LEXIKON_TERMSDEFS', 'Begriffe und Definitionen');
-define('_MD_LEXIKON_THANKS1', 'Vielen Dank f&uuml;r Ihre Beteiligung!<br />');
+define('_MD_LEXIKON_THANKS1', 'Vielen Dank f&uuml;r Ihre Beteiligung!<br>');
 define('_MD_LEXIKON_THANKS2', 'Vielen Dank, dass Sie nach einer Definition gefragt haben!');
 define('_MD_LEXIKON_THANKYOU', 'Vielen Dank, dass Sie sich die Zeit genommen haben eine Definition anzufragen die das Glossar auf %s bereichern wird.');
 define('_MD_LEXIKON_THEREWERE', 'Es gibt %s Eintr&auml;ge die dem Suchbegriff entsprechen: <b>%s</b>.');
@@ -138,9 +139,9 @@ define('_MD_LEXIKON_REQUESTSUGGEST', '(Klicken Sie die folgenden Wörter an, um 
 define('_MD_LEXIKON_ENTRYISOFF', 'Sorry, der Eintrag ist offline.');
 define('_MD_LEXIKON_ITEMEXISTS', 'Der Eintrag existiert bereits. Es war nicht m&ouml;glich, diesen Eintrag zu erstellen!');
 //RSS syndication
-define('_MD_LEXIKON_INCATS','Neueste Einträge in %s');
-define('_MD_LEXIKON_INCATS_DESC','Neueste Einträge in der Kategorie %s von %s');
-define('_MD_LEXIKON_LASTDESC','Neueste Einträge von der Site %s');
+define('_MD_LEXIKON_INCATS', 'Neueste Einträge in %s');
+define('_MD_LEXIKON_INCATS_DESC', 'Neueste Einträge in der Kategorie %s von %s');
+define('_MD_LEXIKON_LASTDESC', 'Neueste Einträge von der Site %s');
 // new servicelinks
 define('_MD_LEXIKON_PRINTTERM2', 'Druckversion');
 define('_MD_LEXIKON_SENDTOFRIEND2', 'Begriff weiterempfehlen');
@@ -175,8 +176,8 @@ define('_MD_LEXIKON_CONTRIBUTORSLIST', 'Hier eine Liste der Autoren des Lexikons
 define('_MD_LEXIKON_AUTHORTERMS', '%s hat %s Definitionen für das Lexikon eingeschickt.');
 define('_MD_LEXIKON_AUTHORWAITING', ' %s ihrer/seiner Definitionen warten noch auf Freigabe.');
 define('_MD_LEXIKON_NOWAITINGTERMS', 'Keine ihrer/seiner Definitionen warten auf Freigabe.');
-define('_MD_LEXIKON_DATETERM','Datum');
-define('_MD_LEXIKON_HITS','Hits');
+define('_MD_LEXIKON_DATETERM', 'Datum');
+define('_MD_LEXIKON_HITS', 'Hits');
 define('_MD_LEXIKON_AUTHOR', 'Benutzername');
 define('_MD_LEXIKON_TOTAL', 'Beitr&auml;ge');
 define('_MD_LEXIKON_MAIL', 'E-Mail');
@@ -187,7 +188,8 @@ define('_MD_LEXIKON_WWW', 'Website');
 define('_MD_LEXIKON_RANDOMIZE', 'n&auml;chster Eintrag');
 define('_MD_LEXIKON_TERMOFTHEDAY', 'Term of the day');
 define('_MD_LEXIKON_SYNDICATION', 'Webmastercontent');
-define('_MD_LEXIKON_SYNCODE', "&lt;iframe style='background-color: #FFFFFF'; marginwidth=0 marginheight=0 width='220' height='260' src='%s/modules/%s/syndication.php' frameborder='0' topmargin='0' leftmargin='0' scrolling='no' allowtransparency='true' /&gt; [Your user agent does not support frames or is currently configured not to display frames.]</iframe>");
+define('_MD_LEXIKON_SYNCODE',
+       "&lt;iframe style='background-color: #FFFFFF'; marginwidth=0 marginheight=0 width='220' height='260' src='%s/modules/%s/syndication.php' frameborder='0' topmargin='0' leftmargin='0' scrolling='no' allowtransparency='true' /&gt; [Your user agent does not support frames or is currently configured not to display frames.]</iframe>");
 define('_MD_LEXIKON_SUB_SYNNAME', 'Gratis Webmastercontent f&uuml;r ihre Site');
 define('_MD_LEXIKON_INTROCONTENTSYN', 'Haben Sie Gefallen an unseren Glossar-Einträgen gefunden? Sie können Glossar-Inhalte von %s auf Ihrer website einbinden. Dazu f&uuml;gen Sie diesen Quelltext auf ihrer website ein.');
 define('_MD_LEXIKON_POWER', 'Powered by ');
@@ -204,7 +206,7 @@ define('_MD_LEXIKON_CONFMOD', '&Auml;nderung übernommen!');
 define('_MD_LEXIKON_APPROVED', 'Ihre Anfrage wurde vom Webmaster von %s &uuml;bernommen und wird ab sofort online im Lexikon erscheinen.');
 define('_MD_LEXIKON_REGARDS', 'Mit freundlichen Gr&uuml;ssen / Best Regards');
 define('_MD_LEXIKON_DEFINITIONMOD', 'Lexikon &Auml;nderungseinsendung');
-	// ...user side
+// ...user side
 define('_MD_LEXIKON_THANKS3', 'Vielen Dank für die Definitions-Einsendung!');
 define('_MD_LEXIKON_THANKSREVIEW', 'Vielen Dank für die Änderungs-Einsendung!');
 define('_MD_LEXIKON_THANKYOU2', "Vielen Dank, dass Sie sich die Zeit genommen haben eine Definition zu &auml;ndern.\nSie erhalten eine weitere Nachricht sobald der Eintrag freigeschaltet wurde.");

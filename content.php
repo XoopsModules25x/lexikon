@@ -17,7 +17,7 @@ if (!is_object($xoopsUser) && $xoopsModuleConfig['contentsyndication'] == 0) {
     redirect_header(XOOPS_URL . '/user.php?xoops_redirect=' . parse_url($_SERVER['PHP_SELF']), 5, _NOPERM);
 }
 
-include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
+require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
 
 include __DIR__ . '/include/syndication.inc.php';
 $yform->assign($xoopsTpl);
@@ -29,7 +29,7 @@ $xoopsTpl->assign('lang_modulename', $xoopsModule->name());
 $xoopsTpl->assign('lang_moduledirname', $xoopsModule->getVar('dirname'));
 
 $xoopsTpl->assign('xoops_pagetitle', _MD_LEXIKON_SYNDICATION . ' - ' . $myts->htmlSpecialChars($xoopsModule->name()));
-$xoopsTpl->assign('xoops_module_header', '<link rel="stylesheet" type="text/css" href="assets/css/style.css" />');
+$xoopsTpl->assign('xoops_module_header', '<link rel="stylesheet" type="text/css" href="assets/css/style.css">');
 
 // Meta data
 $meta_description = _MD_LEXIKON_SYNDICATION . ' - ' . $myts->htmlSpecialChars($xoopsModule->name());

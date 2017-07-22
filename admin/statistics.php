@@ -9,6 +9,8 @@
  * Licence: GNU
  */
 
+use Xmf\Request;
+
 require_once __DIR__ . '/admin_header.php';
 $myts = MyTextSanitizer::getInstance();
 if (!isset($op)) {
@@ -55,7 +57,7 @@ function lx_Statistics()
     $totals = array(0, 0, 0, 0);
 
     //   printf("<h1>%s</h1>\n",_AM_LEXIKON_STATS);
-    $adminObject  = \Xmf\Module\Admin::getInstance();
+    $adminObject = \Xmf\Module\Admin::getInstance();
     $adminObject->displayNavigation(basename(__FILE__));
     // First part of the stats, everything about categories
     $termspercategory   = $stats['termspercategory'];
@@ -66,17 +68,7 @@ function lx_Statistics()
 
     echo "<div class='center;'><b>" . _AM_LEXIKON_STATS0 . "</b><br>\n";
     echo "<table width='100%' style=\"margin-top: 6px; clear:both;\" cellspacing='2' cellpadding='3' border='0' >";
-    echo "<tr class='bg3'><td align='center'>"
-         . _AM_LEXIKON_ENTRYCATNAME
-         . "</td><td align='center'>"
-         . _AM_LEXIKON_TOTALENTRIES
-         . '</td><td>'
-         . _READS
-         . '</td><td>'
-         . _AM_LEXIKON_STATS6
-         . '</td><td>'
-         . _AM_LEXIKON_STATS1
-         . '</td></tr>';
+    echo "<tr class='bg3'><td align='center'>" . _AM_LEXIKON_ENTRYCATNAME . "</td><td align='center'>" . _AM_LEXIKON_TOTALENTRIES . '</td><td>' . _READS . '</td><td>' . _AM_LEXIKON_STATS6 . '</td><td>' . _AM_LEXIKON_STATS1 . '</td></tr>';
 
     foreach ($termspercategory as $categoryID => $data) {
         $url   = XOOPS_URL . '/modules/' . $xoopsModule->dirname() . '/category.php?categoryID=' . $categoryID;
@@ -98,14 +90,10 @@ function lx_Statistics()
         $totals[1] += $views;
         $totals[2] += $offline;
         $class     = ($class === 'even') ? 'odd' : 'even';
-        printf("<tr class='"
-               . $class
-               . "'><td align='center'><a href='%s' target ='_blank'>%s</a></td><td align='center'>%u</td><td align='center'>%u</td><td align='center'>%u</td><td align='center'>%u</td></tr>\n", $url,
-               $myts->displayTarea($data['name']), $terms, $views, $offline, $authors);
+        printf("<tr class='" . $class . "'><td align='center'><a href='%s' target ='_blank'>%s</a></td><td align='center'>%u</td><td align='center'>%u</td><td align='center'>%u</td><td align='center'>%u</td></tr>\n", $url, $myts->displayTarea($data['name']), $terms, $views, $offline, $authors);
     }
     $class = ($class === 'even') ? 'odd' : 'even';
-    printf("<tr class='" . $class . "'><td align='center'><b>%s</b></td><td align='center'><b>%u</b></td><td align='center'><b>%u</b></td><td align='center'><b>%u</b></td><td>&nbsp;</td>\n",
-           _AM_LEXIKON_STATS2, $totals[0], $totals[1], $totals[2]);
+    printf("<tr class='" . $class . "'><td align='center'><b>%s</b></td><td align='center'><b>%u</b></td><td align='center'><b>%u</b></td><td align='center'><b>%u</b></td><td>&nbsp;</td>\n", _AM_LEXIKON_STATS2, $totals[0], $totals[1], $totals[2]);
     echo '</table></div><br><br><br>';
 
     // Second part of the stats, everything about reads
@@ -120,10 +108,8 @@ function lx_Statistics()
         $url2   = XOOPS_URL . '/modules/' . $xoopsModule->dirname() . '/entry.php?entryID=' . $entryID;
         $sentby = XoopsUserUtility::getUnameFromId($data['uid']);
         $class  = ($class === 'even') ? 'odd' : 'even';
-        printf("<tr class='"
-               . $class
-               . "'><td align='left'><a href='%s' target ='_blank'>%s</a></td><td align='left'><a href='%s' target='_blank'>%s</a></td><td>%s</td><td align='right'>%u</td></tr>\n", $url1,
-               $myts->displayTarea($data['name']), $url2, $myts->displayTarea($data['term']), $sentby, $data['counter']);
+        printf("<tr class='" . $class . "'><td align='left'><a href='%s' target ='_blank'>%s</a></td><td align='left'><a href='%s' target='_blank'>%s</a></td><td>%s</td><td align='right'>%u</td></tr>\n", $url1, $myts->displayTarea($data['name']), $url2, $myts->displayTarea($data['term']), $sentby,
+               $data['counter']);
     }
     echo '</table>';
 
@@ -137,10 +123,8 @@ function lx_Statistics()
         $url2   = XOOPS_URL . '/modules/' . $xoopsModule->dirname() . '/entry.php?entryID=' . $entryID;
         $sentby = XoopsUserUtility::getUnameFromId($data['uid']);
         $class  = ($class === 'even') ? 'odd' : 'even';
-        printf("<tr class='"
-               . $class
-               . "'><td align='left'><a href='%s' target ='_blank'>%s</a></td><td align='left'><a href='%s' target='_blank'>%s</a></td><td>%s</td><td align='right'>%u</td></tr>\n", $url1,
-               $myts->displayTarea($data['name']), $url2, $myts->displayTarea($data['term']), $sentby, $data['counter']);
+        printf("<tr class='" . $class . "'><td align='left'><a href='%s' target ='_blank'>%s</a></td><td align='left'><a href='%s' target='_blank'>%s</a></td><td>%s</td><td align='right'>%u</td></tr>\n", $url1, $myts->displayTarea($data['name']), $url2, $myts->displayTarea($data['term']), $sentby,
+               $data['counter']);
     }
     echo '</table>';
     echo '<br><br><br>';
@@ -173,7 +157,7 @@ function lx_Statistics()
 }
 
 /* -- Available operations -- */
-$op = isset($_GET['op']) ? $_GET['op'] : (isset($_POST['op']) ? $_POST['op'] : '');
+$op = Request::getCmd('op', '');
 switch ($op) {
 
     default:

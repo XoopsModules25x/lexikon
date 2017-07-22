@@ -11,10 +11,10 @@
 
 include __DIR__ . '/header.php';
 $GLOBALS['xoopsOption']['template_main'] = 'lx_authorlist.tpl';
-include_once XOOPS_ROOT_PATH . '/header.php';
+require_once XOOPS_ROOT_PATH . '/header.php';
 global $xoopsUser, $xoTheme, $xoopsTpl, $authortermstotal, $xoopsModule;
-include_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->dirname() . '/class/Utility.php';
-include_once XOOPS_ROOT_PATH . '/modules/lexikon/include/common.inc.php';
+require_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->dirname() . '/class/utility.php';
+require_once XOOPS_ROOT_PATH . '/modules/lexikon/include/common.inc.php';
 $authorlistext = false;
 $myts          = MyTextSanitizer::getInstance();
 
@@ -68,15 +68,8 @@ if (count($uid_ids) > 0) {
             if (is_object($xoopsUser)) {
                 if ($xoopsUserIsAdmin
                     || ($one_user->getVar('user_viewemail') == 1
-                        && $one_user->getVar('email') != '')
-                ) {
-                    $user_maillink = "<a href='mailto:"
-                                     . $one_user->getVar('email')
-                                     . '\'><img src=\''
-                                     . XOOPS_URL
-                                     . "/images/icons/email.gif' border='0' alt=\""
-                                     . sprintf(_SENDEMAILTO, $one_user->getVar('uname'))
-                                     . '"/></A>';
+                        && $one_user->getVar('email') != '')) {
+                    $user_maillink = "<a href='mailto:" . $one_user->getVar('email') . '\'><img src=\'' . XOOPS_URL . "/images/icons/email.gif' border='0' alt=\"" . sprintf(_SENDEMAILTO, $one_user->getVar('uname')) . '"/></A>';
                 } else {
                     $user_maillink = '';
                 }
@@ -85,7 +78,7 @@ if (count($uid_ids) > 0) {
             }
             if ($one_user->getVar('url') != '') {
                 $url          = $one_user->getVar('url');
-                $user_wwwlink = "<a href='" . $one_user->getVar('url') . '\'><img src=\'' . XOOPS_URL . "/images/icons/www.gif' border='0' alt='" . _VISITWEBSITE . '\' /></a>';
+                $user_wwwlink = "<a href='" . $one_user->getVar('url') . '\'><img src=\'' . XOOPS_URL . "/images/icons/www.gif' border='0' alt='" . _VISITWEBSITE . '\'></a>';
             } else {
                 $user_wwwlink = '';
             }
@@ -140,7 +133,7 @@ $xoopsTpl->assign('lang_modulename', $xoopsModule->name());
 $xoopsTpl->assign('lang_moduledirname', $xoopsModule->dirname());
 
 $xoopsTpl->assign('xoops_pagetitle', _MD_LEXIKON_CONTRIBUTORS . ' - ' . $myts->htmlSpecialChars($xoopsModule->name()));
-$xoopsTpl->assign('xoops_module_header', '<link rel="stylesheet" type="text/css" href="assets/css/style.css" />');
+$xoopsTpl->assign('xoops_module_header', '<link rel="stylesheet" type="text/css" href="assets/css/style.css">');
 
 // Meta data
 $meta_description = _MD_LEXIKON_CONTRIBUTORS . ' - ' . $myts->htmlSpecialChars($xoopsModule->name());
@@ -150,4 +143,4 @@ if (isset($xoTheme) && is_object($xoTheme)) {
     $xoopsTpl->assign('xoops_meta_description', $meta_description);
 }
 
-include_once XOOPS_ROOT_PATH . '/footer.php';
+require_once XOOPS_ROOT_PATH . '/footer.php';

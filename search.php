@@ -1,4 +1,4 @@
-<?PHP
+<?php
 /**
  *
  * Module: Lexikon -  glossary module
@@ -7,6 +7,9 @@
  * Author: hsalazar
  * Licence: GNU
  */
+
+use Xmf\Request;
+
 #$xoopsOption['pagetype'] = "search";
 
 include __DIR__ . '/header.php';
@@ -16,13 +19,13 @@ include XOOPS_ROOT_PATH . '/header.php';
 global $xoTheme, $xoopsDB, $xoopsModule, $xoopsModuleConfig, $searchtype;
 $myts = MyTextSanitizer::getInstance();
 // -- options
-include_once XOOPS_ROOT_PATH . '/modules/lexikon/include/common.inc.php';
+require_once XOOPS_ROOT_PATH . '/modules/lexikon/include/common.inc.php';
 $highlight = false;
 $highlight = ($xoopsModuleConfig['config_highlighter'] = 1) ? 1 : 0;
 //$highlight = LexikonUtility::getModuleOption('config_highlighter');
 $hightlight_key = '';
 
-include_once XOOPS_ROOT_PATH . '/class/pagenav.php';
+require_once XOOPS_ROOT_PATH . '/class/pagenav.php';
 
 // Check if search is enabled site-wide
 $configHandler     = xoops_getHandler('config');
@@ -39,14 +42,14 @@ $module_id    = $xoopsModule->getVar('mid');
 $allowed_cats = $gpermHandler->getItemIds('lexikon_view', $groups, $module_id);
 $catids       = implode(',', $allowed_cats);
 
-extract($_GET);
-extract($_POST, EXTR_OVERWRITE);
+//extract($_GET);
+//extract($_POST, EXTR_OVERWRITE);
 
-$action     = isset($action) ? trim($action) : 'search';
-$query      = isset($term) ? trim($term) : '';
-$start      = isset($start) ? (int)$start : 0;
-$categoryID = isset($categoryID) ? (int)$categoryID : 0;
-$type       = isset($type) ? (int)$type : 3;
+$action     = Request::getCmd('action', 'search', 'GET'); //isset($action) ? trim($action) : 'search';
+$query      = Request::getString('term', '', 'GET'); //isset($term) ? trim($term) : '';
+$start      = Request::getInt('start', 0, 'GET'); //isset($start) ? (int)$start : 0;
+$categoryID = Request::getInt('categoryID', 0, 'GET'); //isset($categoryID) ? (int)$categoryID : 0;
+$type       = Request::getInt('type', 3, 'GET'); //isset($type) ? (int)$type : 3;
 $queries    = array();
 
 if ($xoopsModuleConfig['multicats'] == 1) {
@@ -94,13 +97,7 @@ if (!$query) {
 } else {
     // IF results, count number
     $catrestrict = " categoryID IN ($catids) ";
-    $searchquery = $xoopsDB->query('SELECT COUNT(*) as nrows FROM '
-                                   . $xoopsDB->prefix('lxentries')
-                                   . " w WHERE offline='0' AND "
-                                   . $catrestrict
-                                   . ' '
-                                   . $andcatid
-                                   . " AND $searchtype   ORDER BY term DESC");
+    $searchquery = $xoopsDB->query('SELECT COUNT(*) as nrows FROM ' . $xoopsDB->prefix('lxentries') . " w WHERE offline='0' AND " . $catrestrict . ' ' . $andcatid . " AND $searchtype   ORDER BY term DESC");
     list($results) = $xoopsDB->fetchRow($searchquery);
 
     if ($results == 0) {
@@ -192,7 +189,7 @@ if (!$query) {
 $xoopsTpl->assign('lang_modulename', $xoopsModule->name());
 $xoopsTpl->assign('lang_moduledirname', $xoopsModule->getVar('dirname'));
 
-$xoopsTpl->assign('xoops_module_header', '<link rel="stylesheet" type="text/css" href="assets/css/style.css" />');
+$xoopsTpl->assign('xoops_module_header', '<link rel="stylesheet" type="text/css" href="assets/css/style.css">');
 $xoopsTpl->assign('xoops_pagetitle', _MD_LEXIKON_SEARCHENTRY . ' - ' . $myts->htmlSpecialChars($xoopsModule->name()));
 
 // Meta data

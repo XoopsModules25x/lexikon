@@ -17,7 +17,7 @@ if (function_exists('mb_http_output')) {
 }
 //error_reporting(E_ALL |E_ERROR | E_WARNING | E_PARSE);
 header('Content-Type:text/xml; charset=utf-8');
-include_once $GLOBALS['xoops']->path('class/template.php');
+require_once $GLOBALS['xoops']->path('class/template.php');
 $tpl                 = new XoopsTpl();
 $tpl->caching        = 0;
 $tpl->cache_lifetime = 3600;
@@ -27,7 +27,7 @@ $myts         = MyTextSanitizer::getInstance();
 $category_rss = isset($_GET['categoryID']) ? $_GET['categoryID'] : 0;
 //permissions
 $gpermHandler = xoops_getHandler('groupperm');
-$groups        = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
+$groups       = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
 /** @var XoopsModuleHandler $moduleHandler */
 $moduleHandler = xoops_getHandler('module');
 $module        = $moduleHandler->getByDirname('lexikon');

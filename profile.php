@@ -11,9 +11,9 @@
 
 include __DIR__ . '/header.php';
 $GLOBALS['xoopsOption']['template_main'] = 'lx_profile.tpl';
-include_once XOOPS_ROOT_PATH . '/header.php';
+require_once XOOPS_ROOT_PATH . '/header.php';
 global $xoopsModule, $xoopsUser;
-include_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->getVar('dirname') . '/class/Utility.php';
+require_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->getVar('dirname') . '/class/utility.php';
 $myts = MyTextSanitizer::getInstance();
 
 if (empty($xoopsUser) && !$xoopsModuleConfig['authorprofile']) {
@@ -66,7 +66,7 @@ if ($authortermstotal == 0) {
     $xoopsTpl->assign('nothing', false);
 }
 // get infotext
-$result2 = $xoopsDB->query('SELECT COUNT(*) FROM ' . $xoopsDB->prefix('lxentries') . " WHERE uid='" . $uid . "' " . $catperms . " AND offline = '1' ");
+$result2 = $xoopsDB->query('SELECT COUNT(*) FROM ' . $xoopsDB->prefix('lxentries') . " WHERE uid='" . $uid . '\' ' . $catperms . " AND offline = '1' ");
 list($totalwaiting) = $xoopsDB->fetchRow($result2);
 if (!$totalwaiting) {
     $xoopsTpl->assign('waiting', constant('_MD_LEXIKON_NOWAITINGTERMS'));
@@ -87,7 +87,7 @@ $xoopsTpl->assign('user_avatarurl', XOOPS_URL . '/uploads/' . $thisuser->getVar(
 $xoopsTpl->assign('lang_authorprofile', _MD_LEXIKON_AUTHORPROFILE);
 $xoopsTpl->assign('author_name_with_link', sprintf("<a href='%s'>%s</a>", XOOPS_URL . '/userinfo.php?uid=' . $uid, $authname));
 
-$xoopsTpl->assign('xoops_module_header', '<link rel="stylesheet" type="text/css" href="assets/css/style.css" />');
+$xoopsTpl->assign('xoops_module_header', '<link rel="stylesheet" type="text/css" href="assets/css/style.css">');
 $xoopsTpl->assign('xoops_pagetitle', _MD_LEXIKON_AUTHORPROFILE . ' - ' . $authname . ' - ' . $myts->htmlSpecialChars($xoopsModule->name()));
 
 // Meta data
@@ -98,4 +98,4 @@ if (isset($xoTheme) && is_object($xoTheme)) {
     $xoopsTpl->assign('xoops_meta_description', $meta_description);
 }
 
-include_once XOOPS_ROOT_PATH . '/footer.php';
+require_once XOOPS_ROOT_PATH . '/footer.php';

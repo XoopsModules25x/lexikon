@@ -23,8 +23,8 @@ function lx_search($queryarray, $andor, $limit, $offset, $userid)
     // -- search comments + highlighter
     $highlight        = false;
     $searchincomments = false;
-    include_once XOOPS_ROOT_PATH . '/modules/lexikon/include/common.inc.php';
-    include_once XOOPS_ROOT_PATH . '/modules/lexikon/class/Utility.php';
+    require_once XOOPS_ROOT_PATH . '/modules/lexikon/include/common.inc.php';
+    require_once XOOPS_ROOT_PATH . '/modules/lexikon/class/utility.php';
     $hightlight_key = '';
     $highlight      = LexikonUtility::getModuleOption('config_highlighter');
     //if ( is_object($xoopsUser) ) {
@@ -95,7 +95,7 @@ function lx_search($queryarray, $andor, $limit, $offset, $userid)
     //}
     // --- comments search ---
     if ($searchincomments && (isset($limit) && $i <= $limit)) {
-        include_once XOOPS_ROOT_PATH . '/include/comment_constants.php';
+        require_once XOOPS_ROOT_PATH . '/include/comment_constants.php';
         $ind = $i;
         $sql = 'SELECT com_id, com_modid, com_itemid, com_created, com_uid, com_title, com_text, com_status
                FROM ' . $xoopsDB->prefix('xoopscomments') . "
@@ -126,7 +126,7 @@ function lx_search($queryarray, $andor, $limit, $offset, $userid)
             }*/
             list($entryID, $offline) = $xoopsDB->fetchRow($xoopsDB->query('
                                          SELECT entryID, offline
-                                         FROM ' . $xoopsDB->prefix('lxentries') . ' WHERE entryID = ' . $myrow['com_itemid'] . ''));
+                                         FROM ' . $xoopsDB->prefix('lxentries') . ' WHERE entryID = ' . $myrow['com_itemid'] . ' '));
             if ($offline == 1) {
                 $display = false;
             }

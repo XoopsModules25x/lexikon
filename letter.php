@@ -8,18 +8,20 @@
  * Licence: GNU
  */
 
+use Xmf\Request;
+
 include __DIR__ . '/header.php';
 $GLOBALS['xoopsOption']['template_main'] = 'lx_letter.tpl';
-include_once XOOPS_ROOT_PATH . '/header.php';
-include_once XOOPS_ROOT_PATH . '/modules/lexikon/include/common.inc.php';
+require_once XOOPS_ROOT_PATH . '/header.php';
+require_once XOOPS_ROOT_PATH . '/modules/lexikon/include/common.inc.php';
 
 global $xoTheme, $xoopsUser;
 $myts = MyTextSanitizer::getInstance();
 
-$init = isset($_GET['init']) ? $_GET['init'] : 0;
+$init = Request::getString('init', 0, 'GET');
 $xoopsTpl->assign('firstletter', $init);
-include_once XOOPS_ROOT_PATH . '/class/pagenav.php';
-$start = isset($_GET['start']) ? (int)$_GET['start'] : 0;
+require_once XOOPS_ROOT_PATH . '/class/pagenav.php';
+$start = Request::getInt('start', 0, 'GET');
 
 $publishedwords = LexikonUtility::countWords();
 $xoopsTpl->assign('publishedwords', $publishedwords);
@@ -38,7 +40,7 @@ $xoopsTpl->assign('multicats', (int)$xoopsModuleConfig['multicats']);
 $alpha = LexikonUtility::getAlphaArray();
 $xoopsTpl->assign('alpha', $alpha);
 
-list($howmanyother) = $xoopsDB->fetchRow($xoopsDB->query('SELECT COUNT(*) FROM ' . $xoopsDB->prefix('lxentries') . " WHERE init = '#' AND offline ='0' " . $catperms . ''));
+list($howmanyother) = $xoopsDB->fetchRow($xoopsDB->query('SELECT COUNT(*) FROM ' . $xoopsDB->prefix('lxentries') . " WHERE init = '#' AND offline ='0' " . $catperms . ' '));
 $xoopsTpl->assign('totalother', $howmanyother);
 
 // To display the list of categories
@@ -119,19 +121,11 @@ if (!$init) {
     // How many entries will we show in this page?
     if ($init == _MD_LEXIKON_OTHER) {
         //$queryB = "SELECT * FROM " . $xoopsDB -> prefix( 'lxentries' ) . " WHERE submit ='0' AND offline = '0' AND init = '#' ORDER BY term ASC";
-        $queryB  = 'SELECT entryID, categoryID, term, definition, uid, html, smiley, xcodes, breaks, comments FROM '
-                   . $xoopsDB->prefix('lxentries')
-                   . " WHERE submit ='0' AND offline = '0' AND init = '#' "
-                   . $catperms
-                   . '  ORDER BY term ASC';
+        $queryB  = 'SELECT entryID, categoryID, term, definition, uid, html, smiley, xcodes, breaks, comments FROM ' . $xoopsDB->prefix('lxentries') . " WHERE submit ='0' AND offline = '0' AND init = '#' " . $catperms . '  ORDER BY term ASC';
         $resultB = $xoopsDB->query($queryB, $xoopsModuleConfig['indexperpage'], $start);
     } else {
         //$queryB = "SELECT * FROM " . $xoopsDB -> prefix( 'lxentries' ) . " WHERE submit ='0' AND offline = '0' AND init = '$init' AND init != '#' ORDER BY term ASC";
-        $queryB  = 'SELECT entryID, categoryID, term, definition, uid, html, smiley, xcodes, breaks, comments FROM '
-                   . $xoopsDB->prefix('lxentries')
-                   . " WHERE submit ='0' AND offline = '0' AND init = '$init' AND init != '#' "
-                   . $catperms
-                   . '  ORDER BY term ASC';
+        $queryB  = 'SELECT entryID, categoryID, term, definition, uid, html, smiley, xcodes, breaks, comments FROM ' . $xoopsDB->prefix('lxentries') . " WHERE submit ='0' AND offline = '0' AND init = '$init' AND init != '#' " . $catperms . '  ORDER BY term ASC';
         $resultB = $xoopsDB->query($queryB, $xoopsModuleConfig['indexperpage'], $start);
     }
 
@@ -143,11 +137,7 @@ if (!$init) {
     if ($init == _MD_LEXIKON_OTHER) {
         $allentries = $xoopsDB->query('SELECT entryID FROM ' . $xoopsDB->prefix('lxentries') . " WHERE init = '#' AND submit ='0' AND offline = '0' " . $catperms . '  ORDER BY term ASC ');
     } else {
-        $allentries = $xoopsDB->query('SELECT entryID FROM '
-                                      . $xoopsDB->prefix('lxentries')
-                                      . " WHERE init = '$init' AND init != '#' AND submit ='0' AND offline = '0' "
-                                      . $catperms
-                                      . '  ORDER BY term ASC ');
+        $allentries = $xoopsDB->query('SELECT entryID FROM ' . $xoopsDB->prefix('lxentries') . " WHERE init = '$init' AND init != '#' AND submit ='0' AND offline = '0' " . $catperms . '  ORDER BY term ASC ');
     }
     $totalentries = $xoopsDB->getRowsNum($allentries);
     $xoopsTpl->assign('totalentries', $totalentries);
@@ -226,6 +216,6 @@ if ($publishedwords != 0) {
     }
 }
 
-$xoopsTpl->assign('xoops_module_header', '<link rel="stylesheet" type="text/css" href="assets/css/style.css" />');
+$xoopsTpl->assign('xoops_module_header', '<link rel="stylesheet" type="text/css" href="assets/css/style.css">');
 
 include XOOPS_ROOT_PATH . '/footer.php';

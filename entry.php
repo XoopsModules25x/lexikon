@@ -10,15 +10,15 @@
 
 include __DIR__ . '/header.php';
 $GLOBALS['xoopsOption']['template_main'] = 'lx_entry.tpl';
-include_once XOOPS_ROOT_PATH . '/header.php';
+require_once XOOPS_ROOT_PATH . '/header.php';
 global $xoTheme, $xoopsUser, $lexikon_module_header;
 $myts = MyTextSanitizer::getInstance();
 xoops_load('XoopsUserUtility');
 
-include_once XOOPS_ROOT_PATH . '/modules/lexikon/include/common.inc.php';
+require_once XOOPS_ROOT_PATH . '/modules/lexikon/include/common.inc.php';
 $highlight = LexikonUtility::getModuleOption('config_highlighter');
 if ($highlight) {
-    include_once XOOPS_ROOT_PATH . '/modules/lexikon/class/keyhighlighter.class.php';
+    require_once XOOPS_ROOT_PATH . '/modules/lexikon/class/keyhighlighter.class.php';
 }
 
 $entryID = isset($_GET['entryID']) ? (int)$_GET['entryID'] : 0;
@@ -72,8 +72,7 @@ if (!$entryID) {
     }
     if (!$xoopsUser || ($xoopsUser->isAdmin($xoopsModule->mid()) && $xoopsModuleConfig['adminhits'] == 1)
         || ($xoopsUser
-            && !$xoopsUser->isAdmin($xoopsModule->mid()))
-    ) {
+            && !$xoopsUser->isAdmin($xoopsModule->mid()))) {
         $xoopsDB->queryF('UPDATE ' . $xoopsDB->prefix('lxentries') . " SET counter = counter+1 WHERE entryID = $entryID ");
     }
 
@@ -82,7 +81,7 @@ if (!$entryID) {
                                  WHERE entryID = $entryID");
     // verify result
     if ($xoopsDB->getRowsNum($result) <= 0) {
-        redirect_header(XOOPS_URL.'/modules/lexikon/index.php', 2, _MD_LEXIKON_UNKNOWNERROR);
+        redirect_header(XOOPS_URL . '/modules/lexikon/index.php', 2, _MD_LEXIKON_UNKNOWNERROR);
     }
 }
 
@@ -121,7 +120,7 @@ while (list($entryID, $categoryID, $term, $init, $definition, $ref, $url, $uid, 
         LexikonUtility::getModuleHeader();
         $xoopsTpl->assign('xoops_module_header', $lexikon_module_header);
     } else {
-        $xoopsTpl->assign('xoops_module_header', '<link rel="stylesheet" type="text/css" href="assets/css/style.css" />');
+        $xoopsTpl->assign('xoops_module_header', '<link rel="stylesheet" type="text/css" href="assets/css/style.css">');
     }
 
     if ($xoopsModuleConfig['linkterms'] != 1) {
@@ -147,21 +146,11 @@ while (list($entryID, $categoryID, $term, $init, $definition, $ref, $url, $uid, 
                             $replace_term = '<a class="parser" href="' . $staticURL . '" onMouseover="ddrivetip(\'' . $tooltipdef . '\', 300)"; onMouseout=\'hideddrivetip()\'>' . $term . '</a>';
                             break;
                         case 4://simple popup
-                            $replace_term = '<a style="cursor:help;border-bottom: 1px dotted #000;color: #2F5376;" href="#" onClick=\'popup("popup.php?entryID='
-                                            . $entryID
-                                            . '","details", 420, 350); return false\'>'
-                                            . $term
-                                            . '</a>';
+                            $replace_term = '<a style="cursor:help;border-bottom: 1px dotted #000;color: #2F5376;" href="#" onClick=\'popup("popup.php?entryID=' . $entryID . '","details", 420, 350); return false\'>' . $term . '</a>';
                             break;
                         case 5:// balloon tooltip
                             $tooltipdef   = $myts->htmlSpecialChars(xoops_substr(strip_tags($definition), 0, 150));
-                            $replace_term = '<a class="parser" href="'
-                                            . $staticURL
-                                            . '" onMouseover="showToolTip(event,\''
-                                            . $tooltipdef
-                                            . '\');return false"; onMouseout=\'hideToolTip()\'>'
-                                            . $term
-                                            . '</a>';
+                            $replace_term = '<a class="parser" href="' . $staticURL . '" onMouseover="showToolTip(event,\'' . $tooltipdef . '\');return false"; onMouseout=\'hideToolTip()\'>' . $term . '</a>';
                             break;
                         case 6:// shadow tooltip
                             $tooltipdef   = $myts->htmlSpecialChars(xoops_substr(strip_tags($definition), 0, 150));
@@ -232,7 +221,7 @@ function lx_myhighlighter($matches)
 $moduleHandler = xoops_getHandler('module');
 $tagsModule    = $moduleHandler->getByDirname('tag');
 if (is_object($tagsModule)) {
-    include_once XOOPS_ROOT_PATH . '/modules/tag/include/tagbar.php';
+    require_once XOOPS_ROOT_PATH . '/modules/tag/include/tagbar.php';
 
     $itemid = isset($_GET['entryID']) ? (int)$_GET['entryID'] : 0;
     $catid  = 0;
@@ -288,4 +277,4 @@ if ($xoopsModuleConfig['multicats'] == 1) {
 //Mondarse
 include XOOPS_ROOT_PATH . '/include/comment_view.php';
 //Mondarse
-include_once XOOPS_ROOT_PATH . '/footer.php';
+require_once XOOPS_ROOT_PATH . '/footer.php';
