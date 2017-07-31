@@ -1,11 +1,11 @@
 Hello {X_UNAME},
 
-A new definition "{ITEM_NAME}" has been added in {X_MODULE} at {X_SITENAME}.
+A new Category "{ITEM_NAME}" has been created in {X_MODULE} at {X_SITENAME}.
 
-{ITEM_NAME}
-{ITEM_BODY}
+Follow this link to the {X_MODULE}
+{X_MODULE_URL}
 
-Follow this link to the new definition
+Follow this link to the new category "{ITEM_NAME}" :
 {ITEM_URL}
 
 -----------
@@ -17,6 +17,6 @@ If this is an error or you wish not to receive further such notifications, pleas
 Please do not reply to this message.
 
 -----------
-{X_SITENAME} ({X_SITEURL})
+{X_SITENAME} ({X_SITEURL}) 
 The webmaster
 {X_ADMINMAIL}

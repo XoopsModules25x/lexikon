@@ -3,7 +3,7 @@
         <a class="ui-corner-all tooltip" href="<{$xoops_url}>/modules/lexikon/admin/index.php"
            title="Back to the administration of Lexikon"> Lexikon
             <img src="<{xoAdminIcons home.png}>"
-                 alt="Back to the Administration of Lexikon"/>
+                 alt="Back to the Administration of Lexikon">
         </a></h1>
 
     <h4 class="odd">Description</h4>
