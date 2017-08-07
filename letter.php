@@ -41,6 +41,15 @@ $xoopsTpl->assign('alpha', $alpha);
 list($howmanyother) = $xoopsDB->fetchRow($xoopsDB->query('SELECT COUNT(*) FROM ' . $xoopsDB->prefix('lxentries') . " WHERE init = '#' AND offline ='0' " . $catperms . ''));
 $xoopsTpl->assign('totalother', $howmanyother);
 
+if (!function_exists('mb_ucfirst') && function_exists('mb_substr')) {
+   function mb_ucfirst($string) {  
+   $string = mb_ereg_replace("^[\ ]+","", $string);  
+   $string = mb_strtoupper(mb_substr($string, 0, 1, "UTF-8"), "UTF-8").mb_substr($string, 1, mb_strlen($string), "UTF-8" );  
+   return $string;  
+   }  
+}
+
+
 // To display the list of categories
 if ($xoopsModuleConfig['multicats'] == 1) {
     $xoopsTpl->assign('block0', LexikonUtility::getCategoryArray());
@@ -83,7 +92,7 @@ if (!$init) {
         }
 
         $eachentry['id']   = (int)$entryID;
-        $eachentry['term'] = ucfirst($myts->htmlSpecialChars($term));
+        $eachentry['term'] = mb_ucfirst($myts->htmlSpecialChars($term));
 
         if (($xoopsModuleConfig['com_rule'] != 0) || (($xoopsModuleConfig['com_rule'] != 0) && is_object($xoopsUser))) {
             if ($comments != 0) {
@@ -167,7 +176,7 @@ if (!$init) {
             }
         }
         $eachentry['id']   = (int)$entryID;
-        $eachentry['term'] = ucfirst($myts->htmlSpecialChars($term));
+        $eachentry['term'] = mb_ucfirst($myts->htmlSpecialChars($term));
         //$eachentry['init'] = $init;
         if ($init === '#') {
             $eachentry['init'] = _MD_LEXIKON_OTHER;
@@ -201,7 +210,7 @@ if (!$init) {
         $xoopsTpl->assign('pageinitial', _MD_LEXIKON_OTHER);
         LexikonUtility::createPageTitle($myts->htmlSpecialChars(_MD_LEXIKON_BROWSELETTER . ' - ' . _MD_LEXIKON_OTHER));
     } else {
-        $xoopsTpl->assign('pageinitial', ucfirst($eachentry['init']));
+        $xoopsTpl->assign('pageinitial', mb_ucfirst($eachentry['init']));
     }
 }
 

@@ -5,9 +5,8 @@
         <ul>
             <{foreach item=popentries from=$block.popstuff}>
                 <li style="display:outline; margin:0; padding:0;list-style-type: none;list-style-position: outside;line-height:12px;">
-                    <a href="<{$xoops_url}>/modules/<{$popentries.dir}>/entry.php?entryID=<{$popentries.id}>"><{$popentries.linktext}></a>
-                    <{if $block.showcounter}><span style='color: gray; font-size: 85%;'>[<{$popentries.counter}>
-                        ]</span><{/if}>
+                    <a href="<{$xoops_url}>/modules/<{$popentries.dir}>/entry.php?entryID=<{$popentries.id}>"><{$popentries.linktext}></a>&nbsp;
+                    <{if $block.showcounter}><span style='color: gray; font-size: 85%;'>[&nbsp;<{$popentries.counter}>&nbsp;]</span><{/if}>
                 </li>
                 <br>
             <{/foreach}>
@@ -17,7 +16,7 @@
     <ul>
         <{foreach item=popentries from=$block.popstuff}>
             <li>
-                <a href="<{$xoops_url}>/modules/<{$popentries.dir}>/entry.php?entryID=<{$popentries.id}>"><{$popentries.linktext}></a><{if $block.showcounter}> [<{$popentries.counter}>] <{/if}>
+                <a href="<{$xoops_url}>/modules/<{$popentries.dir}>/entry.php?entryID=<{$popentries.id}>"><{$popentries.linktext}></a><{if $block.showcounter}>&nbsp;[&nbsp;<{$popentries.counter}>&nbsp;]<{/if}>
             </li>
         <{/foreach}>
     </ul>

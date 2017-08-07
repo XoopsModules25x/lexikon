@@ -421,18 +421,43 @@ function lx_save_Permissions($groups, $id, $perm_name)
 /**
  * @param $init
  */
+function unichr($a) {
+    return mb_convert_encoding(pack("N",$a), mb_internal_encoding(), 'UCS-4BE');
+}
 function lx_getinit($init)
-{
+{  
     global $init;
     echo "<select name='init'>";
     echo "<option value='#'>&nbsp; # &nbsp;</option>";
-    for ($a = 65; $a < (65 + 26); ++$a) {
-        if (chr($a) == $init) {
+    for ($a = 48; $a < (48 + 10); ++$a) {
+        if (unichr($a) == $init) {
             $opt_selected = 'selected';
         } else {
             $opt_selected = '';
         }
-        echo "<option value='" . chr($a) . "' $opt_selected>&nbsp; " . chr($a) . ' &nbsp;</option>';
+        echo "<option value='" . unichr($a) . "' $opt_selected>&nbsp; " . unichr($a) . ' &nbsp;</option>';
     }
+    for ($a = 65; $a < (65 + 26); ++$a) {
+        if (unichr($a) == $init) {
+            $opt_selected = 'selected';
+        } else {
+            $opt_selected = '';
+        }
+        echo "<option value='" . unichr($a) . "' $opt_selected>&nbsp; " . unichr($a) . ' &nbsp;</option>';
+    }
+    for ($a = 1040; $a < (1040 + 32); ++$a) { 
+        if (unichr($a) == $init) {    
+            $opt_selected = 'selected';
+        } else {
+            $opt_selected = '';
+        }
+        echo "<option value='" . unichr($a) . "' $opt_selected>&nbsp; " . unichr($a) . ' &nbsp;</option>';
+    } 
     echo '</select></div>';
 }
+//function uchr($a) {
+//    if (is_scalar($a)) $a= func_get_args();
+//    $str= '';
+//    foreach ($a as $code) $str.= html_entity_decode('&#'.$code.';',ENT_NOQUOTES,'UTF-8');
+//    return $str;
+//}

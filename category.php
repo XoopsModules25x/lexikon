@@ -113,7 +113,7 @@ if (!$categoryID) {
     $catdata = $xoopsDB->query('SELECT categoryID, name, description, total, logourl FROM ' . $xoopsDB->prefix('lxcategories') . " WHERE categoryID = '$categoryID' ");
     // verify ID
     if ($xoopsDB->getRowsNum($catdata) <= 0) {
-        redirect_header(XOOPS_URL.'/modules/lexikon/index.php', 2, _MD_LEXIKON_UNKNOWNERROR);
+        redirect_header('index.php', 2, _MD_LEXIKON_UNKNOWNERROR);
     }
     while (list($categoryID, $name, $description, $total, $logourl) = $xoopsDB->fetchRow($catdata)) {
         if ($gpermHandler->checkRight('lexikon_view', $categoryID, $groups, $xoopsModule->getVar('mid'))) {

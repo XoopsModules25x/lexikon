@@ -1,4 +1,4 @@
-1.52 Beta 2         2017-02-06
+1.52 Beta 2       NOT RELEASED
 =================================
 - started conversion to XMF (mamba)
 - standard copyright headers (mamba)

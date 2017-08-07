@@ -38,6 +38,14 @@ if (isset($_POST['post'])) {
     $op = trim('edit');
 }
 
+if (!function_exists('mb_ucfirst') && function_exists('mb_substr')) {
+   function mb_ucfirst($string) {  
+   $string = mb_ereg_replace("^[\ ]+","", $string);  
+   $string = mb_strtoupper(mb_substr($string, 0, 1, "UTF-8"), "UTF-8").mb_substr($string, 1, mb_strlen($string), "UTF-8" );  
+   return $string;  
+   }  
+}
+
 //$suggest = isset($_GET['suggest']) ? $_GET['suggest'] : (isset($_POST['suggest']) ? $_POST['suggest'] : '');
 $suggest = isset($_GET['suggest']) ? (int)((int)$_GET['suggest']) : 0;
 
@@ -129,9 +137,9 @@ switch ($op) {
         }
         // this is for terms with umlaut or accented initials
         $term4sql = LexikonUtility::sanitizeFieldName($myts->htmlspecialchars($_POST['term']));
-        $init     = substr($term4sql, 0, 1);
-        $init     = preg_match('/[a-zA-Z]/', $init) ? strtoupper($init) : '#';
-
+        $init     = mb_substr($term4sql, 0, 1);
+        $init     = preg_match('/[a-zA-Zа-яА-Я0-9]/', $init) ? mb_strtoupper($init) : '#';
+        
         $datesub = time();
 
         $submit      = 1;
@@ -316,7 +324,7 @@ switch ($op) {
             $xoTheme->addMeta('meta', 'description', $meta_description);
         } else {
             $xoopsTpl->assign('xoops_meta_description', $meta_description);
-        }
+  }
 
         include XOOPS_ROOT_PATH . '/footer.php';
         break;

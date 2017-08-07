@@ -39,6 +39,14 @@ if (count($allowed_cats) > 0) {
     return '0';
 }
 
+if (!function_exists('mb_ucfirst') && function_exists('mb_substr')) {
+   function mb_ucfirst($string) {  
+   $string = mb_ereg_replace("^[\ ]+","", $string);  
+   $string = mb_strtoupper(mb_substr($string, 0, 1, "UTF-8"), "UTF-8").mb_substr($string, 1, mb_strlen($string), "UTF-8" );  
+   return $string;  
+   }  
+} 
+
 // Counts
 $xoopsTpl->assign('multicats', (int)$xoopsModuleConfig['multicats']);
 if ($xoopsModuleConfig['multicats'] == 1) {
@@ -88,7 +96,7 @@ if ($publishedwords > 0) { // If there are definitions
     while (list($entryID, $categoryID, $term, $datesub) = $xoopsDB->fetchRow($result05)) {
         $newentries             = array();
         $xoopsModule            = XoopsModule::getByDirname('lexikon');
-        $linktext               = ucfirst($myts->htmlSpecialChars($term));
+        $linktext               = mb_ucfirst($myts->htmlSpecialChars($term));
         $newentries['linktext'] = $linktext;
         $newentries['id']       = $entryID;
         $newentries['date']     = formatTimestamp($datesub, 's');
@@ -112,7 +120,7 @@ if ($publishedwords > 0) {
     while (list($entryID, $term, $counter) = $xoopsDB->fetchRow($result06)) {
         $popentries             = array();
         $xoopsModule            = XoopsModule::getByDirname('lexikon');
-        $linktext               = ucfirst($myts->htmlSpecialChars($term));
+        $linktext               = mb_ucfirst($myts->htmlSpecialChars($term));
         $popentries['linktext'] = $linktext;
         $popentries['id']       = $entryID;
         $popentries['counter']  = (int)$counter;
@@ -143,7 +151,7 @@ if ($zerotest != 0) {
     while ($myrow = $xoopsDB->fetchArray($resultZ)) {
         $random         = array();
         $random['id']   = $myrow['entryID'];
-        $random['term'] = ucfirst($myrow['term']);
+        $random['term'] = mb_ucfirst($myrow['term']);
 
         if (!XOOPS_USE_MULTIBYTES) {
             $random['definition'] = $myts->displayTarea(xoops_substr($myrow['definition'], 0, $rndlength - 1), $myrow['html'], $myrow['smiley'], $myrow['xcodes'], 1, $myrow['breaks']);
@@ -177,7 +185,7 @@ if ($xoopsUser && $xoopsUser->isAdmin()) {
         while (list($entryID, $term) = $xoopsDB->fetchRow($resultS)) {
             $subentries             = array();
             $xoopsModule            = XoopsModule::getByDirname('lexikon');
-            $linktext               = ucfirst($myts->htmlSpecialChars($term));
+            $linktext               = mb_ucfirst($myts->htmlSpecialChars($term));
             $subentries['linktext'] = $linktext;
             $subentries['id']       = $entryID;
 
@@ -197,7 +205,7 @@ if ($xoopsUser && $xoopsUser->isAdmin()) {
         while (list($entryID, $term) = $xoopsDB->fetchRow($resultR)) {
             $reqentries             = array();
             $xoopsModule            = XoopsModule::getByDirname('lexikon');
-            $linktext               = ucfirst($myts->htmlSpecialChars($term));
+            $linktext               = mb_ucfirst($myts->htmlSpecialChars($term));
             $reqentries['linktext'] = $linktext;
             $reqentries['id']       = $entryID;
 
@@ -218,7 +226,7 @@ if ($xoopsUser && $xoopsUser->isAdmin()) {
         while (list($entryID, $term) = $xoopsDB->fetchRow($resultR)) {
             $reqentries             = array();
             $xoopsModule            = XoopsModule::getByDirname('lexikon');
-            $linktext               = ucfirst($myts->htmlSpecialChars($term));
+            $linktext               = mb_ucfirst($myts->htmlSpecialChars($term));
             $reqentries['linktext'] = $linktext;
             $reqentries['id']       = $entryID;
 

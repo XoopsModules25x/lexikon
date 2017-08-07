@@ -23,7 +23,7 @@ if ($highlight) {
 
 $entryID = isset($_GET['entryID']) ? (int)$_GET['entryID'] : 0;
 if (empty($entryID)) {
-    redirect_header(XOOPS_URL . '/modules/lexikon/index.php', 3, _MD_LEXIKON_UNKNOWNERROR);
+    redirect_header('index.php', 3, _MD_LEXIKON_UNKNOWNERROR);
 }
 $entrytype = 1;
 // permissions
@@ -82,7 +82,7 @@ if (!$entryID) {
                                  WHERE entryID = $entryID");
     // verify result
     if ($xoopsDB->getRowsNum($result) <= 0) {
-        redirect_header(XOOPS_URL.'/modules/lexikon/index.php', 2, _MD_LEXIKON_UNKNOWNERROR);
+        redirect_header('index.php', 2, _MD_LEXIKON_UNKNOWNERROR);
     }
 }
 

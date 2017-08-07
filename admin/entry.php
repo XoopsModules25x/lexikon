@@ -383,8 +383,8 @@ function entrySave($entryID = '')
     // $init= $myts->addslashes($_POST['init']); -- LionHell supprimé pour auto cf ligne 354
     $term = $myts->addSlashes(xoops_trim($_POST['term']));
     // LionHell pour initiale automatique
-    $init = substr($term, 0, 1);
-    $init = preg_match('/[a-zA-Z]/', $init) ? strtoupper($init) : '#';
+    $init = mb_substr($term, 0, 1);
+    $init = preg_match('/[a-zA-Zа-яА-Я0-9]/', $init) ? mb_strtoupper($init) : '#';
     // Fin LionHell
 
     //$definition = $myts -> xoopsCodeDecode($_POST['definition'], $allowimage = 1);

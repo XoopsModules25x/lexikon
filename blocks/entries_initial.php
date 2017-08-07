@@ -14,9 +14,15 @@ defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
  * @param $options
  * @return array
  */
+function uchr($a) {
+    if (is_scalar($a)) $a= func_get_args();
+    $str= '';
+    foreach ($a as $code) $str.= html_entity_decode('&#'.$code.';',ENT_NOQUOTES,'UTF-8');
+    return $str;
+} 
 function b_lxentries_alpha_show($options)
 {
-    global $xoopsDB, $xoopsUser;
+    global $xoopsDB, $xoopsUser, $xoopsModule;
     $myts = MyTextSanitizer::getInstance();
 
     /** @var XoopsModuleHandler $moduleHandler */
@@ -48,11 +54,9 @@ function b_lxentries_alpha_show($options)
     $block['title']         = _MB_LEXIKON_TERMINITIAL;
     $block['moduledirname'] = $lexikon->dirname();
     $count                  = 0;
-
-    foreach (range('A', 'Z') as $chr) {
+    for ($a = 48; $a < (48 + 10); ++$a) {
         $letterlinks = array();
-        $initial     = $chr;
-        ++$count;
+        $initial     = uchr($a);
         $sql                     = $xoopsDB->query('SELECT init FROM '
                                                    . $xoopsDB->prefix('lxentries')
                                                    . " WHERE init = '$initial' AND datesub < '"
@@ -62,12 +66,48 @@ function b_lxentries_alpha_show($options)
                                                    . ' ');
         $howmany                 = $xoopsDB->getRowsNum($sql);
         $letterlinks['total']    = $howmany;
-        $letterlinks['id']       = $chr;
-        $letterlinks['linktext'] = $chr;
+        $letterlinks['id']       = uchr($a);
+        $letterlinks['linktext'] = uchr($a);
+        $letterlinks['count']    = (int)$count;
+
+        $block['initstuff'][] = $letterlinks;
+    }    
+    for ($a = 65; $a < (65 + 26); ++$a) {
+        $letterlinks = array();
+        $initial     = uchr($a);
+        $sql                     = $xoopsDB->query('SELECT init FROM '
+                                                   . $xoopsDB->prefix('lxentries')
+                                                   . " WHERE init = '$initial' AND datesub < '"
+                                                   . time()
+                                                   . "' AND datesub > '0' AND offline= '0' AND submit='0' AND request='0' "
+                                                   . $catperms
+                                                   . ' ');
+        $howmany                 = $xoopsDB->getRowsNum($sql);
+        $letterlinks['total']    = $howmany;
+        $letterlinks['id']       = uchr($a);
+        $letterlinks['linktext'] = uchr($a);
         $letterlinks['count']    = (int)$count;
 
         $block['initstuff'][] = $letterlinks;
     }
+    for ($a = 1040; $a < (1040 + 32); ++$a) {
+        $letterlinks = array();
+        $initial     = uchr($a);
+        $sql                     = $xoopsDB->query('SELECT init FROM '
+                                                   . $xoopsDB->prefix('lxentries')
+                                                   . " WHERE init = '$initial' AND datesub < '"
+                                                   . time()
+                                                   . "' AND datesub > '0' AND offline= '0' AND submit='0' AND request='0' "
+                                                   . $catperms
+                                                   . ' ');
+        $howmany                 = $xoopsDB->getRowsNum($sql);
+        $letterlinks['total']    = $howmany;
+        $letterlinks['id']       = uchr($a);
+        $letterlinks['linktext'] = uchr($a);
+        $letterlinks['count']    = (int)$count;
+        
+        $block['initstuff'][] = $letterlinks;
+    } 
 
     return $block;
 }
@@ -87,3 +127,4 @@ function b_lxentries_alpha_edit($options)
     //------------
     return $form;
 }
+

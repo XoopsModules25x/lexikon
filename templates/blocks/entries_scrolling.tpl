@@ -48,7 +48,7 @@
         var lexikoncontent = new Array()
         $i = 0;
         <{foreach item=term from=$block.scrollitems}>
-        lexikoncontent[++$i] = '<{$term.url}><{$term.term}></A><{if $block.includedate}><div id="date"><{$term.date}></div><{/if}><br><div><{$term.definition}></div>'
+        lexikoncontent[++$i] = '<{$term.url}><{$term.term}></a><{if $block.includedate}><div id="date"><{$term.date}></div><{/if}><br /><div><{$term.definition}></div>'
         <{/foreach}>
     </script>
     <script type="text/javascript" src="<{$xoops_url}>/modules/lexikon/assets/js/pausescroller.js"></script>
@@ -89,7 +89,7 @@
         var domcontent = new Array()
         $i = 0;
         <{foreach item=term from=$block.scrollitems}>
-        domcontent[++$i] = '<{$term.url}><{$term.term}></A><{if $block.includedate}><div id="date"><{$term.date}></div><{/if}><br><div><{$term.definition}></div>'
+        domcontent[++$i] = '<{$term.url}><{$term.term}></a><{if $block.includedate}><div id="date"><{$term.date}></div><{/if}><br /><div><{$term.definition}></div>'
         <{/foreach}>
     </script>
     <script type="text/javascript" src="<{$xoops_url}>/modules/lexikon/assets/js/domticker.js"></script>
