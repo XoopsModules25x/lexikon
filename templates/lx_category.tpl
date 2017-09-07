@@ -23,9 +23,9 @@
 <table id="moduleheader">
     <tr>
         <td width="100%"><span class="leftheader"><a href="<{$xoops_url}>"><{$smarty.const._MD_LEXIKON_HOME}></a>
- <img src='assets/images/arrow.gif' align='absmiddle'/>
+ <img src='assets/images/arrow.gif' align='absmiddle'>
   <a href="<{$xoops_url}>/modules/<{$lang_moduledirname}>/index.php"><{$lang_modulename}></a>   <img
-                        src='assets/images/arrow.gif' align='absmiddle'/>
+                        src='assets/images/arrow.gif' align='absmiddle'>
                 <{if $pagetype == '0'}><a
                     href="<{$xoops_url}>/modules/<{$lang_moduledirname}>/category.php"><{$smarty.const._MD_LEXIKON_ALLCATS}></a>
                 <{elseif $pagetype == '1'}><{$singlecat.name}><{/if}></span>
@@ -77,7 +77,7 @@
                                    target="_parent"><img
                                             src="<{$xoops_url}>/uploads/<{$lang_moduledirname}>/categories/images/<{$catlinks.image}>"
                                             width="<{$logo_maximgwidth}>" align="left" class="floatLeft"
-                                            alt="[<{$catlinks.name}>]&nbsp;[<{$catlinks.total}>]"/></A>
+                                            alt="[<{$catlinks.name}>]&nbsp;[<{$catlinks.total}>]"></A>
                             <{/if}>
                             <{if $catlinks.count > 0}>
                                 <{if $catlinks.total > 0}><a href="<{$xoops_url}>/modules/<{$lang_moduledirname}>/category.php?categoryID=<{$catlinks.id}>" title="[<{$catlinks.total}>]"><{/if}><{$catlinks.linktext}>
@@ -104,7 +104,7 @@
                                target="_parent">
                                 <img src="<{$xoops_url}>/uploads/<{$lang_moduledirname}>/categories/images/<{$catlinks.image}>"
                                      width="<{$logo_maximgwidth}>" align="middle"
-                                     alt="[<{$catlinks.total}>]"/></A>
+                                     alt="[<{$catlinks.total}>]"></A>
                         <{/if}>
                         <{if $catlinks.total > 0}><a href="<{$xoops_url}>/modules/<{$lang_moduledirname}>/category.php?categoryID=<{$catlinks.id}>" title="[<{$catlinks.total}>]"><{/if}><{$catlinks.linktext}>
                         <{if $catlinks.total > 0}></a> <{/if}>[<{$catlinks.total}>] |
@@ -128,7 +128,7 @@
                    target="_parent">
                     <img src="<{$xoops_url}>/uploads/lexikon/categories/images/<{$eachcat.image}>"
                          width="<{$imgcatwd}>" align="bottom" vspace="2" hspace="2" border="0"
-                         alt="[<{$eachcat.name}>]"/></A>
+                         alt="[<{$eachcat.name}>]"></A>
             <{/if}>
 
             <a href="<{$xoops_url}>/modules/<{$eachcat.dir}>/category.php?categoryID=<{$eachcat.id}>"><{$eachcat.name}></a>
@@ -147,7 +147,7 @@
     <{* syndication *}>
     <{if $syndication == true}>
         <div align="center" style="padding: 4px;"><br><br>
-            <a href="rss.php" title="recent entries"><img src="assets/images/rss.gif" border="0"/></a>
+            <a href="rss.php" title="recent entries"><img src="assets/images/rss.gif" border="0"></a>
         </div>
     <{/if}>
 
@@ -158,7 +158,7 @@
         <div class="introcen">
             <{if $singlecat.image != "" && $show_screenshot == '1'}>
         <img src="<{$xoops_url}>/uploads/lexikon/categories/images/<{$singlecat.image}>" width="<{$imgcatwd}>"
-             align="center" vspace="2" hspace="2" border="0" alt="[<{$singlecat.name}>]"/>
+             align="center" vspace="2" hspace="2" border="0" alt="[<{$singlecat.name}>]">
             <b><{/if}>
             <{$singlecat.description}></div>
 
@@ -185,7 +185,7 @@
         <{if $syndication == true}>
             <div align="center" style="padding: 4px;"><br><br>
                 <a href="rss.php?categoryID=<{$singlecat.id}>" title="Recent terms in this category"><img
-                            src="assets/images/rss.gif" border="0"/></a>
+                            src="assets/images/rss.gif" border="0"></a>
             </div>
         <{/if}>
 

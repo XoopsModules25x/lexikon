@@ -7,7 +7,7 @@
  * Author: adapted from AMS
  * Licence: GNU
  */
-defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
+defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
 
 /**
  * @param $options
@@ -25,7 +25,7 @@ function b_lx_author_show($options)
     }
     require_once XOOPS_ROOT_PATH . '/modules/lexikon/class/utility.php';
 
-    $block = array();
+    $block = [];
     if (!isset($options[3])) {
         $options[3] = 'average';
     }

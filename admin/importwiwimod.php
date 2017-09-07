@@ -61,7 +61,7 @@ function showerror($msg)
  */
 function import2db($text)
 {
-    return preg_replace(array("/'/i"), array("\'"), $text);
+    return preg_replace(["/'/i"], ["\'"], $text);
 }
 
 /**
@@ -126,7 +126,7 @@ function DefinitionImport($delete)
 
     $fecha = time() - 1;
     while ($sqlfetch = $xoopsDB->fetchArray($sqlQuery)) {
-        $wiwi          = array();
+        $wiwi          = [];
         $wiwi['id']    = $sqlfetch['id'];
         $wiwi['title'] = $sqlfetch['title'];
         //$wiwi['body'] = import2db($sqlfetch["body"]);

@@ -37,14 +37,14 @@ function addAdminMenu($buf)
 {
     global $btnsbar;
 
-    $pattern = array(
+    $pattern = [
         '#admin.php?#',
         "#(<div class='content'>)#"
-    );
-    $replace = array(
+    ];
+    $replace = [
         'preferences.php?',
         ' $1 <br>' . $btnsbar . "<div style='clear: both;' class='content'>"
-    );
+    ];
     $html    = preg_replace($pattern, $replace, $buf);
 
     return $html;

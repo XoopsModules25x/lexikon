@@ -28,7 +28,7 @@ if ($xoopsModuleConfig['multicats'] == '1') {
     if (is_array($allowed_cats)) {
         $mytree         = new LexikonTree($xoopsDB->prefix('lxcategories'), 'categoryID', '0');
         $categoryselect = new XoopsFormSelect(_MD_LEXIKON_ENTRYCATEGORY, 'categoryID', $allowed_cats);
-        $tbl            = array();
+        $tbl            = [];
         $tbl            = $mytree->getChildTreeArray(0, 'name');
         foreach ($tbl as $oneline) {
             if (in_array($oneline['categoryID'], $allowed_cats)) {

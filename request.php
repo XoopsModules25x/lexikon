@@ -96,7 +96,7 @@ if (!Request::hasVar('submit', 'POST')) {
             $newid = $xoopsDB->getInsertId();
         }
         $notificationHandler = xoops_getHandler('notification');
-        $tags                = array();
+        $tags                = [];
         $tags['ITEM_NAME']   = $reqterm;
         $tags['DATESUB']     = formatTimestamp($date, 'd M Y');
         $tags['ITEM_URL']    = XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/submit.php?suggest=' . $newid;

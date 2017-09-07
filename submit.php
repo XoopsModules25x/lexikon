@@ -180,7 +180,7 @@ switch ($op) {
                 $newid = $xoopsDB->getInsertId();
             }
             $notificationHandler   = xoops_getHandler('notification');
-            $tags                  = array();
+            $tags                  = [];
             $shortdefinition       = $myts->htmlSpecialChars(xoops_substr(strip_tags($definition), 0, 45));
             $tags['ITEM_NAME']     = $term;
             $tags['ITEM_BODY']     = $shortdefinition;

@@ -46,13 +46,13 @@ function lx_adminMenu($currentoption = 0, $breadcrumb = '')
     include __DIR__ . '/menu.php';
 
     $tpl = new XoopsTpl();
-    $tpl->assign(array(
+    $tpl->assign([
                      'headermenu'      => $headermenu,
                      'adminmenu'       => $adminmenu,
                      'current'         => $currentoption,
                      'breadcrumb'      => $breadcrumb,
                      'headermenucount' => count($headermenu)
-                 ));
+                 ]);
     $tpl->display('db:lx_adminmenu.tpl');
     echo "<br>\n";
 }
@@ -276,14 +276,14 @@ function lx_collapsableBar($tablename = '', $iconname = '')
  */
 function lx_GetStatistics($limit)
 {
-    $ret  = array();
+    $ret  = [];
     $db   = XoopsDatabaseFactory::getDatabaseConnection();
     $tbls = $db->prefix('lxentries');
     $tblt = $db->prefix('lxcategories');
 
     $db = XoopsDatabaseFactory::getDatabaseConnection();
     // Number of Definitions per Category, including offline and submitted terms
-    $ret2   = array();
+    $ret2   = [];
     $sql    = "SELECT count(s.entryID) as cpt, s.categoryID, t.name FROM $tbls s, $tblt t WHERE s.categoryID=t.categoryID GROUP BY s.categoryID ORDER BY t.name";
     $result = $db->query($sql);
     while ($myrow = $db->fetchArray($result)) {
@@ -293,7 +293,7 @@ function lx_GetStatistics($limit)
     unset($ret2);
 
     // Total reads per category
-    $ret2   = array();
+    $ret2   = [];
     $sql    = "SELECT Sum(counter) as cpt, categoryID FROM $tbls GROUP BY categoryID ORDER BY categoryID";
     $result = $db->query($sql);
     while ($myrow = $db->fetchArray($result)) {
@@ -302,7 +302,7 @@ function lx_GetStatistics($limit)
     $ret['readspercategory'] = $ret2;
 
     // unused terms per category i.e. offline or submitted
-    $ret2   = array();
+    $ret2   = [];
     $sql    = "SELECT Count(entryID) as cpt, categoryID FROM $tbls WHERE offline > 0 OR submit > 0 GROUP BY categoryID ORDER BY categoryID";
     $result = $db->query($sql);
     while ($myrow = $db->fetchArray($result)) {
@@ -312,7 +312,7 @@ function lx_GetStatistics($limit)
     unset($ret2);
 
     // Number of unique authors per category
-    $ret2   = array();
+    $ret2   = [];
     $sql    = "SELECT Count(Distinct(uid)) as cpt, categoryID FROM $tbls GROUP BY categoryID ORDER BY categoryID";
     $result = $db->query($sql);
     while ($myrow = $db->fetchArray($result)) {
@@ -322,7 +322,7 @@ function lx_GetStatistics($limit)
     unset($ret2);
 
     // Most read terms
-    $ret2   = array();
+    $ret2   = [];
     $sql    = "SELECT s.entryID, s.uid, s.term, s.counter, s.categoryID, t.name  FROM $tbls s, $tblt t WHERE s.categoryID=t.categoryID ORDER BY s.counter DESC";
     $result = $db->query($sql, (int)$limit);
     while ($myrow = $db->fetchArray($result)) {
@@ -332,7 +332,7 @@ function lx_GetStatistics($limit)
     unset($ret2);
 
     // Less read terms
-    $ret2   = array();
+    $ret2   = [];
     $sql    = "SELECT s.entryID, s.uid, s.term, s.counter, s.categoryID, t.name  FROM $tbls s, $tblt t WHERE s.categoryID=t.categoryID ORDER BY s.counter";
     $result = $db->query($sql, (int)$limit);
     while ($myrow = $db->fetchArray($result)) {
@@ -342,7 +342,7 @@ function lx_GetStatistics($limit)
     unset($ret2);
 
     // Most read authors
-    $ret2   = array();
+    $ret2   = [];
     $sql    = "SELECT Sum(counter) as cpt, uid FROM $tbls GROUP BY uid ORDER BY cpt DESC";
     $result = $db->query($sql, (int)$limit);
     while ($myrow = $db->fetchArray($result)) {
@@ -352,7 +352,7 @@ function lx_GetStatistics($limit)
     unset($ret2);
 
     // Biggest contributors
-    $ret2   = array();
+    $ret2   = [];
     $sql    = "SELECT Count(*) as cpt, uid FROM $tbls GROUP BY uid ORDER BY cpt DESC";
     $result = $db->query($sql, (int)$limit);
     while ($myrow = $db->fetchArray($result)) {

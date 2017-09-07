@@ -91,7 +91,7 @@ while (list($entryID, $categoryID, $term, $init, $definition, $ref, $url, $uid, 
         redirect_header('index.php', 3, _NOPERM);
     }
 
-    $thisterm            = array();
+    $thisterm            = [];
     $xoopsModule         = XoopsModule::getByDirname('lexikon');
     $thisterm['id']      = (int)$entryID;
     $thisterm['offline'] = (int)$offline;

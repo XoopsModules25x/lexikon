@@ -245,7 +245,7 @@ function entryEdit($entryID = '')
         // $mytree = new XoopsTree( $xoopsDB->prefix( "lxcategories" ), "categoryID" , "0" );
         $mytree         = new LexikonTree($xoopsDB->prefix('lxcategories'), 'categoryID', '0');
         $categoryselect = new XoopsFormSelect(_AM_LEXIKON_CATNAME, 'categoryID', $categoryID);
-        $tbl            = array();
+        $tbl            = [];
         $tbl            = $mytree->getChildTreeArray(0, 'name');
         foreach ($tbl as $oneline) {
             if ($oneline['prefix'] === '.') {
@@ -435,7 +435,7 @@ function entrySave($entryID = '')
                     $newid = $xoopsDB->getInsertId();
                 }
                 $notificationHandler   = xoops_getHandler('notification');
-                $tags                  = array();
+                $tags                  = [];
                 $shortdefinition       = $myts->htmlSpecialChars(xoops_substr(strip_tags($definition), 0, 45));
                 $tags['ITEM_NAME']     = $term;
                 $tags['ITEM_BODY']     = $shortdefinition;
@@ -463,7 +463,7 @@ function entrySave($entryID = '')
             if (!empty($xoopsModuleConfig['notification_enabled'])) {
                 global $xoopsModule;
                 $notificationHandler   = xoops_getHandler('notification');
-                $tags                  = array();
+                $tags                  = [];
                 $shortdefinition       = $myts->htmlSpecialChars(xoops_substr(strip_tags($definition), 0, 45));
                 $tags['ITEM_NAME']     = $term;
                 $tags['ITEM_BODY']     = $shortdefinition;
@@ -550,7 +550,7 @@ function entryDelete($entryID = '')
         redirect_header('entry.php', 1, sprintf(_AM_LEXIKON_ENTRYISDELETED, $term));
     } else {
         //xoops_cp_header();
-        xoops_confirm(array('op' => 'del', 'entryID' => $entryID, 'ok' => 1, 'term' => $term), 'entry.php', _AM_LEXIKON_DELETETHISENTRY . '<br><br>' . $term, _AM_LEXIKON_DELETE);
+        xoops_confirm(['op' => 'del', 'entryID' => $entryID, 'ok' => 1, 'term' => $term], 'entry.php', _AM_LEXIKON_DELETETHISENTRY . '<br><br>' . $term, _AM_LEXIKON_DELETE);
         xoops_cp_footer();
     }
     //  break;

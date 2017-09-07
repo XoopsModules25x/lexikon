@@ -17,7 +17,7 @@
  * @author       XOOPS Development Team
  */
 
-defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
+defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
 
 $usespaw = empty($_GET['usespaw']) ? 0 : 1;
 
@@ -28,13 +28,13 @@ if (isset($block['name'])) {
     $form->addElement(new XoopsFormLabel(_AM_NAME, $block['name']));
 }
 $side_select = new XoopsFormSelect(_AM_BLKTYPE, 'bside', $block['side']);
-$side_select->addOptionArray(array(
+$side_select->addOptionArray([
                                  0 => _AM_SBLEFT,
                                  1 => _AM_SBRIGHT,
                                  3 => _AM_CBLEFT,
                                  4 => _AM_CBRIGHT,
                                  5 => _AM_CBCENTER
-                             ));
+                             ]);
 $form->addElement($side_select);
 $form->addElement(new XoopsFormText(_AM_WEIGHT, 'bweight', 2, 5, $block['weight']));
 $form->addElement(new XoopsFormRadioYN(_AM_VISIBLE, 'bvisible', $block['visible']));
@@ -80,7 +80,7 @@ if ($block['is_custom']) {
     $form->addElement($textarea, true);
 
     $ctype_select = new XoopsFormSelect(_AM_CTYPE, 'bctype', $block['ctype']);
-    $ctype_select->addOptionArray(array('H' => _AM_HTML, 'P' => _AM_PHP, 'S' => _AM_AFWSMILE, 'T' => _AM_AFNOSMILE));
+    $ctype_select->addOptionArray(['H' => _AM_HTML, 'P' => _AM_PHP, 'S' => _AM_AFWSMILE, 'T' => _AM_AFNOSMILE]);
     $form->addElement($ctype_select);
 } else {
     if ($block['template'] != '' && !defined('XOOPS_ORETEKI')) {
@@ -100,7 +100,7 @@ if ($block['is_custom']) {
     }
 }
 $cache_select = new XoopsFormSelect(_AM_BCACHETIME, 'bcachetime', $block['cachetime']);
-$cache_select->addOptionArray(array(
+$cache_select->addOptionArray([
                                   '0'       => _NOCACHE,
                                   '30'      => sprintf(_SECONDS, 30),
                                   '60'      => _MINUTE,
@@ -112,7 +112,7 @@ $cache_select->addOptionArray(array(
                                   '259200'  => sprintf(_DAYS, 3),
                                   '604800'  => _WEEK,
                                   '2592000' => _MONTH
-                              ));
+                              ]);
 $form->addElement($cache_select);
 if (isset($block['bid'])) {
     $form->addElement(new XoopsFormHidden('bid', $block['bid']));

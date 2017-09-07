@@ -62,7 +62,7 @@ function showerror($msg)
  */
 function import2db($text)
 {
-    return preg_replace(array("/'/i"), array("\'"), $text);
+    return preg_replace(["/'/i"], ["\'"], $text);
 }
 
 /**
@@ -121,7 +121,7 @@ function DefinitionImport($delete)
                               FROM ' . $xoopsDB->prefix('glossaire'));
     $fecha    = time() - 1;
     while ($sqlfetch = $xoopsDB->fetchArray($sqlQuery)) {
-        $glo               = array();
+        $glo               = [];
         $glo['id']         = $sqlfetch['id'];
         $glo['lettre']     = $sqlfetch['lettre'];
         $glo['nom']        = import2db($sqlfetch['nom']);

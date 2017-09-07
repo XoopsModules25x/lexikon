@@ -8,7 +8,7 @@
  * @since          1.00
  * @package        module::tag
  */
-// defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
+// defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
 /**
  * Get item fields:
  * title
@@ -34,7 +34,7 @@ function lexikon_tag_iteminfo(&$items)
     global $xoopsDB;
     $myts = MyTextSanitizer::getInstance();
 
-    $items_id = array();
+    $items_id = [];
 
     foreach (array_keys($items) as $cat_id) {
         // Some handling here to build the link upon catid
@@ -57,7 +57,7 @@ function lexikon_tag_iteminfo(&$items)
             //$sql = "SELECT  l.entryID, l.categoryID, l.term as ltitle, l.definition, l.uid, l.datesub, l.offline,l.item_tag, c.name as cname FROM ".$xoopsDB->prefix('lxentries')." l, ".$xoopsDB->prefix('lxcategories')." c WHERE l.entryID=".$item_id." AND l.categoryID=c.categoryID AND l.offline=0 ORDER BY l.datesub DESC";
             $result                   = $xoopsDB->query($sql);
             $row                      = $xoopsDB->fetchArray($result);
-            $items[$cat_id][$item_id] = array(
+            $items[$cat_id][$item_id] = [
                 'title'   => $row['ltitle'],
                 'uid'     => $row['uid'],
                 'link'    => "entry.php?entryID=$item_id",
@@ -65,8 +65,7 @@ function lexikon_tag_iteminfo(&$items)
                 //"tags"       => $row['item_tag'], // optional
                 //"content"    => $myts->displayTarea( $row['definition'], 0 ),
                 'content' => $row['definition']
-            );
+            ];
         }
     }
 }
-

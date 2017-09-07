@@ -58,7 +58,7 @@ if ($xoopsModuleConfig['multicats'] == 1) {
 
 // No initial: we need to see all letters
 if (!$init) {
-    $entriesarray = array();
+    $entriesarray = [];
     $pagetype     = 0;
 
     // How many entries will we show in this page?
@@ -72,7 +72,7 @@ if (!$init) {
     $xoopsTpl->assign('totalentries', $totalentries);
 
     while (list($entryID, $categoryID, $term, $init, $definition, $ref, $url, $uid, $submit, $datesub, $counter, $html, $smiley, $xcodes, $breaks, $block, $offline, $comments) = $xoopsDB->fetchRow($resultA)) {
-        $eachentry        = array();
+        $eachentry        = [];
         $xoopsModule      = XoopsModule::getByDirname('lexikon');
         $eachentry['dir'] = $xoopsModule->dirname();
 
@@ -116,7 +116,7 @@ if (!$init) {
 } else {    // $init does exist
     $pagetype = 1;
     // There IS an initial letter, so we want to show just that letter's terms
-    $entriesarray2 = array();
+    $entriesarray2 = [];
 
     // How many entries will we show in this page?
     if ($init == _MD_LEXIKON_OTHER) {
@@ -145,7 +145,7 @@ if (!$init) {
 
     //while (list( $entryID, $categoryID, $term, $init, $definition, $ref, $url, $uid, $submit, $datesub, $counter, $html, $smiley, $xcodes, $breaks, $block, $offline, $notifypub, $request, $comments ) = $xoopsDB->fetchRow($resultB)) {
     while (list($entryID, $categoryID, $term, $definition, $uid, $html, $smiley, $xcodes, $breaks, $comments) = $xoopsDB->fetchRow($resultB)) {
-        $eachentry        = array();
+        $eachentry        = [];
         $xoopsModule      = XoopsModule::getByDirname('lexikon');
         $eachentry['dir'] = $xoopsModule->dirname();
 

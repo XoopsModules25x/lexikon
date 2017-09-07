@@ -2,16 +2,16 @@
 // ------------------------------------------------------------------------- //
 //                     myblocksadmin_for_2.2.php                             //
 //                - XOOPS block admin for each modules -                     //
-//                          GIJOE <http://www.peak.ne.jp/>                   //
+//                          GIJOE <http://www.peak.ne.jp>                   //
 // ------------------------------------------------------------------------- //
 
-defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
+defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
 
 require_once __DIR__ . '/../../../include/cp_header.php';
 
 require_once __DIR__ . '/mygrouppermform.php';
 require_once XOOPS_ROOT_PATH . '/class/xoopsblock.php';
-require_once __DIR__ . '/../include/gtickets.php';
+//require_once __DIR__ . '/../include/gtickets.php';
 
 $xoops_system_path = XOOPS_ROOT_PATH . '/modules/system';
 
@@ -74,14 +74,14 @@ if (!$syspermHandler->checkRight('system_admin', XOOPS_SYSTEM_BLOCK, $xoopsUser-
 $db        = XoopsDatabaseFactory::getDatabaseConnection();
 $sql       = 'SELECT bid,name,show_func,func_file,template FROM ' . $db->prefix('newblocks') . " WHERE mid='$target_mid'";
 $result    = $db->query($sql);
-$block_arr = array();
+$block_arr = [];
 while (list($bid, $bname, $show_func, $func_file, $template) = $db->fetchRow($result)) {
-    $block_arr[$bid] = array(
+    $block_arr[$bid] = [
         'name'      => $bname,
         'show_func' => $show_func,
         'func_file' => $func_file,
         'template'  => $template
-    );
+    ];
 }
 
 // for 2.2
@@ -92,7 +92,7 @@ function list_blockinstances()
     $myts = MyTextSanitizer::getInstance();
 
     // cachetime options
-    $cachetimes = array(
+    $cachetimes = [
         '0'       => _NOCACHE,
         '30'      => sprintf(_SECONDS, 30),
         '60'      => _MINUTE,
@@ -104,7 +104,7 @@ function list_blockinstances()
         '259200'  => sprintf(_DAYS, 3),
         '604800'  => _WEEK,
         '2592000' => _MONTH
-    );
+    ];
 
     // displaying TH
     echo "
@@ -142,7 +142,7 @@ function list_blockinstances()
             if ($pages === false) {
                 $pages = $module_main[$mid]->getInfo('sub');
             }
-            if (is_array($pages) && $pages != array()) {
+            if (is_array($pages) && $pages != []) {
                 foreach ($pages as $id => $pageinfo) {
                     $module_list[$module_main[$mid]->getVar('name')][$mid . '-' . $id] = $pageinfo['name'];
                 }
@@ -326,7 +326,7 @@ function list_groups2()
 
     $result = $xoopsDB->query('SELECT i.instanceid,i.title FROM ' . $xoopsDB->prefix('block_instance') . ' i LEFT JOIN ' . $xoopsDB->prefix('newblocks') . " b ON i.bid=b.bid WHERE b.mid='$target_mid'");
 
-    $item_list = array();
+    $item_list = [];
     while (list($iid, $title) = $xoopsDB->fetchRow($result)) {
         $item_list[$iid] = $title;
     }

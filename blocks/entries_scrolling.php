@@ -1,14 +1,14 @@
 <?php
 /** entries_scrolling.php v.1
  * XOOPS - PHP Content Management System
- * Copyright (c) 2011 <https://xoops.org/>
+ * Copyright (c) 2011 <https://xoops.org>
  *
  * Module: lexikon 1.5 beta
  * Author : Yerres
  * Licence : GPL
  *
  */
-defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
+defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
 
 /**
  * @param $options
@@ -33,7 +33,7 @@ function b_scrolling_term_show($options)
     $module_id    = $lexikon->getVar('mid');
     $allowed_cats = $gpermHandler->getItemIds('lexikon_view', $groups, $module_id);
 
-    $block                = array();
+    $block                = [];
     $block['speed']       = isset($options[1]) && $options[1] != '' ? $options[1] : '';
     $block['bgcolor']     = isset($options[2]) && $options[2] != '' ? $options[2] : '#FFFFFF';
     $block['direction']   = $options[3];
@@ -61,7 +61,7 @@ function b_scrolling_term_show($options)
 
     if ($totals > 1) {
         while (list($entryID, $term, $definition, $datesub, $html) = $xoopsDB->fetchRow($sql)) {
-            $items         = array();
+            $items         = [];
             $userlink      = '<a style="cursor:help;background-color: transparent;" href=\"' . XOOPS_URL . '/modules/' . $lexikon->dirname() . '/entry.php?entryID=' . (int)$entryID . '\">';
             $items['id']   = (int)$entryID;
             $items['term'] = $myts->htmlSpecialChars($term);

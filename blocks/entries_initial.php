@@ -8,7 +8,7 @@
  * adapted from xwords
  * Licence: GNU
  */
-defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
+defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
 
 /**
  * @param $options
@@ -33,7 +33,7 @@ function b_lxentries_alpha_show($options)
     $catids       = implode(',', $allowed_cats);
     $catperms     = " AND categoryID IN ($catids) ";
 
-    $block = array();
+    $block = [];
     // To handle options in the template
     if ($options[0] == 1) {
         $block['layout'] = 1;
@@ -50,7 +50,7 @@ function b_lxentries_alpha_show($options)
     $count                  = 0;
 
     foreach (range('A', 'Z') as $chr) {
-        $letterlinks = array();
+        $letterlinks = [];
         $initial     = $chr;
         ++$count;
         $sql                     = $xoopsDB->query('SELECT init FROM ' . $xoopsDB->prefix('lxentries') . " WHERE init = '$initial' AND datesub < '" . time() . '\' AND datesub > \'0\' AND offline= \'0\' AND submit=\'0\' AND request=\'0\' ' . $catperms . ' ');

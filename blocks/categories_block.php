@@ -7,7 +7,7 @@
  * Author: Yerres
  * Licence: GNU
  */
-defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
+defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
 
 /**
  * @param $options
@@ -35,7 +35,7 @@ function b_lxcategories_show($options)
     $cats      = $gpermHandler->getItemIds('lexikon_view', $groups, $module_id);
     $totalcats = count($cats);
 
-    $block = array();
+    $block = [];
     $sql   = 'SELECT categoryID, name, total FROM ' . $xoopsDB->prefix('lxcategories') . ' WHERE ' . $catperms . ' ORDER BY ' . $options[0] . ' DESC';
     //xoops 2.0.13
     //$sql = "SELECT a.categoryID, a.name, a.total, b.* FROM " . $xoopsDB->prefix("lxcategories") . " a, ".$xoopsDB->prefix('group_permission')." b WHERE a.categoryID = b.gperm_itemid AND b.gperm_modid = $module_id AND b.gperm_name = \"lexikon_view\" AND b.gperm_groupid = $groups[0]  ORDER BY " . $options[0] . " DESC ";
@@ -43,7 +43,7 @@ function b_lxcategories_show($options)
 
     if ($totalcats > 0) { // If there are categories
         while (list($categoryID, $name, $total) = $xoopsDB->fetchRow($result)) {
-            $catlist             = array();
+            $catlist             = [];
             $linktext            = $myts->htmlSpecialChars($name);
             $catlist['dir']      = $lexikon->dirname();
             $catlist['linktext'] = $linktext;

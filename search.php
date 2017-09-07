@@ -50,7 +50,7 @@ $query      = Request::getString('term', '', 'GET'); //isset($term) ? trim($term
 $start      = Request::getInt('start', 0, 'GET'); //isset($start) ? (int)$start : 0;
 $categoryID = Request::getInt('categoryID', 0, 'GET'); //isset($categoryID) ? (int)$categoryID : 0;
 $type       = Request::getInt('type', 3, 'GET'); //isset($type) ? (int)$type : 3;
-$queries    = array();
+$queries    = [];
 
 if ($xoopsModuleConfig['multicats'] == 1) {
     $xoopsTpl->assign('multicats', 1);
@@ -111,7 +111,7 @@ if (!$query) {
     } else {
         // Show paginated list of results
         // We'll put the results in an array
-        $resultset = array();
+        $resultset = [];
 
         // -- highlighter
         if (is_array($resultset)) {
@@ -151,7 +151,7 @@ if (!$query) {
         $resultA   = $xoopsDB->query($queryA, $xoopsModuleConfig['indexperpage'], $start);
 
         while (list($entryID, $categoryID, $term, $init, $definition, $datesub, $ref, $catname) = $xoopsDB->fetchRow($resultA)) {
-            $eachresult               = array();
+            $eachresult               = [];
             $xoopsModule              = XoopsModule::getByDirname('lexikon');
             $eachresult['dir']        = $xoopsModule->dirname();
             $eachresult['id']         = $entryID;

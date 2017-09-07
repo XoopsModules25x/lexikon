@@ -45,7 +45,7 @@ class LexikonUtility
                 }
             }
         } catch (Exception $e) {
-            echo 'Caught exception: ', $e->getMessage(), "\n", '<br/>';
+            echo 'Caught exception: ', $e->getMessage(), "\n", '<br>';
         }
     }
 
@@ -64,7 +64,7 @@ class LexikonUtility
         //                return copy($file, $folder);
         //            }
         //        } catch (Exception $e) {
-        //            echo 'Caught exception: ', $e->getMessage(), "\n", "<br/>";
+        //            echo 'Caught exception: ', $e->getMessage(), "\n", "<br>";
         //        }
         //        return false;
     }
@@ -117,14 +117,14 @@ class LexikonUtility
                     break;
                 }
             } else {
-                if ((int)$v > 0) { // handles things like x.x.x.0_RC2
+                if ((int)$v > 0) { // handles versions like x.x.x.0_RC2
                     $success = false;
                     break;
                 }
             }
         }
 
-        if (!$success) {
+        if (false === $success) {
             $module->setErrors(sprintf(_AM_ADSLIGHT_ERROR_BAD_XOOPS, $requiredVer, $currentVer));
         }
 
@@ -299,12 +299,12 @@ class LexikonUtility
         $myts         = MyTextSanitizer::getInstance();
         $groups       = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
         $gpermHandler = xoops_getHandler('groupperm');
-        $block0       = array();
+        $block0       = [];
         $count        = 1;
         $resultcat    = $xoopsDB->query('SELECT categoryID, name, total, logourl FROM ' . $xoopsDB->prefix('lxcategories') . ' ORDER BY weight ASC');
         while (list($catID, $name, $total, $logourl) = $xoopsDB->fetchRow($resultcat)) {
             if ($gpermHandler->checkRight('lexikon_view', $catID, $groups, $xoopsModule->getVar('mid'))) {
-                $catlinks = array();
+                $catlinks = [];
                 ++$count;
                 if ($logourl && $logourl !== 'http://') {
                     $logourl = $myts->htmlSpecialChars($logourl);
@@ -340,9 +340,9 @@ class LexikonUtility
         $allowed_cats  = $gpermHandler->getItemIds('lexikon_view', $groups, $module_id);
         $catids        = implode(',', $allowed_cats);
         $catperms      = " AND categoryID IN ($catids) ";
-        $alpha         = array();
+        $alpha         = [];
         for ($a = 65; $a < (65 + 26); ++$a) {
-            $letterlinks             = array();
+            $letterlinks             = [];
             $initial                 = chr($a);
             $sql                     = $xoopsDB->query('SELECT entryID FROM ' . $xoopsDB->prefix('lxentries') . " WHERE init = '$initial' AND submit = '0' AND offline ='0' AND request = '0' " . $catperms . '');
             $howmany                 = $xoopsDB->getRowsNum($sql);
@@ -366,9 +366,9 @@ class LexikonUtility
         $countsByLetters = $pedigree->getHandler('tree')->getCounts($criteria);
         // Fill alphabet array
         $alphabet       = XoopsLocal::getAlphabet();
-        $alphabet_array = array();
+        $alphabet_array = [];
         foreach ($alphabet as $letter) {
-            $letter_array = array();
+            $letter_array = [];
             if (isset($countsByLetters[$letter])) {
                 $letter_array['letter'] = $letter;
                 $letter_array['count']  = $countsByLetters[$letter];
@@ -620,7 +620,7 @@ class LexikonUtility
         global $xoopsTpl, $xoTheme, $xoopsModule, $xoopsModuleConfig;
         require_once XOOPS_ROOT_PATH . '/modules/lexikon/include/common.inc.php';
         $keywords_count = $xoopsModuleConfig['metakeywordsnum'];
-        $tmp            = array();
+        $tmp            = [];
         if (isset($_SESSION['xoops_keywords_limit'])) {    // Search the "Minimum keyword length"
             $limit = $_SESSION['xoops_keywords_limit'];
         } else {
@@ -634,7 +634,7 @@ class LexikonUtility
         $content         = $myts->undoHtmlSpecialChars($content);
         $content         = strip_tags($content);
         $content         = strtolower($content);
-        $search_pattern  = array(
+        $search_pattern  = [
             '&nbsp;',
             "\t",
             "\r\n",
@@ -662,8 +662,8 @@ class LexikonUtility
             '_',
             '\\',
             '*'
-        );
-        $replace_pattern = array(
+        ];
+        $replace_pattern = [
             ' ',
             ' ',
             ' ',
@@ -691,7 +691,7 @@ class LexikonUtility
             '',
             '',
             ''
-        );
+        ];
         $content         = str_replace($search_pattern, $replace_pattern, $content);
         $keywords        = explode(' ', $content);
         switch (META_KEYWORDS_ORDER) {
@@ -798,7 +798,7 @@ class LexikonUtility
         // This will remove HTML tags, javascript sections and white space. It will also
         // convert some common HTML entities to their text equivalent.
 
-        $search = array(
+        $search = [
             '\'<script[^>]*?>.*?</script>\'si',  // Strip out javascript
             "'<[\/\!]*?[^<>]*?>'si",          // Strip out HTML tags
             "'([\r\n])[\s]+'",                // Strip out white space
@@ -811,9 +811,9 @@ class LexikonUtility
             '\'&(cent|#162);\'i',
             '\'&(pound|#163);\'i',
             '\'&(copy|#169);\'i'
-        );
+        ];
 
-        $replace = array(
+        $replace = [
             '',
             '',
             "\\1",
@@ -826,7 +826,7 @@ class LexikonUtility
             chr(162),
             chr(163),
             chr(169)
-        );
+        ];
 
         $text = preg_replace($search, $replace, $document);
 
@@ -845,7 +845,7 @@ class LexikonUtility
     public static function getModuleOption($option, $repmodule = 'lexikon')
     {
         global $xoopsModuleConfig, $xoopsModule;
-        static $tbloptions = array();
+        static $tbloptions = [];
         if (is_array($tbloptions) && array_key_exists($option, $tbloptions)) {
             return $tbloptions[$option];
         }
@@ -905,7 +905,7 @@ class LexikonUtility
     {
         $editor_option            = strtolower(LexikonUtility::getModuleOption('form_options'));
         $editor                   = false;
-        $editor_configs           = array();
+        $editor_configs           = [];
         $editor_configs['name']   = $name;
         $editor_configs['value']  = $value;
         $editor_configs['rows']   = 35;
@@ -949,13 +949,13 @@ class LexikonUtility
             case 'tinymce':
                 if (is_readable(XOOPS_ROOT_PATH . '/class/xoopseditor/tinyeditor/formtinyeditortextarea.php')) {
                     require_once XOOPS_ROOT_PATH . '/class/xoopseditor/tinyeditor/formtinyeditortextarea.php';
-                    $editor = new XoopsFormTinyeditorTextArea(array(
+                    $editor = new XoopsFormTinyeditorTextArea([
                                                                   'caption' => $caption,
                                                                   'name'    => $name,
                                                                   'value'   => $value,
                                                                   'width'   => '100%',
                                                                   'height'  => '400px'
-                                                              ));
+                                                              ]);
                 }
                 break;
 
@@ -982,18 +982,18 @@ class LexikonUtility
             $xoTheme->addStylesheet('modules/lexikon/assets/css/style.css');
             if ($xoopsModuleConfig['linkterms'] == 3) {
                 $xoTheme->addStylesheet('modules/lexikon/assets/css/linkterms.css');
-                $xoTheme->addScript('/modules/lexikon/assets/js/tooltipscript2.js', array('type' => 'text/javascript'));
+                $xoTheme->addScript('/modules/lexikon/assets/js/tooltipscript2.js', ['type' => 'text/javascript']);
             }
             if ($xoopsModuleConfig['linkterms'] == 4) {
-                $xoTheme->addScript('/modules/lexikon/assets/js/popup.js', array('type' => 'text/javascript'));
+                $xoTheme->addScript('/modules/lexikon/assets/js/popup.js', ['type' => 'text/javascript']);
             }
             if ($xoopsModuleConfig['linkterms'] == 5) {
                 $xoTheme->addStylesheet('modules/lexikon/assets/css/linkterms.css');
-                $xoTheme->addScript('/modules/lexikon/assets/js/balloontooltip.js', array('type' => 'text/javascript'));
+                $xoTheme->addScript('/modules/lexikon/assets/js/balloontooltip.js', ['type' => 'text/javascript']);
             }
             if ($xoopsModuleConfig['linkterms'] == 6) {
                 $xoTheme->addStylesheet('modules/lexikon/assets/css/linkterms.css');
-                $xoTheme->addScript('/modules/lexikon/assets/js/shadowtooltip.js', array('type' => 'text/javascript'));
+                $xoTheme->addScript('/modules/lexikon/assets/js/shadowtooltip.js', ['type' => 'text/javascript']);
             }
         } else {
             $lexikon_url = XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname');
@@ -1079,12 +1079,12 @@ class LexikonUtility
                               LIMIT $start,$limit");
 
         while ($row = $xoopsDB->fetchArray($sql)) {
-            $xoopsTpl->append('entries', array(
+            $xoopsTpl->append('entries', [
                 'id'      => $row['entryID'],
                 'name'    => $row['term'],
                 'date'    => date($xoopsModuleConfig['dateformat'], $row['datesub']),
                 'counter' => $row['counter']
-            ));
+            ]);
         }
 
         $navstring                = '';
@@ -1105,7 +1105,7 @@ class LexikonUtility
     {
         global $xoopsDB;
 
-        $ret    = array();
+        $ret    = [];
         $sql    = 'SELECT DISTINCT(uid) AS uid FROM ' . $xoopsDB->prefix('lxentries') . ' WHERE offline = 0 ';
         $sql    .= ' ORDER BY uid';
         $result = $xoopsDB->query($sql);
@@ -1215,7 +1215,7 @@ class LexikonUtility
                         . chr(255);
         $chars['out'] = 'EfSZszYcYuAAAAAACEEEEIIIINOOOOOOUUUUYaaaaaaceeeeiiiinoooooouuuuyy';
         if (LexikonUtility::isUtf8($string)) {
-            $invalid_latin_chars = array(
+            $invalid_latin_chars = [
                 chr(197) . chr(146)            => 'OE',
                 chr(197) . chr(147)            => 'oe',
                 chr(197) . chr(160)            => 'S',
@@ -1223,11 +1223,11 @@ class LexikonUtility
                 chr(197) . chr(161)            => 's',
                 chr(197) . chr(190)            => 'z',
                 chr(226) . chr(130) . chr(172) => 'E'
-            );
+            ];
             $string              = utf8_decode(strtr($string, $invalid_latin_chars));
         }
         $string              = strtr($string, $chars['in'], $chars['out']);
-        $double_chars['in']  = array(
+        $double_chars['in']  = [
             chr(140),
             chr(156),
             chr(198),
@@ -1237,8 +1237,8 @@ class LexikonUtility
             chr(230),
             chr(240),
             chr(254)
-        );
-        $double_chars['out'] = array('OE', 'oe', 'AE', 'DH', 'TH', 'ss', 'ae', 'dh', 'th');
+        ];
+        $double_chars['out'] = ['OE', 'oe', 'AE', 'DH', 'TH', 'ss', 'ae', 'dh', 'th'];
         $string              = str_replace($double_chars['in'], $double_chars['out'], $string);
 
         return $string;
@@ -1332,7 +1332,7 @@ class LexikonUtility
         if ($name !== 'uname') {
             $name = 'name';
         } //making sure that there is not invalid information in field value
-        $ret = array();
+        $ret = [];
         $db  = XoopsDatabaseFactory::getDatabaseConnection();
         if ($sort === 'count') {
             $sql = 'SELECT u.' . $name . ' AS name, u.uid , count( n.entryID ) AS count
@@ -1415,7 +1415,7 @@ class LexikonUtility
             $start_tags = $start_tags[1];
             // match closed tags
             if (preg_match_all('/<\/([a-z]+)>/', $string, $end_tags)) {
-                $complete_tags = array();
+                $complete_tags = [];
                 $end_tags      = $end_tags[1];
 
                 foreach ($start_tags as $key => $val) {
@@ -1488,7 +1488,7 @@ class LexikonUtility
     {
         global $xoopsDB;
 
-        $summary = array();
+        $summary = [];
 
         $result01 = $xoopsDB->query('SELECT COUNT(*)
                                    FROM ' . $xoopsDB->prefix('lxcategories') . ' ');

@@ -8,7 +8,7 @@
  * Licence: GNU
  */
 
-defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
+defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
 
 /* This function spotlights a category, with a spotlight definition and links to others */
 /**
@@ -37,7 +37,7 @@ function b_lxspot_show($options)
     $catids = implode(',', $allowed_cats);
     $catperms = " AND categoryID IN ($catids) ";*/
 
-    $block = array();
+    $block = [];
 
     // To handle options in the template
     if ($options[2] == 1) {
@@ -115,7 +115,7 @@ function b_lxspot_show($options)
             $i = 0;
             while ($myrow = $xoopsDB->fetchArray($resultC)) {
                 if ($i < $options[1]) {
-                    $morelinks         = array();
+                    $morelinks         = [];
                     $morelinks['id']   = $myrow['entryID'];
                     $morelinks['head'] = xoops_substr($myts->htmlSpecialChars($myrow['term']), 0, (int)$options[9]);
 

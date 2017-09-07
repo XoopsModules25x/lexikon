@@ -3,7 +3,7 @@
 // ------------------------------------------------------------------------ //
 // XOOPS - PHP Content Management System                                    //
 // Copyright (c) 2000-2016 XOOPS.org                                             //
-// <https://xoops.org/>                                                  //
+// <https://xoops.org>                                                  //
 // ------------------------------------------------------------------------ //
 // This program is free software; you can redistribute it and/or modify     //
 // it under the terms of the GNU General Public License as published by     //
@@ -37,7 +37,7 @@ $adminObject = \Xmf\Module\Admin::getInstance();
 $adminObject->displayNavigation(basename(__FILE__));
 
 $permtoset                = isset($_POST['permtoset']) ? (int)$_POST['permtoset'] : 1;
-$selected                 = array('', '', '', '');
+$selected                 = ['', '', '', ''];
 $selected[$permtoset - 1] = ' selected';
 echo "
     <div style='clear:both'; ><form method='post' name='fselperm' action='permissions.php'>

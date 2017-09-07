@@ -33,12 +33,11 @@ if ($xoopsModuleConfig['com_anonpost'] == 0 && !is_object($xoopsUser)) {
 
 if ($com_itemid > 0) {
     // Get link title
-    $sql    = 'SELECT entryID, term FROM ' . $xoopsDB->prefix('lxentries') . ' WHERE entryID=' . $com_itemid . '';
+    $sql    = 'SELECT entryID, term FROM ' . $xoopsDB->prefix('lxentries') . ' WHERE entryID=' . $com_itemid . ' ';
     $result = $xoopsDB->query($sql);
     $row    = $xoopsDB->fetchArray($result);
     if (!$row['entryID']) {
         redirect_header('javascript:history.go(-1)', 3, _NOPERM);
-        exit;
     }
     $com_replytitle = $row['term'];
     include XOOPS_ROOT_PATH . '/include/comment_new.php';

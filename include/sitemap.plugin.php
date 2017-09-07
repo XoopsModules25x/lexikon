@@ -5,7 +5,7 @@
  * version 1.5
  */
 
-defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
+defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
 
 /**
  * @return array
@@ -18,7 +18,7 @@ function b_sitemap_lexikon()
     // Permission
     global $xoopsUser;
     $gpermHandler = xoops_getHandler('groupperm');
-    $groups        = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
+    $groups       = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
     /** @var XoopsModuleHandler $moduleHandler */
     $moduleHandler = xoops_getHandler('module');
     $module        = $moduleHandler->getByDirname('lexikon');
@@ -28,13 +28,13 @@ function b_sitemap_lexikon()
     $catperms      = " WHERE categoryID IN ($catids) ";
     $result        = $db->query('SELECT categoryID, name FROM ' . $db->prefix('lxcategories') . ' ' . $catperms . ' ORDER BY weight');
 
-    $ret = array();
+    $ret = [];
     while (list($id, $name) = $db->fetchRow($result)) {
-        $ret['parent'][] = array(
+        $ret['parent'][] = [
             'id'    => $id,
             'title' => $myts->htmlSpecialChars($name),
             'url'   => "category.php?categoryID=$id"
-        );
+        ];
     }
 
     return $ret;

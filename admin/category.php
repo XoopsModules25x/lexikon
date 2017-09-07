@@ -290,7 +290,7 @@ function categoryDelete($categoryID = '')
         redirect_header('category.php', 1, sprintf(_AM_LEXIKON_CATISDELETED, $name));
     } else {
         //xoops_cp_header();
-        xoops_confirm(array('op' => 'del', 'categoryID' => $categoryID, 'ok' => 1, 'name' => $name), 'category.php', _AM_LEXIKON_DELETETHISCAT . '<br><br>' . $name, _AM_LEXIKON_DELETE);
+        xoops_confirm(['op' => 'del', 'categoryID' => $categoryID, 'ok' => 1, 'name' => $name], 'category.php', _AM_LEXIKON_DELETETHISCAT . '<br><br>' . $name, _AM_LEXIKON_DELETE);
     }
 }
 
@@ -311,14 +311,14 @@ function categorySave($categoryID = '')
     $description =& $myts->xoopsCodeDecode($myts->censorString($description), $allowimage = 1);
     $name        = $myts->addSlashes(Request::getString('name', '', 'POST'));
     $logourl     = $myts->addSlashes(Request::getString('logourl', '', 'POST'));
-    $groups      = Request::getArray('group', array(), 'POST'); //isset($_POST['groups']) ? $_POST['groups'] : array();
+    $groups      = Request::getArray('group', [], 'POST'); //isset($_POST['groups']) ? $_POST['groups'] : array();
     // image upload
     $logourl       = '';
     $maxfilesize   = $xoopsModuleConfig['imguploadsize'];
     $maxfilewidth  = $xoopsModuleConfig['imguploadwd'];
     $maxfileheight = $xoopsModuleConfig['imguploadwd'];
     if (!empty($_FILES['userfile']['name'])) {
-        $allowed_mimetypes = array('image/gif', 'image/jpeg', 'image/pjpeg', 'image/x-png', 'image/png');
+        $allowed_mimetypes = ['image/gif', 'image/jpeg', 'image/pjpeg', 'image/x-png', 'image/png'];
         $uploader          = new XoopsMediaUploader(XOOPS_ROOT_PATH . '/uploads/' . $xoopsModule->getVar('dirname') . '/categories/images/', $allowed_mimetypes, $maxfilesize, $maxfilewidth, $maxfileheight);
 
         if ($uploader->fetchMedia($_POST['xoops_upload_file'][0])) {
@@ -356,7 +356,7 @@ function categorySave($categoryID = '')
                 }
                 global $xoopsModule;
                 $notificationHandler = xoops_getHandler('notification');
-                $tags                = array();
+                $tags                = [];
                 $tags['ITEM_NAME']   = $name;
                 $tags['ITEM_URL']    = XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/category.php?categoryID=' . $newid;
                 $notificationHandler->triggerEvent('global', 0, 'new_category', $tags);

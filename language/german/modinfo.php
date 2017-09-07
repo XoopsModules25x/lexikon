@@ -108,8 +108,10 @@ define('_MI_LEXIKON_METANUM_70', '70');
 define('_MI_LEXIKON_METANUM_80', '80');
 $cf++;
 define('_MI_LEXIKON_USESHOTS', "$cf. Thumbnails als Kategoriebilder:");
-define('_MI_LEXIKON_USESHOTSDSC',
-       'Unterst&uuml;tzte Dateitypen: JPG, GIF, PNG.<br>Thumbnails werden zur Darstellung der Kategoriebilder benutzt. Einstellung `Nein` bewirkt, dass keine Kategorienbilder dargestellt werden.<br> <em>Das Uploadverzeichnis für Kategoriebilder ist uploads/lexikon/categories/images</em>');
+define(
+    '_MI_LEXIKON_USESHOTSDSC',
+       'Unterst&uuml;tzte Dateitypen: JPG, GIF, PNG.<br>Thumbnails werden zur Darstellung der Kategoriebilder benutzt. Einstellung `Nein` bewirkt, dass keine Kategorienbilder dargestellt werden.<br> <em>Das Uploadverzeichnis für Kategoriebilder ist uploads/lexikon/categories/images</em>'
+);
 $cf++;
 define('_MI_LEXIKON_LOGOWIDTH', "$cf. Maximale Breite der Kategoriebilder im Menü:");
 define('_MI_LEXIKON_LOGOWIDTHDSC', 'default:20px');

@@ -8,7 +8,7 @@
  * Licence: GNU
  */
 
-defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
+defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
 
 /**
  * @return array
@@ -34,7 +34,7 @@ function b_lxentries_random_show()
     $catperms     = " AND categoryID IN ($catids) ";
 
     $adminlinks     = '';
-    $block          = array();
+    $block          = [];
     $block['title'] = _MB_LEXIKON_RANDOMTITLE;
 
     list($numrows) = $xoopsDB->fetchRow($xoopsDB->query('SELECT COUNT(entryID) FROM ' . $xoopsDB->prefix('lxentries') . " WHERE offline= '0' AND block = '1' " . $catperms . ' '));

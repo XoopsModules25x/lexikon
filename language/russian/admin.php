@@ -134,8 +134,10 @@ define('_AM_LEXIKON_ABOUT_AUTHOR_INFO', 'Author info');
 define('_AM_LEXIKON_ABOUT_AUTHOR_NAME', 'Author name');
 define('_AM_LEXIKON_ABOUT_AUTHOR_WORD', "Author's word");
 define('_AM_LEXIKON_ABOUT_DISCLAIMER', 'Disclaimer');
-define('_AM_LEXIKON_ABOUT_DISCLAIMER_TEXT',
-       'GPL-licensed.<BR>This module comes as is, without any guarantees whatsoever. This module is a Release Candidate and should not be used on a production web site. The module is still under active development and its use is under your own responsibility, which means the author is not responsible.');
+define(
+    '_AM_LEXIKON_ABOUT_DISCLAIMER_TEXT',
+       'GPL-licensed.<BR>This module comes as is, without any guarantees whatsoever. This module is a Release Candidate and should not be used on a production web site. The module is still under active development and its use is under your own responsibility, which means the author is not responsible.'
+);
 define('_AM_LEXIKON_ABOUT_CHANGELOG', 'Changelog');
 define('_AM_LEXIKON_ABOUT_README', 'Readme');
 define('_AM_LEXIKON_ABOUT_DEMO', 'Demo Site(s)');
@@ -220,8 +222,10 @@ define('_AM_LEXIKON_SUBMITFORM', 'Отправить');
 define('_AM_LEXIKON_REQUESTFORM', 'Запрос');
 define('_AM_LEXIKON_VIEWFORM_DSC', 'Выберите, кто может просматривать категории');
 define('_AM_LEXIKON_APPROVEFORM_DSC', 'Автоматическое одобрение материалов, представленные этими группами. <BR> Лучше не использовать!');
-define('_AM_LEXIKON_APPROVEPERM_WARN',
-       'В связи с некоторыми аспектами этого модуля в том числе нарушение авторских прав, местных моральных или правовых вопросов, а также возможность обнаружения вредоносного кода в представленных медиа-файлов, то рекомендуется автоматическое одобрение анонимных пользователей не включать. Все материалы должны быть рассмотрены администратором.');
+define(
+    '_AM_LEXIKON_APPROVEPERM_WARN',
+       'В связи с некоторыми аспектами этого модуля в том числе нарушение авторских прав, местных моральных или правовых вопросов, а также возможность обнаружения вредоносного кода в представленных медиа-файлов, то рекомендуется автоматическое одобрение анонимных пользователей не включать. Все материалы должны быть рассмотрены администратором.'
+);
 define('_AM_LEXIKON_SUBMITFORM_DSC', 'Разрешить пользователям подавать заявку, и изменять эту запись.<BR>Установить разрешение представлений в каждой категории.');
 define('_AM_LEXIKON_REQUESTFORM_DSC', 'Указанная группа будет иметь доступ к форме запроса.');
 define('_AM_LEXIKON_MODIFYFORM_DSC', 'Указанная группа будет иметь разрешение изменять определения и термины.<BR>Пользователю всегда разрешено изменять его/ее собственные термины и определения.');

@@ -71,7 +71,7 @@ if (!$categoryID) {
         redirect_header('javascript:history.go(-1)', 1, _MD_LEXIKON_NOCATSINSYSTEM);
     }
     // If there's no $categoryID, we want to show just the categories with their description
-    $catsarray = array();
+    $catsarray = [];
 
     // How many categories will we show in this page?
     $queryA  = 'SELECT * FROM ' . $xoopsDB->prefix('lxcategories') . ' ' . $catperms2 . ' ORDER BY weight ASC';
@@ -82,7 +82,7 @@ if (!$categoryID) {
         } else {
             $logourl = '';
         }
-        $eachcat                = array();
+        $eachcat                = [];
         $xoopsModule            = XoopsModule::getByDirname('lexikon');
         $eachcat['dir']         = $xoopsModule->dirname();
         $eachcat['id']          = (int)$categoryID;
@@ -122,7 +122,7 @@ if (!$categoryID) {
             if ($total == 0) {
                 redirect_header('javascript:history.go(-1)', 1, _MD_LEXIKON_NOENTRIESINCAT);
             }
-            $singlecat                = array();
+            $singlecat                = [];
             $singlecat['dir']         = $xoopsModule->dirname();
             $singlecat['id']          = $categoryID;
             $singlecat['name']        = $myts->htmlSpecialChars($name);
@@ -136,7 +136,7 @@ if (!$categoryID) {
             $xoopsTpl->assign('singlecat', $singlecat);
 
             // Entries to show in current page
-            $entriesarray = array();
+            $entriesarray = [];
 
             // Now we retrieve a specific number of entries according to start variable
             $queryB  = 'SELECT entryID, term, definition, html, smiley, xcodes, breaks, comments FROM ' . $xoopsDB->prefix('lxentries') . " WHERE categoryID = '$categoryID' AND submit ='0' AND offline = '0' ORDER BY term ASC";
@@ -144,7 +144,7 @@ if (!$categoryID) {
 
             //while (list( $entryID, $term, $definition ) = $xoopsDB->fetchRow($resultB))
             while (list($entryID, $term, $definition, $html, $smiley, $xcodes, $breaks, $comments) = $xoopsDB->fetchRow($resultB)) {
-                $eachentry         = array();
+                $eachentry         = [];
                 $xoopsModule       = XoopsModule::getByDirname('lexikon');
                 $eachentry['dir']  = $xoopsModule->dirname();
                 $eachentry['id']   = $entryID;

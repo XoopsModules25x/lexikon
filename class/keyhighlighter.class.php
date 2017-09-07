@@ -17,7 +17,7 @@
  * @example   sample.php A sample code.
  * @link      http://setecastronomy.stufftoread.com
  */
-// defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
+// defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
 
 class lx_keyhighlighter
 {
@@ -77,7 +77,7 @@ class lx_keyhighlighter
      */
     public function replace($replace_matches)
     {
-        $patterns = array();
+        $patterns = [];
         if ($this->singlewords) {
             $keywords = explode(' ', $this->preg_keywords);
             foreach ($keywords as $keyword) {
@@ -109,7 +109,7 @@ class lx_keyhighlighter
     {
         $buffer              = '>' . $buffer . '<';
         $this->preg_keywords = preg_replace('/[^\w ]/si', '', $this->keywords);
-        $buffer              = preg_replace_callback("/(\>(((?" . ">[^><]+)|(?R))*)\<)/is", array(&$this, 'replace'), $buffer);
+        $buffer              = preg_replace_callback("/(\>(((?" . ">[^><]+)|(?R))*)\<)/is", [&$this, 'replace'], $buffer);
         $buffer              = xoops_substr($buffer, 1, -1, $trimmarker = '');
 
         return $buffer;

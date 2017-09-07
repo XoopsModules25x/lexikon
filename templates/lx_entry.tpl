@@ -27,11 +27,11 @@
 <table id="moduleheader">
     <tr>
         <td width="100%"><span class="leftheader"><a href="<{$xoops_url}>"><{$smarty.const._MD_LEXIKON_HOME}></a>
-<img src='assets/images/arrow.gif' align='absmiddle'/>
+<img src='assets/images/arrow.gif' align='absmiddle'>
  <a href="<{$xoops_url}>/modules/<{$lang_moduledirname}>/index.php"><{$lang_modulename}></a>
- <img src='assets/images/arrow.gif' align='absmiddle'/>
+ <img src='assets/images/arrow.gif' align='absmiddle'>
   <a href="<{$xoops_url}>/modules/<{$lang_moduledirname}>/letter.php?init=<{$thisterm.init}>"><{$thisterm.init}></a>
-   <img src='assets/images/arrow.gif' align='absmiddle'/> <{$thisterm.term}></span></td>
+   <img src='assets/images/arrow.gif' align='absmiddle'> <{$thisterm.term}></span></td>
         <td width="100"><span class="rightheader"><{$lang_modulename}></span></td>
     </tr>
 </table>
@@ -79,7 +79,7 @@
                                    target="_parent"><img
                                             src="<{$xoops_url}>/uploads/<{$lang_moduledirname}>/categories/images/<{$catlinks.image}>"
                                             width="<{$logo_maximgwidth}>" align="left" class="floatLeft"
-                                            alt="[<{$catlinks.name}>]&nbsp;[<{$catlinks.total}>]"/></A>
+                                            alt="[<{$catlinks.name}>]&nbsp;[<{$catlinks.total}>]"></A>
                             <{/if}>
                             <{if $catlinks.count > 0}>
                                 <{if $catlinks.total > 0}><a href="<{$xoops_url}>/modules/<{$lang_moduledirname}>/category.php?categoryID=<{$catlinks.id}>" title="[<{$catlinks.total}>]"><{/if}><{$catlinks.linktext}>
@@ -106,7 +106,7 @@
                                target="_parent">
                                 <img src="<{$xoops_url}>/uploads/<{$lang_moduledirname}>/categories/images/<{$catlinks.image}>"
                                      width="<{$logo_maximgwidth}>" align="middle"
-                                     alt="[<{$catlinks.total}>]"/></A>
+                                     alt="[<{$catlinks.total}>]"></A>
                         <{/if}>
                         <{if $catlinks.total > 0}><a href="<{$xoops_url}>/modules/<{$lang_moduledirname}>/category.php?categoryID=<{$catlinks.id}>" title="[<{$catlinks.total}>]"><{/if}><{$catlinks.linktext}>
                         <{if $catlinks.total > 0}></a> <{/if}>[<{$catlinks.total}>] |
@@ -152,7 +152,7 @@
            onclick="addthis_url = location.href; addthis_title = document.title; return addthis_click(this);"
            target="_blank">
     <img src="assets/images/addthis_button1-bm.gif" align="absmiddle" width="125" height="16" border="0"
-         alt="AddThis Social Bookmark Button"/></a>
+         alt="AddThis Social Bookmark Button"></a>
         <script type="text/javascript">var addthis_pub = 'JJXUY2C9CQIWTKI1';</script>
         <script type="text/javascript" src="http://s9.addthis.com/js/widget.php?v=10"></script>
 

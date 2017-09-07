@@ -65,7 +65,7 @@ function showerror($msg)
  */
 function import2db($text)
 {
-    return preg_replace(array("/'/i"), array("\'"), $text);
+    return preg_replace(["/'/i"], ["\'"], $text);
 }
 
 /**

@@ -134,8 +134,10 @@ define('_AM_LEXIKON_ABOUT_AUTHOR_INFO', 'Author info');
 define('_AM_LEXIKON_ABOUT_AUTHOR_NAME', 'Author name');
 define('_AM_LEXIKON_ABOUT_AUTHOR_WORD', "Author's word");
 define('_AM_LEXIKON_ABOUT_DISCLAIMER', 'Disclaimer');
-define('_AM_LEXIKON_ABOUT_DISCLAIMER_TEXT',
-       'GPL-licensed.<br>This module comes as is, without any guarantees whatsoever. This module is a Release Candidate and should not be used on a production web site. The module is still under active development and its use is under your own responsibility, which means the author is not responsible.');
+define(
+    '_AM_LEXIKON_ABOUT_DISCLAIMER_TEXT',
+       'GPL-licensed.<br>This module comes as is, without any guarantees whatsoever. This module is a Release Candidate and should not be used on a production web site. The module is still under active development and its use is under your own responsibility, which means the author is not responsible.'
+);
 define('_AM_LEXIKON_ABOUT_CHANGELOG', 'Changelog');
 define('_AM_LEXIKON_ABOUT_README', 'Readme');
 define('_AM_LEXIKON_ABOUT_DEMO', 'Demo Site(s)');
@@ -220,8 +222,10 @@ define('_AM_LEXIKON_SUBMITFORM', 'Submit');
 define('_AM_LEXIKON_REQUESTFORM', 'Request');
 define('_AM_LEXIKON_VIEWFORM_DSC', 'Select, who can view which category');
 define('_AM_LEXIKON_APPROVEFORM_DSC', 'Automatically approve frontside submissions by these groups. <br> Not yet implemented!');
-define('_AM_LEXIKON_APPROVEPERM_WARN',
-       'Due to certain aspects of this module including copyright infringement, local moral or legal issues and the possibility of malicious code in submitted media files, it is recommended that automatic approval by anonymous users should not be allowed.  All submissions should be reviewed by a module admin.');
+define(
+    '_AM_LEXIKON_APPROVEPERM_WARN',
+       'Due to certain aspects of this module including copyright infringement, local moral or legal issues and the possibility of malicious code in submitted media files, it is recommended that automatic approval by anonymous users should not be allowed.  All submissions should be reviewed by a module admin.'
+);
 define('_AM_LEXIKON_SUBMITFORM_DSC', 'Allow users to submit an entry and, if published, modify that entry.<br>Allow submissions per category.');
 define('_AM_LEXIKON_REQUESTFORM_DSC', 'The specified group will have access to a request form.');
 define('_AM_LEXIKON_MODIFYFORM_DSC', 'The specified group will have the permission to request modifications of all definitions.<br>A user is always allowed to modify his/her own submissions.');

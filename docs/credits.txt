@@ -3,12 +3,12 @@ Credits and Thanks
 This module has been developed by Yerres.
 
 It is based on Wordbook module written by hsalazar.
-Wordbook  again is based on Soapbox (by him as well) which is 
+Wordbook  again is based on Soapbox (by him as well) which is
 in turn based on Catzwolf's module called WF-FAQ.
 Thanks to Herve Instant-Zero, Eric Juden & ackbarr Project XHelp,
-phppp, marcan The Smartfactory, frankblack, Zoullou, Aiba Kanpyo.net, 
-WF-Downloads Team, tcnet, BitC3R0 Xoops-Mexico and many others. 
-Of course thanks to anyone else who has contributed to this module 
+phppp, marcan The Smartfactory, frankblack, Zoullou, Aiba Kanpyo.net,
+WF-Downloads Team, tcnet, BitC3R0 Xoops-Mexico and many others.
+Of course thanks to anyone else who has contributed to this module
 either directly or indirectly.
 
 Dynamic Drive                  -> http://www.dynamicdrive.com

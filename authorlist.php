@@ -38,7 +38,7 @@ $catperms      = " AND categoryID IN ($catids) ";
 
 // --- display a list of the authors of the site ---
 
-$uid_ids = array();
+$uid_ids = [];
 $uid_ids = LexikonUtility::getAuthors();
 if (count($uid_ids) > 0) {
     $lst_uid       = implode(',', $uid_ids);
@@ -61,7 +61,7 @@ if (count($uid_ids) > 0) {
                                . XOOPS_URL
                                . "/images/icons/pm.gif' border='0' alt=\""
                                . sprintf(_SENDPMTO, $one_user->getVar('uname'))
-                               . '"/></A>';
+                               . '"></A>';
             } else {
                 $user_pmlink = '';
             }
@@ -69,7 +69,7 @@ if (count($uid_ids) > 0) {
                 if ($xoopsUserIsAdmin
                     || ($one_user->getVar('user_viewemail') == 1
                         && $one_user->getVar('email') != '')) {
-                    $user_maillink = "<a href='mailto:" . $one_user->getVar('email') . '\'><img src=\'' . XOOPS_URL . "/images/icons/email.gif' border='0' alt=\"" . sprintf(_SENDEMAILTO, $one_user->getVar('uname')) . '"/></A>';
+                    $user_maillink = "<a href='mailto:" . $one_user->getVar('email') . '\'><img src=\'' . XOOPS_URL . "/images/icons/email.gif' border='0' alt=\"" . sprintf(_SENDEMAILTO, $one_user->getVar('uname')) . '"></A>';
                 } else {
                     $user_maillink = '';
                 }
@@ -94,7 +94,7 @@ if (count($uid_ids) > 0) {
                 $userfrom = '';
             }
             ++$iu;
-            $xoopsTpl->append('authors', array(
+            $xoopsTpl->append('authors', [
                 'id'             => $iu,
                 'uid'            => $one_user->getVar('uid'),
                 'name'           => $uname,
@@ -104,7 +104,7 @@ if (count($uid_ids) > 0) {
                 'url'            => $user_wwwlink,
                 'total'          => $authortotal,
                 'location'       => $userfrom
-            ));
+            ]);
         } else {
             $xoopsTpl->assign('authorlistext', false);
             // authortotals
@@ -119,12 +119,12 @@ if (count($uid_ids) > 0) {
             $user_maillink = '';
             $user_wwwlink  = '';
             $userfrom      = '';
-            $xoopsTpl->append('authors', array(
+            $xoopsTpl->append('authors', [
                 'id'    => $iu,
                 'uid'   => $one_user->getVar('uid'),
                 'name'  => $uname,
                 'total' => $authortotal
-            ));
+            ]);
         }
     }
 }

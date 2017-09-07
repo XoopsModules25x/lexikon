@@ -8,7 +8,7 @@
  * Licence: GNU
  */
 
-defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
+defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
 
 /**
  * @param $options
@@ -37,7 +37,7 @@ function b_lxentries_new_show($options)
     $words      = $xoopsDB->query('SELECT entryID FROM ' . $xoopsDB->prefix('lxentries') . " WHERE offline = '0' AND submit='0' AND request='0' AND block = '1' ");
     $totalwords = $xoopsDB->getRowsNum($words);
 
-    $block              = array();
+    $block              = [];
     $block['marquee']   = ($options[2] == 1) ? 1 : 0;
     $block['alternate'] = ($options[3] == 1) ? 1 : 0;
     $block['showdate']  = ($options[4] == 1) ? 1 : 0;
@@ -50,7 +50,7 @@ function b_lxentries_new_show($options)
 
     if ($totalwords > 0) { // If there are definitions
         while (list($entryID, $categoryID, $term, $datesub) = $xoopsDB->fetchRow($result)) {
-            $newentries             = array();
+            $newentries             = [];
             $linktext               = ucfirst($myts->htmlSpecialChars($term));
             $newentries['dir']      = $lexikon->dirname();
             $newentries['linktext'] = $linktext;
