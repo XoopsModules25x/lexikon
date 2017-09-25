@@ -112,7 +112,7 @@ function lx_alterTable($field, $table)
     $sql    = 'SHOW COLUMNS FROM ' . $table . " LIKE '" . $field . '\'';
     $result = $xoopsDB->queryF($sql);
     //if ($result) {
-    if ($xoopsDB->getRowsNum($result) == 0) {
+    if (0 == $xoopsDB->getRowsNum($result)) {
         $sql = 'ALTER TABLE ' . $xoopsDB->prefix($table) . ' ADD `' . $field . '`';
 
         return $xoopsDB->query($sql);

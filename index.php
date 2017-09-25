@@ -41,14 +41,14 @@ if (count($allowed_cats) > 0) {
 
 // Counts
 $xoopsTpl->assign('multicats', (int)$xoopsModuleConfig['multicats']);
-if ($xoopsModuleConfig['multicats'] == 1) {
+if (1 == $xoopsModuleConfig['multicats']) {
     $xoopsTpl->assign('totalcats', (int)LexikonUtility::countCats());
 }
 $publishedwords = LexikonUtility::countWords();
 $xoopsTpl->assign('publishedwords', $publishedwords);
 
 // If there's no entries yet in the system...
-if ($publishedwords == 0) {
+if (0 == $publishedwords) {
     $xoopsTpl->assign('empty', '1');
 }
 
@@ -63,10 +63,10 @@ list($howmanyother) = $xoopsDB->fetchRow($xoopsDB->query('SELECT COUNT(*) FROM '
 $xoopsTpl->assign('totalother', $howmanyother);
 
 // To display the tree of categories
-if ($xoopsModuleConfig['multicats'] == 1) {
+if (1 == $xoopsModuleConfig['multicats']) {
     $xoopsTpl->assign('block0', LexikonUtility::getCategoryArray());
     $xoopsTpl->assign('layout', CONFIG_CATEGORY_LAYOUT_PLAIN);
-    if ($xoopsModuleConfig['useshots'] == 1) {
+    if (1 == $xoopsModuleConfig['useshots']) {
         $xoopsTpl->assign('show_screenshot', true);
         $xoopsTpl->assign('logo_maximgwidth', $xoopsModuleConfig['logo_maximgwidth']);
         $xoopsTpl->assign('lang_noscreenshot', _MD_LEXIKON_NOSHOTS);
@@ -127,7 +127,7 @@ if ($numrows > 1) {
 $resultZ = $xoopsDB->query('SELECT entryID, categoryID, term, definition, html, smiley, xcodes, breaks FROM ' . $xoopsDB->prefix('lxentries') . " WHERE submit = 'O' AND offline = '0' " . $catperms . " LIMIT $entrynumber, 1");
 
 $zerotest = $xoopsDB->getRowsNum($resultZ);
-if ($zerotest != 0) {
+if (0 != $zerotest) {
     while ($myrow = $xoopsDB->fetchArray($resultZ)) {
         $random         = [];
         $random['id']   = $myrow['entryID'];
@@ -137,7 +137,7 @@ if ($zerotest != 0) {
             $random['definition'] = $myts->displayTarea(xoops_substr($myrow['definition'], 0, $rndlength - 1), $myrow['html'], $myrow['smiley'], $myrow['xcodes'], 1, $myrow['breaks']);
         }
 
-        if ($xoopsModuleConfig['multicats'] == 1) {
+        if (1 == $xoopsModuleConfig['multicats']) {
             $random['categoryID'] = $myrow['categoryID'];
 
             $resultY = $xoopsDB->query('SELECT categoryID, name FROM ' . $xoopsDB->prefix('lxcategories') . ' WHERE categoryID = ' . $myrow['categoryID'] . ' ');
@@ -217,14 +217,14 @@ if ($xoopsUser && $xoopsUser->isAdmin()) {
 // Various strings
 $xoopsTpl->assign('lang_modulename', $xoopsModule->name());
 $xoopsTpl->assign('lang_moduledirname', $xoopsModule->getVar('dirname'));
-if ($publishedwords != 0) {
+if (0 != $publishedwords) {
     $xoopsTpl->assign('microlinks', $microlinks);
     $xoopsTpl->assign('showdate', (int)$xoopsModuleConfig['showdate']);
     $xoopsTpl->assign('showcount', (int)$xoopsModuleConfig['showcount']);
 }
 $xoopsTpl->assign('alpha', $alpha);
 $xoopsTpl->assign('teaser', LexikonUtility::getModuleOption('teaser'));
-if ($xoopsModuleConfig['syndication'] == 1) {
+if (1 == $xoopsModuleConfig['syndication']) {
     $xoopsTpl->assign('syndication', true);
 }
 if ($xoopsUser) {

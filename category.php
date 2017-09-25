@@ -34,7 +34,7 @@ if (!$gpermHandler->checkRight('lexikon_view', $categoryID, $groups, $xoopsModul
 }
 // If there's no entries yet in the system...
 $publishedwords = LexikonUtility::countWords();
-if ($publishedwords == 0) {
+if (0 == $publishedwords) {
     redirect_header(XOOPS_URL, 1, _MD_LEXIKON_STILLNOTHINGHERE);
 }
 $xoopsTpl->assign('publishedwords', $publishedwords);
@@ -47,10 +47,10 @@ list($howmanyother) = $xoopsDB->fetchRow($xoopsDB->query('SELECT COUNT(*) FROM '
 $xoopsTpl->assign('totalother', $howmanyother);
 
 // get the list of Maincategories :: or return to mainpage
-if ($xoopsModuleConfig['multicats'] == 1) {
+if (1 == $xoopsModuleConfig['multicats']) {
     $xoopsTpl->assign('block0', LexikonUtility::getCategoryArray());
     $xoopsTpl->assign('layout', CONFIG_CATEGORY_LAYOUT_PLAIN);
-    if ($xoopsModuleConfig['useshots'] == 1) {
+    if (1 == $xoopsModuleConfig['useshots']) {
         $xoopsTpl->assign('show_screenshot', true);
         $xoopsTpl->assign('logo_maximgwidth', $xoopsModuleConfig['logo_maximgwidth']);
         $xoopsTpl->assign('lang_noscreenshot', _MD_LEXIKON_NOSHOTS);
@@ -67,7 +67,7 @@ if (!$categoryID) {
     $catperms2  = " WHERE categoryID IN ($catids) ";
     $resultcats = $xoopsDB->query('SELECT categoryID FROM ' . $xoopsDB->prefix('lxcategories') . ' ORDER BY weight DESC');
     $totalcats  = $xoopsDB->getRowsNum($resultcats);
-    if ($totalcats == 0) {
+    if (0 == $totalcats) {
         redirect_header('javascript:history.go(-1)', 1, _MD_LEXIKON_NOCATSINSYSTEM);
     }
     // If there's no $categoryID, we want to show just the categories with their description
@@ -77,7 +77,7 @@ if (!$categoryID) {
     $queryA  = 'SELECT * FROM ' . $xoopsDB->prefix('lxcategories') . ' ' . $catperms2 . ' ORDER BY weight ASC';
     $resultA = $xoopsDB->query($queryA, $xoopsModuleConfig['indexperpage'], $start);
     while (list($categoryID, $name, $description, $total, $weight, $logourl) = $xoopsDB->fetchRow($resultA)) {
-        if ($logourl && $logourl !== 'http://') {
+        if ($logourl && 'http://' !== $logourl) {
             $logourl = $myts->htmlSpecialChars($logourl);
         } else {
             $logourl = '';
@@ -119,7 +119,7 @@ if (!$categoryID) {
     }
     while (list($categoryID, $name, $description, $total, $logourl) = $xoopsDB->fetchRow($catdata)) {
         if ($gpermHandler->checkRight('lexikon_view', $categoryID, $groups, $xoopsModule->getVar('mid'))) {
-            if ($total == 0) {
+            if (0 == $total) {
                 redirect_header('javascript:history.go(-1)', 1, _MD_LEXIKON_NOENTRIESINCAT);
             }
             $singlecat                = [];
@@ -152,10 +152,10 @@ if (!$categoryID) {
                 if (!XOOPS_USE_MULTIBYTES) {
                     $eachentry['definition'] = $myts->displayTarea($definition, $html, $smiley, $xcodes, 1, $breaks);
                 }
-                if (($xoopsModuleConfig['com_rule'] != 0)
-                    || (($xoopsModuleConfig['com_rule'] != 0)
+                if ((0 != $xoopsModuleConfig['com_rule'])
+                    || ((0 != $xoopsModuleConfig['com_rule'])
                         && is_object($xoopsUser))) {
-                    if ($comments != 0) {
+                    if (0 != $comments) {
                         $eachentry['comments'] = "<a href='entry.php?entryID=" . $eachentry['id'] . '\'>' . $comments . '&nbsp;' . _COMMENTS . '</a>';
                     } else {
                         $eachentry['comments'] = '';
@@ -187,7 +187,7 @@ if (!$categoryID) {
 
 $xoopsTpl->assign('lang_modulename', $xoopsModule->name());
 $xoopsTpl->assign('lang_moduledirname', $xoopsModule->getVar('dirname'));
-if ($xoopsModuleConfig['syndication'] == 1) {
+if (1 == $xoopsModuleConfig['syndication']) {
     $xoopsTpl->assign('syndication', true);
 }
 if ($xoopsUser) {

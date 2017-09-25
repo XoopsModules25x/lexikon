@@ -92,7 +92,7 @@ if (!Request::hasVar('submit', 'POST')) {
     // trigger Notification
     if (!empty($xoopsModuleConfig['notification_enabled'])) {
         global $xoopsModule;
-        if ($newid == 0) {
+        if (0 == $newid) {
             $newid = $xoopsDB->getInsertId();
         }
         $notificationHandler = xoops_getHandler('notification');
@@ -117,12 +117,12 @@ if (!Request::hasVar('submit', 'POST')) {
         $address = $xoopsConfig['adminmail'];
     }
 
-    if ($xoopsModuleConfig['mailtoadmin'] == 1) {
+    if (1 == $xoopsModuleConfig['mailtoadmin']) {
         $adminMessage = sprintf(_MD_LEXIKON_WHOASKED, $logname);
         $adminMessage .= '' . $reqterm . "\n";
         $adminMessage .= '' . _MD_LEXIKON_EMAILLEFT . " $address\n";
         $adminMessage .= "\n";
-        if ($notifypub == '1') {
+        if ('1' == $notifypub) {
             $adminMessage .= _MD_LEXIKON_NOTIFYONPUB;
         }
         $adminMessage .= "\n" . Request::getString('HTTP_USER_AGENT', '', 'SERVER') . "\n";
@@ -139,7 +139,7 @@ if (!Request::hasVar('submit', 'POST')) {
     }
     //send 'received!' mail
     //if (LexikonUtility::getModuleOption('mailtosender') && $address) {
-    if ($xoopsModuleConfig['mailtosender'] == 1 && $address) {
+    if (1 == $xoopsModuleConfig['mailtosender'] && $address) {
         $conf_subject = _MD_LEXIKON_THANKS2;
         $userMessage  = sprintf(_MD_LEXIKON_GOODDAY2, $logname);
         $userMessage  .= "\n\n";

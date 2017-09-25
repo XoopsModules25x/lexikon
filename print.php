@@ -51,7 +51,7 @@ function printPage($entryID)
     $term         = $myts->htmlSpecialChars($term);
     $definition   = str_replace('[pagebreak]', '<br style="page-break-after:always;">', $definition);
     $definition   =& $myts->displayTarea($definition, $html, $smiley, $xcodes, '', $breaks);
-    if ($authorname == '') {
+    if ('' == $authorname) {
         $authorname = $myts->htmlSpecialChars($username);
     } else {
         $authorname = $myts->htmlSpecialChars($authorname);
@@ -70,7 +70,7 @@ function printPage($entryID)
     <div style='width: 650px; border: 1px solid #000; padding: 20px;'>
     <div style='text-align: center; display: block; padding-bottom: 12px; margin: 0 0 6px 0; border-bottom: 2px solid #ccc;'><img src='" . XOOPS_URL . '/modules/' . $xoopsModule->dirname() . "/assets/images/lx_slogo.png' border='0' alt=''><h2 style='margin: 0;'>" . $term . '</h2></div>
     <div></div>';
-    if ($xoopsModuleConfig['multicats'] == 1) {
+    if (1 == $xoopsModuleConfig['multicats']) {
         echo '<div>' . _MD_LEXIKON_ENTRYCATEGORY . '<b>' . $categoryname . '</b></div>';
     }
     echo "<div style='padding-bottom: 6px; border-bottom: 1px solid #ccc;'>" . _MD_LEXIKON_SUBMITTER . '<b>' . $authorname . "</b></div>

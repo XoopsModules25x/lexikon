@@ -64,9 +64,9 @@ function b_lxcategories_show($options)
 function b_lxcategories_edit($options)
 {
     $form = '' . _MB_LEXIKON_ORDER . "&nbsp;<select name='options[]'>";
-    $form .= "<option value='weight' " . (($options[0] === 'weight') ? ' selected' : '') . '>' . _MB_LEXIKON_WEIGHT . "</option>\n";
-    $form .= "<option value='name' " . (($options[0] === 'name') ? ' selected' : '') . '>' . _MB_LEXIKON_NAME . "</option>\n";
-    $form .= "<option value='total' " . (($options[0] === 'total') ? ' selected' : '') . '>' . _MB_LEXIKON_TOTAL . "</option>\n";
+    $form .= "<option value='weight' " . (('weight' === $options[0]) ? ' selected' : '') . '>' . _MB_LEXIKON_WEIGHT . "</option>\n";
+    $form .= "<option value='name' " . (('name' === $options[0]) ? ' selected' : '') . '>' . _MB_LEXIKON_NAME . "</option>\n";
+    $form .= "<option value='total' " . (('total' === $options[0]) ? ' selected' : '') . '>' . _MB_LEXIKON_TOTAL . "</option>\n";
     $form .= "</select>\n<br>";
 
     $form .= '&nbsp;' . _MB_LEXIKON_DISP . "&nbsp;<input type='text' name='options[]' value='" . $options[1] . '\'>&nbsp;' . _MB_LEXIKON_CATS . '';

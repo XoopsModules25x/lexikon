@@ -29,7 +29,7 @@ function lexikon_notify_iteminfo($category, $item_id)
     }
     $moduleDirName = $pathparts[array_search('modules', $pathparts) + 1];// checken
 
-    if ($category === 'global') {
+    if ('global' === $category) {
         $item['name'] = '';
         $item['url']  = '';
 
@@ -38,7 +38,7 @@ function lexikon_notify_iteminfo($category, $item_id)
     $item_id = (int)$item_id;
 
     global $xoopsDB;
-    if ($category === 'category') {
+    if ('category' === $category) {
         // Assume we have a valid category id
         $sql = 'SELECT name FROM ' . $xoopsDB->prefix('lxcategories') . ' WHERE categoryID = ' . $item_id;
         if (!$result = $xoopsDB->query($sql)) {
@@ -52,7 +52,7 @@ function lexikon_notify_iteminfo($category, $item_id)
         return $item;
     }
 
-    if ($category === 'term') {
+    if ('term' === $category) {
         // Assume we have a valid entry id
         $sql = 'SELECT entryID,term FROM ' . $xoopsDB->prefix('lxentries') . ' WHERE entryID = ' . $item_id;
         if (!$result = $xoopsDB->query($sql)) {

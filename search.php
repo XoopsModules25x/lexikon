@@ -30,7 +30,7 @@ require_once XOOPS_ROOT_PATH . '/class/pagenav.php';
 // Check if search is enabled site-wide
 $configHandler     = xoops_getHandler('config');
 $xoopsConfigSearch = $configHandler->getConfigsByCat(XOOPS_CONF_SEARCH);
-if ($xoopsConfigSearch['enable_search'] != 1) {
+if (1 != $xoopsConfigSearch['enable_search']) {
     header('location: ' . XOOPS_URL . '/modules/' . $xoopsModule->dirname() . '/index.php');
     exit();
 }
@@ -52,7 +52,7 @@ $categoryID = Request::getInt('categoryID', 0, 'GET'); //isset($categoryID) ? (i
 $type       = Request::getInt('type', 3, 'GET'); //isset($type) ? (int)$type : 3;
 $queries    = [];
 
-if ($xoopsModuleConfig['multicats'] == 1) {
+if (1 == $xoopsModuleConfig['multicats']) {
     $xoopsTpl->assign('multicats', 1);
     $totalcats = LexikonUtility::countCats();
     $xoopsTpl->assign('totalcats', $totalcats);
@@ -62,17 +62,17 @@ if ($xoopsModuleConfig['multicats'] == 1) {
 
 // Configure search parameters according to selector
 $query = stripslashes($query);
-if ($type == '1') {
+if ('1' == $type) {
     $searchtype = "( w.term LIKE '%$query%' )";
 }
-if ($type == '2') {
+if ('2' == $type) {
     $searchtype = "( definition LIKE '%$query%' )";
 }
-if ($type == '3') {
+if ('3' == $type) {
     $searchtype = "(( term LIKE '%$query%' OR definition LIKE '%$query%' OR ref LIKE '%$query%' ))";
 }
 
-if ($xoopsModuleConfig['multicats'] == 1) {
+if (1 == $xoopsModuleConfig['multicats']) {
     // If the search is in a particular category
     if ($categoryID > 0) {
         $andcatid = "AND categoryID = '$categoryID' ";
@@ -100,7 +100,7 @@ if (!$query) {
     $searchquery = $xoopsDB->query('SELECT COUNT(*) as nrows FROM ' . $xoopsDB->prefix('lxentries') . " w WHERE offline='0' AND " . $catrestrict . ' ' . $andcatid . " AND $searchtype   ORDER BY term DESC");
     list($results) = $xoopsDB->fetchRow($searchquery);
 
-    if ($results == 0) {
+    if (0 == $results) {
         // There's been no correspondences with the searched terms
         $xoopsTpl->assign('intro', _MD_LEXIKON_NORESULTS);
 
@@ -125,7 +125,7 @@ if (!$query) {
         }
 
         // How many results will we show in this page?
-        if ($xoopsModuleConfig['multicats'] == 1) {
+        if (1 == $xoopsModuleConfig['multicats']) {
             // If the search is in a particular category
             if ($categoryID > 0) {
                 $andcatid2 = "AND w.categoryID = '$categoryID' ";

@@ -95,13 +95,13 @@ if (is_object($xoopsUser)) {
     }
 }
 #if ( isset($xoopsModuleConfig['authorprofile']) && $xoopsModuleConfig['authorprofile'] == 1 ) {
-if (isset($lxConfig['authorprofile']) && $lxConfig['authorprofile'] == 1) {
+if (isset($lxConfig['authorprofile']) && 1 == $lxConfig['authorprofile']) {
     $modversion['sub'][$i]['name'] = _MI_LEXIKON_SUB_SMNAME6;
     $modversion['sub'][$i]['url']  = 'authorlist.php';
     ++$i;
 }
 //if ( $xoopsUser || isset($xoopsModuleConfig['contentsyndication']) && $xoopsModuleConfig['contentsyndication'] == 1 ) {
-if (isset($lxConfig['contentsyndication']) && $lxConfig['contentsyndication'] == 1) {
+if (isset($lxConfig['contentsyndication']) && 1 == $lxConfig['contentsyndication']) {
     $modversion['sub'][$i]['name'] = _MI_LEXIKON_SUB_SMNAME7;
     $modversion['sub'][$i]['url']  = 'content.php';
     ++$i;
@@ -128,8 +128,8 @@ $modversion['sub'][$i]['url']  = 'search.php';
 ++$i;
 //if ( isset($xoopsModuleConfig['catsinmenu']) && $xoopsModuleConfig['catsinmenu'] == 1 && $xoopsModuleConfig['multicats']) {
 #if (isset($xoopsModuleConfig['catsinmenu']) && $xoopsModuleConfig['catsinmenu'] == 1 && isset($xoopsModuleConfig['multicats']) && $xoopsModuleConfig["multicats"] == 1) {
-if (isset($lxConfig['catsinmenu']) && $lxConfig['catsinmenu'] == 1 && isset($lxConfig['multicats'])
-    && $lxConfig['multicats'] == 1) {
+if (isset($lxConfig['catsinmenu']) && 1 == $lxConfig['catsinmenu'] && isset($lxConfig['multicats'])
+    && 1 == $lxConfig['multicats']) {
     $myts = MyTextSanitizer::getInstance();
     $sql  = $xoopsDB->query('SELECT categoryID, name FROM ' . $xoopsDB->prefix('lxcategories') . ' ORDER BY weight ASC');
     while (list($categoryID, $name) = $xoopsDB->fetchRow($sql)) {

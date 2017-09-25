@@ -19,7 +19,7 @@ require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
 global $xoTheme, $xoopsUser, $xoopsConfig, $xoopsModuleConfig, $xoopsModule;
 
 $result = $xoopsDB->query('SELECT * FROM ' . $xoopsDB->prefix('lxcategories') . ' ');
-if ($xoopsDB->getRowsNum($result) == '0' && $xoopsModuleConfig['multicats'] == '1') {
+if ('0' == $xoopsDB->getRowsNum($result) && '1' == $xoopsModuleConfig['multicats']) {
     redirect_header('index.php', 1, _AM_LEXIKON_NOCOLEXISTS);
 }
 
@@ -61,13 +61,13 @@ if (!$gpermHandler->checkRight('lexikon_submit', $perm_itemid, $groups, $module_
 }
 $totalcats    = $gpermHandler->getItemIds('lexikon_submit', $groups, $module_id);
 $permitsubmit = count($totalcats);
-if ($permitsubmit == 0 && $xoopsModuleConfig['multicats'] == '1') {
+if (0 == $permitsubmit && '1' == $xoopsModuleConfig['multicats']) {
     redirect_header('index.php', 3, _NOPERM);
 }
 switch ($op) {
     case 'post':
         //--- Captcha
-        if ($xoopsModuleConfig['captcha'] != 0) {
+        if (0 != $xoopsModuleConfig['captcha']) {
             xoops_load('XoopsCaptcha');
             if (@require_once XOOPS_ROOT_PATH . '/class/captcha/xoopscaptcha.php') {
                 $xoopsCaptcha = XoopsCaptcha::getInstance();
@@ -113,7 +113,7 @@ switch ($op) {
         //$notifypub = (isset($_POST['notifypub'])) ? (int)($_POST['notifypub']) : '';
         $notifypub = !empty($_POST['notifypub']) ? 1 : 0;
 
-        if ($xoopsModuleConfig['multicats'] == 1) {
+        if (1 == $xoopsModuleConfig['multicats']) {
             $categoryID = (int)$_POST['categoryID'];
         } else {
             $categoryID = 1;
@@ -176,7 +176,7 @@ switch ($op) {
         // trigger Notification
         if (!empty($xoopsModuleConfig['notification_enabled'])) {
             global $xoopsModule;
-            if ($newid == 0) {
+            if (0 == $newid) {
                 $newid = $xoopsDB->getInsertId();
             }
             $notificationHandler   = xoops_getHandler('notification');
@@ -191,7 +191,7 @@ switch ($op) {
             $row                   = $xoopsDB->fetchArray($result);
             $tags['CATEGORY_NAME'] = $row['name'];
             $tags['CATEGORY_URL']  = XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/category.php?categoryID=' . $categoryID;
-            if ($xoopsModuleConfig['autoapprove'] == 1) {
+            if (1 == $xoopsModuleConfig['autoapprove']) {
                 $notificationHandler->triggerEvent('category', $categoryID, 'new_post', $tags);
                 $notificationHandler->triggerEvent('global', 0, 'new_post', $tags);
                 //sample: $notificationHandler->triggerEvent($category, $item_id, $events, $tags, $user_list=array(), $module_id=null, $omit_user_id=null)
@@ -214,12 +214,12 @@ switch ($op) {
                 list($usermail) = $xoopsDB->fetchRow($result);
             }
 
-            if ($xoopsModuleConfig['mailtoadmin'] == 1) {
+            if (1 == $xoopsModuleConfig['mailtoadmin']) {
                 $adminMessage = sprintf(_MD_LEXIKON_WHOSUBMITTED, $username);
                 $adminMessage .= '<b>' . $term . "</b>\n";
                 $adminMessage .= '' . _MD_LEXIKON_EMAILLEFT . " $usermail\n";
                 $adminMessage .= "\n";
-                if ($notifypub == '1') {
+                if ('1' == $notifypub) {
                     $adminMessage .= _MD_LEXIKON_NOTIFYONPUB;
                 }
                 $adminMessage .= "\n" . $_SERVER['HTTP_USER_AGENT'] . "\n";
@@ -237,12 +237,12 @@ switch ($op) {
             }
 
             //if ($xoopsModuleConfig['autoapprove'] == 1) {
-            if ($autoapprove == 1) {
+            if (1 == $autoapprove) {
                 redirect_header('index.php', 2, _MD_LEXIKON_RECEIVEDANDAPPROVED);
             } else {
                 //send received mail
                 //if (LexikonUtility::getModuleOption('mailtosender') && $usermail) {
-                if ($xoopsModuleConfig['mailtosender'] == 1 && $usermail) {
+                if (1 == $xoopsModuleConfig['mailtosender'] && $usermail) {
                     $conf_subject = _MD_LEXIKON_THANKS3;
                     $userMessage  = sprintf(_MD_LEXIKON_GOODDAY2, $username);
                     $userMessage  .= "\n\n";

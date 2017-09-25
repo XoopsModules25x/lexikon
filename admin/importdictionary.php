@@ -47,7 +47,7 @@ switch ($op) {
 function showerror($msg)
 {
     global $xoopsDB;
-    if ($xoopsDB->error() != '') {
+    if ('' != $xoopsDB->error()) {
         echo '<br>' . $msg . ' <br><span style="font-size: xx-small; "> -  ERROR: ' . $xoopsDB->error() . '</span>.';
     } else {
         echo '<br>' . $msg . ' O.K.!';
@@ -130,12 +130,12 @@ function DefinitionImport($delete)
             $definition = $myts->addSlashes(import2db($row2['definition']));
             $datesub    = ++$fecha;
             $estado     = import2db($row2['state']);
-            if ($estado === 'O') {
+            if ('O' === $estado) {
                 $row2['state'] = 0;
             } else {
                 $row2['state'] = 1;
             }
-            if ($estado === 'D') {
+            if ('D' === $estado) {
                 $row2['submit'] = 1 && $row2['state'] = 1;
             } else {
                 $row2['submit'] = 0;

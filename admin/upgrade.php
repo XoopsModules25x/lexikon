@@ -20,7 +20,7 @@ $go = isset($_POST['go']) ? $_POST['go'] : 0;
 function showerror($msg)
 {
     global $xoopsDB;
-    if ($xoopsDB->error() != '') {
+    if ('' != $xoopsDB->error()) {
         echo '<br>' . $msg . '  -  ERROR: ' . $xoopsDB->error();
     } else {
         echo '<br>' . $msg . ' O.K.!';
@@ -41,7 +41,7 @@ if ($go) {
         }
 
         // 2) if multicats OFF set categoryID to '1' (prior '0')
-        if ($xoopsModuleConfig['multicats'] == 0) {
+        if (0 == $xoopsModuleConfig['multicats']) {
             $result = $xoopsDB->query('SELECT COUNT(*)
                                            FROM ' . $xoopsDB->prefix('lxentries') . '
                                            WHERE categoryID = 0  ');

@@ -20,7 +20,7 @@ $myts           = MyTextSanitizer::getInstance();
 $mytree         = new LexikonTree($xoopsDB->prefix('lxcategories'), 'categoryID', '0');
 $sform          = new XoopsThemeForm(_MD_LEXIKON_SUB_SMNAME, 'storyform', xoops_getenv('PHP_SELF'), 'post', true);
 
-if ($xoopsModuleConfig['multicats'] == '1') {
+if ('1' == $xoopsModuleConfig['multicats']) {
     // perms adapted category select
     $groups       = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
     $gpermHandler = xoops_getHandler('groupperm');
@@ -32,7 +32,7 @@ if ($xoopsModuleConfig['multicats'] == '1') {
         $tbl            = $mytree->getChildTreeArray(0, 'name');
         foreach ($tbl as $oneline) {
             if (in_array($oneline['categoryID'], $allowed_cats)) {
-                if ($oneline['prefix'] === '.') {
+                if ('.' === $oneline['prefix']) {
                     $oneline['prefix'] = '';
                 }
 
@@ -67,7 +67,7 @@ if (isset($guesteditoruse)) {
     //if (isset($xoopsUser) && is_object($xoopsUser) ) {
     if ($xoopsUser) {
         $editor = LexikonUtility::getWysiwygForm(_MD_LEXIKON_DEFINITION, 'definition', _MD_LEXIKON_WRITEHERE, 15, 60);
-        if ($definition == _MD_LEXIKON_WRITEHERE) {
+        if (_MD_LEXIKON_WRITEHERE == $definition) {
             $editor->setExtra('onfocus="this.select()"');
         }
         $sform->addElement($editor, true);
@@ -91,12 +91,12 @@ if (is_object($xoopsUser)) {
     $sform->addElement($notify_checkbox);
 }
 //--- Captcha - Ohne Gewähr
-if (LexikonUtility::getModuleOption('captcha') == 1) {
+if (1 == LexikonUtility::getModuleOption('captcha')) {
     $skipMember = 1;
-} elseif (LexikonUtility::getModuleOption('captcha') == 2) {
+} elseif (2 == LexikonUtility::getModuleOption('captcha')) {
     $skipMember = 0;
 }
-if ($xoopsModuleConfig['captcha'] != 0) {
+if (0 != $xoopsModuleConfig['captcha']) {
     xoops_load('XoopsFormCaptcha');
     if (class_exists('XoopsFormCaptcha')) {
         $sform->addElement(new XoopsFormCaptcha('', 'xoopscaptcha', $skipMember), true);

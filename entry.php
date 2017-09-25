@@ -37,7 +37,7 @@ $catperms     = " AND categoryID IN ($catids) ";
 // If there's no entries yet in the system...
 $publishedwords = LexikonUtility::countWords();
 $xoopsTpl->assign('publishedwords', $publishedwords);
-if ($publishedwords == 0) {
+if (0 == $publishedwords) {
     $xoopsTpl->assign('empty', '1');
     $xoopsTpl->assign('stillnothing', _MD_LEXIKON_STILLNOTHINGHERE);
 }
@@ -52,10 +52,10 @@ $xoopsTpl->assign('totalother', $howmanyother);
 
 $xoopsTpl->assign('multicats', (int)$xoopsModuleConfig['multicats']);
 // To display the list of categories
-if ($xoopsModuleConfig['multicats'] == 1) {
+if (1 == $xoopsModuleConfig['multicats']) {
     $xoopsTpl->assign('block0', LexikonUtility::getCategoryArray());
     $xoopsTpl->assign('layout', CONFIG_CATEGORY_LAYOUT_PLAIN);
-    if ($xoopsModuleConfig['useshots'] == 1) {
+    if (1 == $xoopsModuleConfig['useshots']) {
         $xoopsTpl->assign('show_screenshot', true);
         $xoopsTpl->assign('logo_maximgwidth', $xoopsModuleConfig['logo_maximgwidth']);
         $xoopsTpl->assign('lang_noscreenshot', _MD_LEXIKON_NOSHOTS);
@@ -70,7 +70,7 @@ if (!$entryID) {
     if ($entryID <= 0) {
         redirect_header('javascript:history.go(-1)', 2, _MD_LEXIKON_UNKNOWNERROR);
     }
-    if (!$xoopsUser || ($xoopsUser->isAdmin($xoopsModule->mid()) && $xoopsModuleConfig['adminhits'] == 1)
+    if (!$xoopsUser || ($xoopsUser->isAdmin($xoopsModule->mid()) && 1 == $xoopsModuleConfig['adminhits'])
         || ($xoopsUser
             && !$xoopsUser->isAdmin($xoopsModule->mid()))) {
         $xoopsDB->queryF('UPDATE ' . $xoopsDB->prefix('lxentries') . " SET counter = counter+1 WHERE entryID = $entryID ");
@@ -96,10 +96,10 @@ while (list($entryID, $categoryID, $term, $init, $definition, $ref, $url, $uid, 
     $thisterm['id']      = (int)$entryID;
     $thisterm['offline'] = (int)$offline;
     // exit if offline - except admin
-    if ($thisterm['offline'] == 1 && !$xoopsUserIsAdmin) {
+    if (1 == $thisterm['offline'] && !$xoopsUserIsAdmin) {
         redirect_header('javascript:history.go(-1)', 3, _MD_LEXIKON_ENTRYISOFF);
     }
-    if ($xoopsModuleConfig['multicats'] == 1) {
+    if (1 == $xoopsModuleConfig['multicats']) {
         $thisterm['categoryID'] = (int)$categoryID;
         $catname                = $xoopsDB->query('SELECT name FROM ' . $xoopsDB->prefix('lxcategories') . " WHERE categoryID = $categoryID ");
         while (list($name) = $xoopsDB->fetchRow($catname)) {
@@ -109,21 +109,21 @@ while (list($entryID, $categoryID, $term, $init, $definition, $ref, $url, $uid, 
 
     $glossaryterm     = $myts->htmlSpecialChars($term);
     $thisterm['term'] = ucfirst($myts->htmlSpecialChars($term));
-    if ($init === '#') {
+    if ('#' === $init) {
         $thisterm['init'] = _MD_LEXIKON_OTHER;
     } else {
         $thisterm['init'] = ucfirst($init);
     }
     $thisterm['offline'] = (int)$offline;
 
-    if ($xoopsModuleConfig['linkterms'] != 1 && $xoopsModuleConfig['linkterms'] != 2) {
+    if (1 != $xoopsModuleConfig['linkterms'] && 2 != $xoopsModuleConfig['linkterms']) {
         LexikonUtility::getModuleHeader();
         $xoopsTpl->assign('xoops_module_header', $lexikon_module_header);
     } else {
         $xoopsTpl->assign('xoops_module_header', '<link rel="stylesheet" type="text/css" href="assets/css/style.css">');
     }
 
-    if ($xoopsModuleConfig['linkterms'] != 1) {
+    if (1 != $xoopsModuleConfig['linkterms']) {
         // Code to make links out of glossary terms
         $parts = explode('>', $definition);
 
@@ -167,9 +167,9 @@ while (list($entryID, $categoryID, $term, $init, $definition, $ref, $url, $uid, 
     $thisterm['ref']        = $myts->displayTarea($ref, $html, $smiley, $xcodes, 1, $breaks);
     $thisterm['url']        = $myts->makeClickable($url, $allowimage = 0);
     //$thisterm['submitter'] = XoopsUserUtility::getUnameFromId ( $uid );
-    if ($xoopsModuleConfig['showsubmitter'] == 1) {
+    if (1 == $xoopsModuleConfig['showsubmitter']) {
         $xoopsTpl->assign('showsubmitter', true);
-        if ($xoopsModuleConfig['authorprofile'] == 1) {
+        if (1 == $xoopsModuleConfig['authorprofile']) {
             $thisterm['submitter'] = LexikonUtility::getLinkedProfileFromId($uid);
         } else {
             $thisterm['submitter'] = XoopsUserUtility::getUnameFromId($uid);
@@ -199,7 +199,7 @@ $xoopsTpl->assign('lang_modulename', $xoopsModule->name());
 $xoopsTpl->assign('lang_moduledirname', $xoopsModule->getVar('dirname'));
 $xoopsTpl->assign('entryID', $entryID);
 $xoopsTpl->assign('submittedon', sprintf(_MD_LEXIKON_SUBMITTEDON, $thisterm['datesub']));
-if ($xoopsModuleConfig['showsubmitter'] == 1) {
+if (1 == $xoopsModuleConfig['showsubmitter']) {
     $xoopsTpl->assign('submitter', sprintf(_MD_LEXIKON_SUBMITTEDBY, $thisterm['submitter']));
 }
 $xoopsTpl->assign('counter', sprintf(_MD_LEXIKON_COUNT, $thisterm['counter']));
@@ -240,7 +240,7 @@ if (is_object($tagsModule)) {
 
 //--- linkterms assigns
 // Balloontips
-if ($xoopsModuleConfig['linkterms'] == 5) {
+if (5 == $xoopsModuleConfig['linkterms']) {
     $xoopsTpl->assign('balloontips', true);
 } else {
     $xoopsTpl->assign('balloontips', false);
@@ -265,7 +265,7 @@ switch ($xoopsModuleConfig['bookmarkme']) {
 }
 // Meta data
 $meta_description = xoops_substr(LexikonUtility::convertHtml2text($thisterm['definition']), 0, 150);
-if ($xoopsModuleConfig['multicats'] == 1) {
+if (1 == $xoopsModuleConfig['multicats']) {
     LexikonUtility::createPageTitle($thisterm['term'] . ' - ' . $thisterm['catname']);
     LexikonUtility::extractKeywords($myts->htmlSpecialChars($xoopsModule->name()) . ' ,' . $thisterm['term'] . ' ,' . $thisterm['catname'] . ', ' . $meta_description . ', ' . $tagsmeta);
     LexikonUtility::getMetaDescription($myts->htmlSpecialChars($xoopsModule->name()) . ' ' . $thisterm['catname'] . ' ' . $thisterm['term'] . ' ' . $meta_description);

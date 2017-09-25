@@ -60,7 +60,7 @@ if ($authortermstotal >= $xoopsModuleConfig['indexperpage']) {
 } else {
     $xoopsTpl->assign('navi', false);
 }
-if ($authortermstotal == 0) {
+if (0 == $authortermstotal) {
     $xoopsTpl->assign('nothing', sprintf(_MD_LEXIKON_AUTHORPROFILENOTERM, $authname));
 } else {
     $xoopsTpl->assign('nothing', false);

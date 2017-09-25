@@ -33,7 +33,7 @@ function b_lx_author_show($options)
     if (is_array($authors) && count($authors) > 0) {
         $block['authors'] = $authors;
     }
-    $block['profile'] = ($lxConfig['authorprofile'] == 1) ? 1 : 0;
+    $block['profile'] = (1 == $lxConfig['authorprofile']) ? 1 : 0;
 
     return $block;
 }

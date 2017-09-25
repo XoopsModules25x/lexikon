@@ -77,7 +77,7 @@ list($totaloffline) = $xoopsDB->fetchRow($result05);
 //echo "</tr></table>";
 //echo "<br><br>";
 //--- category dropdown
-if ($xoopsModuleConfig['multicats'] == 1) {
+if (1 == $xoopsModuleConfig['multicats']) {
     // $cattree = new XoopsTree( $xoopsDB->prefix("lxcategories"), "categoryID", "0" );
     $cattree = new LexikonTree($xoopsDB->prefix('lxcategories'), 'categoryID', '0');
     echo "<table class='outer' width='100%'><tr ><td colspan=\"2\" class='even'><strong>" . _AM_LEXIKON_INVENTORY . '</strong></td></tr>';
@@ -232,7 +232,7 @@ echo "
     </form>";
 
 // Get number of entries in the selected state
-$statusSelected = ($statussel == 0) ? -1 : $statussel;
+$statusSelected = (0 == $statussel) ? -1 : $statussel;
 $results        = $xoopsDB->query('SELECT COUNT(*)
                                 FROM ' . $xoopsDB->prefix('lxentries') . '
                                 ' . $cond . '
@@ -289,7 +289,7 @@ if ($numrows > 0) {
 
                 case 'default':
                 default:
-                    if ($offline == 0) {
+                    if (0 == $offline) {
                         $statustxt = '<img src=' . XOOPS_URL . '/modules/' . $xoopsModule->dirname() . "/assets/images/icon/on.gif alt='" . _AM_LEXIKON_ENTRYISON . '\'>';
                     } else {
                         $statustxt = '<img src=' . XOOPS_URL . '/modules/' . $xoopsModule->dirname() . "/assets/images/icon/off.gif alt='" . _AM_LEXIKON_ENTRYISOFF . '\'>';
@@ -299,7 +299,7 @@ if ($numrows > 0) {
             }
 
             echo "<tr class='" . $class . '\'>';
-            $class = ($class === 'even') ? 'odd' : 'even';
+            $class = ('even' === $class) ? 'odd' : 'even';
 
             echo "<td  align='center'>" . $entryID . '</td>';
             echo "<td  align='left'>" . $catname . '</td>';

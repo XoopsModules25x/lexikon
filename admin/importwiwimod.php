@@ -48,7 +48,7 @@ switch ($op) {
 function showerror($msg)
 {
     global $xoopsDB;
-    if ($xoopsDB->error() != '') {
+    if ('' != $xoopsDB->error()) {
         echo '<br>' . $msg . ' <br><span style="font-size: xx-small; "> -  ERROR: ' . $xoopsDB->error() . '</span>.';
     } else {
         echo '<br>' . $msg . ' O.K.!';
