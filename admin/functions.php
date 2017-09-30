@@ -447,14 +447,14 @@ function lx_getinit($init)
         }
         echo "<option value='" . uchr($a) . "' $opt_selected>&nbsp;" . uchr($a) . "&nbsp;</option>";
     }
-    for ($a = 1040; $a < (1040 + 32); ++$a) { 
+    /*for ($a = 1040; $a < (1040 + 32); ++$a) { 
         if (uchr($a) == $init) {    
             $opt_selected = 'selected';
         } else {
             $opt_selected = '';
         }
         echo "<option value='" . uchr($a) . "' $opt_selected>&nbsp;" . uchr($a) . "&nbsp;</option>";
-    } 
+    }*/ 
     echo "</select></div>";
 }
 function uchr($a) {

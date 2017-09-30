@@ -392,7 +392,7 @@ public static function getAlphaArray()
 
         $alpha['initial'][] = $letterlinks;
     }
-    for ($a = 1040; $a < (1040 + 32); ++$a) {
+    /*for ($a = 1040; $a < (1040 + 32); ++$a) {
         $letterlinks             = [];
         $initial                 = unichr($a);
         $sql                     = $xoopsDB->query('SELECT entryID FROM '
@@ -405,7 +405,7 @@ public static function getAlphaArray()
         $letterlinks['id']       = unichr($a);
         $letterlinks['linktext'] = unichr($a);
         $alpha['initial'][] = $letterlinks;
-    }  
+    }*/  
     
     return $alpha;
 }

@@ -87,7 +87,7 @@ function b_lxentries_alpha_show($options)
 
         $block['initstuff'][] = $letterlinks;
     }
-    for ($a = 1040; $a < (1040 + 32); ++$a) {
+    /*for ($a = 1040; $a < (1040 + 32); ++$a) {
         $letterlinks = [];
         $initial     = uchr($a);
         $sql                     = $xoopsDB->query('SELECT init FROM '
@@ -104,7 +104,7 @@ function b_lxentries_alpha_show($options)
         $letterlinks['count']    = (int)$count;
         
         $block['initstuff'][] = $letterlinks;
-    } 
+    }*/ 
 
     return $block;
 }
