@@ -1,9 +1,6 @@
 <?php
 /**
- *
  * Module: Lexikon - glossary module
- * Version: v 1.00
- * Release Date: 8 May 2004
  * Author: hsalazar
  * Licence: GNU
  */
@@ -37,7 +34,7 @@ function b_lxentries_new_show($options)
     $words      = $xoopsDB->query('SELECT entryID FROM ' . $xoopsDB->prefix('lxentries') . " WHERE offline = '0' AND submit='0' AND request='0' AND block = '1' ");
     $totalwords = $xoopsDB->getRowsNum($words);
 
-    $block              = array();
+    $block              = [];
     $block['marquee']   = ($options[2] == 1) ? 1 : 0;
     $block['alternate'] = ($options[3] == 1) ? 1 : 0;
     $block['showdate']  = ($options[4] == 1) ? 1 : 0;
@@ -58,7 +55,7 @@ function b_lxentries_new_show($options)
 
     if ($totalwords > 0) { // If there are definitions
         while (list($entryID, $categoryID, $term, $datesub) = $xoopsDB->fetchRow($result)) {
-            $newentries             = array();
+            $newentries             = [];
             $linktext               = ucfirst($myts->htmlSpecialChars($term));
             $newentries['dir']      = $lexikon->dirname();
             $newentries['linktext'] = $linktext;
@@ -78,14 +75,14 @@ function b_lxentries_new_show($options)
  */
 function b_lxentries_new_edit($options)
 {
-    $form = "<table width='100%' border='0'  class='bg2'>";
-    $form .= "<tr><th width='50%'>" . _OPTIONS . "</th><th width='50%'>" . _MB_LEXIKON_SETTINGS . '</th></tr>';
+    $form = "<table style='width:100%;' class='bg2'>";
+    $form .= "<tr><th style='width:50%'>" . _OPTIONS . "</th><th style='width:50%'>" . _MB_LEXIKON_SETTINGS . '</th></tr>';
     $form .= "<tr><td class='even'>" . _MB_LEXIKON_ORDER . "</td><td class='odd'>";
     $form .= "&nbsp;<select name='options[0]'>";
     $form .= "<option value='datesub' " . (($options[0] === 'datesub') ? ' selected' : '') . '>' . _MB_LEXIKON_DATE . "</option>\n";
     $form .= "<option value='counter' " . (($options[0] === 'counter') ? ' selected' : '') . '>' . _MB_LEXIKON_HITS . "</option>\n";
     $form .= "<option value='term' " . (($options[0] === 'term') ? ' selected' : '') . '>' . _MB_LEXIKON_NAME . "</option>\n";
-    $form .= "</select>\n<br></td></tr>";
+    $form .= "</select><br></td></tr>";
     //---
     $form .= "<tr><td class='even'>" . _MB_LEXIKON_DISP . "</td><td class='odd'><input type='text' name='options[]' value='" . $options[1] . "' />&nbsp;" . _MB_LEXIKON_TERMS . '<br></td></tr>';
     //---
@@ -105,12 +102,11 @@ function b_lxentries_new_edit($options)
     $form .= "<tr><td class='even'>" . _MB_LEXIKON_DIRECTION . "</td><td class='odd'><select name='options[5]'>";
     $form .= "<option value='up' " . (($options[5] === 'up') ? ' selected' : '') . '>' . _MB_LEXIKON_UP . "</option>\n";
     $form .= "<option value='down' " . (($options[5] === 'down') ? ' selected' : '') . '>' . _MB_LEXIKON_DOWN . "</option>\n";
-    $form .= "</select></td></tr>\n";
+    $form .= "</select></td></tr>";
     //---
     $form .= "<tr><td class='even'>" . _MB_LEXIKON_BSPEED . "</td><td class='odd'><input type='text' name='options[6]' size='16' maxlength=2 value='" . $options[6] . "' /></td></tr>";
     $form .= "<tr><td class='even'>" . _MB_LEXIKON_BACKGROUNDCOLOR . "</td><td class='odd'><input type='text' name='options[7]' size='16'  value='" . $options[7] . "' /></td></tr>";
     $form .= '</table>';
-
     //----
     return $form;
 }

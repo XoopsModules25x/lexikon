@@ -28,7 +28,7 @@
  * @subpackage LexikonTree
  * @access     public
  */
-class lexikontree
+class LexikonTree
 {
     public $table; //table with parent-child structure
     public $id; //name of unique id for records in table $table
@@ -45,7 +45,7 @@ class lexikontree
      * @param $pid_name
      * @return lexikontree
      */
-    public function LexikonTree($table_name, $id_name, $pid_name)
+    public function __construct($table_name, $id_name, $pid_name)
     {
         //        $GLOBALS['xoopsLogger']->addDeprecated("Class '" . __CLASS__ . "' is deprecated, check 'XoopsObjectTree' in tree.php");
         $this->db    = XoopsDatabaseFactory::getDatabaseConnection();
@@ -65,7 +65,7 @@ class lexikontree
     public function getFirstChild($sel_id, $order = '')
     {
         $sel_id = (int)$sel_id;
-        $arr    = array();
+        $arr    = [];
         $sql    = 'SELECT * FROM ' . $this->table . ' WHERE ' . $this->pid . '=' . $sel_id . '';
         if ($order != '') {
             $sql .= " ORDER BY $order";
@@ -92,7 +92,7 @@ class lexikontree
     public function getFirstChildId($sel_id)
     {
         $sel_id  = (int)$sel_id;
-        $idarray = array();
+        $idarray = [];
         $result  = $this->db->query('SELECT ' . $this->id . ' FROM ' . $this->table . ' WHERE ' . $this->pid . '=' . $sel_id . '');
         $count   = $this->db->getRowsNum($result);
         if ($count == 0) {
@@ -114,7 +114,7 @@ class lexikontree
      *
      * @return array
      */
-    public function getAllChildId($sel_id, $order = '', $idarray = array())
+    public function getAllChildId($sel_id, $order = '', $idarray = [])
     {
         $sel_id = (int)$sel_id;
         $sql    = 'SELECT ' . $this->id . ' FROM ' . $this->table . ' WHERE ' . $this->pid . '=' . $sel_id . '';
@@ -143,7 +143,7 @@ class lexikontree
      *
      * @return array
      */
-    public function getAllParentId($sel_id, $order = '', $idarray = array())
+    public function getAllParentId($sel_id, $order = '', $idarray = [])
     {
         $sel_id = (int)$sel_id;
         $sql    = 'SELECT ' . $this->pid . ' FROM ' . $this->table . ' WHERE ' . $this->id . '=' . $sel_id . '';
@@ -305,7 +305,7 @@ class lexikontree
      *
      * @return array|unknown|unknown_type
      */
-    public function getAllChild($sel_id = 0, $order = '', $parray = array())
+    public function getAllChild($sel_id = 0, $order = '', $parray = [])
     {
         $sel_id = (int)$sel_id;
         $sql    = 'SELECT * FROM ' . $this->table . ' WHERE ' . $this->pid . '=' . $sel_id . '';
@@ -334,7 +334,7 @@ class lexikontree
      * @param  string|mixed $r_prefix
      * @return array|unknown|unknown_type
      */
-    public function getChildTreeArray($sel_id = 0, $order = '', $parray = array(), $r_prefix = '')
+    public function getChildTreeArray($sel_id = 0, $order = '', $parray = [], $r_prefix = '')
     {
         $sel_id = (int)$sel_id;
         $sql    = 'SELECT * FROM ' . $this->table . ' WHERE ' . $this->pid . '=' . $sel_id . '';

@@ -48,9 +48,6 @@ function addAdminMenu($buf)
     $html    = preg_replace($pattern, $replace, $buf);
 
     return $html;
-
-    //      ereg("(.*)(<div class='content'>.*)",$buf,$regs);
-    //      return $regs[1].$btnsbar.$regs[2];
 }
 
 /*

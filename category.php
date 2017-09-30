@@ -41,7 +41,11 @@ $xoopsTpl->assign('publishedwords', $publishedwords);
 $alpha = LexikonUtility::getAlphaArray();
 $xoopsTpl->assign('alpha', $alpha);
 
-list($howmanyother) = $xoopsDB->fetchRow($xoopsDB->query('SELECT COUNT(*) FROM ' . $xoopsDB->prefix('lxentries') . " WHERE init = '#' AND offline ='0' " . $catperms . ''));
+list($howmanyother) = $xoopsDB->fetchRow($xoopsDB->query('SELECT COUNT(*) FROM '
+                                                          . $xoopsDB->prefix('lxentries')
+                                                          . " WHERE init = '#' AND offline ='0' "
+                                                          . $catperms
+                                                          . ''));
 $xoopsTpl->assign('totalother', $howmanyother);
 
 // get the list of Maincategories :: or return to mainpage
@@ -63,7 +67,9 @@ if ($xoopsModuleConfig['multicats'] == 1) {
 if (!$categoryID) {
     // How many categories are there?
     $catperms2  = " WHERE categoryID IN ($catids) ";
-    $resultcats = $xoopsDB->query('SELECT categoryID FROM ' . $xoopsDB->prefix('lxcategories') . ' ORDER BY weight DESC');
+    $resultcats = $xoopsDB->query('SELECT categoryID FROM '
+                                  . $xoopsDB->prefix('lxcategories')
+                                  . ' ORDER BY weight DESC');
     $totalcats  = $xoopsDB->getRowsNum($resultcats);
     if ($totalcats == 0) {
         redirect_header('javascript:history.go(-1)', 1, _MD_LEXIKON_NOCATSINSYSTEM);
@@ -80,7 +86,7 @@ if (!$categoryID) {
         } else {
             $logourl = '';
         }
-        $eachcat                = array();
+        $eachcat                = [];
         $xoopsModule            = XoopsModule::getByDirname('lexikon');
         $eachcat['dir']         = $xoopsModule->dirname();
         $eachcat['id']          = (int)$categoryID;
@@ -96,7 +102,9 @@ if (!$categoryID) {
     }
 
     $pagenav             = new XoopsPageNav($totalcats, $xoopsModuleConfig['indexperpage'], $start, 'start');
-    $catsarray['navbar'] = '<div style="text-align:right;">' . $pagenav->renderNav(6) . '</div>';
+    $catsarray['navbar'] = '<div style="text-align:right;">'
+                            . $pagenav->renderNav(6)
+                            . '</div>';
 
     $xoopsTpl->assign('catsarray', $catsarray);
     $xoopsTpl->assign('pagetype', '0');
@@ -110,7 +118,9 @@ if (!$categoryID) {
     // There IS a $categoryID, thus we show only that category's description
 
     // get the list of Subcategories
-    $catdata = $xoopsDB->query('SELECT categoryID, name, description, total, logourl FROM ' . $xoopsDB->prefix('lxcategories') . " WHERE categoryID = '$categoryID' ");
+    $catdata = $xoopsDB->query('SELECT categoryID, name, description, total, logourl FROM '
+                                . $xoopsDB->prefix('lxcategories')
+                                . " WHERE categoryID = '$categoryID' ");
     // verify ID
     if ($xoopsDB->getRowsNum($catdata) <= 0) {
         redirect_header('index.php', 2, _MD_LEXIKON_UNKNOWNERROR);
@@ -120,7 +130,7 @@ if (!$categoryID) {
             if ($total == 0) {
                 redirect_header('javascript:history.go(-1)', 1, _MD_LEXIKON_NOENTRIESINCAT);
             }
-            $singlecat                = array();
+            $singlecat                = [];
             $singlecat['dir']         = $xoopsModule->dirname();
             $singlecat['id']          = $categoryID;
             $singlecat['name']        = $myts->htmlSpecialChars($name);
@@ -134,7 +144,7 @@ if (!$categoryID) {
             $xoopsTpl->assign('singlecat', $singlecat);
 
             // Entries to show in current page
-            $entriesarray = array();
+            $entriesarray = [];
 
             // Now we retrieve a specific number of entries according to start variable
             $queryB  = 'SELECT entryID, term, definition, html, smiley, xcodes, breaks, comments FROM '
@@ -144,7 +154,7 @@ if (!$categoryID) {
 
             //while (list( $entryID, $term, $definition ) = $xoopsDB->fetchRow($resultB))
             while (list($entryID, $term, $definition, $html, $smiley, $xcodes, $breaks, $comments) = $xoopsDB->fetchRow($resultB)) {
-                $eachentry         = array();
+                $eachentry         = [];
                 $xoopsModule       = XoopsModule::getByDirname('lexikon');
                 $eachentry['dir']  = $xoopsModule->dirname();
                 $eachentry['id']   = $entryID;
@@ -157,7 +167,13 @@ if (!$categoryID) {
                         && is_object($xoopsUser))
                 ) {
                     if ($comments != 0) {
-                        $eachentry['comments'] = "<a href='entry.php?entryID=" . $eachentry['id'] . "'>" . $comments . '&nbsp;' . _COMMENTS . '</a>';
+                        $eachentry['comments'] = "<a href='entry.php?entryID="
+                                                  . $eachentry['id']
+                                                  . "'>"
+                                                  . $comments
+                                                  . '&nbsp;'
+                                                  . _COMMENTS
+                                                  . '</a>';
                     } else {
                         $eachentry['comments'] = '';
                     }
@@ -173,7 +189,9 @@ if (!$categoryID) {
     $navstring = 'categoryID=' . $singlecat['id'] . '&start';
     $pagenav   = new XoopsPageNav($entriesincat, $xoopsModuleConfig['indexperpage'], $start, $navstring);
 
-    $entriesarray['navbar'] = '<div style="text-align:right;">' . $pagenav->renderNav(6) . '</div>';
+    $entriesarray['navbar'] = '<div style="text-align:right;">'
+                              . $pagenav->renderNav(6)
+                              . '</div>';
 
     $xoopsTpl->assign('entriesarray', $entriesarray);
     $xoopsTpl->assign('pagetype', '1');

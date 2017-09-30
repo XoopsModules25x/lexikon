@@ -34,13 +34,6 @@ $catperms     = " AND categoryID IN ($catids) ";
 
 $xoopsTpl->assign('multicats', (int)$xoopsModuleConfig['multicats']);
 
-// To display the linked letter list
-$alpha = LexikonUtility::getAlphaArray();
-$xoopsTpl->assign('alpha', $alpha);
-
-list($howmanyother) = $xoopsDB->fetchRow($xoopsDB->query('SELECT COUNT(*) FROM ' . $xoopsDB->prefix('lxentries') . " WHERE init = '#' AND offline ='0' " . $catperms . ''));
-$xoopsTpl->assign('totalother', $howmanyother);
-
 if (!function_exists('mb_ucfirst') && function_exists('mb_substr')) {
    function mb_ucfirst($string) {  
    $string = mb_ereg_replace("^[\ ]+","", $string);  
@@ -48,7 +41,12 @@ if (!function_exists('mb_ucfirst') && function_exists('mb_substr')) {
    return $string;  
    }  
 }
+// To display the linked letter list
+$alpha = LexikonUtility::getAlphaArray();
+$xoopsTpl->assign('alpha', $alpha);
 
+list($howmanyother) = $xoopsDB->fetchRow($xoopsDB->query('SELECT COUNT(*) FROM ' . $xoopsDB->prefix('lxentries') . " WHERE init = '#' AND offline ='0' " . $catperms . ''));
+$xoopsTpl->assign('totalother', $howmanyother);
 
 // To display the list of categories
 if ($xoopsModuleConfig['multicats'] == 1) {
@@ -65,28 +63,38 @@ if ($xoopsModuleConfig['multicats'] == 1) {
 
 // No initial: we need to see all letters
 if (!$init) {
-    $entriesarray = array();
+    $entriesarray = [];
     $pagetype     = 0;
 
     // How many entries will we show in this page?
     //$queryA = "SELECT w. * , c.name AS catname FROM ".$xoopsDB -> prefix( 'lxentries' )." w LEFT JOIN ".$xoopsDB -> prefix( 'lxcategories' )." c ON w.categoryID = c.categoryID WHERE w.submit = '0' AND w.offline = '0' ORDER BY w.term ASC";
     //$resultA = $xoopsDB -> query ($queryA, $xoopsModuleConfig['indexperpage'], $start );
-    $queryA  = 'SELECT * FROM ' . $xoopsDB->prefix('lxentries') . " WHERE offline = '0' AND submit = '0' " . $catperms . ' ORDER BY term ASC';
+    $queryA  = 'SELECT * FROM '
+                . $xoopsDB->prefix('lxentries')
+                . " WHERE offline = '0' AND submit = '0' "
+                . $catperms
+                . ' ORDER BY term ASC';
     $resultA = $xoopsDB->query($queryA, $xoopsModuleConfig['indexperpage'], $start);
 
-    $allentries   = $xoopsDB->query('SELECT entryID FROM ' . $xoopsDB->prefix('lxentries') . " WHERE submit ='0' AND offline = '0' " . $catperms . ' ORDER BY term ASC ');
+    $allentries   = $xoopsDB->query('SELECT entryID FROM '
+                                    . $xoopsDB->prefix('lxentries')
+                                    . " WHERE submit ='0' AND offline = '0' "
+                                    . $catperms
+                                    . ' ORDER BY term ASC ');
     $totalentries = $xoopsDB->getRowsNum($allentries);
     $xoopsTpl->assign('totalentries', $totalentries);
 
     while (list($entryID, $categoryID, $term, $init, $definition, $ref, $url, $uid, $submit, $datesub, $counter, $html, $smiley, $xcodes, $breaks, $block, $offline, $comments) = $xoopsDB->fetchRow($resultA)) {
-        $eachentry        = array();
+        $eachentry        = [];
         $xoopsModule      = XoopsModule::getByDirname('lexikon');
         $eachentry['dir'] = $xoopsModule->dirname();
 
         if ($xoopsModuleConfig['multicats'] == 1) {
             $eachentry['catid'] = (int)$categoryID;
-            $resultF            = $xoopsDB->query('SELECT name FROM ' . $xoopsDB->prefix('lxcategories') . " WHERE categoryID = $categoryID ORDER BY name ASC");
-            while (list($name) = $xoopsDB->fetchRow($resultF)) {
+            $resultF            = $xoopsDB->query('SELECT name FROM '
+                                                  . $xoopsDB->prefix('lxcategories')
+                                                  . " WHERE categoryID = $categoryID ORDER BY name ASC");
+            while (list($name)  = $xoopsDB->fetchRow($resultF)) {
                 $eachentry['catname'] = $myts->htmlSpecialChars($name);
             }
         }
@@ -96,7 +104,13 @@ if (!$init) {
 
         if (($xoopsModuleConfig['com_rule'] != 0) || (($xoopsModuleConfig['com_rule'] != 0) && is_object($xoopsUser))) {
             if ($comments != 0) {
-                $eachentry['comments'] = "<a href='entry.php?entryID=" . $eachentry['id'] . "'>" . $comments . '&nbsp;' . _COMMENTS . '</a>';
+                $eachentry['comments'] = "<a href='entry.php?entryID="
+                                          . $eachentry['id']
+                                          . "'>"
+                                          . $comments
+                                          . '&nbsp;'
+                                          . _COMMENTS
+                                          . '</a>';
             } else {
                 $eachentry['comments'] = '';
             }
@@ -113,7 +127,9 @@ if (!$init) {
         $entriesarray['single'][] = $eachentry;
     }
     $pagenav                = new XoopsPageNav($totalentries, $xoopsModuleConfig['indexperpage'], $start, 'start');
-    $entriesarray['navbar'] = '<div style="text-align:right;">' . $pagenav->renderNav(6) . '</div>';
+    $entriesarray['navbar'] = '<div style="text-align:right;">'
+                              . $pagenav->renderNav(6)
+                              . '</div>';
 
     $xoopsTpl->assign('entriesarray', $entriesarray);
     $xoopsTpl->assign('pagetype', '0');
@@ -127,7 +143,6 @@ if (!$init) {
 
     // How many entries will we show in this page?
     if ($init == _MD_LEXIKON_OTHER) {
-        //$queryB = "SELECT * FROM " . $xoopsDB -> prefix( 'lxentries' ) . " WHERE submit ='0' AND offline = '0' AND init = '#' ORDER BY term ASC";
         $queryB  = 'SELECT entryID, categoryID, term, definition, uid, html, smiley, xcodes, breaks, comments FROM '
                    . $xoopsDB->prefix('lxentries')
                    . " WHERE submit ='0' AND offline = '0' AND init = '#' "
@@ -135,7 +150,6 @@ if (!$init) {
                    . '  ORDER BY term ASC';
         $resultB = $xoopsDB->query($queryB, $xoopsModuleConfig['indexperpage'], $start);
     } else {
-        //$queryB = "SELECT * FROM " . $xoopsDB -> prefix( 'lxentries' ) . " WHERE submit ='0' AND offline = '0' AND init = '$init' AND init != '#' ORDER BY term ASC";
         $queryB  = 'SELECT entryID, categoryID, term, definition, uid, html, smiley, xcodes, breaks, comments FROM '
                    . $xoopsDB->prefix('lxentries')
                    . " WHERE submit ='0' AND offline = '0' AND init = '$init' AND init != '#' "
@@ -150,7 +164,11 @@ if (!$init) {
     }
 
     if ($init == _MD_LEXIKON_OTHER) {
-        $allentries = $xoopsDB->query('SELECT entryID FROM ' . $xoopsDB->prefix('lxentries') . " WHERE init = '#' AND submit ='0' AND offline = '0' " . $catperms . '  ORDER BY term ASC ');
+        $allentries = $xoopsDB->query('SELECT entryID FROM '
+                                      . $xoopsDB->prefix('lxentries')
+                                      . " WHERE init = '#' AND submit ='0' AND offline = '0' "
+                                      . $catperms
+                                      . '  ORDER BY term ASC ');
     } else {
         $allentries = $xoopsDB->query('SELECT entryID FROM '
                                       . $xoopsDB->prefix('lxentries')
@@ -162,7 +180,6 @@ if (!$init) {
     $xoopsTpl->assign('totalentries', $totalentries);
     LexikonUtility::createPageTitle($myts->htmlSpecialChars(_MD_LEXIKON_BROWSELETTER . (isset($init['init']) ? (' - ' . $init['init']) : '')));
 
-    //while (list( $entryID, $categoryID, $term, $init, $definition, $ref, $url, $uid, $submit, $datesub, $counter, $html, $smiley, $xcodes, $breaks, $block, $offline, $notifypub, $request, $comments ) = $xoopsDB->fetchRow($resultB)) {
     while (list($entryID, $categoryID, $term, $definition, $uid, $html, $smiley, $xcodes, $breaks, $comments) = $xoopsDB->fetchRow($resultB)) {
         $eachentry        = array();
         $xoopsModule      = XoopsModule::getByDirname('lexikon');
@@ -170,14 +187,15 @@ if (!$init) {
 
         if ($xoopsModuleConfig['multicats'] == 1) {
             $eachentry['catid'] = (int)$categoryID;
-            $resultF            = $xoopsDB->query('SELECT name FROM ' . $xoopsDB->prefix('lxcategories') . " WHERE categoryID = $categoryID ORDER BY name ASC");
+            $resultF            = $xoopsDB->query('SELECT name FROM '
+                                                  . $xoopsDB->prefix('lxcategories')
+                                                  . " WHERE categoryID = $categoryID ORDER BY name ASC");
             while (list($name) = $xoopsDB->fetchRow($resultF)) {
                 $eachentry['catname'] = $myts->htmlSpecialChars($name);
             }
         }
         $eachentry['id']   = (int)$entryID;
         $eachentry['term'] = mb_ucfirst($myts->htmlSpecialChars($term));
-        //$eachentry['init'] = $init;
         if ($init === '#') {
             $eachentry['init'] = _MD_LEXIKON_OTHER;
         } else {
@@ -186,7 +204,13 @@ if (!$init) {
 
         if (($xoopsModuleConfig['com_rule'] != 0) || (($xoopsModuleConfig['com_rule'] != 0) && is_object($xoopsUser))) {
             if ($comments != 0) {
-                $eachentry['comments'] = "<a href='entry.php?entryID=" . $eachentry['id'] . "'>" . $comments . '&nbsp;' . _COMMENTS . '</a>';
+                $eachentry['comments'] = "<a href='entry.php?entryID="
+                                          . $eachentry['id']
+                                          . "'>"
+                                          . $comments
+                                          . '&nbsp;'
+                                          . _COMMENTS
+                                          . '</a>';
             } else {
                 $eachentry['comments'] = '';
             }
@@ -202,7 +226,9 @@ if (!$init) {
         $entriesarray2['single'][] = $eachentry;
     }
     $pagenav                 = new XoopsPageNav($totalentries, $xoopsModuleConfig['indexperpage'], $start, 'init=' . $eachentry['init'] . '&start');
-    $entriesarray2['navbar'] = '<div style="text-align:right;">' . $pagenav->renderNav(6) . '</div>';
+    $entriesarray2['navbar'] = '<div style="text-align:right;">'
+                                . $pagenav->renderNav(6)
+                                . '</div>';
 
     $xoopsTpl->assign('entriesarray2', $entriesarray2);
     $xoopsTpl->assign('pagetype', '1');
@@ -224,7 +250,7 @@ if ($xoopsUser) {
     $xoopsTpl->assign('syndication', true);
 }
 // Meta data
-if ($publishedwords != 0) {
+if ($publishedwords = 0) {
     $meta_description = xoops_substr(LexikonUtility::convertHtml2text($eachentry['definition']), 0, 150);
     if ($xoopsModuleConfig['multicats'] == 1) {
         LexikonUtility::extractKeywords($xoopsModule->name() . ' ,' . $eachentry['term'] . ', ' . $meta_description);

@@ -27,11 +27,7 @@ function lx_search($queryarray, $andor, $limit, $offset, $userid)
     include_once XOOPS_ROOT_PATH . '/modules/lexikon/class/Utility.php';
     $hightlight_key = '';
     $highlight      = LexikonUtility::getModuleOption('config_highlighter');
-    //if ( is_object($xoopsUser) ) {
     $searchincomments = CONFIG_SEARCH_COMMENTS;
-    //  } else {
-    //      $searchincomments = false ;
-    //  }
     /** @var XoopsModuleHandler $moduleHandler */
     $moduleHandler = xoops_getHandler('module');
     $module        = $moduleHandler->getByDirname('lexikon');
@@ -54,7 +50,6 @@ function lx_search($queryarray, $andor, $limit, $offset, $userid)
             $hightlight_key = '';
         } else {
             $keywords = implode('+', $queryarray);
-            //$keywords='&keywords='.urlencode(trim(implode(' ',$queryarray)));
             $hightlight_key = '&amp;keywords=' . $keywords;
         }
     }
@@ -71,7 +66,7 @@ function lx_search($queryarray, $andor, $limit, $offset, $userid)
     }
     $sql    .= 'ORDER BY entryID DESC';
     $result = $xoopsDB->query($sql, $limit, $offset);
-    $ret    = array();
+    $ret    = [];
     $i      = 0;
 
     while ($myrow = $xoopsDB->fetchArray($result)) {
@@ -117,13 +112,6 @@ function lx_search($queryarray, $andor, $limit, $offset, $userid)
         $result = $xoopsDB->query($sql, $limit, $offset);
         while ($myrow = $xoopsDB->fetchArray($result)) {
             $display = true;
-            //permission
-            /*if ($module_id && $gpermHandler) {
-                if (!$gpermHandler->checkRight("lexikon_view", $myrow['com_itemid'], $groups, $module_id)) {
-                //if (!$gpermHandler->checkRight("lexikon_view", $myrow['categoryID'], $groups, $xoopsModule -> getVar('mid'))) {
-                    $display = false;
-                }
-            }*/
             list($entryID, $offline) = $xoopsDB->fetchRow($xoopsDB->query('
                                          SELECT entryID, offline
                                          FROM ' . $xoopsDB->prefix('lxentries') . ' WHERE entryID = ' . $myrow['com_itemid'] . ''));

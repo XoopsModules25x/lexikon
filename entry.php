@@ -1,9 +1,6 @@
 <?php
 /**
- *
  * Module: Lexikon - glossary module
- * Version: v 1.00
- * Release Date: 8 May 2004
  * Author: hsalazar
  * Licence: GNU
  */
@@ -46,8 +43,11 @@ if ($publishedwords == 0) {
 $alpha = LexikonUtility::getAlphaArray();
 $xoopsTpl->assign('alpha', $alpha);
 
-// list($howmanyother) = $xoopsDB -> fetchRow($xoopsDB->query("SELECT COUNT(*) FROM " . $xoopsDB -> prefix ( "lxentries") . " WHERE init = '#' AND offline ='0' ".$catperms."" ));
-list($howmanyother) = $xoopsDB->fetchRow($xoopsDB->query('SELECT COUNT(entryID) FROM ' . $xoopsDB->prefix('lxentries') . " WHERE init = '#' AND offline ='0' " . $catperms . ' '));
+list($howmanyother) = $xoopsDB->fetchRow($xoopsDB->query('SELECT COUNT(entryID) FROM '
+                                                          . $xoopsDB->prefix('lxentries')
+                                                          . " WHERE init = '#' AND offline ='0' "
+                                                          . $catperms
+                                                          . ' '));
 $xoopsTpl->assign('totalother', $howmanyother);
 
 $xoopsTpl->assign('multicats', (int)$xoopsModuleConfig['multicats']);
@@ -92,7 +92,7 @@ while (list($entryID, $categoryID, $term, $init, $definition, $ref, $url, $uid, 
         redirect_header('index.php', 3, _NOPERM);
     }
 
-    $thisterm            = array();
+    $thisterm            = [];
     $xoopsModule         = XoopsModule::getByDirname('lexikon');
     $thisterm['id']      = (int)$entryID;
     $thisterm['offline'] = (int)$offline;
@@ -102,7 +102,9 @@ while (list($entryID, $categoryID, $term, $init, $definition, $ref, $url, $uid, 
     }
     if ($xoopsModuleConfig['multicats'] == 1) {
         $thisterm['categoryID'] = (int)$categoryID;
-        $catname                = $xoopsDB->query('SELECT name FROM ' . $xoopsDB->prefix('lxcategories') . " WHERE categoryID = $categoryID ");
+        $catname                = $xoopsDB->query('SELECT name FROM '
+                                                  . $xoopsDB->prefix('lxcategories')
+                                                  . " WHERE categoryID = $categoryID ");
         while (list($name) = $xoopsDB->fetchRow($catname)) {
             $thisterm['catname'] = $myts->htmlSpecialChars($name);
         }
@@ -129,7 +131,11 @@ while (list($entryID, $categoryID, $term, $init, $definition, $ref, $url, $uid, 
         $parts = explode('>', $definition);
 
         // First, retrieve all terms from the glossary...
-        $allterms = $xoopsDB->query('SELECT entryID, term, definition FROM ' . $xoopsDB->prefix('lxentries') . " WHERE offline ='0' " . $catperms . ' ');
+        $allterms = $xoopsDB->query('SELECT entryID, term, definition FROM '
+                                    . $xoopsDB->prefix('lxentries')
+                                    . " WHERE offline ='0' "
+                                    . $catperms
+                                    . ' ');
 
         while (list($entryID, $term, $definition) = $xoopsDB->fetchrow($allterms)) {
             foreach ($parts as $key => $part) {
@@ -137,14 +143,30 @@ while (list($entryID, $categoryID, $term, $init, $definition, $ref, $url, $uid, 
                     $term_q      = preg_quote($term, '/');
                     $search_term = "/\b$term_q\b/SsUi";
                     //static link
-                    $staticURL = '' . XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/entry.php?entryID=' . ucfirst($entryID) . '';
+                    $staticURL = ''
+                                . XOOPS_URL
+                                . '/modules/'
+                                . $xoopsModule->getVar('dirname')
+                                . '/entry.php?entryID='
+                                . ucfirst($entryID)
+                                . '';
                     switch ($xoopsModuleConfig['linkterms']) {
                         default:
-                            $replace_term = '<span><b><a style="cursor:help;border-bottom: 1px dotted #000;color: #2F5376;" href="' . $staticURL . '" >' . $term . '</a></b></span>';
+                            $replace_term = '<span><b><a style="cursor:help;border-bottom: 1px dotted #000;color: #2F5376;" href="'
+                                              . $staticURL
+                                              . '" >'
+                                              . $term
+                                              . '</a></b></span>';
                             break;
                         case 3: //tooltip
                             $tooltipdef   = $myts->htmlSpecialChars(xoops_substr(strip_tags($definition), 0, 150));
-                            $replace_term = '<a class="parser" href="' . $staticURL . '" onMouseover="ddrivetip(\'' . $tooltipdef . '\', 300)"; onMouseout=\'hideddrivetip()\'>' . $term . '</a>';
+                            $replace_term = '<a class="parser" href="'
+                                              . $staticURL
+                                              . '" onMouseover="ddrivetip(\''
+                                              . $tooltipdef
+                                              . '\', 300)"; onMouseout=\'hideddrivetip()\'>'
+                                              . $term
+                                              . '</a>';
                             break;
                         case 4://simple popup
                             $replace_term = '<a style="cursor:help;border-bottom: 1px dotted #000;color: #2F5376;" href="#" onClick=\'popup("popup.php?entryID='
@@ -165,7 +187,13 @@ while (list($entryID, $categoryID, $term, $init, $definition, $ref, $url, $uid, 
                             break;
                         case 6:// shadow tooltip
                             $tooltipdef   = $myts->htmlSpecialChars(xoops_substr(strip_tags($definition), 0, 150));
-                            $replace_term = '<a class="parser" href="' . $staticURL . '" onmouseout="hideTooltip()" onmouseover="showTooltip(event,\'' . $tooltipdef . '\')"; >' . $term . '</a>';
+                            $replace_term = '<a class="parser" href="'
+                                            . $staticURL
+                                            . '" onmouseout="hideTooltip()" onmouseover="showTooltip(event,\''
+                                            . $tooltipdef
+                                            . '\')"; >'
+                                            . $term
+                                            . '</a>';
                             break;
                     }
                     $parts[$key] = preg_replace($search_term, $replace_term, $parts[$key]);

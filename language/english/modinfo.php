@@ -262,7 +262,7 @@ define('_MI_LEXIKON_IMPORT', 'Import');
 //1.52
 //Help
 define('_MI_LEXIKON_DIRNAME', basename(dirname(dirname(__DIR__))));
-define('_MI_LEXIKON_HELP_HEADER', __DIR__ . '/help/helpheader.html');
+define('_MI_LEXIKON_HELP_HEADER', __DIR__ . '/help/helpheader.tpl');
 define('_MI_LEXIKON_BACK_2_ADMIN', 'Back to Administration of ');
 define('_MI_LEXIKON_HELP_OVERVIEW', 'Overview');
 define('_MI_LEXIKON_NAME', 'Lexikon');

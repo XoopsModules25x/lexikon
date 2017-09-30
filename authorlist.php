@@ -2,8 +2,6 @@
 /**
  *
  * Module: Lexikon - glossary module
- * Version: v 1.00
- * Release Date: 2 May 2011
  * adapted from News 1.50 (c) instant-zero.com
  * changes: Yerres
  * Licence: GNU
@@ -38,7 +36,7 @@ $catperms      = " AND categoryID IN ($catids) ";
 
 // --- display a list of the authors of the site ---
 
-$uid_ids = array();
+$uid_ids = [];
 $uid_ids = LexikonUtility::getAuthors();
 if (count($uid_ids) > 0) {
     $lst_uid       = implode(',', $uid_ids);
@@ -61,7 +59,7 @@ if (count($uid_ids) > 0) {
                                . XOOPS_URL
                                . "/images/icons/pm.gif' border='0' alt=\""
                                . sprintf(_SENDPMTO, $one_user->getVar('uname'))
-                               . "\"/></A>";
+                               . "\"/></a>";
             } else {
                 $user_pmlink = '';
             }
@@ -76,7 +74,7 @@ if (count($uid_ids) > 0) {
                                      . XOOPS_URL
                                      . "/images/icons/email.gif' border='0' alt=\""
                                      . sprintf(_SENDEMAILTO, $one_user->getVar('uname'))
-                                     . "\"/></A>";
+                                     . "\"/></a>";
                 } else {
                     $user_maillink = '';
                 }
@@ -85,14 +83,20 @@ if (count($uid_ids) > 0) {
             }
             if ($one_user->getVar('url') != '') {
                 $url          = $one_user->getVar('url');
-                $user_wwwlink = "<a href='" . $one_user->getVar('url') . "'><img src='" . XOOPS_URL . "/images/icons/www.gif' border='0' alt='" . _VISITWEBSITE . "' /></a>";
+                $user_wwwlink = "<a href='"
+                                . $one_user->getVar('url')
+                                . "'><img src='"
+                                . XOOPS_URL
+                                . "/images/icons/www.gif' border='0' alt='"
+                                . _VISITWEBSITE
+                                . "' /></a>";
             } else {
                 $user_wwwlink = '';
             }
             // authortotals
             list($num) = $xoopsDB->fetchRow($xoopsDB->query('SELECT COUNT(*)
-                                            FROM ' . $xoopsDB->prefix('lxentries') . "
-                                            WHERE uid='" . $one_user->getVar('uid') . "' " . $catperms . ' '));
+                                                            FROM ' . $xoopsDB->prefix('lxentries') . "
+                                                            WHERE uid='" . $one_user->getVar('uid') . "' " . $catperms . ' '));
             $authortotal = $num;
             // location
             if ($one_user->getVar('user_from') != '') {
@@ -101,17 +105,17 @@ if (count($uid_ids) > 0) {
                 $userfrom = '';
             }
             ++$iu;
-            $xoopsTpl->append('authors', array(
-                'id'             => $iu,
-                'uid'            => $one_user->getVar('uid'),
-                'name'           => $uname,
-                'user_avatarurl' => XOOPS_URL . '/uploads/' . $one_user->getVar('user_avatar'),
-                'email'          => $user_maillink,
-                'pm'             => $user_pmlink,
-                'url'            => $user_wwwlink,
-                'total'          => $authortotal,
-                'location'       => $userfrom
-            ));
+            $xoopsTpl->append('authors', [
+                                          'id'             => $iu,
+                                          'uid'            => $one_user->getVar('uid'),
+                                          'name'           => $uname,
+                                          'user_avatarurl' => XOOPS_URL . '/uploads/' . $one_user->getVar('user_avatar'),
+                                          'email'          => $user_maillink,
+                                          'pm'             => $user_pmlink,
+                                          'url'            => $user_wwwlink,
+                                          'total'          => $authortotal,
+                                          'location'       => $userfrom
+                                          ]);
         } else {
             $xoopsTpl->assign('authorlistext', false);
             // authortotals
@@ -126,12 +130,12 @@ if (count($uid_ids) > 0) {
             $user_maillink = '';
             $user_wwwlink  = '';
             $userfrom      = '';
-            $xoopsTpl->append('authors', array(
-                'id'    => $iu,
-                'uid'   => $one_user->getVar('uid'),
-                'name'  => $uname,
-                'total' => $authortotal
-            ));
+            $xoopsTpl->append('authors', [
+                                          'id'    => $iu,
+                                          'uid'   => $one_user->getVar('uid'),
+                                          'name'  => $uname,
+                                          'total' => $authortotal
+                                          ]);
         }
     }
 }

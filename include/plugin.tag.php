@@ -34,7 +34,7 @@ function lexikon_tag_iteminfo(&$items){
     global $xoopsDB;
     $myts = MyTextSanitizer::getInstance();
 
-    $items_id = array();
+    $items_id = [];
 
     foreach(array_keys($items) as $cat_id){
         // Some handling here to build the link upon catid
@@ -48,18 +48,15 @@ function lexikon_tag_iteminfo(&$items){
     foreach(array_keys($items) as $cat_id){
         foreach(array_keys($items[$cat_id]) as $item_id){
             $sql = "SELECT  l.entryID, l.categoryID, l.term as ltitle, l.definition, l.uid, l.datesub, l.offline, c.name as cname FROM ".$xoopsDB->prefix('lxentries')." l, ".$xoopsDB->prefix('lxcategories')." c WHERE l.entryID=".$item_id." AND l.categoryID=c.categoryID AND l.offline=0 ORDER BY l.datesub DESC";
-            //$sql = "SELECT  l.entryID, l.categoryID, l.term as ltitle, l.definition, l.uid, l.datesub, l.offline,l.item_tag, c.name as cname FROM ".$xoopsDB->prefix('lxentries')." l, ".$xoopsDB->prefix('lxcategories')." c WHERE l.entryID=".$item_id." AND l.categoryID=c.categoryID AND l.offline=0 ORDER BY l.datesub DESC";
             $result = $xoopsDB->query($sql);
             $row = $xoopsDB->fetchArray($result);
-            $items[$cat_id][$item_id] = array(
-                "title"        => $row['ltitle'],
-                "uid"        => $row['uid'],
-                "link"        => "entry.php?entryID=$item_id",
-                "time"        => $row['datesub'],
-                //"tags"       => $row['item_tag'], // optional
-                //"content"    => $myts->displayTarea( $row['definition'], 0 ),
-                "content"    => $row['definition'],
-            );
+            $items[$cat_id][$item_id] = [
+                                          "title"        => $row['ltitle'],
+                                          "uid"        => $row['uid'],
+                                          "link"        => "entry.php?entryID=$item_id",
+                                          "time"        => $row['datesub'],
+                                          "content"    => $row['definition'],
+                                        ];
         }
     }
 

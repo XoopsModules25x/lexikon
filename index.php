@@ -67,7 +67,11 @@ $xoopsTpl->assign('searchform', LexikonUtility::showSearchForm());
 $alpha = LexikonUtility::getAlphaArray();
 $xoopsTpl->assign('alpha', $alpha);
 
-list($howmanyother) = $xoopsDB->fetchRow($xoopsDB->query('SELECT COUNT(*) FROM ' . $xoopsDB->prefix('lxentries') . " WHERE init = '#' AND offline ='0' " . $catperms . ''));
+list($howmanyother) = $xoopsDB->fetchRow($xoopsDB->query('SELECT COUNT(*) FROM '
+                                                          . $xoopsDB->prefix('lxentries')
+                                                          . " WHERE init = '#' AND offline ='0' "
+                                                          . $catperms
+                                                          . ''));
 $xoopsTpl->assign('totalother', $howmanyother);
 
 // To display the tree of categories
@@ -83,7 +87,7 @@ if ($xoopsModuleConfig['multicats'] == 1) {
     }
 }
 // To display the recent entries block
-$block1   = array();
+$block1   = [];
 $result05 = $xoopsDB->query('SELECT entryID, categoryID, term, datesub FROM '
                             . $xoopsDB->prefix('lxentries')
                             . ' WHERE datesub < '
@@ -94,7 +98,7 @@ $result05 = $xoopsDB->query('SELECT entryID, categoryID, term, datesub FROM '
 if ($publishedwords > 0) { // If there are definitions
     //while (list( $entryID, $term, $datesub ) = $xoopsDB->fetchRow($result05)) {
     while (list($entryID, $categoryID, $term, $datesub) = $xoopsDB->fetchRow($result05)) {
-        $newentries             = array();
+        $newentries             = [];
         $xoopsModule            = XoopsModule::getByDirname('lexikon');
         $linktext               = mb_ucfirst($myts->htmlSpecialChars($term));
         $newentries['linktext'] = $linktext;
@@ -107,7 +111,7 @@ if ($publishedwords > 0) { // If there are definitions
 }
 
 // To display the most read entries block
-$block2   = array();
+$block2   = [];
 $result06 = $xoopsDB->query('SELECT entryID, term, counter FROM '
                             . $xoopsDB->prefix('lxentries')
                             . ' WHERE datesub < '
@@ -118,7 +122,7 @@ $result06 = $xoopsDB->query('SELECT entryID, term, counter FROM '
 // If there are definitions
 if ($publishedwords > 0) {
     while (list($entryID, $term, $counter) = $xoopsDB->fetchRow($result06)) {
-        $popentries             = array();
+        $popentries             = [];
         $xoopsModule            = XoopsModule::getByDirname('lexikon');
         $linktext               = mb_ucfirst($myts->htmlSpecialChars($term));
         $popentries['linktext'] = $linktext;
@@ -131,7 +135,11 @@ if ($publishedwords > 0) {
 }
 
 // To display the random term block
-list($numrows) = $xoopsDB->fetchRow($xoopsDB->query('SELECT COUNT(*) FROM ' . $xoopsDB->prefix('lxentries') . " WHERE submit = 'O' AND offline = '0' " . $catperms . ' '));
+list($numrows) = $xoopsDB->fetchRow($xoopsDB->query('SELECT COUNT(*) FROM '
+                                                    . $xoopsDB->prefix('lxentries')
+                                                    . " WHERE submit = 'O' AND offline = '0' "
+                                                    . $catperms
+                                                    . ' '));
 if ($numrows > 1) {
     --$numrows;
     mt_srand((double)microtime() * 1000000);
@@ -149,7 +157,7 @@ $resultZ = $xoopsDB->query('SELECT entryID, categoryID, term, definition, html, 
 $zerotest = $xoopsDB->getRowsNum($resultZ);
 if ($zerotest != 0) {
     while ($myrow = $xoopsDB->fetchArray($resultZ)) {
-        $random         = array();
+        $random         = [];
         $random['id']   = $myrow['entryID'];
         $random['term'] = mb_ucfirst($myrow['term']);
 
@@ -160,7 +168,11 @@ if ($zerotest != 0) {
         if ($xoopsModuleConfig['multicats'] == 1) {
             $random['categoryID'] = $myrow['categoryID'];
 
-            $resultY = $xoopsDB->query('SELECT categoryID, name FROM ' . $xoopsDB->prefix('lxcategories') . ' WHERE categoryID = ' . $myrow['categoryID'] . ' ');
+            $resultY = $xoopsDB->query('SELECT categoryID, name FROM '
+                                        . $xoopsDB->prefix('lxcategories')
+                                        . ' WHERE categoryID = '
+                                        . $myrow['categoryID']
+                                        . ' ');
             list($categoryID, $name) = $xoopsDB->fetchRow($resultY);
             $random['categoryname'] = $myts->displayTarea($name);
         }
@@ -173,7 +185,7 @@ if ($xoopsUser && $xoopsUser->isAdmin()) {
     // To display the submitted and requested terms box
     $xoopsTpl->assign('userisadmin', 1);
 
-    $blockS      = array();
+    $blockS      = [];
     $resultS     = $xoopsDB->query('SELECT entryID, term FROM '
                                    . $xoopsDB->prefix('lxentries')
                                    . ' WHERE datesub < '
@@ -183,7 +195,7 @@ if ($xoopsUser && $xoopsUser->isAdmin()) {
 
     if ($totalSwords > 0) { // If there are definitions
         while (list($entryID, $term) = $xoopsDB->fetchRow($resultS)) {
-            $subentries             = array();
+            $subentries             = [];
             $xoopsModule            = XoopsModule::getByDirname('lexikon');
             $linktext               = mb_ucfirst($myts->htmlSpecialChars($term));
             $subentries['linktext'] = $linktext;
@@ -197,13 +209,17 @@ if ($xoopsUser && $xoopsUser->isAdmin()) {
         $xoopsTpl->assign('wehavesubs', 0);
     }
 
-    $blockR      = array();
-    $resultR     = $xoopsDB->query('SELECT entryID, term FROM ' . $xoopsDB->prefix('lxentries') . ' WHERE datesub < ' . time() . " AND datesub > 0 AND request = '1' ORDER BY term");
+    $blockR      = [];
+    $resultR     = $xoopsDB->query('SELECT entryID, term FROM '
+                                    . $xoopsDB->prefix('lxentries')
+                                    . ' WHERE datesub < '
+                                    . time()
+                                    . " AND datesub > 0 AND request = '1' ORDER BY term");
     $totalRwords = $xoopsDB->getRowsNum($resultR);
 
     if ($totalRwords > 0) { // If there are definitions
         while (list($entryID, $term) = $xoopsDB->fetchRow($resultR)) {
-            $reqentries             = array();
+            $reqentries             = [];
             $xoopsModule            = XoopsModule::getByDirname('lexikon');
             $linktext               = mb_ucfirst($myts->htmlSpecialChars($term));
             $reqentries['linktext'] = $linktext;
@@ -218,13 +234,19 @@ if ($xoopsUser && $xoopsUser->isAdmin()) {
     }
 } else {
     $xoopsTpl->assign('userisadmin', 0);
-    $blockR      = array();
-    $resultR     = $xoopsDB->query('SELECT entryID, term FROM ' . $xoopsDB->prefix('lxentries') . ' WHERE datesub < ' . time() . " AND datesub > 0 AND request = '1' " . $catperms . ' ORDER BY term');
+    $blockR      = [];
+    $resultR     = $xoopsDB->query('SELECT entryID, term FROM '
+                                    . $xoopsDB->prefix('lxentries')
+                                    . ' WHERE datesub < '
+                                    . time()
+                                    . " AND datesub > 0 AND request = '1' "
+                                    . $catperms
+                                    . ' ORDER BY term');
     $totalRwords = $xoopsDB->getRowsNum($resultR);
 
     if ($totalRwords > 0) { // If there are definitions
         while (list($entryID, $term) = $xoopsDB->fetchRow($resultR)) {
-            $reqentries             = array();
+            $reqentries             = [];
             $xoopsModule            = XoopsModule::getByDirname('lexikon');
             $linktext               = mb_ucfirst($myts->htmlSpecialChars($term));
             $reqentries['linktext'] = $linktext;

@@ -1,9 +1,6 @@
 <?php
 /**
- *
  * Module: Lexikon - glossary module
- * Version: v 1.00
- * Release Date: 8 May 2004
  * Author: hsalazar
  * Licence: GNU
  */
@@ -11,10 +8,7 @@
 include __DIR__ . '/header.php';
 
 global $xoTheme, $xoopsUser, $xoopsModuleConfig, $xoopsModule;
-/*if ( !is_object( $xoopsUser ) && $xoopsModuleConfig['allowreq'] == 0 ) {
-    redirect_header( "index.php", 1, _NOPERM );
 
-}*/
 // permissions
 $gpermHandler = xoops_getHandler('groupperm');
 $groups       = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
@@ -94,7 +88,7 @@ if (empty($_POST['submit'])) {
             $newid = $xoopsDB->getInsertId();
         }
         $notificationHandler = xoops_getHandler('notification');
-        $tags                = array();
+        $tags                = [];
         $tags['ITEM_NAME']   = $reqterm;
         $tags['DATESUB']     = formatTimestamp($date, 'd M Y');
         $tags['ITEM_URL']    = XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/submit.php?suggest=' . $newid;
@@ -125,7 +119,7 @@ if (empty($_POST['submit'])) {
         }
         $adminMessage .= "\n" . $_SERVER['HTTP_USER_AGENT'] . "\n";
         $subject      = $xoopsConfig['sitename'] . ' - ' . _MD_LEXIKON_DEFINITIONREQ;
-        $xoopsMailer  =& xoops_getMailer();
+        $xoopsMailer  = xoops_getMailer();
         $xoopsMailer->useMail();
         $xoopsMailer->setToEmails($xoopsConfig['adminmail']);
         $xoopsMailer->setFromEmail($address);
@@ -133,10 +127,8 @@ if (empty($_POST['submit'])) {
         $xoopsMailer->setSubject($subject);
         $xoopsMailer->setBody($adminMessage);
         $xoopsMailer->send();
-        //$messagesent = sprintf(_MD_LEXIKON_MESSAGESENT,$xoopsConfig['sitename'])."<br>"._MD_LEXIKON_THANKS1."";
     }
     //send 'received!' mail
-    //if (LexikonUtility::getModuleOption('mailtosender') && $address) {
     if ($xoopsModuleConfig['mailtosender'] == 1 && $address) {
         $conf_subject = _MD_LEXIKON_THANKS2;
         $userMessage  = sprintf(_MD_LEXIKON_GOODDAY2, $logname);
@@ -148,7 +140,7 @@ if (empty($_POST['submit'])) {
         $userMessage  .= "--------------\n";
         $userMessage  .= '' . $xoopsConfig['sitename'] . ' ' . _MD_LEXIKON_WEBMASTER . "\n";
         $userMessage  .= '' . $xoopsConfig['adminmail'] . '';
-        $xoopsMailer  =& xoops_getMailer();
+        $xoopsMailer  = xoops_getMailer();
         $xoopsMailer->useMail();
         $xoopsMailer->setToEmails($address);
         $xoopsMailer->setFromEmail($xoopsConfig['adminmail']);
@@ -159,11 +151,7 @@ if (empty($_POST['submit'])) {
 
         $messagesent = sprintf(_MD_LEXIKON_MESSAGESENT, $xoopsConfig['sitename']) . '<br>' . _MD_LEXIKON_THANKS1 . '';
         $messagesent .= sprintf(_MD_LEXIKON_SENTCONFIRMMAIL, $address);
-        //}
-        //if ($xoopsModuleConfig['mailtoadmin'] == 1) {
-        //$messagesent .= sprintf(_MD_LEXIKON_SENTCONFIRMMAIL,$address);
     } else {
-        //$messagesent = sprintf(_MD_LEXIKON_SENTCONFIRMMAIL,$address);
         $messagesent = sprintf(_MD_LEXIKON_MESSAGESENT, $xoopsConfig['sitename']) . '<br>' . _MD_LEXIKON_THANKS1 . '';
     }
     redirect_header('index.php', 2, $messagesent);

@@ -101,7 +101,7 @@ class LexikonUtility
     {
         xoops_loadLanguage('admin', $module->dirname());
         //check for minimum XOOPS version
-        $currentVer  = substr(XOOPS_VERSION, 6); // get the numeric part of string
+        $currentVer  = mb_substr(XOOPS_VERSION, 6); // get the numeric part of string
         $currArray   = explode('.', $currentVer);
         $requiredVer = '' . $module->getInfo('min_xoops'); //making sure it's a string
         $reqArray    = explode('.', $requiredVer);
@@ -145,7 +145,7 @@ class LexikonUtility
         // check for minimum PHP version
         $success = true;
         $verNum  = phpversion();
-        $reqVer  =& $module->getInfo('min_php');
+        $reqVer  = $module->getInfo('min_php');
         if (false !== $reqVer && '' !== $reqVer) {
             if (version_compare($verNum, $reqVer, '<')) {
                 $module->setErrors(sprintf(_AM_ADSLIGHT_ERROR_BAD_PHP, $reqVer, $verNum));
@@ -298,12 +298,12 @@ public static function getCategoryArray()
     $myts         = MyTextSanitizer::getInstance();
     $groups       = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
     $gpermHandler = xoops_getHandler('groupperm');
-    $block0       = array();
+    $block0       = [];
     $count        = 1;
     $resultcat    = $xoopsDB->query('SELECT categoryID, name, total, logourl FROM ' . $xoopsDB->prefix('lxcategories') . ' ORDER BY weight ASC');
     while (list($catID, $name, $total, $logourl) = $xoopsDB->fetchRow($resultcat)) {
         if ($gpermHandler->checkRight('lexikon_view', $catID, $groups, $xoopsModule->getVar('mid'))) {
-            $catlinks = array();
+            $catlinks = [];
             ++$count;
             if ($logourl && $logourl !== 'http://') {
                 $logourl = $myts->htmlSpecialChars($logourl);
@@ -326,33 +326,30 @@ public static function getCategoryArray()
 
     /**
      * @return array
+     * 
      */
-//function uchr($a) {
-//    if (is_scalar($a)) $a= func_get_args();
-//    $str= '';
-//    foreach ($a as $code) $str.= html_entity_decode('&#'.$code.';',ENT_NOQUOTES,'UTF-8');
-//    return $str;
-//}
-
-public static function getAlphaArray()
-{
+function uchr($a) {
+    if (is_scalar($a)) $a= func_get_args();
+    $str= '';
+    foreach ($a as $code) $str.= html_entity_decode('&#'.$code.';',ENT_NOQUOTES,'UTF-8');
+    return $str;
+}
+public static function getAlphaArray() 
+{   
     global $xoopsUser, $xoopsDB, $xoopsModule;
     $gpermHandler = xoops_getHandler('groupperm');
     $groups       = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
-    /** @var XoopsModuleHandler $moduleHandler */
+        /** @var XoopsModuleHandler $moduleHandler */
     $moduleHandler = xoops_getHandler('module');
     $module        = $moduleHandler->getByDirname('lexikon');
     $module_id     = $module->getVar('mid');
     $allowed_cats  = $gpermHandler->getItemIds('lexikon_view', $groups, $module_id);
     $catids        = implode(',', $allowed_cats);
     $catperms      = " AND categoryID IN ($catids) ";
-    $alpha         = array();
-    function unichr($a) {
-    return mb_convert_encoding(pack("N",$a), mb_internal_encoding(), 'UCS-4BE');
-    }
+    $alpha         = [];
     for ($a = 48; $a < (48 + 10); ++$a) {
-        $letterlinks             = array();
-        $initial                 = unichr($a);
+        $letterlinks             = []; 
+        $initial                 = uchr($a);
         $sql                     = $xoopsDB->query('SELECT entryID FROM '
                                                        . $xoopsDB->prefix('lxentries')
                                                        . " WHERE init = '$initial' AND submit = '0' AND offline ='0' AND request = '0' "
@@ -360,14 +357,13 @@ public static function getAlphaArray()
                                                        . '');
         $howmany                 = $xoopsDB->getRowsNum($sql);
         $letterlinks['total']    = $howmany;
-        $letterlinks['id']       = unichr($a);
-        $letterlinks['linktext'] = unichr($a);
-
+        $letterlinks['id']       = uchr($a);
+        $letterlinks['linktext'] = uchr($a);
         $alpha['initial'][] = $letterlinks;
     }
     for ($a = 65; $a < (65 + 26); ++$a) {
-        $letterlinks             = array();
-        $initial                 = unichr($a);
+        $letterlinks             = []; 
+        $initial                 = uchr($a);
         $sql                     = $xoopsDB->query('SELECT entryID FROM '
                                                        . $xoopsDB->prefix('lxentries')
                                                        . " WHERE init = '$initial' AND submit = '0' AND offline ='0' AND request = '0' "
@@ -375,14 +371,14 @@ public static function getAlphaArray()
                                                        . '');
         $howmany                 = $xoopsDB->getRowsNum($sql);
         $letterlinks['total']    = $howmany;
-        $letterlinks['id']       = unichr($a);
-        $letterlinks['linktext'] = unichr($a);
-
+        $letterlinks['id']       = uchr($a);
+        $letterlinks['linktext'] = uchr($a);
         $alpha['initial'][] = $letterlinks;
     }
+    /* help code https://unicode-table.com/en/#control-character */ 
     for ($a = 1040; $a < (1040 + 32); ++$a) {
-        $letterlinks             = array();
-        $initial                 = unichr($a);
+        $letterlinks             = [];
+        $initial                 = uchr($a);
         $sql                     = $xoopsDB->query('SELECT entryID FROM '
                                                        . $xoopsDB->prefix('lxentries')
                                                        . " WHERE init = '$initial' AND submit = '0' AND offline ='0' AND request = '0' "
@@ -390,10 +386,10 @@ public static function getAlphaArray()
                                                        . '');
         $howmany                 = $xoopsDB->getRowsNum($sql);
         $letterlinks['total']    = $howmany;
-        $letterlinks['id']       = unichr($a);
-        $letterlinks['linktext'] = unichr($a);
+        $letterlinks['id']       = uchr($a);
+        $letterlinks['linktext'] = uchr($a);
         $alpha['initial'][] = $letterlinks;
-    }  
+    }   
     
     return $alpha;
 }
@@ -444,19 +440,19 @@ public static function getServiceLinks($variable)
         if ($xoopsUser->isAdmin()) {
             $srvlinks .= "<a TITLE=\""
                              . _EDIT
-                             . "\" href=\"/modules/lexikon/admin/entry.php?op=mod&entryID="
+                             . "\" href=\"admin/entry.php?op=mod&entryID="
                              . $variable['id']
                              . "\" target=\"_blank\"><img src=\""
-                             . $pathIcon16 . "/edit.png\"   alt=\""
+                             . $pathIcon16 . "/edit.png\"   border=\"0\" alt=\""
                              . _MD_LEXIKON_EDITTERM
-                             . "\" style=\"width:16px; height:16px;\"></a>&nbsp;<a TITLE=\""
+                             . "\" width=\"16\" height=\"16\"></a>&nbsp;<a TITLE=\""
                              . _DELETE
                              . "\" href=\"admin/entry.php?op=del&entryID="
                              . $variable['id']
                              . "\" target=\"_self\"><img src=\""
-                             . $pathIcon16 . "/delete.png\" alt=\""
+                             . $pathIcon16 . "/delete.png\"   border=\"0\" alt=\""
                              . _MD_LEXIKON_DELTERM
-                             . "\" style=\"width:16px; height:16px;\"></a>&nbsp;";
+                             . "\" width=\"16\" height=\"16\"></a>&nbsp;";
         }
     }
     if ($entrytype != '1') {
@@ -465,9 +461,9 @@ public static function getServiceLinks($variable)
                          . "\" href=\"print.php?entryID="
                          . $variable['id']
                          . "\" target=\"_blank\"><img src=\""
-                         . $pathIcon16 . "/printer.png\"  alt=\""
+                         . $pathIcon16 . "/printer.png\"    border=\"0\" alt=\""
                          . _MD_LEXIKON_PRINTTERM
-                         . "\" style=\"width:16px; height:16px;\"></a>&nbsp;<a TITLE=\""
+                         . "\" width=\"16\" height=\"16\"></a>&nbsp;<a TITLE=\""
                          . _MD_LEXIKON_SENDTOFRIEND
                          . "\" href=\"mailto:?subject="
                          . sprintf(_MD_LEXIKON_INTENTRY, $xoopsConfig['sitename'])
@@ -480,9 +476,9 @@ public static function getServiceLinks($variable)
                          . '/entry.php?entryID='
                          . $variable['id']
                          . " \" target=\"_blank\"><img src=\""
-                         . $pathIcon16 . "/mail_replay.png\" alt=\""
+                         . $pathIcon16 . "/mail_replay.png\"   border=\"0\" alt=\""
                          . _MD_LEXIKON_SENDTOFRIEND
-                         . "\" style=\"width:16px; height:16px;\"></a>&nbsp;";
+                         . "\" width=\"16\" height=\"16\"></a>&nbsp;";
         if (($xoopsModuleConfig['com_rule'] != 0)
                 && (!empty($xoopsModuleConfig['com_anonpost'])
                     || is_object($xoopsUser))
@@ -491,9 +487,9 @@ public static function getServiceLinks($variable)
                              . _COMMENTS
                              . "?\" href=\"comment_new.php?com_itemid="
                              . $variable['id']
-                             . "\" target=\"_parent\"><img src=\"assets/images/comments.gif\" alt=\""
+                             . "\" target=\"_parent\"><img src=\"assets/images/comments.gif\" border=\"0\" alt=\""
                              . _COMMENTS
-                             . "?\" style=\"width:16px; height:16px;\"></a>&nbsp;";
+                             . "?\" width=\"16\" height=\"16\"></a>&nbsp;";
         }
     }
 
@@ -512,9 +508,9 @@ public static function getServiceLinksNew($variable)
                      . _MD_LEXIKON_PRINTTERM
                      . "\" href=\"print.php?entryID="
                      . $variable['id']
-                     . "\" target=\"_blank\"><img src=\"assets/images/print.gif\" alt=\""
+                     . "\" target=\"_blank\"><img src=\"assets/images/print.gif\" border=\"0\" alt=\""
                      . _MD_LEXIKON_PRINTTERM
-                     . "\" style=\"vertical-align: middle; width:16px; height:16px; margin: 2px 4px;\"> "
+                     . "\" align=\"absmiddle\" width=\"16\" height=\"16\" hspace=\"2\" vspace=\"4\"> "
                      . _MD_LEXIKON_PRINTTERM2
                      . "</a>&nbsp; <a TITLE=\""
                      . _MD_LEXIKON_SENDTOFRIEND
@@ -530,9 +526,9 @@ public static function getServiceLinksNew($variable)
                      . $xoopsModule->dirname()
                      . '/entry.php?entryID='
                      . $variable['id']
-                     . " \" target=\"_blank\"><img src=\"assets/images/friend.gif\" alt=\""
+                     . " \" target=\"_blank\"><img src=\"assets/images/friend.gif\" border=\"0\" alt=\""
                      . _MD_LEXIKON_SENDTOFRIEND
-                     . "\" style=\"vertical-align: middle; width:16px; height:16px; margin: 2px 4px;\"> "
+                     . "\" align=\"absmiddle\" width=\"16\" height=\"16\" hspace=\"2\" vspace=\"4\"> "
                      . _MD_LEXIKON_SENDTOFRIEND2
                      . '</a>&nbsp;';
 
@@ -548,15 +544,15 @@ public static function showSearchForm()
     $gpermHandler = xoops_getHandler('groupperm');
     $groups       = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
 
-    $searchform = "<table style=\"width:100%;\">";
+    $searchform = "<table width=\"100%\">";
     $searchform .= "<form name=\"op\" id=\"op\" action=\"search.php\" method=\"post\">";
-    $searchform .= "<tr><td style=\"text-align: right; line-height: 200%; width:150px;\">";
-    $searchform .= _MD_LEXIKON_LOOKON . "</td><td style=\"width:10px;\">&nbsp;</td><td style=\"text-align: left;\">";
+    $searchform .= "<tr><td style=\"text-align: right; line-height: 200%\" width=\"150\">";
+    $searchform .= _MD_LEXIKON_LOOKON . "</td><td width=\"10\">&nbsp;</td><td style=\"text-align: left;\">";
     $searchform .= "<select name=\"type\"><option value=\"1\">" . _MD_LEXIKON_TERMS . "</option><option value=\"2\">" . _MD_LEXIKON_DEFINS . '</option>';
     $searchform .= "<option SELECTED value=\"3\">" . _MD_LEXIKON_TERMSDEFS . '</option></select></td></tr>';
 
     if ($xoopsModuleConfig['multicats'] == 1) {
-        $searchform .= "<tr><td style=\"text-align: right; line-height: 200%;\">" . _MD_LEXIKON_CATEGORY . '</td>';
+        $searchform .= "<tr><td style=\"text-align: right; line-height: 200%\">" . _MD_LEXIKON_CATEGORY . '</td>';
         $searchform .= "<td>&nbsp;</td><td style=\"text-align: left;\">";
         $resultcat  = $xoopsDB->query('SELECT categoryID, name FROM ' . $xoopsDB->prefix('lxcategories') . ' ORDER BY categoryID');
         $searchform .= "<select name=\"categoryID\">";
@@ -570,7 +566,7 @@ public static function showSearchForm()
         $searchform .= '</select></td></tr>';
     }
 
-    $searchform .= "<tr><td style=\"text-align: right; line-height: 200%;\">";
+    $searchform .= "<tr><td style=\"text-align: right; line-height: 200%\">";
     $searchform .= _MD_LEXIKON_TERM . "</td><td>&nbsp;</td><td style=\"text-align: left;\">";
     $searchform .= "<input type=\"text\" name=\"term\" class=\"searchBox\" /></td></tr><tr>";
     $searchform .= "<td>&nbsp;</td><td>&nbsp;</td><td><input type=\"submit\" class=\"btnDefault\" value=\"" . _MD_LEXIKON_SEARCH . "\" />";
@@ -596,8 +592,8 @@ public static function getHTMLHighlight($needle, $haystack, $hlS, $hlE)
         if (($pos = strpos($part, '<')) === false) {
             $pL = $part;
         } elseif ($pos > 0) {
-            $pL = substr($part, 0, $pos);
-            $pR = substr($part, $pos, strlen($part));
+            $pL = mb_substr($part, 0, $pos);
+            $pR = mb_substr($part, $pos, strlen($part));
         }
         if ($pL != '') {
             $parts[$key] = preg_replace('|(' . quotemeta($needle) . ')|iU', $hlS . '\\1' . $hlE, $pL) . $pR;
@@ -624,7 +620,7 @@ public static function extractKeywords($content)
     global $xoopsTpl, $xoTheme, $xoopsModule, $xoopsModuleConfig;
     include_once XOOPS_ROOT_PATH . '/modules/lexikon/include/common.inc.php';
     $keywords_count = $xoopsModuleConfig['metakeywordsnum'];
-    $tmp            = array();
+    $tmp            = [];
     if (isset($_SESSION['xoops_keywords_limit'])) {    // Search the "Minimum keyword length"
             $limit = $_SESSION['xoops_keywords_limit'];
     } else {
@@ -638,7 +634,7 @@ public static function extractKeywords($content)
     $content         = $myts->undoHtmlSpecialChars($content);
     $content         = strip_tags($content);
     $content         = strtolower($content);
-    $search_pattern  = array(
+    $search_pattern  = [
             '&nbsp;',
             "\t",
             "\r\n",
@@ -666,8 +662,8 @@ public static function extractKeywords($content)
             '_',
             '\\',
             '*'
-        );
-    $replace_pattern = array(
+        ];
+    $replace_pattern = [
             ' ',
             ' ',
             ' ',
@@ -695,7 +691,7 @@ public static function extractKeywords($content)
             '',
             '',
             ''
-        );
+        ];
     $content         = str_replace($search_pattern, $replace_pattern, $content);
     $keywords        = explode(' ', $content);
     switch (META_KEYWORDS_ORDER) {
@@ -799,7 +795,7 @@ public static function convertHtml2text($document)
         // This will remove HTML tags, javascript sections and white space. It will also
         // convert some common HTML entities to their text equivalent.
 
-        $search = array(
+        $search = [
             "'<script[^>]*?>.*?</script>'si",  // Strip out javascript
             "'<[\/\!]*?[^<>]*?>'si",          // Strip out HTML tags
             "'([\r\n])[\s]+'",                // Strip out white space
@@ -812,9 +808,9 @@ public static function convertHtml2text($document)
             "'&(cent|#162);'i",
             "'&(pound|#163);'i",
             "'&(copy|#169);'i"
-        );
+        ];
 
-    $replace = array(
+    $replace = [
             '',
             '',
             "\\1",
@@ -827,7 +823,7 @@ public static function convertHtml2text($document)
             chr(162),
             chr(163),
             chr(169)
-        );
+        ];
 
     $text = preg_replace($search, $replace, $document);
 
@@ -884,7 +880,7 @@ public static function isX23()
 {
     $x23 = false;
     $xv  = str_replace('XOOPS ', '', XOOPS_VERSION);
-    if (substr($xv, 2, 1) >= '3') {
+    if (mb_substr($xv, 2, 1) >= '3') {
         $x23 = true;
     }
 
@@ -906,7 +902,7 @@ public static function getWysiwygForm($caption, $name, $value = '', $width = '10
 {
     $editor_option            = strtolower(LexikonUtility::getModuleOption('form_options'));
     $editor                   = false;
-    $editor_configs           = array();
+    $editor_configs           = [];
     $editor_configs['name']   = $name;
     $editor_configs['value']  = $value;
     $editor_configs['rows']   = 35;
@@ -950,13 +946,13 @@ public static function getWysiwygForm($caption, $name, $value = '', $width = '10
             case 'tinymce':
                 if (is_readable(XOOPS_ROOT_PATH . '/class/xoopseditor/tinyeditor/formtinyeditortextarea.php')) {
                     require_once XOOPS_ROOT_PATH . '/class/xoopseditor/tinyeditor/formtinyeditortextarea.php';
-                    $editor = new XoopsFormTinyeditorTextArea(array(
+                    $editor = new XoopsFormTinyeditorTextArea([
                                                                   'caption' => $caption,
                                                                   'name'    => $name,
                                                                   'value'   => $value,
                                                                   'width'   => '100%',
                                                                   'height'  => '400px'
-                                                              ));
+                                                              ]);
                 }
                 break;
 
@@ -1079,12 +1075,12 @@ public static function getAuthorProfile($uid)
                               LIMIT $start,$limit");
 
     while ($row = $xoopsDB->fetchArray($sql)) {
-        $xoopsTpl->append('entries', array(
+        $xoopsTpl->append('entries', [
                 'id'      => $row['entryID'],
                 'name'    => $row['term'],
                 'date'    => date($xoopsModuleConfig['dateformat'], $row['datesub']),
                 'counter' => $row['counter']
-            ));
+            ]);
     }
 
     $navstring                = '';
@@ -1104,7 +1100,7 @@ public static function getAuthors($limit = 0, $start = 0)
 {
     global $xoopsDB;
 
-    $ret    = array();
+    $ret    = [];
     $sql    = 'SELECT DISTINCT(uid) AS uid FROM ' . $xoopsDB->prefix('lxentries') . ' WHERE offline = 0 ';
     $sql    .= ' ORDER BY uid';
     $result = $xoopsDB->query($sql);
@@ -1140,7 +1136,7 @@ public static function getLinkedProfileFromId($userid)
                               . $user->getVar('uname')
                               . '</a>';
                 //$linkeduser = XoopsUserUtility::getUnameFromId ( $uid );
-                //$linkeduser .= '<div style=\'position:relative; right: 4px; top: 2px;\'><A TITLE="'._MD_LEXIKON_AUTHORPROFILETEXT.'" HREF="'.XOOPS_URL.'/modules/'.$xoopsModule->dirname().'/profile.php?uid='.$uid.'">'._MD_LEXIKON_AUTHORPROFILETEXT.'</a></div>';
+                //$linkeduser .= '<div style=\'position:relative; right:4px; top: 2px;\'><a title="'._MD_LEXIKON_AUTHORPROFILETEXT.'" href="'.XOOPS_URL.'/modules/'.$xoopsModule->dirname().'/profile.php?uid='.$uid.'">'._MD_LEXIKON_AUTHORPROFILETEXT.'</a></div>';
                 return $linkeduser;
         }
     }
@@ -1222,7 +1218,7 @@ public static function removeAccents($string)
                         . chr(255);
     $chars['out'] = 'EfSZszYcYuAAAAAACEEEEIIIINOOOOOOUUUUYaaaaaaceeeeiiiinoooooouuuuyy';
     if (LexikonUtility::isUtf8($string)) {
-        $invalid_latin_chars = array(
+        $invalid_latin_chars = [
                 chr(197) . chr(146)            => 'OE',
                 chr(197) . chr(147)            => 'oe',
                 chr(197) . chr(160)            => 'S',
@@ -1230,11 +1226,11 @@ public static function removeAccents($string)
                 chr(197) . chr(161)            => 's',
                 chr(197) . chr(190)            => 'z',
                 chr(226) . chr(130) . chr(172) => 'E'
-            );
+            ];
         $string              = utf8_decode(strtr($string, $invalid_latin_chars));
     }
     $string              = strtr($string, $chars['in'], $chars['out']);
-    $double_chars['in']  = array(
+    $double_chars['in']  = [
             chr(140),
             chr(156),
             chr(198),
@@ -1244,8 +1240,18 @@ public static function removeAccents($string)
             chr(230),
             chr(240),
             chr(254)
-        );
-    $double_chars['out'] = array('OE', 'oe', 'AE', 'DH', 'TH', 'ss', 'ae', 'dh', 'th');
+        ];
+    $double_chars['out'] = [
+            'OE',
+            'oe',
+            'AE',
+            'DH',
+            'TH',
+            'ss',
+            'ae',
+            'dh',
+            'th'
+        ];
     $string              = str_replace($double_chars['in'], $double_chars['out'], $string);
 
     return $string;
@@ -1337,7 +1343,7 @@ public static function getBlockAuthors($limit = 5, $sort = 'count', $name = 'una
     if ($name !== 'uname') {
         $name = 'name';
     } //making sure that there is not invalid information in field value
-        $ret = array();
+        $ret = [];
     $db  = XoopsDatabaseFactory::getDatabaseConnection();
     if ($sort === 'count') {
         $sql = 'SELECT u.' . $name . ' AS name, u.uid , count( n.entryID ) AS count
@@ -1420,7 +1426,7 @@ public static function closeTags($string)
             $start_tags = $start_tags[1];
             // match closed tags
             if (preg_match_all('/<\/([a-z]+)>/', $string, $end_tags)) {
-                $complete_tags = array();
+                $complete_tags = [];
                 $end_tags      = $end_tags[1];
 
                 foreach ($start_tags as $key => $val) {
@@ -1475,7 +1481,7 @@ public static function truncateTagSafe($string, $length = 80, $etc = '...', $bre
     if (strlen($string) > $length) {
         $length -= strlen($etc);
         if (!$break_words) {
-            $string = preg_replace('/\s+?(\S+)?$/', '', substr($string, 0, $length + 1));
+            $string = preg_replace('/\s+?(\S+)?$/', '', mb_substr($string, 0, $length + 1));
             $string = preg_replace('/<[^>]*$/', '', $string);
             $string = LexikonUtility::closeTags($string);
         }
@@ -1493,7 +1499,7 @@ public static function getSummary()
 {
     global $xoopsDB;
 
-    $summary = array();
+    $summary = [];
 
     $result01 = $xoopsDB->query('SELECT COUNT(*)
                                    FROM ' . $xoopsDB->prefix('lxcategories') . ' ');
@@ -1516,7 +1522,7 @@ public static function getSummary()
 
         // Recuperer les valeurs dans la base de donnees
 
-        $summary['publishedEntries']    = $totalpublished ?: '0';
+    $summary['publishedEntries']    = $totalpublished ?: '0';
     $summary['availableCategories'] = $totalcategories ?: '0';
     $summary['submittedEntries']    = $totalsubmitted ?: '0';
     $summary['requestedEntries']    = $totalrequested ?: '0';

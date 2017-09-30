@@ -25,11 +25,9 @@ $fct = empty($_GET['fct']) ? $fct : trim($_GET['fct']);
 if (empty($fct)) {
     $fct = 'preferences';
 }
-//if (isset($fct) && $fct == "users") {
-//  $xoopsOption['pagetype'] = "user";
-//}
+
 include __DIR__ . '/../../../mainfile.php';
-// include "../../mainfile.php"; GIJ
+
 include XOOPS_ROOT_PATH . '/include/cp_functions.php';
 
 include_once XOOPS_ROOT_PATH . '/kernel/module.php';
@@ -73,8 +71,6 @@ if ($admintest != 0) {
                 if (in_array(XOOPS_GROUP_ADMIN, $groups)
                     || false !== $syspermHandler->checkRight('system_admin', $category, $groups, $xoopsModule->getVar('mid'))
                 ) {
-                    //                  if (file_exists(XOOPS_ROOT_PATH."/modules/system/admin/".$fct."/main.php")) {
-                    //                      include_once XOOPS_ROOT_PATH."/modules/system/admin/".$fct."/main.php"; GIJ
                     if (file_exists(__DIR__ . "/../include/{$fct}.inc.php")) {
                         include_once __DIR__ . "/../include/{$fct}.inc.php";
                     } else {
@@ -102,7 +98,7 @@ if ($admintest != 0) {
 
 if (false != $error) {
     xoops_cp_header();
-    echo '<h4>System Configuration</h4>';
+    echo '<h4>' . _AM_SYSTEM_CONFIG . '</h4>';
     echo '<table class="outer" cellpadding="4" cellspacing="1">';
     echo '<tr>';
     $groups = $xoopsUser->getGroups();

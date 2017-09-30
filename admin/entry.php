@@ -2,8 +2,6 @@
 /**
  *
  * Module: Lexikon - glossary module
- * Version: v 1.00
- * Release Date: 8 May 2004
  * Author: hsalazar
  * Modifs: Yerres
  * Licence: GNU
@@ -11,6 +9,7 @@
 
 require_once __DIR__ . '/admin_header.php';
 $myts = MyTextSanitizer::getInstance();
+
 xoops_cp_header();
 $adminObject  = \Xmf\Module\Admin::getInstance();
 $adminObject->displayNavigation(basename(__FILE__));
@@ -18,8 +17,6 @@ $adminObject->addItemButton(_AM_LEXIKON_CREATEENTRY, 'entry.php?op=add', 'add');
 $adminObject->displayButton('left');
 
 $op = '';
-#if ( isset( $_GET['op'] ) ) $op = $_GET['op'];
-#if ( isset( $_POST['op'] ) ) $op = $_POST['op'];
 error_reporting(E_ALL);
 error_reporting(E_ERROR | E_WARNING | E_PARSE);
 /* -- Available operations -- */
@@ -57,30 +54,20 @@ function entryDefault()
                                    WHERE submit = '1' AND request = '1' ");
     list($totalrequested) = $xoopsDB->fetchRow($result04);
 
-    //    echo "<table width='100%' class='outer' style=\"margin-top: 6px; clear:both;\" cellspacing='2' cellpadding='3' border='0' ><tr>";
-    //    echo "<td class='odd'>" . _AM_LEXIKON_TOTALENTRIES . "</td><td align='center' class='even'>" . $totalpublished . "</td>";
-    //    if ($xoopsModuleConfig['multicats'] == 1) {
-    //        echo "<td class='odd'>" . _AM_LEXIKON_TOTALCATS . "</td><td align='center' class='even'>" . $totalcategories . "</td>";
-    //    }
-    //    echo "<td class='odd'>" . _AM_LEXIKON_TOTALSUBM . "</td><td align='center' class='even'>" . $totalsubmitted . "</td>
-    //    <td class='odd'>" . _AM_LEXIKON_TOTALREQ . "</td><td align='center' class='even'>" . $totalrequested . "</td>
-    //    </tr></table>
-    //    <br><br>";
-    //
     /**
      * Code to show existing terms
      **/
 
     // create existing terms table
     $resultA1 = $xoopsDB->query('SELECT COUNT(*)
-                                   FROM ' . $xoopsDB->prefix('lxentries') . '
-                                   WHERE submit = 0');
+                                 FROM ' . $xoopsDB->prefix('lxentries') . '
+                                 WHERE submit = 0');
     list($numrows) = $xoopsDB->fetchRow($resultA1);
 
     $sql      = 'SELECT entryID, categoryID, term, uid, datesub, offline
-           FROM ' . $xoopsDB->prefix('lxentries') . '
-           WHERE submit = 0
-           ORDER BY entryID DESC';
+                 FROM ' . $xoopsDB->prefix('lxentries') . '
+                 WHERE submit = 0
+                 ORDER BY entryID DESC';
     $resultA2 = $xoopsDB->query($sql, $xoopsModuleConfig['perpage'], $startentry);
     $result   = $xoopsDB->query($sql, $xoopsModuleConfig['perpage']);
 
@@ -90,66 +77,76 @@ function entryDefault()
     <strong>" . _AM_LEXIKON_SHOWENTRIES . ' (' . $totalpublished . ')' . '</strong></td></tr>';
     echo '<tr>';
 
-    echo "<th width='40' align='center'><b>" . _AM_LEXIKON_ENTRYID . '</A></b></td>';
+    echo "<th style='width:40px; text-align:center;'>" . _AM_LEXIKON_ENTRYID . '</td>';
     if ($xoopsModuleConfig['multicats'] == 1) {
-        echo "<th width='20%'  align='center'><b>" . _AM_LEXIKON_ENTRYCATNAME . '</b></td>';
+        echo "<th style='width:20%; text-align:center;'>" . _AM_LEXIKON_ENTRYCATNAME . '</td>';
     }
-    echo "<th width='*' align='center'><b>" . _AM_LEXIKON_ENTRYTERM . "</b></td>
-    <th width='90'  align='center'><b>" . _AM_LEXIKON_SUBMITTER . "</b></td>
-    <th width='90'  align='center'><b>" . _AM_LEXIKON_ENTRYCREATED . "</b></td>
-    <th width='30'  align='center'><b>" . _AM_LEXIKON_STATUS . "</b></td>
-    <th width='60'  align='center'><b>" . _AM_LEXIKON_ACTION . '</b></td>
-    </tr>';
+    echo "<th style='width:*; text-align:center;'>" . _AM_LEXIKON_ENTRYTERM . "</td>
+    <th style='width:90px; text-align:center;'>" . _AM_LEXIKON_SUBMITTER . "</td>
+    <th style='width:90px; text-align:center;'>" . _AM_LEXIKON_ENTRYCREATED . "</td>
+    <th style='width:30px; text-align:center;'>" . _AM_LEXIKON_STATUS . "</td>
+    <th style='width:60px; text-align:center;'>" . _AM_LEXIKON_ACTION . "</td>
+    </tr>";
     $class = 'odd';
     if ($numrows > 0) {
         // That is, if there ARE entries in the system
 
         while (list($entryID, $categoryID, $term, $uid, $created, $offline) = $xoopsDB->fetchrow($resultA2)) {
             $resultA3 = $xoopsDB->query('SELECT name
-                                           FROM ' . $xoopsDB->prefix('lxcategories') . "
-                                           WHERE categoryID = '$categoryID'");
+                                         FROM ' . $xoopsDB->prefix('lxcategories') . "
+                                         WHERE categoryID = '$categoryID'");
             list($name) = $xoopsDB->fetchrow($resultA3);
 
             $sentby  = XoopsUserUtility::getUnameFromId($uid);
             $catname = $myts->htmlSpecialChars($name);
             $term    = $myts->htmlSpecialChars($term);
             $created = formatTimestamp($created, 's');
-            $modify  = "<a href='entry.php?op=mod&entryID=" . $entryID . "'><img src=" . $pathIcon16 . "/edit.png width='16' height='16' ALT='" . _AM_LEXIKON_EDITENTRY . "'></a>";
-            $delete  = "<a href='entry.php?op=del&entryID=" . $entryID . "'><img src=" . $pathIcon16 . "/delete.png width='16' height='16' ALT='" . _AM_LEXIKON_DELETEENTRY . "'></a>";
+            $modify  = "<a href='entry.php?op=mod&entryID="
+                        . $entryID
+                        . "'><img src="
+                        . $pathIcon16
+                        . "/edit.png alt='"
+                        . _AM_LEXIKON_EDITENTRY
+                        . "'></a>";
+            $delete  = "<a href='entry.php?op=del&entryID="
+                        . $entryID
+                        . "'><img src="
+                        . $pathIcon16
+                        . "/delete.png alt='"
+                        . _AM_LEXIKON_DELETEENTRY
+                        . "'></a>";
 
             if ($offline == 0) {
                 $status = '<img src=' . XOOPS_URL . '/modules/' . $xoopsModule->dirname() . "/assets/images/icon/on.gif alt='" . _AM_LEXIKON_ENTRYISON . "'>";
             } else {
                 $status = '<img src=' . XOOPS_URL . '/modules/' . $xoopsModule->dirname() . "/assets/images/icon/off.gif alt='" . _AM_LEXIKON_ENTRYISOFF . "'>";
             }
-            echo "<tr class='" . $class . "'>";
+            echo "<div><tr class='" . $class . "'>";
             $class = ($class === 'even') ? 'odd' : 'even';
 
             echo "<td align='center'>" . $entryID . '</td>';
 
             if ($xoopsModuleConfig['multicats'] == 1) {
-                echo "<td class='odd' align='left'>" . $catname . '</td>';
+                echo "<td class='odd' style='text-align:left;'>" . $catname . '</td>';
             }
-            //echo "<td class='$class'align='left'>" . $term . "</td>";
-            echo "<td class='odd'align='left'><a href='../entry.php?entryID=" . $entryID . "'>" . $term . "</td>
-            <td class='odd' align='center'>" . $sentby . "</td>
-            <td class='odd' align='center'>" . $created . "</td>
-            <td class='odd' align='center'>" . $status . "</td>
-            <td class='even' align='center'> $modify $delete </td>
-            </tr></DIV>";
+            echo "<td class='odd' style='text-align:left;'><a href='../entry.php?entryID=" . $entryID . "'>" . $term . "</a></td>
+            <td class='odd' style='text-align:center;'>" . $sentby . "</td>
+            <td class='odd' style='text-align:center;'>" . $created . "</td>
+            <td class='odd' style='text-align:center;'>" . $status . "</td>
+            <td class='even' style='text-align:center;'>" . $modify . "-" . $delete . "</td>
+            </tr></div>";
         }
     } else { // that is, $numrows = 0, there's no entries yet
-        echo '<tr>';
+        echo '<div><tr>';
         echo "<td class='odd' align='center' colspan= '7'>" . _AM_LEXIKON_NOTERMS . '</td>';
-        echo '</tr></DIV>';
+        echo '</tr></div>';
     }
     echo "</table>\n";
     $pagenav = new XoopsPageNav($numrows, $xoopsModuleConfig['perpage'], $startentry, 'startentry');
     echo '<div style="text-align:right;">' . $pagenav->renderNav(8) . '</div>';
-    echo "<br><br>\n";
+    echo "<br>\n";
     echo '</div>';
 }
-
 // -- Edit function --
 /**
  * @param string $entryID
@@ -213,9 +210,9 @@ function entryEdit($entryID = '')
     // If there is a parameter, and the id exists, retrieve data: we're editing an entry
     if ($entryID) {
         $result = $xoopsDB->query('
-                                     SELECT categoryID, term, init, definition, ref, url, uid, submit, datesub, html, smiley, xcodes, breaks, block, offline, notifypub, request
-                                     FROM ' . $xoopsDB->prefix('lxentries') . "
-                                     WHERE entryID = '$entryID'");
+                                  SELECT categoryID, term, init, definition, ref, url, uid, submit, datesub, html, smiley, xcodes, breaks, block, offline, notifypub, request
+                                  FROM ' . $xoopsDB->prefix('lxentries') . "
+                                  WHERE entryID = '$entryID'");
         list($categoryID, $term, $init, $definition, $ref, $url, $uid, $submit, $datesub, $html, $smiley, $xcodes, $breaks, $block, $offline, $notifypub, $request) = $xoopsDB->fetchrow($result);
 
         if (!$xoopsDB->getRowsNum($result)) {
@@ -223,9 +220,7 @@ function entryEdit($entryID = '')
         }
         $term = $myts->stripSlashesGPC($myts->htmlSpecialChars($term));
 
-        //        lx_adminMenu(2, _AM_LEXIKON_ADMINENTRYMNGMT);
-
-        echo "<h3 style=\"color: #2F5376; margin-top: 6px; \">" . _AM_LEXIKON_ADMINENTRYMNGMT . '</h3>';
+        echo "<strong style='color: #2F5376; margin-top:6px; font-size:medium'>" . _AM_LEXIKON_ADMINENTRYMNGMT . '</strong>';
         $sform = new XoopsThemeForm(_AM_LEXIKON_MODENTRY . ": $term", 'op', xoops_getenv('PHP_SELF'));
     } else { // there's no parameter, so we're adding an entry
         $result01 = $xoopsDB->query('SELECT COUNT(*) FROM ' . $xoopsDB->prefix('lxcategories') . ' ');
@@ -233,19 +228,17 @@ function entryEdit($entryID = '')
         if ($totalcats == 0 && $xoopsModuleConfig['multicats'] == 1) {
             redirect_header('index.php', 1, _AM_LEXIKON_NEEDONECOLUMN);
         }
-        //        lx_adminMenu(2, _AM_LEXIKON_ADMINENTRYMNGMT);
         $uid = $xoopsUser->getVar('uid');
-        echo "<h3 style=\"color: #2F5376; margin-top: 6px; \">" . _AM_LEXIKON_ADMINENTRYMNGMT . '</h3>';
+        echo "<strong style='color: #2F5376; margin-top:6px; font-size:medium'>" . _AM_LEXIKON_ADMINENTRYMNGMT . '</strong>';
         $sform = new XoopsThemeForm(_AM_LEXIKON_NEWENTRY, 'op', xoops_getenv('PHP_SELF'));
     }
 
     $sform->setExtra('enctype="multipart/form-data"');
     // Category selector
     if ($xoopsModuleConfig['multicats'] == 1) {
-        // $mytree = new XoopsTree( $xoopsDB->prefix( "lxcategories" ), "categoryID" , "0" );
         $mytree         = new LexikonTree($xoopsDB->prefix('lxcategories'), 'categoryID', '0');
         $categoryselect = new XoopsFormSelect(_AM_LEXIKON_CATNAME, 'categoryID', $categoryID);
-        $tbl            = array();
+        $tbl            = [];
         $tbl            = $mytree->getChildTreeArray(0, 'name');
         foreach ($tbl as $oneline) {
             if ($oneline['prefix'] === '.') {
@@ -333,7 +326,6 @@ function entryEdit($entryID = '')
     $button_tray->addElement($hidden);
 
     if (!$entryID) { // there's no entryID? Then it's a new entry
-
         $butt_create = new XoopsFormButton('', '', _AM_LEXIKON_CREATE, 'submit');
         $butt_create->setExtra('onclick="this.form.elements.op.value=\'addentry\'"');
         $button_tray->addElement($butt_create);
@@ -380,22 +372,18 @@ function entrySave($entryID = '')
     $smiley  = isset($_POST['smiley']) ? (int)$_POST['smiley'] : (int)$_GET['smiley'];
     $xcodes  = isset($_POST['xcodes']) ? (int)$_POST['xcodes'] : (int)$_GET['xcodes'];
     $offline = isset($_POST['offline']) ? (int)$_POST['offline'] : (int)$_GET['offline'];
-    // $init= $myts->addslashes($_POST['init']); -- LionHell supprimé pour auto cf ligne 354
     $term = $myts->addSlashes(xoops_trim($_POST['term']));
     // LionHell pour initiale automatique
     $init = mb_substr($term, 0, 1);
     $init = preg_match('/[a-zA-Zа-яА-Я0-9]/', $init) ? mb_strtoupper($init) : '#';
     // Fin LionHell
 
-    //$definition = $myts -> xoopsCodeDecode($_POST['definition'], $allowimage = 1);
-    //$ref = isset($_POST['ref']) ? $myts->addSlashes($_POST['ref']) : '';
     $definition = $myts->xoopsCodeDecode($myts->censorString($_POST['definition']), $allowimage = 1);
     $ref        = isset($_POST['ref']) ? $myts->addSlashes($myts->censorString($_POST['ref'])) : '';
     $url        = isset($_POST['url']) ? $myts->addSlashes($_POST['url']) : '';
 
     $date   = time();
     $submit = 0;
-    //$notifypub = 0;
     $notifypub = isset($_POST['notifypub']) ? (int)$_POST['notifypub'] : (int)$_GET['notifypub'];
     $request   = 0;
     $uid       = isset($_POST['author']) ? (int)$_POST['author'] : $xoopsUser->uid();
@@ -436,7 +424,7 @@ function entrySave($entryID = '')
                     $newid = $xoopsDB->getInsertId();
                 }
                 $notificationHandler   = xoops_getHandler('notification');
-                $tags                  = array();
+                $tags                  = [];
                 $shortdefinition       = $myts->htmlSpecialChars(xoops_substr(strip_tags($definition), 0, 45));
                 $tags['ITEM_NAME']     = $term;
                 $tags['ITEM_BODY']     = $shortdefinition;
@@ -449,7 +437,6 @@ function entrySave($entryID = '')
                 $tags['CATEGORY_URL']  = XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/category.php?categoryID=' . $categoryID;
                 $notificationHandler->triggerEvent('global', 0, 'new_post', $tags);
                 $notificationHandler->triggerEvent('category', $categoryID, 'new_post', $tags);
-                //$notificationHandler->triggerEvent('term', $newid, 'approve', $tags);
             }
             LexikonUtility::calculateTotals();
             redirect_header('entry.php', 1, _AM_LEXIKON_ENTRYCREATEDOK);
@@ -465,7 +452,7 @@ function entrySave($entryID = '')
             if (!empty($xoopsModuleConfig['notification_enabled'])) {
                 global $xoopsModule;
                 $notificationHandler   = xoops_getHandler('notification');
-                $tags                  = array();
+                $tags                  = [];
                 $shortdefinition       = $myts->htmlSpecialChars(xoops_substr(strip_tags($definition), 0, 45));
                 $tags['ITEM_NAME']     = $term;
                 $tags['ITEM_BODY']     = $shortdefinition;
@@ -501,11 +488,10 @@ function entrySave($entryID = '')
                 $userMessage .= "__________________\n";
                 $userMessage .= '' . $xoopsConfig['sitename'] . ' ' . _MD_LEXIKON_WEBMASTER . "\n";
                 $userMessage .= '' . $xoopsConfig['adminmail'] . '';
-                $xoopsMailer =& xoops_getMailer();
+                $xoopsMailer = xoops_getMailer();
                 $xoopsMailer->useMail();
                 $xoopsMailer->setToEmails($user->getVar('email'));
                 $xoopsMailer->setFromEmail($xoopsConfig['adminmail']);
-                //$xoopsMailer->setFromName($xoopsConfig['sitename']." - "._MI_LEXIKON_MD_NAME);
                 $xoopsMailer->setFromName($xoopsConfig['sitename'] . ' - ' . $xoopsModule->name());
                 if ($request == '1') {
                     $conf_subject = sprintf(_MD_LEXIKON_SUBJECTREQ, $xoopsConfig['sitename']);
@@ -525,7 +511,6 @@ function entrySave($entryID = '')
         }
     }
 }
-
 /**
  * @param string $entryID
  */
@@ -551,11 +536,9 @@ function entryDelete($entryID = '')
         }
         redirect_header('entry.php', 1, sprintf(_AM_LEXIKON_ENTRYISDELETED, $term));
     } else {
-        //xoops_cp_header();
-        xoops_confirm(array('op' => 'del', 'entryID' => $entryID, 'ok' => 1, 'term' => $term), 'entry.php', _AM_LEXIKON_DELETETHISENTRY . '<br><br>' . $term, _AM_LEXIKON_DELETE);
-        xoops_cp_footer();
+        xoops_confirm(['op' => 'del', 'entryID' => $entryID, 'ok' => 1, 'term' => $term], 'entry.php', _AM_LEXIKON_DELETETHISENTRY . '<br>' . $term, _AM_LEXIKON_DELETE);
+        require_once __DIR__ . '/admin_footer.php';
     }
-    //  break;
     exit();
 }
 
@@ -584,11 +567,11 @@ switch ($op) {
 
     case 'del':
         entryDelete();
-        break;//
+        break;
 
     case 'default':
     default:
         entryDefault();
         break;
 }
-xoops_cp_footer();
+require_once __DIR__ . '/admin_footer.php';

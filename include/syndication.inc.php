@@ -2,8 +2,6 @@
 /**
  *
  * Module: Lexikon
- * Version: v 1.00
- * Release Date: 1 May 2011
  * Author: Yerres
  * Licence: GNU
  */

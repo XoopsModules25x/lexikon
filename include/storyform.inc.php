@@ -2,8 +2,6 @@
 /**
  *
  * Module: Lexikon
- * Version: v 1.00
- * Release Date: 8 May 2004
  * Author: hsalazar
  * Chanegs: Yerres
  * Licence: GNU
@@ -24,11 +22,11 @@ if ($xoopsModuleConfig['multicats'] == '1') {
     // perms adapted category select
     $groups       = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
     $gpermHandler = xoops_getHandler('groupperm');
-    $allowed_cats =& $gpermHandler->getItemIds('lexikon_submit', $groups, $xoopsModule->getVar('mid'));
+    $allowed_cats = $gpermHandler->getItemIds('lexikon_submit', $groups, $xoopsModule->getVar('mid'));
     if (is_array($allowed_cats)) {
         $mytree         = new LexikonTree($xoopsDB->prefix('lxcategories'), 'categoryID', '0');
         $categoryselect = new XoopsFormSelect(_MD_LEXIKON_ENTRYCATEGORY, 'categoryID', $allowed_cats);
-        $tbl            = array();
+        $tbl            = [];
         $tbl            = $mytree->getChildTreeArray(0, 'name');
         foreach ($tbl as $oneline) {
             if (in_array($oneline['categoryID'], $allowed_cats)) {
@@ -37,31 +35,17 @@ if ($xoopsModuleConfig['multicats'] == '1') {
                 }
 
                 $oneline['prefix'] = str_replace('.', '-', $oneline['prefix']);
-                //if (in_array($oneline['categoryID'], $allowed_cats)) {
                 $categoryselect->addOption($oneline['categoryID'], $oneline['prefix'] . ' ' . $oneline['name']);
             }
         }
     }
     $sform->addElement($categoryselect, true);
-    /*    ob_start();
-        $sform -> addElement( new XoopsFormHidden( 'categoryID', $categoryID ) );
-        $mytree -> makeMySelBox( "name", "name", $categoryID );
-        $sform -> addElement( new XoopsFormLabel( _MD_LEXIKON_ENTRYCATEGORY, ob_get_contents() ) );
-        ob_end_clean();
-    */
 }
 // This part is common to edit/add
 $myts = MyTextSanitizer::getInstance();
 $term = $myts->htmlSpecialChars($term);
 $sform->addElement(new XoopsFormText(_MD_LEXIKON_ENTRY, 'term', 50, 80, $term), true);
 
-/*$editor = LexikonUtility::getWysiwygForm( _MD_LEXIKON_DEFINITION, 'definition', _MD_LEXIKON_WRITEHERE, 15, 60 );
-  if ($definition == _MD_LEXIKON_WRITEHERE) {
-      $editor -> setExtra( 'onfocus="this.select()"' );
-  }
-  $sform->addElement($editor,true);
-  unset($editor);
-*/
 //editor for guests/users
 if (isset($guesteditoruse)) {
     //if (isset($xoopsUser) && is_object($xoopsUser) ) {

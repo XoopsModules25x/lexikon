@@ -47,7 +47,7 @@ class MyXoopsGroupPermForm extends XoopsForm
      * Tree structure of items
      * @var array
      */
-    public $_itemTree = array();
+    public $_itemTree = [];
     /**
      * Name of permission
      * @var string
@@ -62,7 +62,7 @@ class MyXoopsGroupPermForm extends XoopsForm
      * Appendix
      * @var array ('permname'=>,'itemid'=>,'itemname'=>,'selected'=>)
      */
-    public $_appendix = array();
+    public $_appendix = [];
 
     /**
      * Constructor
@@ -108,12 +108,12 @@ class MyXoopsGroupPermForm extends XoopsForm
      */
     public function addAppendix($permName, $itemId, $itemName)
     {
-        $this->_appendix[] = array(
+        $this->_appendix[] = [
             'permname' => $permName,
             'itemid'   => $itemId,
             'itemname' => $itemName,
             'selected' => false
-        );
+        ];
     }
 
     /**
@@ -151,7 +151,7 @@ class MyXoopsGroupPermForm extends XoopsForm
 
         // load all child ids for javascript codes
         foreach (array_keys($this->_itemTree) as $item_id) {
-            $this->_itemTree[$item_id]['allchild'] = array();
+            $this->_itemTree[$item_id]['allchild'] = [];
             $this->_loadAllChildItemIds($item_id, $this->_itemTree[$item_id]['allchild']);
         }
         $gpermHandler  = xoops_getHandler('groupperm');
@@ -199,7 +199,7 @@ class MyXoopsGroupPermForm extends XoopsForm
                      . "'"
                      . $this->getExtra()
                      . ">\n<table width='100%' class='outer' cellspacing='1'>\n";
-        $elements =& $this->getElements();
+        $elements = $this->getElements();
         foreach (array_keys($elements) as $i) {
             if (!is_object($elements[$i])) {
                 $ret .= $elements[$i];
@@ -249,7 +249,7 @@ class MyXoopsGroupFormCheckBox extends XoopsFormElement
      * Appendix
      * @var array ('permname'=>,'itemid'=>,'itemname'=>,'selected'=>)
      */
-    public $_appendix = array();
+    public $_appendix = [];
 
     /**
      * Constructor
@@ -293,7 +293,7 @@ class MyXoopsGroupFormCheckBox extends XoopsFormElement
      */
     public function setOptionTree(&$optionTree)
     {
-        $this->_optionTree =& $optionTree;
+        $this->_optionTree = $optionTree;
     }
 
     /**
@@ -329,7 +329,7 @@ class MyXoopsGroupFormCheckBox extends XoopsFormElement
                 $name    = 'perms[' . $append['permname'] . ']';
                 $itemid  = $append['itemid'];
                 $itemid  = $append['itemid'];
-                $ret     .= "<td class=\"odd\"><input type=\"checkbox\" name=\"{$name}[groups][$this->_groupId][$itemid]\" id=\"{$name}[groups][$this->_groupId][$itemid]\" value=\"1\" $checked />{$append['itemname']}<input type=\"hidden\" name=\"{$name}[parents][$itemid]\" value=\"\" /><input type=\"hidden\" name=\"{$name}[itemname][$itemid]\" value=\"{$append['itemname']}\" /><br></td>";
+                $ret    .= "<td class=\"odd\"><input type=\"checkbox\" name=\"{$name}[groups][$this->_groupId][$itemid]\" id=\"{$name}[groups][$this->_groupId][$itemid]\" value=\"1\" $checked />{$append['itemname']}<input type=\"hidden\" name=\"{$name}[parents][$itemid]\" value=\"\" /><input type=\"hidden\" name=\"{$name}[itemname][$itemid]\" value=\"{$append['itemname']}\" /><br></td>";
                 ++$cols;
             }
             $ret .= '</tr></table>';
@@ -340,7 +340,7 @@ class MyXoopsGroupFormCheckBox extends XoopsFormElement
         if (!empty($this->_optionTree[0]['children'])) {
             foreach ($this->_optionTree[0]['children'] as $topitem) {
                 if ($cols > 4) {
-                    $ret  .= '</tr><tr>';
+                    $ret .= '</tr><tr>';
                     $cols = 1;
                 }
                 $tree   = '<td class="odd">';
@@ -364,7 +364,7 @@ class MyXoopsGroupFormCheckBox extends XoopsFormElement
      * @param array  $parentIds
      * @access private
      */
-    public function _renderOptionTree(&$tree, $option, $prefix, $parentIds = array())
+    public function _renderOptionTree(&$tree, $option, $prefix, $parentIds = [])
     {
         $tree .= $prefix
                  . "<input type=\"checkbox\" name=\""

@@ -1,9 +1,6 @@
 <?php
 /**
- *
  * Module: Lexikon - glossary module
- * Version: v 1.00
- * Release Date: 8 May 2004
  * Author: hsalazar
  * Licence: GNU
  */
@@ -34,7 +31,7 @@ function b_lxentries_random_show()
     $catperms     = " AND categoryID IN ($catids) ";
 
     $adminlinks     = '';
-    $block          = array();
+    $block          = [];
     $block['title'] = _MB_LEXIKON_RANDOMTITLE;
 
     list($numrows) = $xoopsDB->fetchRow($xoopsDB->query('SELECT COUNT(entryID) FROM ' . $xoopsDB->prefix('lxentries') . " WHERE offline= '0' AND block = '1' " . $catperms . ' '));
@@ -54,7 +51,7 @@ function b_lxentries_random_show()
         $entryID = (int)$myrow['entryID'];
         $term    = ucfirst($myts->displayTarea($myrow['term']));
 
-        if (!XOOPS_USE_MULTIBYTES) {
+        if (XOOPS_USE_MULTIBYTES) {
             $deftemp    = xoops_substr($myrow['definition'], 0, $lxConfig['rndlength'] - 1);
             $definition = $myts->displayTarea($deftemp, 1, 1, 1, 1, 1);
         }

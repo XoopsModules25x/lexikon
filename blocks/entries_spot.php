@@ -1,9 +1,6 @@
 <?php
 /**
- *
  * Module: Lexikon
- * Version: v 1.0
- * Release Date: 18 dec 2011
  * credits: hsalazar, Smartfactory, Eric Juden & ackbarr ->Project XHelp
  * Licence: GNU
  */
@@ -33,11 +30,8 @@ function b_lxspot_show($options)
     $gpermHandler = xoops_getHandler('groupperm');
     $groups       = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
     $module_id    = $lexikon->getVar('mid');
-    /*$allowed_cats = $gpermHandler->getItemIds("lexikon_view", $groups, $module_id);
-    $catids = implode(',', $allowed_cats);
-    $catperms = " AND categoryID IN ($catids) ";*/
 
-    $block = array();
+    $block = [];
 
     // To handle options in the template
     if ($options[2] == 1) {
@@ -138,7 +132,6 @@ function b_lxspot_show($options)
                     $morelinks['head'] = xoops_substr($myts->htmlSpecialChars($myrow['term']), 0, (int)$options[9]);
 
                     $morelinks['subdate'] = formatTimestamp($datesub, 'd M Y');
-                    //$morelinks['subdate'] = formatTimestamp( $datesub, $lxConfig['dateformat'] );
                     ++$i;
                     $block['links'][] = $morelinks;
                 }
@@ -147,7 +140,6 @@ function b_lxspot_show($options)
             $block['display'] = 0;
         }
     }
-
     //------------
     return $block;
 }
