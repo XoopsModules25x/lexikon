@@ -10,6 +10,7 @@
 
 require_once __DIR__ . '/admin_header.php';
 $myts = MyTextSanitizer::getInstance();
+xoops_load('XoopsUserUtility');
 
 $op   = '';
 
