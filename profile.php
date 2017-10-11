@@ -1,10 +1,6 @@
 <?php
 /**
- *
  * Module: Lexikon - glossary module
- * Version: v 1.00
- * Release Date: 18 Dec 2011
- * adapted from News 1.50 (c) instant-zero.com
  * changes: Yerres
  * Licence: GNU
  */

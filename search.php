@@ -1,9 +1,6 @@
 <?PHP
 /**
- *
  * Module: Lexikon -  glossary module
- * Version: v 1.00
- * Release Date: 18 Dec 2011
  * Author: hsalazar
  * Licence: GNU
  */
@@ -19,7 +16,6 @@ $myts = MyTextSanitizer::getInstance();
 include_once XOOPS_ROOT_PATH . '/modules/lexikon/include/common.inc.php';
 $highlight = false;
 $highlight = ($xoopsModuleConfig['config_highlighter'] = 1) ? 1 : 0;
-//$highlight = LexikonUtility::getModuleOption('config_highlighter');
 $hightlight_key = '';
 
 include_once XOOPS_ROOT_PATH . '/class/pagenav.php';
@@ -114,14 +110,13 @@ if (!$query) {
     } else {
         // Show paginated list of results
         // We'll put the results in an array
-        $resultset = array();
+        $resultset = [];
 
         // -- highlighter
         if (is_array($resultset)) {
             if ($highlight) {
                 $xoopsTpl->assign('highlight', true);
                 $hightlight_key = '&amp;keywords=' . urlencode(trim($query));
-                //$hightlight_key = '&keywords='.urlencode(trim(implode(' ',$query)));
             } else {
                 $xoopsTpl->assign('highlight', false);
             }
@@ -154,7 +149,7 @@ if (!$query) {
         $resultA   = $xoopsDB->query($queryA, $xoopsModuleConfig['indexperpage'], $start);
 
         while (list($entryID, $categoryID, $term, $init, $definition, $datesub, $ref, $catname) = $xoopsDB->fetchRow($resultA)) {
-            $eachresult               = array();
+            $eachresult               = [];
             $xoopsModule              = XoopsModule::getByDirname('lexikon');
             $eachresult['dir']        = $xoopsModule->dirname();
             $eachresult['id']         = $entryID;

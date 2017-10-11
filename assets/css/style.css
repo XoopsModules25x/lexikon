@@ -1,10 +1,18 @@
 #moduleheader {
     width: 100%;
+    min-width: 918px;
     padding: 0;
     margin: 0;
-    border-bottom: 1px solid #2F5376;
+   /* height: 35px;
+    border-bottom: 1px solid #2F5376; */
+    clear: both;
 }
-
+fieldset {
+  border:1px solid #778;
+  margin:1em 0;
+  text-align:left;
+  background-color:transparent;
+}
 h1, h2, h3, h4, h5 {
     margin: 0;
 }
@@ -20,18 +28,27 @@ h4 a:hover img {
 }
 
 .leftheader {
-    font-size: 10px;
+    font-size: 12px;
     line-height: 18px;
+    font-weight: bold;
+    margin: 5px;
+    display:inline-block;
+    float: left;
+    padding: 10px;
 }
 
 .rightheader {
     font-size: 18px;
     text-align: right;
     font-weight: bold;
-    color: #2F5376;
-    letter-spacing: -1.5px;
-    margin: 0;
+    color: #000;
+    letter-spacing: 1.5px;
+    margin: 5px;
     line-height: 18px;
+    vertical-align:top;
+    display:inline-block;
+    float: right;
+    padding: 10px;
 }
 
 .empty {
@@ -41,16 +58,26 @@ h4 a:hover img {
     color: #900;
     font-size: 14px;
     text-align: center;
+    clear: both;
 }
-
+.rss_bottom {
+    padding: 24px;
+    text-align: center;
+    clear: both;
+}
 .toprow {
     margin-top: 12px;
+    vertical-align:middle;
+    clear: both;
 }
 
 #search {
     float: left;
-    width: 60%;
-    margin-right: 10px;
+    width: 40%;
+    margin: 10px;
+    vertical-align:middle;
+   /* border: 1px dotted #e2a35c; */
+    display:inline-block;
 }
 
 .searchBox {
@@ -73,19 +100,25 @@ fieldset ul {
 }
 
 legend {
-    font-weight: bold;
     color: #900;
 }
 
 .inventory {
     text-align: center;
     line-height: 150%;
-    padding: 12px 18px;
+    margin: 10px;
+    width: 40%;
+    vertical-align:middle;
+   /* border: 1px dotted #e2a35c;  */
+    display:inline-block;
+    float: right;
 }
 
 .clearer {
     clear: both;
-    width: 99.9%;
+    width: 100%;
+    text-align: center;
+    vertical-align:middle;
 }
 
 .clearer2 {
@@ -96,10 +129,41 @@ legend {
 
 .letters {
     text-align: center;
-    font-size: x-small;
+    font-size: 14px;
     padding: 10px 0;
+    color: #900;
 }
-
+.search_abc_l {
+    text-align: center;
+    font-size: 12px;
+    padding: 10px 0;
+    color: #900;
+    width:10%;
+    vertical-align: middle;
+    display:inline-block;
+    float: left;
+    letter-spacing: 1.5px;
+}
+.search_abc_r {
+    text-align: center;
+    font-size: 12px;
+    padding: 10px 0;
+    color: #900;
+    width:10%;
+    vertical-align: middle;
+    display:inline-block;
+    float: right;
+    letter-spacing: 1.5px;
+}
+.search_abc_c {
+    text-align: center;
+    font-size: 12px;
+    padding: 10px 0;
+    color: #900;
+    vertical-align: middle;
+    width:80%;
+    display:inline-block;
+}
 .introcen {
     text-align: center;
     font-size: small;
@@ -108,20 +172,31 @@ legend {
 
 .float30 {
     float: left;
-    width: 30%;
+    width: 32%;
     margin-right: 10px;
+    border: 0px solid #ccc;
+    vertical-align: middle;
+    display:inline-block;
 }
 
 .float30random {
-    float: left;
-    width: 30%;
-    margin-right: 10px;
+    float: right;
+    width: 33%;
+    margin-left: 0px;
+    border: 0px solid #ccc;
 }
 
 .catname {
     font-size: 12px;
     font-weight: bold;
     background-color: #ccc;
+    padding: 1px 4px;
+    margin: 4px;
+}
+
+.catname_min {
+    font-size: 10px;
+    font-weight: bold;
     padding: 1px 4px;
     margin: 4px;
 }
@@ -147,6 +222,9 @@ h2.cat {
     text-align: center;
     margin: 0;
     color: #2F5376;
+    font-size: 16px;
+    font-weight: bold;
+    letter-spacing: 1.5px;
 }
 
 h3.cat {
@@ -192,6 +270,9 @@ h4.term, h5.term a:hover img {
 .intro {
     margin: 2px 0 8px 0;
     line-height: 160%;
+    font-size: 14px;
+    text-align: center;
+    font-weight: bold;
 }
 
 .catback {
@@ -209,7 +290,7 @@ p {
 }
 
 .small {
-    padding-left: 18px;
+    padding-left: 30px;
     color: #234;
     line-height: 130%;
     margin: 0 0 6px 0;
@@ -217,7 +298,8 @@ p {
 }
 
 .xsmall {
-    padding-left: 18px;
+    padding-left: 30px;
+    padding-bottom: 10px;
     color: #234;
     line-height: 130%;
     margin: 0 0 6px 0;
@@ -228,7 +310,7 @@ p {
     color: #234;
     line-height: 130%;
     margin: 0 0 6px 0;
-    padding-left: 18px;
+    padding-left: 30px;
     font-size: xx-small;
 }
 
@@ -251,7 +333,11 @@ p {
     padding: 4px;
     margin: 0;
 }
-
+.pad5 {
+    padding: 3px;
+    margin: 3px;
+    text-align: center;
+}
 .btnDefault {
     margin: 2px 0;
     font-family: Arial, verdana, helvetica, sans-serif;
@@ -266,14 +352,19 @@ p {
     border-bottom: 1px solid silver;
 }
 
+.standard {
+    font-size: 11px;
+    line-height: 15px;
+}   
+
 .teaser {
-    border: 1px solid #ccc;
+    border: 2px dotted #e2a35c;
     padding: 24px;
     margin: 8px 0;
-    clear: both;
     color: #000000;
-    font-size: 12px;
+    font-size: 14px;
     text-align: center;
+    clear: both;
 }
 
 /* layout categoryimage*/
@@ -282,6 +373,10 @@ img.floatLeft {
     margin: 0 0 0 0;
     border: 0;
     overflow: hidden;
+}
+
+img.navig {
+    vertical-align:middle;
 }
 
 /* Bookmark tags */

@@ -28,13 +28,13 @@ function b_sitemap_lexikon()
     $catperms      = " WHERE categoryID IN ($catids) ";
     $result        = $db->query('SELECT categoryID, name FROM ' . $db->prefix('lxcategories') . ' ' . $catperms . ' ORDER BY weight');
 
-    $ret = array();
+    $ret = [];
     while (list($id, $name) = $db->fetchRow($result)) {
-        $ret['parent'][] = array(
-            'id'    => $id,
-            'title' => $myts->htmlSpecialChars($name),
-            'url'   => "category.php?categoryID=$id"
-        );
+        $ret['parent'][] = [
+                            'id'    => $id,
+                            'title' => $myts->htmlSpecialChars($name),
+                            'url'   => "category.php?categoryID=$id"
+                           ];
     }
 
     return $ret;

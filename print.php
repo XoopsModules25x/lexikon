@@ -1,9 +1,6 @@
 <?php
 /**
- *
  * Module: Lexikon - glossary module
- * Version: v 1.00
- * Release Date: 8 May 2004
  * Author: hsalazar
  * Changes: Yerres
  * Licence: GNU
@@ -29,24 +26,30 @@ if (empty($entryID)) {
 function printPage($entryID)
 {
     global $xoopsConfig, $xoopsDB, $xoopsModule, $xoopsModuleConfig, $myts;
-    $result1 = $xoopsDB->query('SELECT * FROM ' . $xoopsDB->prefix('lxentries') . " WHERE entryID = '$entryID' and submit = '0' order by datesub");
+    $result1 = $xoopsDB->query('SELECT * FROM '
+                                . $xoopsDB->prefix('lxentries')
+                                . " WHERE entryID = '$entryID' and submit = '0' order by datesub");
     $Ok      = $xoopsDB->getRowsNum($result1);
     if ($Ok <= 0) {
         redirect_header('javascript:history.go(-1)', 3, _ERRORS);
     }
     list($entryID, $categoryID, $term, $init, $definition, $ref, $url, $uid, $submit, $datesub, $counter, $html, $smiley, $xcodes, $breaks, $block, $offline, $notifypub) = $xoopsDB->fetchrow($result1);
 
-    $result2 = $xoopsDB->query('SELECT name FROM ' . $xoopsDB->prefix('lxcategories') . " WHERE categoryID = '$categoryID'");
+    $result2 = $xoopsDB->query('SELECT name FROM '
+                                . $xoopsDB->prefix('lxcategories')
+                                . " WHERE categoryID = '$categoryID'");
     list($name) = $xoopsDB->fetchRow($result2);
 
-    $result3 = $xoopsDB->query('SELECT name, uname FROM ' . $xoopsDB->prefix('users') . " WHERE uid = '$uid'");
+    $result3 = $xoopsDB->query('SELECT name, uname FROM '
+                                . $xoopsDB->prefix('users')
+                                . " WHERE uid = '$uid'");
     list($authorname, $username) = $xoopsDB->fetchRow($result3);
 
     $datetime     = formatTimestamp($datesub, 'D, d-M-Y, H:i');
     $categoryname = $myts->htmlSpecialChars($name);
     $term         = $myts->htmlSpecialChars($term);
     $definition   = str_replace('[pagebreak]', "<br style=\"page-break-after:always;\">", $definition);
-    $definition   =& $myts->displayTarea($definition, $html, $smiley, $xcodes, '', $breaks);
+    $definition   = $myts->displayTarea($definition, $html, $smiley, $xcodes, '', $breaks);
     if ($authorname == '') {
         $authorname = $myts->htmlSpecialChars($username);
     } else {
@@ -54,13 +57,29 @@ function printPage($entryID)
     }
     echo "<!DOCTYPE HTML PUBLIC '-//W3C//DTD HTML 4.01 Transitional//EN'>\n";
     echo "<html>\n<head>\n";
-    echo '<title>' . $xoopsConfig['sitename'] . ' ' . $term . ' ' . _MD_LEXIKON_PRINTTERM . "</title>\n";
-    echo "<meta http-equiv='Content-Type' content='text/html; charset=" . _CHARSET . "' />\n";
+    echo '<title>'
+          . $xoopsConfig['sitename']
+          . ' '
+          . $term
+          . ' '
+          . _MD_LEXIKON_PRINTTERM
+          . "</title>\n";
+    echo "<meta http-equiv='Content-Type' content='text/html; charset="
+          . _CHARSET
+          . "' />\n";
     echo "<meta name='keywords' content= $term  />\n";
-    echo "<meta name='AUTHOR' content='" . $xoopsConfig['sitename'] . "' />\n";
-    echo "<meta name='COPYRIGHT' content='Copyright (c) 2004 by " . $xoopsConfig['sitename'] . "' />\n";
-    echo "<meta name='DESCRIPTION' content='" . $xoopsConfig['slogan'] . "' />\n";
-    echo "<meta name='GENERATOR' content='" . XOOPS_VERSION . "' />\n\n\n";
+    echo "<meta name='AUTHOR' content='"
+          . $xoopsConfig['sitename']
+          . "' />\n";
+    echo "<meta name='COPYRIGHT' content='Copyright (c) 2004 by "
+          . $xoopsConfig['sitename']
+          . "' />\n";
+    echo "<meta name='DESCRIPTION' content='"
+          . $xoopsConfig['slogan']
+          . "' />\n";
+    echo "<meta name='GENERATOR' content='"
+          . XOOPS_VERSION
+          . "' />\n\n\n";
 
     echo "<body bgcolor='#ffffff' text='#000000'>
     <div style='width: 650px; border: 1px solid #000; padding: 20px;'>
@@ -75,14 +94,24 @@ function printPage($entryID)
     if ($xoopsModuleConfig['multicats'] == 1) {
         echo '<div>' . _MD_LEXIKON_ENTRYCATEGORY . '<b>' . $categoryname . '</b></div>';
     }
-    echo "<div style='padding-bottom: 6px; border-bottom: 1px solid #ccc;'>" . _MD_LEXIKON_SUBMITTER . '<b>' . $authorname . "</b></div>
-    <h3 style='margin: 0;'>" . $term . '</h3>
-    <p>' . $definition . "</p>
-    <div style='padding-top: 12px; border-top: 2px solid #ccc;'><b>" . _MD_LEXIKON_SENT . '</b>&nbsp;' . $datetime . '<br></div>
-    </div>
-    <br>
-    </body>
-    </html>';
+    echo "<div style='padding-bottom: 6px; border-bottom: 1px solid #ccc;'>"
+          . _MD_LEXIKON_SUBMITTER
+          . '<b>'
+          . $authorname
+          . "</b></div>
+          <h3 style='margin: 0;'>"
+          . $term
+          . '</h3><p>'
+          . $definition
+          . "</p>
+          <div style='padding-top: 12px; border-top: 2px solid #ccc;'><b>"
+          . _MD_LEXIKON_SENT
+          . '</b>&nbsp;'
+          . $datetime
+          . '<br></div>
+          </div><br>
+          </body>
+          </html>';
 }
 
 printPage($entryID);

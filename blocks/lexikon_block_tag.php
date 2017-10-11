@@ -1,9 +1,6 @@
 <?php
 /**
- *
  * Module: Lexikon -  glossary module
- * Version: v 1.00
- * Release Date: 18 Dec 2011
  * Licence: GNU
  */
 /**
@@ -103,8 +100,7 @@ function lexikon_tag_block_top_show($options)
         /** @var XoopsModuleHandler $moduleHandler */
         $moduleHandler = xoops_getHandler('module');
         $module        = $moduleHandler->getByDirname('lexikon');
-        //$module_dirname = basename( dirname( __DIR__ ) ) ;
-        //return tag_block_top_show($options, $module_dirname);
+
         return tag_block_top_show($options, $module->getVar('dirname'));
     }
 }

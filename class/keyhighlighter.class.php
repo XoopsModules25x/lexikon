@@ -13,7 +13,6 @@
  * @package   keyhighlighter
  * @author    Setec Astronomy
  * @abstract  Highlight specific keywords.
- * @copyright 2004
  * @example   sample.php A sample code.
  * @link      http://setecastronomy.stufftoread.com
  */
@@ -67,7 +66,10 @@ class lx_keyhighlighter
         $this->keywords         = $keywords;
         $this->singlewords      = $singlewords;
         $this->replace_callback = $replace_callback;
-        //ob_start (array (&$this, 'highlight'));
+        //ob_start ([
+                    $this,
+                    'highlight'
+                    ]);
     }
 
     /**
@@ -77,7 +79,7 @@ class lx_keyhighlighter
      */
     public function replace($replace_matches)
     {
-        $patterns = array();
+        $patterns = [];
         if ($this->singlewords) {
             $keywords = explode(' ', $this->preg_keywords);
             foreach ($keywords as $keyword) {

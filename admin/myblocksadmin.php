@@ -48,9 +48,7 @@ if (!is_object($xoopsModule)) {
 $moduleHandler = xoops_getHandler('module');
 if (!empty($_GET['dirname'])) {
     $target_module = $moduleHandler->getByDirname($_GET['dirname']);
-}/* else if ( ! empty( $_GET['mid'] ) ) {
-    $target_module = $moduleHandler->get( (int)( $_GET['mid'] ) );
-}*/
+}
 
 if (!empty($target_module) && is_object($target_module)) {
     // specified by dirname
@@ -74,11 +72,10 @@ if (!$syspermHandler->checkRight('system_admin', XOOPS_SYSTEM_BLOCK, $xoopsUser-
 }
 
 // get blocks owned by the module (Imported from xoopsblock.php then modified)
-//$block_arr = XoopsBlock::getByModule( $target_mid ) ;
 $db        = XoopsDatabaseFactory::getDatabaseConnection();
 $sql       = 'SELECT * FROM ' . $db->prefix('newblocks') . " WHERE mid='$target_mid' ORDER BY visible DESC,side,weight";
 $result    = $db->query($sql);
-$block_arr = array();
+$block_arr = [];
 while ($myrow = $db->fetchArray($result)) {
     $block_arr[] = new XoopsBlock($myrow);
 }
@@ -88,7 +85,7 @@ function list_blocks()
     global $query4redirect, $block_arr, $xoopsGTicket;
 
     // cachetime options
-    $cachetimes = array(
+    $cachetimes = [
         '0'       => _NOCACHE,
         '30'      => sprintf(_SECONDS, 30),
         '60'      => _MINUTE,
@@ -100,27 +97,26 @@ function list_blocks()
         '259200'  => sprintf(_DAYS, 3),
         '604800'  => _WEEK,
         '2592000' => _MONTH
-    );
+    ];
 
     // displaying TH
     lx_collapsableBar('default', 'defaultIcon');
     echo "<img  onclick=\"toggle('default'); toggleIcon('defaultIcon');\" id='defaultIcon' src='"
          . XOOPS_URL
-         . "/modules/lexikon/assets/images/close12.gif' alt='' /></a>&nbsp; "
+         . "/modules/lexikon/assets/images/close12.gif' alt=''></a>&nbsp; "
          . _AM_BADMIN
          . '<br><br>';
     echo "<div id='default' style='float:left; width:100%;'>";
-    echo "
-    <form action='admin.php' name='blockadmin' method='post'>
-        <table width='95%' class='outer' cellpadding='4' cellspacing='1'>
-        <tr valign='middle'>
-            <th>" . _AM_TITLE . "</th>
-            <th align='center' nowrap='nowrap'>" . _AM_SIDE . "<div style='font-size:smaller;'>" . _LEFT . '-' . _CENTER . '-' . _RIGHT . "</div></th>
-            <th align='center'>" . _AM_WEIGHT . "</th>
-            <th align='center'>" . _AM_VISIBLEIN . "</th>
-            <th align='center'>" . _AM_BCACHETIME . "</th>
-            <th align='right'>" . _AM_ACTION . "</th>
-        </tr>\n";
+    echo "<form action='admin.php' name='blockadmin' method='post'>
+          <table width='95%' class='outer' cellpadding='4' cellspacing='1'>
+          <tr valign='middle'>
+              <th>" . _AM_TITLE . "</th>
+              <th align='center' nowrap='nowrap'>" . _AM_SIDE . "<div style='font-size:smaller;'>" . _LEFT . '-' . _CENTER . '-' . _RIGHT . "</div></th>
+              <th align='center'>" . _AM_WEIGHT . "</th>
+              <th align='center'>" . _AM_VISIBLEIN . "</th>
+              <th align='center'>" . _AM_BCACHETIME . "</th>
+              <th align='right'>" . _AM_ACTION . "</th>
+          </tr>\n";
 
     // blocks displaying loop
     $class         = 'even';
@@ -190,7 +186,7 @@ function list_blocks()
         // target modules
         $db            = XoopsDatabaseFactory::getDatabaseConnection();
         $result        = $db->query('SELECT module_id FROM ' . $db->prefix('block_module_link') . " WHERE block_id='$bid'");
-        $selected_mids = array();
+        $selected_mids = [];
         while (list($selected_mid) = $db->fetchRow($result)) {
             $selected_mids[] = (int)$selected_mid;
         }
@@ -251,22 +247,22 @@ function list_blocks()
                 <input type='text' name='title[$bid]' value='$title' size='20' />
             </td>
             <td class='$class' align='center' nowrap='nowrap' width='125px'>
-      <div align='center' >
-        <input type='radio' name='side[$bid]' value='" . XOOPS_CENTERBLOCK_LEFT . "'$ssel2 />
-        <input type='radio' name='side[$bid]' value='" . XOOPS_CENTERBLOCK_CENTER . "'$ssel3 />
-        <input type='radio' name='side[$bid]' value='" . XOOPS_CENTERBLOCK_RIGHT . "'$ssel4 />
-      </div>
-      <div>
-        <span style='float:right;'><input type='radio' name='side[$bid]' value='" . XOOPS_SIDEBLOCK_RIGHT . "'$ssel1 /></span>
-        <div align='left'><input type='radio' name='side[$bid]' value='" . XOOPS_SIDEBLOCK_LEFT . "'$ssel0 /></div>
-      </div>
-      <div align='center'>
-        <input type='radio' name='side[$bid]' value='" . XOOPS_CENTERBLOCK_BOTTOMLEFT . "'$ssel5 />
-        <input type='radio' name='side[$bid]' value='" . XOOPS_CENTERBLOCK_BOTTOM . "'$ssel7 />
-        <input type='radio' name='side[$bid]' value='" . XOOPS_CENTERBLOCK_BOTTOMRIGHT . "'$ssel6 />
-      </div>
-      <br>
-        <div style='float:left;width:30%;'>&nbsp;</div>
+        <div align='center' >
+          <input type='radio' name='side[$bid]' value='" . XOOPS_CENTERBLOCK_LEFT . "'$ssel2 />
+          <input type='radio' name='side[$bid]' value='" . XOOPS_CENTERBLOCK_CENTER . "'$ssel3 />
+          <input type='radio' name='side[$bid]' value='" . XOOPS_CENTERBLOCK_RIGHT . "'$ssel4 />
+        </div>
+        <div>
+          <span style='float:right;'><input type='radio' name='side[$bid]' value='" . XOOPS_SIDEBLOCK_RIGHT . "'$ssel1 /></span>
+          <div align='left'><input type='radio' name='side[$bid]' value='" . XOOPS_SIDEBLOCK_LEFT . "'$ssel0 /></div>
+        </div>
+        <div align='center'>
+          <input type='radio' name='side[$bid]' value='" . XOOPS_CENTERBLOCK_BOTTOMLEFT . "'$ssel5 />
+          <input type='radio' name='side[$bid]' value='" . XOOPS_CENTERBLOCK_BOTTOM . "'$ssel7 />
+          <input type='radio' name='side[$bid]' value='" . XOOPS_CENTERBLOCK_BOTTOMRIGHT . "'$ssel6 />
+        </div>
+        <br>
+          <div style='float:left;width:30%;'>&nbsp;</div>
                 <div style='float:left;background-color:$scoln;'>
                     <input type='radio' name='side[$bid]' value='-1'  $sseln />
                 </div>
@@ -294,8 +290,7 @@ function list_blocks()
         $class = ($class === 'even') ? 'odd' : 'even';
     }
 
-    echo "
-        <tr>
+    echo "<tr>
             <td class='foot' align='center' colspan='6'>
                 <input type='hidden' name='query4redirect' value='$query4redirect' />
                 <input type='hidden' name='fct' value='blocksadmin' />
@@ -303,9 +298,9 @@ function list_blocks()
                 " . $xoopsGTicket->getTicketHtml(__LINE__, 1800, 'myblocksadmin') . "
                 <input type='submit' name='submit' value='" . _SUBMIT . "' />
             </td>
-        </tr>
+         </tr>
         </table>
-    </form>\n";
+      </form>\n";
     echo '</div>';
 }
 
@@ -322,7 +317,7 @@ function get_block_configs()
     }
     error_reporting($error_reporting_level);
     if (empty($modversion['blocks'])) {
-        return array();
+        return [];
     } else {
         return $modversion['blocks'];
     }
@@ -334,7 +329,7 @@ function list_groups()
     lx_collapsableBar('groups', 'groupIcon');
     echo "<img  onclick=\"toggle('groups'); toggleIcon('groupsIcon');\" id='groupsIcon' src='" . XOOPS_URL . "/modules/lexikon/assets/images/close12.gif' alt='' /></a>&nbsp; " . _MD_AM_ADGS . ' <br>';
     echo "<div id='groups' style='float:left; width:100%;'>";
-    $item_list = array();
+    $item_list = [];
     foreach (array_keys($block_arr) as $i) {
         $item_list[$block_arr[$i]->getVar('bid')] = $block_arr[$i]->getVar('title');
     }
@@ -362,7 +357,6 @@ if (!empty($_POST['submit'])) {
 
 xoops_cp_header();
 include_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->dirname() . '/admin/functions.php';
-//lx_adminMenu(3, _AM_LEXIKON_BLOCKS);
 
 if (!empty($block_arr)) {
     echo "<h4 style='text-align:left;'>$target_mname : " . _AM_BADMIN . "</h4>\n";
