@@ -54,12 +54,12 @@ $groups       = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_AN
 $module_id    = $xoopsModule->getVar('mid');
 $perm_itemid  = isset($_POST['categoryID']) ? (int)$_POST['categoryID'] : 0;
 if (!$gpermHandler->checkRight('lexikon_submit', $perm_itemid, $groups, $module_id)) {
-    redirect_header('javascript:history.go(-1)', 3, _MD_LEXIKON_MUSTREGFIRST);
+    redirect_header('index.php', 3, _MD_LEXIKON_MUSTREGFIRST);
 }
 $totalcats    = $gpermHandler->getItemIds('lexikon_submit', $groups, $module_id);
 $permitsubmit = count($totalcats);
 if ($permitsubmit == 0 && $xoopsModuleConfig['multicats'] == '1') {
-    redirect_header('index.php', 3, _NOPERM);
+    redirect_header('javascript:history.go(-1)', 3, _NOPERM);
 }
 switch ($op) {
     case 'post':
@@ -268,11 +268,11 @@ switch ($op) {
         if (!is_object($xoopsUser)) {
             $name = _MD_LEXIKON_GUEST;
         } else {
-            $name = ucfirst($xoopsUser->getVar('uname'));
+            $name = mb_ucfirst($xoopsUser->getVar('uname'));
         }
 
-        $xoopsTpl->assign('send_def_to', sprintf(_MD_LEXIKON_SUB_SNEWNAME, ucfirst($xoopsModule->name())));
-        $xoopsTpl->assign('send_def_g', sprintf(_MD_LEXIKON_SUB_SNEWNAME, ucfirst($xoopsModule->name())));
+        $xoopsTpl->assign('send_def_to', sprintf(_MD_LEXIKON_SUB_SNEWNAME, mb_ucfirst($xoopsModule->name())));
+        $xoopsTpl->assign('send_def_g', sprintf(_MD_LEXIKON_SUB_SNEWNAME, mb_ucfirst($xoopsModule->name())));
         $xoopsTpl->assign('lx_user_name', $name);
 
         $block      = 1;
