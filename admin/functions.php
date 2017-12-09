@@ -136,7 +136,7 @@ function lx_importMenu($currentoption = 0, $breadcrumb = '')
               <tr><td style='vertical-align:top;'>
               <strong style='color: #2F5376; margin-top:6px; font-size:medium'>"
               . _AM_LEXIKON_IMPORT_MENU
-              . "</strong><br>";
+         . '</strong><br>';
     if ($cf > 0) {
         echo '<span style="font-size:x-small">' . _AM_LEXIKON_OTHERMODS . '</span><br><br>';
     } else {
@@ -157,7 +157,7 @@ function lx_importMenu($currentoption = 0, $breadcrumb = '')
         echo "<a href='importwordbook.php'>
                   <img src='" . $wb_imgurl . "/wb_slogo.png' alt='wb_slogo.png' title='Wordbook' style='height:39px; width:69px;'><span>"
                   . _AM_LEXIKON_IMPORT_WORDBOOK
-                  . "</span></a>";
+             . '</span></a>';
     } //else { echo "". 'wordbook' ."";}
     $dictionaryModule = $moduleHandler->getByDirname('dictionary');
     $got_options      = false;
@@ -167,7 +167,7 @@ function lx_importMenu($currentoption = 0, $breadcrumb = '')
         echo "<a href='importdictionary.php'>
                   <img src='" . $dic_imgurl . "/dictionary_logo.png' alt='Dictionary' title='Dictionary' style='height:39px; width:69px;'><span>"
                   . _AM_LEXIKON_IMPORT_DICTIONARY
-                  . "</span></a>";
+             . '</span></a>';
     } //else { echo "<B>&middot;</B>". 'dictionary' ."";}
     $glossaireModule = $moduleHandler->getByDirname('glossaire');
     $got_options     = false;
@@ -177,7 +177,7 @@ function lx_importMenu($currentoption = 0, $breadcrumb = '')
         echo "<a href='importglossaire.php'>
                   <img src='" . $glo_imgurl . "/glossaire_logo.jpg' alt='Glossaire' title='Glossaire' style='height:31px; width:88px;'><span>"
                   . _AM_LEXIKON_IMPORT_GLOSSAIRE
-                  . "</span></a>";
+             . '</span></a>';
     } //else { echo "<B>&middot;</B>". 'glossaire' ."";}
     $wiwimodModule = $moduleHandler->getByDirname('wiwimod');
     $got_options   = false;
@@ -187,7 +187,7 @@ function lx_importMenu($currentoption = 0, $breadcrumb = '')
         echo "<a href='importwiwimod.php'>
                   <img src='" . $wiwi_imgurl . "/wiwilogo.gif' alt='Wiwimod' title='Wiwimod' style='height:39px; width:69px;'><span>"
                   . _AM_LEXIKON_IMPORT_WIWIMOD
-                  . "</span></a>";
+             . '</span></a>';
     } //else { echo "<B>&middot;</B>". 'wiwimod' ."";}
     $xwordsModule = $moduleHandler->getByDirname('xwords');
     $got_options  = false;
@@ -197,7 +197,7 @@ function lx_importMenu($currentoption = 0, $breadcrumb = '')
         echo "<a href='importxwords.php'>
                   <img src='" . $xwd_imgurl . "/xwords_slogo.png' alt='Xwords' title='Xwords' style='height:39px; width:69px;'><span>"
                   . _AM_LEXIKON_IMPORT_XWORDS
-                  . "</span></a>";
+             . '</span></a>';
     }// else { echo "<B>&middot;</B>". 'xwords' ."";}
     echo '</div></td><tr></table>';
 }
@@ -366,26 +366,26 @@ function lx_buildTable()
     echo '<tr>';
     echo "<th style='width:40px; text-align:center;'>"
     . _AM_LEXIKON_ENTRYID
-    . "</td>";
+         . '</td>';
     echo "<th style='width:100px; text-align:center;'>"
     . _AM_LEXIKON_ENTRYCATNAME
-    . "</td>";
+         . '</td>';
     echo "<th style='text-align:center;'>"
     . _AM_LEXIKON_TERM
-    . "</td>";
+         . '</td>';
     echo "<th style='width:90px; text-align:center;'>"
     . _AM_LEXIKON_AUTHOR
-    . "</td>";
+         . '</td>';
     echo "<th style='width:90px; text-align:center;'>"
     . _AM_LEXIKON_ENTRYCREATED
-    . "</td>";
+         . '</td>';
     echo "<th style='width:40px; text-align:center;'>"
     . _AM_LEXIKON_STATUS
-    . "</td>";
+         . '</td>';
     echo "<th style='width:60px; text-align:center;'>"
     . _AM_LEXIKON_ACTION
-    . "</td>";
-    echo "</tr>";
+         . '</td>';
+    echo '</tr>';
 }
 
 /**
@@ -437,7 +437,7 @@ function lx_getinit($init)
         } else {
             $opt_selected = '';
         }
-        echo "<option value='" . uchr($a) . "' $opt_selected>&nbsp;" . uchr($a) . "&nbsp;</option>";
+        echo "<option value='" . uchr($a) . "' $opt_selected>&nbsp;" . uchr($a) . '&nbsp;</option>';
     }
     for ($a = 65; $a < (65 + 26); ++$a) {
         if (uchr($a) == $init) {
@@ -445,7 +445,7 @@ function lx_getinit($init)
         } else {
             $opt_selected = '';
         }
-        echo "<option value='" . uchr($a) . "' $opt_selected>&nbsp;" . uchr($a) . "&nbsp;</option>";
+        echo "<option value='" . uchr($a) . "' $opt_selected>&nbsp;" . uchr($a) . '&nbsp;</option>';
     }
     /*for ($a = 1040; $a < (1040 + 32); ++$a) {
         if (uchr($a) == $init) {
@@ -455,7 +455,7 @@ function lx_getinit($init)
         }
         echo "<option value='" . uchr($a) . "' $opt_selected>&nbsp;" . uchr($a) . "&nbsp;</option>";
     }*/
-    echo "</select></div>";
+    echo '</select></div>';
 }
 function uchr($a)
 {

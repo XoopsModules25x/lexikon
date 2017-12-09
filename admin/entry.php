@@ -85,8 +85,8 @@ function entryDefault()
     <th style='width:90px; text-align:center;'>" . _AM_LEXIKON_SUBMITTER . "</td>
     <th style='width:90px; text-align:center;'>" . _AM_LEXIKON_ENTRYCREATED . "</td>
     <th style='width:30px; text-align:center;'>" . _AM_LEXIKON_STATUS . "</td>
-    <th style='width:60px; text-align:center;'>" . _AM_LEXIKON_ACTION . "</td>
-    </tr>";
+    <th style='width:60px; text-align:center;'>" . _AM_LEXIKON_ACTION . '</td>
+    </tr>';
     $class = 'odd';
     if ($numrows > 0) {
         // That is, if there ARE entries in the system
@@ -133,8 +133,8 @@ function entryDefault()
             <td class='odd' style='text-align:center;'>" . $sentby . "</td>
             <td class='odd' style='text-align:center;'>" . $created . "</td>
             <td class='odd' style='text-align:center;'>" . $status . "</td>
-            <td class='even' style='text-align:center;'>" . $modify . "-" . $delete . "</td>
-            </tr></div>";
+            <td class='even' style='text-align:center;'>" . $modify . '-' . $delete . '</td>
+            </tr></div>';
         }
     } else { // that is, $numrows = 0, there's no entries yet
         echo '<div><tr>';

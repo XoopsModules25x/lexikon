@@ -67,7 +67,7 @@ function lx_Statistics()
 
     echo "<div class='center;'><strong>"
          . _AM_LEXIKON_STATS0
-         . "</strong><br>";
+         . '</strong><br>';
     echo "<table class='outer' style='margin-top:6px; clear:both; width:99%;'>";
     echo "<tr class='bg3'><th style='text-align:center;'>"
          . _AM_LEXIKON_ENTRYCATNAME
@@ -131,7 +131,7 @@ function lx_Statistics()
           . _AM_LEXIKON_STATS3
           . '</strong><br>'
           . _AM_LEXIKON_STATS4
-          . "<br>";
+         . '<br>';
     echo "<table class='outer' style='margin-top:6px; clear:both; width:99%;'>";
     echo "<tr class='bg3'><th style='text-align:center;'>"
           . _AM_LEXIKON_ENTRYCATNAME
@@ -141,7 +141,7 @@ function lx_Statistics()
           . _AM_LEXIKON_AUTHOR
           . '</th><th>'
           . _READS
-          . "</th></tr>";
+         . '</th></tr>';
     foreach ($mostreadterms as $entryID => $data) {
         $url1   = XOOPS_URL . '/modules/' . $xoopsModule->dirname() . '/category.php?categoryID=' . $data['categoryID'];
         $url2   = XOOPS_URL . '/modules/' . $xoopsModule->dirname() . '/entry.php?entryID=' . $entryID;
@@ -175,7 +175,7 @@ function lx_Statistics()
           . _AM_LEXIKON_AUTHOR
           . "</th><th style='text-align:center;'>"
           . _READS
-          . "</th></tr>";
+         . '</th></tr>';
     foreach ($lessreadnews as $entryID => $data) {
         $url1   = XOOPS_URL . '/modules/' . $xoopsModule->dirname() . '/category.php?categoryID=' . $data['categoryID'];
         $url2   = XOOPS_URL . '/modules/' . $xoopsModule->dirname() . '/entry.php?entryID=' . $entryID;
@@ -202,13 +202,13 @@ function lx_Statistics()
           . _AM_LEXIKON_STATS10
           . '</strong><br>'
           . _AM_LEXIKON_STATS7
-          . "<br>";
+         . '<br>';
     echo "<table class='outer' style='margin-top:6px; clear:both; width:99%;'>";
     echo "<tr class='bg3'><th style='text-align:center;'>"
           . _AM_LEXIKON_AUTHOR
           . "</th><th style='text-align:center;'>"
           . _READS
-          . "</th></tr>";
+         . '</th></tr>';
     foreach ($mostreadauthors as $uid => $reads) {
         $sentby = XoopsUserUtility::getUnameFromId($uid);
         $class  = ($class === 'even') ? 'odd' : 'even';
@@ -220,13 +220,13 @@ function lx_Statistics()
     $biggestcontributors = $stats['biggestcontributors'];
     echo "<div class='center;'><strong>"
           . _AM_LEXIKON_STATS9
-          . "</strong><br>";
+         . '</strong><br>';
     echo "<table class='outer' style='margin-top:6px; clear:both; width:99%;'>";
     echo "<tr class='bg3'><th style='text-align:center;'>"
           . _AM_LEXIKON_AUTHOR
           . "</th><th style='text-align:center;'>"
           . _AM_LEXIKON_STATS11
-          . "</th></tr>";
+         . '</th></tr>';
     foreach ($biggestcontributors as $uid => $count) {
         $url    = XOOPS_URL . '/userinfo.php?uid=' . $uid;
         $sentby = XoopsUserUtility::getUnameFromId($uid);

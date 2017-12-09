@@ -178,11 +178,11 @@ function DefinitionImport($delete)
     list($wiwiID) = $xoopsDB->fetchRow($sqlQuery);
     echo '<p>' . _AM_LEXIKON_IMPORT_MODULE_ID . ': ' . $wiwiID . '</p>';
     echo '<p>' . _AM_LEXIKON_IMPORT_MODULE_LEX_ID . ': ' . $xoopsModule->getVar('mid') . '</p>';
-    echo "<p>" . _AM_LEXIKON_IMPORT_UPDATE_COUNT . "</p>";
-    echo "<p><span style='color:red'>" . _AM_LEXIKON_IMPORT_INCORRECTLY . ": " . $errorcounter . '</span></p>';
-    echo "<p>" . _AM_LEXIKON_IMPORT_PROCESSED . ": " . $glocounter . "</p>";
-    echo "<h3>" . _AM_LEXIKON_IMPORT_FINISH . "</h3>";
-    echo "<br><b><a href='import.php'>" . _AM_LEXIKON_IMPORT_TO_ADMIN . "</a></b><p>";
+    echo '<p>' . _AM_LEXIKON_IMPORT_UPDATE_COUNT . '</p>';
+    echo "<p><span style='color:red'>" . _AM_LEXIKON_IMPORT_INCORRECTLY . ': ' . $errorcounter . '</span></p>';
+    echo '<p>' . _AM_LEXIKON_IMPORT_PROCESSED . ': ' . $glocounter . '</p>';
+    echo '<h3>' . _AM_LEXIKON_IMPORT_FINISH . '</h3>';
+    echo "<br><b><a href='import.php'>" . _AM_LEXIKON_IMPORT_TO_ADMIN . '</a></b><p>';
     require_once __DIR__ . '/admin_footer.php';
 }
 
@@ -196,7 +196,7 @@ function FormImport()
     //lx_importMenu(9);
     echo "<strong style='color: #2F5376; margin-top:6px; font-size:medium'>"
         . _AM_LEXIKON_IMPORT_WIWIMOD
-        . "</strong><br><br>";
+         . '</strong><br><br>';
     /** @var XoopsModuleHandler $moduleHandler */
     $moduleHandler = xoops_getHandler('module');
     $wiwimodModule = $moduleHandler->getByDirname('wiwimod');
@@ -206,7 +206,7 @@ function FormImport()
         echo '<tr>';
         echo "<td colspan='2' class='bg3' style='text-align:left;'><span style='font-size: x-small; '><b>"
         . _AM_LEXIKON_MODULEHEADIMPORTWW
-        . "</b></span></td>";
+             . '</b></span></td>';
         echo '</tr>';
 
         echo '<tr>';
@@ -246,7 +246,7 @@ function FormImport()
         . _AM_LEXIKON_IMPORT_ERROR_MODULE
         . "</span></b><br><br><a href='import.php'><button>"
         . _AM_LEXIKON_BACK
-        ."</button></a>";
+             . '</button></a>';
     }
     require_once __DIR__ . '/admin_footer.php';
 }

@@ -140,9 +140,9 @@ if (isset($_POST['previewblock'])) {
         <th>" . $myblock->getVar('title') . "</th>
       </tr>
       <tr>
-        <td class='odd'>" . $myblock->getContent('S', $bctype) . "</td>
+        <td class='odd'>" . $myblock->getContent('S', $bctype) . '</td>
       </tr>
-    </table>";
+    </table>';
     error_reporting($original_level);
 
     xoops_cp_footer();

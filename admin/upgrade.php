@@ -53,7 +53,7 @@ if ($go) {
         }
         // 3) tag module
         if (!lx_FieldExists('item_tag', $xoopsDB->prefix('lxentries'))) {
-            $sql = $xoopsDB->queryF('ALTER TABLE ' . $xoopsDB->prefix('lxentries') . " ADD item_tag text NULL AFTER comments");
+            $sql = $xoopsDB->queryF('ALTER TABLE ' . $xoopsDB->prefix('lxentries') . ' ADD item_tag text NULL AFTER comments');
             showerror('Update table "lxentries" ...');
         }
         //-------------

@@ -59,7 +59,7 @@ if (count($uid_ids) > 0) {
                                . XOOPS_URL
                                . "/images/icons/pm.gif' border='0' alt=\""
                                . sprintf(_SENDPMTO, $one_user->getVar('uname'))
-                               . "\"/></a>";
+                               . '"/></a>';
             } else {
                 $user_pmlink = '';
             }
@@ -74,7 +74,7 @@ if (count($uid_ids) > 0) {
                                      . XOOPS_URL
                                      . "/images/icons/email.gif' border='0' alt=\""
                                      . sprintf(_SENDEMAILTO, $one_user->getVar('uname'))
-                                     . "\"/></a>";
+                                     . '"/></a>';
                 } else {
                     $user_maillink = '';
                 }

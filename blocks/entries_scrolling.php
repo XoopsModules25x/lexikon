@@ -100,7 +100,7 @@ function b_scrolling_term_edit($options)
     $form .= "<tr><td class='even'>" . _MB_LEXIKON_DIRECTION . "</td><td class='odd'><select name='options[3]'>";
     $form .= "<option value='up' " . (($options[3] === 'up') ? ' selected' : '') . '>' . _MB_LEXIKON_UP . "</option>\n";
     $form .= "<option value='down' " . (($options[3] === 'down') ? ' selected' : '') . '>' . _MB_LEXIKON_DOWN . "</option>\n";
-    $form .= "</select></td></tr>";
+    $form .= '</select></td></tr>';
     //---
     $form .= "<tr><td class='even'>" . _MB_LEXIKON_ALTERNATE . "</td><td class='odd'>";
     $form .= "<input type='radio' name='options[4]' value='1'" . (($options[4] == 1) ? ' checked' : '') . ' />' . _YES . '&nbsp;';
@@ -116,26 +116,26 @@ function b_scrolling_term_edit($options)
     $form .= "<option value='0' " . (($options[7] == '0') ? ' selected' : '') . '>' . _MB_LEXIKON_MARQUEE . "</option>\n";
     $form .= "<option value='1' " . (($options[7] == '1') ? ' selected' : '') . '>' . _MB_LEXIKON_PAUSESCROLLER . "</option>\n";
     $form .= "<option value='2' " . (($options[7] == '2') ? ' selected' : '') . '>' . _MB_LEXIKON_DOMTICKER . "</option>\n";
-    $form .= "</select></td></tr>";
+    $form .= '</select></td></tr>';
     //---
     $form .= "<tr><td class='even'>" . _MB_LEXIKON_SORT . "</td><td class='odd'><select name='options[8]'>";
     $form .= "<option value='RAND()' " . (($options[8] === 'RAND()') ? ' selected' : '') . '>' . _MB_LEXIKON_RANDOM . "</option>\n";
     $form .= "<option value='datesub' " . (($options[8] === 'datesub') ? ' selected' : '') . '>' . _MB_LEXIKON_DATE . "</option>\n";
     $form .= "<option value='counter' " . (($options[8] === 'counter') ? ' selected' : '') . '>' . _MB_LEXIKON_HITS . "</option>\n";
     $form .= "<option value='term' " . (($options[8] === 'term') ? ' selected' : '') . '>' . _MB_LEXIKON_NAME . "</option>\n";
-    $form .= "</select></td></tr>";
+    $form .= '</select></td></tr>';
     //---
     $form .= "<tr><td class='even'>" . _MB_LEXIKON_ORDER . "</td><td class='odd'><select name='options[9]'>";
     $form .= "<option value='ASC' " . (($options[9] === 'ASC') ? ' selected' : '') . '>' . _ASCENDING . "</option>\n";
     $form .= "<option value='DESC' " . (($options[9] === 'DESC') ? ' selected' : '') . '>' . _DESCENDING . "</option>\n";
-    $form .= "</select></td></tr>";
+    $form .= '</select></td></tr>';
     //--- get allowed categories
     $isAll       = empty($options[10]) ? true : false;
     $options_cat = array_slice($options, 10);
     $form        .= "<tr><td class='even'>" . _MB_LEXIKON_CATEGORY . "</td><td class='odd'><select name=\"options[]\" multiple=\"multiple\">";
-    $form        .= "<option value=\"0\" ";
+    $form        .= '<option value="0" ';
     if ($isAll) {
-        $form .= " selected=\"selected\"";
+        $form .= ' selected="selected"';
     }
     $form      .= '>' . _ALL . '</option>';
     $resultcat = $xoopsDB->query('SELECT categoryID, name FROM ' . $xoopsDB->prefix('lxcategories') . ' ORDER BY categoryID ASC');
@@ -143,7 +143,7 @@ function b_scrolling_term_edit($options)
         $sel  = ($isAll || in_array($categoryID, $options_cat)) ? ' selected' : '';
         $form .= '<option value=' . $categoryID . " $sel>$categoryID : $name</option>\n";
     }
-    $form .= "</select></td></tr>";
+    $form .= '</select></td></tr>';
     $form .= '</table>';
     //--------
     return $form;

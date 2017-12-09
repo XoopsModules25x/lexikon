@@ -361,7 +361,7 @@ class LexikonUtility
         $alpha         = [];
         function unichr($a)
         {
-            return mb_convert_encoding(pack("N", $a), mb_internal_encoding(), 'UCS-4BE');
+            return mb_convert_encoding(pack('N', $a), mb_internal_encoding(), 'UCS-4BE');
         }
         for ($a = 48; $a < (48 + 10); ++$a) {
             $letterlinks             = [];
@@ -455,34 +455,34 @@ class LexikonUtility
         $srvlinks = '';
         if ($xoopsUser) {
             if ($xoopsUser->isAdmin()) {
-                $srvlinks .= "<a TITLE=\""
+                $srvlinks .= '<a TITLE="'
                              . _EDIT
-                             . "\" href=\"/modules/lexikon/admin/entry.php?op=mod&entryID="
+                             . '" href="/modules/lexikon/admin/entry.php?op=mod&entryID='
                              . $variable['id']
-                             . "\" target=\"_blank\"><img src=\""
-                             . $pathIcon16 . "/edit.png\"   alt=\""
+                             . '" target="_blank"><img src="'
+                             . $pathIcon16 . '/edit.png"   alt="'
                              . _MD_LEXIKON_EDITTERM
-                             . "\" style=\"width:16px; height:16px;\"></a>&nbsp;<a TITLE=\""
+                             . '" style="width:16px; height:16px;"></a>&nbsp;<a TITLE="'
                              . _DELETE
-                             . "\" href=\"admin/entry.php?op=del&entryID="
+                             . '" href="admin/entry.php?op=del&entryID='
                              . $variable['id']
-                             . "\" target=\"_self\"><img src=\""
-                             . $pathIcon16 . "/delete.png\" alt=\""
+                             . '" target="_self"><img src="'
+                             . $pathIcon16 . '/delete.png" alt="'
                              . _MD_LEXIKON_DELTERM
-                             . "\" style=\"width:16px; height:16px;\"></a>&nbsp;";
+                             . '" style="width:16px; height:16px;"></a>&nbsp;';
             }
         }
         if ($entrytype != '1') {
-            $srvlinks .= "<a TITLE=\""
+            $srvlinks .= '<a TITLE="'
                          . _MD_LEXIKON_PRINTTERM
-                         . "\" href=\"print.php?entryID="
+                         . '" href="print.php?entryID='
                          . $variable['id']
-                         . "\" target=\"_blank\"><img src=\""
-                         . $pathIcon16 . "/printer.png\"  alt=\""
+                         . '" target="_blank"><img src="'
+                         . $pathIcon16 . '/printer.png"  alt="'
                          . _MD_LEXIKON_PRINTTERM
-                         . "\" style=\"width:16px; height:16px;\"></a>&nbsp;<a TITLE=\""
+                         . '" style="width:16px; height:16px;"></a>&nbsp;<a TITLE="'
                          . _MD_LEXIKON_SENDTOFRIEND
-                         . "\" href=\"mailto:?subject="
+                         . '" href="mailto:?subject='
                          . sprintf(_MD_LEXIKON_INTENTRY, $xoopsConfig['sitename'])
                          . '&amp;body='
                          . sprintf(_MD_LEXIKON_INTENTRYFOUND, $xoopsConfig['sitename'])
@@ -492,21 +492,21 @@ class LexikonUtility
                          . $xoopsModule->dirname()
                          . '/entry.php?entryID='
                          . $variable['id']
-                         . " \" target=\"_blank\"><img src=\""
-                         . $pathIcon16 . "/mail_replay.png\" alt=\""
+                         . ' " target="_blank"><img src="'
+                         . $pathIcon16 . '/mail_replay.png" alt="'
                          . _MD_LEXIKON_SENDTOFRIEND
-                         . "\" style=\"width:16px; height:16px;\"></a>&nbsp;";
+                         . '" style="width:16px; height:16px;"></a>&nbsp;';
             if (($xoopsModuleConfig['com_rule'] != 0)
                 && (!empty($xoopsModuleConfig['com_anonpost'])
                     || is_object($xoopsUser))
             ) {
-                $srvlinks .= "<a TITLE=\""
+                $srvlinks .= '<a TITLE="'
                              . _COMMENTS
-                             . "?\" href=\"comment_new.php?com_itemid="
+                             . '?" href="comment_new.php?com_itemid='
                              . $variable['id']
-                             . "\" target=\"_parent\"><img src=\"assets/images/comments.gif\" alt=\""
+                             . '" target="_parent"><img src="assets/images/comments.gif" alt="'
                              . _COMMENTS
-                             . "?\" style=\"width:16px; height:16px;\"></a>&nbsp;";
+                             . '?" style="width:16px; height:16px;"></a>&nbsp;';
             }
         }
 
@@ -521,17 +521,17 @@ class LexikonUtility
     public static function getServiceLinksNew($variable)
     {
         global $xoopsUser, $xoopsDB, $xoopsModule, $xoopsModuleConfig, $xoopsConfig, $myts;
-        $srvlinks2 = "<a TITLE=\""
+        $srvlinks2 = '<a TITLE="'
                      . _MD_LEXIKON_PRINTTERM
-                     . "\" href=\"print.php?entryID="
+                     . '" href="print.php?entryID='
                      . $variable['id']
-                     . "\" target=\"_blank\"><img src=\"assets/images/print.gif\" alt=\""
+                     . '" target="_blank"><img src="assets/images/print.gif" alt="'
                      . _MD_LEXIKON_PRINTTERM
-                     . "\" style=\"vertical-align: middle; width:16px; height:16px; margin: 2px 4px;\"> "
+                     . '" style="vertical-align: middle; width:16px; height:16px; margin: 2px 4px;"> '
                      . _MD_LEXIKON_PRINTTERM2
-                     . "</a>&nbsp; <a TITLE=\""
+                     . '</a>&nbsp; <a TITLE="'
                      . _MD_LEXIKON_SENDTOFRIEND
-                     . "\" href=\"mailto:?subject="
+                     . '" href="mailto:?subject='
                      . sprintf(_MD_LEXIKON_INTENTRY, $xoopsConfig['sitename'])
                      . '&amp;body='
                      . sprintf(_MD_LEXIKON_INTENTRYFOUND, $xoopsConfig['sitename'])
@@ -543,9 +543,9 @@ class LexikonUtility
                      . $xoopsModule->dirname()
                      . '/entry.php?entryID='
                      . $variable['id']
-                     . " \" target=\"_blank\"><img src=\"assets/images/friend.gif\" alt=\""
+                     . ' " target="_blank"><img src="assets/images/friend.gif" alt="'
                      . _MD_LEXIKON_SENDTOFRIEND
-                     . "\" style=\"vertical-align: middle; width:16px; height:16px; margin: 2px 4px;\"> "
+                     . '" style="vertical-align: middle; width:16px; height:16px; margin: 2px 4px;"> '
                      . _MD_LEXIKON_SENDTOFRIEND2
                      . '</a>&nbsp;';
 
@@ -561,19 +561,19 @@ class LexikonUtility
         $gpermHandler = xoops_getHandler('groupperm');
         $groups       = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
 
-        $searchform = "<table style=\"width:100%;\">";
-        $searchform .= "<form name=\"op\" id=\"op\" action=\"search.php\" method=\"post\">";
-        $searchform .= "<tr><td style=\"text-align: right; line-height: 200%; width:150px;\">";
-        $searchform .= _MD_LEXIKON_LOOKON . "</td><td style=\"width:10px;\">&nbsp;</td><td style=\"text-align: left;\">";
-        $searchform .= "<select name=\"type\"><option value=\"1\">" . _MD_LEXIKON_TERMS . "</option><option value=\"2\">" . _MD_LEXIKON_DEFINS . '</option>';
-        $searchform .= "<option SELECTED value=\"3\">" . _MD_LEXIKON_TERMSDEFS . '</option></select></td></tr>';
+        $searchform = '<table style="width:100%;">';
+        $searchform .= '<form name="op" id="op" action="search.php" method="post">';
+        $searchform .= '<tr><td style="text-align: right; line-height: 200%; width:150px;">';
+        $searchform .= _MD_LEXIKON_LOOKON . '</td><td style="width:10px;">&nbsp;</td><td style="text-align: left;">';
+        $searchform .= '<select name="type"><option value="1">' . _MD_LEXIKON_TERMS . '</option><option value="2">' . _MD_LEXIKON_DEFINS . '</option>';
+        $searchform .= '<option SELECTED value="3">' . _MD_LEXIKON_TERMSDEFS . '</option></select></td></tr>';
 
         if ($xoopsModuleConfig['multicats'] == 1) {
-            $searchform .= "<tr><td style=\"text-align: right; line-height: 200%;\">" . _MD_LEXIKON_CATEGORY . '</td>';
-            $searchform .= "<td>&nbsp;</td><td style=\"text-align: left;\">";
+            $searchform .= '<tr><td style="text-align: right; line-height: 200%;">' . _MD_LEXIKON_CATEGORY . '</td>';
+            $searchform .= '<td>&nbsp;</td><td style="text-align: left;">';
             $resultcat  = $xoopsDB->query('SELECT categoryID, name FROM ' . $xoopsDB->prefix('lxcategories') . ' ORDER BY categoryID');
-            $searchform .= "<select name=\"categoryID\">";
-            $searchform .= "<option value=\"0\">" . _MD_LEXIKON_ALLOFTHEM . '</option>';
+            $searchform .= '<select name="categoryID">';
+            $searchform .= '<option value="0">' . _MD_LEXIKON_ALLOFTHEM . '</option>';
 
             while (list($categoryID, $name) = $xoopsDB->fetchRow($resultcat)) {
                 if ($gpermHandler->checkRight('lexikon_view', (int)$categoryID, $groups, $xoopsModule->getVar('mid'))) {
@@ -583,10 +583,10 @@ class LexikonUtility
             $searchform .= '</select></td></tr>';
         }
 
-        $searchform .= "<tr><td style=\"text-align: right; line-height: 200%;\">";
-        $searchform .= _MD_LEXIKON_TERM . "</td><td>&nbsp;</td><td style=\"text-align: left;\">";
-        $searchform .= "<input type=\"text\" name=\"term\" class=\"searchBox\" /></td></tr><tr>";
-        $searchform .= "<td>&nbsp;</td><td>&nbsp;</td><td><input type=\"submit\" class=\"btnDefault\" value=\"" . _MD_LEXIKON_SEARCH . "\" />";
+        $searchform .= '<tr><td style="text-align: right; line-height: 200%;">';
+        $searchform .= _MD_LEXIKON_TERM . '</td><td>&nbsp;</td><td style="text-align: left;">';
+        $searchform .= '<input type="text" name="term" class="searchBox" /></td></tr><tr>';
+        $searchform .= '<td>&nbsp;</td><td>&nbsp;</td><td><input type="submit" class="btnDefault" value="' . _MD_LEXIKON_SEARCH . '" />';
         $searchform .= '</td></tr></form></table>';
 
         return $searchform;
@@ -831,7 +831,7 @@ class LexikonUtility
             '',
             '',
             "\\1",
-            "\"",
+            '"',
             '&',
             '<',
             '>',
@@ -844,7 +844,7 @@ class LexikonUtility
 
         $text = preg_replace($search, $replace, $document);
 
-        $text = preg_replace_callback("&#(\d+)&", create_function('$matches', "return chr(\$matches[1]);"), $text);
+        $text = preg_replace_callback("&#(\d+)&", create_function('$matches', 'return chr($matches[1]);'), $text);
 
         return $text;
     }

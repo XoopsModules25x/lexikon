@@ -166,11 +166,11 @@ define('_MI_LEXIKON_SYNDICATIONDSC', "If you set this option to 'Yes', users wil
 
 // new configs in version 1.52
 $cf++;
-define("_MI_LEXIKON_IMGUPLOADWD", "$cf. Max height/width for image upload");
-define("_MI_LEXIKON_IMGUPLOADWD_DESC", "Define the maximum height/width in pixel for uploading an image");
+define('_MI_LEXIKON_IMGUPLOADWD', "$cf. Max height/width for image upload");
+define('_MI_LEXIKON_IMGUPLOADWD_DESC', 'Define the maximum height/width in pixel for uploading an image');
 $cf++;
-define("_MI_LEXIKON_IMGUPLOADSIZE", "$cf. Max size for image upload");
-define("_MI_LEXIKON_IMGUPLOADSIZE_DESC", "Define the maximum size in bytes (10485760 = 1 MB) for uploading an image");
+define('_MI_LEXIKON_IMGUPLOADSIZE', "$cf. Max size for image upload");
+define('_MI_LEXIKON_IMGUPLOADSIZE_DESC', 'Define the maximum size in bytes (10485760 = 1 MB) for uploading an image');
 // end new configs in 1.52
 
 

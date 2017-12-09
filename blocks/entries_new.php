@@ -82,7 +82,7 @@ function b_lxentries_new_edit($options)
     $form .= "<option value='datesub' " . (($options[0] === 'datesub') ? ' selected' : '') . '>' . _MB_LEXIKON_DATE . "</option>\n";
     $form .= "<option value='counter' " . (($options[0] === 'counter') ? ' selected' : '') . '>' . _MB_LEXIKON_HITS . "</option>\n";
     $form .= "<option value='term' " . (($options[0] === 'term') ? ' selected' : '') . '>' . _MB_LEXIKON_NAME . "</option>\n";
-    $form .= "</select><br></td></tr>";
+    $form .= '</select><br></td></tr>';
     //---
     $form .= "<tr><td class='even'>" . _MB_LEXIKON_DISP . "</td><td class='odd'><input type='text' name='options[]' value='" . $options[1] . "' />&nbsp;" . _MB_LEXIKON_TERMS . '<br></td></tr>';
     //---
@@ -102,7 +102,7 @@ function b_lxentries_new_edit($options)
     $form .= "<tr><td class='even'>" . _MB_LEXIKON_DIRECTION . "</td><td class='odd'><select name='options[5]'>";
     $form .= "<option value='up' " . (($options[5] === 'up') ? ' selected' : '') . '>' . _MB_LEXIKON_UP . "</option>\n";
     $form .= "<option value='down' " . (($options[5] === 'down') ? ' selected' : '') . '>' . _MB_LEXIKON_DOWN . "</option>\n";
-    $form .= "</select></td></tr>";
+    $form .= '</select></td></tr>';
     //---
     $form .= "<tr><td class='even'>" . _MB_LEXIKON_BSPEED . "</td><td class='odd'><input type='text' name='options[6]' size='16' maxlength=2 value='" . $options[6] . "' /></td></tr>";
     $form .= "<tr><td class='even'>" . _MB_LEXIKON_BACKGROUNDCOLOR . "</td><td class='odd'><input type='text' name='options[7]' size='16'  value='" . $options[7] . "' /></td></tr>";

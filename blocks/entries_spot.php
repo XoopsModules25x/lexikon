@@ -154,7 +154,7 @@ function b_lxspot_edit($options)
     $myts      = MyTextSanitizer:: getInstance();
     $resultcat = $xoopsDB->query('SELECT categoryID, name FROM ' . $xoopsDB->prefix('lxcategories') . ' ORDER BY categoryID');
     $form      = "<table border='0'>";
-    $form      .= '<tr><td>' . _MB_LEXIKON_SELECTCAT . "</td><td><select name=\"options[]\">";
+    $form      .= '<tr><td>' . _MB_LEXIKON_SELECTCAT . '</td><td><select name="options[]">';
     while (list($categoryID, $name) = $xoopsDB->fetchRow($resultcat)) {
         $form .= '<option value=' . $categoryID . ' ' . (($options[0] == $categoryID) ? ' selected' : '') . ">$categoryID : $name</option>\n";
     }

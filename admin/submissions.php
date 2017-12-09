@@ -172,21 +172,21 @@ switch ($op) {
                       . $created
                       . "</td><td class='even' style='text-align:center;'>"
                       . $modify
-                      . "-"
+                     . '-'
                       . $delete
-                      . "</td></tr></div>";
+                     . '</td></tr></div>';
             }
         } else { // that is, $numrows = 0, there's no columns yet
             echo "<tr><td class='odd' style='text-align:center;' colspan= '7'>"
                   . _AM_LEXIKON_NOSUBMISSYET
                   . '</td></tr></div>';
         }
-        echo "</table>";
+        echo '</table>';
         $pagenav = new XoopsPageNav($numrows, $xoopsModuleConfig['perpage'], $startsub, 'startsub');
         echo '<div style="text-align:right;">'
               . $pagenav->renderNav(8)
               . '</div>';
-        echo " <br></div>";
+        echo ' <br></div>';
         echo '</div>';
 
         /**
@@ -275,21 +275,21 @@ switch ($op) {
                       . $created
                       . "</td><td class='even' style='text-align:center;'>"
                       . $modify
-                      . "-"
+                     . '-'
                       . $delete
-                      . "</td></tr></div>";
+                     . '</td></tr></div>';
             }
         } else { // that is, $numrows = 0, there's no columns yet
             echo "<tr><td class='odd' style='text-align:center;' colspan= '7'>"
                   . _AM_LEXIKON_NOREQSYET
                   . '</td></tr></div>';
         }
-        echo "</table>";
+        echo '</table>';
         $pagenav = new XoopsPageNav($numrowsX, $xoopsModuleConfig['perpage'], $startsub, 'startsub');
         echo '<div style="text-align:right;">'
               . $pagenav->renderNav(8)
               . '</div>';
-        echo "<br></div></div>";
+        echo '<br></div></div>';
 
         /**
          * Code to show offline entries
@@ -327,7 +327,7 @@ switch ($op) {
               . _AM_LEXIKON_ENTRYCREATED
               . "</th><th style='text-align:center; width:60px;'>"
               . _AM_LEXIKON_ACTION
-              . "</th></tr>";
+             . '</th></tr>';
 
         if ($numrowsX > 0) { // That is, if there ARE unauthorized articles in the system
             while (list($entryID, $categoryID, $term, $uid, $created) = $xoopsDB->fetchRow($resultS4)) {
@@ -371,20 +371,20 @@ switch ($op) {
                       . $created
                       . "</td><td class='even' style='text-align:center;'>"
                       . $modify
-                      . "-"
+                     . '-'
                       . $delete
-                      . "</td></tr></div>";
+                     . '</td></tr></div>';
             }
         } else { // that is, $numrows = 0, there's no columns yet
             echo "<tr><td class='odd' style='text-align:center;' colspan= '7'>"
                   . _AM_LEXIKON_NOREQSYET
                   . '</td></tr></div>';
         }
-        echo "</table>";
+        echo '</table>';
         $pagenav = new XoopsPageNav($numrowsX, $xoopsModuleConfig['perpage'], $startsub, 'startsub');
         echo '<div style="text-align:right;">'
               . $pagenav->renderNav(8)
               . '</div>';
-        echo "<br></div></div>";
+        echo '<br></div></div>';
 }
 require_once __DIR__ . '/admin_footer.php';

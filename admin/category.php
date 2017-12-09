@@ -67,8 +67,8 @@ function categoryDefault()
         <th style='width:30%; text-align:center;'>" . _AM_LEXIKON_CATNAME . "</td>
         <th style='width:10px; text-align:center;'>" . _AM_LEXIKON_ENTRIES . "</td>
         <th style='width:*; text-align:center;'>" . _AM_LEXIKON_DESCRIP . "</td>
-        <th style='width:60px; text-align:center;'>" . _AM_LEXIKON_ACTION . "</td>
-        </tr>";
+        <th style='width:60px; text-align:center;'>" . _AM_LEXIKON_ACTION . '</td>
+        </tr>';
 
         $class = 'odd';
         if ($numrows > 0) { // That is, if there ARE columns in the system
@@ -99,8 +99,8 @@ function categoryDefault()
                 <td style='text-align:left;'><a href='../category.php?categoryID=" . $categoryID . "'>" . $name . "</a></td>
                 <td style='text-align:center;'>" . $total . "</td>
                 <td style='text-align:left;'>" . $description . "</td>
-                <td style='text-align:center;'>" . $modify . "-" . $delete . "</td>
-                </tr></div>";
+                <td style='text-align:center;'>" . $modify . '-' . $delete . '</td>
+                </tr></div>';
             }
         } else { // that is, $numrows = 0, there's no columns yet
             echo '<div><tr>';
@@ -189,7 +189,7 @@ function categoryEdit($categoryID = '')
         unset($image_tray);
         unset($image_option_tray);
 
-        $path_catimg       = "uploads/".$xoopsModule->getVar('dirname')."/categories/images";
+        $path_catimg       = 'uploads/' . $xoopsModule->getVar('dirname') . '/categories/images';
         $image_option_tray = new XoopsFormElementTray(_AM_LEXIKON_CATIMAGE . '<br>' . _AM_LEXIKON_CATIMG_DSC . '<br>' . $path_catimg);
         $image_array = XoopsLists::getImgListAsArray(XOOPS_ROOT_PATH . '/' . $path_catimg . '/');
         array_unshift($image_array, _NONE);
@@ -202,12 +202,12 @@ function categoryEdit($categoryID = '')
         if (!empty($logourl) && file_exists(XOOPS_ROOT_PATH . '/' . $path_catimg . '/' . $logourl)) {
             $image_tray->addElement(new XoopsFormLabel(
                 '',
-                        "<div style='padding: 4px;'><img src=\"" . XOOPS_URL . '/' . $path_catimg . '/' . $logourl . "\" name=\"img\" id=\"img\" alt=\"\" /></div>"
+                        "<div style='padding: 4px;'><img src=\"" . XOOPS_URL . '/' . $path_catimg . '/' . $logourl . '" name="img" id="img" alt="" /></div>'
             ));
         } else {
             $image_tray->addElement(new XoopsFormLabel(
                 '',
-                        "<div style='padding: 4px;'><img src=\"" . XOOPS_URL . '/' . $path_catimg . "/blank.gif\" name=\"img\" id=\"img\" alt=\"\" /></div>"
+                        "<div style='padding: 4px;'><img src=\"" . XOOPS_URL . '/' . $path_catimg . '/blank.gif" name="img" id="img" alt="" /></div>'
             ));
         }
         $image_option_tray->addElement($image_tray);
@@ -321,7 +321,7 @@ function categorySave($categoryID = '')
                               'image/x-png',
                               'image/png'
                              ];
-        $uploader          = new XoopsMediaUploader(XOOPS_ROOT_PATH ."/uploads/".$xoopsModule->getVar('dirname')."/categories/images/", $allowed_mimetypes, $maxfilesize, $maxfilewidth, $maxfileheight);
+        $uploader          = new XoopsMediaUploader(XOOPS_ROOT_PATH . '/uploads/' . $xoopsModule->getVar('dirname') . '/categories/images/', $allowed_mimetypes, $maxfilesize, $maxfilewidth, $maxfileheight);
 
         if ($uploader->fetchMedia($_POST['xoops_upload_file'][0])) {
             if (!$uploader->upload()) {

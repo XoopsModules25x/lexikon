@@ -78,7 +78,7 @@ if ($xoopsModuleConfig['multicats'] == 1) {
     echo '<form method=get action="category.php">';
     $cattree->makeMySelBox('name', 'weight DESC', 0, 1, '', 'window.location="category.php?op=mod&amp;categoryID="+this.value');
     echo '</form>';
-    echo "</td></tr>";
+    echo '</td></tr>';
     echo '</table><br>';
 } else {
     //--- create button
@@ -332,7 +332,7 @@ if ($numrows > 0) {
             echo "<td style='text-align:center;'>" . $sentby . '</td>';
             echo "<td style='text-align:center;'>" . $created . '</td>';
             echo "<td style='text-align:center;'>" . $statustxt . '</td>';
-            echo "<td style='text-align:center;'>" . $approve . $modify . "-" . $delete . "</td>";
+            echo "<td style='text-align:center;'>" . $approve . $modify . '-' . $delete . '</td>';
             echo '</tr>';
         }
     }

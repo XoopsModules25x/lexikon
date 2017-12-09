@@ -252,7 +252,7 @@ define('_AM_LEXIKON_BACK', 'Back');
 define('_AM_LEXIKON_MODULEWORDBOOKNOTFOUND', 'Module Wordbook not found on this site.');
 
 //1.52
-define("_AM_LEXIKON_IMGUPLOAD_DESC", "Max image width/height in pixel: %w<br>Max file size in bytes (10485760 = 1 MB): %s");
+define('_AM_LEXIKON_IMGUPLOAD_DESC', 'Max image width/height in pixel: %w<br>Max file size in bytes (10485760 = 1 MB): %s');
 define('_AM_LEXIKON_NOCATTOEDIT', 'No Category to Edit');
 define('_AM_LEXIKON_NOENTRYTOEDIT', 'No Entry to Edit');
 
@@ -285,23 +285,23 @@ define('_AM_SYSTEMCANT', 'System blocks cannot be deleted!');
 define('_AM_USEFULTAGS', 'Useful Tags:');
 
 // Import Menu
-define("_AM_LEXIKON_IMPORT_MENU", "Import Menu");
-define("_AM_LEXIKON_IMPORT_WORDBOOK", "Import Wordbook");
-define("_AM_LEXIKON_IMPORT_DICTIONARY", "Import Dictionary");
-define("_AM_LEXIKON_IMPORT_GLOSSAIRE", "Import Glossaire");
-define("_AM_LEXIKON_IMPORT_WIWIMOD", "Import Wiwimod");
-define("_AM_LEXIKON_IMPORT_XWORDS", "Import Xwords");
-define("_AM_LEXIKON_IMPORT_ERROR", "ERROR");
-define("_AM_LEXIKON_IMPORT_OK", "OK!");
-define("_AM_LEXIKON_IMPORT_MODULE_ID", "Dictionary Module ID");
-define("_AM_LEXIKON_IMPORT_MODULE_LEX_ID", "Lexikon Module ID");
-define("_AM_LEXIKON_IMPORT_ERROR_IMPORT_COMMENT", "Import comments failed");
-define("_AM_LEXIKON_IMPORT_ERROR_IMPORT_TERM", "Import term failed");
-define("_AM_LEXIKON_IMPORT_ERROR_IMPORT_CAT", "Import category failed");
-define("_AM_LEXIKON_IMPORT_COMMENT", "Import comments");
-define("_AM_LEXIKON_IMPORT_UPDATE_COUNT", "Update User Post count: O.K.!");
-define("_AM_LEXIKON_IMPORT_INCORRECTLY", "Incorrectly");
-define("_AM_LEXIKON_IMPORT_PROCESSED", "Processed");
-define("_AM_LEXIKON_IMPORT_FINISH", "Import finished!");
-define("_AM_LEXIKON_IMPORT_TO_ADMIN", "Back to Admin");
-define("_AM_LEXIKON_IMPORT_ERROR_MODULE", "Module Dictionary not found on this site.");
+define('_AM_LEXIKON_IMPORT_MENU', 'Import Menu');
+define('_AM_LEXIKON_IMPORT_WORDBOOK', 'Import Wordbook');
+define('_AM_LEXIKON_IMPORT_DICTIONARY', 'Import Dictionary');
+define('_AM_LEXIKON_IMPORT_GLOSSAIRE', 'Import Glossaire');
+define('_AM_LEXIKON_IMPORT_WIWIMOD', 'Import Wiwimod');
+define('_AM_LEXIKON_IMPORT_XWORDS', 'Import Xwords');
+define('_AM_LEXIKON_IMPORT_ERROR', 'ERROR');
+define('_AM_LEXIKON_IMPORT_OK', 'OK!');
+define('_AM_LEXIKON_IMPORT_MODULE_ID', 'Dictionary Module ID');
+define('_AM_LEXIKON_IMPORT_MODULE_LEX_ID', 'Lexikon Module ID');
+define('_AM_LEXIKON_IMPORT_ERROR_IMPORT_COMMENT', 'Import comments failed');
+define('_AM_LEXIKON_IMPORT_ERROR_IMPORT_TERM', 'Import term failed');
+define('_AM_LEXIKON_IMPORT_ERROR_IMPORT_CAT', 'Import category failed');
+define('_AM_LEXIKON_IMPORT_COMMENT', 'Import comments');
+define('_AM_LEXIKON_IMPORT_UPDATE_COUNT', 'Update User Post count: O.K.!');
+define('_AM_LEXIKON_IMPORT_INCORRECTLY', 'Incorrectly');
+define('_AM_LEXIKON_IMPORT_PROCESSED', 'Processed');
+define('_AM_LEXIKON_IMPORT_FINISH', 'Import finished!');
+define('_AM_LEXIKON_IMPORT_TO_ADMIN', 'Back to Admin');
+define('_AM_LEXIKON_IMPORT_ERROR_MODULE', 'Module Dictionary not found on this site.');

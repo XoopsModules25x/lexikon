@@ -617,8 +617,8 @@ $modversion['config'][] = [
 //Uploads : max width/height for image upload
 $modversion['config'][] = [
     'name'            => 'imguploadwd',
-    'title'        => "_MI_LEXIKON_IMGUPLOADWD",
-    'description'    => "_MI_LEXIKON_IMGUPLOADWD_DESC",
+    'title'        => '_MI_LEXIKON_IMGUPLOADWD',
+    'description'    => '_MI_LEXIKON_IMGUPLOADWD_DESC',
     'formtype'        => 'textbox',
     'valuetype'    => 'text',
     'default'        => 200
@@ -627,8 +627,8 @@ $modversion['config'][] = [
 //Uploads : max size for image upload
 $modversion['config'][] = [
     'name'            => 'imguploadsize',
-    'title'        => "_MI_LEXIKON_IMGUPLOADSIZE",
-    'description'    => "_MI_LEXIKON_IMGUPLOADSIZE_DESC",
+    'title'        => '_MI_LEXIKON_IMGUPLOADSIZE',
+    'description'    => '_MI_LEXIKON_IMGUPLOADSIZE_DESC',
     'formtype'        => 'textbox',
     'valuetype'    => 'text',
     'default'        => 10485760
