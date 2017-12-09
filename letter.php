@@ -140,7 +140,7 @@ if (!$init) {
 } else {    // $init does exist
     $pagetype = 1;
     // There IS an initial letter, so we want to show just that letter's terms
-    $entriesarray2 = array();
+    $entriesarray2 = [];
 
     // How many entries will we show in this page?
     if ($init == _MD_LEXIKON_OTHER) {
@@ -182,7 +182,7 @@ if (!$init) {
     LexikonUtility::createPageTitle($myts->htmlSpecialChars(_MD_LEXIKON_BROWSELETTER . (isset($init['init']) ? (' - ' . $init['init']) : '')));
 
     while (list($entryID, $categoryID, $term, $definition, $uid, $html, $smiley, $xcodes, $breaks, $comments) = $xoopsDB->fetchRow($resultB)) {
-        $eachentry        = array();
+        $eachentry        = [];
         $xoopsModule      = XoopsModule::getByDirname('lexikon');
         $eachentry['dir'] = $xoopsModule->dirname();
 

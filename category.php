@@ -75,7 +75,7 @@ if (!$categoryID) {
         redirect_header('javascript:history.go(-1)', 1, _MD_LEXIKON_NOCATSINSYSTEM);
     }
     // If there's no $categoryID, we want to show just the categories with their description
-    $catsarray = array();
+    $catsarray = [];
 
     // How many categories will we show in this page?
     $queryA  = 'SELECT * FROM ' . $xoopsDB->prefix('lxcategories') . ' ' . $catperms2 . ' ORDER BY weight ASC';

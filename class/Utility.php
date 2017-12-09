@@ -315,7 +315,7 @@ class LexikonUtility
                                     . ' ORDER BY weight ASC');
         while (list($catID, $name, $total, $logourl) = $xoopsDB->fetchRow($resultcat)) {
             if ($gpermHandler->checkRight('lexikon_view', $catID, $groups, $xoopsModule->getVar('mid'))) {
-                $catlinks = array();
+                $catlinks = [];
                 ++$count;
                 if ($logourl && $logourl !== 'http://') {
                     $logourl = $myts->htmlSpecialChars($logourl);
@@ -358,7 +358,7 @@ class LexikonUtility
         $allowed_cats  = $gpermHandler->getItemIds('lexikon_view', $groups, $module_id);
         $catids        = implode(',', $allowed_cats);
         $catperms      = " AND categoryID IN ($catids) ";
-        $alpha         = array();
+        $alpha         = [];
         function unichr($a)
         {
             return mb_convert_encoding(pack("N", $a), mb_internal_encoding(), 'UCS-4BE');
@@ -963,13 +963,13 @@ class LexikonUtility
             case 'tinymce':
                 if (is_readable(XOOPS_ROOT_PATH . '/class/xoopseditor/tinyeditor/formtinyeditortextarea.php')) {
                     require_once XOOPS_ROOT_PATH . '/class/xoopseditor/tinyeditor/formtinyeditortextarea.php';
-                    $editor = new XoopsFormTinyeditorTextArea(array(
+                    $editor = new XoopsFormTinyeditorTextArea([
                                                                   'caption' => $caption,
                                                                   'name'    => $name,
                                                                   'value'   => $value,
                                                                   'width'   => '100%',
                                                                   'height'  => '400px'
-                                                              ));
+                                                              ]);
                 }
                 break;
 
@@ -996,18 +996,18 @@ class LexikonUtility
             $xoTheme->addStylesheet('modules/lexikon/assets/css/style.css');
             if ($xoopsModuleConfig['linkterms'] == 3) {
                 $xoTheme->addStylesheet('modules/lexikon/assets/css/linkterms.css');
-                $xoTheme->addScript('/modules/lexikon/assets/js/tooltipscript2.js', array('type' => 'text/javascript'));
+                $xoTheme->addScript('/modules/lexikon/assets/js/tooltipscript2.js', ['type' => 'text/javascript']);
             }
             if ($xoopsModuleConfig['linkterms'] == 4) {
-                $xoTheme->addScript('/modules/lexikon/assets/js/popup.js', array('type' => 'text/javascript'));
+                $xoTheme->addScript('/modules/lexikon/assets/js/popup.js', ['type' => 'text/javascript']);
             }
             if ($xoopsModuleConfig['linkterms'] == 5) {
                 $xoTheme->addStylesheet('modules/lexikon/assets/css/linkterms.css');
-                $xoTheme->addScript('/modules/lexikon/assets/js/balloontooltip.js', array('type' => 'text/javascript'));
+                $xoTheme->addScript('/modules/lexikon/assets/js/balloontooltip.js', ['type' => 'text/javascript']);
             }
             if ($xoopsModuleConfig['linkterms'] == 6) {
                 $xoTheme->addStylesheet('modules/lexikon/assets/css/linkterms.css');
-                $xoTheme->addScript('/modules/lexikon/assets/js/shadowtooltip.js', array('type' => 'text/javascript'));
+                $xoTheme->addScript('/modules/lexikon/assets/js/shadowtooltip.js', ['type' => 'text/javascript']);
             }
         } else {
             $lexikon_url = XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname');

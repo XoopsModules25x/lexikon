@@ -54,7 +54,7 @@ $resultZ = $xoopsDB->query('SELECT a.entryID, a.categoryID, a.term, a.definition
 $zerotest = $xoopsDB->getRowsNum($resultZ);
 if ($zerotest != 0) {
     while ($myrow = $xoopsDB->fetchArray($resultZ)) {
-        $syndication         = array();
+        $syndication         = [];
         $syndication['id']   = $myrow['entryID'];
         $syndication['term'] = ucfirst($myrow['term']);
         if (!XOOPS_USE_MULTIBYTES) {

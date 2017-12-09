@@ -43,7 +43,7 @@ $query      = isset($term) ? trim($term) : '';
 $start      = isset($start) ? (int)$start : 0;
 $categoryID = isset($categoryID) ? (int)$categoryID : 0;
 $type       = isset($type) ? (int)$type : 3;
-$queries    = array();
+$queries    = [];
 
 if ($xoopsModuleConfig['multicats'] == 1) {
     $xoopsTpl->assign('multicats', 1);

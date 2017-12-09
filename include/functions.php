@@ -389,7 +389,7 @@ function lx_extract_keywords($content)
     global $xoopsTpl, $xoTheme, $xoopsModule, $xoopsModuleConfig;
     include_once XOOPS_ROOT_PATH.'/modules/lexikon/include/common.inc.php';
     $keywords_count = $xoopsModuleConfig['metakeywordsnum'];
-    $tmp=array();
+    $tmp= [];
     if (isset($_SESSION['xoops_keywords_limit'])) {    // Search the "Minimum keyword length"
         $limit = $_SESSION['xoops_keywords_limit'];
     } else {
@@ -684,7 +684,7 @@ function &lx_getWysiwygForm($caption, $name, $value = '', $width = '100%', $heig
         case 'tinymce':
             if (is_readable(XOOPS_ROOT_PATH.'/class/xoopseditor/tinyeditor/formtinyeditortextarea.php')) {
                 require_once XOOPS_ROOT_PATH.'/class/xoopseditor/tinyeditor/formtinyeditortextarea.php';
-                $editor = new XoopsFormTinyeditorTextArea(array('caption'=> $caption, 'name'=>$name, 'value'=>$value, 'width'=>'100%', 'height'=>'400px'));
+                $editor = new XoopsFormTinyeditorTextArea(['caption' => $caption, 'name' =>$name, 'value' =>$value, 'width' =>'100%', 'height' =>'400px']);
             }
             break;
 
@@ -711,18 +711,18 @@ function lx_module_header()
         $xoTheme -> addStylesheet('modules/lexikon/assets/css/style.css');
         if ($xoopsModuleConfig['linkterms'] == 3) {
             $xoTheme -> addStylesheet('modules/lexikon/assets/css/linkterms.css');
-            $xoTheme->addScript('/modules/lexikon/assets/js/tooltipscript2.js', array( 'type' => 'text/javascript' ));
+            $xoTheme->addScript('/modules/lexikon/assets/js/tooltipscript2.js', ['type' => 'text/javascript']);
         }
         if ($xoopsModuleConfig['linkterms'] == 4) {
-            $xoTheme->addScript('/modules/lexikon/assets/js/popup.js', array( 'type' => 'text/javascript' ));
+            $xoTheme->addScript('/modules/lexikon/assets/js/popup.js', ['type' => 'text/javascript']);
         }
         if ($xoopsModuleConfig['linkterms'] == 5) {
             $xoTheme -> addStylesheet('modules/lexikon/assets/css/linkterms.css');
-            $xoTheme->addScript('/modules/lexikon/assets/js/balloontooltip.js', array( 'type' => 'text/javascript' ));
+            $xoTheme->addScript('/modules/lexikon/assets/js/balloontooltip.js', ['type' => 'text/javascript']);
         }
         if ($xoopsModuleConfig['linkterms'] == 6) {
             $xoTheme -> addStylesheet('modules/lexikon/assets/css/linkterms.css');
-            $xoTheme->addScript('/modules/lexikon/assets/js/shadowtooltip.js', array( 'type' => 'text/javascript' ));
+            $xoTheme->addScript('/modules/lexikon/assets/js/shadowtooltip.js', ['type' => 'text/javascript']);
         }
     } else {
         $lexikon_url = XOOPS_URL.'/modules/'.$xoopsModule->getVar('dirname');
@@ -801,7 +801,7 @@ function lx_AuthorProfile($uid)
                               LIMIT $start,$limit");
 
     while ($row=$xoopsDB->fetchArray($sql)) {
-        $xoopsTpl->append('entries', array('id'=>$row['entryID'],'name'=>$row['term'],'date'=>date($xoopsModuleConfig['dateformat'], $row['datesub']),'counter'=>$row['counter']));
+        $xoopsTpl->append('entries', ['id' => $row['entryID'], 'name' => $row['term'], 'date' =>date($xoopsModuleConfig['dateformat'], $row['datesub']), 'counter' => $row['counter']]);
     }
 
     $navstring = '';
@@ -1047,7 +1047,7 @@ function lx_close_tags($string)
         $start_tags = $start_tags[1];
         // match closed tags
         if (preg_match_all('/<\/([a-z]+)>/', $string, $end_tags)) {
-            $complete_tags = array();
+            $complete_tags = [];
             $end_tags = $end_tags[1];
     
             foreach ($start_tags as $key => $val) {

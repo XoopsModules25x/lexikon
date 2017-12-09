@@ -33,7 +33,7 @@ function b_scrolling_term_show($options)
     $module_id    = $lexikon->getVar('mid');
     $allowed_cats = $gpermHandler->getItemIds('lexikon_view', $groups, $module_id);
 
-    $block                = array();
+    $block                = [];
     $block['speed']       = isset($options[1]) && $options[1] != '' ? $options[1] : '';
     $block['bgcolor']     = isset($options[2]) && $options[2] != '' ? $options[2] : '#FFFFFF';
     $block['direction']   = $options[3];

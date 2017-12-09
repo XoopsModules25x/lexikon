@@ -9,9 +9,9 @@ if (!class_exists('XoopsGTicket')) {
      */
     class XoopsGTicket
     {
-        public $_errors       = array();
+        public $_errors       = [];
         public $_latest_token = '';
-        public $messages      = array();
+        public $messages      = [];
 
         /**
          * XoopsGTicket constructor.
@@ -93,7 +93,7 @@ if (!class_exists('XoopsGTicket')) {
          */
         public function getTicketArray($salt = '', $timeout = 1800, $area = '')
         {
-            return array('XOOPS_G_TICKET' => $this->issue($salt, $timeout, $area));
+            return ['XOOPS_G_TICKET' => $this->issue($salt, $timeout, $area)];
         }
 
         // return GET parameter string.
@@ -336,7 +336,7 @@ if (!class_exists('XoopsGTicket')) {
                 }
             }
 
-            return array($table, $form);
+            return [$table, $form];
         }
 
         // clear all stubs

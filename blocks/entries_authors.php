@@ -22,7 +22,7 @@ function b_lx_author_show($options)
     }
     include_once XOOPS_ROOT_PATH . '/modules/lexikon/class/Utility.php';
 
-    $block = array();
+    $block = [];
     if (!isset($options[3])) {
         $options[3] = 'average';
     }

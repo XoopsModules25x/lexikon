@@ -69,7 +69,7 @@ if (isset($_POST['previewblock'])) {
     if (!empty($_POST['bmodule'])) {
         $bmodule = $_POST['bmodule'];
     } else {
-        $bmodule = array();
+        $bmodule = [];
     }
     if (!empty($_POST['btitle'])) {
         $btitle = $_POST['btitle'];
@@ -239,7 +239,7 @@ if ($op === 'order2') {
         if (!empty($_POST['id'])) {
             $id = $_POST['id'];
         } else {
-            $id = array();
+            $id = [];
         }
 
         foreach (array_keys($id) as $i) {
