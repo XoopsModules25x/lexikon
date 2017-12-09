@@ -34,7 +34,7 @@ function lx_getLinkedUnameFromId($userid = 0, $name= 0)
             $username = $user->getVar('uname');
             $usernameu = $user->getVar('name');
 
-            if (($name) && !empty($usernameu)) {
+            if ($name && !empty($usernameu)) {
                 $username = $user->getVar('name');
             }
             if (!empty($usernameu)) {
@@ -105,7 +105,7 @@ function lx_countCats()
 {
     global $xoopsUser, $xoopsModule;
     $gperm_handler = xoops_getHandler('groupperm');
-    $groups = (is_object($xoopsUser)) ? $xoopsUser -> getGroups() : XOOPS_GROUP_ANONYMOUS;
+    $groups = is_object($xoopsUser) ? $xoopsUser-> getGroups() : XOOPS_GROUP_ANONYMOUS;
     $totalcats = $gperm_handler->getItemIds('lexikon_view', $groups, $xoopsModule->getVar('mid'));
 
     return count($totalcats);
@@ -372,7 +372,7 @@ function lx_getHTMLHighlight($needle, $haystack, $hlS, $hlE)
         }
     }
 
-    return(implode('>', $parts));
+    return implode('>', $parts);
 }
 
 /* *******************************************************************************
@@ -660,14 +660,14 @@ function &lx_getWysiwygForm($caption, $name, $value = '', $width = '100%', $heig
     switch ($editor_option) {
         case 'fckeditor':
             if (is_readable(XOOPS_ROOT_PATH . '/class/fckeditor/formfckeditor.php')) {
-                require_once(XOOPS_ROOT_PATH . '/class/fckeditor/formfckeditor.php');
+                require_once XOOPS_ROOT_PATH . '/class/fckeditor/formfckeditor.php';
                 $editor = new XoopsFormFckeditor($caption, $name, $value);
             }
             break;
 
         case 'htmlarea':
                 if (is_readable(XOOPS_ROOT_PATH . '/class/htmlarea/formhtmlarea.php')) {
-                    require_once(XOOPS_ROOT_PATH . '/class/htmlarea/formhtmlarea.php');
+                    require_once XOOPS_ROOT_PATH . '/class/htmlarea/formhtmlarea.php';
                     $editor = new XoopsFormHtmlarea($caption, $name, $value);
                 }
             break;
@@ -691,7 +691,7 @@ function &lx_getWysiwygForm($caption, $name, $value = '', $width = '100%', $heig
 
         case 'koivi':
                 if (is_readable(XOOPS_ROOT_PATH . '/class/wysiwyg/formwysiwygtextarea.php')) {
-                    require_once(XOOPS_ROOT_PATH . '/class/wysiwyg/formwysiwygtextarea.php');
+                    require_once XOOPS_ROOT_PATH . '/class/wysiwyg/formwysiwygtextarea.php';
                     $editor = new XoopsFormWysiwygTextArea($caption, $name, $value, $width, $height, '');
                 }
             break;
@@ -957,7 +957,7 @@ function lx_TermExists($term, $table)
     $result = $xoopsDB->query($sql);
     list($count) = $xoopsDB->fetchRow($result);
 
-    return($count);
+    return $count;
 }
 
 // Static method to get author data block authors - from AMS
