@@ -1,10 +1,10 @@
 <div id="moduleheader">
 <div class="leftheader"><{$smarty.const._MD_LEXIKON_HOME}>&nbsp;<img
-                        src='assets/images/arrow.gif' style="vertical-align:middle;" alt="<{$lang_modulename}>" />&nbsp;<a
+                        src='assets/images/arrow.gif' style="vertical-align:middle;" alt="<{$lang_modulename}>" >&nbsp;<a
                         href="<{$xoops_url}>/modules/<{$lang_moduledirname}>/index.php"><{$lang_modulename}></a>&nbsp;<img
-                        src='assets/images/arrow.gif' style="vertical-align:middle;" alt="<{$lang_modulename}>" />&nbsp;<{$smarty.const._MD_LEXIKON_ASKFORDEF}></div>
+                        src='assets/images/arrow.gif' style="vertical-align:middle;" alt="<{$lang_modulename}>" >&nbsp;<{$smarty.const._MD_LEXIKON_ASKFORDEF}></div>
 <div class="rightheader"><{$lang_modulename}></div></div>
-<hr style="clear: both;" />
+<hr style="clear: both;" >
 
 <h2 class="cat"><{$smarty.const._MD_LEXIKON_ASKFORDEF}></h2>
 <div class="intro"><{$smarty.const._MD_LEXIKON_INTROREQUEST}></div>

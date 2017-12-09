@@ -16,7 +16,7 @@
  * @example   sample.php A sample code.
  * @link      http://setecastronomy.stufftoread.com
  */
-// defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
+// defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
 
 class lx_keyhighlighter
 {

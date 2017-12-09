@@ -5,7 +5,7 @@
  * Licence: GNU
  */
 
-defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
+defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
 
 /* This function spotlights a category, with a spotlight definition and links to others */
 /**
@@ -160,19 +160,19 @@ function b_lxspot_edit($options)
     }
     $form .= "</select><br></td></tr>\n";
 
-    $form .= '<tr><td>' . _MB_LEXIKON_TERMSTOSHOW . "</td><td><input type='text' name='options[]' value='" . $options[1] . "' />&nbsp; " . _MB_LEXIKON_TERMS . '.<br></td></tr>';
+    $form .= '<tr><td>' . _MB_LEXIKON_TERMSTOSHOW . "</td><td><input type='text' name='options[]' value='" . $options[1] . "' >&nbsp; " . _MB_LEXIKON_TERMS . '.<br></td></tr>';
 
     $form .= '<tr><td>' . _MB_LEXIKON_SHOWDATE . '</td><td>';
-    $form .= "<input type='radio' name='options[2]' value='1'" . ((1 == $options[2]) ? ' checked' : '') . ' />' . _YES . '&nbsp;';
-    $form .= "<input type='radio' name='options[2]' value='0'" . ((0 == $options[2]) ? ' checked' : '') . ' />' . _NO . '<br></td></tr>';
+    $form .= "<input type='radio' name='options[2]' value='1'" . ((1 == $options[2]) ? ' checked' : '') . ' >' . _YES . '&nbsp;';
+    $form .= "<input type='radio' name='options[2]' value='0'" . ((0 == $options[2]) ? ' checked' : '') . ' >' . _NO . '<br></td></tr>';
 
     $form .= '<tr><td>' . _MB_LEXIKON_SHOWBYLINE . '</td><td>';
-    $form .= "<input type='radio' name='options[3]' value='1'" . ((1 == $options[3]) ? ' checked' : '') . ' />' . _YES . '&nbsp;';
-    $form .= "<input type='radio' name='options[3]' value='0'" . ((0 == $options[3]) ? ' checked' : '') . ' />' . _NO . '<br></td></tr>';
+    $form .= "<input type='radio' name='options[3]' value='1'" . ((1 == $options[3]) ? ' checked' : '') . ' >' . _YES . '&nbsp;';
+    $form .= "<input type='radio' name='options[3]' value='0'" . ((0 == $options[3]) ? ' checked' : '') . ' >' . _NO . '<br></td></tr>';
 
     $form .= '<tr><td>' . _MB_LEXIKON_SHOWSTATS . '</td><td>';
-    $form .= "<input type='radio' name='options[4]' value='1'" . ((1 == $options[4]) ? ' checked' : '') . ' />' . _YES . '&nbsp;';
-    $form .= "<input type='radio' name='options[4]' value='0'" . ((0 == $options[4]) ? ' checked' : '') . ' />' . _NO . '<br></td></tr>';
+    $form .= "<input type='radio' name='options[4]' value='1'" . ((1 == $options[4]) ? ' checked' : '') . ' >' . _YES . '&nbsp;';
+    $form .= "<input type='radio' name='options[4]' value='0'" . ((0 == $options[4]) ? ' checked' : '') . ' >' . _NO . '<br></td></tr>';
 
     $form .= '<tr><td>' . _MB_LEXIKON_TEMPLATE . "</td><td><select name='options[]'>";
     $form .= "<option value='ver' " . (('ver' === $options[5]) ? ' selected' : '') . '>' . _MB_LEXIKON_VERTICAL . "</option>\n";
@@ -180,8 +180,8 @@ function b_lxspot_edit($options)
     $form .= '</select><br></td></tr>';
 
     $form .= '<tr><td>' . _MB_LEXIKON_SHOWPIC . '</td><td>';
-    $form .= "<input type='radio' name='options[6]' value='1'" . ((1 == $options[6]) ? ' checked' : '') . ' />' . _YES . '&nbsp;';
-    $form .= "<input type='radio' name='options[6]' value='0'" . ((0 == $options[6]) ? ' checked' : '') . ' />' . _NO . '<br></td></tr>';
+    $form .= "<input type='radio' name='options[6]' value='1'" . ((1 == $options[6]) ? ' checked' : '') . ' >' . _YES . '&nbsp;';
+    $form .= "<input type='radio' name='options[6]' value='0'" . ((0 == $options[6]) ? ' checked' : '') . ' >' . _NO . '<br></td></tr>';
 
     $form .= '<tr><td>' . _MB_LEXIKON_ORDER . "</td><td>&nbsp;<select name='options[7]'>";
     $form .= "<option value='datesub' " . (('datesub' === $options[7]) ? ' selected' : '') . '>' . _MB_LEXIKON_DATE . "</option>\n";
@@ -193,14 +193,14 @@ function b_lxspot_edit($options)
              . _MB_LEXIKON_CHARS
              . "</td><td>&nbsp;<input type='text' name='options[8]' value='"
              . $myts->htmlSpecialChars($options[8])
-             . "' />&nbsp;"
+             . "' >&nbsp;"
              . _MB_LEXIKON_LENGTH
              . '';
     $form .= "&nbsp;<tr><td style='vertical-align: top;'>"
              . _MB_LEXIKON_CHARSTERM
              . "</td><td>&nbsp;<input type='text' name='options[9]' value='"
              . $myts->htmlSpecialChars($options[9])
-             . "' />&nbsp;"
+             . "' >&nbsp;"
              . _MB_LEXIKON_LENGTH
              . '';
 

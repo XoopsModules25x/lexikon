@@ -1,7 +1,7 @@
 <table style='background-image: url(https://www.shmel.org/themes/shmel/img/bg3.jpg);'><tr><td>
 <div style='width: auto;height:100%; border: 1px solid #ccc; padding: 4px;'>
     <div style='background-color: #F5F5F5;font-family:verdana,arial, sans-serif; font-size:small; text-align: center;  padding-bottom: 8px; margin: 0 0 4px 0; border-bottom: 1px dotted #ccc; '>
-          <img width="220" src="<{$xoops_url}>/images/logo_mini.png" alt="SHMEL.ORG" /><br />
+          <img width="220" src="<{$xoops_url}>/images/logo_mini.png" alt="SHMEL.ORG" ><br >
         <A STYLE='color:#000;font-weight:bold;text-decoration:none;' TARGET='_blank' HREF=<{$xoops_url}>><{$lang_modulename}> - <{$smarty.const._MD_LEXIKON_TERMOFTHEDAY}></A>
     </div>
     <{if $multicats == 1}>

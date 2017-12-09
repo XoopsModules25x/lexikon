@@ -1,18 +1,18 @@
 <div id="moduleheader">
 <div class="leftheader"><{$smarty.const._MD_LEXIKON_HOME}>&nbsp;<img
-                        src='assets/images/arrow.gif' style="vertical-align:middle;" alt="<{$lang_modulename}>" />&nbsp;<a
+                        src='assets/images/arrow.gif' style="vertical-align:middle;" alt="<{$lang_modulename}>" >&nbsp;<a
                         href="<{$xoops_url}>/modules/<{$lang_moduledirname}>/"><{$lang_modulename}></a>&nbsp;<img
-                        src='assets/images/arrow.gif' style="vertical-align:middle;" alt="<{$lang_modulename}>" />&nbsp;<a
+                        src='assets/images/arrow.gif' style="vertical-align:middle;" alt="<{$lang_modulename}>" >&nbsp;<a
                         href="<{$xoops_url}>/modules/<{$lang_moduledirname}>/authorlist.php"><{$smarty.const._MD_LEXIKON_CONTRIBUTORS}></a></div>
 <div class="rightheader"><{$lang_modulename}></div>
-<hr style="clear: both;" />
-<br />
+<hr style="clear: both;" >
+<br >
 <div class="clearer">
 
     <h2 class="cat"><{$smarty.const._MD_LEXIKON_CONTRIBUTORS}></h2>
-    <br />
+    <br >
     <div class="small"><{$smarty.const._MD_LEXIKON_CONTRIBUTORSLIST}></div>
-    <br />
+    <br >
     <div class="clearer">
         <table class="outer" style="width:100%; border-spacing: 1px; padding: 2px;">
             <!--<tr>

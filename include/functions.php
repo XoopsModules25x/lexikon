@@ -229,9 +229,9 @@ function lx_uchr($initials)
 }
 /* sample */
 /*
-    echo lx_uchr(23383); echo '<br/>';
-    echo lx_uchr(23383,215,23383); echo '<br/>';
-    echo lx_uchr(array(23383,215,23383,215,23383)); echo '<br/>';
+    echo lx_uchr(23383); echo '<br>';
+    echo lx_uchr(23383,215,23383); echo '<br>';
+    echo lx_uchr(array(23383,215,23383,215,23383)); echo '<br>';
 */
 
 // Functional links
@@ -378,8 +378,8 @@ function lx_showSearchForm()
 
     $searchform .= '<tr><td style="text-align: right; line-height: 200%;">';
     $searchform .= _MD_LEXIKON_TERM . '</td><td>&nbsp;</td><td style="text-align: left;">';
-    $searchform .= '<input type="text" name="term" class="searchBox" /></td></tr><tr>';
-    $searchform .= '<td>&nbsp;</td><td>&nbsp;</td><td><input type="submit" class="btnDefault" value="' . _MD_LEXIKON_SEARCH . '" />';
+    $searchform .= '<input type="text" name="term" class="searchBox" ></td></tr><tr>';
+    $searchform .= '<td>&nbsp;</td><td>&nbsp;</td><td><input type="submit" class="btnDefault" value="' . _MD_LEXIKON_SEARCH . '" >';
     $searchform .= '</td></tr></form></table>';
 
     return $searchform;
@@ -440,7 +440,7 @@ function lx_extract_keywords($content)
         $_SESSION['xoops_keywords_limit']=$limit;
     }
     $myts = MyTextSanitizer::getInstance();
-    $content = str_replace('<br />', ' ', $content);
+    $content = str_replace('<br >', ' ', $content);
     $content= $myts->undoHtmlSpecialChars($content);
     $content= strip_tags($content);
     $content=strtolower($content);
@@ -792,23 +792,23 @@ function lx_module_header()
     } else {
         $lexikon_url = XOOPS_URL.'/modules/'.$xoopsModule->getVar('dirname');
         if (3 == $xoopsModuleConfig['linkterms']) {
-            $lexikon_module_header = '<link rel="stylesheet" type="text/css" href="style.css" />
-			<link rel="stylesheet" type="text/css" href="assets/css/linkterms.css" />
+            $lexikon_module_header = '<link rel="stylesheet" type="text/css" href="style.css" >
+			<link rel="stylesheet" type="text/css" href="assets/css/linkterms.css" >
 			<script src="'.$lexikon_url.'/assets/js/tooltipscript2.js" type="text/javascript"></script>';
         }
         if (4 == $xoopsModuleConfig['linkterms']) {
-            $lexikon_module_header = '<link rel="stylesheet" type="text/css" href="style.css" />
-			<link rel="stylesheet" type="text/css" href="assets/css/linkterms.css" />
+            $lexikon_module_header = '<link rel="stylesheet" type="text/css" href="style.css" >
+			<link rel="stylesheet" type="text/css" href="assets/css/linkterms.css" >
 			<script src="'.$lexikon_url.'/assets/js/popup.js" type="text/javascript"></script>';
         }
         if (5 == $xoopsModuleConfig['linkterms']) {
-            $lexikon_module_header = '<link rel="stylesheet" type="text/css" href="style.css" />
-			<link rel="stylesheet" type="text/css" href="assets/css/linkterms.css" />
+            $lexikon_module_header = '<link rel="stylesheet" type="text/css" href="style.css" >
+			<link rel="stylesheet" type="text/css" href="assets/css/linkterms.css" >
 			<script src="'.$lexikon_url.'/assets/js/balloontooltip.js" type="text/javascript"></script>';
         }
         if (6 == $xoopsModuleConfig['linkterms']) {
-            $lexikon_module_header = '<link rel="stylesheet" type="text/css" href="style.css" />
-			<link rel="stylesheet" type="text/css" href="assets/css/linkterms.css" />
+            $lexikon_module_header = '<link rel="stylesheet" type="text/css" href="style.css" >
+			<link rel="stylesheet" type="text/css" href="assets/css/linkterms.css" >
 			<script src="'.$lexikon_url.'/assets/js/shadowtooltip.js" type="text/javascript"></script>';
         }
     }

@@ -3,7 +3,7 @@
                 &rarr;&nbsp;<a href="<{$xoops_url}>/modules/<{$lang_moduledirname}>/index.php"><{$lang_modulename}></a>&nbsp;
                 &rarr;&nbsp;<{$intro}></div>
 <div class="rightheader"><nobr><{$lang_modulename}></nobr></div>
-<hr style="clear: both;" />
+<hr style="clear: both;" >
 
 <div style="width: 100%; text-align: center;">
     <h2 class="cat"><{$xoops_pagetitle}></h2>

@@ -8,16 +8,16 @@
 if (!isset($moduleDirName)) {
     $moduleDirName = basename(dirname(__DIR__));
 }
-if (false !== ($moduleHelper = Xmf\Module\Helper::getHelper($moduleDirName))) {
+if (false !== ($helper = Xmf\Module\Helper::getHelper($moduleDirName))) {
 } else {
-    $moduleHelper = Xmf\Module\Helper::getHelper('system');
+    $helper = Xmf\Module\Helper::getHelper('system');
 }
 $adminObject = \Xmf\Module\Admin::getInstance();
 $pathIcon32    = \Xmf\Module\Admin::menuIconPath('');
 // Load language files
-$moduleHelper->loadLanguage('admin');
-$moduleHelper->loadLanguage('modinfo');
-$moduleHelper->loadLanguage('main');
+$helper->loadLanguage('admin');
+$helper->loadLanguage('modinfo');
+$helper->loadLanguage('main');
 //Menu
 $adminmenu[] = [
      'title' => _AM_MODULEADMIN_HOME,

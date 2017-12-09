@@ -212,6 +212,6 @@ if (1 == $xoopsModuleConfig['syndication']) {
 if ($xoopsUser) {
     $xoopsTpl->assign('syndication', true);
 }
-$xoopsTpl->assign('xoops_module_header', '<link rel="stylesheet" type="text/css" href="assets/css/style.css" />');
+$xoopsTpl->assign('xoops_module_header', '<link rel="stylesheet" type="text/css" href="assets/css/style.css" >');
 
 include XOOPS_ROOT_PATH . '/footer.php';

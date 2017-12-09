@@ -33,7 +33,7 @@
                                target="_parent">
                                 <img src="<{$xoops_url}>/uploads/<{$lang_moduledirname}>/categories/images/<{$catlinks.image}>"
                                      style="width:<{$logo_maximgwidth}> vertical-align:middle;"
-                                     alt="[&nbsp;<{$catlinks.total}>&nbsp;]"/></a>
+                                     alt="[&nbsp;<{$catlinks.total}>&nbsp;]"></a>
                         <{/if}>
                         <{if $catlinks.total > 0}>&nbsp;<a href="<{$xoops_url}>/modules/<{$lang_moduledirname}>/category.php?categoryID=<{$catlinks.id}>" title="[&nbsp;<{$catlinks.total}>&nbsp;]"><{/if}><{$catlinks.linktext}>
                         <{if $catlinks.total > 0}></a>&nbsp;<{/if}>[&nbsp;<{$catlinks.total}>&nbsp;]

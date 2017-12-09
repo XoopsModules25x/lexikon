@@ -26,7 +26,7 @@ $xoopsTpl->assign('lang_modulename', $xoopsModule->name());
 $xoopsTpl->assign('lang_moduledirname', $xoopsModule->getVar('dirname'));
 
 $xoopsTpl->assign('xoops_pagetitle', _MD_LEXIKON_SYNDICATION . ' - ' . $myts->htmlSpecialChars($xoopsModule->name()));
-$xoopsTpl->assign('xoops_module_header', '<link rel="stylesheet" type="text/css" href="assets/css/style.css" />');
+$xoopsTpl->assign('xoops_module_header', '<link rel="stylesheet" type="text/css" href="assets/css/style.css" >');
 
 // Meta data
 $meta_description = _MD_LEXIKON_SYNDICATION . ' - ' . $myts->htmlSpecialChars($xoopsModule->name());

@@ -123,7 +123,7 @@ while (list($entryID, $categoryID, $term, $init, $definition, $ref, $url, $uid, 
         LexikonUtility::getModuleHeader();
         $xoopsTpl->assign('xoops_module_header', $lexikon_module_header);
     } else {
-        $xoopsTpl->assign('xoops_module_header', '<link rel="stylesheet" type="text/css" href="assets/css/style.css" />');
+        $xoopsTpl->assign('xoops_module_header', '<link rel="stylesheet" type="text/css" href="assets/css/style.css" >');
     }
 
     if (1 != $xoopsModuleConfig['linkterms']) {

@@ -1,14 +1,14 @@
 <?php
 /** entries_scrolling.php v.1
  * XOOPS - PHP Content Management System
- * Copyright (c) 2017 <https://xoops.org/>
+ * Copyright (c) 2017 <https://xoops.org>
  *
  * Module: lexikon 1.5 beta
  * Author : Yerres
  * Licence : GPL
  *
  */
-defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
+defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
 
 /**
  * @param $options
@@ -93,9 +93,9 @@ function b_scrolling_term_edit($options)
     $myts = MyTextSanitizer:: getInstance();
     $form = "<table style='width:100%' class='bg2'>";
     $form .= "<tr><th style='width:50%'>" . _OPTIONS . "</th><th style='width:50%'>" . _MB_LEXIKON_SETTINGS . '</th></tr>';
-    $form .= "<tr><td class='even'>" . _MB_LEXIKON_BLIMIT . "</td><td class='odd'><input type='text' name='options[0]' size='16' maxlength=3 value='" . $options[0] . "' /></td></tr>";
-    $form .= "<tr><td class='even'>" . _MB_LEXIKON_BSPEED . "</td><td class='odd'><input type='text' name='options[1]' size='16' maxlength=2 value='" . $options[1] . "' /></td></tr>";
-    $form .= "<tr><td class='even'>" . _MB_LEXIKON_BACKGROUNDCOLOR . "</td><td class='odd'><input type='text' name='options[2]' size='16'  value='" . $options[2] . "' /></td></tr>";
+    $form .= "<tr><td class='even'>" . _MB_LEXIKON_BLIMIT . "</td><td class='odd'><input type='text' name='options[0]' size='16' maxlength=3 value='" . $options[0] . "' ></td></tr>";
+    $form .= "<tr><td class='even'>" . _MB_LEXIKON_BSPEED . "</td><td class='odd'><input type='text' name='options[1]' size='16' maxlength=2 value='" . $options[1] . "' ></td></tr>";
+    $form .= "<tr><td class='even'>" . _MB_LEXIKON_BACKGROUNDCOLOR . "</td><td class='odd'><input type='text' name='options[2]' size='16'  value='" . $options[2] . "' ></td></tr>";
     //---
     $form .= "<tr><td class='even'>" . _MB_LEXIKON_DIRECTION . "</td><td class='odd'><select name='options[3]'>";
     $form .= "<option value='up' " . (('up' === $options[3]) ? ' selected' : '') . '>' . _MB_LEXIKON_UP . "</option>\n";
@@ -103,14 +103,14 @@ function b_scrolling_term_edit($options)
     $form .= '</select></td></tr>';
     //---
     $form .= "<tr><td class='even'>" . _MB_LEXIKON_ALTERNATE . "</td><td class='odd'>";
-    $form .= "<input type='radio' name='options[4]' value='1'" . ((1 == $options[4]) ? ' checked' : '') . ' />' . _YES . '&nbsp;';
-    $form .= "<input type='radio' name='options[4]' value='0'" . ((0 == $options[4]) ? ' checked' : '') . ' />' . _NO . '<br></td></tr>';
+    $form .= "<input type='radio' name='options[4]' value='1'" . ((1 == $options[4]) ? ' checked' : '') . ' >' . _YES . '&nbsp;';
+    $form .= "<input type='radio' name='options[4]' value='0'" . ((0 == $options[4]) ? ' checked' : '') . ' >' . _NO . '<br></td></tr>';
     //---
-    $form .= "<tr><td class='even'>" . _MB_LEXIKON_CHARS . " </td><td class='odd'><input type='text' name='options[5]' value='" . $options[5] . "' /></td></tr>";
+    $form .= "<tr><td class='even'>" . _MB_LEXIKON_CHARS . " </td><td class='odd'><input type='text' name='options[5]' value='" . $options[5] . "' ></td></tr>";
     //---
     $form .= "<tr><td class='even'>" . _MB_LEXIKON_TERMSTOSHOW . ' ' . _MB_LEXIKON_SHOWDATE . "</td><td class='odd'>";
-    $form .= "<input type='radio' name='options[6]' value='1'" . ((1 == $options[6]) ? ' checked' : '') . ' />' . _YES . '&nbsp;';
-    $form .= "<input type='radio' name='options[6]' value='0'" . ((0 == $options[6]) ? ' checked' : '') . ' />' . _NO . '<br></td></tr>';
+    $form .= "<input type='radio' name='options[6]' value='1'" . ((1 == $options[6]) ? ' checked' : '') . ' >' . _YES . '&nbsp;';
+    $form .= "<input type='radio' name='options[6]' value='0'" . ((0 == $options[6]) ? ' checked' : '') . ' >' . _NO . '<br></td></tr>';
     //---
     $form .= "<tr><td class='even'>" . _MB_LEXIKON_DISP . "</td><td class='odd'><select name='options[7]'>";
     $form .= "<option value='0' " . (('0' == $options[7]) ? ' selected' : '') . '>' . _MB_LEXIKON_MARQUEE . "</option>\n";

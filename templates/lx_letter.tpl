@@ -1,8 +1,8 @@
 <{* New Header block *}>
 <div id="moduleheader">
-<div class="leftheader"><{$smarty.const._MD_LEXIKON_HOME}>&nbsp;<img src='assets/images/arrow.gif' style="vertical-align:middle;" alt="<{$lang_modulename}>" />&nbsp;<a
+<div class="leftheader"><{$smarty.const._MD_LEXIKON_HOME}>&nbsp;<img src='assets/images/arrow.gif' style="vertical-align:middle;" alt="<{$lang_modulename}>" >&nbsp;<a
                         href="<{$xoops_url}>/modules/<{$lang_moduledirname}>/"><{$lang_modulename}></a>&nbsp;<img
-                        src='assets/images/arrow.gif' style="vertical-align:middle;" alt="<{$lang_modulename}>" />&nbsp;
+                        src='assets/images/arrow.gif' style="vertical-align:middle;" alt="<{$lang_modulename}>" >&nbsp;
                 <{if $pagetype == '0'}>
                     <a href="<{$xoops_url}>/modules/<{$lang_moduledirname}>/letter.php"><{$pageinitial}></a>&nbsp;
                     <{elseif $pagetype == '1'}>
@@ -10,7 +10,7 @@
                 <{/if}>
    </div>
 <div class="rightheader"><{$lang_modulename}></div>
-<hr style="clear: both;" />
+<hr style="clear: both;" >
 
 <{* Alphabet block *}>
 <div class="clearer">
@@ -56,7 +56,7 @@
                                    target="_parent"><img
                                             src="<{$xoops_url}>/uploads/<{$lang_moduledirname}>/categories/images/<{$catlinks.image}>"
                                             style="width:<{$logo_maximgwidth}>; text-align: left;" class="floatLeft"
-                                            alt="[&nbsp;<{$catlinks.name}>&nbsp;]&nbsp;[&nbsp;<{$catlinks.total}>&nbsp;]"/></a>
+                                            alt="[&nbsp;<{$catlinks.name}>&nbsp;]&nbsp;[&nbsp;<{$catlinks.total}>&nbsp;]"></a>
                             <{/if}>
                             <{if $catlinks.count > 0}>
                                 <{if $catlinks.total > 0}><a href="<{$xoops_url}>/modules/<{$lang_moduledirname}>/category.php?categoryID=<{$catlinks.id}>" title="[&nbsp;<{$catlinks.total}>&nbsp;]"><{/if}><{$catlinks.linktext}>
@@ -86,7 +86,7 @@
                                target="_parent">
                                 <img src="<{$xoops_url}>/uploads/<{$lang_moduledirname}>/categories/images/<{$catlinks.image}>"
                                      style="width:<{$logo_maximgwidth}> vertical-align:middle;"
-                                     alt="[&nbsp;<{$catlinks.total}>&nbsp;]"/></a>
+                                     alt="[&nbsp;<{$catlinks.total}>&nbsp;]"></a>
                         <{/if}>
                         <{if $catlinks.total > 0}>&nbsp;<a href="<{$xoops_url}>/modules/<{$lang_moduledirname}>/category.php?categoryID=<{$catlinks.id}>" title="[&nbsp;<{$catlinks.total}>&nbsp;]"><{/if}><{$catlinks.linktext}>
                         <{if $catlinks.total > 0}></a>&nbsp;<{/if}>[&nbsp;<{$catlinks.total}>&nbsp;]

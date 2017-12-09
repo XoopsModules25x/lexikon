@@ -69,8 +69,8 @@ if ($go) {
     The script will adapt the database-structure to the new module-functions.<br>
     Excute only once. Dont forget to update the Module-templates. <br><br>
     <form method='post' action='upgrade.php' name='frmAct'>
-    <input type='hidden' name='go' value='1' />
-    <input type='submit' name='sbt' value='Start' class='formButton' />
+    <input type='hidden' name='go' value='1' >
+    <input type='submit' name='sbt' value='Start' class='formButton' >
     </form></td></tr></table>";
     xoops_cp_footer();
 }

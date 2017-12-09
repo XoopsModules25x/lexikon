@@ -1,14 +1,14 @@
 <{* New Header block *}>
 <div id="moduleheader">
 <div class="leftheader"><{$smarty.const._MD_LEXIKON_HOME}>&nbsp;
- <img src='assets/images/arrow.gif' style="vertical-align:middle;" alt="<{$lang_modulename}>" />&nbsp;
+ <img src='assets/images/arrow.gif' style="vertical-align:middle;" alt="<{$lang_modulename}>" >&nbsp;
   <a href="<{$xoops_url}>/modules/<{$lang_moduledirname}>/"><{$lang_modulename}></a>&nbsp;<img
-                        src='assets/images/arrow.gif' style="vertical-align:middle;" alt="<{$lang_modulename}>" />&nbsp;
+                        src='assets/images/arrow.gif' style="vertical-align:middle;" alt="<{$lang_modulename}>" >&nbsp;
                 <{if $pagetype == '0'}><a
                     href="<{$xoops_url}>/modules/<{$lang_moduledirname}>/category.php"><{$smarty.const._MD_LEXIKON_ALLCATS}></a>
                 <{elseif $pagetype == '1'}><{$singlecat.name}><{/if}></div>
 <div class="rightheader"><{$lang_modulename}></div>
-<hr style="clear: both;" />
+<hr style="clear: both;" >
 
 <{* Alphabet block *}>
 <div class="clearer">
@@ -51,7 +51,7 @@
                                    target="_parent"><img
                                             src="<{$xoops_url}>/uploads/<{$lang_moduledirname}>/categories/images/<{$catlinks.image}>"
                                             style="width:<{$logo_maximgwidth}>; text-align: left;" class="floatLeft"
-                                            alt="[&nbsp;<{$catlinks.name}>&nbsp;]&nbsp;[&nbsp;<{$catlinks.total}>&nbsp;]"/></a>
+                                            alt="[&nbsp;<{$catlinks.name}>&nbsp;]&nbsp;[&nbsp;<{$catlinks.total}>&nbsp;]"></a>
                             <{/if}>
                             <{if $catlinks.count > 0}>
                                 <{if $catlinks.total > 0}><a href="<{$xoops_url}>/modules/<{$lang_moduledirname}>/category.php?categoryID=<{$catlinks.id}>" title="[&nbsp;<{$catlinks.total}>&nbsp;]"><{/if}><{$catlinks.linktext}>
@@ -81,7 +81,7 @@
                                target="_parent">
                                 <img src="<{$xoops_url}>/uploads/<{$lang_moduledirname}>/categories/images/<{$catlinks.image}>"
                                      style="width:<{$logo_maximgwidth}> vertical-align:middle;"
-                                     alt="[&nbsp;<{$catlinks.total}>&nbsp;]"/></a>
+                                     alt="[&nbsp;<{$catlinks.total}>&nbsp;]"></a>
                         <{/if}>
                         <{if $catlinks.total > 0}>&nbsp;<a href="<{$xoops_url}>/modules/<{$lang_moduledirname}>/category.php?categoryID=<{$catlinks.id}>" title="[&nbsp;<{$catlinks.total}>&nbsp;]"><{/if}><{$catlinks.linktext}>
                         <{if $catlinks.total > 0}></a>&nbsp;<{/if}>[&nbsp;<{$catlinks.total}>&nbsp;]
@@ -100,7 +100,7 @@
     <{foreach item=eachcat from=$catsarray.single}>
         <h3 class="cat"><{if $eachcat.image != "" && $show_screenshot == '1'}>
                 <a href="<{$xoops_url}>/modules/<{$lang_moduledirname}>/category.php?categoryID=<{$eachcat.id}>" target="_parent">
-                    <img src="<{$xoops_url}>/uploads/lexikon/categories/images/<{$eachcat.image}>" style="width:<{$imgcatwd}>; vertical-align:bottom; margin: 2px 2px;" alt="[<{$eachcat.name}>]" /></a>
+                    <img src="<{$xoops_url}>/uploads/lexikon/categories/images/<{$eachcat.image}>" style="width:<{$imgcatwd}>; vertical-align:bottom; margin: 2px 2px;" alt="[<{$eachcat.name}>]" ></a>
             <{/if}>
                 <a href="<{$xoops_url}>/modules/<{$eachcat.dir}>/category.php?categoryID=<{$eachcat.id}>"><{$eachcat.name}></a>
         </h3>
@@ -116,14 +116,14 @@
 
     <{* syndication *}>
     <{if $syndication == true}>
-        <div class="rss_bottom"><a href="rss.php" title="recent entries"><img src="assets/images/rss.gif" alt="RSS" /></a>
+        <div class="rss_bottom"><a href="rss.php" title="recent entries"><img src="assets/images/rss.gif" alt="RSS" ></a>
         </div>
     <{/if}>
     <{elseif $pagetype == '1'}>
         <h2 class="cat"><{$singlecat.name}></h2>
         <div class="introcen">
             <{if $singlecat.image != "" && $show_screenshot == '1'}>
-        <img src="<{$xoops_url}>/uploads/lexikon/categories/images/<{$singlecat.image}>" style="width:<{$imgcatwd}>; text-align:center; margin: 2px 2px;" alt="[<{$singlecat.name}>]"/>
+        <img src="<{$xoops_url}>/uploads/lexikon/categories/images/<{$singlecat.image}>" style="width:<{$imgcatwd}>; text-align:center; margin: 2px 2px;" alt="[<{$singlecat.name}>]">
             <{/if}>
             <{$singlecat.description}></div>
         <div class="letters"><{$smarty.const._MD_LEXIKON_WEHAVE}>&nbsp;<{$singlecat.total}>&nbsp;<{$smarty.const._MD_LEXIKON_ENTRIESINCAT}>
@@ -139,7 +139,7 @@
         <div class="search_abc_r"><{$entriesarray.navbar}></div>
         <{* syndication *}>
         <{if $syndication == true}>
-            <div class="rss_bottom"><a href="rss.php?categoryID=<{$singlecat.id}>" title="Recent terms in this category"><img src="assets/images/rss.gif" alt="RSS" /></a>
+            <div class="rss_bottom"><a href="rss.php?categoryID=<{$singlecat.id}>" title="Recent terms in this category"><img src="assets/images/rss.gif" alt="RSS" ></a>
             </div>
         <{/if}>
         <{/if}>

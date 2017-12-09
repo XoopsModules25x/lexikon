@@ -1,13 +1,13 @@
 <div id="moduleheader">
 <div class="leftheader"><{$smarty.const._MD_LEXIKON_HOME}>&nbsp;<img
-                        src='assets/images/arrow.gif' style="vertical-align:middle;" alt="<{$lang_modulename}>" />&nbsp;<a
+                        src='assets/images/arrow.gif' style="vertical-align:middle;" alt="<{$lang_modulename}>" >&nbsp;<a
                         href="<{$xoops_url}>/modules/<{$lang_moduledirname}>/index.php"><{$lang_modulename}></a>&nbsp;<img
-                        src='assets/images/arrow.gif' style="vertical-align:middle;" alt="<{$lang_modulename}>" />&nbsp;<{$smarty.const._MD_LEXIKON_AUTHORPROFILE}>&nbsp;<{$author_name}></div>
+                        src='assets/images/arrow.gif' style="vertical-align:middle;" alt="<{$lang_modulename}>" >&nbsp;<{$smarty.const._MD_LEXIKON_AUTHORPROFILE}>&nbsp;<{$author_name}></div>
 <div class="rightheader"><{$lang_modulename}></div>
-<hr style="clear: both;" />
-<br />
+<hr style="clear: both;" >
+<br >
 <div class="clearer">
-    <h2 class="cat"><img src="<{$user_avatarurl}>" alt="<{$author_name_with_link}>" /><br /><{$lang_authorprofile}>&nbsp;<{$author_name_with_link}>
+    <h2 class="cat"><img src="<{$user_avatarurl}>" alt="<{$author_name_with_link}>" ><br ><{$lang_authorprofile}>&nbsp;<{$author_name_with_link}>
     </h2>
 </div>
 <{*
@@ -19,10 +19,10 @@
 <div class="category">
     <div class="catname">
         <{if $nothing==false}>
-            <img src='<{$xoops_url}>/modules/<{$lang_moduledirname}>/assets/images/square-green.gif' style="vertical-align:middle;" alt="square-green" />
+            <img src='<{$xoops_url}>/modules/<{$lang_moduledirname}>/assets/images/square-green.gif' style="vertical-align:middle;" alt="square-green" >
             <{$submitted}>
             <br>
-            <img src='<{$xoops_url}>/modules/<{$lang_moduledirname}>/assets/images/square-red.gif' style="vertical-align:middle;" alt="square-red" />
+            <img src='<{$xoops_url}>/modules/<{$lang_moduledirname}>/assets/images/square-red.gif' style="vertical-align:middle;" alt="square-red" >
             <{$waiting}>
         <{/if}>  
     </div>

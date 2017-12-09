@@ -66,20 +66,20 @@ function printPage($entryID)
           . "</title>\n";
     echo "<meta http-equiv='Content-Type' content='text/html; charset="
           . _CHARSET
-          . "' />\n";
-    echo "<meta name='keywords' content= $term  />\n";
+          . "' >\n";
+    echo "<meta name='keywords' content= $term  >\n";
     echo "<meta name='AUTHOR' content='"
           . $xoopsConfig['sitename']
-          . "' />\n";
+          . "' >\n";
     echo "<meta name='COPYRIGHT' content='Copyright (c) 2004 by "
           . $xoopsConfig['sitename']
-          . "' />\n";
+          . "' >\n";
     echo "<meta name='DESCRIPTION' content='"
           . $xoopsConfig['slogan']
-          . "' />\n";
+          . "' >\n";
     echo "<meta name='GENERATOR' content='"
           . XOOPS_VERSION
-          . "' />\n\n\n";
+          . "' >\n\n\n";
 
     echo "<body bgcolor='#ffffff' text='#000000'>
     <div style='width: 650px; border: 1px solid #000; padding: 20px;'>
@@ -87,7 +87,7 @@ function printPage($entryID)
          . XOOPS_URL
          . '/modules/'
          . $xoopsModule->dirname()
-         . "/assets/images/lx_slogo.png' border='0' alt='' /><h2 style='margin: 0;'>"
+         . "/assets/images/lx_slogo.png' border='0' alt='' ><h2 style='margin: 0;'>"
          . $term
          . '</h2></div>
     <div></div>';

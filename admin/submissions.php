@@ -297,7 +297,7 @@ switch ($op) {
         lx_collapsableBar('lexikonoff', 'lexikonofficon');
         echo "  <img  onclick=\"toggle('toptable'); toggleIcon('toptableicon');\" id='lexikonofficon' name='lexikonofficon' src='"
              . XOOPS_URL
-             . "/modules/lexikon/assets/images/close12.gif' alt='' /></a>&nbsp;<strong>"
+             . "/modules/lexikon/assets/images/close12.gif' alt='' ></a>&nbsp;<strong>"
              . _AM_LEXIKON_SHOWOFFLINE
              . ' ('
              . $totaloffline

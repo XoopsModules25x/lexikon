@@ -86,7 +86,7 @@ $xoopsTpl->assign('user_avatarurl', XOOPS_URL . '/uploads/' . $thisuser->getVar(
 $xoopsTpl->assign('lang_authorprofile', _MD_LEXIKON_AUTHORPROFILE);
 $xoopsTpl->assign('author_name_with_link', sprintf("<a href='%s'>%s</a>", XOOPS_URL . '/userinfo.php?uid=' . $uid, $authname));
 
-$xoopsTpl->assign('xoops_module_header', '<link rel="stylesheet" type="text/css" href="assets/css/style.css" />');
+$xoopsTpl->assign('xoops_module_header', '<link rel="stylesheet" type="text/css" href="assets/css/style.css" >');
 $xoopsTpl->assign('xoops_pagetitle', _MD_LEXIKON_AUTHORPROFILE . ' - ' . $authname . ' - ' . $myts->htmlSpecialChars($xoopsModule->name()));
 
 // Meta data

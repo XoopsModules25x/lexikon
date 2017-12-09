@@ -5,7 +5,7 @@
  * Licence: GNU
  */
 
-defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
+defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
 
 /**
  * @return array
@@ -77,7 +77,7 @@ function b_lxentries_random_show()
                               . $lexikon->dirname()
                               . '/assets/images/edit.gif" alt="'
                               . _MB_LEXIKON_EDITTERM
-                              . '" width="16" height="16" /></a>&nbsp;<a href="'
+                              . '" width="16" height="16" ></a>&nbsp;<a href="'
                               . XOOPS_URL
                               . '/modules/'
                               . $lexikon->dirname()
@@ -89,7 +89,7 @@ function b_lxentries_random_show()
                               . $lexikon->dirname()
                               . '/assets/images/delete.gif" alt="'
                               . _MB_LEXIKON_DELTERM
-                              . '" width="16" height="16" /></a>&nbsp;';
+                              . '" width="16" height="16" ></a>&nbsp;';
             }
         }
         $userlinks = '<a href="'
@@ -104,7 +104,7 @@ function b_lxentries_random_show()
                      . $lexikon->dirname()
                      . '/assets/images/print.gif" alt="'
                      . _MB_LEXIKON_PRINTTERM
-                     . '" width="16" height="16" /></a>&nbsp;<a href="mailto:?subject='
+                     . '" width="16" height="16" ></a>&nbsp;<a href="mailto:?subject='
                      . sprintf(_MB_LEXIKON_INTENTRY, $xoopsConfig['sitename'])
                      . '&amp;body='
                      . sprintf(_MB_LEXIKON_INTENTRYFOUND, $xoopsConfig['sitename'])
@@ -120,7 +120,7 @@ function b_lxentries_random_show()
                      . $lexikon->dirname()
                      . '/assets/images/friend.gif" alt="'
                      . _MB_LEXIKON_SENDTOFRIEND
-                     . '" width="16" height="16" /></a>&nbsp;';
+                     . '" width="16" height="16" ></a>&nbsp;';
 
         if (1 == $lxConfig['multicats']) {
             $block['content'] = '<div style="font-size: 12px; font-weight: bold; background-color: #ccc; padding: 4px; margin: 0;"><a href="'

@@ -7,11 +7,11 @@
     </div>
 <{/if}>
 <div id="moduleheader">
-<div class="leftheader"><{$smarty.const._MD_LEXIKON_HOME}>&nbsp;<img src='assets/images/arrow.gif' style="vertical-align:middle;" alt="<{$lang_modulename}>" />&nbsp;
-<a href="<{$xoops_url}>/modules/<{$lang_moduledirname}>/"><{$lang_modulename}></a>&nbsp;<img src='assets/images/arrow.gif' style="vertical-align:middle;" alt="<{$thisterm.init}>" />&nbsp;
-<a href="<{$xoops_url}>/modules/<{$lang_moduledirname}>/letter.php?init=<{$thisterm.init}>"><{$thisterm.init}></a>&nbsp;<img src='assets/images/arrow.gif' style="vertical-align:middle;" alt="<{$thisterm.term}>" />&nbsp;<{$thisterm.term}></div>
+<div class="leftheader"><{$smarty.const._MD_LEXIKON_HOME}>&nbsp;<img src='assets/images/arrow.gif' style="vertical-align:middle;" alt="<{$lang_modulename}>" >&nbsp;
+<a href="<{$xoops_url}>/modules/<{$lang_moduledirname}>/"><{$lang_modulename}></a>&nbsp;<img src='assets/images/arrow.gif' style="vertical-align:middle;" alt="<{$thisterm.init}>" >&nbsp;
+<a href="<{$xoops_url}>/modules/<{$lang_moduledirname}>/letter.php?init=<{$thisterm.init}>"><{$thisterm.init}></a>&nbsp;<img src='assets/images/arrow.gif' style="vertical-align:middle;" alt="<{$thisterm.term}>" >&nbsp;<{$thisterm.term}></div>
 <div class="rightheader"><{$lang_modulename}></div>
-<hr style="clear: both;" />
+<hr style="clear: both;" >
 
 <{* Alphabet block *}>
 <div class="clearer">
@@ -54,7 +54,7 @@
                                    target="_parent"><img
                                             src="<{$xoops_url}>/uploads/<{$lang_moduledirname}>/categories/images/<{$catlinks.image}>"
                                             style="width:<{$logo_maximgwidth}>; text-align: left;" class="floatLeft"
-                                            alt="[&nbsp;<{$catlinks.name}>&nbsp;]&nbsp;[&nbsp;<{$catlinks.total}>&nbsp;]"/></a>
+                                            alt="[&nbsp;<{$catlinks.name}>&nbsp;]&nbsp;[&nbsp;<{$catlinks.total}>&nbsp;]"></a>
                             <{/if}>
                             <{if $catlinks.count > 0}>
                                 <{if $catlinks.total > 0}><a href="<{$xoops_url}>/modules/<{$lang_moduledirname}>/category.php?categoryID=<{$catlinks.id}>" title="[&nbsp;<{$catlinks.total}>&nbsp;]"><{/if}><{$catlinks.linktext}>
@@ -84,7 +84,7 @@
                                target="_parent">
                                 <img src="<{$xoops_url}>/uploads/<{$lang_moduledirname}>/categories/images/<{$catlinks.image}>"
                                      style="width:<{$logo_maximgwidth}> vertical-align:middle;"
-                                     alt="[&nbsp;<{$catlinks.total}>&nbsp;]"/></a>
+                                     alt="[&nbsp;<{$catlinks.total}>&nbsp;]"></a>
                         <{/if}>
                         <{if $catlinks.total > 0}>&nbsp;<a href="<{$xoops_url}>/modules/<{$lang_moduledirname}>/category.php?categoryID=<{$catlinks.id}>" title="[&nbsp;<{$catlinks.total}>&nbsp;]"><{/if}><{$catlinks.linktext}>
                         <{if $catlinks.total > 0}></a>&nbsp;<{/if}>[&nbsp;<{$catlinks.total}>&nbsp;]
@@ -116,7 +116,7 @@
     <{/if}>
 
     <div class="clearer">
-        <div style="margin:0 1.0em 0 0; text-align:right;"><br /><span class="standard"><span style="color: #4e505c; ">
+        <div style="margin:0 1.0em 0 0; text-align:right;"><br ><span class="standard"><span style="color: #4e505c; ">
 <{$smarty.const._MD_LEXIKON_SUBMITTED}>
                     <{if $showsubmitter }><{$submitter}><{/if}> <{$submittedon}><br>
                     <{$counter}> </span></span></p></div>
@@ -127,7 +127,7 @@
         &nbsp; <!-- AddThis Bookmark Button -->
         <a href="http://www.addthis.com/bookmark.php"
            onclick="addthis_url = location.href; addthis_title = document.title; return addthis_click(this);"
-           target="_blank"><img src="assets/images/addthis_button1-bm.gif" style="vertical-align: middle; width:125px; height:16px;" alt="AddThis Social Bookmark Button"/></a>
+           target="_blank"><img src="assets/images/addthis_button1-bm.gif" style="vertical-align: middle; width:125px; height:16px;" alt="AddThis Social Bookmark Button"></a>
         <script type="text/javascript">var addthis_pub = 'JJXUY2C9CQIWTKI1';</script>
         <script type="text/javascript" src="http://s9.addthis.com/js/widget.php?v=10"></script>
                                                             <{elseif $bookmarkme == 4}>

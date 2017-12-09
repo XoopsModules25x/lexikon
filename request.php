@@ -33,7 +33,7 @@ if (empty($_POST['submit'])) {
     $xoopsTpl->assign('lang_moduledirname', $xoopsModule->getVar('dirname'));
 
     $xoopsTpl->assign('xoops_pagetitle', $myts->htmlSpecialChars($xoopsModule->name()) . ' - ' . _MD_LEXIKON_ASKFORDEF);
-    $xoopsTpl->assign('xoops_module_header', '<link rel="stylesheet" type="text/css" href="assets/css/style.css" />');
+    $xoopsTpl->assign('xoops_module_header', '<link rel="stylesheet" type="text/css" href="assets/css/style.css" >');
     // Meta data
     $meta_description = _MD_LEXIKON_ASKFORDEF . ' - ' . $myts->htmlSpecialChars($xoopsModule->name());
     if (isset($xoTheme) && is_object($xoTheme)) {

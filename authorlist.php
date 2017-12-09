@@ -59,7 +59,7 @@ if (count($uid_ids) > 0) {
                                . XOOPS_URL
                                . "/images/icons/pm.gif' border='0' alt=\""
                                . sprintf(_SENDPMTO, $one_user->getVar('uname'))
-                               . '"/></a>';
+                               . '"></a>';
             } else {
                 $user_pmlink = '';
             }
@@ -74,7 +74,7 @@ if (count($uid_ids) > 0) {
                                      . XOOPS_URL
                                      . "/images/icons/email.gif' border='0' alt=\""
                                      . sprintf(_SENDEMAILTO, $one_user->getVar('uname'))
-                                     . '"/></a>';
+                                     . '"></a>';
                 } else {
                     $user_maillink = '';
                 }
@@ -89,7 +89,7 @@ if (count($uid_ids) > 0) {
                                 . XOOPS_URL
                                 . "/images/icons/www.gif' border='0' alt='"
                                 . _VISITWEBSITE
-                                . "' /></a>";
+                                . "' ></a>";
             } else {
                 $user_wwwlink = '';
             }
@@ -144,7 +144,7 @@ $xoopsTpl->assign('lang_modulename', $xoopsModule->name());
 $xoopsTpl->assign('lang_moduledirname', $xoopsModule->dirname());
 
 $xoopsTpl->assign('xoops_pagetitle', _MD_LEXIKON_CONTRIBUTORS . ' - ' . $myts->htmlSpecialChars($xoopsModule->name()));
-$xoopsTpl->assign('xoops_module_header', '<link rel="stylesheet" type="text/css" href="assets/css/style.css" />');
+$xoopsTpl->assign('xoops_module_header', '<link rel="stylesheet" type="text/css" href="assets/css/style.css" >');
 
 // Meta data
 $meta_description = _MD_LEXIKON_CONTRIBUTORS . ' - ' . $myts->htmlSpecialChars($xoopsModule->name());

@@ -1,10 +1,10 @@
 <{* New Header block *}>
 <div id="moduleheader">
 <div class="leftheader"><a href="<{$xoops_url}>"><{$smarty.const._MD_LEXIKON_HOME}></a>&nbsp;<img
-                        src='assets/images/arrow.gif' class="navig" alt="<{$lang_modulename}>" />&nbsp;<a
+                        src='assets/images/arrow.gif' class="navig" alt="<{$lang_modulename}>" >&nbsp;<a
                         href="<{$xoops_url}>/modules/<{$lang_moduledirname}>/"><{$lang_modulename}></a></div>
 <div class="rightheader"><{$lang_modulename}></div>
-<hr style="clear: both;" />
+<hr style="clear: both;" >
 <{if $empty == 1}>
     <div class="empty"><{$smarty.const._MD_LEXIKON_STILLNOTHINGHERE}></div>
 <{/if}>
@@ -22,9 +22,9 @@
         <b><{$smarty.const._MD_LEXIKON_DEFS}></b><{$publishedwords}><br>
         <b><{if $multicats == 1}><{$smarty.const._MD_LEXIKON_CATS}></b><{$totalcats}><br><{/if}>
         <input class="btnDefault" type="button" value="<{$smarty.const._MD_LEXIKON_SUBMITENTRY}>"
-               onclick="location.href = 'submit.php'"/><br>
+               onclick="location.href = 'submit.php'"><br>
         <input class="btnDefault" type="button" value="<{$smarty.const._MD_LEXIKON_REQUESTDEF}>"
-               onclick="location.href = 'request.php' "/>
+               onclick="location.href = 'request.php' ">
         </fieldset>
     </div>
 </div>
@@ -76,7 +76,7 @@
                                    target="_parent"><img
                                             src="<{$xoops_url}>/uploads/<{$lang_moduledirname}>/categories/images/<{$catlinks.image}>"
                                             style="width:<{$logo_maximgwidth}>; text-align: left;" class="floatLeft"
-                                            alt="[&nbsp;<{$catlinks.name}>&nbsp;]&nbsp;[&nbsp;<{$catlinks.total}>&nbsp;]"/></a>
+                                            alt="[&nbsp;<{$catlinks.name}>&nbsp;]&nbsp;[&nbsp;<{$catlinks.total}>&nbsp;]"></a>
                             <{/if}>
                             <{if $catlinks.count > 0}>
                                 <{if $catlinks.total > 0}><a href="<{$xoops_url}>/modules/<{$lang_moduledirname}>/category.php?categoryID=<{$catlinks.id}>" title="[&nbsp;<{$catlinks.total}>&nbsp;]"><{/if}><{$catlinks.linktext}>
@@ -106,7 +106,7 @@
                                target="_parent">
                                 <img src="<{$xoops_url}>/uploads/<{$lang_moduledirname}>/categories/images/<{$catlinks.image}>"
                                      style="width:<{$logo_maximgwidth}> vertical-align:middle;"
-                                     alt="[&nbsp;<{$catlinks.total}>&nbsp;]"/></a>
+                                     alt="[&nbsp;<{$catlinks.total}>&nbsp;]"></a>
                         <{/if}>
                         <{if $catlinks.total > 0}>&nbsp;<a href="<{$xoops_url}>/modules/<{$lang_moduledirname}>/category.php?categoryID=<{$catlinks.id}>" title="[&nbsp;<{$catlinks.total}>&nbsp;]"><{/if}><{$catlinks.linktext}>
                         <{if $catlinks.total > 0}></a>&nbsp;<{/if}>[&nbsp;<{$catlinks.total}>&nbsp;]
@@ -118,7 +118,7 @@
         </div>
     <{/if}>
 <{/if}>
-<br />
+<br >
 <div class="float30">
     <fieldset>
         <legend>&nbsp;<{$smarty.const._MD_LEXIKON_RECENTENT}>&nbsp;</legend>
@@ -193,9 +193,9 @@
                 <b><{$smarty.const._MD_LEXIKON_REQ}></b>
                 <{if $wehavereqs == '0'}><{$smarty.const._MD_LEXIKON_NOREQ}>
                 <{else}>
-                    <br />
+                    <br >
                     <span style="font-size:80%;"><{$smarty.const._MD_LEXIKON_REQUESTSUGGEST}></span>
-                    <br />
+                    <br >
                 <{/if}>
                 <{foreach item=reqentries from=$blockR.reqstuff}>
                     <a href="<{$xoops_url}>/modules/<{$lang_moduledirname}>/submit.php?suggest=<{$reqentries.id}>"><{$reqentries.linktext}></a>
@@ -207,7 +207,7 @@
 <{/if}>
 <{if $syndication == true}>
     <div class="rss_bottom">
-    <a href="rss.php" title="recent glossary definitions"><img src="assets/images/rss.gif" ALT="RSS" /></a>
+    <a href="rss.php" title="recent glossary definitions"><img src="assets/images/rss.gif" ALT="RSS" ></a>
     </div>
 <{/if}>
 </div>

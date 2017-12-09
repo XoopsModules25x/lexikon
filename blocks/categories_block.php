@@ -4,7 +4,7 @@
  * Author: Yerres
  * Licence: GNU
  */
-defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
+defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
 
 /**
  * @param $options
@@ -63,7 +63,7 @@ function b_lxcategories_edit($options)
     $form .= "<option value='name' " . (('name' === $options[0]) ? ' selected' : '') . '>' . _MB_LEXIKON_NAME . "</option>\n";
     $form .= "<option value='total' " . (('total' === $options[0]) ? ' selected' : '') . '>' . _MB_LEXIKON_TOTAL . "</option>\n";
     $form .= "</select>\n<br>";
-    $form .= '&nbsp;' . _MB_LEXIKON_DISP . "&nbsp;<input type='text' name='options[]' value='" . $options[1] . "' />&nbsp;" . _MB_LEXIKON_CATS . '';
+    $form .= '&nbsp;' . _MB_LEXIKON_DISP . "&nbsp;<input type='text' name='options[]' value='" . $options[1] . "' >&nbsp;" . _MB_LEXIKON_CATS . '';
 
     return $form;
 }

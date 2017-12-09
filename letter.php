@@ -266,6 +266,6 @@ if ($publishedwords = 0) {
     }
 }
 
-$xoopsTpl->assign('xoops_module_header', '<link rel="stylesheet" type="text/css" href="assets/css/style.css" />');
+$xoopsTpl->assign('xoops_module_header', '<link rel="stylesheet" type="text/css" href="assets/css/style.css" >');
 
 include XOOPS_ROOT_PATH . '/footer.php';
