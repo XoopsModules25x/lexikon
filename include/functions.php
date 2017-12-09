@@ -1066,19 +1066,19 @@ function lx_TermExists($term, $table)
 function lexikon_block_getAuthors($limit = 5, $sort = 'count', $name = 'uname', $compute_method = 'average')
 {
     $limit = (int)$limit;
-    if ('uname' != $name) {
+    if ('uname' !== $name) {
         $name = 'name';
     } //making sure that there is not invalid information in field value
     $ret = [];
     $db = XoopsDatabaseFactory::getDatabaseConnection();
-    if ('count' == $sort) {
+    if ('count' === $sort) {
         $sql = 'SELECT u.' . $name . ' AS name, u.uid , count( n.entryID ) AS count
               FROM ' . $db->prefix('users') . ' u, ' . $db->prefix('lxentries') . ' n
               WHERE u.uid = n.uid
               AND n.datesub > 0 AND n.datesub <= ' . time() . ' AND n.offline = 0 AND n.submit = 0
               GROUP BY u.uid ORDER BY count DESC';
-    } elseif ('read' == $sort) {
-        if ('average' == $compute_method) {
+    } elseif ('read' === $sort) {
+        if ('average' === $compute_method) {
             $compute = 'sum( n.counter ) / count( n.entryID )';
         } else {
             $compute = 'sum( n.counter )';
@@ -1094,7 +1094,7 @@ function lexikon_block_getAuthors($limit = 5, $sort = 'count', $name = 'uname', 
     }
         
     while ($row = $db->fetchArray($result)) {
-        if ('name' == $name && '' == $row['name']) {
+        if ('name' === $name && '' == $row['name']) {
             $row['name'] = XoopsUser::getUnameFromId($row['uid']);
         }
         $row['count'] = round($row['count'], 0);
