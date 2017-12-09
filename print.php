@@ -50,7 +50,7 @@ function printPage($entryID)
     $term         = $myts->htmlSpecialChars($term);
     $definition   = str_replace('[pagebreak]', '<br style="page-break-after:always;">', $definition);
     $definition   = $myts->displayTarea($definition, $html, $smiley, $xcodes, '', $breaks);
-    if ($authorname == '') {
+    if ('' == $authorname) {
         $authorname = $myts->htmlSpecialChars($username);
     } else {
         $authorname = $myts->htmlSpecialChars($authorname);
@@ -91,7 +91,7 @@ function printPage($entryID)
          . $term
          . '</h2></div>
     <div></div>';
-    if ($xoopsModuleConfig['multicats'] == 1) {
+    if (1 == $xoopsModuleConfig['multicats']) {
         echo '<div>' . _MD_LEXIKON_ENTRYCATEGORY . '<b>' . $categoryname . '</b></div>';
     }
     echo "<div style='padding-bottom: 6px; border-bottom: 1px solid #ccc;'>"

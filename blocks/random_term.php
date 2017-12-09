@@ -122,7 +122,7 @@ function b_lxentries_random_show()
                      . _MB_LEXIKON_SENDTOFRIEND
                      . '" width="16" height="16" /></a>&nbsp;';
 
-        if ($lxConfig['multicats'] == 1) {
+        if (1 == $lxConfig['multicats']) {
             $block['content'] = '<div style="font-size: 12px; font-weight: bold; background-color: #ccc; padding: 4px; margin: 0;"><a href="'
                                 . XOOPS_URL
                                 . '/modules/'

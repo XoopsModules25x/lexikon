@@ -48,8 +48,8 @@ if (is_object($xoopsUser)) {
 // include system category definitions
 include_once XOOPS_ROOT_PATH . '/modules/system/constants.php';
 $error = false;
-if ($admintest != 0) {
-    if (isset($fct) && $fct != '') {
+if (0 != $admintest) {
+    if (isset($fct) && '' != $fct) {
         if (file_exists(XOOPS_ROOT_PATH . '/modules/system/admin/' . $fct . '/xoops_version.php')) {
             if (file_exists(XOOPS_ROOT_PATH . '/modules/system/language/' . $xoopsConfig['language'] . '/admin.php')) {
                 include XOOPS_ROOT_PATH . '/modules/system/language/' . $xoopsConfig['language'] . '/admin.php';
@@ -79,7 +79,7 @@ if ($admintest != 0) {
                 } else {
                     $error = true;
                 }
-            } elseif ($fct === 'version') {
+            } elseif ('version' === $fct) {
                 if (file_exists(XOOPS_ROOT_PATH . '/modules/system/admin/version/main.php')) {
                     include_once XOOPS_ROOT_PATH . '/modules/system/admin/version/main.php';
                 } else {
@@ -114,7 +114,7 @@ if (false != $error) {
     $counter   = 0;
     $class     = 'even';
     while ($file = readdir($handle)) {
-        if (strtolower($file) !== 'cvs' && !preg_match('/[.]/', $file) && is_dir($admin_dir . '/' . $file)) {
+        if ('cvs' !== strtolower($file) && !preg_match('/[.]/', $file) && is_dir($admin_dir . '/' . $file)) {
             include $admin_dir . '/' . $file . '/xoops_version.php';
             if ($modversion['hasAdmin']) {
                 $category = isset($modversion['category']) ? (int)$modversion['category'] : 0;
@@ -123,7 +123,7 @@ if (false != $error) {
                     echo "<a href='" . XOOPS_URL . '/modules/system/admin.php?fct=' . $file . "'><b>" . trim($modversion['name']) . "</b></a>\n";
                     echo '</td>';
                     ++$counter;
-                    $class = ($class === 'even') ? 'odd' : 'even';
+                    $class = ('even' === $class) ? 'odd' : 'even';
                 }
                 if ($counter > 4) {
                     $counter = 0;
@@ -136,7 +136,7 @@ if (false != $error) {
     }
     while ($counter < 5) {
         echo '<td class="' . $class . '">&nbsp;</td>';
-        $class = ($class === 'even') ? 'odd' : 'even';
+        $class = ('even' === $class) ? 'odd' : 'even';
         ++$counter;
     }
     echo '</tr></table>';

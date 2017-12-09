@@ -54,7 +54,7 @@ if (!empty($target_module) && is_object($target_module)) {
     $target_mid     = $target_module->getVar('mid');
     $target_mname   = $target_module->getVar('name') . '&nbsp;' . sprintf('(%2.2f)', $target_module->getVar('version') / 100.0);
     $query4redirect = '?dirname=' . urlencode(strip_tags($_GET['dirname']));
-} elseif (isset($_GET['mid']) && $_GET['mid'] == 0 || $xoopsModule->getVar('dirname') === 'blocksadmin') {
+} elseif (isset($_GET['mid']) && 0 == $_GET['mid'] || 'blocksadmin' === $xoopsModule->getVar('dirname')) {
     $target_mid     = 0;
     $target_mname   = '';
     $query4redirect = '?mid=0';
@@ -139,7 +139,7 @@ function list_blockinstances()
         foreach (array_keys($module_main) as $mid) {
             $module_list[$module_main[$mid]->getVar('name')][$mid . '-0'] = _AM_ALLMODULEPAGES;
             $pages                                                        = $module_main[$mid]->getInfo('pages');
-            if ($pages === false) {
+            if (false === $pages) {
                 $pages = $module_main[$mid]->getInfo('sub');
             }
             if (is_array($pages) && $pages != []) {
@@ -166,7 +166,7 @@ function list_blockinstances()
         $visiblein = $instances[$i]->getVisibleIn();
 
         // visible and side
-        if ($instances[$i]->getVar('visible') != 1) {
+        if (1 != $instances[$i]->getVar('visible')) {
             $sseln = ' checked';
             $scoln = '#FF0000';
         } else {
@@ -274,7 +274,7 @@ function list_blockinstances()
             </td>
         </tr>\n";
 
-        $class = ($class === 'even') ? 'odd' : 'even';
+        $class = ('even' === $class) ? 'odd' : 'even';
     }
 
     // list block classes for add (not instances)
@@ -303,7 +303,7 @@ function list_blockinstances()
             </td>
         </tr>
         \n";
-        $class = ($class === 'even') ? 'odd' : 'even';
+        $class = ('even' === $class) ? 'odd' : 'even';
     }
 
     echo "

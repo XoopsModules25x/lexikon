@@ -78,7 +78,7 @@ class LexikonUtility
         $dir = opendir($src);
         //    @mkdir($dst);
         while (false !== ($file = readdir($dir))) {
-            if (($file !== '.') && ($file !== '..')) {
+            if (('.' !== $file) && ('..' !== $file)) {
                 if (is_dir($src . '/' . $file)) {
                     self::recurseCopy($src . '/' . $file, $dst . '/' . $file);
                 } else {
@@ -317,7 +317,7 @@ class LexikonUtility
             if ($gpermHandler->checkRight('lexikon_view', $catID, $groups, $xoopsModule->getVar('mid'))) {
                 $catlinks = [];
                 ++$count;
-                if ($logourl && $logourl !== 'http://') {
+                if ($logourl && 'http://' !== $logourl) {
                     $logourl = $myts->htmlSpecialChars($logourl);
                 } else {
                     $logourl = '';
@@ -472,7 +472,7 @@ class LexikonUtility
                              . '" style="width:16px; height:16px;"></a>&nbsp;';
             }
         }
-        if ($entrytype != '1') {
+        if ('1' != $entrytype) {
             $srvlinks .= '<a TITLE="'
                          . _MD_LEXIKON_PRINTTERM
                          . '" href="print.php?entryID='
@@ -496,7 +496,7 @@ class LexikonUtility
                          . $pathIcon16 . '/mail_replay.png" alt="'
                          . _MD_LEXIKON_SENDTOFRIEND
                          . '" style="width:16px; height:16px;"></a>&nbsp;';
-            if (($xoopsModuleConfig['com_rule'] != 0)
+            if ((0 != $xoopsModuleConfig['com_rule'])
                 && (!empty($xoopsModuleConfig['com_anonpost'])
                     || is_object($xoopsUser))
             ) {
@@ -568,7 +568,7 @@ class LexikonUtility
         $searchform .= '<select name="type"><option value="1">' . _MD_LEXIKON_TERMS . '</option><option value="2">' . _MD_LEXIKON_DEFINS . '</option>';
         $searchform .= '<option SELECTED value="3">' . _MD_LEXIKON_TERMSDEFS . '</option></select></td></tr>';
 
-        if ($xoopsModuleConfig['multicats'] == 1) {
+        if (1 == $xoopsModuleConfig['multicats']) {
             $searchform .= '<tr><td style="text-align: right; line-height: 200%;">' . _MD_LEXIKON_CATEGORY . '</td>';
             $searchform .= '<td>&nbsp;</td><td style="text-align: left;">';
             $resultcat  = $xoopsDB->query('SELECT categoryID, name FROM ' . $xoopsDB->prefix('lxcategories') . ' ORDER BY categoryID');
@@ -606,13 +606,13 @@ class LexikonUtility
             $pL = '';
             $pR = '';
 
-            if (($pos = strpos($part, '<')) === false) {
+            if (false === ($pos = strpos($part, '<'))) {
                 $pL = $part;
             } elseif ($pos > 0) {
                 $pL = substr($part, 0, $pos);
                 $pR = substr($part, $pos, strlen($part));
             }
-            if ($pL != '') {
+            if ('' != $pL) {
                 $parts[$key] = preg_replace('|(' . quotemeta($needle) . ')|iU', $hlS . '\\1' . $hlE, $pL) . $pR;
             }
         }
@@ -783,20 +783,20 @@ class LexikonUtility
             $content .= strip_tags($myts->displayTarea($article));
         }
         if (!empty($topic)) {
-            if (xoops_trim($content) != '') {
+            if ('' != xoops_trim($content)) {
                 $content .= ' - ' . strip_tags($myts->displayTarea($topic));
             } else {
                 $content .= strip_tags($myts->displayTarea($topic));
             }
         }
-        if (is_object($xoopsModule) && xoops_trim($xoopsModule->name()) != '') {
-            if (xoops_trim($content) != '') {
+        if (is_object($xoopsModule) && '' != xoops_trim($xoopsModule->name())) {
+            if ('' != xoops_trim($content)) {
                 $content .= ' - ' . strip_tags($myts->displayTarea($xoopsModule->name()));
             } else {
                 $content .= strip_tags($myts->displayTarea($xoopsModule->name()));
             }
         }
-        if ($content != '') {
+        if ('' != $content) {
             $xoopsTpl->assign('xoops_pagetitle', $content);
         }
     }
@@ -994,39 +994,39 @@ class LexikonUtility
         global $xoopsTpl, $xoTheme, $xoopsModule, $xoopsModuleConfig, $lexikon_module_header;
         if (isset($xoTheme) && is_object($xoTheme)) {
             $xoTheme->addStylesheet('modules/lexikon/assets/css/style.css');
-            if ($xoopsModuleConfig['linkterms'] == 3) {
+            if (3 == $xoopsModuleConfig['linkterms']) {
                 $xoTheme->addStylesheet('modules/lexikon/assets/css/linkterms.css');
                 $xoTheme->addScript('/modules/lexikon/assets/js/tooltipscript2.js', ['type' => 'text/javascript']);
             }
-            if ($xoopsModuleConfig['linkterms'] == 4) {
+            if (4 == $xoopsModuleConfig['linkterms']) {
                 $xoTheme->addScript('/modules/lexikon/assets/js/popup.js', ['type' => 'text/javascript']);
             }
-            if ($xoopsModuleConfig['linkterms'] == 5) {
+            if (5 == $xoopsModuleConfig['linkterms']) {
                 $xoTheme->addStylesheet('modules/lexikon/assets/css/linkterms.css');
                 $xoTheme->addScript('/modules/lexikon/assets/js/balloontooltip.js', ['type' => 'text/javascript']);
             }
-            if ($xoopsModuleConfig['linkterms'] == 6) {
+            if (6 == $xoopsModuleConfig['linkterms']) {
                 $xoTheme->addStylesheet('modules/lexikon/assets/css/linkterms.css');
                 $xoTheme->addScript('/modules/lexikon/assets/js/shadowtooltip.js', ['type' => 'text/javascript']);
             }
         } else {
             $lexikon_url = XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname');
-            if ($xoopsModuleConfig['linkterms'] == 3) {
+            if (3 == $xoopsModuleConfig['linkterms']) {
                 $lexikon_module_header = '<link rel="stylesheet" type="text/css" href="assets/css/style.css" />
             <link rel="stylesheet" type="text/css" href="assets/css/linkterms.css" />
             <script src="' . $lexikon_url . '/assets/js/tooltipscript2.js" type="text/javascript"></script>';
             }
-            if ($xoopsModuleConfig['linkterms'] == 4) {
+            if (4 == $xoopsModuleConfig['linkterms']) {
                 $lexikon_module_header = '<link rel="stylesheet" type="text/css" href="assets/css/style.css" />
             <link rel="stylesheet" type="text/css" href="assets/css/linkterms.css" />
             <script src="' . $lexikon_url . '/assets/js/popup.js" type="text/javascript"></script>';
             }
-            if ($xoopsModuleConfig['linkterms'] == 5) {
+            if (5 == $xoopsModuleConfig['linkterms']) {
                 $lexikon_module_header = '<link rel="stylesheet" type="text/css" href="assets/css/style.css" />
             <link rel="stylesheet" type="text/css" href="assets/css/linkterms.css" />
             <script src="' . $lexikon_url . '/assets/js/balloontooltip.js" type="text/javascript"></script>';
             }
-            if ($xoopsModuleConfig['linkterms'] == 6) {
+            if (6 == $xoopsModuleConfig['linkterms']) {
                 $lexikon_module_header = '<link rel="stylesheet" type="text/css" href="assets/css/style.css" />
             <link rel="stylesheet" type="text/css" href="assets/css/linkterms.css" />
             <script src="' . $lexikon_url . '/assets/js/shadowtooltip.js" type="text/javascript"></script>';
@@ -1288,26 +1288,26 @@ class LexikonUtility
             if (ord($Str[$i]) < 0x80) {
                 continue;
             } # 0bbbbbbb
-            elseif ((ord($Str[$i]) & 0xE0) == 0xC0) {
+            elseif (0xC0 == (ord($Str[$i]) & 0xE0)) {
                 $n = 1;
             } # 110bbbbb
-            elseif ((ord($Str[$i]) & 0xF0) == 0xE0) {
+            elseif (0xE0 == (ord($Str[$i]) & 0xF0)) {
                 $n = 2;
             } # 1110bbbb
-            elseif ((ord($Str[$i]) & 0xF8) == 0xF0) {
+            elseif (0xF0 == (ord($Str[$i]) & 0xF8)) {
                 $n = 3;
             } # 11110bbb
-            elseif ((ord($Str[$i]) & 0xFC) == 0xF8) {
+            elseif (0xF8 == (ord($Str[$i]) & 0xFC)) {
                 $n = 4;
             } # 111110bb
-            elseif ((ord($Str[$i]) & 0xFE) == 0xFC) {
+            elseif (0xFC == (ord($Str[$i]) & 0xFE)) {
                 $n = 5;
             } # 1111110b
             else {
                 return false;
             } # Does not match any model
             for ($j = 0; $j < $n; ++$j) { # n bytes matching 10bbbbbb follow ?
-                if ((++$i == strlen($Str)) || ((ord($Str[$i]) & 0xC0) != 0x80)) {
+                if ((++$i == strlen($Str)) || (0x80 != (ord($Str[$i]) & 0xC0))) {
                     return false;
                 }
             }
@@ -1361,19 +1361,19 @@ class LexikonUtility
     public static function getBlockAuthors($limit = 5, $sort = 'count', $name = 'uname', $compute_method = 'average')
     {
         $limit = (int)$limit;
-        if ($name !== 'uname') {
+        if ('uname' !== $name) {
             $name = 'name';
         } //making sure that there is not invalid information in field value
         $ret = [];
         $db  = XoopsDatabaseFactory::getDatabaseConnection();
-        if ($sort === 'count') {
+        if ('count' === $sort) {
             $sql = 'SELECT u.' . $name . ' AS name, u.uid , count( n.entryID ) AS count
               FROM ' . $db->prefix('users') . ' u, ' . $db->prefix('lxentries') . ' n
               WHERE u.uid = n.uid
               AND n.datesub > 0 AND n.datesub <= ' . time() . ' AND n.offline = 0 AND n.submit = 0
               GROUP BY u.uid ORDER BY count DESC';
-        } elseif ($sort === 'read') {
-            if ($compute_method === 'average') {
+        } elseif ('read' === $sort) {
+            if ('average' === $compute_method) {
                 $compute = 'sum( n.counter ) / count( n.entryID )';
             } else {
                 $compute = 'sum( n.counter )';
@@ -1389,7 +1389,7 @@ class LexikonUtility
         }
 
         while ($row = $db->fetchArray($result)) {
-            if ($name === 'name' && $row['name'] == '') {
+            if ('name' === $name && '' == $row['name']) {
                 $row['name'] = XoopsUser::getUnameFromId($row['uid']);
             }
             $row['count'] = round($row['count'], 0);
@@ -1496,7 +1496,7 @@ class LexikonUtility
      */
     public static function truncateTagSafe($string, $length = 80, $etc = '...', $break_words = false)
     {
-        if ($length == 0) {
+        if (0 == $length) {
             return '';
         }
         if (strlen($string) > $length) {

@@ -100,7 +100,7 @@ function lx_Statistics()
         $totals[0] += $terms;
         $totals[1] += $views;
         $totals[2] += $offline;
-        $class     = ($class === 'even') ? 'odd' : 'even';
+        $class     = ('even' === $class) ? 'odd' : 'even';
         printf(
             "<tr class='"
                . $class
@@ -113,7 +113,7 @@ function lx_Statistics()
             $authors
         );
     }
-    $class     = ($class === 'even') ? 'odd' : 'even';
+    $class     = ('even' === $class) ? 'odd' : 'even';
     printf(
             "<tr class='" . $class . "'><td style='text-align:right;'><b>%s:</b></td><td style='text-align:center;'><b>%u</b></td><td style='text-align:center;'><b>%u</b></td><td style='text-align:center;'><b>%u</b></td><td>&nbsp;</td>\n",
                 _AM_LEXIKON_STATS2,
@@ -146,7 +146,7 @@ function lx_Statistics()
         $url1   = XOOPS_URL . '/modules/' . $xoopsModule->dirname() . '/category.php?categoryID=' . $data['categoryID'];
         $url2   = XOOPS_URL . '/modules/' . $xoopsModule->dirname() . '/entry.php?entryID=' . $entryID;
         $sentby = XoopsUserUtility::getUnameFromId($data['uid']);
-        $class  = ($class === 'even') ? 'odd' : 'even';
+        $class  = ('even' === $class) ? 'odd' : 'even';
         printf(
             "<tr class='"
                . $class
@@ -180,7 +180,7 @@ function lx_Statistics()
         $url1   = XOOPS_URL . '/modules/' . $xoopsModule->dirname() . '/category.php?categoryID=' . $data['categoryID'];
         $url2   = XOOPS_URL . '/modules/' . $xoopsModule->dirname() . '/entry.php?entryID=' . $entryID;
         $sentby = XoopsUserUtility::getUnameFromId($data['uid']);
-        $class  = ($class === 'even') ? 'odd' : 'even';
+        $class  = ('even' === $class) ? 'odd' : 'even';
         printf(
             "<tr class='"
                . $class
@@ -211,7 +211,7 @@ function lx_Statistics()
          . '</th></tr>';
     foreach ($mostreadauthors as $uid => $reads) {
         $sentby = XoopsUserUtility::getUnameFromId($uid);
-        $class  = ($class === 'even') ? 'odd' : 'even';
+        $class  = ('even' === $class) ? 'odd' : 'even';
         printf("<tr class='" . $class . "'><td style='text-align:center;'>%s</td><td style='text-align:center;'>%u</td></tr>\n", $sentby, $reads);
     }
     echo '</table></div><br><br>';
@@ -230,7 +230,7 @@ function lx_Statistics()
     foreach ($biggestcontributors as $uid => $count) {
         $url    = XOOPS_URL . '/userinfo.php?uid=' . $uid;
         $sentby = XoopsUserUtility::getUnameFromId($uid);
-        $class  = ($class === 'even') ? 'odd' : 'even';
+        $class  = ('even' === $class) ? 'odd' : 'even';
         printf("<tr class='" . $class . "'><td style='text-align:center;'>%s</td><td style='text-align:center;'>%u</td></tr>\n", $sentby, $count);
     }
     echo '</table></div><br>';

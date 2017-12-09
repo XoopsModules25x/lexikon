@@ -46,7 +46,7 @@ function categoryDefault()
     $result04 = $xoopsDB->query('SELECT COUNT(*) FROM ' . $xoopsDB->prefix('lxentries') . " WHERE submit = '1' AND request = '1' ");
     list($totalrequested) = $xoopsDB->fetchRow($result04);
 
-    if ($xoopsModuleConfig['multicats'] == 1) {
+    if (1 == $xoopsModuleConfig['multicats']) {
         /**
          * Code to show existing categories
          **/
@@ -91,7 +91,7 @@ function categoryDefault()
                                 . "'></a>";
 
                 echo "<tr class='" . $class . "'>";
-                $class = ($class === 'even') ? 'odd' : 'even';
+                $class = ('even' === $class) ? 'odd' : 'even';
 
                 echo "
                 <td style='text-align:center;'>" . $categoryID . "</td>
@@ -152,10 +152,10 @@ function categoryEdit($categoryID = '')
 
         $groups = $gpermHandler->getGroupIds('lexikon_view', $categoryID, $xoopsModule->getVar('mid'));
         //$groups = $groups;
-        if ($xoopsDB->getRowsNum($result) == 0) {
+        if (0 == $xoopsDB->getRowsNum($result)) {
             redirect_header('index.php', 1, _AM_LEXIKON_NOCATTOEDIT);
         }
-        if ($xoopsDB->getRowsNum($result) == 0) {
+        if (0 == $xoopsDB->getRowsNum($result)) {
             redirect_header('index.php', 1, _AM_LEXIKON_NOCATTOEDIT);
         }
         //$myts = MyTextSanitizer::getInstance();
@@ -181,7 +181,7 @@ function categoryEdit($categoryID = '')
     $sform->addElement(new XoopsFormText(_AM_LEXIKON_CATPOSIT, 'weight', 4, 4, $weight), true);
     $sform->addElement(new XoopsFormHidden('categoryID', $categoryID));
     //CategoryImage
-    if ($xoopsModuleConfig['useshots'] == 1) {
+    if (1 == $xoopsModuleConfig['useshots']) {
         //CategoryImage :: Common querys from Article module by phppp
         $image_option_tray = new XoopsFormElementTray('<strong>' . _AM_LEXIKON_CATIMGUPLOAD . '</strong>', '<br>');
         $image_option_tray->addElement(new XoopsFormFile('', 'userfile', ''));
@@ -254,7 +254,7 @@ function categoryDelete($categoryID = '')
     //global $xoopsDB, $xoopsConfig;
     global $xoopsConfig, $xoopsDB, $xoopsModule;
     $idc = isset($_POST['categoryID']) ? (int)$_POST['categoryID'] : (int)$_GET['categoryID'];
-    if ($idc == '') {
+    if ('' == $idc) {
         $idc = $_GET['categoryID'];
     }
     if ($idc <= 0) {
@@ -266,7 +266,7 @@ function categoryDelete($categoryID = '')
     $result = $xoopsDB->query('SELECT categoryID, name FROM ' . $xoopsDB->prefix('lxcategories') . " WHERE categoryID = $idc");
     list($categoryID, $name) = $xoopsDB->fetchRow($result);
     // confirmed, so delete
-    if ($ok == 1) {
+    if (1 == $ok) {
         //get all entries in the category
         $result3 = $xoopsDB->query('SELECT entryID from ' . $xoopsDB->prefix('lxentries') . " where categoryID = $idc");
         //now for each entry, delete the coments
@@ -354,7 +354,7 @@ function categorySave($categoryID = '')
             }
             //notification
             if (!empty($xoopsModuleConfig['notification_enabled'])) {
-                if ($newid == 0) {
+                if (0 == $newid) {
                     $newid = $xoopsDB->getInsertId();
                 }
                 global $xoopsModule;

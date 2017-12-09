@@ -34,27 +34,27 @@ function b_lxspot_show($options)
     $block = [];
 
     // To handle options in the template
-    if ($options[2] == 1) {
+    if (1 == $options[2]) {
         $block['showdateask'] = 1;
     } else {
         $block['showdateask'] = 0;
     }
-    if ($options[3] == 1) {
+    if (1 == $options[3]) {
         $block['showbylineask'] = 1;
     } else {
         $block['showbylineask'] = 0;
     }
-    if ($options[4] == 1) {
+    if (1 == $options[4]) {
         $block['showstatsask'] = 1;
     } else {
         $block['showstatsask'] = 0;
     }
-    if ($options[5] === 'ver') {
+    if ('ver' === $options[5]) {
         $block['verticaltemplate'] = 1;
     } else {
         $block['verticaltemplate'] = 0;
     }
-    if ($options[6] == 1) {
+    if (1 == $options[6]) {
         $block['showpicask'] = 1;
     } else {
         $block['showpicask'] = 0;
@@ -70,7 +70,7 @@ function b_lxspot_show($options)
     list($entryID, $categoryID, $term, $definition, $authorID, $datesub, $counter, $html, $smiley, $xcodes, $breaks, $comments) = $xoopsDB->fetchRow($resultA);
     $eID = (int)$entryID;
     // If there's no result - which means there's no definition yet...
-    if ($eID == 0) {
+    if (0 == $eID) {
         $block['display'] = 0;
     } else {
         $block['display'] = 1;
@@ -95,8 +95,8 @@ function b_lxspot_show($options)
             $block['date']      = formatTimestamp($datesub, 'd M Y');
             //$block['date'] = formatTimestamp( $datesub, $lxConfig['dateformat'] );
             $block['hits'] = (int)$counter;
-            if (($lxConfig['com_rule'] != 0) || (($lxConfig['com_rule'] != 0) && is_object($xoopsUser))) {
-                if ($comments != 0) {
+            if ((0 != $lxConfig['com_rule']) || ((0 != $lxConfig['com_rule']) && is_object($xoopsUser))) {
+                if (0 != $comments) {
                     $block['comments'] = "<a href='"
                                          . XOOPS_URL
                                          . '/modules/'
@@ -163,30 +163,30 @@ function b_lxspot_edit($options)
     $form .= '<tr><td>' . _MB_LEXIKON_TERMSTOSHOW . "</td><td><input type='text' name='options[]' value='" . $options[1] . "' />&nbsp; " . _MB_LEXIKON_TERMS . '.<br></td></tr>';
 
     $form .= '<tr><td>' . _MB_LEXIKON_SHOWDATE . '</td><td>';
-    $form .= "<input type='radio' name='options[2]' value='1'" . (($options[2] == 1) ? ' checked' : '') . ' />' . _YES . '&nbsp;';
-    $form .= "<input type='radio' name='options[2]' value='0'" . (($options[2] == 0) ? ' checked' : '') . ' />' . _NO . '<br></td></tr>';
+    $form .= "<input type='radio' name='options[2]' value='1'" . ((1 == $options[2]) ? ' checked' : '') . ' />' . _YES . '&nbsp;';
+    $form .= "<input type='radio' name='options[2]' value='0'" . ((0 == $options[2]) ? ' checked' : '') . ' />' . _NO . '<br></td></tr>';
 
     $form .= '<tr><td>' . _MB_LEXIKON_SHOWBYLINE . '</td><td>';
-    $form .= "<input type='radio' name='options[3]' value='1'" . (($options[3] == 1) ? ' checked' : '') . ' />' . _YES . '&nbsp;';
-    $form .= "<input type='radio' name='options[3]' value='0'" . (($options[3] == 0) ? ' checked' : '') . ' />' . _NO . '<br></td></tr>';
+    $form .= "<input type='radio' name='options[3]' value='1'" . ((1 == $options[3]) ? ' checked' : '') . ' />' . _YES . '&nbsp;';
+    $form .= "<input type='radio' name='options[3]' value='0'" . ((0 == $options[3]) ? ' checked' : '') . ' />' . _NO . '<br></td></tr>';
 
     $form .= '<tr><td>' . _MB_LEXIKON_SHOWSTATS . '</td><td>';
-    $form .= "<input type='radio' name='options[4]' value='1'" . (($options[4] == 1) ? ' checked' : '') . ' />' . _YES . '&nbsp;';
-    $form .= "<input type='radio' name='options[4]' value='0'" . (($options[4] == 0) ? ' checked' : '') . ' />' . _NO . '<br></td></tr>';
+    $form .= "<input type='radio' name='options[4]' value='1'" . ((1 == $options[4]) ? ' checked' : '') . ' />' . _YES . '&nbsp;';
+    $form .= "<input type='radio' name='options[4]' value='0'" . ((0 == $options[4]) ? ' checked' : '') . ' />' . _NO . '<br></td></tr>';
 
     $form .= '<tr><td>' . _MB_LEXIKON_TEMPLATE . "</td><td><select name='options[]'>";
-    $form .= "<option value='ver' " . (($options[5] === 'ver') ? ' selected' : '') . '>' . _MB_LEXIKON_VERTICAL . "</option>\n";
-    $form .= "<option value='hor' " . (($options[5] === 'hor') ? ' selected' : '') . '>' . _MB_LEXIKON_HORIZONTAL . "</option>\n";
+    $form .= "<option value='ver' " . (('ver' === $options[5]) ? ' selected' : '') . '>' . _MB_LEXIKON_VERTICAL . "</option>\n";
+    $form .= "<option value='hor' " . (('hor' === $options[5]) ? ' selected' : '') . '>' . _MB_LEXIKON_HORIZONTAL . "</option>\n";
     $form .= '</select><br></td></tr>';
 
     $form .= '<tr><td>' . _MB_LEXIKON_SHOWPIC . '</td><td>';
-    $form .= "<input type='radio' name='options[6]' value='1'" . (($options[6] == 1) ? ' checked' : '') . ' />' . _YES . '&nbsp;';
-    $form .= "<input type='radio' name='options[6]' value='0'" . (($options[6] == 0) ? ' checked' : '') . ' />' . _NO . '<br></td></tr>';
+    $form .= "<input type='radio' name='options[6]' value='1'" . ((1 == $options[6]) ? ' checked' : '') . ' />' . _YES . '&nbsp;';
+    $form .= "<input type='radio' name='options[6]' value='0'" . ((0 == $options[6]) ? ' checked' : '') . ' />' . _NO . '<br></td></tr>';
 
     $form .= '<tr><td>' . _MB_LEXIKON_ORDER . "</td><td>&nbsp;<select name='options[7]'>";
-    $form .= "<option value='datesub' " . (($options[7] === 'datesub') ? ' selected' : '') . '>' . _MB_LEXIKON_DATE . "</option>\n";
-    $form .= "<option value='counter' " . (($options[7] === 'counter') ? ' selected' : '') . '>' . _MB_LEXIKON_HITS . "</option>\n";
-    $form .= "<option value='term' " . (($options[7] === 'term') ? ' selected' : '') . '>' . _MB_LEXIKON_NAME . "</option>\n";
+    $form .= "<option value='datesub' " . (('datesub' === $options[7]) ? ' selected' : '') . '>' . _MB_LEXIKON_DATE . "</option>\n";
+    $form .= "<option value='counter' " . (('counter' === $options[7]) ? ' selected' : '') . '>' . _MB_LEXIKON_HITS . "</option>\n";
+    $form .= "<option value='term' " . (('term' === $options[7]) ? ' selected' : '') . '>' . _MB_LEXIKON_NAME . "</option>\n";
     $form .= "</select>\n";
 
     $form .= "&nbsp;<tr><td style='vertical-align: top;'>"

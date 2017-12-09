@@ -69,7 +69,7 @@ switch ($op) {
               . " </th><td style='text-align:center;' class='even'>"
               . $totalpublished
               . '</td>';
-        if ($xoopsModuleConfig['multicats'] == 1) {
+        if (1 == $xoopsModuleConfig['multicats']) {
             echo "<th style='text-align:right;'>"
                   . _AM_LEXIKON_TOTALCATS
                   . "</th><td style='text-align:center;' class='even'>"
@@ -114,7 +114,7 @@ switch ($op) {
         echo "<th style='text-align:center; width:40px;'>"
               . _AM_LEXIKON_ENTRYID
               . '</th>';
-        if ($xoopsModuleConfig['multicats'] == 1) {
+        if (1 == $xoopsModuleConfig['multicats']) {
             echo "<th style='text-align:center; width:20%;'>"
                   . _AM_LEXIKON_ENTRYCATNAME
                   . '</th>';
@@ -159,7 +159,7 @@ switch ($op) {
                 echo "<tr><td class='even' style='text-align:center;'>"
                       . $entryID
                       . '</td>';
-                if ($xoopsModuleConfig['multicats'] == 1) {
+                if (1 == $xoopsModuleConfig['multicats']) {
                     echo "<td class='odd' style='text-align:left;'>"
                           . $catname
                           . '</td>';
@@ -217,7 +217,7 @@ switch ($op) {
         echo "<th style='text-align:center; width:40px;'>"
               . _AM_LEXIKON_ENTRYID
               . '</th>';
-        if ($xoopsModuleConfig['multicats'] == 1) {
+        if (1 == $xoopsModuleConfig['multicats']) {
             echo "<th style='text-align:center; width:20%;'>"
                   . _AM_LEXIKON_ENTRYCATNAME
                   . '</th>';
@@ -262,7 +262,7 @@ switch ($op) {
                 echo "<td class='even' style='text-align:center;'>"
                       . $entryID
                       . '</td>';
-                if ($xoopsModuleConfig['multicats'] == 1) {
+                if (1 == $xoopsModuleConfig['multicats']) {
                     echo "<td class='odd' align='left'>"
                           . $catname
                           . '</td>';
@@ -316,7 +316,7 @@ switch ($op) {
         $resultS4 = $xoopsDB->query($sql4, $xoopsModuleConfig['perpage'], $startsub);
 
         echo "<th style='text-align:center; width:40px;'>" . _AM_LEXIKON_ENTRYID . '</th>';
-        if ($xoopsModuleConfig['multicats'] == 1) {
+        if (1 == $xoopsModuleConfig['multicats']) {
             echo "<th style='text-align:center; width:20%;'>" . _AM_LEXIKON_ENTRYCATNAME . '</th>';
         }
         echo "<th style='text-align:center;'>"
@@ -358,7 +358,7 @@ switch ($op) {
                 echo "<tr><td class='even' style='text-align:center;'>"
                       . $entryID
                       . '</td>';
-                if ($xoopsModuleConfig['multicats'] == 1) {
+                if (1 == $xoopsModuleConfig['multicats']) {
                     echo "<td class='odd' style='text-align:left;'>"
                           . $catname
                           . '</td>';

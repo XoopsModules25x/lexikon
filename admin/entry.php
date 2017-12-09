@@ -78,7 +78,7 @@ function entryDefault()
     echo '<tr>';
 
     echo "<th style='width:40px; text-align:center;'>" . _AM_LEXIKON_ENTRYID . '</td>';
-    if ($xoopsModuleConfig['multicats'] == 1) {
+    if (1 == $xoopsModuleConfig['multicats']) {
         echo "<th style='width:20%; text-align:center;'>" . _AM_LEXIKON_ENTRYCATNAME . '</td>';
     }
     echo "<th style='width:*; text-align:center;'>" . _AM_LEXIKON_ENTRYTERM . "</td>
@@ -116,17 +116,17 @@ function entryDefault()
                         . _AM_LEXIKON_DELETEENTRY
                         . "'></a>";
 
-            if ($offline == 0) {
+            if (0 == $offline) {
                 $status = '<img src=' . XOOPS_URL . '/modules/' . $xoopsModule->dirname() . "/assets/images/icon/on.gif alt='" . _AM_LEXIKON_ENTRYISON . "'>";
             } else {
                 $status = '<img src=' . XOOPS_URL . '/modules/' . $xoopsModule->dirname() . "/assets/images/icon/off.gif alt='" . _AM_LEXIKON_ENTRYISOFF . "'>";
             }
             echo "<div><tr class='" . $class . "'>";
-            $class = ($class === 'even') ? 'odd' : 'even';
+            $class = ('even' === $class) ? 'odd' : 'even';
 
             echo "<td align='center'>" . $entryID . '</td>';
 
-            if ($xoopsModuleConfig['multicats'] == 1) {
+            if (1 == $xoopsModuleConfig['multicats']) {
                 echo "<td class='odd' style='text-align:left;'>" . $catname . '</td>';
             }
             echo "<td class='odd' style='text-align:left;'><a href='../entry.php?entryID=" . $entryID . "'>" . $term . "</a></td>
@@ -225,7 +225,7 @@ function entryEdit($entryID = '')
     } else { // there's no parameter, so we're adding an entry
         $result01 = $xoopsDB->query('SELECT COUNT(*) FROM ' . $xoopsDB->prefix('lxcategories') . ' ');
         list($totalcats) = $xoopsDB->fetchRow($result01);
-        if ($totalcats == 0 && $xoopsModuleConfig['multicats'] == 1) {
+        if (0 == $totalcats && 1 == $xoopsModuleConfig['multicats']) {
             redirect_header('index.php', 1, _AM_LEXIKON_NEEDONECOLUMN);
         }
         $uid = $xoopsUser->getVar('uid');
@@ -235,13 +235,13 @@ function entryEdit($entryID = '')
 
     $sform->setExtra('enctype="multipart/form-data"');
     // Category selector
-    if ($xoopsModuleConfig['multicats'] == 1) {
+    if (1 == $xoopsModuleConfig['multicats']) {
         $mytree         = new LexikonTree($xoopsDB->prefix('lxcategories'), 'categoryID', '0');
         $categoryselect = new XoopsFormSelect(_AM_LEXIKON_CATNAME, 'categoryID', $categoryID);
         $tbl            = [];
         $tbl            = $mytree->getChildTreeArray(0, 'name');
         foreach ($tbl as $oneline) {
-            if ($oneline['prefix'] === '.') {
+            if ('.' === $oneline['prefix']) {
                 $oneline['prefix'] = '';
             }
             $oneline['prefix'] = str_replace('.', '-', $oneline['prefix']);
@@ -267,7 +267,7 @@ function entryEdit($entryID = '')
 
     // set editor according to the module's option "form_options"
     $editor = LexikonUtility::getWysiwygForm(_AM_LEXIKON_ENTRYDEF, 'definition', $definition, 15, 60);
-    if ($definition == _MD_LEXIKON_WRITEHERE) {
+    if (_MD_LEXIKON_WRITEHERE == $definition) {
         $editor->setExtra('onfocus="this.select()"');
     }
     $sform->addElement($editor, true);
@@ -360,7 +360,7 @@ function entrySave($entryID = '')
     global $xoopsUser, $xoopsConfig, $xoopsModuleConfig, $xoopsModule, $xoopsDB;
     $myts    = MyTextSanitizer::getInstance();
     $entryID = isset($_POST['entryID']) ? (int)$_POST['entryID'] : (int)$_GET['entryID'];
-    if ($xoopsModuleConfig['multicats'] == 1) {
+    if (1 == $xoopsModuleConfig['multicats']) {
         $categoryID = isset($_POST['categoryID']) ? (int)$_POST['categoryID'] : (int)$_GET['categoryID'];
     } else {
         $categoryID = 1;
@@ -420,7 +420,7 @@ function entrySave($entryID = '')
             // trigger Notification only if its a new definition
             if (!empty($xoopsModuleConfig['notification_enabled'])) {
                 global $xoopsModule;
-                if ($newid == 0) {
+                if (0 == $newid) {
                     $newid = $xoopsDB->getInsertId();
                 }
                 $notificationHandler   = xoops_getHandler('notification');
@@ -469,13 +469,13 @@ function entrySave($entryID = '')
             }
 
             LexikonUtility::calculateTotals();
-            if ($notifypub == '0') {
+            if ('0' == $notifypub) {
                 redirect_header('entry.php', 1, _AM_LEXIKON_ENTRYMODIFIED);
             } else {
                 $user        = new XoopsUser($uid);
                 $userMessage = sprintf(_MD_LEXIKON_GOODDAY2, $user->getVar('uname'));
                 $userMessage .= "\n\n";
-                if ($request == '1') {
+                if ('1' == $request) {
                     $userMessage .= sprintf(_MD_LEXIKON_CONFREQ, $xoopsConfig['sitename']);
                 } else {
                     $userMessage .= sprintf(_MD_LEXIKON_CONFSUB);
@@ -493,7 +493,7 @@ function entrySave($entryID = '')
                 $xoopsMailer->setToEmails($user->getVar('email'));
                 $xoopsMailer->setFromEmail($xoopsConfig['adminmail']);
                 $xoopsMailer->setFromName($xoopsConfig['sitename'] . ' - ' . $xoopsModule->name());
-                if ($request == '1') {
+                if ('1' == $request) {
                     $conf_subject = sprintf(_MD_LEXIKON_SUBJECTREQ, $xoopsConfig['sitename']);
                 } else {
                     $conf_subject = sprintf(_MD_LEXIKON_SUBJECTSUB, $xoopsConfig['sitename']);
@@ -523,7 +523,7 @@ function entryDelete($entryID = '')
     list($entryID, $term, $uid) = $xoopsDB->fetchRow($result);
 
     // confirmed, so delete
-    if ($ok == 1) {
+    if (1 == $ok) {
         $result = $xoopsDB->query('DELETE FROM ' . $xoopsDB->prefix('lxentries') . " WHERE entryID = $entryID");
         xoops_comment_delete($xoopsModule->getVar('mid'), $entryID);
         // delete notifications

@@ -20,7 +20,7 @@ if (empty($xoopsUser) && !$xoopsModuleConfig['authorprofile']) {
     redirect_header(XOOPS_URL . '/user.php', 3, _MD_LEXIKON_MUSTREGFIRST);
 }
 $result = $xoopsDB->query('SELECT * FROM ' . $xoopsDB->prefix('lxcategories') . ' ');
-if ($xoopsDB->getRowsNum($result) == '0' && $xoopsModuleConfig['multicats'] == '1') {
+if ('0' == $xoopsDB->getRowsNum($result) && '1' == $xoopsModuleConfig['multicats']) {
     redirect_header('index.php', 3, _AM_LEXIKON_NOCOLEXISTS);
 }
 //permissions
@@ -65,8 +65,8 @@ if (count($uid_ids) > 0) {
             }
             if (is_object($xoopsUser)) {
                 if ($xoopsUserIsAdmin
-                    || ($one_user->getVar('user_viewemail') == 1
-                        && $one_user->getVar('email') != '')
+                    || (1 == $one_user->getVar('user_viewemail')
+                        && '' != $one_user->getVar('email'))
                 ) {
                     $user_maillink = "<a href='mailto:"
                                      . $one_user->getVar('email')
@@ -81,7 +81,7 @@ if (count($uid_ids) > 0) {
             } else {
                 $user_maillink = '';
             }
-            if ($one_user->getVar('url') != '') {
+            if ('' != $one_user->getVar('url')) {
                 $url          = $one_user->getVar('url');
                 $user_wwwlink = "<a href='"
                                 . $one_user->getVar('url')
@@ -99,7 +99,7 @@ if (count($uid_ids) > 0) {
                                                             WHERE uid='" . $one_user->getVar('uid') . "' " . $catperms . ' '));
             $authortotal = $num;
             // location
-            if ($one_user->getVar('user_from') != '') {
+            if ('' != $one_user->getVar('user_from')) {
                 $userfrom = $one_user->getVar('user_from');
             } else {
                 $userfrom = '';

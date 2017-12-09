@@ -21,7 +21,7 @@ $sqlQuery = $xoopsDB->query('SELECT * FROM '
                             . $xoopsDB->prefix('lxentries')
                             . " WHERE entryID=$entryID");
 $sqlfetch = $xoopsDB->fetchArray($sqlQuery);
-if ($xoopsModuleConfig['multicats'] == 1) {
+if (1 == $xoopsModuleConfig['multicats']) {
     $cID       = $sqlfetch['categoryID'];
     $sqlquery2 = $xoopsDB->query('SELECT name FROM '
                                   . $xoopsDB->prefix('lxcategories')
@@ -38,7 +38,7 @@ echo '</head><body>
          <th class="head">' . $term . '</th>
       </tr>
     </table>';
-if ($xoopsModuleConfig['multicats'] == 1) {
+if (1 == $xoopsModuleConfig['multicats']) {
     echo '<div class="itemBody">' . _MD_LEXIKON_ENTRYCATEGORY . '' . $catname . '</div>';
 }
 echo '<div class="itemBody"><p class="itemText">' . $definition . '</p></div>

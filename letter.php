@@ -50,7 +50,7 @@ list($howmanyother) = $xoopsDB->fetchRow($xoopsDB->query('SELECT COUNT(*) FROM '
 $xoopsTpl->assign('totalother', $howmanyother);
 
 // To display the list of categories
-if ($xoopsModuleConfig['multicats'] == 1) {
+if (1 == $xoopsModuleConfig['multicats']) {
     $xoopsTpl->assign('block0', LexikonUtility::getCategoryArray());
     $xoopsTpl->assign('layout', CONFIG_CATEGORY_LAYOUT_PLAIN);
     if (LexikonUtility::getModuleOption('useshots')) {
@@ -90,7 +90,7 @@ if (!$init) {
         $xoopsModule      = XoopsModule::getByDirname('lexikon');
         $eachentry['dir'] = $xoopsModule->dirname();
 
-        if ($xoopsModuleConfig['multicats'] == 1) {
+        if (1 == $xoopsModuleConfig['multicats']) {
             $eachentry['catid'] = (int)$categoryID;
             $resultF            = $xoopsDB->query('SELECT name FROM '
                                                   . $xoopsDB->prefix('lxcategories')
@@ -103,8 +103,8 @@ if (!$init) {
         $eachentry['id']   = (int)$entryID;
         $eachentry['term'] = mb_ucfirst($myts->htmlSpecialChars($term));
 
-        if (($xoopsModuleConfig['com_rule'] != 0) || (($xoopsModuleConfig['com_rule'] != 0) && is_object($xoopsUser))) {
-            if ($comments != 0) {
+        if ((0 != $xoopsModuleConfig['com_rule']) || ((0 != $xoopsModuleConfig['com_rule']) && is_object($xoopsUser))) {
+            if (0 != $comments) {
                 $eachentry['comments'] = "<a href='entry.php?entryID="
                                           . $eachentry['id']
                                           . "'>"
@@ -143,7 +143,7 @@ if (!$init) {
     $entriesarray2 = [];
 
     // How many entries will we show in this page?
-    if ($init == _MD_LEXIKON_OTHER) {
+    if (_MD_LEXIKON_OTHER == $init) {
         $queryB  = 'SELECT entryID, categoryID, term, definition, uid, html, smiley, xcodes, breaks, comments FROM '
                    . $xoopsDB->prefix('lxentries')
                    . " WHERE submit ='0' AND offline = '0' AND init = '#' "
@@ -160,11 +160,11 @@ if (!$init) {
     }
 
     $entrieshere = $xoopsDB->getRowsNum($resultB);
-    if ($entrieshere == 0) {
+    if (0 == $entrieshere) {
         redirect_header('javascript:history.go(-1)', 1, _MD_LEXIKON_NOTERMSINLETTER);
     }
 
-    if ($init == _MD_LEXIKON_OTHER) {
+    if (_MD_LEXIKON_OTHER == $init) {
         $allentries = $xoopsDB->query('SELECT entryID FROM '
                                       . $xoopsDB->prefix('lxentries')
                                       . " WHERE init = '#' AND submit ='0' AND offline = '0' "
@@ -186,7 +186,7 @@ if (!$init) {
         $xoopsModule      = XoopsModule::getByDirname('lexikon');
         $eachentry['dir'] = $xoopsModule->dirname();
 
-        if ($xoopsModuleConfig['multicats'] == 1) {
+        if (1 == $xoopsModuleConfig['multicats']) {
             $eachentry['catid'] = (int)$categoryID;
             $resultF            = $xoopsDB->query('SELECT name FROM '
                                                   . $xoopsDB->prefix('lxcategories')
@@ -197,14 +197,14 @@ if (!$init) {
         }
         $eachentry['id']   = (int)$entryID;
         $eachentry['term'] = mb_ucfirst($myts->htmlSpecialChars($term));
-        if ($init === '#') {
+        if ('#' === $init) {
             $eachentry['init'] = _MD_LEXIKON_OTHER;
         } else {
             $eachentry['init'] = $init;
         }
 
-        if (($xoopsModuleConfig['com_rule'] != 0) || (($xoopsModuleConfig['com_rule'] != 0) && is_object($xoopsUser))) {
-            if ($comments != 0) {
+        if ((0 != $xoopsModuleConfig['com_rule']) || ((0 != $xoopsModuleConfig['com_rule']) && is_object($xoopsUser))) {
+            if (0 != $comments) {
                 $eachentry['comments'] = "<a href='entry.php?entryID="
                                           . $eachentry['id']
                                           . "'>"
@@ -233,7 +233,7 @@ if (!$init) {
 
     $xoopsTpl->assign('entriesarray2', $entriesarray2);
     $xoopsTpl->assign('pagetype', '1');
-    if ($eachentry['init'] === '#') {
+    if ('#' === $eachentry['init']) {
         $xoopsTpl->assign('pageinitial', _MD_LEXIKON_OTHER);
         LexikonUtility::createPageTitle($myts->htmlSpecialChars(_MD_LEXIKON_BROWSELETTER . ' - ' . _MD_LEXIKON_OTHER));
     } else {
@@ -244,7 +244,7 @@ if (!$init) {
 $xoopsTpl->assign('lang_modulename', $xoopsModule->name());
 $xoopsTpl->assign('lang_moduledirname', $xoopsModule->getVar('dirname'));
 $xoopsTpl->assign('alpha', $alpha);
-if ($xoopsModuleConfig['syndication'] == 1) {
+if (1 == $xoopsModuleConfig['syndication']) {
     $xoopsTpl->assign('syndication', true);
 }
 if ($xoopsUser) {
@@ -253,7 +253,7 @@ if ($xoopsUser) {
 // Meta data
 if ($publishedwords = 0) {
     $meta_description = xoops_substr(LexikonUtility::convertHtml2text($eachentry['definition']), 0, 150);
-    if ($xoopsModuleConfig['multicats'] == 1) {
+    if (1 == $xoopsModuleConfig['multicats']) {
         LexikonUtility::extractKeywords($xoopsModule->name() . ' ,' . $eachentry['term'] . ', ' . $meta_description);
         LexikonUtility::getMetaDescription($myts->htmlSpecialChars($xoopsModule->name()) . ' ' . $eachentry['catname'] . ' ' . $eachentry['term']);
     } else {

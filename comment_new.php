@@ -24,10 +24,10 @@ $com_itemid = isset($_GET['com_itemid']) ? (int)$_GET['com_itemid'] : 0;
 if (!isset($xoopsModuleConfig)) {
     die();
 }
-if ($xoopsModuleConfig['com_rule'] == 0) {
+if (0 == $xoopsModuleConfig['com_rule']) {
     die();
 }    // Comments deactivated
-if ($xoopsModuleConfig['com_anonpost'] == 0 && !is_object($xoopsUser)) {
+if (0 == $xoopsModuleConfig['com_anonpost'] && !is_object($xoopsUser)) {
     die();
 } // Anonymous users can't post
 

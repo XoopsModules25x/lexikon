@@ -47,7 +47,7 @@ switch ($op) {
 function showerror($msg)
 {
     global $xoopsDB;
-    if ($xoopsDB->error() != '') {
+    if ('' != $xoopsDB->error()) {
         echo '<br>' . $msg . ' <br><span style="font-size: xx-small; "> - ' . _AM_LEXIKON_IMPORT_ERROR . ': ' . $xoopsDB->error() . '</span>.';
     } else {
         echo '<br>' . $msg . '' . _AM_LEXIKON_IMPORT_OK;

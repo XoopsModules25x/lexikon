@@ -41,11 +41,11 @@ function lx_search($queryarray, $andor, $limit, $offset, $userid)
     $sql = 'SELECT entryID, categoryID, term, definition, ref, uid, datesub FROM ' . $xoopsDB->prefix('lxentries') . ' WHERE submit = 0 AND offline = 0 ';
     $sql .= " AND categoryID IN ($catids) ";
 
-    if ($userid != 0) {
+    if (0 != $userid) {
         $sql .= ' AND uid=' . $userid . ' ';
     }
     if ($highlight) {
-        if ($queryarray == '') {
+        if ('' == $queryarray) {
             $keywords       = '';
             $hightlight_key = '';
         } else {
@@ -95,7 +95,7 @@ function lx_search($queryarray, $andor, $limit, $offset, $userid)
         $sql = 'SELECT com_id, com_modid, com_itemid, com_created, com_uid, com_title, com_text, com_status
                FROM ' . $xoopsDB->prefix('xoopscomments') . "
                WHERE (com_id>0) AND (com_modid=$module_id) AND (com_status=" . XOOPS_COMMENT_ACTIVE . ') ';
-        if ($userid != 0) {
+        if (0 != $userid) {
             $sql .= ' AND com_uid=' . $userid . ' ';
         }
 
@@ -115,7 +115,7 @@ function lx_search($queryarray, $andor, $limit, $offset, $userid)
             list($entryID, $offline) = $xoopsDB->fetchRow($xoopsDB->query('
                                          SELECT entryID, offline
                                          FROM ' . $xoopsDB->prefix('lxentries') . ' WHERE entryID = ' . $myrow['com_itemid'] . ''));
-            if ($offline == 1) {
+            if (1 == $offline) {
                 $display = false;
             }
             if ($i + 1 > $limit) {
