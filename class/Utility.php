@@ -239,7 +239,7 @@ class LexikonUtility
         list($totalcategories) = $xoopsDB->getRowsNum($result01);
         while (list($categoryID, $total) = $xoopsDB->fetchRow($result01)) {
             if ($gpermHandler->checkRight('lexikon_view', $categoryID, $groups, $xoopsModule->getVar('mid'))) {
-                $newcount = LexikonUtility::countByCategory($categoryID);
+                $newcount = self::countByCategory($categoryID);
                 $xoopsDB->queryF('UPDATE ' . $xoopsDB->prefix('lxcategories') . " SET total = '$newcount' WHERE categoryID = '$categoryID'");
             }
         }
@@ -917,7 +917,7 @@ class LexikonUtility
      */
     public static function getWysiwygForm($caption, $name, $value = '', $width = '100%', $height = '400px', $supplemental = '')
     {
-        $editor_option            = strtolower(LexikonUtility::getModuleOption('form_options'));
+        $editor_option            = strtolower(self::getModuleOption('form_options'));
         $editor                   = false;
         $editor_configs           = [];
         $editor_configs['name']   = $name;
@@ -928,7 +928,7 @@ class LexikonUtility
         $editor_configs['height'] = '350px';
         $editor_configs['editor'] = $editor_option;
 
-        if (LexikonUtility::isX23()) {
+        if (self::isX23()) {
             $editor = new XoopsFormEditor($caption, $name, $editor_configs);
 
             return $editor;
@@ -1238,7 +1238,7 @@ class LexikonUtility
                         . chr(253)
                         . chr(255);
         $chars['out'] = 'EfSZszYcYuAAAAAACEEEEIIIINOOOOOOUUUUYaaaaaaceeeeiiiinoooooouuuuyy';
-        if (LexikonUtility::isUtf8($string)) {
+        if (self::isUtf8($string)) {
             $invalid_latin_chars = [
                 chr(197) . chr(146)            => 'OE',
                 chr(197) . chr(147)            => 'oe',
@@ -1322,7 +1322,7 @@ class LexikonUtility
      */
     public static function sanitizeFieldName($field)
     {
-        $field = LexikonUtility::removeAccents($field);
+        $field = self::removeAccents($field);
         $field = strtolower($field);
         $field = preg_replace('/&.+?;/', '', $field); // kill entities
         $field = preg_replace('/[^a-z0-9 _-]/', '', $field);
@@ -1504,7 +1504,7 @@ class LexikonUtility
             if (!$break_words) {
                 $string = preg_replace('/\s+?(\S+)?$/', '', substr($string, 0, $length + 1));
                 $string = preg_replace('/<[^>]*$/', '', $string);
-                $string = LexikonUtility::closeTags($string);
+                $string = self::closeTags($string);
             }
 
             return $string . $etc;
