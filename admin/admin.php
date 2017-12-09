@@ -96,7 +96,7 @@ if (0 != $admintest) {
     }
 }
 
-if (false != $error) {
+if (false !== $error) {
     xoops_cp_header();
     echo '<h4>' . _AM_SYSTEM_CONFIG . '</h4>';
     echo '<table class="outer" cellpadding="4" cellspacing="1">';
@@ -118,7 +118,7 @@ if (false != $error) {
             include $admin_dir . '/' . $file . '/xoops_version.php';
             if ($modversion['hasAdmin']) {
                 $category = isset($modversion['category']) ? (int)$modversion['category'] : 0;
-                if (false != $all_ok || in_array($modversion['category'], $ok_syscats)) {
+                if (false !== $all_ok || in_array($modversion['category'], $ok_syscats)) {
                     echo "<td class='$class' align='center' valign='bottom' width='19%'>";
                     echo "<a href='" . XOOPS_URL . '/modules/system/admin.php?fct=' . $file . "'><b>" . trim($modversion['name']) . "</b></a>\n";
                     echo '</td>';

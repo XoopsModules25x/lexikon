@@ -142,7 +142,7 @@ if (!class_exists('XoopsGTicket')) {
             }
 
             // record referer if browser send it
-            $referer = empty($_SERVER['HTTP_REFERER']) ? '' : $_SERVER['REQUEST_URI'];
+            $referer = empty(Request::getString('HTTP_REFERER', '', 'SERVER')) ? '' : $_SERVER['REQUEST_URI'];
 
             // area as module's dirname
             if (!$area && is_object(@$xoopsModule)) {
@@ -229,7 +229,7 @@ if (!class_exists('XoopsGTicket')) {
                     $area_check = true;
                 }
                 if (!empty($found_stub['referer'])
-                    && true === strpos(@$_SERVER['HTTP_REFERER'], $found_stub['referer'])
+                    && true === strpos(@Request::getString('HTTP_REFERER', '', 'SERVER'), $found_stub['referer'])
                 ) {
                     $referer_check = true;
                 }
@@ -395,10 +395,10 @@ if (!function_exists('admin_refcheck')) {
      */
     function admin_refcheck($chkref = '')
     {
-        if (empty($_SERVER['HTTP_REFERER'])) {
+        if (empty(Request::getString('HTTP_REFERER', '', 'SERVER'))) {
             return true;
         } else {
-            $ref = $_SERVER['HTTP_REFERER'];
+            $ref = Request::getString('HTTP_REFERER', '', 'SERVER');
         }
         $cr = XOOPS_URL;
         if ('' != $chkref) {
