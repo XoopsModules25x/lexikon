@@ -44,7 +44,7 @@ function lexikon_tag_iteminfo(&$items)
         // If catid is not used, just skip it
         foreach (array_keys($items[$cat_id]) as $item_id) {
             // In article, the item_id is "art_id"
-            $items_id[] = intval($item_id);
+            $items_id[] = (int)$item_id;
         }
     }
 

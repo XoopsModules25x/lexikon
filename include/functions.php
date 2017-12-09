@@ -24,7 +24,7 @@ function lx_getLinkedUnameFromId($userid = 0, $name= 0)
         return $userid;
     }
 
-    $userid = intval($userid);
+    $userid = (int)$userid;
     if ($userid > 0) {
         $member_handler = xoops_getHandler('member');
         $user = $member_handler->getUser($userid);
@@ -149,11 +149,11 @@ function lx_CatsArray()
                 $logourl = '';
             }
             $xoopsModule = XoopsModule::getByDirname('lexikon');
-            $catlinks['id'] = intval($catID);
-            $catlinks['total'] = intval($total);
+            $catlinks['id'] = (int)$catID;
+            $catlinks['total'] = (int)$total;
             $catlinks['linktext'] = $myts -> htmlSpecialChars($name);
             $catlinks['image'] = $logourl;
-            $catlinks['count'] = intval($count);
+            $catlinks['count'] = (int)$count;
 
             $block0['categories'][] = $catlinks;
         }
@@ -338,7 +338,7 @@ function lx_showSearchForm()
         $searchform .= '<option value="0">' . _MD_LEXIKON_ALLOFTHEM . '</option>';
 
         while (list($categoryID, $name) = $xoopsDB->fetchRow($resultcat)) {
-            if ($gperm_handler->checkRight('lexikon_view', intval($categoryID), $groups, $xoopsModule->getVar('mid'))) {
+            if ($gperm_handler->checkRight('lexikon_view', (int)$categoryID, $groups, $xoopsModule->getVar('mid'))) {
                 $searchform .= "<option value=\"$categoryID\">$categoryID : $name</option>";
             }
         }
@@ -792,12 +792,12 @@ function lx_AuthorProfile($uid)
     $catids = implode(',', $allowed_cats);
     $catperms = " AND categoryID IN ($catids) ";
         
-    $start = isset($_GET['start']) ? intval($_GET['start']) : 0;
+    $start = isset($_GET['start']) ? (int)$_GET['start'] : 0;
     $limit = $xoopsModuleConfig['indexperpage'];
 
     $sql = $xoopsDB -> query('SELECT *
                               FROM ' . $xoopsDB -> prefix('lxentries') . "
-                              WHERE uid='" . intval($uid) . "' AND  offline = '0' AND submit = '0' AND request = '0' " . $catperms . "
+                              WHERE uid='" . (int)$uid . "' AND  offline = '0' AND submit = '0' AND request = '0' " . $catperms . "
                               ORDER BY term
                               LIMIT $start,$limit");
 
@@ -832,7 +832,7 @@ function lx_getAuthors($limit=0, $start=0)
 function lx_getLinkedProfileFromId($userid)
 {
     global $uid, $xoopsModule;
-    $userid = intval($uid);
+    $userid = (int)$uid;
     if ($userid > 0) {
         $member_handler = xoops_getHandler('member');
         $user = $member_handler->getUser($userid);
@@ -963,7 +963,7 @@ function lx_TermExists($term, $table)
 // Static method to get author data block authors - from AMS
 function lexikon_block_getAuthors($limit = 5, $sort = 'count', $name = 'uname', $compute_method = 'average')
 {
-    $limit = intval($limit);
+    $limit = (int)$limit;
     if ('uname' != $name) {
         $name = 'name';
     } //making sure that there is not invalid information in field value
