@@ -9,7 +9,7 @@ if (substr(XOOPS_VERSION, 6, 3) < 2.1) {
     global $xoopsDB;
     $query  = 'SELECT mid FROM ' . $xoopsDB->prefix('modules') . " WHERE dirname='" . $modversion['dirname'] . "' ";
     $result = $xoopsDB->query($query);
-    $record = $xoopsDB->fetcharray($result);
+    $record = $xoopsDB->fetchArray($result);
     if ($record) {
         $mid   = $record['mid'];
         $count = count($modversion['blocks']);

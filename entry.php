@@ -137,7 +137,7 @@ while (list($entryID, $categoryID, $term, $init, $definition, $ref, $url, $uid, 
                                     . $catperms
                                     . ' ');
 
-        while (list($entryID, $term, $definition) = $xoopsDB->fetchrow($allterms)) {
+        while (list($entryID, $term, $definition) = $xoopsDB->fetchRow($allterms)) {
             foreach ($parts as $key => $part) {
                 if ($term != $glossaryterm) {
                     $term_q      = preg_quote($term, '/');

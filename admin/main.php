@@ -265,12 +265,12 @@ lx_buildTable();
 
 if ($numrows > 0) {
     $class = 'odd';
-    while (list($entryID, $categoryID, $term, $uid, $created, $offline) = $xoopsDB->fetchrow($items)) {
+    while (list($entryID, $categoryID, $term, $uid, $created, $offline) = $xoopsDB->fetchRow($items)) {
         // Creating the items
         $resultcn = $xoopsDB->query('SELECT name
                                        FROM ' . $xoopsDB->prefix('lxcategories') . "
                                        WHERE categoryID = '$categoryID'");
-        list($name) = $xoopsDB->fetchrow($resultcn);
+        list($name) = $xoopsDB->fetchRow($resultcn);
         $catname = $myts->htmlSpecialChars($name);
         $sentby  = XoopsUserUtility::getUnameFromId($uid);
         $term    = $myts->htmlSpecialChars($term);

@@ -91,11 +91,11 @@ function entryDefault()
     if ($numrows > 0) {
         // That is, if there ARE entries in the system
 
-        while (list($entryID, $categoryID, $term, $uid, $created, $offline) = $xoopsDB->fetchrow($resultA2)) {
+        while (list($entryID, $categoryID, $term, $uid, $created, $offline) = $xoopsDB->fetchRow($resultA2)) {
             $resultA3 = $xoopsDB->query('SELECT name
                                          FROM ' . $xoopsDB->prefix('lxcategories') . "
                                          WHERE categoryID = '$categoryID'");
-            list($name) = $xoopsDB->fetchrow($resultA3);
+            list($name) = $xoopsDB->fetchRow($resultA3);
 
             $sentby  = XoopsUserUtility::getUnameFromId($uid);
             $catname = $myts->htmlSpecialChars($name);
@@ -213,7 +213,7 @@ function entryEdit($entryID = '')
                                   SELECT categoryID, term, init, definition, ref, url, uid, submit, datesub, html, smiley, xcodes, breaks, block, offline, notifypub, request
                                   FROM ' . $xoopsDB->prefix('lxentries') . "
                                   WHERE entryID = '$entryID'");
-        list($categoryID, $term, $init, $definition, $ref, $url, $uid, $submit, $datesub, $html, $smiley, $xcodes, $breaks, $block, $offline, $notifypub, $request) = $xoopsDB->fetchrow($result);
+        list($categoryID, $term, $init, $definition, $ref, $url, $uid, $submit, $datesub, $html, $smiley, $xcodes, $breaks, $block, $offline, $notifypub, $request) = $xoopsDB->fetchRow($result);
 
         if (!$xoopsDB->getRowsNum($result)) {
             redirect_header('index.php', 1, _AM_LEXIKON_NOENTRYTOEDIT);
@@ -520,7 +520,7 @@ function entryDelete($entryID = '')
     $entryID = isset($_POST['entryID']) ? (int)$_POST['entryID'] : (int)$_GET['entryID'];
     $ok      = isset($_POST['ok']) ? (int)$_POST['ok'] : 0;
     $result  = $xoopsDB->query('SELECT entryID, term, uid FROM ' . $xoopsDB->prefix('lxentries') . " WHERE entryID = $entryID");
-    list($entryID, $term, $uid) = $xoopsDB->fetchrow($result);
+    list($entryID, $term, $uid) = $xoopsDB->fetchRow($result);
 
     // confirmed, so delete
     if ($ok == 1) {

@@ -33,7 +33,7 @@ function printPage($entryID)
     if ($Ok <= 0) {
         redirect_header('javascript:history.go(-1)', 3, _ERRORS);
     }
-    list($entryID, $categoryID, $term, $init, $definition, $ref, $url, $uid, $submit, $datesub, $counter, $html, $smiley, $xcodes, $breaks, $block, $offline, $notifypub) = $xoopsDB->fetchrow($result1);
+    list($entryID, $categoryID, $term, $init, $definition, $ref, $url, $uid, $submit, $datesub, $counter, $html, $smiley, $xcodes, $breaks, $block, $offline, $notifypub) = $xoopsDB->fetchRow($result1);
 
     $result2 = $xoopsDB->query('SELECT name FROM '
                                 . $xoopsDB->prefix('lxcategories')

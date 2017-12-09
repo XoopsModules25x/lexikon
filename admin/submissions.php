@@ -130,11 +130,11 @@ switch ($op) {
         . '</th></tr>';
 
         if ($numrows > 0) { // That is, if there ARE submitted entries in the system
-            while (list($entryID, $categoryID, $term, $uid, $created) = $xoopsDB->fetchrow($resultS2)) {
+            while (list($entryID, $categoryID, $term, $uid, $created) = $xoopsDB->fetchRow($resultS2)) {
                 $resultS3 = $xoopsDB->query('SELECT name
                                            FROM ' . $xoopsDB->prefix('lxcategories') . "
                                            WHERE categoryID = '$categoryID'");
-                list($name) = $xoopsDB->fetchrow($resultS3);
+                list($name) = $xoopsDB->fetchRow($resultS3);
 
                 $sentby = XoopsUserUtility::getUnameFromId($uid);
 
@@ -233,11 +233,11 @@ switch ($op) {
               . '</th></tr>';
 
         if ($numrowsX > 0) { // That is, if there ARE unauthorized articles in the system
-            while (list($entryID, $categoryID, $term, $uid, $created) = $xoopsDB->fetchrow($resultS4)) {
+            while (list($entryID, $categoryID, $term, $uid, $created) = $xoopsDB->fetchRow($resultS4)) {
                 $resultS3 = $xoopsDB->query('SELECT name
                                              FROM ' . $xoopsDB->prefix('lxcategories') . "
                                              WHERE categoryID = '$categoryID'");
-                list($name) = $xoopsDB->fetchrow($resultS3);
+                list($name) = $xoopsDB->fetchRow($resultS3);
 
                 $sentby = XoopsUserUtility::getUnameFromId($uid);
 
@@ -330,11 +330,11 @@ switch ($op) {
               . "</th></tr>";
 
         if ($numrowsX > 0) { // That is, if there ARE unauthorized articles in the system
-            while (list($entryID, $categoryID, $term, $uid, $created) = $xoopsDB->fetchrow($resultS4)) {
+            while (list($entryID, $categoryID, $term, $uid, $created) = $xoopsDB->fetchRow($resultS4)) {
                 $resultS3 = $xoopsDB->query('SELECT name
                                              FROM ' . $xoopsDB->prefix('lxcategories') . "
                                              WHERE categoryID = '$categoryID'");
-                list($name) = $xoopsDB->fetchrow($resultS3);
+                list($name) = $xoopsDB->fetchRow($resultS3);
 
                 $sentby = XoopsUserUtility::getUnameFromId($uid);
 

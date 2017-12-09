@@ -72,7 +72,7 @@ function categoryDefault()
 
         $class = 'odd';
         if ($numrows > 0) { // That is, if there ARE columns in the system
-            while (list($categoryID, $name, $description, $total, $weight, $logourl) = $xoopsDB->fetchrow($resultC2)) {
+            while (list($categoryID, $name, $description, $total, $weight, $logourl) = $xoopsDB->fetchRow($resultC2)) {
                 $name = $myts->htmlSpecialChars($name);
                 $description = strip_tags(htmlspecialchars_decode($description));
                 $modify      = "<a href='category.php?op=mod&categoryID="
@@ -142,7 +142,7 @@ function categoryEdit($categoryID = '')
                                      FROM ' . $xoopsDB->prefix('lxcategories') . "
                                      WHERE categoryID = '$categoryID'");
 
-        list($categoryID, $name, $description, $total, $weight, $logourl) = $xoopsDB->fetchrow($result);
+        list($categoryID, $name, $description, $total, $weight, $logourl) = $xoopsDB->fetchRow($result);
         $myts = MyTextSanitizer::getInstance();
         $name = $myts->htmlSpecialChars($name);
         //permissions
@@ -264,7 +264,7 @@ function categoryDelete($categoryID = '')
 
     $ok     = isset($_POST['ok']) ? (int)$_POST['ok'] : 0;
     $result = $xoopsDB->query('SELECT categoryID, name FROM ' . $xoopsDB->prefix('lxcategories') . " WHERE categoryID = $idc");
-    list($categoryID, $name) = $xoopsDB->fetchrow($result);
+    list($categoryID, $name) = $xoopsDB->fetchRow($result);
     // confirmed, so delete
     if ($ok == 1) {
         //get all entries in the category
