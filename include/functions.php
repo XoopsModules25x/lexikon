@@ -1136,10 +1136,10 @@ function lexikon_summary()
 
     // Recuperer les valeurs dans la base de donnees
 
-    $summary['publishedEntries']   = $totalpublished ? $totalpublished : '0';
-    $summary['availableCategories']   = $totalcategories ? $totalcategories : '0';
-    $summary['submittedEntries'] = $totalsubmitted ? $totalsubmitted : '0';
-    $summary['requestedEntries'] = $totalrequested ? $totalrequested : '0';
+    $summary['publishedEntries']   = $totalpublished ?: '0';
+    $summary['availableCategories']   = $totalcategories ?: '0';
+    $summary['submittedEntries'] = $totalsubmitted ?: '0';
+    $summary['requestedEntries'] = $totalrequested ?: '0';
 
     //print_r($summary);
     return $summary;
