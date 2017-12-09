@@ -327,7 +327,7 @@ class LexikonUtility
                 $catlinks['total']    = (int)$total;
                 $catlinks['linktext'] = $myts->htmlSpecialChars($name);
                 $catlinks['image']    = $logourl;
-                $catlinks['count']    = (int)$count;
+                $catlinks['count']    = $count;
 
                 $block0['categories'][] = $catlinks;
             }

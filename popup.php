@@ -10,7 +10,7 @@ include XOOPS_ROOT_PATH . '/header.php';
 
 xoops_header(false);
 
-$entryID = isset($_GET['entryID']) ? (int)((int)$_GET['entryID']) : 0;
+$entryID = isset($_GET['entryID']) ? ((int)$_GET['entryID']) : 0;
 if (!$entryID) {
     exit();
 }

@@ -70,7 +70,7 @@ function b_lxentries_alpha_show($options)
         $letterlinks['total']    = $howmany;
         $letterlinks['id']       = uchr($a);
         $letterlinks['linktext'] = uchr($a);
-        $letterlinks['count']    = (int)$count;
+        $letterlinks['count']    = $count;
 
         $block['initstuff'][] = $letterlinks;
     }
@@ -88,7 +88,7 @@ function b_lxentries_alpha_show($options)
         $letterlinks['total']    = $howmany;
         $letterlinks['id']       = uchr($a);
         $letterlinks['linktext'] = uchr($a);
-        $letterlinks['count']    = (int)$count;
+        $letterlinks['count']    = $count;
 
         $block['initstuff'][] = $letterlinks;
     }

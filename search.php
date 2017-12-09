@@ -41,7 +41,7 @@ extract($_POST, EXTR_OVERWRITE);
 $action     = isset($action) ? trim($action) : 'search';
 $query      = isset($term) ? trim($term) : '';
 $start      = isset($start) ? (int)$start : 0;
-$categoryID = isset($categoryID) ? (int)$categoryID : 0;
+$categoryID = isset($categoryID) ? $categoryID : 0;
 $type       = isset($type) ? (int)$type : 3;
 $queries    = [];
 

@@ -96,7 +96,7 @@ if (!$categoryID) {
 
         // Total entries in this category
         $entriesincat     = (int)$total;
-        $eachcat['total'] = (int)$entriesincat;
+        $eachcat['total'] = $entriesincat;
 
         $catsarray['single'][] = $eachcat;
     }
@@ -140,7 +140,7 @@ if (!$categoryID) {
             // Total entries in this category
             //$entriesincat = LexikonUtility::countByCategory($categoryID);
             $entriesincat       = (int)$total;
-            $singlecat['total'] = (int)$entriesincat;
+            $singlecat['total'] = $entriesincat;
             $xoopsTpl->assign('singlecat', $singlecat);
 
             // Entries to show in current page

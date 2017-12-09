@@ -35,7 +35,7 @@ if (!function_exists('mb_ucfirst') && function_exists('mb_substr')) {
     }
 }
 
-$suggest = isset($_GET['suggest']) ? (int)((int)$_GET['suggest']) : 0;
+$suggest = isset($_GET['suggest']) ? ((int)$_GET['suggest']) : 0;
 
 if ($suggest > 0) {
     $terminosql = $xoopsDB->query('SELECT term FROM '
@@ -103,9 +103,9 @@ switch ($op) {
         }
 
         $block     = isset($block) ? (int)$block : 1;
-        $smiley    = isset($smiley) ? (int)$smiley : 1;
-        $xcodes    = isset($xcodes) ? (int)$xcodes : 1;
-        $breaks    = isset($breaks) ? (int)$breaks : 1;
+        $smiley    = isset($smiley) ? $smiley : 1;
+        $xcodes    = isset($xcodes) ? $xcodes : 1;
+        $breaks    = isset($breaks) ? $breaks : 1;
         $notifypub = !empty($_POST['notifypub']) ? 1 : 0;
 
         if ($xoopsModuleConfig['multicats'] == 1) {

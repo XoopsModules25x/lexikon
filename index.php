@@ -27,7 +27,7 @@ $rndlength = !empty($xoopsModuleConfig['rndlength']) ? (int)$xoopsModuleConfig['
 $gpermHandler = xoops_getHandler('groupperm');
 $groups       = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
 $module_id    = $xoopsModule->getVar('mid');
-$perm_itemid  = isset($categoryID) ? (int)$categoryID : 0;
+$perm_itemid  = isset($categoryID) ? $categoryID : 0;
 if (!$gpermHandler->checkRight('lexikon_view', $perm_itemid, $groups, $module_id)) {
     redirect_header('javascript:history.go(-1)', 2, _NOPERM);
 }

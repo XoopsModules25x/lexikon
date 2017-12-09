@@ -126,7 +126,7 @@ if (isset($_POST['previewblock'])) {
     $block['modules']   = $bmodule;
     $block['ctype']     = isset($bctype) ? $bctype : $myblock->getVar('c_type');
     $block['is_custom'] = true;
-    $block['cachetime'] = (int)$bcachetime;
+    $block['cachetime'] = $bcachetime;
     echo '<a href="myblocksadmin.php">' . _AM_BADMIN . '</a>&nbsp;<span style="font-weight:bold;">&raquo;&raquo;</span>&nbsp;' . $block['form_title'] . '<br><br>';
     include __DIR__ . '/../admin/myblockform.php'; //GIJ
 
