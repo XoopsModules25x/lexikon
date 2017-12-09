@@ -20,7 +20,7 @@ if (!$gpermHandler->checkRight('lexikon_request', $perm_itemid, $groups, $module
 if (empty($_POST['submit'])) {
     $GLOBALS['xoopsOption']['template_main'] = 'lx_request.tpl';
     include XOOPS_ROOT_PATH . '/header.php';
-    include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
+    require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
     $username_v = !empty($xoopsUser) ? $xoopsUser->getVar('uname', 'E') : '';
     $usermail_v = !empty($xoopsUser) ? $xoopsUser->getVar('email', 'E') : '';
     $notifypub  = '1';

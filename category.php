@@ -10,13 +10,13 @@
 
 include __DIR__ . '/header.php';
 $GLOBALS['xoopsOption']['template_main'] = 'lx_category.tpl';
-include_once XOOPS_ROOT_PATH . '/header.php';
+require_once XOOPS_ROOT_PATH . '/header.php';
 global $xoTheme, $xoopsUser;
 $myts = MyTextSanitizer::getInstance();
-include_once XOOPS_ROOT_PATH . '/modules/lexikon/include/common.inc.php';
+require_once XOOPS_ROOT_PATH . '/modules/lexikon/include/common.inc.php';
 $limit      = $xoopsModuleConfig['indexperpage'];
 $categoryID = isset($_GET['categoryID']) ? (int)$_GET['categoryID'] : 0;
-include_once XOOPS_ROOT_PATH . '/class/pagenav.php';
+require_once XOOPS_ROOT_PATH . '/class/pagenav.php';
 $start = isset($_GET['start']) ? (int)$_GET['start'] : 0;
 $xoopsTpl->assign('multicats', (int)$xoopsModuleConfig['multicats']);
 

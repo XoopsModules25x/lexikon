@@ -11,8 +11,8 @@
 include __DIR__ . '/header.php';
 
 $GLOBALS['xoopsOption']['template_main'] = 'lx_index.tpl';
-include_once XOOPS_ROOT_PATH . '/header.php';
-include_once XOOPS_ROOT_PATH . '/modules/lexikon/include/common.inc.php';
+require_once XOOPS_ROOT_PATH . '/header.php';
+require_once XOOPS_ROOT_PATH . '/modules/lexikon/include/common.inc.php';
 global $xoTheme, $xoopsUser;
 $myts = MyTextSanitizer::getInstance();
 

@@ -5,16 +5,16 @@
 //                          GIJOE <http://www.peak.ne.jp/>                   //
 // ------------------------------------------------------------------------- //
 
-include_once __DIR__ . '/../../../include/cp_header.php';
+require_once __DIR__ . '/../../../include/cp_header.php';
 
 if (false !== strpos(XOOPS_VERSION, 'XOOPS 2.2')) {
     include __DIR__ . '/myblocksadmin2.php';
     exit;
 }
 
-include_once __DIR__ . '/mygrouppermform.php';
-include_once XOOPS_ROOT_PATH . '/class/xoopsblock.php';
-include_once __DIR__ . '/../include/gtickets.php';// GIJ
+require_once __DIR__ . '/mygrouppermform.php';
+require_once XOOPS_ROOT_PATH . '/class/xoopsblock.php';
+require_once __DIR__ . '/../include/gtickets.php';// GIJ
 
 $xoops_system_path = XOOPS_ROOT_PATH . '/modules/system';
 
@@ -26,9 +26,9 @@ if (!file_exists("$xoops_system_path/language/$language/admin/blocksadmin.php"))
 
 // to prevent from notice that constants already defined
 $error_reporting_level = error_reporting(0);
-include_once "$xoops_system_path/constants.php";
-include_once "$xoops_system_path/language/$language/admin.php";
-include_once "$xoops_system_path/language/$language/admin/blocksadmin.php";
+require_once "$xoops_system_path/constants.php";
+require_once "$xoops_system_path/language/$language/admin.php";
+require_once "$xoops_system_path/language/$language/admin/blocksadmin.php";
 
 error_reporting($error_reporting_level);
 
@@ -356,7 +356,7 @@ if (!empty($_POST['submit'])) {
 }
 
 xoops_cp_header();
-include_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->dirname() . '/admin/functions.php';
+require_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->dirname() . '/admin/functions.php';
 
 if (!empty($block_arr)) {
     echo "<h4 style='text-align:left;'>$target_mname : " . _AM_BADMIN . "</h4>\n";

@@ -8,7 +8,7 @@
  * Licence: GNU
  */
 
-include_once __DIR__ . '/../../../include/cp_header.php';
+require_once __DIR__ . '/../../../include/cp_header.php';
 xoops_cp_header();
 require_once __DIR__ . '/admin_header.php';
 global $xoopsModuleConfig, $xoopsUser, $xoopsModule, $xoopsDB;

@@ -6,22 +6,22 @@
  * Licence: GNU
  */
 
-include_once __DIR__ . '/../../../mainfile.php';
+require_once __DIR__ . '/../../../mainfile.php';
 
-include_once XOOPS_ROOT_PATH . '/kernel/module.php';
-include_once XOOPS_ROOT_PATH . '/modules/lexikon/class/lexikontree.php'; // -- LionHell
-include_once XOOPS_ROOT_PATH . '/class/xoopslists.php';
-include_once XOOPS_ROOT_PATH . '/class/pagenav.php';
-include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
+require_once XOOPS_ROOT_PATH . '/kernel/module.php';
+require_once XOOPS_ROOT_PATH . '/modules/lexikon/class/lexikontree.php'; // -- LionHell
+require_once XOOPS_ROOT_PATH . '/class/xoopslists.php';
+require_once XOOPS_ROOT_PATH . '/class/pagenav.php';
+require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
 
 if (file_exists(__DIR__ . '/../language/' . $xoopsConfig['language'] . '/main.php')) {
     include __DIR__ . '/../language/' . $xoopsConfig['language'] . '/main.php';
 } else {
     include __DIR__ . '/../language/english/main.php';
 }
-include_once XOOPS_ROOT_PATH . '/modules/lexikon/class/Utility.php';
-include_once XOOPS_ROOT_PATH . '/modules/lexikon/admin/functions.php';
-include_once XOOPS_ROOT_PATH . '/kernel/module.php';
+require_once XOOPS_ROOT_PATH . '/modules/lexikon/class/Utility.php';
+require_once XOOPS_ROOT_PATH . '/modules/lexikon/admin/functions.php';
+require_once XOOPS_ROOT_PATH . '/kernel/module.php';
 $xoopsModule = XoopsModule::getByDirname('lexikon');
 
 ob_start();

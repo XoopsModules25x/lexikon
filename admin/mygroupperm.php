@@ -26,7 +26,7 @@ function myDeleteByModule(XoopsDatabase $db, $gperm_modid, $gperm_name = null, $
     return true;
 }
 
-// include_once __DIR__ . '/../../../include/cp_header.php'; GIJ
+// require_once __DIR__ . '/../../../include/cp_header.php'; GIJ
 $modid = isset($_POST['modid']) ? (int)$_POST['modid'] : 1;
 // we dont want system module permissions to be changed here ( 1 -> 0 GIJ)
 if ($modid <= 0 || !is_object($xoopsUser) || !$xoopsUser->isAdmin($modid)) {

@@ -18,7 +18,7 @@
  */
 
 
-$admin_mydirname = basename(dirname(__DIR__));
+$moduleDirName = basename(dirname(__DIR__));
 
 $fct = empty($_POST['fct']) ? '' : trim($_POST['fct']);
 $fct = empty($_GET['fct']) ? $fct : trim($_GET['fct']);
@@ -30,8 +30,8 @@ include __DIR__ . '/../../../mainfile.php';
 
 include XOOPS_ROOT_PATH . '/include/cp_functions.php';
 
-include_once XOOPS_ROOT_PATH . '/kernel/module.php';
-include_once __DIR__ . '/../include/gtickets.php';// GIJ
+require_once XOOPS_ROOT_PATH . '/kernel/module.php';
+require_once __DIR__ . '/../include/gtickets.php';// GIJ
 
 $admintest = 0;
 
@@ -46,7 +46,7 @@ if (is_object($xoopsUser)) {
 }
 
 // include system category definitions
-include_once XOOPS_ROOT_PATH . '/modules/system/constants.php';
+require_once XOOPS_ROOT_PATH . '/modules/system/constants.php';
 $error = false;
 if (0 != $admintest) {
     if (isset($fct) && '' != $fct) {
@@ -72,7 +72,7 @@ if (0 != $admintest) {
                     || false !== $syspermHandler->checkRight('system_admin', $category, $groups, $xoopsModule->getVar('mid'))
                 ) {
                     if (file_exists(__DIR__ . "/../include/{$fct}.inc.php")) {
-                        include_once __DIR__ . "/../include/{$fct}.inc.php";
+                        require_once __DIR__ . "/../include/{$fct}.inc.php";
                     } else {
                         $error = true;
                     }
@@ -81,7 +81,7 @@ if (0 != $admintest) {
                 }
             } elseif ('version' === $fct) {
                 if (file_exists(XOOPS_ROOT_PATH . '/modules/system/admin/version/main.php')) {
-                    include_once XOOPS_ROOT_PATH . '/modules/system/admin/version/main.php';
+                    require_once XOOPS_ROOT_PATH . '/modules/system/admin/version/main.php';
                 } else {
                     $error = true;
                 }

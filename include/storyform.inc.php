@@ -9,7 +9,7 @@
 
 global $term, $definition, $ref, $url, $xoopsUser, $xoopsModule, $xoopsModuleConfig;
 
-include_once XOOPS_ROOT_PATH . '/modules/lexikon/class/lexikontree.php'; // -- LionHell
+require_once XOOPS_ROOT_PATH . '/modules/lexikon/class/lexikontree.php'; // -- LionHell
 include XOOPS_ROOT_PATH . '/class/xoopslists.php';
 include XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
 

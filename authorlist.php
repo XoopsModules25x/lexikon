@@ -9,10 +9,10 @@
 
 include __DIR__ . '/header.php';
 $GLOBALS['xoopsOption']['template_main'] = 'lx_authorlist.tpl';
-include_once XOOPS_ROOT_PATH . '/header.php';
+require_once XOOPS_ROOT_PATH . '/header.php';
 global $xoopsUser, $xoTheme, $xoopsTpl, $authortermstotal, $xoopsModule;
-include_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->dirname() . '/class/Utility.php';
-include_once XOOPS_ROOT_PATH . '/modules/lexikon/include/common.inc.php';
+require_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->dirname() . '/class/Utility.php';
+require_once XOOPS_ROOT_PATH . '/modules/lexikon/include/common.inc.php';
 $authorlistext = false;
 $myts          = MyTextSanitizer::getInstance();
 
@@ -154,4 +154,4 @@ if (isset($xoTheme) && is_object($xoTheme)) {
     $xoopsTpl->assign('xoops_meta_description', $meta_description);
 }
 
-include_once XOOPS_ROOT_PATH . '/footer.php';
+require_once XOOPS_ROOT_PATH . '/footer.php';

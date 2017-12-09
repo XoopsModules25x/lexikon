@@ -23,8 +23,8 @@ function lx_search($queryarray, $andor, $limit, $offset, $userid)
     // -- search comments + highlighter
     $highlight        = false;
     $searchincomments = false;
-    include_once XOOPS_ROOT_PATH . '/modules/lexikon/include/common.inc.php';
-    include_once XOOPS_ROOT_PATH . '/modules/lexikon/class/Utility.php';
+    require_once XOOPS_ROOT_PATH . '/modules/lexikon/include/common.inc.php';
+    require_once XOOPS_ROOT_PATH . '/modules/lexikon/class/Utility.php';
     $hightlight_key = '';
     $highlight      = LexikonUtility::getModuleOption('config_highlighter');
     $searchincomments = CONFIG_SEARCH_COMMENTS;
@@ -90,7 +90,7 @@ function lx_search($queryarray, $andor, $limit, $offset, $userid)
     //}
     // --- comments search ---
     if ($searchincomments && (isset($limit) && $i <= $limit)) {
-        include_once XOOPS_ROOT_PATH . '/include/comment_constants.php';
+        require_once XOOPS_ROOT_PATH . '/include/comment_constants.php';
         $ind = $i;
         $sql = 'SELECT com_id, com_modid, com_itemid, com_created, com_uid, com_title, com_text, com_status
                FROM ' . $xoopsDB->prefix('xoopscomments') . "

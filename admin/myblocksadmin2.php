@@ -7,11 +7,11 @@
 
 defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
 
-include_once __DIR__ . '/../../../include/cp_header.php';
+require_once __DIR__ . '/../../../include/cp_header.php';
 
-include_once __DIR__ . '/mygrouppermform.php';
-include_once XOOPS_ROOT_PATH . '/class/xoopsblock.php';
-include_once __DIR__ . '/../include/gtickets.php';
+require_once __DIR__ . '/mygrouppermform.php';
+require_once XOOPS_ROOT_PATH . '/class/xoopsblock.php';
+require_once __DIR__ . '/../include/gtickets.php';
 
 $xoops_system_path = XOOPS_ROOT_PATH . '/modules/system';
 
@@ -23,9 +23,9 @@ if (!file_exists("$xoops_system_path/language/$language/admin/blocksadmin.php"))
 
 // to prevent from notice that constants already defined
 $error_reporting_level = error_reporting(0);
-include_once "$xoops_system_path/constants.php";
-include_once "$xoops_system_path/language/$language/admin.php";
-include_once "$xoops_system_path/language/$language/admin/blocksadmin.php";
+require_once "$xoops_system_path/constants.php";
+require_once "$xoops_system_path/language/$language/admin.php";
+require_once "$xoops_system_path/language/$language/admin/blocksadmin.php";
 error_reporting($error_reporting_level);
 
 $group_defs = file("$xoops_system_path/language/$language/admin/groups.php");
@@ -358,7 +358,7 @@ if (!empty($_POST['submit'])) {
 
 xoops_cp_header();
 //if( file_exists( './mymenu.php' ) ) include( './mymenu.php' ) ;
-include_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->dirname() . '/admin/functions.php';
+require_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->dirname() . '/admin/functions.php';
 //lx_adminMenu(3, _AM_LEXIKON_BLOCKS);
 
 //echo "<h3 style='text-align:left;'>$target_mname</h3>\n" ;

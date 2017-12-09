@@ -23,8 +23,8 @@ error_reporting(E_ERROR | E_WARNING | E_PARSE);
 function entryDefault()
 {
     global $xoopsUser, $xoopsConfig, $xoopsDB, $xoopsModuleConfig, $xoopsModule, $entryID, $pathIcon16;
-    include_once XOOPS_ROOT_PATH . '/class/xoopslists.php';
-    include_once XOOPS_ROOT_PATH . '/class/pagenav.php';
+    require_once XOOPS_ROOT_PATH . '/class/xoopslists.php';
+    require_once XOOPS_ROOT_PATH . '/class/pagenav.php';
     xoops_load('XoopsUserUtility');
     //    lx_adminMenu(2, _AM_LEXIKON_ENTRIES);
 
@@ -281,7 +281,7 @@ function entryEdit($entryID = '')
     $moduleHandler = xoops_getHandler('module');
     $tagsModule    = $moduleHandler->getByDirname('tag');
     if (is_object($tagsModule)) {
-        include_once XOOPS_ROOT_PATH . '/modules/tag/include/formtag.php';
+        require_once XOOPS_ROOT_PATH . '/modules/tag/include/formtag.php';
         $sform->addElement(new TagFormTag('item_tag', 60, 255, $entryID, $catid = 0));
     }
     // Code to take entry offline, for maintenance purposes

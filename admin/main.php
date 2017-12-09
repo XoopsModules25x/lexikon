@@ -17,7 +17,7 @@ xoops_load('XoopsUserUtility');
 $adminObject  = \Xmf\Module\Admin::getInstance();
 $adminObject->displayNavigation(basename(__FILE__));
 
-include_once XOOPS_ROOT_PATH . '/class/pagenav.php';
+require_once XOOPS_ROOT_PATH . '/class/pagenav.php';
 
 $startentry = isset($_GET['startentry']) ? (int)$_GET['startentry'] : 0;
 $entryID    = isset($_POST['entryID']) ? (int)$_POST['entryID'] : 0;

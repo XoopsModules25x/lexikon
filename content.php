@@ -14,7 +14,7 @@ if (!is_object($xoopsUser) && 0 == $xoopsModuleConfig['contentsyndication']) {
     redirect_header(XOOPS_URL . '/user.php?xoops_redirect=' . parse_url($_SERVER['PHP_SELF']), 5, _NOPERM);
 }
 
-include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
+require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
 
 include __DIR__ . '/include/syndication.inc.php';
 $yform->assign($xoopsTpl);

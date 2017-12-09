@@ -7,9 +7,9 @@
 
 include __DIR__ . '/header.php';
 $GLOBALS['xoopsOption']['template_main'] = 'lx_profile.tpl';
-include_once XOOPS_ROOT_PATH . '/header.php';
+require_once XOOPS_ROOT_PATH . '/header.php';
 global $xoopsModule, $xoopsUser;
-include_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->getVar('dirname') . '/class/Utility.php';
+require_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->getVar('dirname') . '/class/Utility.php';
 $myts = MyTextSanitizer::getInstance();
 
 if (empty($xoopsUser) && !$xoopsModuleConfig['authorprofile']) {
@@ -97,4 +97,4 @@ if (isset($xoTheme) && is_object($xoTheme)) {
     $xoopsTpl->assign('xoops_meta_description', $meta_description);
 }
 
-include_once XOOPS_ROOT_PATH . '/footer.php';
+require_once XOOPS_ROOT_PATH . '/footer.php';

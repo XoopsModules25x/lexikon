@@ -22,8 +22,8 @@ $op = '';
 function categoryDefault()
 {
     $op = 'default';
-    include_once XOOPS_ROOT_PATH . '/class/xoopslists.php';
-    include_once XOOPS_ROOT_PATH . '/class/pagenav.php';
+    require_once XOOPS_ROOT_PATH . '/class/xoopslists.php';
+    require_once XOOPS_ROOT_PATH . '/class/pagenav.php';
 
     $startentry = isset($_GET['startentry']) ? (int)$_GET['startentry'] : 0;
     $startcat   = isset($_GET['startcat']) ? (int)$_GET['startcat'] : 0;
@@ -124,9 +124,9 @@ function categoryDefault()
  */
 function categoryEdit($categoryID = '')
 {
-    include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
-    include_once XOOPS_ROOT_PATH . '/class/uploader.php';
-    include_once XOOPS_ROOT_PATH . '/class/xoopsform/grouppermform.php';
+    require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
+    require_once XOOPS_ROOT_PATH . '/class/uploader.php';
+    require_once XOOPS_ROOT_PATH . '/class/xoopsform/grouppermform.php';
 
     $weight      = 1;
     $name        = '';
@@ -296,8 +296,8 @@ function categoryDelete($categoryID = '')
  */
 function categorySave($categoryID = '')
 {
-    include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
-    include_once XOOPS_ROOT_PATH . '/class/uploader.php';
+    require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
+    require_once XOOPS_ROOT_PATH . '/class/uploader.php';
     global $xoopsUser, $xoopsConfig, $xoopsModuleConfig, $xoopsModule, $xoopsDB, $myts, $categoryID;
     //print_r ($_POST);
     $categoryID  = isset($_POST['categoryID']) ? (int)$_POST['categoryID'] : (int)$_GET['categoryID'];

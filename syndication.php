@@ -8,8 +8,8 @@ if (function_exists('mb_http_output')) {
     mb_http_output('pass');
 }
 include __DIR__ . '/../../mainfile.php';
-include_once XOOPS_ROOT_PATH . '/header.php';
-include_once XOOPS_ROOT_PATH . '/class/template.php';
+require_once XOOPS_ROOT_PATH . '/header.php';
+require_once XOOPS_ROOT_PATH . '/class/template.php';
 $tpl = new XoopsTpl();
 $tpl->xoops_setCaching(0);
 

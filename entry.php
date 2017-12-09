@@ -7,15 +7,15 @@
 
 include __DIR__ . '/header.php';
 $GLOBALS['xoopsOption']['template_main'] = 'lx_entry.tpl';
-include_once XOOPS_ROOT_PATH . '/header.php';
+require_once XOOPS_ROOT_PATH . '/header.php';
 global $xoTheme, $xoopsUser, $lexikon_module_header;
 $myts = MyTextSanitizer::getInstance();
 xoops_load('XoopsUserUtility');
 
-include_once XOOPS_ROOT_PATH . '/modules/lexikon/include/common.inc.php';
+require_once XOOPS_ROOT_PATH . '/modules/lexikon/include/common.inc.php';
 $highlight = LexikonUtility::getModuleOption('config_highlighter');
 if ($highlight) {
-    include_once XOOPS_ROOT_PATH . '/modules/lexikon/class/keyhighlighter.class.php';
+    require_once XOOPS_ROOT_PATH . '/modules/lexikon/class/keyhighlighter.class.php';
 }
 
 $entryID = isset($_GET['entryID']) ? (int)$_GET['entryID'] : 0;
@@ -260,7 +260,7 @@ function lx_myhighlighter($matches)
 $moduleHandler = xoops_getHandler('module');
 $tagsModule    = $moduleHandler->getByDirname('tag');
 if (is_object($tagsModule)) {
-    include_once XOOPS_ROOT_PATH . '/modules/tag/include/tagbar.php';
+    require_once XOOPS_ROOT_PATH . '/modules/tag/include/tagbar.php';
 
     $itemid = isset($_GET['entryID']) ? (int)$_GET['entryID'] : 0;
     $catid  = 0;
@@ -316,4 +316,4 @@ if (1 == $xoopsModuleConfig['multicats']) {
 //Mondarse
 include XOOPS_ROOT_PATH . '/include/comment_view.php';
 //Mondarse
-include_once XOOPS_ROOT_PATH . '/footer.php';
+require_once XOOPS_ROOT_PATH . '/footer.php';

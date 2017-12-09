@@ -14,7 +14,7 @@ if (function_exists('mb_http_output')) {
 }
 //error_reporting(E_ALL |E_ERROR | E_WARNING | E_PARSE);
 header('Content-Type:text/xml; charset=utf-8');
-include_once $GLOBALS['xoops']->path('class/template.php');
+require_once $GLOBALS['xoops']->path('class/template.php');
 $tpl                 = new XoopsTpl();
 $tpl->caching        = 0;
 $tpl->cache_lifetime = 3600;

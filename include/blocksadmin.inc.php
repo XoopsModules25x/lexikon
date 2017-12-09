@@ -21,7 +21,7 @@
 if (!is_object($xoopsUser) || !is_object($xoopsModule) || !$xoopsUser->isAdmin($xoopsModule->mid())) {
     exit('Access Denied');
 }
-include_once XOOPS_ROOT_PATH . '/class/xoopsblock.php';
+require_once XOOPS_ROOT_PATH . '/class/xoopsblock.php';
 include XOOPS_ROOT_PATH . '/modules/system/admin/blocksadmin/blocksadmin.php';
 
 $op = 'list';
@@ -93,7 +93,7 @@ if (isset($_POST['previewblock'])) {
     }
 
     xoops_cp_header();
-    include_once XOOPS_ROOT_PATH . '/class/template.php';
+    require_once XOOPS_ROOT_PATH . '/class/template.php';
     $xoopsTpl = new XoopsTpl();
     $xoopsTpl->xoops_setCaching(0);
     $block['bid'] = $bid;
@@ -154,7 +154,7 @@ if (isset($_POST['previewblock'])) {
 }
 
 /* if ($op == 'previewpopup') {
-  if ( !admin_refcheck("/modules/$admin_mydirname/admin/") ) {
+  if ( !admin_refcheck("/modules/$moduleDirName/admin/") ) {
     exit('Invalid Referer');
   }
   $file = str_replace('..', '', XOOPS_CACHE_PATH.'/'.trim($_GET['file']));
@@ -173,7 +173,7 @@ if (isset($_POST['previewblock'])) {
 } */
 
 if ('order' === $op) {
-    //if ( !admin_refcheck("/modules/$admin_mydirname/admin/") ) {
+    //if ( !admin_refcheck("/modules/$moduleDirName/admin/") ) {
     //  exit('Invalid Referer');
     //}
     if (!$xoopsGTicket->check(true, 'myblocksadmin')) {
@@ -264,7 +264,7 @@ if ('order2' === $op) {
 }
 
 /* if ($op == 'save') {
-  if ( !admin_refcheck("/modules/$admin_mydirname/admin/") ) {
+  if ( !admin_refcheck("/modules/$moduleDirName/admin/") ) {
     exit('Invalid Referer');
   }
   if ( ! $xoopsGTicket->check( true , 'myblocksadmin' ) ) {
@@ -283,7 +283,7 @@ if ('order2' === $op) {
 } */
 
 if ('update' === $op) {
-    //if ( !admin_refcheck("/modules/$admin_mydirname/admin/") ) {
+    //if ( !admin_refcheck("/modules/$moduleDirName/admin/") ) {
     //  exit('Invalid Referer');
     //}
     if (!$xoopsGTicket->check(true, 'myblocksadmin')) {
@@ -604,7 +604,7 @@ function myblocksadmin_update_block(
             $sql = sprintf('INSERT INTO %s (block_id, module_id) VALUES (%u, %d)', $db->prefix('block_module_link'), $bid, (int)$bmid);
             $db->query($sql);
         }
-        include_once XOOPS_ROOT_PATH . '/class/template.php';
+        require_once XOOPS_ROOT_PATH . '/class/template.php';
         $xoopsTpl = new XoopsTpl();
         $xoopsTpl->xoops_setCaching(2);
         if ('' != $myblock->getVar('template')) {

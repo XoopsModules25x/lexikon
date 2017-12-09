@@ -26,7 +26,7 @@ function b_scrolling_term_show($options)
         $configHandler = xoops_getHandler('config');
         $lxConfig      = $configHandler->getConfigsByCat(0, $lexikon->getVar('mid'));
     }
-    include_once XOOPS_ROOT_PATH . '/modules/lexikon/class/Utility.php';
+    require_once XOOPS_ROOT_PATH . '/modules/lexikon/class/Utility.php';
 
     $groups       = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
     $gpermHandler = xoops_getHandler('groupperm');

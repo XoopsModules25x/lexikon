@@ -428,7 +428,7 @@ function lx_getHTMLHighlight($needle, $haystack, $hlS, $hlE)
 function lx_extract_keywords($content)
 {
     global $xoopsTpl, $xoTheme, $xoopsModule, $xoopsModuleConfig;
-    include_once XOOPS_ROOT_PATH.'/modules/lexikon/include/common.inc.php';
+    require_once XOOPS_ROOT_PATH.'/modules/lexikon/include/common.inc.php';
     $keywords_count = $xoopsModuleConfig['metakeywordsnum'];
     $tmp= [];
     if (isset($_SESSION['xoops_keywords_limit'])) {    // Search the "Minimum keyword length"
@@ -848,7 +848,7 @@ function lx_val_user_data($uids)
  */
 function lx_AuthorProfile($uid)
 {
-    include_once XOOPS_ROOT_PATH . '/class/pagenav.php';
+    require_once XOOPS_ROOT_PATH . '/class/pagenav.php';
     global $authortermstotal, $xoopsTpl, $xoopsDB, $xoopsUser, $xoopsModuleConfig;
     $myts = MyTextSanitizer::getInstance();
     //permissions

@@ -25,8 +25,8 @@ if (isset($_POST['op'])) {
 switch ($op) {
     case 'default':
     default:
-        include_once XOOPS_ROOT_PATH . '/class/xoopslists.php';
-        include_once XOOPS_ROOT_PATH . '/class/pagenav.php';
+        require_once XOOPS_ROOT_PATH . '/class/xoopslists.php';
+        require_once XOOPS_ROOT_PATH . '/class/pagenav.php';
 
         $startentry = isset($_GET['startentry']) ? (int)$_GET['startentry'] : 0;
         $startcat   = isset($_GET['startcat']) ? (int)$_GET['startcat'] : 0;

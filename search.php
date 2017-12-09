@@ -13,12 +13,12 @@ include XOOPS_ROOT_PATH . '/header.php';
 global $xoTheme, $xoopsDB, $xoopsModule, $xoopsModuleConfig, $searchtype;
 $myts = MyTextSanitizer::getInstance();
 // -- options
-include_once XOOPS_ROOT_PATH . '/modules/lexikon/include/common.inc.php';
+require_once XOOPS_ROOT_PATH . '/modules/lexikon/include/common.inc.php';
 $highlight = false;
 $highlight = ($xoopsModuleConfig['config_highlighter'] = 1) ? 1 : 0;
 $hightlight_key = '';
 
-include_once XOOPS_ROOT_PATH . '/class/pagenav.php';
+require_once XOOPS_ROOT_PATH . '/class/pagenav.php';
 
 // Check if search is enabled site-wide
 $configHandler     = xoops_getHandler('config');

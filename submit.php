@@ -9,7 +9,7 @@ include __DIR__ . '/header.php';
 $GLOBALS['xoopsOption']['template_main'] = 'lx_submit.tpl';
 include XOOPS_ROOT_PATH . '/header.php';
 
-include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
+require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
 
 global $xoTheme, $xoopsUser, $xoopsConfig, $xoopsModuleConfig, $xoopsModule;
 
@@ -71,7 +71,7 @@ switch ($op) {
         //--- Captcha
         if (0 != $xoopsModuleConfig['captcha']) {
             xoops_load('XoopsCaptcha');
-            if (@include_once XOOPS_ROOT_PATH . '/class/captcha/xoopscaptcha.php') {
+            if (@require_once XOOPS_ROOT_PATH . '/class/captcha/xoopscaptcha.php') {
                 $xoopsCaptcha = XoopsCaptcha::getInstance();
                 if (!$xoopsCaptcha->verify()) {
                     echo $xoopsCaptcha->getMessage();
@@ -82,7 +82,7 @@ switch ($op) {
         //-------
 
         global $xoTheme, $xoopsUser, $xoopsModule, $xoopsModuleConfig;
-        include_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->getVar('dirname') . '/class/Utility.php';
+        require_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->getVar('dirname') . '/class/Utility.php';
         $myts = MyTextSanitizer:: getInstance();
         //permissions
         $gpermHandler = xoops_getHandler('groupperm');
@@ -189,7 +189,7 @@ switch ($op) {
                 $notificationHandler->triggerEvent('global', 0, 'term_submit', $tags);
                 $notificationHandler->triggerEvent('category', 0, 'term_submit', $tags);
                 if ($notifypub) {
-                    include_once XOOPS_ROOT_PATH . '/include/notification_constants.php';
+                    require_once XOOPS_ROOT_PATH . '/include/notification_constants.php';
                     $notificationHandler->subscribe('term', $newid, 'approve', XOOPS_NOTIFICATION_MODE_SENDONCETHENDELETE);
                 }
             }
@@ -268,7 +268,7 @@ switch ($op) {
     case 'form':
     default:
         global $xoopsUser, $_SERVER;
-        include_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->dirname() . '/class/Utility.php';// to create pagetitle
+        require_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->dirname() . '/class/Utility.php';// to create pagetitle
         $myts = MyTextSanitizer:: getInstance();
         if (!is_object($xoopsUser)) {
             $name = _MD_LEXIKON_GUEST;
@@ -292,7 +292,7 @@ switch ($op) {
         $ref        = '';
         $url        = '';
 
-        include_once __DIR__ . '/include/storyform.inc.php';
+        require_once __DIR__ . '/include/storyform.inc.php';
 
         $xoopsTpl->assign('modulename', $xoopsModule->dirname());
 

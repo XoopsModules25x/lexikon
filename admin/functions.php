@@ -27,18 +27,18 @@ if (is_object($xoopsUser)) {
 
 function lx_adminMenu($currentoption = 0, $breadcrumb = '')
 {
-    include_once XOOPS_ROOT_PATH . '/class/template.php';
+    require_once XOOPS_ROOT_PATH . '/class/template.php';
 
     global $xoopsDB, $xoopsModule, $xoopsConfig;
     if (file_exists(XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->dirname() . '/language/' . $xoopsConfig['language'] . '/modinfo.php')) {
-        include_once XOOPS_ROOT_PATH . '/modules/lexikon/language/' . $xoopsConfig['language'] . '/modinfo.php';
+        require_once XOOPS_ROOT_PATH . '/modules/lexikon/language/' . $xoopsConfig['language'] . '/modinfo.php';
     } else {
-        include_once XOOPS_ROOT_PATH . '/modules/lexikon/language/english/modinfo.php';
+        require_once XOOPS_ROOT_PATH . '/modules/lexikon/language/english/modinfo.php';
     }
     if (file_exists(XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->dirname() . '/language/' . $xoopsConfig['language'] . '/admin.php')) {
-        include_once XOOPS_ROOT_PATH . '/modules/lexikon/language/' . $xoopsConfig['language'] . '/admin.php';
+        require_once XOOPS_ROOT_PATH . '/modules/lexikon/language/' . $xoopsConfig['language'] . '/admin.php';
     } else {
-        include_once XOOPS_ROOT_PATH . '/modules/lexikon/language/english/admin.php';
+        require_once XOOPS_ROOT_PATH . '/modules/lexikon/language/english/admin.php';
     }
 
     include __DIR__ . '/menu.php';

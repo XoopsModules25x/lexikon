@@ -23,7 +23,7 @@
  *        <code>
  *            function newbb_block_tag_cloud_show($options) {
  *                $catid        = $options[4];    // Not used by newbb, Only for demonstration
- *                if (!@include_once XOOPS_ROOT_PATH."/modules/tag/blocks/block.php") {
+ *                if (!@require_once XOOPS_ROOT_PATH."/modules/tag/blocks/block.php") {
  *                    return null;
  *                }
  *                $block_content = tag_block_cloud_show($options, "newbb", $catid);
@@ -35,7 +35,7 @@
  *    <li>Call the tag_block_cloud_edit in your defined block function:<br>
  *        <code>
  *            function newbb_block_tag_cloud_edit($options) {
- *                if (!@include_once XOOPS_ROOT_PATH."/modules/tag/blocks/block.php") {
+ *                if (!@require_once XOOPS_ROOT_PATH."/modules/tag/blocks/block.php") {
  *                    return null;
  *                }
  *                $form = tag_block_cloud_edit($options);
@@ -69,7 +69,7 @@ function lexikon_tag_block_cloud_show($options)
     $module        = $moduleHandler->getByDirname('lexikon');
 
     if (xoops_isActiveModule('tag')) {
-        include_once XOOPS_ROOT_PATH . '/modules/tag/blocks/block.php';
+        require_once XOOPS_ROOT_PATH . '/modules/tag/blocks/block.php';
         //$module_dirname = basename( dirname( __DIR__ ) ) ;
         //return tag_block_cloud_show($options, $module_dirname);
         return tag_block_cloud_show($options, $module->getVar('dirname'));
@@ -83,7 +83,7 @@ function lexikon_tag_block_cloud_show($options)
 function lexikon_tag_block_cloud_edit($options)
 {
     if (xoops_isActiveModule('tag')) {
-        include_once XOOPS_ROOT_PATH . '/modules/tag/blocks/block.php';
+        require_once XOOPS_ROOT_PATH . '/modules/tag/blocks/block.php';
 
         return tag_block_cloud_edit($options);
     }
@@ -96,7 +96,7 @@ function lexikon_tag_block_cloud_edit($options)
 function lexikon_tag_block_top_show($options)
 {
     if (xoops_isActiveModule('tag')) {
-        include_once XOOPS_ROOT_PATH . '/modules/tag/blocks/block.php';
+        require_once XOOPS_ROOT_PATH . '/modules/tag/blocks/block.php';
         /** @var XoopsModuleHandler $moduleHandler */
         $moduleHandler = xoops_getHandler('module');
         $module        = $moduleHandler->getByDirname('lexikon');
@@ -112,7 +112,7 @@ function lexikon_tag_block_top_show($options)
 function lexikon_tag_block_top_edit($options)
 {
     if (xoops_isActiveModule('tag')) {
-        include_once XOOPS_ROOT_PATH . '/modules/tag/blocks/block.php';
+        require_once XOOPS_ROOT_PATH . '/modules/tag/blocks/block.php';
 
         return tag_block_top_edit($options);
     }

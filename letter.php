@@ -10,15 +10,15 @@
 
 include __DIR__ . '/header.php';
 $GLOBALS['xoopsOption']['template_main'] = 'lx_letter.tpl';
-include_once XOOPS_ROOT_PATH . '/header.php';
-include_once XOOPS_ROOT_PATH . '/modules/lexikon/include/common.inc.php';
+require_once XOOPS_ROOT_PATH . '/header.php';
+require_once XOOPS_ROOT_PATH . '/modules/lexikon/include/common.inc.php';
 
 global $xoTheme, $xoopsUser;
 $myts = MyTextSanitizer::getInstance();
 
 $init = isset($_GET['init']) ? $_GET['init'] : 0;
 $xoopsTpl->assign('firstletter', $init);
-include_once XOOPS_ROOT_PATH . '/class/pagenav.php';
+require_once XOOPS_ROOT_PATH . '/class/pagenav.php';
 $start = isset($_GET['start']) ? (int)$_GET['start'] : 0;
 
 $publishedwords = LexikonUtility::countWords();
