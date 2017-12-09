@@ -1053,7 +1053,7 @@ function lx_close_tags($string)
     
             foreach ($start_tags as $key => $val) {
                 $posb = array_search($val, $end_tags);
-                if (is_integer($posb)) {
+                if (is_int($posb)) {
                     unset($end_tags[$posb]);
                 } else {
                     $complete_tags[] = $val;
