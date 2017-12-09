@@ -1,4 +1,4 @@
-<?PHP
+<?php
 /**
  * Module: Lexikon -  glossary module
  * Author: hsalazar

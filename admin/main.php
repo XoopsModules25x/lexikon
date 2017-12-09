@@ -341,7 +341,7 @@ if ($numrows > 0) {
     echo '<tr>';
     echo "<td class='head' style='text-align:center;' colspan= '7'>" . _AM_LEXIKON_NOITEMSSEL . '</td>';
     echo '</tr>';
-  }
+}
     echo "</table>\n";
     
     echo "<span style='color:#567; margin:3px 0 18px 0; font-size:small; display:block;'>$status_explanation</span>";

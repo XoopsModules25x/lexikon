@@ -27,11 +27,12 @@ if (isset($_POST['post'])) {
 }
 
 if (!function_exists('mb_ucfirst') && function_exists('mb_substr')) {
-   function mb_ucfirst($string) {  
-   $string = mb_ereg_replace("^[\ ]+","", $string);  
-   $string = mb_strtoupper(mb_substr($string, 0, 1, "UTF-8"), "UTF-8").mb_substr($string, 1, mb_strlen($string), "UTF-8" );  
-   return $string;  
-   }  
+    function mb_ucfirst($string)
+    {
+        $string = mb_ereg_replace("^[\ ]+", "", $string);
+        $string = mb_strtoupper(mb_substr($string, 0, 1, "UTF-8"), "UTF-8").mb_substr($string, 1, mb_strlen($string), "UTF-8");
+        return $string;
+    }
 }
 
 $suggest = isset($_GET['suggest']) ? (int)((int)$_GET['suggest']) : 0;
@@ -303,7 +304,7 @@ switch ($op) {
             $xoTheme->addMeta('meta', 'description', $meta_description);
         } else {
             $xoopsTpl->assign('xoops_meta_description', $meta_description);
-  }
+        }
 
         include XOOPS_ROOT_PATH . '/footer.php';
         break;

@@ -200,11 +200,15 @@ function categoryEdit($categoryID = '')
         $image_tray = new XoopsFormElementTray('', '&nbsp;');
         $image_tray->addElement($image_select);
         if (!empty($logourl) && file_exists(XOOPS_ROOT_PATH . '/' . $path_catimg . '/' . $logourl)) {
-            $image_tray->addElement(new XoopsFormLabel('',
-                        "<div style='padding: 4px;'><img src=\"" . XOOPS_URL . '/' . $path_catimg . '/' . $logourl . "\" name=\"img\" id=\"img\" alt=\"\" /></div>"));
+            $image_tray->addElement(new XoopsFormLabel(
+                '',
+                        "<div style='padding: 4px;'><img src=\"" . XOOPS_URL . '/' . $path_catimg . '/' . $logourl . "\" name=\"img\" id=\"img\" alt=\"\" /></div>"
+            ));
         } else {
-            $image_tray->addElement(new XoopsFormLabel('',
-                        "<div style='padding: 4px;'><img src=\"" . XOOPS_URL . '/' . $path_catimg . "/blank.gif\" name=\"img\" id=\"img\" alt=\"\" /></div>"));
+            $image_tray->addElement(new XoopsFormLabel(
+                '',
+                        "<div style='padding: 4px;'><img src=\"" . XOOPS_URL . '/' . $path_catimg . "/blank.gif\" name=\"img\" id=\"img\" alt=\"\" /></div>"
+            ));
         }
         $image_option_tray->addElement($image_tray);
         $sform->addElement($image_option_tray);

@@ -205,7 +205,7 @@ function lx_importMenu($currentoption = 0, $breadcrumb = '')
 /**
  * collapsable bar for items lists
  * @package       lexikon
- * @copyright (c) XOOPS Project (http://xoops.org)
+ * @copyright (c) XOOPS Project (https://xoops.org)
  * @param string $tablename
  * @param string $iconname
  */
@@ -427,7 +427,7 @@ function lx_save_Permissions($groups, $id, $perm_name)
  * @param $init
  */
 function lx_getinit($init)
-{  
+{
     global $init;
     echo "<div><select name='init'>";
     echo "<option value='#'>&nbsp;#&nbsp;</option>";
@@ -447,19 +447,24 @@ function lx_getinit($init)
         }
         echo "<option value='" . uchr($a) . "' $opt_selected>&nbsp;" . uchr($a) . "&nbsp;</option>";
     }
-    /*for ($a = 1040; $a < (1040 + 32); ++$a) { 
-        if (uchr($a) == $init) {    
+    /*for ($a = 1040; $a < (1040 + 32); ++$a) {
+        if (uchr($a) == $init) {
             $opt_selected = 'selected';
         } else {
             $opt_selected = '';
         }
         echo "<option value='" . uchr($a) . "' $opt_selected>&nbsp;" . uchr($a) . "&nbsp;</option>";
-    }*/ 
+    }*/
     echo "</select></div>";
 }
-function uchr($a) {
-    if (is_scalar($a)) $a= func_get_args();
+function uchr($a)
+{
+    if (is_scalar($a)) {
+        $a= func_get_args();
+    }
     $str= '';
-    foreach ($a as $code) $str.= html_entity_decode('&#'.$code.';',ENT_NOQUOTES,'UTF-8');
+    foreach ($a as $code) {
+        $str.= html_entity_decode('&#'.$code.';', ENT_NOQUOTES, 'UTF-8');
+    }
     return $str;
 }

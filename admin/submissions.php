@@ -75,7 +75,7 @@ switch ($op) {
                   . "</th><td style='text-align:center;' class='even'>"
                   . $totalcategories
                   . '</td>';
-            }
+        }
         echo "<th style='text-align:right;'>"
               . _AM_LEXIKON_TOTALSUBM
               . "</th><td style='text-align:center;' class='even'>"

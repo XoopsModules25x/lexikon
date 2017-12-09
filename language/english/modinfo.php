@@ -82,8 +82,10 @@ define('_MI_LEXIKON_MAILTOADMINDSC', "If set to 'Yes', the manager will receive 
 
 ++$cf;
 define('_MI_LEXIKON_MAILTOSENDER', "$cf. Send mail to user on each new submission?");
-define('_MI_LEXIKON_MAILTOSENDERDSC',
-       "If set to 'Yes', the user will receive a confirmation e-mail for every modified, submitted or requested entry. If 'Notify on publish' is ticked, the user will as well receive a confirmation e-mail on publication of the entry.");
+define(
+    '_MI_LEXIKON_MAILTOSENDERDSC',
+       "If set to 'Yes', the user will receive a confirmation e-mail for every modified, submitted or requested entry. If 'Notify on publish' is ticked, the user will as well receive a confirmation e-mail on publication of the entry."
+);
 ++$cf;
 
 define('_MI_LEXIKON_RANDOMLENGTH', "$cf. Length of string to show in random definitions?");
@@ -95,8 +97,10 @@ define('_MI_LEXIKON_LINKTERMSDSC', "If set to 'yes', will automatically link in 
 
 ++$cf;
 define('_MI_LEXIKON_FORM_OPTIONS', "$cf. Form Option");
-define('_MI_LEXIKON_FORM_OPTIONSDSC',
-       'What kind of editor would you like to use. <br>Please note that if you choose any other editor than the Xoops-DHTML-Editor, it must be installed under class/xoopseditor.');
+define(
+    '_MI_LEXIKON_FORM_OPTIONSDSC',
+       'What kind of editor would you like to use. <br>Please note that if you choose any other editor than the Xoops-DHTML-Editor, it must be installed under class/xoopseditor.'
+);
 
 ++$cf;
 define('_MI_LEXIKON_EDIGUEST', "$cf. Form Options for submissions");
@@ -162,11 +166,11 @@ define('_MI_LEXIKON_SYNDICATIONDSC', "If you set this option to 'Yes', users wil
 
 // new configs in version 1.52
 $cf++;
-define("_MI_LEXIKON_IMGUPLOADWD","$cf. Max height/width for image upload");
-define("_MI_LEXIKON_IMGUPLOADWD_DESC","Define the maximum height/width in pixel for uploading an image");
+define("_MI_LEXIKON_IMGUPLOADWD", "$cf. Max height/width for image upload");
+define("_MI_LEXIKON_IMGUPLOADWD_DESC", "Define the maximum height/width in pixel for uploading an image");
 $cf++;
-define("_MI_LEXIKON_IMGUPLOADSIZE","$cf. Max size for image upload");
-define("_MI_LEXIKON_IMGUPLOADSIZE_DESC","Define the maximum size in bytes (10485760 = 1 MB) for uploading an image");
+define("_MI_LEXIKON_IMGUPLOADSIZE", "$cf. Max size for image upload");
+define("_MI_LEXIKON_IMGUPLOADSIZE_DESC", "Define the maximum size in bytes (10485760 = 1 MB) for uploading an image");
 // end new configs in 1.52
 
 

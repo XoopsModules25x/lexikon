@@ -240,7 +240,7 @@ function FormImport()
 {
     global $xoopsConfig, $xoopsDB, $xoopsModule;
     //lx_importMenu(9);
-        echo "<strong style='color: #2F5376; margin-top:6px; font-size:medium'>"
+    echo "<strong style='color: #2F5376; margin-top:6px; font-size:medium'>"
         . _AM_LEXIKON_IMPORT_XWORDS
         . "</strong><br><br>";
     /** @var XoopsModuleHandler $moduleHandler */

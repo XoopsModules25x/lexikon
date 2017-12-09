@@ -7,7 +7,9 @@
  * Licence: GNU
  */
 
-if( ! defined( 'XOOPS_ROOT_PATH' ) ) die( 'XOOPS root path not defined' ) ;
+if (! defined('XOOPS_ROOT_PATH')) {
+    die('XOOPS root path not defined') ;
+}
 
 /**
  * lx_getLinkedUnameFromId()
@@ -16,7 +18,8 @@ if( ! defined( 'XOOPS_ROOT_PATH' ) ) die( 'XOOPS root path not defined' ) ;
  * @param integer $name:  0 Use Usenamer 1 Use realname
  * @return
  **/
-function lx_getLinkedUnameFromId($userid = 0, $name= 0) {
+function lx_getLinkedUnameFromId($userid = 0, $name= 0)
+{
     if (!is_numeric($userid)) {
         return $userid;
     }
@@ -31,10 +34,10 @@ function lx_getLinkedUnameFromId($userid = 0, $name= 0) {
             $username = $user->getVar('uname');
             $usernameu = $user->getVar('name');
 
-            if ( ($name) && !empty($usernameu))  {
+            if (($name) && !empty($usernameu)) {
                 $username = $user->getVar('name');
             }
-            if ( !empty($usernameu)) {
+            if (!empty($usernameu)) {
                 $linkeduser = "$usernameu [<a href='".XOOPS_URL."/userinfo.php?uid=".$userid."'>". $ts->htmlSpecialChars($username) ."</a>]";
             } else {
                 $linkeduser = "<a href='".XOOPS_URL."/userinfo.php?uid=".$userid."'>". ucfirst($ts->htmlSpecialChars($username)) ."</a>";
@@ -47,7 +50,8 @@ function lx_getLinkedUnameFromId($userid = 0, $name= 0) {
     return $GLOBALS['xoopsConfig']['anonymous'];
 }
 
-function lx_getuserForm($user) {
+function lx_getuserForm($user)
+{
     global $xoopsDB, $xoopsConfig;
 
     echo "<select name='author'>";
@@ -55,7 +59,7 @@ function lx_getuserForm($user) {
     $result = $xoopsDB->query("SELECT uid, uname FROM ".$xoopsDB->prefix("users")." ORDER BY uname");
 
     while (list($uid, $uname) = $xoopsDB->fetchRow($result)) {
-        if ( $uid == $user ) {
+        if ($uid == $user) {
             $opt_selected = "selected='selected'";
         } else {
             $opt_selected = "";
@@ -65,28 +69,30 @@ function lx_getuserForm($user) {
     echo "</select></div>";
 }
 
-function lx_calculateTotals() {
+function lx_calculateTotals()
+{
     global $xoopsUser, $xoopsDB, $xoopsModule;
     $groups = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
     $gperm_handler = xoops_gethandler('groupperm');
 
-    $result01 = $xoopsDB -> query( "SELECT categoryID, total FROM " . $xoopsDB -> prefix( "lxcategories" ) . " " );
-    list ( $totalcategories ) = $xoopsDB -> getRowsNum( $result01 );
-    while (list ( $categoryID, $total ) = $xoopsDB -> fetchRow ( $result01 )) {
+    $result01 = $xoopsDB -> query("SELECT categoryID, total FROM " . $xoopsDB -> prefix("lxcategories") . " ");
+    list($totalcategories) = $xoopsDB -> getRowsNum($result01);
+    while (list($categoryID, $total) = $xoopsDB -> fetchRow($result01)) {
         if ($gperm_handler->checkRight('lexikon_view', $categoryID, $groups, $xoopsModule->getVar('mid'))) {
-            $newcount = lx_countByCategory ( $categoryID );
-            $xoopsDB -> queryF( "UPDATE " . $xoopsDB -> prefix( "lxcategories" ) . " SET total = '$newcount' WHERE categoryID = '$categoryID'");
+            $newcount = lx_countByCategory($categoryID);
+            $xoopsDB -> queryF("UPDATE " . $xoopsDB -> prefix("lxcategories") . " SET total = '$newcount' WHERE categoryID = '$categoryID'");
         }
     }
 }
 
-function lx_countByCategory( $c ) {
+function lx_countByCategory($c)
+{
     global $xoopsUser, $xoopsDB, $xoopsModule;
     $groups = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
     $gperm_handler = xoops_gethandler('groupperm');
     $count = 0;
-    $sql = $xoopsDB -> query( "SELECT entryID FROM " . $xoopsDB -> prefix( "lxentries" ) . " WHERE offline = '0' AND categoryID = '$c'" );
-    while ( $myrow = $xoopsDB -> fetchArray( $sql ) ) {
+    $sql = $xoopsDB -> query("SELECT entryID FROM " . $xoopsDB -> prefix("lxentries") . " WHERE offline = '0' AND categoryID = '$c'");
+    while ($myrow = $xoopsDB -> fetchArray($sql)) {
         //if ($gperm_handler->checkRight('lexikon_view', $c, $groups, $xoopsModule->getVar('mid'))) {
         $count++;
         //}
@@ -95,7 +101,8 @@ function lx_countByCategory( $c ) {
     return $count;
 }
 
-function lx_countCats () {
+function lx_countCats()
+{
     global $xoopsUser, $xoopsModule;
     $gperm_handler = xoops_gethandler('groupperm');
     $groups = (is_object($xoopsUser)) ? $xoopsUser -> getGroups() : XOOPS_GROUP_ANONYMOUS;
@@ -104,33 +111,35 @@ function lx_countCats () {
     return count($totalcats);
 }
 
-function lx_countWords () {
+function lx_countWords()
+{
     global $xoopsUser, $xoopsDB;
     $gperm_handler = xoops_gethandler('groupperm');
     $groups = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
-      $module_handler = xoops_gethandler('module');
+    $module_handler = xoops_gethandler('module');
     $module = $module_handler->getByDirname('lexikon');
     $module_id = $module->getVar('mid');
-      $allowed_cats = $gperm_handler->getItemIds("lexikon_view", $groups, $module_id);
-      $catids = implode(',', $allowed_cats);
-      $catperms = " AND categoryID IN ($catids) ";
+    $allowed_cats = $gperm_handler->getItemIds("lexikon_view", $groups, $module_id);
+    $catids = implode(',', $allowed_cats);
+    $catperms = " AND categoryID IN ($catids) ";
 
-    $pubwords = $xoopsDB -> query( "SELECT * FROM " . $xoopsDB -> prefix( "lxentries" ) . " WHERE submit = '0' AND offline ='0' AND request = '0' ".$catperms." " );
-    $publishedwords = $xoopsDB -> getRowsNum ( $pubwords );
+    $pubwords = $xoopsDB -> query("SELECT * FROM " . $xoopsDB -> prefix("lxentries") . " WHERE submit = '0' AND offline ='0' AND request = '0' ".$catperms." ");
+    $publishedwords = $xoopsDB -> getRowsNum($pubwords);
 
     return $publishedwords;
 }
 
 // To display the list of categories
-function lx_CatsArray(){
+function lx_CatsArray()
+{
     global $xoopsDB, $xoopsModuleConfig,$xoopsUser,$xoopsModule;
     $myts = MyTextSanitizer::getInstance();
     $groups = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
     $gperm_handler = xoops_gethandler('groupperm');
     $block0 = [];
     $count = 1;
-    $resultcat = $xoopsDB -> query ( "SELECT categoryID, name, total, logourl FROM " . $xoopsDB -> prefix ( "lxcategories") . " ORDER BY weight ASC" );
-    while (list( $catID, $name, $total, $logourl) = $xoopsDB->fetchRow($resultcat)) {
+    $resultcat = $xoopsDB -> query("SELECT categoryID, name, total, logourl FROM " . $xoopsDB -> prefix("lxcategories") . " ORDER BY weight ASC");
+    while (list($catID, $name, $total, $logourl) = $xoopsDB->fetchRow($resultcat)) {
         if ($gperm_handler->checkRight('lexikon_view', $catID, $groups, $xoopsModule->getVar('mid'))) {
             $catlinks = [];
             $count++;
@@ -142,7 +151,7 @@ function lx_CatsArray(){
             $xoopsModule = XoopsModule::getByDirname("lexikon");
             $catlinks['id'] = intval($catID);
             $catlinks['total'] = intval($total);
-            $catlinks['linktext'] = $myts -> htmlSpecialChars( $name );
+            $catlinks['linktext'] = $myts -> htmlSpecialChars($name);
             $catlinks['image'] = $logourl;
             $catlinks['count'] = intval($count);
 
@@ -153,22 +162,23 @@ function lx_CatsArray(){
     return $block0;
 }
 
-function lx_alphaArray () {
+function lx_alphaArray()
+{
     global $xoopsUser, $xoopsDB, $xoopsModule;
     $gperm_handler = xoops_gethandler('groupperm');
     $groups = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
-      $module_handler = xoops_gethandler('module');
+    $module_handler = xoops_gethandler('module');
     $module = $module_handler->getByDirname('lexikon');
     $module_id = $module->getVar('mid');
     $allowed_cats = $gperm_handler->getItemIds("lexikon_view", $groups, $module_id);
     $catids = implode(',', $allowed_cats);
-      $catperms = " AND categoryID IN ($catids) ";
+    $catperms = " AND categoryID IN ($catids) ";
     $alpha = [];
-    for ($a = 65; $a < (65+26); $a++ ) {
+    for ($a = 65; $a < (65+26); $a++) {
         $letterlinks = [];
         $initial = chr($a);
-        $sql = $xoopsDB -> query ( "SELECT entryID FROM " . $xoopsDB -> prefix ( "lxentries") . " WHERE init = '$initial' AND submit = '0' AND offline ='0' AND request = '0' ".$catperms."");
-        $howmany = $xoopsDB -> getRowsNum( $sql );
+        $sql = $xoopsDB -> query("SELECT entryID FROM " . $xoopsDB -> prefix("lxentries") . " WHERE init = '$initial' AND submit = '0' AND offline ='0' AND request = '0' ".$catperms."");
+        $howmany = $xoopsDB -> getRowsNum($sql);
         $letterlinks['total'] = $howmany;
         $letterlinks['id'] = chr($a);
         $letterlinks['linktext'] = chr($a);
@@ -185,10 +195,15 @@ function lx_alphaArray () {
  * don't take credit for this.
  *
  */
-function lx_uchr ($initials) {
-    if (is_scalar($initials)) $initials= func_get_args();
+function lx_uchr($initials)
+{
+    if (is_scalar($initials)) {
+        $initials= func_get_args();
+    }
     $str= '';
-    foreach ($initials as $init) $str.= html_entity_decode('&#'.$init.';',ENT_NOQUOTES,'UTF-8');
+    foreach ($initials as $init) {
+        $str.= html_entity_decode('&#'.$init.';', ENT_NOQUOTES, 'UTF-8');
+    }
 
     return $str;
 }
@@ -200,7 +215,8 @@ function lx_uchr ($initials) {
 */
 
 // Functional links
-function lx_serviceLinks ( $variable ) {
+function lx_serviceLinks($variable)
+{
     global $xoopsUser, $xoopsDB, $xoopsModule, $xoopsModuleConfig, $xoopsConfig, $entrytype;
 
     $module_handler  = xoops_gethandler('module');
@@ -208,8 +224,8 @@ function lx_serviceLinks ( $variable ) {
     $pathIcon16 = $xoopsModule->getInfo('icons16');
 
     $srvlinks = "";
-    if ( $xoopsUser ) {
-        if ( $xoopsUser->isAdmin() ) {
+    if ($xoopsUser) {
+        if ($xoopsUser->isAdmin()) {
             $srvlinks .= "<a title=\""
                           . _EDIT
                           . "\" href=\"admin/entry.php?op=mod&entryID="
@@ -229,7 +245,7 @@ function lx_serviceLinks ( $variable ) {
                           . "\" style=\"width:16px; height:16px;\"></a>&nbsp;";
         }
     }
-    if ( $entrytype != "1" ) {
+    if ($entrytype != "1") {
         $srvlinks .= "<a title=\""
                       . _MD_LEXIKON_PRINTTERM
                       . "\" href=\"print.php?entryID="
@@ -241,7 +257,7 @@ function lx_serviceLinks ( $variable ) {
                       . "\" style=\"width:16px; height:16px;\"></a>&nbsp;<a TITLE=\""
                       . _MD_LEXIKON_SENDTOFRIEND
                       . "\" href=\"mailto:?subject="
-                      . sprintf(_MD_LEXIKON_INTENTRY,$xoopsConfig["sitename"])
+                      . sprintf(_MD_LEXIKON_INTENTRY, $xoopsConfig["sitename"])
                       . "&amp;body="
                       . sprintf(_MD_LEXIKON_INTENTRYFOUND, $xoopsConfig['sitename'])
                       . ": "
@@ -254,7 +270,7 @@ function lx_serviceLinks ( $variable ) {
                       . "/mail_replay.png\" alt=\""
                       . _MD_LEXIKON_SENDTOFRIEND
                       . "\" style=\"width:16px; height:16px;\"></a>&nbsp;";
-        if (( $xoopsModuleConfig['com_rule'] != 0 ) && (!empty($xoopsModuleConfig['com_anonpost']) || is_object($xoopsUser))) {
+        if (($xoopsModuleConfig['com_rule'] != 0) && (!empty($xoopsModuleConfig['com_anonpost']) || is_object($xoopsUser))) {
             $srvlinks .= "<a title=\""
                           . _COMMENTS
                           . "?\" href=\"comment_new.php?com_itemid="
@@ -262,13 +278,14 @@ function lx_serviceLinks ( $variable ) {
                           . "\" target=\"_parent\"><img src=\"images/comments.gif\" alt=\""
                           . _COMMENTS
                           . "?\" style=\"width:16px; height:16px;\"></a>&nbsp;";
-            }
+        }
     }
 
     return $srvlinks;
 }
 // entry footer
-function lx_serviceLinksnew ( $variable ) {
+function lx_serviceLinksnew($variable)
+{
     global $xoopsUser, $xoopsDB, $xoopsModule, $xoopsModuleConfig, $xoopsConfig, $myts;
     $srvlinks2 = "<a title=\""
                   . _MD_LEXIKON_PRINTTERM
@@ -281,7 +298,7 @@ function lx_serviceLinksnew ( $variable ) {
                   . "</a>&nbsp; <a title=\""
                   . _MD_LEXIKON_SENDTOFRIEND
                   . "\" href=\"mailto:?subject="
-                  . sprintf(_MD_LEXIKON_INTENTRY,$xoopsConfig["sitename"])
+                  . sprintf(_MD_LEXIKON_INTENTRY, $xoopsConfig["sitename"])
                   . "&amp;body="
                   . sprintf(_MD_LEXIKON_INTENTRYFOUND, $xoopsConfig['sitename'])
                   . ": ".$variable['term']
@@ -300,7 +317,8 @@ function lx_serviceLinksnew ( $variable ) {
     return $srvlinks2;
 }
 
-function lx_showSearchForm() {
+function lx_showSearchForm()
+{
     global $xoopsUser, $xoopsDB, $xoopsModule, $xoopsModuleConfig, $xoopsConfig;
     $gperm_handler = xoops_gethandler('groupperm');
     $groups = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
@@ -315,11 +333,11 @@ function lx_showSearchForm() {
     if ($xoopsModuleConfig['multicats'] == 1) {
         $searchform .= "<tr><td style=\"text-align: right; line-height: 200%;\">"._MD_LEXIKON_CATEGORY."</td>";
         $searchform .= "<td>&nbsp;</td><td style=\"text-align: left;\">";
-        $resultcat = $xoopsDB -> query ( "SELECT categoryID, name FROM " . $xoopsDB -> prefix ( "lxcategories") . " ORDER BY categoryID" );
+        $resultcat = $xoopsDB -> query("SELECT categoryID, name FROM " . $xoopsDB -> prefix("lxcategories") . " ORDER BY categoryID");
         $searchform .= "<select name=\"categoryID\">";
         $searchform .= "<option value=\"0\">"._MD_LEXIKON_ALLOFTHEM."</option>";
 
-        while (list( $categoryID, $name) = $xoopsDB->fetchRow($resultcat)) {
+        while (list($categoryID, $name) = $xoopsDB->fetchRow($resultcat)) {
             if ($gperm_handler->checkRight('lexikon_view', intval($categoryID), $groups, $xoopsModule->getVar('mid'))) {
                 $searchform .= "<option value=\"$categoryID\">$categoryID : $name</option>";
             }
@@ -336,20 +354,22 @@ function lx_showSearchForm() {
     return $searchform;
 }
 
-function lx_getHTMLHighlight($needle, $haystack, $hlS, $hlE) {
+function lx_getHTMLHighlight($needle, $haystack, $hlS, $hlE)
+{
     $parts = explode(">", $haystack);
-    foreach($parts as $key=>$part) {
+    foreach ($parts as $key=>$part) {
         $pL = "";
         $pR = "";
 
-        if (($pos = strpos($part, "<")) === false)
+        if (($pos = strpos($part, "<")) === false) {
             $pL = $part;
-        elseif($pos > 0) {
+        } elseif ($pos > 0) {
             $pL = substr($part, 0, $pos);
             $pR = substr($part, $pos, strlen($part));
         }
-        if ($pL != "")
+        if ($pL != "") {
             $parts[$key] = preg_replace('|('.quotemeta($needle).')|iU', $hlS.'\\1'.$hlE, $pL) . $pR;
+        }
     }
 
     return(implode(">", $parts));
@@ -364,7 +384,8 @@ function lx_getHTMLHighlight($needle, $haystack, $hlS, $hlE) {
  */
 
 // Create the meta keywords based on content
-function lx_extract_keywords($content) {
+function lx_extract_keywords($content)
+{
     global $xoopsTpl, $xoTheme, $xoopsModule, $xoopsModuleConfig;
     include_once XOOPS_ROOT_PATH.'/modules/lexikon/include/common.inc.php';
     $keywords_count = $xoopsModuleConfig['metakeywordsnum'];
@@ -378,7 +399,7 @@ function lx_extract_keywords($content) {
         $_SESSION['xoops_keywords_limit']=$limit;
     }
     $myts = MyTextSanitizer::getInstance();
-    $content = str_replace ("<br />", " ", $content);
+    $content = str_replace("<br />", " ", $content);
     $content= $myts->undoHtmlSpecialChars($content);
     $content= strip_tags($content);
     $content=strtolower($content);
@@ -441,7 +462,7 @@ function lx_extract_keywords($content) {
                     ''
                     ];
     $content = str_replace($search_pattern, $replace_pattern, $content);
-    $keywords=explode(' ',$content);
+    $keywords=explode(' ', $content);
     switch (META_KEYWORDS_ORDER) {
     case 1:    // Returns keywords in the same order that they were created in the text
             $keywords=array_unique($keywords);
@@ -459,17 +480,17 @@ function lx_extract_keywords($content) {
         $keywords=array_keys($keywords);
         break;
     }
-    foreach($keywords as $keyword) {
+    foreach ($keywords as $keyword) {
         if (strlen($keyword)>=$limit && !is_numeric($keyword)) {
             $tmp[]=$keyword;
         }
     }
-    $tmp=array_slice($tmp,0,$keywords_count);
+    $tmp=array_slice($tmp, 0, $keywords_count);
     if (count($tmp)>0) {
         if (isset($xoTheme) && is_object($xoTheme)) {
-            $xoTheme->addMeta( 'meta', 'keywords', implode(',',$tmp));
+            $xoTheme->addMeta('meta', 'keywords', implode(',', $tmp));
         } else {    // Compatibility for old Xoops versions
-            $xoopsTpl->assign('xoops_meta_keywords', implode(',',$tmp));
+            $xoopsTpl->assign('xoops_meta_keywords', implode(',', $tmp));
         }
     } else {
         if (!isset($config_handler) || !is_object($config_handler)) {
@@ -477,7 +498,7 @@ function lx_extract_keywords($content) {
         }
         $xoopsConfigMetaFooter = $config_handler->getConfigsByCat(XOOPS_CONF_METAFOOTER);
         if (isset($xoTheme) && is_object($xoTheme)) {
-            $xoTheme->addMeta( 'meta', 'keywords', $xoopsConfigMetaFooter['meta_keywords']);
+            $xoTheme->addMeta('meta', 'keywords', $xoopsConfigMetaFooter['meta_keywords']);
         } else {    // Compatibility for old Xoops versions
             $xoopsTpl->assign('xoops_meta_keywords', $xoopsConfigMetaFooter['meta_keywords']);
         }
@@ -485,23 +506,27 @@ function lx_extract_keywords($content) {
 }
 
 // Create meta description based on content
-function lx_get_metadescription($content) {
+function lx_get_metadescription($content)
+{
     global $xoopsTpl, $xoTheme;
     $myts = MyTextSanitizer::getInstance();
     $content= $myts->undoHtmlSpecialChars($myts->displayTarea($content));
     if (isset($xoTheme) && is_object($xoTheme)) {
-        $xoTheme->addMeta( 'meta', 'description', strip_tags($content));
+        $xoTheme->addMeta('meta', 'description', strip_tags($content));
     } else {  // Compatibility for old Xoops versions
         $xoopsTpl->assign('xoops_meta_description', strip_tags($content));
     }
 }
 
 // Create pagetitles
-function lx_create_pagetitle($article='', $topic='') {
+function lx_create_pagetitle($article='', $topic='')
+{
     global $xoopsModule, $xoopsTpl;
     $myts = MyTextSanitizer::getInstance();
     $content='';
-    if (!empty($article)) $content .= strip_tags($myts->displayTarea($article));
+    if (!empty($article)) {
+        $content .= strip_tags($myts->displayTarea($article));
+    }
     if (!empty($topic)) {
         if (xoops_trim($content)!='') {
             $content .= ' - '.strip_tags($myts->displayTarea($topic));
@@ -522,7 +547,8 @@ function lx_create_pagetitle($article='', $topic='') {
 }
 
 // clear descriptions
-function lx_html2text($document) {
+function lx_html2text($document)
+{
     // PHP Manual:: function preg_replace $document should contain an HTML document.
     // This will remove HTML tags, javascript sections and white space. It will also
     // convert some common HTML entities to their text equivalent.
@@ -555,16 +581,17 @@ function lx_html2text($document) {
 
     $text = preg_replace($search, $replace, $document);
 
-    $text = preg_replace_callback("&#(\d+)&", create_function('$matches',"return chr(\$matches[1]);"),$text);
+    $text = preg_replace_callback("&#(\d+)&", create_function('$matches', "return chr(\$matches[1]);"), $text);
 
     return $text;
 }
 
 //Retrieve moduleoptions equivalent to $Xoopsmoduleconfig
-function lx_getmoduleoption($option, $repmodule='lexikon') {
+function lx_getmoduleoption($option, $repmodule='lexikon')
+{
     global $xoopsModuleConfig, $xoopsModule;
     static $tbloptions= [];
-    if (is_array($tbloptions) && array_key_exists($option,$tbloptions)) {
+    if (is_array($tbloptions) && array_key_exists($option, $tbloptions)) {
         return $tbloptions[$option];
     }
 
@@ -597,8 +624,8 @@ function lx_getmoduleoption($option, $repmodule='lexikon') {
 function lx_isX23()
 {
     $x23 = false;
-    $xv = str_replace('XOOPS ','',XOOPS_VERSION);
-    if(substr($xv,2,1) >= '3') {
+    $xv = str_replace('XOOPS ', '', XOOPS_VERSION);
+    if (substr($xv, 2, 1) >= '3') {
         $x23 = true;
     }
 
@@ -622,26 +649,26 @@ function &lx_getWysiwygForm($caption, $name, $value = '', $width = '100%', $heig
     $editor_configs['height'] = '350px';
     $editor_configs['editor'] = $editor_option;
 
-    if(lx_isX23()) {
+    if (lx_isX23()) {
         $editor = new XoopsFormEditor($caption, $name, $editor_configs);
 
         return $editor;
-            }
+    }
 
     // Only for Xoops 2.0.x
-    switch($editor_option) {
+    switch ($editor_option) {
         case 'fckeditor':
-            if ( is_readable(XOOPS_ROOT_PATH . '/class/fckeditor/formfckeditor.php'))    {
+            if (is_readable(XOOPS_ROOT_PATH . '/class/fckeditor/formfckeditor.php')) {
                 require_once(XOOPS_ROOT_PATH . '/class/fckeditor/formfckeditor.php');
                 $editor = new XoopsFormFckeditor($caption, $name, $value);
             }
             break;
 
         case 'htmlarea':
-                if ( is_readable(XOOPS_ROOT_PATH . '/class/htmlarea/formhtmlarea.php'))    {
-                require_once(XOOPS_ROOT_PATH . '/class/htmlarea/formhtmlarea.php');
+                if (is_readable(XOOPS_ROOT_PATH . '/class/htmlarea/formhtmlarea.php')) {
+                    require_once(XOOPS_ROOT_PATH . '/class/htmlarea/formhtmlarea.php');
                     $editor = new XoopsFormHtmlarea($caption, $name, $value);
-            }
+                }
             break;
 
         case 'dhtmltextarea':
@@ -655,21 +682,21 @@ function &lx_getWysiwygForm($caption, $name, $value = '', $width = '100%', $heig
 
         case 'tinyeditor':
         case 'tinymce':
-            if ( is_readable(XOOPS_ROOT_PATH.'/class/xoopseditor/tinyeditor/formtinyeditortextarea.php')) {
+            if (is_readable(XOOPS_ROOT_PATH.'/class/xoopseditor/tinyeditor/formtinyeditortextarea.php')) {
                 require_once XOOPS_ROOT_PATH.'/class/xoopseditor/tinyeditor/formtinyeditortextarea.php';
                 $editor = new XoopsFormTinyeditorTextArea(array('caption'=> $caption, 'name'=>$name, 'value'=>$value, 'width'=>'100%', 'height'=>'400px'));
             }
             break;
 
         case 'koivi':
-                if ( is_readable(XOOPS_ROOT_PATH . '/class/wysiwyg/formwysiwygtextarea.php')) {
-                require_once(XOOPS_ROOT_PATH . '/class/wysiwyg/formwysiwygtextarea.php');
-                $editor = new XoopsFormWysiwygTextArea($caption, $name, $value, $width, $height, '');
-            }
+                if (is_readable(XOOPS_ROOT_PATH . '/class/wysiwyg/formwysiwygtextarea.php')) {
+                    require_once(XOOPS_ROOT_PATH . '/class/wysiwyg/formwysiwygtextarea.php');
+                    $editor = new XoopsFormWysiwygTextArea($caption, $name, $value, $width, $height, '');
+                }
             break;
         }
 
-        return $editor;
+    return $editor;
 }
 
 /**
@@ -677,54 +704,56 @@ function &lx_getWysiwygForm($caption, $name, $value = '', $width = '100%', $heig
  *
  * tooltips (c) dhtmlgoodies
  */
-function lx_module_header() {
+function lx_module_header()
+{
     global $xoopsTpl, $xoTheme, $xoopsModule, $xoopsModuleConfig, $lexikon_module_header;
-    if(isset($xoTheme) && is_object($xoTheme)) {
-        $xoTheme -> addStylesheet( 'modules/lexikon/assets/css/style.css' );
+    if (isset($xoTheme) && is_object($xoTheme)) {
+        $xoTheme -> addStylesheet('modules/lexikon/assets/css/style.css');
         if ($xoopsModuleConfig['linkterms'] == 3) {
-            $xoTheme -> addStylesheet( 'modules/lexikon/assets/css/linkterms.css' );
-            $xoTheme->addScript( '/modules/lexikon/assets/js/tooltipscript2.js', array( 'type' => 'text/javascript' ) );
-            }
+            $xoTheme -> addStylesheet('modules/lexikon/assets/css/linkterms.css');
+            $xoTheme->addScript('/modules/lexikon/assets/js/tooltipscript2.js', array( 'type' => 'text/javascript' ));
+        }
         if ($xoopsModuleConfig['linkterms'] == 4) {
-            $xoTheme->addScript( '/modules/lexikon/assets/js/popup.js', array( 'type' => 'text/javascript' ) );
-            }
+            $xoTheme->addScript('/modules/lexikon/assets/js/popup.js', array( 'type' => 'text/javascript' ));
+        }
         if ($xoopsModuleConfig['linkterms'] == 5) {
-            $xoTheme -> addStylesheet( 'modules/lexikon/assets/css/linkterms.css' );
-            $xoTheme->addScript( '/modules/lexikon/assets/js/balloontooltip.js', array( 'type' => 'text/javascript' ) );
-            }
+            $xoTheme -> addStylesheet('modules/lexikon/assets/css/linkterms.css');
+            $xoTheme->addScript('/modules/lexikon/assets/js/balloontooltip.js', array( 'type' => 'text/javascript' ));
+        }
         if ($xoopsModuleConfig['linkterms'] == 6) {
-            $xoTheme -> addStylesheet( 'modules/lexikon/assets/css/linkterms.css' );
-            $xoTheme->addScript( '/modules/lexikon/assets/js/shadowtooltip.js', array( 'type' => 'text/javascript' ) );
-            }
+            $xoTheme -> addStylesheet('modules/lexikon/assets/css/linkterms.css');
+            $xoTheme->addScript('/modules/lexikon/assets/js/shadowtooltip.js', array( 'type' => 'text/javascript' ));
+        }
     } else {
         $lexikon_url = XOOPS_URL.'/modules/'.$xoopsModule->getVar('dirname');
         if ($xoopsModuleConfig['linkterms'] == 3) {
             $lexikon_module_header = '<link rel="stylesheet" type="text/css" href="style.css" />
 			<link rel="stylesheet" type="text/css" href="assets/css/linkterms.css" />
 			<script src="'.$lexikon_url.'/assets/js/tooltipscript2.js" type="text/javascript"></script>';
-            }
+        }
         if ($xoopsModuleConfig['linkterms'] == 4) {
             $lexikon_module_header = '<link rel="stylesheet" type="text/css" href="style.css" />
 			<link rel="stylesheet" type="text/css" href="assets/css/linkterms.css" />
 			<script src="'.$lexikon_url.'/assets/js/popup.js" type="text/javascript"></script>';
-            }
+        }
         if ($xoopsModuleConfig['linkterms'] == 5) {
             $lexikon_module_header = '<link rel="stylesheet" type="text/css" href="style.css" />
 			<link rel="stylesheet" type="text/css" href="assets/css/linkterms.css" />
 			<script src="'.$lexikon_url.'/assets/js/balloontooltip.js" type="text/javascript"></script>';
-            }
+        }
         if ($xoopsModuleConfig['linkterms'] == 6) {
             $lexikon_module_header = '<link rel="stylesheet" type="text/css" href="style.css" />
 			<link rel="stylesheet" type="text/css" href="assets/css/linkterms.css" />
 			<script src="'.$lexikon_url.'/assets/js/shadowtooltip.js" type="text/javascript"></script>';
-            }
         }
+    }
 }
 
 /**
  * Validate userid
  */
-function lx_val_user_data($uids) {
+function lx_val_user_data($uids)
+{
     global $xoopsDB,$xoopsUser, $xoopsUserIsAdmin;
 
     if ($uids<=0) {
@@ -747,7 +776,8 @@ function lx_val_user_data($uids) {
 }
 
 // Get all terms published by an author
-function lx_AuthorProfile($uid ) {
+function lx_AuthorProfile($uid)
+{
     include_once XOOPS_ROOT_PATH . '/class/pagenav.php';
     global $authortermstotal, $xoopsTpl, $xoopsDB, $xoopsUser, $xoopsModuleConfig;
     $myts = MyTextSanitizer::getInstance();
@@ -761,11 +791,11 @@ function lx_AuthorProfile($uid ) {
     $catids = implode(',', $allowed_cats);
     $catperms = " AND categoryID IN ($catids) ";
         
-    $start = isset( $_GET['start'] ) ? intval( $_GET['start'] ) : 0;
+    $start = isset($_GET['start']) ? intval($_GET['start']) : 0;
     $limit = $xoopsModuleConfig['indexperpage'];
 
-    $sql = $xoopsDB -> query( "SELECT *
-                              FROM " . $xoopsDB -> prefix( "lxentries" ) . "
+    $sql = $xoopsDB -> query("SELECT *
+                              FROM " . $xoopsDB -> prefix("lxentries") . "
                               WHERE uid='".intval($uid)."' AND  offline = '0' AND submit = '0' AND request = '0' ".$catperms."
                               ORDER BY term
                               LIMIT $start,$limit");
@@ -776,20 +806,21 @@ function lx_AuthorProfile($uid ) {
 
     $navstring = '';
     $navstring .= "uid=".$uid."&start";
-    $pagenav = new XoopsPageNav( $authortermstotal , $xoopsModuleConfig['indexperpage'], $start, $navstring);
+    $pagenav = new XoopsPageNav($authortermstotal, $xoopsModuleConfig['indexperpage'], $start, $navstring);
     $authortermsarr['navbar'] = '<span style="text-align:right;">' . $pagenav -> renderNav(6) . '</span>';
-    $xoopsTpl -> assign( 'authortermsarr', $authortermsarr);
+    $xoopsTpl -> assign('authortermsarr', $authortermsarr);
 }
 
 // Returns the author's IDs for authorslist
-function lx_getAuthors($limit=0, $start=0) {
+function lx_getAuthors($limit=0, $start=0)
+{
     global $xoopsDB ;
 
     $ret = [];
     $sql = 'SELECT distinct(uid) as uid FROM '.$xoopsDB->prefix('lxentries').' WHERE offline = 0 ';
     $sql .= " ORDER BY uid";
     $result = $xoopsDB->query($sql);
-    while ( $myrow = $xoopsDB->fetchArray($result) ) {
+    while ($myrow = $xoopsDB->fetchArray($result)) {
         $ret[] = $myrow['uid'];
     }
 
@@ -797,7 +828,8 @@ function lx_getAuthors($limit=0, $start=0) {
 }
 
 // link to userprofile
-function lx_getLinkedProfileFromId($userid) {
+function lx_getLinkedProfileFromId($userid)
+{
     global $uid, $xoopsModule;
     $userid = intval($uid);
     if ($userid > 0) {
@@ -815,7 +847,8 @@ function lx_getLinkedProfileFromId($userid) {
 }
 
 // functionset to assign terms with accentuated or umlaut initials to the adequate initial
-function lx_removeAccents($string) {
+function lx_removeAccents($string)
+{
     $chars['in'] = chr(128).chr(131).chr(138).chr(142).chr(154).chr(158)
       .chr(159).chr(162).chr(165).chr(181).chr(192).chr(193).chr(194)
       .chr(195).chr(196).chr(197).chr(199).chr(200).chr(201).chr(202)
@@ -867,25 +900,42 @@ function lx_removeAccents($string) {
     return $string;
 }
 
-function lx_seemsUtf8($Str) { # by bmorel at ssi dot fr
+function lx_seemsUtf8($Str)
+{ # by bmorel at ssi dot fr
     for ($i=0; $i<strlen($Str); $i++) {
-        if (ord($Str[$i]) < 0x80) continue; # 0bbbbbbb
-        elseif ((ord($Str[$i]) & 0xE0) == 0xC0) $n=1; # 110bbbbb
-        elseif ((ord($Str[$i]) & 0xF0) == 0xE0) $n=2; # 1110bbbb
-        elseif ((ord($Str[$i]) & 0xF8) == 0xF0) $n=3; # 11110bbb
-        elseif ((ord($Str[$i]) & 0xFC) == 0xF8) $n=4; # 111110bb
-        elseif ((ord($Str[$i]) & 0xFE) == 0xFC) $n=5; # 1111110b
-        else return false; # Does not match any model
-        for ($j=0; $j<$n; $j++) { # n bytes matching 10bbbbbb follow ?
-            if ((++$i == strlen($Str)) || ((ord($Str[$i]) & 0xC0) != 0x80))
+        if (ord($Str[$i]) < 0x80) {
+            continue;
+        } # 0bbbbbbb
+        elseif ((ord($Str[$i]) & 0xE0) == 0xC0) {
+            $n=1;
+        } # 110bbbbb
+        elseif ((ord($Str[$i]) & 0xF0) == 0xE0) {
+            $n=2;
+        } # 1110bbbb
+        elseif ((ord($Str[$i]) & 0xF8) == 0xF0) {
+            $n=3;
+        } # 11110bbb
+        elseif ((ord($Str[$i]) & 0xFC) == 0xF8) {
+            $n=4;
+        } # 111110bb
+        elseif ((ord($Str[$i]) & 0xFE) == 0xFC) {
+            $n=5;
+        } # 1111110b
+        else {
             return false;
+        } # Does not match any model
+        for ($j=0; $j<$n; $j++) { # n bytes matching 10bbbbbb follow ?
+            if ((++$i == strlen($Str)) || ((ord($Str[$i]) & 0xC0) != 0x80)) {
+                return false;
+            }
         }
     }
 
     return true;
 }
 
-function lx_sanitizeFieldName($field) {
+function lx_sanitizeFieldName($field)
+{
     $field = lx_removeAccents($field);
     $field = strtolower($field);
     $field = preg_replace('/&.+?;/', '', $field); // kill entities
@@ -899,7 +949,8 @@ function lx_sanitizeFieldName($field) {
 }
 
 // Verify that a term does not exist for submissions and requests (both user frontend and admin backend)
-function lx_TermExists($term, $table) {
+function lx_TermExists($term, $table)
+{
     global $xoopsDB;
     $sql = sprintf('SELECT COUNT(*) FROM %s WHERE term = %s', $table, $xoopsDB->quoteString(addslashes($term)));
     $result = $xoopsDB->query($sql);
@@ -909,10 +960,12 @@ function lx_TermExists($term, $table) {
 }
 
 // Static method to get author data block authors - from AMS
-function lexikon_block_getAuthors($limit = 5, $sort = "count", $name = 'uname', $compute_method = "average") {
+function lexikon_block_getAuthors($limit = 5, $sort = "count", $name = 'uname', $compute_method = "average")
+{
     $limit = intval($limit);
-    if ($name != "uname")
-        $name = "name"; //making sure that there is not invalid information in field value
+    if ($name != "uname") {
+        $name = "name";
+    } //making sure that there is not invalid information in field value
     $ret = [];
     $db = XoopsDatabaseFactory::getDatabaseConnection();
     if ($sort == "count") {
@@ -933,12 +986,14 @@ function lexikon_block_getAuthors($limit = 5, $sort = "count", $name = 'uname', 
               AND n.datesub > 0 AND n.datesub <= ".time()." AND n.offline = 0 AND n.submit = 0
               GROUP BY u.uid ORDER BY count DESC";
     }
-    if (!$result = $db->query($sql, $limit))
+    if (!$result = $db->query($sql, $limit)) {
         return false;
+    }
         
     while ($row = $db->fetchArray($result)) {
-        if ($name == "name" && $row['name'] == '')
+        if ($name == "name" && $row['name'] == '') {
             $row['name'] = XoopsUser::getUnameFromId($row['uid']);
+        }
         $row['count'] = round($row['count'], 0);
         $ret[] = $row;
     }
@@ -953,51 +1008,53 @@ function lexikon_block_getAuthors($limit = 5, $sort = "count", $name = 'uname', 
  * @return string
  * @author Milian Wolff <mail -at- milianw.de>
  */
-function lx_closetags2($html){
-  // put all opened tags into an array
-  preg_match_all("#<([a-z]+)( .*)?(?!/)>#iU",$html,$result);
-  $openedtags=$result[1];
+function lx_closetags2($html)
+{
+    // put all opened tags into an array
+    preg_match_all("#<([a-z]+)( .*)?(?!/)>#iU", $html, $result);
+    $openedtags=$result[1];
 
-  // put all closed tags into an array
-  preg_match_all("#</([a-z]+)>#iU",$html,$result);
-  $closedtags=$result[1];
-  $len_opened = count($openedtags);
-  // all tags are closed
-  if(count($closedtags) == $len_opened){
-    return $html;
-  }
-
-  $openedtags = array_reverse($openedtags);
-  // close tags
-  for($i=0;$i < $len_opened;$i++) {
-    if (!in_array($openedtags[$i],$closedtags)){
-      $html .= '</'.$openedtags[$i].'>';
-    } else {
-      unset($closedtags[array_search($openedtags[$i],$closedtags)]);
+    // put all closed tags into an array
+    preg_match_all("#</([a-z]+)>#iU", $html, $result);
+    $closedtags=$result[1];
+    $len_opened = count($openedtags);
+    // all tags are closed
+    if (count($closedtags) == $len_opened) {
+        return $html;
     }
-  }
 
-  return $html;
+    $openedtags = array_reverse($openedtags);
+    // close tags
+    for ($i=0;$i < $len_opened;$i++) {
+        if (!in_array($openedtags[$i], $closedtags)) {
+            $html .= '</'.$openedtags[$i].'>';
+        } else {
+            unset($closedtags[array_search($openedtags[$i], $closedtags)]);
+        }
+    }
+
+    return $html;
 }
 
 /**
  * @author   Monte Ohrt <monte at ohrt dot com>, modified by Amos Robinson
  *           <amos dot robinson at gmail dot com>
  */
-function lx_close_tags($string) {
+function lx_close_tags($string)
+{
     // match opened tags
-    if(preg_match_all('/<([a-z\:\-]+)[^\/]>/', $string, $start_tags)) {
+    if (preg_match_all('/<([a-z\:\-]+)[^\/]>/', $string, $start_tags)) {
         $start_tags = $start_tags[1];
         // match closed tags
-        if(preg_match_all('/<\/([a-z]+)>/', $string, $end_tags)) {
+        if (preg_match_all('/<\/([a-z]+)>/', $string, $end_tags)) {
             $complete_tags = array();
             $end_tags = $end_tags[1];
     
-            foreach($start_tags as $key => $val) {
+            foreach ($start_tags as $key => $val) {
                 $posb = array_search($val, $end_tags);
-                   if(is_integer($posb)) {
-                      unset($end_tags[$posb]);
-                   } else {
+                if (is_integer($posb)) {
+                    unset($end_tags[$posb]);
+                } else {
                     $complete_tags[] = $val;
                 }
             }
@@ -1006,7 +1063,7 @@ function lx_close_tags($string) {
         }
         
         $complete_tags = array_reverse($complete_tags);
-        for($i = 0; $i < count($complete_tags); $i++) {
+        for ($i = 0; $i < count($complete_tags); $i++) {
             $string .= '</' . $complete_tags[$i] . '>';
         }
     }
@@ -1032,8 +1089,11 @@ function lx_close_tags($string) {
  *           <amos dot robinson at gmail dot com>
  * used in Block entries_scrolling.php
  */
-function lx_truncate_tagsafe($string, $length = 80, $etc = '...', $break_words = false) {
-    if ($length == 0) return '';
+function lx_truncate_tagsafe($string, $length = 80, $etc = '...', $break_words = false)
+{
+    if ($length == 0) {
+        return '';
+    }
     if (strlen($string) > $length) {
         $length -= strlen($etc);
         if (!$break_words) {
@@ -1048,38 +1108,38 @@ function lx_truncate_tagsafe($string, $length = 80, $etc = '...', $break_words =
     }
 }
 
-function lexikon_summary() {
-global $xoopsDB;
+function lexikon_summary()
+{
+    global $xoopsDB;
 
     $summary = [];
 
-    $result01 = $xoopsDB -> query( "SELECT COUNT(*)
-                                   FROM " . $xoopsDB -> prefix( "lxcategories" ) . " " );
-    list( $totalcategories ) = $xoopsDB -> fetchRow( $result01 );
+    $result01 = $xoopsDB -> query("SELECT COUNT(*)
+                                   FROM " . $xoopsDB -> prefix("lxcategories") . " ");
+    list($totalcategories) = $xoopsDB -> fetchRow($result01);
 
-    $result02 = $xoopsDB -> query( "SELECT COUNT(*)
-                                   FROM " . $xoopsDB -> prefix( "lxentries" ) . "
-                                   WHERE submit = 0" );
-    list( $totalpublished ) = $xoopsDB -> fetchRow( $result02 );
+    $result02 = $xoopsDB -> query("SELECT COUNT(*)
+                                   FROM " . $xoopsDB -> prefix("lxentries") . "
+                                   WHERE submit = 0");
+    list($totalpublished) = $xoopsDB -> fetchRow($result02);
 
-    $result03 = $xoopsDB -> query( "SELECT COUNT(*)
-                                   FROM " . $xoopsDB -> prefix( "lxentries" ) . "
-                                   WHERE submit = '1' AND request = '0' " );
-    list( $totalsubmitted ) = $xoopsDB -> fetchRow( $result03 );
+    $result03 = $xoopsDB -> query("SELECT COUNT(*)
+                                   FROM " . $xoopsDB -> prefix("lxentries") . "
+                                   WHERE submit = '1' AND request = '0' ");
+    list($totalsubmitted) = $xoopsDB -> fetchRow($result03);
 
-    $result04 = $xoopsDB -> query( "SELECT COUNT(*)
-                                   FROM " . $xoopsDB -> prefix( "lxentries" ) . "
-                                   WHERE submit = '1' AND request = '1' " );
-    list( $totalrequested ) = $xoopsDB -> fetchRow( $result04 );
+    $result04 = $xoopsDB -> query("SELECT COUNT(*)
+                                   FROM " . $xoopsDB -> prefix("lxentries") . "
+                                   WHERE submit = '1' AND request = '1' ");
+    list($totalrequested) = $xoopsDB -> fetchRow($result04);
 
-// Recuperer les valeurs dans la base de donnees
+    // Recuperer les valeurs dans la base de donnees
 
-$summary['publishedEntries']   = $totalpublished ? $totalpublished : '0';
-$summary['availableCategories']   = $totalcategories ? $totalcategories : '0';
-$summary['submittedEntries'] = $totalsubmitted ? $totalsubmitted : '0';
-$summary['requestedEntries'] = $totalrequested ? $totalrequested : '0';
+    $summary['publishedEntries']   = $totalpublished ? $totalpublished : '0';
+    $summary['availableCategories']   = $totalcategories ? $totalcategories : '0';
+    $summary['submittedEntries'] = $totalsubmitted ? $totalsubmitted : '0';
+    $summary['requestedEntries'] = $totalrequested ? $totalrequested : '0';
 
     //print_r($summary);
     return $summary;
-
 } // end function

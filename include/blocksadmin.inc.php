@@ -10,7 +10,7 @@
  */
 
 /**
- * @copyright    XOOPS Project http://xoops.org/
+ * @copyright    XOOPS Project https://xoops.org/
  * @license      GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package
  * @since
@@ -342,12 +342,15 @@ if ($op === 'delete') {
         $message = _AM_MODULECANT;
         redirect_header('admin.php?fct=blocksadmin', 4, $message);
     } else {
-        xoops_confirm([
+        xoops_confirm(
+            [
                       'fct' => 'blocksadmin',
                       'op' => 'delete_ok',
                       'bid' => $myblock->getVar('bid')
-                      ] + $xoopsGTicket->getTicketArray(__LINE__, 1800, 'myblocksadmin'), 'admin.php',
-                      sprintf(_AM_RUSUREDEL, $myblock->getVar('title')));
+                      ] + $xoopsGTicket->getTicketArray(__LINE__, 1800, 'myblocksadmin'),
+            'admin.php',
+                      sprintf(_AM_RUSUREDEL, $myblock->getVar('title'))
+        );
     }
     // end of delete_block() GIJ
     xoops_cp_footer();

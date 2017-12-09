@@ -89,4 +89,3 @@ if (is_array($_POST['perms']) && !empty($_POST['perms'])) {
         }
     }
 }
-

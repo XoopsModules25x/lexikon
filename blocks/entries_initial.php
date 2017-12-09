@@ -11,12 +11,17 @@ defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
  * @param $options
  * @return array
  */
-function uchr($a) {
-    if (is_scalar($a)) $a= func_get_args();
+function uchr($a)
+{
+    if (is_scalar($a)) {
+        $a= func_get_args();
+    }
     $str= '';
-    foreach ($a as $code) $str.= html_entity_decode('&#'.$code.';',ENT_NOQUOTES,'UTF-8');
+    foreach ($a as $code) {
+        $str.= html_entity_decode('&#'.$code.';', ENT_NOQUOTES, 'UTF-8');
+    }
     return $str;
-} 
+}
 function b_lxentries_alpha_show($options)
 {
     global $xoopsDB, $xoopsUser, $xoopsModule;
@@ -68,7 +73,7 @@ function b_lxentries_alpha_show($options)
         $letterlinks['count']    = (int)$count;
 
         $block['initstuff'][] = $letterlinks;
-    }    
+    }
     for ($a = 65; $a < (65 + 26); ++$a) {
         $letterlinks = [];
         $initial     = uchr($a);
@@ -102,9 +107,9 @@ function b_lxentries_alpha_show($options)
         $letterlinks['id']       = uchr($a);
         $letterlinks['linktext'] = uchr($a);
         $letterlinks['count']    = (int)$count;
-        
+
         $block['initstuff'][] = $letterlinks;
-    }*/ 
+    }*/
 
     return $block;
 }

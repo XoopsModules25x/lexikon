@@ -101,14 +101,26 @@ function lx_Statistics()
         $totals[1] += $views;
         $totals[2] += $offline;
         $class     = ($class === 'even') ? 'odd' : 'even';
-        printf("<tr class='"
+        printf(
+            "<tr class='"
                . $class
-               . "'><td style='text-align:left;'><a href='%s' target ='_blank'>%s</a></td><td style='text-align:center;'>%u</td><td style='text-align:center;'>%u</td><td style='text-align:center;'>%u</td><td style='text-align:center;'>%u</td></tr>\n", $url,
-               $myts->displayTarea($data['name']), $terms, $views, $offline, $authors);
-        }
-        $class     = ($class === 'even') ? 'odd' : 'even';
-        printf("<tr class='" . $class . "'><td style='text-align:right;'><b>%s:</b></td><td style='text-align:center;'><b>%u</b></td><td style='text-align:center;'><b>%u</b></td><td style='text-align:center;'><b>%u</b></td><td>&nbsp;</td>\n",
-                _AM_LEXIKON_STATS2, $totals[0], $totals[1], $totals[2]);
+               . "'><td style='text-align:left;'><a href='%s' target ='_blank'>%s</a></td><td style='text-align:center;'>%u</td><td style='text-align:center;'>%u</td><td style='text-align:center;'>%u</td><td style='text-align:center;'>%u</td></tr>\n",
+            $url,
+               $myts->displayTarea($data['name']),
+            $terms,
+            $views,
+            $offline,
+            $authors
+        );
+    }
+    $class     = ($class === 'even') ? 'odd' : 'even';
+    printf(
+            "<tr class='" . $class . "'><td style='text-align:right;'><b>%s:</b></td><td style='text-align:center;'><b>%u</b></td><td style='text-align:center;'><b>%u</b></td><td style='text-align:center;'><b>%u</b></td><td>&nbsp;</td>\n",
+                _AM_LEXIKON_STATS2,
+            $totals[0],
+            $totals[1],
+            $totals[2]
+        );
     echo '</table></div><br><br>';
 
     // Second part of the stats, everything about reads
@@ -135,10 +147,17 @@ function lx_Statistics()
         $url2   = XOOPS_URL . '/modules/' . $xoopsModule->dirname() . '/entry.php?entryID=' . $entryID;
         $sentby = XoopsUserUtility::getUnameFromId($data['uid']);
         $class  = ($class === 'even') ? 'odd' : 'even';
-        printf("<tr class='"
+        printf(
+            "<tr class='"
                . $class
-               . "'><td style='text-align:left;'><a href='%s' target ='_blank'>%s</a></td><td style='text-align:left;'><a href='%s' target='_blank'>%s</a></td><td style='text-align:center;'>%s</td><td style='text-align:right;'>%u</td></tr>\n", $url1,
-               $myts->displayTarea($data['name']), $url2, $myts->displayTarea($data['term']), $sentby, $data['counter']);
+               . "'><td style='text-align:left;'><a href='%s' target ='_blank'>%s</a></td><td style='text-align:left;'><a href='%s' target='_blank'>%s</a></td><td style='text-align:center;'>%s</td><td style='text-align:right;'>%u</td></tr>\n",
+            $url1,
+               $myts->displayTarea($data['name']),
+            $url2,
+            $myts->displayTarea($data['term']),
+            $sentby,
+            $data['counter']
+        );
     }
     echo '</table></div><br><br>';
 
@@ -162,10 +181,17 @@ function lx_Statistics()
         $url2   = XOOPS_URL . '/modules/' . $xoopsModule->dirname() . '/entry.php?entryID=' . $entryID;
         $sentby = XoopsUserUtility::getUnameFromId($data['uid']);
         $class  = ($class === 'even') ? 'odd' : 'even';
-        printf("<tr class='"
+        printf(
+            "<tr class='"
                . $class
-               . "'><td style='text-align:left;'><a href='%s' target ='_blank'>%s</a></td><td style='text-align:left;'><a href='%s' target='_blank'>%s</a></td><td style='text-align:center;'>%s</td><td style='text-align:right;'>%u</td></tr>\n", $url1,
-               $myts->displayTarea($data['name']), $url2, $myts->displayTarea($data['term']), $sentby, $data['counter']);
+               . "'><td style='text-align:left;'><a href='%s' target ='_blank'>%s</a></td><td style='text-align:left;'><a href='%s' target='_blank'>%s</a></td><td style='text-align:center;'>%s</td><td style='text-align:right;'>%u</td></tr>\n",
+            $url1,
+               $myts->displayTarea($data['name']),
+            $url2,
+            $myts->displayTarea($data['term']),
+            $sentby,
+            $data['counter']
+        );
     }
     echo '</table></div><br><br>';
 

@@ -9,7 +9,9 @@
  * @version		$Id$
  * @package		module::tag
  */
-if (!defined('XOOPS_ROOT_PATH')){ exit(); }
+if (!defined('XOOPS_ROOT_PATH')) {
+    exit();
+}
 /**
  * Get item fields:
  * title
@@ -26,8 +28,9 @@ if (!defined('XOOPS_ROOT_PATH')){ exit(); }
  *
  */
 
-function lexikon_tag_iteminfo(&$items){
-    if(empty($items) || !is_array($items)){
+function lexikon_tag_iteminfo(&$items)
+{
+    if (empty($items) || !is_array($items)) {
         return false;
     }
 
@@ -36,17 +39,17 @@ function lexikon_tag_iteminfo(&$items){
 
     $items_id = [];
 
-    foreach(array_keys($items) as $cat_id){
+    foreach (array_keys($items) as $cat_id) {
         // Some handling here to build the link upon catid
-            // If catid is not used, just skip it
-        foreach(array_keys($items[$cat_id]) as $item_id){
+        // If catid is not used, just skip it
+        foreach (array_keys($items[$cat_id]) as $item_id) {
             // In article, the item_id is "art_id"
             $items_id[] = intval($item_id);
         }
     }
 
-    foreach(array_keys($items) as $cat_id){
-        foreach(array_keys($items[$cat_id]) as $item_id){
+    foreach (array_keys($items) as $cat_id) {
+        foreach (array_keys($items[$cat_id]) as $item_id) {
             $sql = "SELECT  l.entryID, l.categoryID, l.term as ltitle, l.definition, l.uid, l.datesub, l.offline, c.name as cname FROM ".$xoopsDB->prefix('lxentries')." l, ".$xoopsDB->prefix('lxcategories')." c WHERE l.entryID=".$item_id." AND l.categoryID=c.categoryID AND l.offline=0 ORDER BY l.datesub DESC";
             $result = $xoopsDB->query($sql);
             $row = $xoopsDB->fetchArray($result);
@@ -59,5 +62,4 @@ function lexikon_tag_iteminfo(&$items){
                                         ];
         }
     }
-
 }
