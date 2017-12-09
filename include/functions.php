@@ -903,7 +903,7 @@ function lx_removeAccents($string)
 
 function lx_seemsUtf8($Str)
 { # by bmorel at ssi dot fr
-    for ($i=0; $i<strlen($Str); $i++) {
+    for ($i=0, $iMax = strlen($Str); $i < $iMax; $i++) {
         if (ord($Str[$i]) < 0x80) {
             continue;
         } # 0bbbbbbb
@@ -1064,7 +1064,7 @@ function lx_close_tags($string)
         }
         
         $complete_tags = array_reverse($complete_tags);
-        for ($i = 0; $i < count($complete_tags); $i++) {
+        for ($i = 0, $iMax = count($complete_tags); $i < $iMax; $i++) {
             $string .= '</' . $complete_tags[$i] . '>';
         }
     }

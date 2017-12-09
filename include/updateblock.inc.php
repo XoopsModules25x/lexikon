@@ -43,7 +43,7 @@ if (substr(XOOPS_VERSION, 6, 3) < 2.1) {
                     $modversion['blocks'][$i]['options'] = $fblock['options'];
                     $local_msgs[]                        = "Option's values of the block <b>" . $fblock['name'] . '</b> will be kept. (value = <b>' . $fblock['options'] . '</b>)';
                 } elseif (count($old_vals) < count($def_vals)) {
-                    for ($j = 0; $j < count($old_vals); ++$j) {
+                    for ($j = 0, $jMax = count($old_vals); $j < $jMax; ++$j) {
                         $def_vals[$j] = $old_vals[$j];
                     }
                     $modversion['blocks'][$i]['options'] = implode('|', $def_vals);
