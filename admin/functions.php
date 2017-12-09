@@ -81,7 +81,7 @@ function lx_FieldExists($fieldname, $table)
  * @copyright (c) Instant Zero
  * @param $field
  * @param $table
- * @return
+ * @return bool|\mysqli_result
  */
 
 function lx_AddField($field, $table)
@@ -457,6 +457,11 @@ function lx_getinit($init)
     }*/
     echo '</select></div>';
 }
+
+/**
+ * @param $a
+ * @return string
+ */
 function uchr($a)
 {
     if (is_scalar($a)) {

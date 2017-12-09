@@ -359,6 +359,10 @@ class LexikonUtility
         $catids        = implode(',', $allowed_cats);
         $catperms      = " AND categoryID IN ($catids) ";
         $alpha         = [];
+        /**
+         * @param $a
+         * @return null|string|string[]
+         */
         function unichr($a)
         {
             return mb_convert_encoding(pack('N', $a), mb_internal_encoding(), 'UCS-4BE');

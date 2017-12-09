@@ -8,8 +8,8 @@
 defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
 
 /**
- * @param $options
- * @return array
+ * @param $a
+ * @return string
  */
 function uchr($a)
 {
@@ -22,6 +22,11 @@ function uchr($a)
     }
     return $str;
 }
+
+/**
+ * @param $options
+ * @return array
+ */
 function b_lxentries_alpha_show($options)
 {
     global $xoopsDB, $xoopsUser, $xoopsModule;

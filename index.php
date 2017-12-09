@@ -40,6 +40,10 @@ if (count($allowed_cats) > 0) {
 }
 
 if (!function_exists('mb_ucfirst') && function_exists('mb_substr')) {
+    /**
+     * @param $string
+     * @return false|string
+     */
     function mb_ucfirst($string)
     {
         $string = mb_ereg_replace("^[\ ]+", '', $string);

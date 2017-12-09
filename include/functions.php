@@ -15,9 +15,9 @@ if (! defined('XOOPS_ROOT_PATH')) {
  * lx_getLinkedUnameFromId()
  *
  * @param integer $userid Userid of author etc
- * @param integer $name:  0 Use Usenamer 1 Use realname
- * @return
- **/
+ * @param integer $name   :  0 Use Usenamer 1 Use realname
+ * @return int|string
+ */
 function lx_getLinkedUnameFromId($userid = 0, $name= 0)
 {
     if (!is_numeric($userid)) {
@@ -50,6 +50,9 @@ function lx_getLinkedUnameFromId($userid = 0, $name= 0)
     return $GLOBALS['xoopsConfig']['anonymous'];
 }
 
+/**
+ * @param $user
+ */
 function lx_getuserForm($user)
 {
     global $xoopsDB, $xoopsConfig;
@@ -85,6 +88,10 @@ function lx_calculateTotals()
     }
 }
 
+/**
+ * @param $c
+ * @return int
+ */
 function lx_countByCategory($c)
 {
     global $xoopsUser, $xoopsDB, $xoopsModule;
@@ -101,6 +108,9 @@ function lx_countByCategory($c)
     return $count;
 }
 
+/**
+ * @return int
+ */
 function lx_countCats()
 {
     global $xoopsUser, $xoopsModule;
@@ -111,6 +121,9 @@ function lx_countCats()
     return count($totalcats);
 }
 
+/**
+ * @return int
+ */
 function lx_countWords()
 {
     global $xoopsUser, $xoopsDB;
@@ -130,6 +143,9 @@ function lx_countWords()
 }
 
 // To display the list of categories
+/**
+ * @return array
+ */
 function lx_CatsArray()
 {
     global $xoopsDB, $xoopsModuleConfig,$xoopsUser,$xoopsModule;
@@ -162,6 +178,9 @@ function lx_CatsArray()
     return $block0;
 }
 
+/**
+ * @return array
+ */
 function lx_alphaArray()
 {
     global $xoopsUser, $xoopsDB, $xoopsModule;
@@ -193,7 +212,8 @@ function lx_alphaArray()
  * chr() with unicode support
  * I found this on this site http://en.php.net/chr
  * don't take credit for this.
- *
+ * @param $initials
+ * @return string
  */
 function lx_uchr($initials)
 {
@@ -215,6 +235,10 @@ function lx_uchr($initials)
 */
 
 // Functional links
+/**
+ * @param $variable
+ * @return string
+ */
 function lx_serviceLinks($variable)
 {
     global $xoopsUser, $xoopsDB, $xoopsModule, $xoopsModuleConfig, $xoopsConfig, $entrytype;
@@ -284,6 +308,10 @@ function lx_serviceLinks($variable)
     return $srvlinks;
 }
 // entry footer
+/**
+ * @param $variable
+ * @return string
+ */
 function lx_serviceLinksnew($variable)
 {
     global $xoopsUser, $xoopsDB, $xoopsModule, $xoopsModuleConfig, $xoopsConfig, $myts;
@@ -317,6 +345,9 @@ function lx_serviceLinksnew($variable)
     return $srvlinks2;
 }
 
+/**
+ * @return string
+ */
 function lx_showSearchForm()
 {
     global $xoopsUser, $xoopsDB, $xoopsModule, $xoopsModuleConfig, $xoopsConfig;
@@ -354,6 +385,13 @@ function lx_showSearchForm()
     return $searchform;
 }
 
+/**
+ * @param $needle
+ * @param $haystack
+ * @param $hlS
+ * @param $hlE
+ * @return string
+ */
 function lx_getHTMLHighlight($needle, $haystack, $hlS, $hlE)
 {
     $parts = explode('>', $haystack);
@@ -384,6 +422,9 @@ function lx_getHTMLHighlight($needle, $haystack, $hlS, $hlE)
  */
 
 // Create the meta keywords based on content
+/**
+ * @param $content
+ */
 function lx_extract_keywords($content)
 {
     global $xoopsTpl, $xoTheme, $xoopsModule, $xoopsModuleConfig;
@@ -506,6 +547,9 @@ function lx_extract_keywords($content)
 }
 
 // Create meta description based on content
+/**
+ * @param $content
+ */
 function lx_get_metadescription($content)
 {
     global $xoopsTpl, $xoTheme;
@@ -519,6 +563,10 @@ function lx_get_metadescription($content)
 }
 
 // Create pagetitles
+/**
+ * @param string $article
+ * @param string $topic
+ */
 function lx_create_pagetitle($article='', $topic='')
 {
     global $xoopsModule, $xoopsTpl;
@@ -547,6 +595,10 @@ function lx_create_pagetitle($article='', $topic='')
 }
 
 // clear descriptions
+/**
+ * @param $document
+ * @return null|string|string[]
+ */
 function lx_html2text($document)
 {
     // PHP Manual:: function preg_replace $document should contain an HTML document.
@@ -588,6 +640,11 @@ function lx_html2text($document)
 }
 
 //Retrieve moduleoptions equivalent to $Xoopsmoduleconfig
+/**
+ * @param        $option
+ * @param string $repmodule
+ * @return bool|mixed
+ */
 function lx_getmoduleoption($option, $repmodule='lexikon')
 {
     global $xoopsModuleConfig, $xoopsModule;
@@ -636,6 +693,13 @@ function lx_isX23()
 /**
  * Retreive an editor according to the module's option "form_options"
  * following function is from News modified by trabis
+ * @param        $caption
+ * @param        $name
+ * @param string $value
+ * @param string $width
+ * @param string $height
+ * @param string $supplemental
+ * @return bool|\XoopsFormDhtmlTextArea|\XoopsFormEditor|\XoopsFormFckeditor|\XoopsFormHtmlarea|\XoopsFormTextArea|\XoopsFormTinyeditorTextArea
  */
 function &lx_getWysiwygForm($caption, $name, $value = '', $width = '100%', $height = '400px', $supplemental='')
 {
@@ -752,6 +816,8 @@ function lx_module_header()
 
 /**
  * Validate userid
+ * @param $uids
+ * @return array|bool|false
  */
 function lx_val_user_data($uids)
 {
@@ -777,6 +843,9 @@ function lx_val_user_data($uids)
 }
 
 // Get all terms published by an author
+/**
+ * @param $uid
+ */
 function lx_AuthorProfile($uid)
 {
     include_once XOOPS_ROOT_PATH . '/class/pagenav.php';
@@ -813,6 +882,11 @@ function lx_AuthorProfile($uid)
 }
 
 // Returns the author's IDs for authorslist
+/**
+ * @param int $limit
+ * @param int $start
+ * @return array
+ */
 function lx_getAuthors($limit=0, $start=0)
 {
     global $xoopsDB ;
@@ -829,6 +903,10 @@ function lx_getAuthors($limit=0, $start=0)
 }
 
 // link to userprofile
+/**
+ * @param $userid
+ * @return string
+ */
 function lx_getLinkedProfileFromId($userid)
 {
     global $uid, $xoopsModule;
@@ -848,6 +926,10 @@ function lx_getLinkedProfileFromId($userid)
 }
 
 // functionset to assign terms with accentuated or umlaut initials to the adequate initial
+/**
+ * @param $string
+ * @return mixed|string
+ */
 function lx_removeAccents($string)
 {
     $chars['in'] = chr(128).chr(131).chr(138).chr(142).chr(154).chr(158)
@@ -901,6 +983,10 @@ function lx_removeAccents($string)
     return $string;
 }
 
+/**
+ * @param $Str
+ * @return bool
+ */
 function lx_seemsUtf8($Str)
 { # by bmorel at ssi dot fr
     for ($i=0, $iMax = strlen($Str); $i < $iMax; $i++) {
@@ -935,6 +1021,10 @@ function lx_seemsUtf8($Str)
     return true;
 }
 
+/**
+ * @param $field
+ * @return mixed|null|string|string[]
+ */
 function lx_sanitizeFieldName($field)
 {
     $field = lx_removeAccents($field);
@@ -950,6 +1040,11 @@ function lx_sanitizeFieldName($field)
 }
 
 // Verify that a term does not exist for submissions and requests (both user frontend and admin backend)
+/**
+ * @param $term
+ * @param $table
+ * @return mixed
+ */
 function lx_TermExists($term, $table)
 {
     global $xoopsDB;
@@ -961,6 +1056,13 @@ function lx_TermExists($term, $table)
 }
 
 // Static method to get author data block authors - from AMS
+/**
+ * @param int    $limit
+ * @param string $sort
+ * @param string $name
+ * @param string $compute_method
+ * @return array|bool
+ */
 function lexikon_block_getAuthors($limit = 5, $sort = 'count', $name = 'uname', $compute_method = 'average')
 {
     $limit = (int)$limit;
@@ -1040,6 +1142,8 @@ function lx_closetags2($html)
 /**
  * @author   Monte Ohrt <monte at ohrt dot com>, modified by Amos Robinson
  *           <amos dot robinson at gmail dot com>
+ * @param $string
+ * @return string
  */
 function lx_close_tags($string)
 {
@@ -1089,6 +1193,11 @@ function lx_close_tags($string)
  * @author   Monte Ohrt <monte at ohrt dot com>, modified by Amos Robinson
  *           <amos dot robinson at gmail dot com>
  * used in Block entries_scrolling.php
+ * @param        $string
+ * @param int    $length
+ * @param string $etc
+ * @param bool   $break_words
+ * @return null|string|string[]
  */
 function lx_truncate_tagsafe($string, $length = 80, $etc = '...', $break_words = false)
 {
@@ -1109,6 +1218,9 @@ function lx_truncate_tagsafe($string, $length = 80, $etc = '...', $break_words =
     }
 }
 
+/**
+ * @return array
+ */
 function lexikon_summary()
 {
     global $xoopsDB;
