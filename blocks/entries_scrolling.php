@@ -69,7 +69,7 @@ function b_scrolling_term_show($options)
             if ($options[5] > 0) {
                 $html                = 1 == $html ? 1 : 0;
                 $definition          = preg_replace("/'/", '’', $definition);
-                $items['definition'] = LexikonUtility::truncateTagSafe($myts->displayTarea($definition, $html), $options[5] + 3);
+                $items['definition'] = $utility::truncateTagSafe($myts->displayTarea($definition, $html), $options[5] + 3);
             } else {
                 $items['definition'] = '';
             }

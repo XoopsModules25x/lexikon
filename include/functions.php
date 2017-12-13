@@ -30,7 +30,7 @@ function lx_getLinkedUnameFromId($userid = 0, $name = 0)
         $user          = $memberHandler->getUser($userid);
 
         if (is_object($user)) {
-            $ts        = MyTextSanitizer::getInstance();
+            $ts        = \MyTextSanitizer::getInstance();
             $username  = $user->getVar('uname');
             $usernameu = $user->getVar('name');
 
@@ -149,7 +149,7 @@ function lx_countWords()
 function lx_CatsArray()
 {
     global $xoopsDB, $xoopsModuleConfig, $xoopsUser, $xoopsModule;
-    $myts         = MyTextSanitizer::getInstance();
+    $myts         = \MyTextSanitizer::getInstance();
     $groups       = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
     $gpermHandler = xoops_getHandler('groupperm');
     $block0       = [];
@@ -437,7 +437,7 @@ function lx_extract_keywords($content)
         $limit                            = $xoopsConfigSearch['keyword_min'];
         $_SESSION['xoops_keywords_limit'] = $limit;
     }
-    $myts            = MyTextSanitizer::getInstance();
+    $myts            = \MyTextSanitizer::getInstance();
     $content         = str_replace('<br >', ' ', $content);
     $content         = $myts->undoHtmlSpecialChars($content);
     $content         = strip_tags($content);
@@ -551,7 +551,7 @@ function lx_extract_keywords($content)
 function lx_get_metadescription($content)
 {
     global $xoopsTpl, $xoTheme;
-    $myts    = MyTextSanitizer::getInstance();
+    $myts    = \MyTextSanitizer::getInstance();
     $content = $myts->undoHtmlSpecialChars($myts->displayTarea($content));
     if (isset($xoTheme) && is_object($xoTheme)) {
         $xoTheme->addMeta('meta', 'description', strip_tags($content));
@@ -568,7 +568,7 @@ function lx_get_metadescription($content)
 function lx_create_pagetitle($article = '', $topic = '')
 {
     global $xoopsModule, $xoopsTpl;
-    $myts    = MyTextSanitizer::getInstance();
+    $myts    = \MyTextSanitizer::getInstance();
     $content = '';
     if (!empty($article)) {
         $content .= strip_tags($myts->displayTarea($article));
@@ -716,7 +716,7 @@ function &lx_getWysiwygForm($caption, $name, $value = '', $width = '100%', $heig
     $editor_configs['editor'] = $editor_option;
 
     if (lx_isX23()) {
-        $editor = new XoopsFormEditor($caption, $name, $editor_configs);
+        $editor = new \XoopsFormEditor($caption, $name, $editor_configs);
 
         return $editor;
     }
@@ -726,38 +726,38 @@ function &lx_getWysiwygForm($caption, $name, $value = '', $width = '100%', $heig
         case 'fckeditor':
             if (is_readable(XOOPS_ROOT_PATH . '/class/fckeditor/formfckeditor.php')) {
                 require_once XOOPS_ROOT_PATH . '/class/fckeditor/formfckeditor.php';
-                $editor = new XoopsFormFckeditor($caption, $name, $value);
+                $editor = new \XoopsFormFckeditor($caption, $name, $value);
             }
             break;
 
         case 'htmlarea':
             if (is_readable(XOOPS_ROOT_PATH . '/class/htmlarea/formhtmlarea.php')) {
                 require_once XOOPS_ROOT_PATH . '/class/htmlarea/formhtmlarea.php';
-                $editor = new XoopsFormHtmlarea($caption, $name, $value);
+                $editor = new \XoopsFormHtmlarea($caption, $name, $value);
             }
             break;
 
         case 'dhtmltextarea':
         case 'dhtml':
-            $editor = new XoopsFormDhtmlTextArea($caption, $name, $value, 10, 50, $supplemental);
+            $editor = new \XoopsFormDhtmlTextArea($caption, $name, $value, 10, 50, $supplemental);
             break;
 
         case 'textarea':
-            $editor = new XoopsFormTextArea($caption, $name, $value);
+            $editor = new \XoopsFormTextArea($caption, $name, $value);
             break;
 
         case 'tinyeditor':
         case 'tinymce':
             if (is_readable(XOOPS_ROOT_PATH . '/class/xoopseditor/tinyeditor/formtinyeditortextarea.php')) {
                 require_once XOOPS_ROOT_PATH . '/class/xoopseditor/tinyeditor/formtinyeditortextarea.php';
-                $editor = new XoopsFormTinyeditorTextArea(['caption' => $caption, 'name' => $name, 'value' => $value, 'width' => '100%', 'height' => '400px']);
+                $editor = new \XoopsFormTinyeditorTextArea(['caption' => $caption, 'name' => $name, 'value' => $value, 'width' => '100%', 'height' => '400px']);
             }
             break;
 
         case 'koivi':
             if (is_readable(XOOPS_ROOT_PATH . '/class/wysiwyg/formwysiwygtextarea.php')) {
                 require_once XOOPS_ROOT_PATH . '/class/wysiwyg/formwysiwygtextarea.php';
-                $editor = new XoopsFormWysiwygTextArea($caption, $name, $value, $width, $height, '');
+                $editor = new \XoopsFormWysiwygTextArea($caption, $name, $value, $width, $height, '');
             }
             break;
     }
@@ -851,7 +851,7 @@ function lx_AuthorProfile($uid)
 {
     require_once XOOPS_ROOT_PATH . '/class/pagenav.php';
     global $authortermstotal, $xoopsTpl, $xoopsDB, $xoopsUser, $xoopsModuleConfig;
-    $myts = MyTextSanitizer::getInstance();
+    $myts = \MyTextSanitizer::getInstance();
     //permissions
     $gpermHandler  = xoops_getHandler('groupperm');
     $groups        = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
@@ -877,7 +877,7 @@ function lx_AuthorProfile($uid)
 
     $navstring                = '';
     $navstring                .= 'uid=' . $uid . '&start';
-    $pagenav                  = new XoopsPageNav($authortermstotal, $xoopsModuleConfig['indexperpage'], $start, $navstring);
+    $pagenav                  = new \XoopsPageNav($authortermstotal, $xoopsModuleConfig['indexperpage'], $start, $navstring);
     $authortermsarr['navbar'] = '<span style="text-align:right;">' . $pagenav->renderNav(6) . '</span>';
     $xoopsTpl->assign('authortermsarr', $authortermsarr);
 }
@@ -1126,7 +1126,7 @@ function lexikon_block_getAuthors($limit = 5, $sort = 'count', $name = 'uname', 
         $name = 'name';
     } //making sure that there is not invalid information in field value
     $ret = [];
-    $db  = XoopsDatabaseFactory::getDatabaseConnection();
+    $db  = \XoopsDatabaseFactory::getDatabaseConnection();
     if ('count' === $sort) {
         $sql = 'SELECT u.' . $name . ' AS name, u.uid , count( n.entryID ) AS count
               FROM ' . $db->prefix('users') . ' u, ' . $db->prefix('lxentries') . ' n

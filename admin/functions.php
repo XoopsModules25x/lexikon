@@ -43,7 +43,7 @@ function lx_adminMenu($currentoption = 0, $breadcrumb = '')
 
     include __DIR__ . '/menu.php';
 
-    $tpl = new XoopsTpl();
+    $tpl = new \XoopsTpl();
     $tpl->assign([
                      'headermenu'      => $headermenu,
                      'adminmenu'       => $adminmenu,
@@ -217,7 +217,7 @@ function lx_collapsableBar($tablename = '', $iconname = '')
                 obj = document.layers[id];
             }
             if (obj) {
-                if (obj.style.display == "none") {
+                if (obj.style.display === "none") {
                     obj.style.display = "";
                 } else {
                     obj.style.display = "none";
@@ -258,11 +258,11 @@ function lx_collapsableBar($tablename = '', $iconname = '')
 function lx_GetStatistics($limit)
 {
     $ret  = [];
-    $db   = XoopsDatabaseFactory::getDatabaseConnection();
+    $db   = \XoopsDatabaseFactory::getDatabaseConnection();
     $tbls = $db->prefix('lxentries');
     $tblt = $db->prefix('lxcategories');
 
-    $db = XoopsDatabaseFactory::getDatabaseConnection();
+    $db = \XoopsDatabaseFactory::getDatabaseConnection();
     // Number of Definitions per Category, including offline and submitted terms
     $ret2   = [];
     $sql    = "SELECT count(s.entryID) as cpt, s.categoryID, t.name FROM $tbls s, $tblt t WHERE s.categoryID=t.categoryID GROUP BY s.categoryID ORDER BY t.name";

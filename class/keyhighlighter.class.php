@@ -13,6 +13,7 @@
  * @package   keyhighlighter
  * @author    Setec Astronomy
  * @abstract  Highlight specific keywords.
+ * @copyright 2004
  * @example   sample.php A sample code.
  * @link      http://setecastronomy.stufftoread.com
  */
@@ -66,10 +67,7 @@ class lx_keyhighlighter
         $this->keywords         = $keywords;
         $this->singlewords      = $singlewords;
         $this->replace_callback = $replace_callback;
-        //ob_start ([
-        $this,
-                    'highlight'
-                    ]);
+        //ob_start ([$this, 'highlight']);
     }
 
     /**

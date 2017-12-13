@@ -265,3 +265,5 @@ define('_MI_LEXIKON_HELP_OVERVIEW', 'Overview');
 define('_MI_LEXIKON_NAME', 'Lexikon');
 
 define('_MI_LEXIKON_SHOWSUBMISSIONS', 'Submissions');
+define('_MI_LEXIKON_HOME', 'Home');
+define('_MI_LEXIKON_ABOUT', 'About');

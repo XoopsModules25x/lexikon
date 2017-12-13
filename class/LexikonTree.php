@@ -1,4 +1,5 @@
-<?php
+<?php namespace Xoopsmodules\lexikon;
+
 /**
  * XOOPS tree handler
  *
@@ -47,7 +48,7 @@ class LexikonTree
     public function __construct($table_name, $id_name, $pid_name)
     {
         //        $GLOBALS['xoopsLogger']->addDeprecated("Class '" . __CLASS__ . "' is deprecated, check 'XoopsObjectTree' in tree.php");
-        $this->db    = XoopsDatabaseFactory::getDatabaseConnection();
+        $this->db    = \XoopsDatabaseFactory::getDatabaseConnection();
         $this->table = $table_name;
         $this->id    = $id_name;
         $this->pid   = $pid_name;
@@ -65,7 +66,7 @@ class LexikonTree
     {
         $sel_id = (int)$sel_id;
         $arr    = [];
-        $sql    = 'SELECT * FROM ' . $this->table . ' WHERE ' . $this->pid . '=' . $sel_id . '';
+        $sql    = 'SELECT * FROM ' . $this->table . ' WHERE ' . $this->pid . '=' . $sel_id . ' ';
         if ('' != $order) {
             $sql .= " ORDER BY $order";
         }
@@ -177,7 +178,7 @@ class LexikonTree
             return $path;
         }
         list($parentid, $name) = $this->db->fetchRow($result);
-        $myts = MyTextSanitizer::getInstance();
+        $myts = \MyTextSanitizer::getInstance();
         $name = $myts->htmlspecialchars($name);
         $path = '/' . $name . $path . '';
         if (0 == $parentid) {
@@ -204,7 +205,7 @@ class LexikonTree
         if ('' == $sel_name) {
             $sel_name = $this->id;
         }
-        $myts = MyTextSanitizer::getInstance();
+        $myts = \MyTextSanitizer::getInstance();
         echo "<select name='" . $sel_name . "'";
         if ('' != $onchange) {
             echo " onchange='" . $onchange . "'";
@@ -259,7 +260,7 @@ class LexikonTree
             return $path;
         }
         list($parentid, $name) = $this->db->fetchRow($result);
-        $myts = MyTextSanitizer::getInstance();
+        $myts = \MyTextSanitizer::getInstance();
         $name = $myts->htmlspecialchars($name);
         $path = "<a href='" . $funcURL . '&amp;' . $this->id . '=' . $sel_id . "'>" . $name . '</a>' . $path . '';
         if (0 == $parentid) {
@@ -302,12 +303,12 @@ class LexikonTree
      * @param string|mixed $order
      * @param array|mixed  $parray
      *
-     * @return array|unknown|unknown_type
+     * @return array|mixed
      */
     public function getAllChild($sel_id = 0, $order = '', $parray = [])
     {
         $sel_id = (int)$sel_id;
-        $sql    = 'SELECT * FROM ' . $this->table . ' WHERE ' . $this->pid . '=' . $sel_id . '';
+        $sql    = 'SELECT * FROM ' . $this->table . ' WHERE ' . $this->pid . '=' . $sel_id . ' ';
         if ('' != $order) {
             $sql .= " ORDER BY $order";
         }
@@ -331,12 +332,12 @@ class LexikonTree
      * @param  string|mixed $order
      * @param  array|mixed  $parray
      * @param  string|mixed $r_prefix
-     * @return array|unknown|unknown_type
+     * @return array|mixed
      */
     public function getChildTreeArray($sel_id = 0, $order = '', $parray = [], $r_prefix = '')
     {
         $sel_id = (int)$sel_id;
-        $sql    = 'SELECT * FROM ' . $this->table . ' WHERE ' . $this->pid . '=' . $sel_id . '';
+        $sql    = 'SELECT * FROM ' . $this->table . ' WHERE ' . $this->pid . '=' . $sel_id . ' ';
         if ('' != $order) {
             $sql .= " ORDER BY $order";
         }

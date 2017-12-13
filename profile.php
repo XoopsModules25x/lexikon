@@ -10,7 +10,7 @@ $GLOBALS['xoopsOption']['template_main'] = 'lx_profile.tpl';
 require_once XOOPS_ROOT_PATH . '/header.php';
 global $xoopsModule, $xoopsUser;
 require_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->getVar('dirname') . '/class/Utility.php';
-$myts = MyTextSanitizer::getInstance();
+$myts = \MyTextSanitizer::getInstance();
 
 if (empty($xoopsUser) && !$xoopsModuleConfig['authorprofile']) {
     redirect_header(XOOPS_URL . '/user.php', 3, _MD_LEXIKON_MUSTREGFIRST);
@@ -21,7 +21,7 @@ $uid = isset($_GET['uid']) ? (int)$_GET['uid'] : 0;
 if (empty($uid)) {
     redirect_header('index.php', 2, _ERRORS);
 }
-$data = LexikonUtility::getUserData($uid);
+$data = $utility::getUserData($uid);
 if (!$data) {
     redirect_header('index.php', 2, _MD_LEXIKON_UNKNOWNERROR);
 }
@@ -37,7 +37,7 @@ $catids        = implode(',', $allowed_cats);
 $catperms      = " AND categoryID IN ($catids) ";
 
 // basic functions_navi and get user data
-$thisuser = new XoopsUser($uid);
+$thisuser = new \XoopsUser($uid);
 $authname = $thisuser->getVar('uname');
 
 // get usertotals
@@ -74,7 +74,7 @@ if (!$totalwaiting) {
 }
 
 // Get all terms of this author
-LexikonUtility::getAuthorProfile($uid);
+$utility::getAuthorProfile($uid);
 
 // various strings
 $xoopsTpl->assign('lang_modulename', $xoopsModule->name());

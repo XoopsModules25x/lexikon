@@ -1,4 +1,4 @@
-<?php
+<?php namespace Xoopsmodules\lexikon;
 
 /*
  * You may not change or alter any portion of this comment or credits
@@ -19,13 +19,27 @@
  */
 
 use Xmf\Request;
-use Xmf\Module\Helper;
+use Xoopsmodules\lexikon;
+use Xoopsmodules\lexikon\common;
+
+require_once __DIR__ . '/common/VersionChecks.php';
+require_once __DIR__ . '/common/ServerStats.php';
+require_once __DIR__ . '/common/FilesManagement.php';
+
+require_once __DIR__ . '/../include/common.php';
 
 /**
- * Class LexikonUtility
+ * Class Utility
  */
-class LexikonUtility
+class Utility
 {
+    use common\VersionChecks; //checkVerXoops, checkVerPhp Traits
+
+    use common\ServerStats; // getServerStats Trait
+
+    use common\FilesManagement; // Files Management Trait
+
+    //--------------- Custom module methods -----------------------------
 
     /**
      * Function responsible for checking if a directory exists, we can also write in and create an index.html file
@@ -118,14 +132,14 @@ class LexikonUtility
                     break;
                 }
             } else {
-                if ((int)$v > 0) { // handles things like x.x.x.0_RC2
+                if ((int)$v > 0) { // handles versions like x.x.x.0_RC2
                     $success = false;
                     break;
                 }
             }
         }
 
-        if (!$success) {
+        if (false === $success) {
             $module->setErrors(sprintf(_AM_ADSLIGHT_ERROR_BAD_XOOPS, $requiredVer, $currentVer));
         }
 
@@ -158,7 +172,7 @@ class LexikonUtility
     }
 
     /**
-     * LexikonUtility::getLinkedUnameFromId()
+     * static::getLinkedUnameFromId()
      *
      * @param  integer $userid Userid of author etc
      * @param  integer $name   :  0 Use Usenamer 1 Use realname
@@ -176,7 +190,7 @@ class LexikonUtility
             $user          = $memberHandler->getUser($userid);
 
             if (is_object($user)) {
-                $ts        = MyTextSanitizer::getInstance();
+                $ts        = \MyTextSanitizer::getInstance();
                 $username  = $user->getVar('uname');
                 $usernameu = $user->getVar('name');
 
@@ -295,7 +309,7 @@ class LexikonUtility
     public static function getCategoryArray()
     {
         global $xoopsDB, $xoopsModuleConfig, $xoopsUser, $xoopsModule;
-        $myts         = MyTextSanitizer::getInstance();
+        $myts         = \MyTextSanitizer::getInstance();
         $groups       = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
         $gpermHandler = xoops_getHandler('groupperm');
         $block0       = [];
@@ -310,7 +324,7 @@ class LexikonUtility
                 } else {
                     $logourl = '';
                 }
-                $xoopsModule          = XoopsModule::getByDirname('lexikon');
+                $xoopsModule          = \XoopsModule::getByDirname('lexikon');
                 $catlinks['id']       = (int)$catID;
                 $catlinks['total']    = (int)$total;
                 $catlinks['linktext'] = $myts->htmlSpecialChars($name);
@@ -327,13 +341,6 @@ class LexikonUtility
     /**
      * @return array
      */
-    //function uchr($a) {
-    //    if (is_scalar($a)) $a= func_get_args();
-    //    $str= '';
-    //    foreach ($a as $code) $str.= html_entity_decode('&#'.$code.';',ENT_NOQUOTES,'UTF-8');
-    //    return $str;
-    //}
-
     public static function getAlphaArray()
     {
         global $xoopsUser, $xoopsDB, $xoopsModule;
@@ -396,6 +403,46 @@ class LexikonUtility
         return $alpha;
     }
 
+    public static function lettersChoice()
+    {
+        $pedigree = LexikonLexikon::getInstance();
+        xoops_load('XoopsLocal');
+
+        $criteria = $pedigree->getHandler('tree')->getActiveCriteria();
+        $criteria->setGroupby('UPPER(LEFT(NAAM,1))');
+        $countsByLetters = $pedigree->getHandler('tree')->getCounts($criteria);
+        // Fill alphabet array
+        $alphabet       = \XoopsLocal::getAlphabet();
+        $alphabet_array = [];
+        foreach ($alphabet as $letter) {
+            $letter_array = [];
+            if (isset($countsByLetters[$letter])) {
+                $letter_array['letter'] = $letter;
+                $letter_array['count']  = $countsByLetters[$letter];
+                $letter_array['url']    = '' . XOOPS_URL . '/modules/' . $pedigree->getModule()->dirname() . "/result.php?f=NAAM&amp;l=1&amp;w={$letter}%25&amp;o=NAAM";
+            } else {
+                $letter_array['letter'] = $letter;
+                $letter_array['count']  = 0;
+                $letter_array['url']    = '';
+            }
+            $alphabet_array[$letter] = $letter_array;
+            unset($letter_array);
+        }
+        // Render output
+        if (!isset($GLOBALS['xoTheme']) || !is_object($GLOBALS['xoTheme'])) {
+            require_once $GLOBALS['xoops']->path('class/theme.php');
+            $GLOBALS['xoTheme'] = new xos_opal_Theme();
+        }
+        require_once $GLOBALS['xoops']->path('class/template.php');
+        $letterschoiceTpl          = new \XoopsTpl();
+        $letterschoiceTpl->caching = false; // Disable cache
+        $letterschoiceTpl->assign('alphabet', $alphabet_array);
+        $html = $letterschoiceTpl->fetch('db:' . $pedigree->getModule()->dirname() . '_common_letterschoice.tpl');
+        unset($letterschoiceTpl);
+
+        return $html;
+    }    
+
     /**
      * chr() with unicode support
      * I found this on this site http://en.php.net/chr
@@ -418,9 +465,9 @@ class LexikonUtility
 
     /* sample */
     /*
-        echo LexikonUtility::getUchr(23383); echo '<br>';
-        echo LexikonUtility::getUchr(23383,215,23383); echo '<br>';
-        echo LexikonUtility::getUchr(array(23383,215,23383,215,23383)); echo '<br>';
+        echo static::getUchr(23383); echo '<br>';
+        echo static::getUchr(23383,215,23383); echo '<br>';
+        echo static::getUchr(array(23383,215,23383,215,23383)); echo '<br>';
     */
 
     // Functional links
@@ -442,7 +489,7 @@ class LexikonUtility
             if ($xoopsUser->isAdmin()) {
                 $srvlinks .= '<a TITLE="'
                              . _EDIT
-                             . '" href="/modules/lexikon/admin/entry.php?op=mod&entryID='
+                             . '" href="admin/entry.php?op=mod&entryID='
                              . $variable['id']
                              . '" target="_blank"><img src="'
                              . $pathIcon16
@@ -629,7 +676,7 @@ class LexikonUtility
             $limit                            = $xoopsConfigSearch['keyword_min'];
             $_SESSION['xoops_keywords_limit'] = $limit;
         }
-        $myts            = MyTextSanitizer::getInstance();
+        $myts            = \MyTextSanitizer::getInstance();
         $content         = str_replace('<br>', ' ', $content);
         $content         = $myts->undoHtmlSpecialChars($content);
         $content         = strip_tags($content);
@@ -744,7 +791,7 @@ class LexikonUtility
     public static function getMetaDescription($content)
     {
         global $xoopsTpl, $xoTheme;
-        $myts    = MyTextSanitizer::getInstance();
+        $myts    = \MyTextSanitizer::getInstance();
         $content = $myts->undoHtmlSpecialChars($myts->displayTarea($content));
         if (isset($xoTheme) && is_object($xoTheme)) {
             $xoTheme->addMeta('meta', 'description', strip_tags($content));
@@ -762,7 +809,7 @@ class LexikonUtility
     public static function createPageTitle($article = '', $topic = '')
     {
         global $xoopsModule, $xoopsTpl;
-        $myts    = MyTextSanitizer::getInstance();
+        $myts    = \MyTextSanitizer::getInstance();
         $content = '';
         if (!empty($article)) {
             $content .= strip_tags($myts->displayTarea($article));
@@ -830,7 +877,9 @@ class LexikonUtility
 
         $text = preg_replace($search, $replace, $document);
 
-        $text = preg_replace_callback("&#(\d+)&", create_function('$matches', 'return chr($matches[1]);'), $text);
+        preg_replace_callback('/&#(\d+);/', function ($matches) {
+            return chr($matches[1]);
+        }, $document);
 
         return $text;
     }
@@ -899,11 +948,12 @@ class LexikonUtility
      * @param  string                                                                                                                         $width
      * @param  string                                                                                                                         $height
      * @param  string                                                                                                                         $supplemental
-     * @return bool|XoopsFormDhtmlTextArea|XoopsFormEditor|XoopsFormFckeditor|XoopsFormHtmlarea|XoopsFormTextArea|XoopsFormTinyeditorTextArea
+     * @return bool|XoopsFormEditor
+     *
      */
     public static function getWysiwygForm($caption, $name, $value = '', $width = '100%', $height = '400px', $supplemental = '')
     {
-        $editor_option            = strtolower(self::getModuleOption('form_options'));
+        $editor_option            = strtolower(static::getModuleOption('form_options'));
         $editor                   = false;
         $editor_configs           = [];
         $editor_configs['name']   = $name;
@@ -914,8 +964,8 @@ class LexikonUtility
         $editor_configs['height'] = '350px';
         $editor_configs['editor'] = $editor_option;
 
-        if (self::isX23()) {
-            $editor = new XoopsFormEditor($caption, $name, $editor_configs);
+        if (static::isX23()) {
+            $editor = new \XoopsFormEditor($caption, $name, $editor_configs);
 
             return $editor;
         }
@@ -925,31 +975,31 @@ class LexikonUtility
             case 'fckeditor':
                 if (is_readable(XOOPS_ROOT_PATH . '/class/fckeditor/formfckeditor.php')) {
                     require_once XOOPS_ROOT_PATH . '/class/fckeditor/formfckeditor.php';
-                    $editor = new XoopsFormFckeditor($caption, $name, $value);
+                    $editor = new \XoopsFormFckeditor($caption, $name, $value);
                 }
                 break;
 
             case 'htmlarea':
                 if (is_readable(XOOPS_ROOT_PATH . '/class/htmlarea/formhtmlarea.php')) {
                     require_once XOOPS_ROOT_PATH . '/class/htmlarea/formhtmlarea.php';
-                    $editor = new XoopsFormHtmlarea($caption, $name, $value);
+                    $editor = new \XoopsFormHtmlarea($caption, $name, $value);
                 }
                 break;
 
             case 'dhtmltextarea':
             case 'dhtml':
-                $editor = new XoopsFormDhtmlTextArea($caption, $name, $value, 10, 50, $supplemental);
+                $editor = new \XoopsFormDhtmlTextArea($caption, $name, $value, 10, 50, $supplemental);
                 break;
 
             case 'textarea':
-                $editor = new XoopsFormTextArea($caption, $name, $value);
+                $editor = new \XoopsFormTextArea($caption, $name, $value);
                 break;
 
             case 'tinyeditor':
             case 'tinymce':
                 if (is_readable(XOOPS_ROOT_PATH . '/class/xoopseditor/tinyeditor/formtinyeditortextarea.php')) {
                     require_once XOOPS_ROOT_PATH . '/class/xoopseditor/tinyeditor/formtinyeditortextarea.php';
-                    $editor = new XoopsFormTinyeditorTextArea([
+                    $editor = new \XoopsFormTinyeditorTextArea([
                                                                   'caption' => $caption,
                                                                   'name'    => $name,
                                                                   'value'   => $value,
@@ -962,7 +1012,7 @@ class LexikonUtility
             case 'koivi':
                 if (is_readable(XOOPS_ROOT_PATH . '/class/wysiwyg/formwysiwygtextarea.php')) {
                     require_once XOOPS_ROOT_PATH . '/class/wysiwyg/formwysiwygtextarea.php';
-                    $editor = new XoopsFormWysiwygTextArea($caption, $name, $value, $width, $height, '');
+                    $editor = new \XoopsFormWysiwygTextArea($caption, $name, $value, $width, $height, '');
                 }
                 break;
         }
@@ -1057,7 +1107,7 @@ class LexikonUtility
     {
         require_once XOOPS_ROOT_PATH . '/class/pagenav.php';
         global $authortermstotal, $xoopsTpl, $xoopsDB, $xoopsUser, $xoopsModuleConfig;
-        $myts = MyTextSanitizer::getInstance();
+        $myts = \MyTextSanitizer::getInstance();
         //permissions
         $gpermHandler = xoops_getHandler('groupperm');
         $groups       = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
@@ -1089,7 +1139,7 @@ class LexikonUtility
 
         $navstring                = '';
         $navstring                .= 'uid=' . $uid . '&start';
-        $pagenav                  = new XoopsPageNav($authortermstotal, $xoopsModuleConfig['indexperpage'], $start, $navstring);
+        $pagenav                  = new \XoopsPageNav($authortermstotal, $xoopsModuleConfig['indexperpage'], $start, $navstring);
         $authortermsarr['navbar'] = '<span style="text-align:right;">' . $pagenav->renderNav(6) . '</span>';
         $xoopsTpl->assign('authortermsarr', $authortermsarr);
     }
@@ -1131,7 +1181,7 @@ class LexikonUtility
             $user          = $memberHandler->getUser($userid);
             if (is_object($user)) {
                 $linkeduser = '<A TITLE="' . _MD_LEXIKON_AUTHORPROFILETEXT . '" HREF="' . XOOPS_URL . '/modules/' . $xoopsModule->dirname() . '/profile.php?uid=' . $uid . '">' . $user->getVar('uname') . '</a>';
-                //$linkeduser = XoopsUserUtility::getUnameFromId ( $uid );
+                //$linkeduser = \XoopsUserUtility::getUnameFromId ( $uid );
                 //$linkeduser .= '<div style=\'position:relative; right: 4px; top: 2px;\'><A TITLE="'._MD_LEXIKON_AUTHORPROFILETEXT.'" HREF="'.XOOPS_URL.'/modules/'.$xoopsModule->dirname().'/profile.php?uid='.$uid.'">'._MD_LEXIKON_AUTHORPROFILETEXT.'</a></div>';
                 return $linkeduser;
             }
@@ -1214,7 +1264,7 @@ class LexikonUtility
                         . chr(253)
                         . chr(255);
         $chars['out'] = 'EfSZszYcYuAAAAAACEEEEIIIINOOOOOOUUUUYaaaaaaceeeeiiiinoooooouuuuyy';
-        if (self::isUtf8($string)) {
+        if (static::isUtf8($string)) {
             $invalid_latin_chars = [
                 chr(197) . chr(146)            => 'OE',
                 chr(197) . chr(147)            => 'oe',
@@ -1238,17 +1288,7 @@ class LexikonUtility
             chr(240),
             chr(254)
         ];
-        $double_chars['out'] = [
-            'OE',
-            'oe',
-            'AE',
-            'DH',
-            'TH',
-            'ss',
-            'ae',
-            'dh',
-            'th'
-        ];
+        $double_chars['out'] = ['OE', 'oe', 'AE', 'DH', 'TH', 'ss', 'ae', 'dh', 'th'];
         $string              = str_replace($double_chars['in'], $double_chars['out'], $string);
 
         return $string;
@@ -1298,7 +1338,7 @@ class LexikonUtility
      */
     public static function sanitizeFieldName($field)
     {
-        $field = self::removeAccents($field);
+        $field = static::removeAccents($field);
         $field = strtolower($field);
         $field = preg_replace('/&.+?;/', '', $field); // kill entities
         $field = preg_replace('/[^a-z0-9 _-]/', '', $field);
@@ -1320,7 +1360,7 @@ class LexikonUtility
     public static function isTermPresent($term, $table)
     {
         global $xoopsDB;
-        $sql    = sprintf('SELECT COUNT(*) FROM %s WHERE term = %s', $table, $xoopsDB->quoteString(addslashes($term)));
+        $sql    = sprintf('SELECT COUNT(*) FROM "%s" WHERE term = "%s"', $table, $xoopsDB->quoteString(addslashes($term)));
         $result = $xoopsDB->query($sql);
         list($count) = $xoopsDB->fetchRow($result);
 
@@ -1343,7 +1383,7 @@ class LexikonUtility
             $name = 'name';
         } //making sure that there is not invalid information in field value
         $ret = [];
-        $db  = XoopsDatabaseFactory::getDatabaseConnection();
+        $db  = \XoopsDatabaseFactory::getDatabaseConnection();
         if ('count' === $sort) {
             $sql = 'SELECT u.' . $name . ' AS name, u.uid , count( n.entryID ) AS count
               FROM ' . $db->prefix('users') . ' u, ' . $db->prefix('lxentries') . ' n
@@ -1368,7 +1408,7 @@ class LexikonUtility
 
         while ($row = $db->fetchArray($result)) {
             if ('name' === $name && '' == $row['name']) {
-                $row['name'] = XoopsUser::getUnameFromId($row['uid']);
+                $row['name'] = \XoopsUser::getUnameFromId($row['uid']);
             }
             $row['count'] = round($row['count'], 0);
             $ret[]        = $row;
@@ -1482,7 +1522,7 @@ class LexikonUtility
             if (!$break_words) {
                 $string = preg_replace('/\s+?(\S+)?$/', '', substr($string, 0, $length + 1));
                 $string = preg_replace('/<[^>]*$/', '', $string);
-                $string = self::closeTags($string);
+                $string = static::closeTags($string);
             }
 
             return $string . $etc;

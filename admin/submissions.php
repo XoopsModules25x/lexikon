@@ -9,7 +9,7 @@
 //file obsolete . remains for compatibility reasons
 
 require_once __DIR__ . '/admin_header.php';
-$myts = MyTextSanitizer::getInstance();
+$myts = \MyTextSanitizer::getInstance();
 xoops_load('XoopsUserUtility');
 
 $op = '';
@@ -37,7 +37,7 @@ switch ($op) {
         $adminObject->displayNavigation(basename(__FILE__));
         global $xoopsUser, $xoopsConfig, $xoopsDB, $xoopsModuleConfig, $xoopsModule, $entryID;
 
-        $myts = MyTextSanitizer::getInstance();
+        $myts = \MyTextSanitizer::getInstance();
 
         $result01 = $xoopsDB->query('SELECT COUNT(*)
                                    FROM ' . $xoopsDB->prefix('lxcategories') . ' ');
@@ -145,7 +145,7 @@ switch ($op) {
             echo "<tr><td class='odd' style='text-align:center;' colspan= '7'>" . _AM_LEXIKON_NOSUBMISSYET . '</td></tr></div>';
         }
         echo '</table>';
-        $pagenav = new XoopsPageNav($numrows, $xoopsModuleConfig['perpage'], $startsub, 'startsub');
+        $pagenav = new \XoopsPageNav($numrows, $xoopsModuleConfig['perpage'], $startsub, 'startsub');
         echo '<div style="text-align:right;">' . $pagenav->renderNav(8) . '</div>';
         echo ' <br></div>';
         echo '</div>';
@@ -217,7 +217,7 @@ switch ($op) {
             echo "<tr><td class='odd' style='text-align:center;' colspan= '7'>" . _AM_LEXIKON_NOREQSYET . '</td></tr></div>';
         }
         echo '</table>';
-        $pagenav = new XoopsPageNav($numrowsX, $xoopsModuleConfig['perpage'], $startsub, 'startsub');
+        $pagenav = new \XoopsPageNav($numrowsX, $xoopsModuleConfig['perpage'], $startsub, 'startsub');
         echo '<div style="text-align:right;">' . $pagenav->renderNav(8) . '</div>';
         echo '<br></div></div>';
 
@@ -286,7 +286,7 @@ switch ($op) {
             echo "<tr><td class='odd' style='text-align:center;' colspan= '7'>" . _AM_LEXIKON_NOREQSYET . '</td></tr></div>';
         }
         echo '</table>';
-        $pagenav = new XoopsPageNav($numrowsX, $xoopsModuleConfig['perpage'], $startsub, 'startsub');
+        $pagenav = new \XoopsPageNav($numrowsX, $xoopsModuleConfig['perpage'], $startsub, 'startsub');
         echo '<div style="text-align:right;">' . $pagenav->renderNav(8) . '</div>';
         echo '<br></div></div>';
 }

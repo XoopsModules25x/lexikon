@@ -2,16 +2,12 @@
 /**
  * Tag info
  *
- * @copyright      The XOOPS project http://www.xoops.org/
+ * @copyright      The XOOPS project https://xoops.org/
  * @license        http://www.fsf.org/copyleft/gpl.html GNU public license
  * @author         Taiwen Jiang (phppp or D.J.) <php_pp@hotmail.com>
- * @since          1.00
- * @version        $Id$
  * @package        module::tag
  */
-if (!defined('XOOPS_ROOT_PATH')) {
-    exit();
-}
+defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
 /**
  * Get item fields:
  * title
@@ -35,7 +31,7 @@ function lexikon_tag_iteminfo(&$items)
     }
 
     global $xoopsDB;
-    $myts = MyTextSanitizer::getInstance();
+    $myts = \MyTextSanitizer::getInstance();
 
     $items_id = [];
 

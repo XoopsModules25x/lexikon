@@ -6,15 +6,19 @@
  * Licence: GNU
  */
 
+use Xmf\Request;
+
 include __DIR__ . '/header.php';
 
-foreach ($_POST as $k => $v) {
-    ${$k} = $v;
-}
+//foreach ($_POST as $k => $v) {
+//    ${$k} = $v;
+//}
+//
+//foreach ($_GET as $k => $v) {
+//    ${$k} = $v;
+//}
 
-foreach ($_GET as $k => $v) {
-    ${$k} = $v;
-}
+$entryID = Request::getInt('entryID', '', 'GET');
 
 if (empty($entryID)) {
     redirect_header('index.php');
@@ -43,7 +47,7 @@ function printPage($entryID)
     $categoryname = $myts->htmlSpecialChars($name);
     $term         = $myts->htmlSpecialChars($term);
     $definition   = str_replace('[pagebreak]', '<br style="page-break-after:always;">', $definition);
-    $definition   = $myts->displayTarea($definition, $html, $smiley, $xcodes, '', $breaks);
+    $definition   =& $myts->displayTarea($definition, $html, $smiley, $xcodes, '', $breaks);
     if ('' == $authorname) {
         $authorname = $myts->htmlSpecialChars($username);
     } else {
@@ -67,9 +71,11 @@ function printPage($entryID)
         echo '<div>' . _MD_LEXIKON_ENTRYCATEGORY . '<b>' . $categoryname . '</b></div>';
     }
     echo "<div style='padding-bottom: 6px; border-bottom: 1px solid #ccc;'>" . _MD_LEXIKON_SUBMITTER . '<b>' . $authorname . "</b></div>
-          <h3 style='margin: 0;'>" . $term . '</h3><p>' . $definition . "</p>
+    <h3 style='margin: 0;'>" . $term . '</h3>
+    <p>' . $definition . "</p>
           <div style='padding-top: 12px; border-top: 2px solid #ccc;'><b>" . _MD_LEXIKON_SENT . '</b>&nbsp;' . $datetime . '<br></div>
-          </div><br>
+    </div>
+    <br>
           </body>
           </html>';
 }

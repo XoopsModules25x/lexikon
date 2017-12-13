@@ -23,6 +23,8 @@
 // ------------------------------------------------------------------------ //
 //////////////////////////////////////////////////////////////////////////////
 
+use Xmf\Request;
+
 require_once __DIR__ . '/admin_header.php';
 
 $op = '';
@@ -35,7 +37,7 @@ switch ($op) {
     default:
         xoops_cp_header();
         global $xoopsUser, $xoopsConfig, $xoopsDB, $xoopsModuleConfig, $xoopsModule;
-        $myts = MyTextSanitizer::getInstance();
+        $myts = \MyTextSanitizer::getInstance();
 }
 /****
  * Start Import
@@ -68,7 +70,7 @@ function import2db($text)
 function DefinitionImport($delete)
 {
     global $xoopsConfig, $xoopsDB, $xoopsModule;
-    $myts     = MyTextSanitizer::getInstance();
+    $myts     = \MyTextSanitizer::getInstance();
     $sqlQuery = $xoopsDB->query('SELECT count(entryID) AS count FROM ' . $xoopsDB->prefix('xwords_ent'));
     list($count) = $xoopsDB->fetchRow($sqlQuery);
     if ($count < 1) {
@@ -273,7 +275,8 @@ function FormImport()
 }
 
 global $op;
-$op = isset($_GET['op']) ? $_GET['op'] : (isset($_POST['op']) ? $_POST['op'] : '');
+$op = Request::getCmd('op', '');
+
 switch ($op) {
     case 'import':
         $delete = isset($_GET['delete']) ? (int)$_GET['delete'] : (int)$_POST['delete'];

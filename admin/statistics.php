@@ -9,8 +9,10 @@
  * Licence: GNU
  */
 
+use Xmf\Request;
+
 require_once __DIR__ . '/admin_header.php';
-$myts = MyTextSanitizer::getInstance();
+$myts = \MyTextSanitizer::getInstance();
 if (!isset($op)) {
     $op = '';
 }
@@ -44,17 +46,12 @@ function lx_Statistics()
     global $xoopsModule, $xoopsConfig, $xoopsModuleConfig;
     xoops_load('XoopsUserUtility');
     xoops_cp_header();
-    $myts = MyTextSanitizer::getInstance();
+    $myts = \MyTextSanitizer::getInstance();
     xoops_load('XoopsUserUtility');  // LionHell
 
     $stats  = [];
     $stats  = lx_GetStatistics($xoopsModuleConfig['perpage']);
-    $totals = [
-        0,
-        0,
-        0,
-        0
-    ];
+    $totals = [0, 0, 0, 0];
 
     $adminObject = \Xmf\Module\Admin::getInstance();
     $adminObject->displayNavigation(basename(__FILE__));

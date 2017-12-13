@@ -14,7 +14,7 @@ if (false !== strpos(XOOPS_VERSION, 'XOOPS 2.2')) {
 
 require_once __DIR__ . '/mygrouppermform.php';
 require_once XOOPS_ROOT_PATH . '/class/xoopsblock.php';
-require_once __DIR__ . '/../include/gtickets.php';// GIJ
+//require_once __DIR__ . '/../include/gtickets.php';// GIJ
 
 $xoops_system_path = XOOPS_ROOT_PATH . '/modules/system';
 
@@ -72,17 +72,17 @@ if (!$syspermHandler->checkRight('system_admin', XOOPS_SYSTEM_BLOCK, $xoopsUser-
 }
 
 // get blocks owned by the module (Imported from xoopsblock.php then modified)
-$db        = XoopsDatabaseFactory::getDatabaseConnection();
+$db        = \XoopsDatabaseFactory::getDatabaseConnection();
 $sql       = 'SELECT * FROM ' . $db->prefix('newblocks') . " WHERE mid='$target_mid' ORDER BY visible DESC,side,weight";
 $result    = $db->query($sql);
 $block_arr = [];
 while ($myrow = $db->fetchArray($result)) {
-    $block_arr[] = new XoopsBlock($myrow);
+    $block_arr[] = new \XoopsBlock($myrow);
 }
 
 function list_blocks()
 {
-    global $query4redirect, $block_arr, $xoopsGTicket;
+    global $query4redirect, $block_arr;
 
     // cachetime options
     $cachetimes = [
@@ -180,7 +180,7 @@ function list_blocks()
         }
 
         // target modules
-        $db            = XoopsDatabaseFactory::getDatabaseConnection();
+        $db            = \XoopsDatabaseFactory::getDatabaseConnection();
         $result        = $db->query('SELECT module_id FROM ' . $db->prefix('block_module_link') . " WHERE block_id='$bid'");
         $selected_mids = [];
         while (list($selected_mid) = $db->fetchRow($result)) {
@@ -188,8 +188,8 @@ function list_blocks()
         }
         /** @var XoopsModuleHandler $moduleHandler */
         $moduleHandler = xoops_getHandler('module');
-        $criteria      = new CriteriaCompo(new Criteria('hasmain', 1));
-        $criteria->add(new Criteria('isactive', 1));
+        $criteria      = new \CriteriaCompo(new \Criteria('hasmain', 1));
+        $criteria->add(new \Criteria('isactive', 1));
         $module_list     = $moduleHandler->getList($criteria);
         $module_list[-1] = _AM_TOPPAGE;
         $module_list[0]  = _AM_ALLPAGES;
@@ -290,7 +290,7 @@ function list_blocks()
                 <input type='hidden' name='query4redirect' value='$query4redirect' >
                 <input type='hidden' name='fct' value='blocksadmin' >
                 <input type='hidden' name='op' value='order' >
-                " . $xoopsGTicket->getTicketHtml(__LINE__, 1800, 'myblocksadmin') . "
+                " . $GLOBALS['xoopsSecurity']->getTokenHTML('myblocksadmin') . "
                 <input type='submit' name='submit' value='" . _SUBMIT . "' >
             </td>
          </tr>
@@ -329,7 +329,7 @@ function list_groups()
         $item_list[$block_arr[$i]->getVar('bid')] = $block_arr[$i]->getVar('title');
     }
 
-    $form = new MyXoopsGroupPermForm(_MD_AM_ADGS, 1, 'block_read', '');
+    $form = new \MyXoopsGroupPermForm(_MD_AM_ADGS, 1, 'block_read', '');
     if ($target_mid > 1) {
         $form->addAppendix('module_admin', $target_mid, $target_mname . ' ' . _AM_ACTIVERIGHTS);
         $form->addAppendix('module_read', $target_mid, $target_mname . ' ' . _AM_ACCESSRIGHTS);
@@ -342,8 +342,8 @@ function list_groups()
 }
 
 if (!empty($_POST['submit'])) {
-    if (!$xoopsGTicket->check(true, 'myblocksadmin')) {
-        redirect_header(XOOPS_URL . '/', 3, $xoopsGTicket->getErrors());
+    if (!$GLOBALS['xoopsSecurity']->check(true, $_REQUEST['myblocksadmin'])) {
+        redirect_header(XOOPS_URL . '/', 3, $GLOBALS['xoopsSecurity']->getErrors());
     }
 
     include __DIR__ . '/mygroupperm.php';

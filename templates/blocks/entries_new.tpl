@@ -5,7 +5,8 @@
         <ul>
             <{foreach item=newentries from=$block.newstuff}>
                 <li style="display:outline; margin:0; padding:0;list-style: none outside;">
-                <a href="<{$xoops_url}>/modules/<{$newentries.dir}>/entry.php?entryID=<{$newentries.id}>"><{$newentries.linktext}></a>&nbsp;
+                <a href="<{$xoops_url}>/modules/<{$newentries.dir}>/entry.php?entryID=<{$newentries.id}>"><{$newentries.linktext}></a>
+                &nbsp;
                 <{if $block.showdate}>
                     <div style='color: gray; font-size: 85%;'>[&nbsp;<{$newentries.date}>&nbsp;]</div>
                     </li>

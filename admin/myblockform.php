@@ -22,11 +22,11 @@ defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
 $usespaw = empty($_GET['usespaw']) ? 0 : 1;
 
 require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
-$form = new XoopsThemeForm($block['form_title'], 'blockform', 'admin.php');
+$form = new \XoopsThemeForm($block['form_title'], 'blockform', 'admin.php');
 if (isset($block['name'])) {
-    $form->addElement(new XoopsFormLabel(_AM_NAME, $block['name']));
+    $form->addElement(new \XoopsFormLabel(_AM_NAME, $block['name']));
 }
-$side_select = new XoopsFormSelect(_AM_BLKTYPE, 'bside', $block['side']);
+$side_select = new \XoopsFormSelect(_AM_BLKTYPE, 'bside', $block['side']);
 $side_select->addOptionArray([
                                  0 => _AM_SBLEFT,
                                  1 => _AM_SBRIGHT,
@@ -35,20 +35,20 @@ $side_select->addOptionArray([
                                  5 => _AM_CBCENTER
                              ]);
 $form->addElement($side_select);
-$form->addElement(new XoopsFormText(_AM_WEIGHT, 'bweight', 2, 5, $block['weight']));
-$form->addElement(new XoopsFormRadioYN(_AM_VISIBLE, 'bvisible', $block['visible']));
-$mod_select = new XoopsFormSelect(_AM_VISIBLEIN, 'bmodule', $block['modules'], 5, true);
+$form->addElement(new \XoopsFormText(_AM_WEIGHT, 'bweight', 2, 5, $block['weight']));
+$form->addElement(new \XoopsFormRadioYN(_AM_VISIBLE, 'bvisible', $block['visible']));
+$mod_select = new \XoopsFormSelect(_AM_VISIBLEIN, 'bmodule', $block['modules'], 5, true);
 /** @var XoopsModuleHandler $moduleHandler */
 $moduleHandler = xoops_getHandler('module');
-$criteria      = new CriteriaCompo(new Criteria('hasmain', 1));
-$criteria->add(new Criteria('isactive', 1));
+$criteria      = new \CriteriaCompo(new \Criteria('hasmain', 1));
+$criteria->add(new \Criteria('isactive', 1));
 $module_list     = $moduleHandler->getList($criteria);
 $module_list[-1] = _AM_TOPPAGE;
 $module_list[0]  = _AM_ALLPAGES;
 ksort($module_list);
 $mod_select->addOptionArray($module_list);
 $form->addElement($mod_select);
-$form->addElement(new XoopsFormText(_AM_TITLE, 'btitle', 50, 255, $block['title']), false);
+$form->addElement(new \XoopsFormText(_AM_TITLE, 'btitle', 50, 255, $block['title']), false);
 
 if ($block['is_custom']) {
 
@@ -63,12 +63,12 @@ if ($block['is_custom']) {
         ob_start();
         $sw = new SPAW_Wysiwyg('bcontent', $block['content']);
         $sw->show();
-        $textarea = new XoopsFormLabel(_AM_CONTENT, ob_get_contents());
+        $textarea = new \XoopsFormLabel(_AM_CONTENT, ob_get_contents());
         $textarea->setDescription($notice_for_tags . "<br><br><a href='$uri_to_myself&amp;usespaw=0'>NORMAL</a>");
         ob_end_clean();
     } else {
-        $myts     = MyTextSanitizer::getInstance();
-        $textarea = new XoopsFormDhtmlTextArea(_AM_CONTENT, 'bcontent', $myts->htmlSpecialChars($block['content']), 15, 70);
+        $myts     = \MyTextSanitizer::getInstance();
+        $textarea = new \XoopsFormDhtmlTextArea(_AM_CONTENT, 'bcontent', $myts->htmlSpecialChars($block['content']), 15, 70);
         if ($can_use_spaw) {
             $textarea->setDescription($notice_for_tags . "<br><br><a href='$uri_to_myself&amp;usespaw=1'>SPAW</a>");
         } else {
@@ -77,7 +77,7 @@ if ($block['is_custom']) {
     }
     $form->addElement($textarea, true);
 
-    $ctype_select = new XoopsFormSelect(_AM_CTYPE, 'bctype', $block['ctype']);
+    $ctype_select = new \XoopsFormSelect(_AM_CTYPE, 'bctype', $block['ctype']);
     $ctype_select->addOptionArray([
                                       'H' => _AM_HTML,
                                       'P' => _AM_PHP,
@@ -88,21 +88,21 @@ if ($block['is_custom']) {
 } else {
     if ('' != $block['template'] && !defined('XOOPS_ORETEKI')) {
         $tplfileHandler = xoops_getHandler('tplfile');
-        $btemplate      = $tplfileHandler->find($GLOBALS['xoopsConfig']['template_set'], 'block', $block['bid']);
+        $btemplate      =& $tplfileHandler->find($GLOBALS['xoopsConfig']['template_set'], 'block', $block['bid']);
         if (count($btemplate) > 0) {
-            $form->addElement(new XoopsFormLabel(_AM_CONTENT, '<a href="' . XOOPS_URL . '/modules/system/admin.php?fct=tplsets&op=edittpl&id=' . $btemplate[0]->getVar('tpl_id') . '">' . _AM_EDITTPL . '</a>'));
+            $form->addElement(new \XoopsFormLabel(_AM_CONTENT, '<a href="' . XOOPS_URL . '/modules/system/admin.php?fct=tplsets&op=edittpl&id=' . $btemplate[0]->getVar('tpl_id') . '">' . _AM_EDITTPL . '</a>'));
         } else {
             $btemplate2 =& $tplfileHandler->find('default', 'block', $block['bid']);
             if (count($btemplate2) > 0) {
-                $form->addElement(new XoopsFormLabel(_AM_CONTENT, '<a href="' . XOOPS_URL . '/modules/system/admin.php?fct=tplsets&op=edittpl&id=' . $btemplate2[0]->getVar('tpl_id') . '" target="_blank">' . _AM_EDITTPL . '</a>'));
+                $form->addElement(new \XoopsFormLabel(_AM_CONTENT, '<a href="' . XOOPS_URL . '/modules/system/admin.php?fct=tplsets&op=edittpl&id=' . $btemplate2[0]->getVar('tpl_id') . '" target="_blank">' . _AM_EDITTPL . '</a>'));
             }
         }
     }
     if (false !== $block['edit_form']) {
-        $form->addElement(new XoopsFormLabel(_AM_OPTIONS, $block['edit_form']));
+        $form->addElement(new \XoopsFormLabel(_AM_OPTIONS, $block['edit_form']));
     }
 }
-$cache_select = new XoopsFormSelect(_AM_BCACHETIME, 'bcachetime', $block['cachetime']);
+$cache_select = new \XoopsFormSelect(_AM_BCACHETIME, 'bcachetime', $block['cachetime']);
 $cache_select->addOptionArray([
                                   '0'       => _NOCACHE,
                                   '30'      => sprintf(_SECONDS, 30),
@@ -118,16 +118,16 @@ $cache_select->addOptionArray([
                               ]);
 $form->addElement($cache_select);
 if (isset($block['bid'])) {
-    $form->addElement(new XoopsFormHidden('bid', $block['bid']));
+    $form->addElement(new \XoopsFormHidden('bid', $block['bid']));
 }
-// $form->addElement(new XoopsFormHidden('options', $block['options']));
-$form->addElement(new XoopsFormHidden('op', $block['op']));
-$form->addElement(new XoopsFormHidden('fct', 'blocksadmin'));
-$button_tray = new XoopsFormElementTray('', '&nbsp;');
+// $form->addElement(new \XoopsFormHidden('options', $block['options']));
+$form->addElement(new \XoopsFormHidden('op', $block['op']));
+$form->addElement(new \XoopsFormHidden('fct', 'blocksadmin'));
+$button_tray = new \XoopsFormElementTray('', '&nbsp;');
 if ($block['is_custom']) {
-    $button_tray->addElement(new XoopsFormButton('', 'previewblock', _PREVIEW, 'submit'));
+    $button_tray->addElement(new \XoopsFormButton('', 'previewblock', _PREVIEW, 'submit'));
 }
-$button_tray->addElement(new XoopsFormButton('', 'submitblock', $block['submit_button'], 'submit'));
+$button_tray->addElement(new \XoopsFormButton('', 'submitblock', $block['submit_button'], 'submit'));
 $form->addElement($button_tray);
 
 // checks browser compatibility with the control

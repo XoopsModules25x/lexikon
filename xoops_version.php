@@ -12,9 +12,9 @@
 
 $moduleDirName = basename(__DIR__);
 $modversion    = [
-    'version'       => 1.52,
-    'module_status' => 'Beta 2',
-    'release_date'  => '2017/02/05',
+    'version'       => 1.53,
+    'module_status' => 'Beta 1',
+    'release_date'  => '2017/12/12',
     'name'          => _MI_LEXIKON_MD_NAME,
     'description'   => _MI_LEXIKON_MD_DESC,
     'author'        => 'Yerres',
@@ -106,6 +106,7 @@ if ($lexikon) {
         $modversion['sub'][$i]['url']  = 'submit.php';
         ++$i;
     }
+
     $groups       = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
     $gpermHandler = xoops_getHandler('groupperm');
     if ($gpermHandler->checkRight('lexikon_request', 0, $groups, $lexikon->getVar('mid'))) {
@@ -119,7 +120,7 @@ $modversion['sub'][$i]['url']  = 'search.php';
 ++$i;
 if (isset($lxConfig['catsinmenu']) && 1 == $lxConfig['catsinmenu'] && isset($lxConfig['multicats'])
     && 1 == $lxConfig['multicats']) {
-    $myts = MyTextSanitizer::getInstance();
+    $myts = \MyTextSanitizer::getInstance();
     $sql  = $xoopsDB->query('SELECT categoryID, name FROM ' . $xoopsDB->prefix('lxcategories') . ' ORDER BY weight ASC');
     while (list($categoryID, $name) = $xoopsDB->fetchRow($sql)) {
         if ($gpermHandler->checkRight('lexikon_view', $categoryID, $groups, $lexikon->getVar('mid'))) {
@@ -133,6 +134,7 @@ if (isset($lxConfig['catsinmenu']) && 1 == $lxConfig['catsinmenu'] && isset($lxC
 }
 
 // blocks
+$modversion['blocks']    = [];
 $modversion['blocks'][1] = [
     'file'        => 'entries_new.php',
     'name'        => _MI_LEXIKON_ENTRIESNEW,
@@ -247,6 +249,7 @@ $modversion['blocks'][] = [
 ];
 
 // Templates
+$modversion['templates']    = [];
 $modversion['templates'][1] = [
     'file'        => 'lx_category.tpl',
     'description' => 'Display categories'
@@ -313,6 +316,8 @@ $modversion['templates'][]  = [
 ];
 
 // Config Settings
+$modversion['config'] = [];
+
 $modversion['config'][1] = [
     'name'        => 'multicats',
     'title'       => '_MI_LEXIKON_MULTICATS',
@@ -321,7 +326,8 @@ $modversion['config'][1] = [
     'valuetype'   => 'int',
     'default'     => 1
 ];
-$modversion['config'][]  = [
+
+$modversion['config'][] = [
     'name'        => 'catsinmenu',
     'title'       => '_MI_LEXIKON_CATSINMENU',
     'description' => '_MI_LEXIKON_CATSINMENUDSC',
@@ -329,7 +335,8 @@ $modversion['config'][]  = [
     'valuetype'   => 'int',
     'default'     => 0
 ];
-$modversion['config'][]  = [
+
+$modversion['config'][] = [
     'name'        => 'dateformat',
     'title'       => '_MI_LEXIKON_DATEFORMAT',
     'description' => '_MI_LEXIKON_DATEFORMATDSC',
@@ -337,7 +344,8 @@ $modversion['config'][]  = [
     'valuetype'   => 'text',
     'default'     => 'd.m.Y H:i'
 ];
-$modversion['config'][]  = [
+
+$modversion['config'][] = [
     'name'        => 'perpage',
     'title'       => '_MI_LEXIKON_PERPAGE',
     'description' => '_MI_LEXIKON_PERPAGEDSC',
@@ -354,7 +362,8 @@ $modversion['config'][]  = [
         '50' => 50
     ]
 ];
-$modversion['config'][]  = [
+
+$modversion['config'][] = [
     'name'        => 'indexperpage',
     'title'       => '_MI_LEXIKON_PERPAGEINDEX',
     'description' => '_MI_LEXIKON_PERPAGEINDEXDSC',
@@ -371,7 +380,8 @@ $modversion['config'][]  = [
         '50' => 50
     ]
 ];
-$modversion['config'][]  = [
+
+$modversion['config'][] = [
     'name'        => 'blocksperpage',
     'title'       => '_MI_LEXIKON_BLOCKSPERPAGE',
     'description' => '_MI_LEXIKON_BLOCKSPERPAGEDSC',
@@ -388,7 +398,8 @@ $modversion['config'][]  = [
         '50' => 50
     ]
 ];
-$modversion['config'][]  = [
+
+$modversion['config'][] = [
     'name'        => 'autoapprove',
     'title'       => '_MI_LEXIKON_AUTOAPPROVE',
     'description' => '_MI_LEXIKON_AUTOAPPROVEDSC',
@@ -396,7 +407,8 @@ $modversion['config'][]  = [
     'valuetype'   => 'int',
     'default'     => 0
 ];
-$modversion['config'][]  = [
+
+$modversion['config'][] = [
     'name'        => 'adminhits',
     'title'       => '_MI_LEXIKON_ALLOWADMINHITS',
     'description' => '_MI_LEXIKON_ALLOWADMINHITSDSC',
@@ -404,7 +416,8 @@ $modversion['config'][]  = [
     'valuetype'   => 'int',
     'default'     => 0
 ];
-$modversion['config'][]  = [
+
+$modversion['config'][] = [
     'name'        => 'mailtoadmin',
     'title'       => '_MI_LEXIKON_MAILTOADMIN',
     'description' => '_MI_LEXIKON_MAILTOADMINDSC',
@@ -412,7 +425,8 @@ $modversion['config'][]  = [
     'valuetype'   => 'int',
     'default'     => 1
 ];
-$modversion['config'][]  = [
+
+$modversion['config'][] = [
     'name'        => 'mailtosender',
     'title'       => '_MI_LEXIKON_MAILTOSENDER',
     'description' => '_MI_LEXIKON_MAILTOSENDERDSC',
@@ -420,7 +434,8 @@ $modversion['config'][]  = [
     'valuetype'   => 'int',
     'default'     => 0
 ];
-$modversion['config'][]  = [
+
+$modversion['config'][] = [
     'name'        => 'rndlength',
     'title'       => '_MI_LEXIKON_RANDOMLENGTH',
     'description' => '_MI_LEXIKON_RANDOMLENGTHDSC',
@@ -428,7 +443,8 @@ $modversion['config'][]  = [
     'valuetype'   => 'int',
     'default'     => 150
 ];
-$modversion['config'][]  = [
+
+$modversion['config'][] = [
     'name'        => 'linkterms',
     'title'       => '_MI_LEXIKON_LINKTERMS',
     'description' => '_MI_LEXIKON_LINKTERMSDSC',
@@ -471,6 +487,7 @@ $modversion['config'][] = [
     'options'     => $editorList,
     'default'     => 'dhtmltextarea'
 ];
+
 $modversion['config'][] = [
     'name'        => 'wysiwyg_guests',
     'title'       => '_MI_LEXIKON_EDIGUEST',
@@ -489,6 +506,7 @@ $modversion['config'][] = [
     'valuetype'   => 'text',
     'default'     => ''
 ];
+
 $modversion['config'][] = [
     'name'        => 'showsubmitter',
     'title'       => '_MI_LEXIKON_DISPPROL',
@@ -507,6 +525,7 @@ $modversion['config'][] = [
     'valuetype'   => 'int',
     'default'     => 0
 ];
+
 $modversion['config'][] = [
     'name'        => 'showdate',
     'title'       => '_MI_LEXIKON_SHOWDAT',
@@ -515,6 +534,7 @@ $modversion['config'][] = [
     'valuetype'   => 'int',
     'default'     => 1
 ];
+
 $modversion['config'][] = [
     'name'        => 'showcount',
     'title'       => '_MI_LEXIKON_SHOWCTR',
@@ -523,6 +543,7 @@ $modversion['config'][] = [
     'valuetype'   => 'int',
     'default'     => 1
 ];
+
 $modversion['config'][] = [
     'name'        => 'captcha',
     'title'       => '_MI_LEXIKON_CAPTCHA',
@@ -594,6 +615,7 @@ $modversion['config'][] = [
     'valuetype'   => 'int',
     'default'     => 1
 ];
+
 $modversion['config'][] = [
     'name'        => 'logo_maximgwidth',
     'title'       => '_MI_LEXIKON_LOGOWIDTH',

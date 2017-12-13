@@ -158,7 +158,7 @@ define('_AM_LEXIKON_OTHERMODS', 'To select the module you wish to import please 
 define('_AM_LEXIKON_NOOTHERMODS', 'No corresponding modules could be located!');
 
 // upgrade
-define('_AM_LEXIKON_PLEASE_UPGRADE', "<span style='color:#FF0000'>Please update the module !</span></a>");
+define('_AM_LEXIKON_PLEASE_UPGRADE', "<span style='color:#FF0000;'>Please update the module !</span></a>");
 define('_AM_LEXIKON_UPGRADECOMPLETE', 'Inserting new Field.<br> Upgrade Complete<br><br>');
 define('_AM_LEXIKON_UPGRADEFAILED', 'Upgrade Failed !');
 define('_AM_LEXIKON_UPGRADE', 'Upgrade');

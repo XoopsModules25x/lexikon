@@ -13,7 +13,7 @@ defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
 function b_lxentries_random_show()
 {
     global $xoopsDB, $xoopsUser, $xoopsConfig, $xoopsModule;
-    $myts = MyTextSanitizer::getInstance();
+    $myts = \MyTextSanitizer::getInstance();
 
     /** @var XoopsModuleHandler $moduleHandler */
     $moduleHandler = xoops_getHandler('module');

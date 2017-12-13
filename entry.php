@@ -9,11 +9,11 @@ include __DIR__ . '/header.php';
 $GLOBALS['xoopsOption']['template_main'] = 'lx_entry.tpl';
 require_once XOOPS_ROOT_PATH . '/header.php';
 global $xoTheme, $xoopsUser, $lexikon_module_header;
-$myts = MyTextSanitizer::getInstance();
+$myts = \MyTextSanitizer::getInstance();
 xoops_load('XoopsUserUtility');
 
 require_once XOOPS_ROOT_PATH . '/modules/lexikon/include/common.inc.php';
-$highlight = LexikonUtility::getModuleOption('config_highlighter');
+$highlight = $utility::getModuleOption('config_highlighter');
 if ($highlight) {
     require_once XOOPS_ROOT_PATH . '/modules/lexikon/class/keyhighlighter.class.php';
 }
@@ -32,7 +32,7 @@ $catids       = implode(',', $allowed_cats);
 $catperms     = " AND categoryID IN ($catids) ";
 
 // If there's no entries yet in the system...
-$publishedwords = LexikonUtility::countWords();
+$publishedwords = $utility::countWords();
 $xoopsTpl->assign('publishedwords', $publishedwords);
 if (0 == $publishedwords) {
     $xoopsTpl->assign('empty', '1');
@@ -40,7 +40,7 @@ if (0 == $publishedwords) {
 }
 
 // To display the linked letter list
-$alpha = LexikonUtility::getAlphaArray();
+$alpha = $utility::getAlphaArray();
 $xoopsTpl->assign('alpha', $alpha);
 
 list($howmanyother) = $xoopsDB->fetchRow($xoopsDB->query('SELECT COUNT(entryID) FROM ' . $xoopsDB->prefix('lxentries') . " WHERE init = '#' AND offline ='0' " . $catperms . ' '));
@@ -49,7 +49,7 @@ $xoopsTpl->assign('totalother', $howmanyother);
 $xoopsTpl->assign('multicats', (int)$xoopsModuleConfig['multicats']);
 // To display the list of categories
 if (1 == $xoopsModuleConfig['multicats']) {
-    $xoopsTpl->assign('block0', LexikonUtility::getCategoryArray());
+    $xoopsTpl->assign('block0', $utility::getCategoryArray());
     $xoopsTpl->assign('layout', CONFIG_CATEGORY_LAYOUT_PLAIN);
     if (1 == $xoopsModuleConfig['useshots']) {
         $xoopsTpl->assign('show_screenshot', true);
@@ -113,10 +113,10 @@ while (list($entryID, $categoryID, $term, $init, $definition, $ref, $url, $uid, 
     $thisterm['offline'] = (int)$offline;
 
     if (1 != $xoopsModuleConfig['linkterms'] && 2 != $xoopsModuleConfig['linkterms']) {
-        LexikonUtility::getModuleHeader();
+        $utility::getModuleHeader();
         $xoopsTpl->assign('xoops_module_header', $lexikon_module_header);
     } else {
-        $xoopsTpl->assign('xoops_module_header', '<link rel="stylesheet" type="text/css" href="assets/css/style.css" >');
+        $xoopsTpl->assign('xoops_module_header', '<link rel="stylesheet" type="text/css" href="assets/css/style.css">');
     }
 
     if (1 != $xoopsModuleConfig['linkterms']) {
@@ -166,7 +166,7 @@ while (list($entryID, $categoryID, $term, $init, $definition, $ref, $url, $uid, 
     if (1 == $xoopsModuleConfig['showsubmitter']) {
         $xoopsTpl->assign('showsubmitter', true);
         if (1 == $xoopsModuleConfig['authorprofile']) {
-            $thisterm['submitter'] = LexikonUtility::getLinkedProfileFromId($uid);
+            $thisterm['submitter'] = $utility::getLinkedProfileFromId($uid);
         } else {
             $thisterm['submitter'] = XoopsUserUtility::getUnameFromId($uid);
         }
@@ -187,8 +187,8 @@ while (list($entryID, $categoryID, $term, $init, $definition, $ref, $url, $uid, 
 }
 //smartry strings
 $xoopsTpl->assign('thisterm', $thisterm);
-$microlinks    = LexikonUtility::getServiceLinks($thisterm);
-$microlinksnew = LexikonUtility::getServiceLinksNew($thisterm);
+$microlinks    = $utility::getServiceLinks($thisterm);
+$microlinksnew = $utility::getServiceLinksNew($thisterm);
 $xoopsTpl->assign('microlinks', $microlinks);
 $xoopsTpl->assign('microlinksnew', $microlinksnew);
 $xoopsTpl->assign('lang_modulename', $xoopsModule->name());
@@ -260,15 +260,15 @@ switch ($xoopsModuleConfig['bookmarkme']) {
         break;
 }
 // Meta data
-$meta_description = xoops_substr(LexikonUtility::convertHtml2text($thisterm['definition']), 0, 150);
+$meta_description = xoops_substr($utility::convertHtml2text($thisterm['definition']), 0, 150);
 if (1 == $xoopsModuleConfig['multicats']) {
-    LexikonUtility::createPageTitle($thisterm['term'] . ' - ' . $thisterm['catname']);
-    LexikonUtility::extractKeywords($myts->htmlSpecialChars($xoopsModule->name()) . ' ,' . $thisterm['term'] . ' ,' . $thisterm['catname'] . ', ' . $meta_description . ', ' . $tagsmeta);
-    LexikonUtility::getMetaDescription($myts->htmlSpecialChars($xoopsModule->name()) . ' ' . $thisterm['catname'] . ' ' . $thisterm['term'] . ' ' . $meta_description);
+    $utility::createPageTitle($thisterm['term'] . ' - ' . $thisterm['catname']);
+    $utility::extractKeywords($myts->htmlSpecialChars($xoopsModule->name()) . ' ,' . $thisterm['term'] . ' ,' . $thisterm['catname'] . ', ' . $meta_description . ', ' . $tagsmeta);
+    $utility::getMetaDescription($myts->htmlSpecialChars($xoopsModule->name()) . ' ' . $thisterm['catname'] . ' ' . $thisterm['term'] . ' ' . $meta_description);
 } else {
-    LexikonUtility::createPageTitle($thisterm['term']);
-    LexikonUtility::extractKeywords($myts->htmlSpecialChars($xoopsModule->name()) . ' ,' . $thisterm['term'] . ', ' . $meta_description . ', ' . $tagsmeta);
-    LexikonUtility::getMetaDescription($myts->htmlSpecialChars($xoopsModule->name()) . ' ' . $thisterm['term'] . ' ' . $meta_description);
+    $utility::createPageTitle($thisterm['term']);
+    $utility::extractKeywords($myts->htmlSpecialChars($xoopsModule->name()) . ' ,' . $thisterm['term'] . ', ' . $meta_description . ', ' . $tagsmeta);
+    $utility::getMetaDescription($myts->htmlSpecialChars($xoopsModule->name()) . ' ' . $thisterm['term'] . ' ' . $meta_description);
 }
 //Mondarse
 include XOOPS_ROOT_PATH . '/include/comment_view.php';

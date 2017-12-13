@@ -30,7 +30,7 @@ function uchr($a)
 function b_lxentries_alpha_show($options)
 {
     global $xoopsDB, $xoopsUser, $xoopsModule;
-    $myts = MyTextSanitizer::getInstance();
+    $myts = \MyTextSanitizer::getInstance();
 
     /** @var XoopsModuleHandler $moduleHandler */
     $moduleHandler = xoops_getHandler('module');

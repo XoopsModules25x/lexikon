@@ -14,12 +14,12 @@ $GLOBALS['xoopsOption']['template_main'] = 'lx_index.tpl';
 require_once XOOPS_ROOT_PATH . '/header.php';
 require_once XOOPS_ROOT_PATH . '/modules/lexikon/include/common.inc.php';
 global $xoTheme, $xoopsUser;
-$myts = MyTextSanitizer::getInstance();
+$myts = \MyTextSanitizer::getInstance();
 
 // Disable cache since content differs for each user
 //$xoopsConfig["module_cache"][$xoopsModule->getVar("mid")] = 0;
 
-LexikonUtility::calculateTotals();
+$utility::calculateTotals();
 $xoopsTpl->assign('multicats', (int)$xoopsModuleConfig['multicats']);
 $rndlength = !empty($xoopsModuleConfig['rndlength']) ? (int)$xoopsModuleConfig['rndlength'] : 150;
 
@@ -55,9 +55,9 @@ if (!function_exists('mb_ucfirst') && function_exists('mb_substr')) {
 // Counts
 $xoopsTpl->assign('multicats', (int)$xoopsModuleConfig['multicats']);
 if (1 == $xoopsModuleConfig['multicats']) {
-    $xoopsTpl->assign('totalcats', (int)LexikonUtility::countCats());
+    $xoopsTpl->assign('totalcats', (int)$utility::countCats());
 }
-$publishedwords = LexikonUtility::countWords();
+$publishedwords = $utility::countWords();
 $xoopsTpl->assign('publishedwords', $publishedwords);
 
 // If there's no entries yet in the system...
@@ -66,18 +66,18 @@ if (0 == $publishedwords) {
 }
 
 // To display the search form
-$xoopsTpl->assign('searchform', LexikonUtility::showSearchForm());
+$xoopsTpl->assign('searchform', $utility::showSearchForm());
 
 // To display the linked letter list
-$alpha = LexikonUtility::getAlphaArray();
+$alpha = $utility::getAlphaArray();
 $xoopsTpl->assign('alpha', $alpha);
 
-list($howmanyother) = $xoopsDB->fetchRow($xoopsDB->query('SELECT COUNT(*) FROM ' . $xoopsDB->prefix('lxentries') . " WHERE init = '#' AND offline ='0' " . $catperms . ''));
+list($howmanyother) = $xoopsDB->fetchRow($xoopsDB->query('SELECT COUNT(*) FROM ' . $xoopsDB->prefix('lxentries') . " WHERE init = '#' AND offline ='0' " . $catperms . ' '));
 $xoopsTpl->assign('totalother', $howmanyother);
 
 // To display the tree of categories
 if (1 == $xoopsModuleConfig['multicats']) {
-    $xoopsTpl->assign('block0', LexikonUtility::getCategoryArray());
+    $xoopsTpl->assign('block0', $utility::getCategoryArray());
     $xoopsTpl->assign('layout', CONFIG_CATEGORY_LAYOUT_PLAIN);
     if (1 == $xoopsModuleConfig['useshots']) {
         $xoopsTpl->assign('show_screenshot', true);
@@ -155,7 +155,7 @@ if (0 != $zerotest) {
             $random['categoryname'] = $myts->displayTarea($name);
         }
     }
-    $microlinks = LexikonUtility::getServiceLinks($random);
+    $microlinks = $utility::getServiceLinks($random);
     $xoopsTpl->assign('random', $random);
 }
 
@@ -233,7 +233,7 @@ if (0 != $publishedwords) {
     $xoopsTpl->assign('showcount', (int)$xoopsModuleConfig['showcount']);
 }
 $xoopsTpl->assign('alpha', $alpha);
-$xoopsTpl->assign('teaser', LexikonUtility::getModuleOption('teaser'));
+$xoopsTpl->assign('teaser', $utility::getModuleOption('teaser'));
 if (1 == $xoopsModuleConfig['syndication']) {
     $xoopsTpl->assign('syndication', true);
 }
@@ -249,6 +249,6 @@ if (isset($xoTheme) && is_object($xoTheme)) {
 } else {
     $xoopsTpl->assign('xoops_meta_description', $meta_description);
 }
-$xoopsTpl->assign('xoops_module_header', '<link rel="stylesheet" type="text/css" href="assets/css/style.css" >');
+$xoopsTpl->assign('xoops_module_header', '<link rel="stylesheet" type="text/css" href="assets/css/style.css">');
 
 include XOOPS_ROOT_PATH . '/footer.php';

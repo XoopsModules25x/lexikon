@@ -17,27 +17,25 @@
  * @author       XOOPS Development Team
  */
 
+use Xoopsmodules\lexikon;
+
 $path = dirname(dirname(dirname(__DIR__)));
-require_once $path . '/mainfile.php';
-require_once $path . '/include/cp_functions.php';
 require_once $path . '/include/cp_header.php';
+
+require_once __DIR__ . '/../include/common.php';
 
 //if functions.php file exist
 require_once __DIR__ . '/../class/Utility.php';
-//require_once $path."/modules/lexikon/class/Utility.php";
 require_once __DIR__ . '/../admin/functions.php';
-require_once __DIR__ . '/../class/lexikontree.php'; // -- LionHell
+require_once __DIR__ . '/../class/LexikonTree.php'; // -- LionHell
 require_once $path . '/class/xoopslists.php';
 require_once $path . '/class/xoopsformloader.php';
 
-if (!isset($moduleDirName)) {
     $moduleDirName = basename(dirname(__DIR__));
-}
+/** @var lexikon\Helper $helper */
+$helper = lexikon\Helper::getInstance();
 
-if (false !== ($helper = Xmf\Module\Helper::getHelper($moduleDirName))) {
-} else {
-    $helper = Xmf\Module\Helper::getHelper('system');
-}
+/** @var Xmf\Module\Admin $adminObject */
 $adminObject = \Xmf\Module\Admin::getInstance();
 
 $pathIcon16    = \Xmf\Module\Admin::iconUrl('', 16);
@@ -49,9 +47,9 @@ $helper->loadLanguage('admin');
 $helper->loadLanguage('modinfo');
 $helper->loadLanguage('main');
 
-$myts = MyTextSanitizer::getInstance();
+$myts = \MyTextSanitizer::getInstance();
 
 if (!isset($GLOBALS['xoopsTpl']) || !($GLOBALS['xoopsTpl'] instanceof XoopsTpl)) {
     require_once $GLOBALS['xoops']->path('class/template.php');
-    $xoopsTpl = new XoopsTpl();
+    $xoopsTpl = new \XoopsTpl();
 }

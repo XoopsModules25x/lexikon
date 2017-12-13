@@ -198,7 +198,7 @@ define('_MD_LEXIKON_RANDOMIZE', 'next Definition');
 define('_MD_LEXIKON_TERMOFTHEDAY', 'Term of the day');
 define('_MD_LEXIKON_SYNDICATION', 'Webmastercontent');
 define('_MD_LEXIKON_SYNCODE',
-       "&lt;iframe style='background-color: #FFFFFF'; marginwidth=0 marginheight=0 width='220' height='260' src='%s/modules/%s/syndication.php' frameborder='0' topmargin='0' leftmargin='0' scrolling='no' allowtransparency='true' /&gt; [Your user agent does not support frames or is currently configured not to display frames.]</iframe>");
+       "&lt;iframe style='background-color: #FFFFFF'; marginwidth=0 marginheight=0 width='220' height='260' src='%s/modules/%s/syndication.php' frameborder='0' topmargin='0' leftmargin='0' scrolling='no' allowtransparency='true' > [Your user agent does not support frames or is currently configured not to display frames.]</iframe>");
 define('_MD_LEXIKON_SUB_SYNNAME', 'Free Webmastercontent for your Site');
 define('_MD_LEXIKON_INTROCONTENTSYN', 'You like the glossary definitions at %s ? You may now easily integrate our glossary-definitions at your site. Simply copy the below HTML-code.');
 define('_MD_LEXIKON_POWER', 'Powered by ');
@@ -226,3 +226,51 @@ define('_MD_LEXIKON_SUBMISSIONSENT', 'Message to %s sent.');
 define('_MD_AM_ADGS', 'ADGS');
 define('_MD_AM_DBUPDATED', 'Database updated');
 define('_MD_LEXIKON_MUSTREGFIRST', 'You must register first');
+
+/**
+ * Get local Alphabet
+ * @return array
+ */
+function getAlphabet()
+{
+    $alphabet = [
+        '0',
+        '1',
+        '2',
+        '3',
+        '4',
+        '5',
+        '6',
+        '7',
+        '8',
+        '9',
+        'A',
+        'B',
+        'C',
+        'D',
+        'E',
+        'F',
+        'G',
+        'H',
+        'I',
+        'J',
+        'K',
+        'L',
+        'M',
+        'N',
+        'O',
+        'P',
+        'Q',
+        'R',
+        'S',
+        'T',
+        'U',
+        'V',
+        'W',
+        'X',
+        'Y',
+        'Z'
+    ];
+
+    return $alphabet;
+}

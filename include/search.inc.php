@@ -26,7 +26,7 @@ function lx_search($queryarray, $andor, $limit, $offset, $userid)
     require_once XOOPS_ROOT_PATH . '/modules/lexikon/include/common.inc.php';
     require_once XOOPS_ROOT_PATH . '/modules/lexikon/class/Utility.php';
     $hightlight_key   = '';
-    $highlight        = LexikonUtility::getModuleOption('config_highlighter');
+    $highlight        = $utility::getModuleOption('config_highlighter');
     $searchincomments = CONFIG_SEARCH_COMMENTS;
     /** @var XoopsModuleHandler $moduleHandler */
     $moduleHandler = xoops_getHandler('module');
@@ -114,7 +114,7 @@ function lx_search($queryarray, $andor, $limit, $offset, $userid)
             $display = true;
             list($entryID, $offline) = $xoopsDB->fetchRow($xoopsDB->query('
                                          SELECT entryID, offline
-                                         FROM ' . $xoopsDB->prefix('lxentries') . ' WHERE entryID = ' . $myrow['com_itemid'] . ''));
+                                         FROM ' . $xoopsDB->prefix('lxentries') . ' WHERE entryID = ' . $myrow['com_itemid'] . ' '));
             if (1 == $offline) {
                 $display = false;
             }

@@ -10,7 +10,7 @@ if (function_exists('mb_http_output')) {
 include __DIR__ . '/../../mainfile.php';
 require_once XOOPS_ROOT_PATH . '/header.php';
 require_once XOOPS_ROOT_PATH . '/class/template.php';
-$tpl = new XoopsTpl();
+$tpl = new \XoopsTpl();
 $tpl->xoops_setCaching(0);
 
 global $xoopsUser, $xoopsDB, $xoopsConfig, $xoopsModuleConfig;

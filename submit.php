@@ -5,6 +5,8 @@
  * Licence: GNU
  */
 
+use Xmf\Request;
+
 include __DIR__ . '/header.php';
 $GLOBALS['xoopsOption']['template_main'] = 'lx_submit.tpl';
 include XOOPS_ROOT_PATH . '/header.php';
@@ -20,11 +22,15 @@ if ('0' == $xoopsDB->getRowsNum($result) && '1' == $xoopsModuleConfig['multicats
 
 $op = 'form';
 
-if (isset($_POST['post'])) {
-    $op = trim('post');
-} elseif (isset($_POST['edit'])) {
-    $op = trim('edit');
-}
+//if (isset($_POST['post'])) {
+//    $op = trim('post');
+//} elseif (isset($_POST['edit'])) {
+//    $op = trim('edit');
+//}
+
+$op = Request::hasVar('post', 'POST') ? 'post' : Request::hasVar('edit', 'POST') ? 'edit' : $op;
+
+//$suggest = isset($_GET['suggest']) ? $_GET['suggest'] : (isset($_POST['suggest']) ? $_POST['suggest'] : '');
 
 if (!function_exists('mb_ucfirst') && function_exists('mb_substr')) {
     /**
@@ -39,7 +45,7 @@ if (!function_exists('mb_ucfirst') && function_exists('mb_substr')) {
     }
 }
 
-$suggest = isset($_GET['suggest']) ? ((int)$_GET['suggest']) : 0;
+$suggest = Request::getInt('suggest', 0, 'GET'); //isset($_GET['suggest']) ? (int)$_GET['suggest'] : 0;
 
 if ($suggest > 0) {
     $terminosql = $xoopsDB->query('SELECT term FROM ' . $xoopsDB->prefix('lxentries') . ' WHERE datesub < ' . time() . " AND datesub > 0 AND request = '1' AND entryID = '" . $suggest . "'");
@@ -51,7 +57,7 @@ if ($suggest > 0) {
 $gpermHandler = xoops_getHandler('groupperm');
 $groups       = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
 $module_id    = $xoopsModule->getVar('mid');
-$perm_itemid  = isset($_POST['categoryID']) ? (int)$_POST['categoryID'] : 0;
+$perm_itemid  = Request::getInt('categoryID', 0, 'POST');
 if (!$gpermHandler->checkRight('lexikon_submit', $perm_itemid, $groups, $module_id)) {
     redirect_header('index.php', 3, _MD_LEXIKON_MUSTREGFIRST);
 }
@@ -82,7 +88,7 @@ switch ($op) {
         $gpermHandler = xoops_getHandler('groupperm');
         $groups       = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
         $module_id    = $xoopsModule->getVar('mid');
-        $perm_itemid  = isset($_POST['categoryID']) ? (int)$_POST['categoryID'] : 0;
+        $perm_itemid  = Request::getInt('categoryID', 0, 'POST');
 
         $html = 1;
         if ($xoopsUser) {
@@ -118,9 +124,9 @@ switch ($op) {
             $url = '';
         }
         // this is for terms with umlaut or accented initials
-        $term4sql = LexikonUtility::sanitizeFieldName($myts->htmlspecialchars($_POST['term']));
+        $term4sql = $utility::sanitizeFieldName($myts->htmlspecialchars($_POST['term']));
         $init     = mb_substr($term4sql, 0, 1);
-        $init     = preg_match('/[a-zA-Zа-яА-Я0-9]/', $init) ? mb_strtoupper($init) : '#';
+        $init     = preg_match('/[a-zA-Zа-яА-Я0-9]/u', $init) ? mb_strtoupper($init) : '#';
 
         $datesub = time();
 
@@ -136,7 +142,7 @@ switch ($op) {
             $autoapprove = 1;
         }
         // verify that the term not exists
-        if (LexikonUtility::isTermPresent($term, $xoopsDB->prefix('lxentries'))) {
+        if ($utility::isTermPresent($term, $xoopsDB->prefix('lxentries'))) {
             redirect_header('javascript:history.go(-1)', 2, _MD_LEXIKON_ITEMEXISTS . '<br>' . $term);
         }
         $result = $xoopsDB->query('INSERT INTO '

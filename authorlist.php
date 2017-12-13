@@ -14,7 +14,8 @@ global $xoopsUser, $xoTheme, $xoopsTpl, $authortermstotal, $xoopsModule;
 require_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->dirname() . '/class/Utility.php';
 require_once XOOPS_ROOT_PATH . '/modules/lexikon/include/common.inc.php';
 $authorlistext = false;
-$myts          = MyTextSanitizer::getInstance();
+$myts          = \MyTextSanitizer::getInstance();
+$utility      = new lexikon\Utility();
 
 if (empty($xoopsUser) && !$xoopsModuleConfig['authorprofile']) {
     redirect_header(XOOPS_URL . '/user.php', 3, _MD_LEXIKON_MUSTREGFIRST);
@@ -37,11 +38,11 @@ $catperms      = " AND categoryID IN ($catids) ";
 // --- display a list of the authors of the site ---
 
 $uid_ids = [];
-$uid_ids = LexikonUtility::getAuthors();
+$uid_ids = $utility::getAuthors();
 if (count($uid_ids) > 0) {
     $lst_uid       = implode(',', $uid_ids);
     $memberHandler = xoops_getHandler('member');
-    $criteria      = new Criteria('uid', '(' . $lst_uid . ')', 'IN');
+    $criteria      = new \Criteria('uid', '(' . $lst_uid . ')', 'IN');
     $tbl_users     = $memberHandler->getUsers($criteria);
     $iu            = 0;
 
@@ -82,7 +83,7 @@ if (count($uid_ids) > 0) {
             }
             // authortotals
             list($num) = $xoopsDB->fetchRow($xoopsDB->query('SELECT COUNT(*)
-                                                            FROM ' . $xoopsDB->prefix('lxentries') . "
+                                            FROM ' . $xoopsDB->prefix('lxentries') . "
                                                             WHERE uid='" . $one_user->getVar('uid') . "' " . $catperms . ' '));
             $authortotal = $num;
             // location
@@ -131,7 +132,7 @@ $xoopsTpl->assign('lang_modulename', $xoopsModule->name());
 $xoopsTpl->assign('lang_moduledirname', $xoopsModule->dirname());
 
 $xoopsTpl->assign('xoops_pagetitle', _MD_LEXIKON_CONTRIBUTORS . ' - ' . $myts->htmlSpecialChars($xoopsModule->name()));
-$xoopsTpl->assign('xoops_module_header', '<link rel="stylesheet" type="text/css" href="assets/css/style.css" >');
+$xoopsTpl->assign('xoops_module_header', '<link rel="stylesheet" type="text/css" href="assets/css/style.css">');
 
 // Meta data
 $meta_description = _MD_LEXIKON_CONTRIBUTORS . ' - ' . $myts->htmlSpecialChars($xoopsModule->name());

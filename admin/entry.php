@@ -7,8 +7,10 @@
  * Licence: GNU
  */
 
+use Xoopsmodules\lexikon;
+
 require_once __DIR__ . '/admin_header.php';
-$myts = MyTextSanitizer::getInstance();
+$myts = \MyTextSanitizer::getInstance();
 
 xoops_cp_header();
 $adminObject = \Xmf\Module\Admin::getInstance();
@@ -33,7 +35,7 @@ function entryDefault()
     $startsub   = isset($_GET['startsub']) ? (int)$_GET['startsub'] : 0;
     $datesub    = isset($_GET['datesub']) ? (int)$_GET['datesub'] : 0;
 
-    $myts = MyTextSanitizer::getInstance();
+    $myts = \MyTextSanitizer::getInstance();
 
     $result01 = $xoopsDB->query('SELECT COUNT(*)
                                    FROM ' . $xoopsDB->prefix('lxcategories') . ' ');
@@ -97,7 +99,7 @@ function entryDefault()
                                          WHERE categoryID = '$categoryID'");
             list($name) = $xoopsDB->fetchRow($resultA3);
 
-            $sentby  = XoopsUserUtility::getUnameFromId($uid);
+            $sentby  = \XoopsUserUtility::getUnameFromId($uid);
             $catname = $myts->htmlSpecialChars($name);
             $term    = $myts->htmlSpecialChars($term);
             $created = formatTimestamp($created, 's');
@@ -130,7 +132,7 @@ function entryDefault()
         echo '</tr></div>';
     }
     echo "</table>\n";
-    $pagenav = new XoopsPageNav($numrows, $xoopsModuleConfig['perpage'], $startentry, 'startentry');
+    $pagenav = new \XoopsPageNav($numrows, $xoopsModuleConfig['perpage'], $startentry, 'startentry');
     echo '<div style="text-align:right;">' . $pagenav->renderNav(8) . '</div>';
     echo "<br>\n";
     echo '</div>';
@@ -143,7 +145,8 @@ function entryDefault()
 function entryEdit($entryID = '')
 {
     global $xoopsUser, $xoopsConfig, $xoopsDB, $xoopsModuleConfig, $xoopsModule, $init;
-    $myts = MyTextSanitizer::getInstance();
+    $myts = \MyTextSanitizer::getInstance();
+    $utility = new lexikon\Utility();
     /**
      * Clear all variables before we start
      */
@@ -210,7 +213,7 @@ function entryEdit($entryID = '')
         $term = $myts->stripSlashesGPC($myts->htmlSpecialChars($term));
 
         echo "<strong style='color: #2F5376; margin-top:6px; font-size:medium'>" . _AM_LEXIKON_ADMINENTRYMNGMT . '</strong>';
-        $sform = new XoopsThemeForm(_AM_LEXIKON_MODENTRY . ": $term", 'op', xoops_getenv('PHP_SELF'));
+        $sform = new \XoopsThemeForm(_AM_LEXIKON_MODENTRY . ": $term", 'op', xoops_getenv('PHP_SELF'), 'post', true);
     } else { // there's no parameter, so we're adding an entry
         $result01 = $xoopsDB->query('SELECT COUNT(*) FROM ' . $xoopsDB->prefix('lxcategories') . ' ');
         list($totalcats) = $xoopsDB->fetchRow($result01);
@@ -219,14 +222,14 @@ function entryEdit($entryID = '')
         }
         $uid = $xoopsUser->getVar('uid');
         echo "<strong style='color: #2F5376; margin-top:6px; font-size:medium'>" . _AM_LEXIKON_ADMINENTRYMNGMT . '</strong>';
-        $sform = new XoopsThemeForm(_AM_LEXIKON_NEWENTRY, 'op', xoops_getenv('PHP_SELF'));
+        $sform = new \XoopsThemeForm(_AM_LEXIKON_NEWENTRY, 'op', xoops_getenv('PHP_SELF'), 'post', true);
     }
 
     $sform->setExtra('enctype="multipart/form-data"');
     // Category selector
     if (1 == $xoopsModuleConfig['multicats']) {
-        $mytree         = new LexikonTree($xoopsDB->prefix('lxcategories'), 'categoryID', '0');
-        $categoryselect = new XoopsFormSelect(_AM_LEXIKON_CATNAME, 'categoryID', $categoryID);
+        $mytree         = new lexikon\LexikonTree($xoopsDB->prefix('lxcategories'), 'categoryID', '0');
+        $categoryselect = new \XoopsFormSelect(_AM_LEXIKON_CATNAME, 'categoryID', $categoryID);
         $tbl            = [];
         $tbl            = $mytree->getChildTreeArray(0, 'name');
         foreach ($tbl as $oneline) {
@@ -241,29 +244,29 @@ function entryEdit($entryID = '')
 
     // Author selector
     ob_start();
-    LexikonUtility::getUserForm((int)$uid);
-    $sform->addElement(new XoopsFormLabel(_AM_LEXIKON_AUTHOR, ob_get_contents()));
+    $utility::getUserForm((int)$uid);
+    $sform->addElement(new \XoopsFormLabel(_AM_LEXIKON_AUTHOR, ob_get_contents()));
     ob_end_clean();
 
     // Initial selector
     ob_start();
     lx_getinit((int)$init);
-    $sform->addElement(new XoopsFormLabel(_AM_LEXIKON_INIT, ob_get_contents()));
+    $sform->addElement(new \XoopsFormLabel(_AM_LEXIKON_INIT, ob_get_contents()));
     ob_end_clean();
 
     // Term, definition, reference and related URL
-    $sform->addElement(new XoopsFormText(_AM_LEXIKON_ENTRYTERM, 'term', 50, 80, $term), true);
+    $sform->addElement(new \XoopsFormText(_AM_LEXIKON_ENTRYTERM, 'term', 50, 80, $term), true);
 
     // set editor according to the module's option "form_options"
-    $editor = LexikonUtility::getWysiwygForm(_AM_LEXIKON_ENTRYDEF, 'definition', $definition, 15, 60);
+    $editor = $utility::getWysiwygForm(_AM_LEXIKON_ENTRYDEF, 'definition', $definition, 15, 60);
     if (_MD_LEXIKON_WRITEHERE == $definition) {
         $editor->setExtra('onfocus="this.select()"');
     }
     $sform->addElement($editor, true);
     unset($editor);
 
-    $sform->addElement(new XoopsFormTextArea(_AM_LEXIKON_ENTRYREFERENCE, 'ref', $ref, 5, 60), false);
-    $sform->addElement(new XoopsFormText(_AM_LEXIKON_ENTRYURL, 'url', 50, 80, $url), false);
+    $sform->addElement(new \XoopsFormTextArea(_AM_LEXIKON_ENTRYREFERENCE, 'ref', $ref, 5, 60), false);
+    $sform->addElement(new \XoopsFormText(_AM_LEXIKON_ENTRYURL, 'url', 50, 80, $url), false);
 
     // tags of this term - for module 'Tag'
     /** @var XoopsModuleHandler $moduleHandler */
@@ -271,66 +274,66 @@ function entryEdit($entryID = '')
     $tagsModule    = $moduleHandler->getByDirname('tag');
     if (is_object($tagsModule)) {
         require_once XOOPS_ROOT_PATH . '/modules/tag/include/formtag.php';
-        $sform->addElement(new TagFormTag('item_tag', 60, 255, $entryID, $catid = 0));
+        $sform->addElement(new \TagFormTag('item_tag', 60, 255, $entryID, $catid = 0));
     }
     // Code to take entry offline, for maintenance purposes
-    $offline_radio = new XoopsFormRadioYN(_AM_LEXIKON_SWITCHOFFLINE, 'offline', $offline, ' ' . _AM_LEXIKON_YES . '', ' ' . _AM_LEXIKON_NO . '');
+    $offline_radio = new \XoopsFormRadioYN(_AM_LEXIKON_SWITCHOFFLINE, 'offline', $offline, ' ' . _AM_LEXIKON_YES . '', ' ' . _AM_LEXIKON_NO . '');
     $sform->addElement($offline_radio);
 
     // Code to put entry in block
-    $block_radio = new XoopsFormRadioYN(_AM_LEXIKON_BLOCK, 'block', $block, ' ' . _AM_LEXIKON_YES . '', ' ' . _AM_LEXIKON_NO . '');
+    $block_radio = new \XoopsFormRadioYN(_AM_LEXIKON_BLOCK, 'block', $block, ' ' . _AM_LEXIKON_YES . '', ' ' . _AM_LEXIKON_NO . '');
     $sform->addElement($block_radio);
 
     // VARIOUS OPTIONS
-    $options_tray = new XoopsFormElementTray(_AM_LEXIKON_OPTIONS, '<br>');
+    $options_tray = new \XoopsFormElementTray(_AM_LEXIKON_OPTIONS, '<br>');
     if ($submit) {
-        $notify_checkbox = new XoopsFormCheckBox('', 'notifypub', $notifypub);
+        $notify_checkbox = new \XoopsFormCheckBox('', 'notifypub', $notifypub);
         $notify_checkbox->addOption(1, _AM_LEXIKON_NOTIFYPUBLISH);
         $options_tray->addElement($notify_checkbox);
     } else {
         $notifypub = 0;
     }
-    $html_checkbox = new XoopsFormCheckBox('', 'html', $html);
+    $html_checkbox = new \XoopsFormCheckBox('', 'html', $html);
     $html_checkbox->addOption(1, _AM_LEXIKON_DOHTML);
     $options_tray->addElement($html_checkbox);
 
-    $smiley_checkbox = new XoopsFormCheckBox('', 'smiley', $smiley);
+    $smiley_checkbox = new \XoopsFormCheckBox('', 'smiley', $smiley);
     $smiley_checkbox->addOption(1, _AM_LEXIKON_DOSMILEY);
     $options_tray->addElement($smiley_checkbox);
 
-    $xcodes_checkbox = new XoopsFormCheckBox('', 'xcodes', $xcodes);
+    $xcodes_checkbox = new \XoopsFormCheckBox('', 'xcodes', $xcodes);
     $xcodes_checkbox->addOption(1, _AM_LEXIKON_DOXCODE);
     $options_tray->addElement($xcodes_checkbox);
 
-    $breaks_checkbox = new XoopsFormCheckBox('', 'breaks', $breaks);
+    $breaks_checkbox = new \XoopsFormCheckBox('', 'breaks', $breaks);
     $breaks_checkbox->addOption(1, _AM_LEXIKON_BREAKS);
     $options_tray->addElement($breaks_checkbox);
 
     $sform->addElement($options_tray);
 
-    $sform->addElement(new XoopsFormHidden('entryID', $entryID));
+    $sform->addElement(new \XoopsFormHidden('entryID', $entryID));
 
-    $button_tray = new XoopsFormElementTray('', '');
-    $hidden      = new XoopsFormHidden('op', 'addentry');
+    $button_tray = new \XoopsFormElementTray('', '');
+    $hidden      = new \XoopsFormHidden('op', 'addentry');
     $button_tray->addElement($hidden);
 
     if (!$entryID) { // there's no entryID? Then it's a new entry
-        $butt_create = new XoopsFormButton('', '', _AM_LEXIKON_CREATE, 'submit');
+        $butt_create = new \XoopsFormButton('', '', _AM_LEXIKON_CREATE, 'submit');
         $butt_create->setExtra('onclick="this.form.elements.op.value=\'addentry\'"');
         $button_tray->addElement($butt_create);
 
-        $butt_clear = new XoopsFormButton('', '', _AM_LEXIKON_CLEAR, 'reset');
+        $butt_clear = new \XoopsFormButton('', '', _AM_LEXIKON_CLEAR, 'reset');
         $button_tray->addElement($butt_clear);
 
-        $butt_cancel = new XoopsFormButton('', '', _AM_LEXIKON_CANCEL, 'button');
+        $butt_cancel = new \XoopsFormButton('', '', _AM_LEXIKON_CANCEL, 'button');
         $butt_cancel->setExtra('onclick="history.go(-1)"');
         $button_tray->addElement($butt_cancel);
     } else { // else, we're editing an existing entry
-        $butt_create = new XoopsFormButton('', '', _AM_LEXIKON_MODIFY, 'submit');
+        $butt_create = new \XoopsFormButton('', '', _AM_LEXIKON_MODIFY, 'submit');
         $butt_create->setExtra('onclick="this.form.elements.op.value=\'addentry\'"');
         $button_tray->addElement($butt_create);
 
-        $butt_cancel = new XoopsFormButton('', '', _AM_LEXIKON_CANCEL, 'button');
+        $butt_cancel = new \XoopsFormButton('', '', _AM_LEXIKON_CANCEL, 'button');
         $butt_cancel->setExtra('onclick="history.go(-1)"');
         $button_tray->addElement($butt_cancel);
     }
@@ -347,10 +350,10 @@ function entryEdit($entryID = '')
 function entrySave($entryID = '')
 {
     global $xoopsUser, $xoopsConfig, $xoopsModuleConfig, $xoopsModule, $xoopsDB;
-    $myts    = MyTextSanitizer::getInstance();
+    $myts    = \MyTextSanitizer::getInstance();
     $entryID = isset($_POST['entryID']) ? (int)$_POST['entryID'] : (int)$_GET['entryID'];
     if (1 == $xoopsModuleConfig['multicats']) {
-        $categoryID = isset($_POST['categoryID']) ? (int)$_POST['categoryID'] : (int)$_GET['categoryID'];
+        $categoryID = Request::getInt('categoryID', 0);
     } else {
         $categoryID = 1;
     }
@@ -388,7 +391,7 @@ function entrySave($entryID = '')
     // Save to database
     if (!$entryID) {
         // verify that the term does not exists
-        if (LexikonUtility::isTermPresent($term, $xoopsDB->prefix('lxentries'))) {
+        if ($utility::isTermPresent($term, $xoopsDB->prefix('lxentries'))) {
             redirect_header('javascript:history.go(-1)', 2, _AM_LEXIKON_ITEMEXISTS . '<br>' . $term);
         }
         if ($xoopsDB->query('INSERT INTO '
@@ -426,7 +429,7 @@ function entrySave($entryID = '')
                 $notificationHandler->triggerEvent('global', 0, 'new_post', $tags);
                 $notificationHandler->triggerEvent('category', $categoryID, 'new_post', $tags);
             }
-            LexikonUtility::calculateTotals();
+            $utility::calculateTotals();
             redirect_header('entry.php', 1, _AM_LEXIKON_ENTRYCREATEDOK);
         } else {
             redirect_header('index.php', 1, _AM_LEXIKON_ENTRYNOTCREATED);
@@ -455,11 +458,11 @@ function entrySave($entryID = '')
                 $notificationHandler->triggerEvent('term', $entryID, 'approve', $tags);
             }
 
-            LexikonUtility::calculateTotals();
+            $utility::calculateTotals();
             if ('0' == $notifypub) {
                 redirect_header('entry.php', 1, _AM_LEXIKON_ENTRYMODIFIED);
             } else {
-                $user        = new XoopsUser($uid);
+                $user        = new \XoopsUser($uid);
                 $userMessage = sprintf(_MD_LEXIKON_GOODDAY2, $user->getVar('uname'));
                 $userMessage .= "\n\n";
                 if ('1' == $request) {
@@ -518,7 +521,7 @@ function entryDelete($entryID = '')
         xoops_notification_deletebyitem($xoopsModule->getVar('mid'), 'term', $entryID);
         // update user posts
         if (!empty($uid)) {
-            $submitter     = new xoopsUser($uid);
+            $submitter     = new \XoopsUser($uid);
             $memberHandler = xoops_getHandler('member');
             $memberHandler->updateUserByField($submitter, 'posts', $submitter->getVar('posts') - 1);
         }

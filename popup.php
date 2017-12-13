@@ -15,7 +15,7 @@ if (!$entryID) {
     exit();
 }
 //global $xoopsModuleConfig;
-$myts = MyTextSanitizer::getInstance();
+$myts = \MyTextSanitizer::getInstance();
 
 $sqlQuery = $xoopsDB->query('SELECT * FROM ' . $xoopsDB->prefix('lxentries') . " WHERE entryID=$entryID");
 $sqlfetch = $xoopsDB->fetchArray($sqlQuery);

@@ -66,7 +66,7 @@ if (!class_exists('XoopsGTicket')) {
          */
         public function getTicketXoopsForm($salt = '', $timeout = 1800, $area = '')
         {
-            return new XoopsFormHidden('XOOPS_G_TICKET', $this->issue($salt, $timeout, $area));
+            return new \XoopsFormHidden('XOOPS_G_TICKET', $this->issue($salt, $timeout, $area));
         }
 
         // add a ticket as Hidden Element into XoopsForm
@@ -79,7 +79,7 @@ if (!class_exists('XoopsGTicket')) {
          */
         public function addTicketXoopsFormElement(&$form, $salt = '', $timeout = 1800, $area = '')
         {
-            $form->addElement(new XoopsFormHidden('XOOPS_G_TICKET', $this->issue($salt, $timeout, $area)));
+            $form->addElement(new \XoopsFormHidden('XOOPS_G_TICKET', $this->issue($salt, $timeout, $area)));
         }
 
         // returns an array for xoops_confirm() ;
@@ -375,7 +375,7 @@ if (!class_exists('XoopsGTicket')) {
     }
 
     // create a instance in global scope
-    $GLOBALS['xoopsGTicket'] = new XoopsGTicket();
+    $GLOBALS['xoopsGTicket'] = new \XoopsGTicket();
 }
 
 if (!function_exists('admin_refcheck')) {

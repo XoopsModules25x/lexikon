@@ -15,12 +15,12 @@ if (function_exists('mb_http_output')) {
 //error_reporting(E_ALL |E_ERROR | E_WARNING | E_PARSE);
 header('Content-Type:text/xml; charset=utf-8');
 require_once $GLOBALS['xoops']->path('class/template.php');
-$tpl                 = new XoopsTpl();
+$tpl                 = new \XoopsTpl();
 $tpl->caching        = 0;
 $tpl->cache_lifetime = 3600;
 
-$db           = XoopsDatabaseFactory::getDatabaseConnection();
-$myts         = MyTextSanitizer::getInstance();
+$db           = \XoopsDatabaseFactory::getDatabaseConnection();
+$myts         = \MyTextSanitizer::getInstance();
 $category_rss = isset($_GET['categoryID']) ? $_GET['categoryID'] : 0;
 //permissions
 $gpermHandler = xoops_getHandler('groupperm');

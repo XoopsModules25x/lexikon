@@ -3,7 +3,7 @@
 //  ------------------------------------------------------------------------ //
 //                XOOPS - PHP Content Management System                      //
 //                    Copyright (c) 2000 XOOPS.org                           //
-//                       <http://www.xoops.org>                             //
+//                       <https://xoops.org>                             //
 // ------------------------------------------------------------------------- //
 //  This program is free software; you can redistribute it and/or modify     //
 //  it under the terms of the GNU General Public License as published by     //
@@ -33,8 +33,18 @@
  * @param null $prev_version
  * @return bool|null
  */
-function xoops_module_update_lexikon(&$module, $prev_version = null)
+function xoops_module_update_lexikon($module, $prev_version = null)
 {
+    $moduleDirName = basename(dirname(__DIR__));
+    $capsDirName   = strtoupper($moduleDirName);
+
+    /** @var lexikon\Helper $helper */
+    /** @var lexikon\Utility $utility */
+    /** @var lexikon\Configurator $configurator */
+    $helper       = lexikon\Helper::getInstance();
+    $utility      = new lexikon\Utility();
+    $configurator = new lexikon\Configurator();
+
     $ret = null;
     if ($prev_version < 152) {
         $ret = xoops_module_update_lexikon_v152($module);
@@ -51,7 +61,7 @@ function xoops_module_update_lexikon(&$module, $prev_version = null)
  * @param $xoopsModule
  * @return bool
  */
-function xoops_module_update_lexikon_v152(&$xoopsModule)
+function xoops_module_update_lexikon_v152($xoopsModule)
 {
 
     /**

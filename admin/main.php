@@ -8,15 +8,19 @@
  * Licence: GNU
  */
 
+use Xoopsmodules\lexikon;
+
 require_once __DIR__ . '/admin_header.php';
 xoops_cp_header();
 
-$myts = MyTextSanitizer::getInstance();
+$myts = \MyTextSanitizer::getInstance();
 global $xoopsUser, $xoopsConfig, $xoopsModuleConfig, $xoopsModule, $entryID;
 xoops_load('XoopsUserUtility');
 $adminObject = \Xmf\Module\Admin::getInstance();
 $adminObject->displayNavigation(basename(__FILE__));
-
+$adminObject->addItemButton(_AM_LEXIKON_CREATECAT, 'category.php?op=addcat', 'add');
+$adminObject->addItemButton(_AM_LEXIKON_CREATEENTRY, 'entry.php?op=add', 'add');
+$adminObject->displayButton('left');
 require_once XOOPS_ROOT_PATH . '/class/pagenav.php';
 
 $startentry = isset($_GET['startentry']) ? (int)$_GET['startentry'] : 0;
@@ -65,12 +69,10 @@ list($totaloffline) = $xoopsDB->fetchRow($result05);
 
 //--- category dropdown
 if (1 == $xoopsModuleConfig['multicats']) {
-    // $cattree = new XoopsTree( $xoopsDB->prefix("lxcategories"), "categoryID", "0" );
-    $cattree = new LexikonTree($xoopsDB->prefix('lxcategories'), 'categoryID', '0');
+    // $cattree = new \XoopsTree( $xoopsDB->prefix("lxcategories"), "categoryID", "0" );
+    $cattree = new lexikon\LexikonTree($xoopsDB->prefix('lxcategories'), 'categoryID', '0');
     echo "<table class='outer' style='width:100%;'><tr class='odd'><td>";
-    $adminObject->addItemButton(_AM_LEXIKON_CREATECAT, 'category.php?op=addcat', 'add');
-    $adminObject->addItemButton(_AM_LEXIKON_CREATEENTRY, 'entry.php?op=add', 'add');
-    $adminObject->displayButton('left');
+
     echo "</td></tr><tr><td class='head' colspan='2' class='even'><strong>" . _AM_LEXIKON_INVENTORY . '</strong></td></tr>';
     echo "<tr class='odd'><td text-align:left;'>";
     echo '<form method=get action="category.php">';
@@ -88,7 +90,7 @@ if (1 == $xoopsModuleConfig['multicats']) {
 // database update
 if (!lx_FieldExists('logourl', $xoopsDB->prefix('lxcategories'))
     || lx_FieldExists('parent', $xoopsDB->prefix('lxcategories'))) {
-    ++$i;
+    //    ++$i;
     echo "<table><tr><td style='border-bottom:1px dotted #cfcfcf; line-height:16px;'><img src='"
          . XOOPS_URL
          . '/modules/'
@@ -226,6 +228,7 @@ $sql = 'SELECT entryID, categoryID, term, uid, datesub, offline
 $items            = $xoopsDB->query($sql, $xoopsModuleConfig['perpage'], $startentry);//missing nav. extras
 $totalItemsOnPage = count($numrows);
 
+
 lx_buildTable();
 
 if ($numrows > 0) {
@@ -298,7 +301,7 @@ if ($numrows > 0) {
 echo "</table>\n";
 
 echo "<span style='color:#567; margin:3px 0 18px 0; font-size:small; display:block;'>$status_explanation</span>";
-$pagenav = new XoopsPageNav($numrows, $xoopsModuleConfig['perpage'], $startentry, 'startentry', "statussel=$statussel&amp;sortsel=$sortsel&amp;ordersel=$ordersel");
+$pagenav = new \XoopsPageNav($numrows, $xoopsModuleConfig['perpage'], $startentry, 'startentry', "statussel=$statussel&amp;sortsel=$sortsel&amp;ordersel=$ordersel");
 echo '<div style="text-align:right;">' . $pagenav->renderNav(12) . '</div>';
 echo "<br>\n";
 echo '</div>';
