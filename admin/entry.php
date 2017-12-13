@@ -11,7 +11,7 @@ require_once __DIR__ . '/admin_header.php';
 $myts = MyTextSanitizer::getInstance();
 
 xoops_cp_header();
-$adminObject  = \Xmf\Module\Admin::getInstance();
+$adminObject = \Xmf\Module\Admin::getInstance();
 $adminObject->displayNavigation(basename(__FILE__));
 $adminObject->addItemButton(_AM_LEXIKON_CREATEENTRY, 'entry.php?op=add', 'add');
 $adminObject->displayButton('left');
@@ -101,20 +101,8 @@ function entryDefault()
             $catname = $myts->htmlSpecialChars($name);
             $term    = $myts->htmlSpecialChars($term);
             $created = formatTimestamp($created, 's');
-            $modify  = "<a href='entry.php?op=mod&entryID="
-                        . $entryID
-                        . "'><img src="
-                        . $pathIcon16
-                        . "/edit.png alt='"
-                        . _AM_LEXIKON_EDITENTRY
-                        . "'></a>";
-            $delete  = "<a href='entry.php?op=del&entryID="
-                        . $entryID
-                        . "'><img src="
-                        . $pathIcon16
-                        . "/delete.png alt='"
-                        . _AM_LEXIKON_DELETEENTRY
-                        . "'></a>";
+            $modify  = "<a href='entry.php?op=mod&entryID=" . $entryID . "'><img src=" . $pathIcon16 . "/edit.png alt='" . _AM_LEXIKON_EDITENTRY . "'></a>";
+            $delete  = "<a href='entry.php?op=del&entryID=" . $entryID . "'><img src=" . $pathIcon16 . "/delete.png alt='" . _AM_LEXIKON_DELETEENTRY . "'></a>";
 
             if (0 == $offline) {
                 $status = '<img src=' . XOOPS_URL . '/modules/' . $xoopsModule->dirname() . "/assets/images/icon/on.gif alt='" . _AM_LEXIKON_ENTRYISON . "'>";
@@ -147,6 +135,7 @@ function entryDefault()
     echo "<br>\n";
     echo '</div>';
 }
+
 // -- Edit function --
 /**
  * @param string $entryID
@@ -372,7 +361,7 @@ function entrySave($entryID = '')
     $smiley  = isset($_POST['smiley']) ? (int)$_POST['smiley'] : (int)$_GET['smiley'];
     $xcodes  = isset($_POST['xcodes']) ? (int)$_POST['xcodes'] : (int)$_GET['xcodes'];
     $offline = isset($_POST['offline']) ? (int)$_POST['offline'] : (int)$_GET['offline'];
-    $term = $myts->addSlashes(xoops_trim($_POST['term']));
+    $term    = $myts->addSlashes(xoops_trim($_POST['term']));
     // LionHell pour initiale automatique
     $init = mb_substr($term, 0, 1);
     $init = preg_match('/[a-zA-Zа-яА-Я0-9]/', $init) ? mb_strtoupper($init) : '#';
@@ -382,8 +371,8 @@ function entrySave($entryID = '')
     $ref        = isset($_POST['ref']) ? $myts->addSlashes($myts->censorString($_POST['ref'])) : '';
     $url        = isset($_POST['url']) ? $myts->addSlashes($_POST['url']) : '';
 
-    $date   = time();
-    $submit = 0;
+    $date      = time();
+    $submit    = 0;
     $notifypub = isset($_POST['notifypub']) ? (int)$_POST['notifypub'] : (int)$_GET['notifypub'];
     $request   = 0;
     $uid       = isset($_POST['author']) ? (int)$_POST['author'] : $xoopsUser->uid();
@@ -404,8 +393,7 @@ function entrySave($entryID = '')
         }
         if ($xoopsDB->query('INSERT INTO '
                             . $xoopsDB->prefix('lxentries')
-                            . " (entryID, categoryID, term, init, definition, ref, url, uid, submit, datesub, html, smiley, xcodes, breaks, block, offline, notifypub, request ) VALUES (0, '$categoryID', '$term', '$init', '$definition', '$ref', '$url', '$uid', '$submit', '$date', '$html', '$smiley', '$xcodes', '$breaks', '$block', '$offline', '$notifypub', '$request' )")
-        ) {
+                            . " (entryID, categoryID, term, init, definition, ref, url, uid, submit, datesub, html, smiley, xcodes, breaks, block, offline, notifypub, request ) VALUES (0, '$categoryID', '$term', '$init', '$definition', '$ref', '$url', '$uid', '$submit', '$date', '$html', '$smiley', '$xcodes', '$breaks', '$block', '$offline', '$notifypub', '$request' )")) {
             $newid = $xoopsDB->getInsertId();
             // Increment author's posts count (only if it's a new definition)
             if (is_object($xoopsUser) && empty($entryID)) {
@@ -446,8 +434,7 @@ function entrySave($entryID = '')
     } else { // That is, $entryID exists, thus we're editing an entry
         if ($xoopsDB->query('UPDATE '
                             . $xoopsDB->prefix('lxentries')
-                            . " SET term = '$term', categoryID = '$categoryID', init = '$init', definition = '$definition', ref = '$ref', url = '$url', uid = '$uid', submit = '$submit', datesub = '$date', html = '$html', smiley = '$smiley', xcodes = '$xcodes', breaks = '$breaks', block = '$block', offline = '$offline', notifypub = '$notifypub', request = '$request' WHERE entryID = '$entryID'")
-        ) {
+                            . " SET term = '$term', categoryID = '$categoryID', init = '$init', definition = '$definition', ref = '$ref', url = '$url', uid = '$uid', submit = '$submit', datesub = '$date', html = '$html', smiley = '$smiley', xcodes = '$xcodes', breaks = '$breaks', block = '$block', offline = '$offline', notifypub = '$notifypub', request = '$request' WHERE entryID = '$entryID'")) {
             // trigger Notification only if its a new submission
             if (!empty($xoopsModuleConfig['notification_enabled'])) {
                 global $xoopsModule;
@@ -511,6 +498,7 @@ function entrySave($entryID = '')
         }
     }
 }
+
 /**
  * @param string $entryID
  */

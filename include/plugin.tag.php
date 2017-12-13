@@ -2,12 +2,12 @@
 /**
  * Tag info
  *
- * @copyright	The XOOPS project http://www.xoops.org/
- * @license		http://www.fsf.org/copyleft/gpl.html GNU public license
- * @author		Taiwen Jiang (phppp or D.J.) <php_pp@hotmail.com>
- * @since		1.00
- * @version		$Id$
- * @package		module::tag
+ * @copyright      The XOOPS project http://www.xoops.org/
+ * @license        http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @author         Taiwen Jiang (phppp or D.J.) <php_pp@hotmail.com>
+ * @since          1.00
+ * @version        $Id$
+ * @package        module::tag
  */
 if (!defined('XOOPS_ROOT_PATH')) {
     exit();
@@ -22,9 +22,9 @@ if (!defined('XOOPS_ROOT_PATH')) {
  * uname
  * tags
  *
- * @var		array	$items	associative array of items: [modid][catid][itemid]
+ * @var        array $items associative array of items: [modid][catid][itemid]
  *
- * @return	boolean
+ * @return    boolean
  *
  */
 
@@ -50,19 +50,22 @@ function lexikon_tag_iteminfo(&$items)
 
     foreach (array_keys($items) as $cat_id) {
         foreach (array_keys($items[$cat_id]) as $item_id) {
-            $sql = 'SELECT  l.entryID, l.categoryID, l.term as ltitle, l.definition, l.uid, l.datesub, l.offline, c.name as cname FROM '
-                   . $xoopsDB->prefix('lxentries') . ' l, '
-                   . $xoopsDB->prefix('lxcategories') . ' c WHERE l.entryID='
-                   . $item_id . ' AND l.categoryID=c.categoryID AND l.offline=0 ORDER BY l.datesub DESC';
-            $result = $xoopsDB->query($sql);
-            $row = $xoopsDB->fetchArray($result);
+            $sql                      = 'SELECT  l.entryID, l.categoryID, l.term AS ltitle, l.definition, l.uid, l.datesub, l.offline, c.name AS cname FROM '
+                                        . $xoopsDB->prefix('lxentries')
+                                        . ' l, '
+                                        . $xoopsDB->prefix('lxcategories')
+                                        . ' c WHERE l.entryID='
+                                        . $item_id
+                                        . ' AND l.categoryID=c.categoryID AND l.offline=0 ORDER BY l.datesub DESC';
+            $result                   = $xoopsDB->query($sql);
+            $row                      = $xoopsDB->fetchArray($result);
             $items[$cat_id][$item_id] = [
                 'title'   => $row['ltitle'],
                 'uid'     => $row['uid'],
                 'link'    => "entry.php?entryID=$item_id",
                 'time'    => $row['datesub'],
                 'content' => $row['definition'],
-                                        ];
+            ];
         }
     }
 }

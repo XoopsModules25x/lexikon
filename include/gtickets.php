@@ -22,8 +22,7 @@ if (!class_exists('XoopsGTicket')) {
 
             // language file
             if (defined('XOOPS_ROOT_PATH') && !empty($xoopsConfig['language'])
-                && false === strpos($xoopsConfig['language'], '/')
-            ) {
+                && false === strpos($xoopsConfig['language'], '/')) {
                 if (file_exists(__DIR__ . '/../language/' . $xoopsConfig['language'] . '/gticket_messages.phtml')) {
                     include __DIR__ . '/../language/' . $xoopsConfig['language'] . '/gticket_messages.phtml';
                 }
@@ -151,11 +150,11 @@ if (!class_exists('XoopsGTicket')) {
 
             // store stub
             $_SESSION['XOOPS_G_STUBS'][] = [
-                                            'expire'  => time() + $timeout,
-                                            'referer' => $referer,
-                                            'area'    => $area,
-                                            'token'   => $token
-                                           ];
+                'expire'  => time() + $timeout,
+                'referer' => $referer,
+                'area'    => $area,
+                'token'   => $token
+            ];
 
             // paid md5ed token as a ticket
             return md5($token . XOOPS_DB_PREFIX);
@@ -229,8 +228,7 @@ if (!class_exists('XoopsGTicket')) {
                     $area_check = true;
                 }
                 if (!empty($found_stub['referer'])
-                    && true === strpos(@Request::getString('HTTP_REFERER', '', 'SERVER'), $found_stub['referer'])
-                ) {
+                    && true === strpos(@Request::getString('HTTP_REFERER', '', 'SERVER'), $found_stub['referer'])) {
                     $referer_check = true;
                 }
 
@@ -301,13 +299,7 @@ if (!class_exists('XoopsGTicket')) {
             $table .= '</table>';
             $form  .= $this->getTicketHtml(__LINE__, 300, $area) . '<input type="submit" value="' . $this->messages['btn_repost'] . '" ></form>';
 
-            echo '<html><head><title>'
-                 . $this->messages['err_general']
-                 . '</title><style>table,td,th {border:solid black 1px; border-collapse:collapse;}</style></head><body>'
-                 . sprintf($this->messages['fmt_prompt4repost'], $this->getErrors())
-                 . $table
-                 . $form
-                 . '</body></html>';
+            echo '<html><head><title>' . $this->messages['err_general'] . '</title><style>table,td,th {border:solid black 1px; border-collapse:collapse;}</style></head><body>' . sprintf($this->messages['fmt_prompt4repost'], $this->getErrors()) . $table . $form . '</body></html>';
         }
 
         /**

@@ -101,11 +101,7 @@ function list_blocks()
 
     // displaying TH
     lx_collapsableBar('default', 'defaultIcon');
-    echo "<img  onclick=\"toggle('default'); toggleIcon('defaultIcon');\" id='defaultIcon' src='"
-         . XOOPS_URL
-         . "/modules/lexikon/assets/images/close12.gif' alt=''></a>&nbsp; "
-         . _AM_BADMIN
-         . '<br><br>';
+    echo "<img  onclick=\"toggle('default'); toggleIcon('defaultIcon');\" id='defaultIcon' src='" . XOOPS_URL . "/modules/lexikon/assets/images/close12.gif' alt=''></a>&nbsp; " . _AM_BADMIN . '<br><br>';
     echo "<div id='default' style='float:left; width:100%;'>";
     echo "<form action='admin.php' name='blockadmin' method='post'>
           <table width='95%' class='outer' cellpadding='4' cellspacing='1'>
@@ -224,8 +220,7 @@ function list_blocks()
                 if ($block_arr[$i]->getVar('show_func') == $bconf['show_func']
                     && $block_arr[$i]->getVar('func_file') == $bconf['file']
                     && (empty($bconf['template'])
-                        || $block_arr[$i]->getVar('template') == $bconf['template'])
-                ) {
+                        || $block_arr[$i]->getVar('template') == $bconf['template'])) {
                     if (!empty($bconf['can_clone'])) {
                         $can_clone = true;
                     }

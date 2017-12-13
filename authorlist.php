@@ -66,15 +66,8 @@ if (count($uid_ids) > 0) {
             if (is_object($xoopsUser)) {
                 if ($xoopsUserIsAdmin
                     || (1 == $one_user->getVar('user_viewemail')
-                        && '' != $one_user->getVar('email'))
-                ) {
-                    $user_maillink = "<a href='mailto:"
-                                     . $one_user->getVar('email')
-                                     . "'><img src='"
-                                     . XOOPS_URL
-                                     . "/images/icons/email.gif' border='0' alt=\""
-                                     . sprintf(_SENDEMAILTO, $one_user->getVar('uname'))
-                                     . '"></a>';
+                        && '' != $one_user->getVar('email'))) {
+                    $user_maillink = "<a href='mailto:" . $one_user->getVar('email') . "'><img src='" . XOOPS_URL . "/images/icons/email.gif' border='0' alt=\"" . sprintf(_SENDEMAILTO, $one_user->getVar('uname')) . '"></a>';
                 } else {
                     $user_maillink = '';
                 }
@@ -83,13 +76,7 @@ if (count($uid_ids) > 0) {
             }
             if ('' != $one_user->getVar('url')) {
                 $url          = $one_user->getVar('url');
-                $user_wwwlink = "<a href='"
-                                . $one_user->getVar('url')
-                                . "'><img src='"
-                                . XOOPS_URL
-                                . "/images/icons/www.gif' border='0' alt='"
-                                . _VISITWEBSITE
-                                . "' ></a>";
+                $user_wwwlink = "<a href='" . $one_user->getVar('url') . "'><img src='" . XOOPS_URL . "/images/icons/www.gif' border='0' alt='" . _VISITWEBSITE . "' ></a>";
             } else {
                 $user_wwwlink = '';
             }
@@ -106,16 +93,16 @@ if (count($uid_ids) > 0) {
             }
             ++$iu;
             $xoopsTpl->append('authors', [
-                                          'id'             => $iu,
-                                          'uid'            => $one_user->getVar('uid'),
-                                          'name'           => $uname,
-                                          'user_avatarurl' => XOOPS_URL . '/uploads/' . $one_user->getVar('user_avatar'),
-                                          'email'          => $user_maillink,
-                                          'pm'             => $user_pmlink,
-                                          'url'            => $user_wwwlink,
-                                          'total'          => $authortotal,
-                                          'location'       => $userfrom
-                                          ]);
+                'id'             => $iu,
+                'uid'            => $one_user->getVar('uid'),
+                'name'           => $uname,
+                'user_avatarurl' => XOOPS_URL . '/uploads/' . $one_user->getVar('user_avatar'),
+                'email'          => $user_maillink,
+                'pm'             => $user_pmlink,
+                'url'            => $user_wwwlink,
+                'total'          => $authortotal,
+                'location'       => $userfrom
+            ]);
         } else {
             $xoopsTpl->assign('authorlistext', false);
             // authortotals
@@ -131,11 +118,11 @@ if (count($uid_ids) > 0) {
             $user_wwwlink  = '';
             $userfrom      = '';
             $xoopsTpl->append('authors', [
-                                          'id'    => $iu,
-                                          'uid'   => $one_user->getVar('uid'),
-                                          'name'  => $uname,
-                                          'total' => $authortotal
-                                          ]);
+                'id'    => $iu,
+                'uid'   => $one_user->getVar('uid'),
+                'name'  => $uname,
+                'total' => $authortotal
+            ]);
         }
     }
 }

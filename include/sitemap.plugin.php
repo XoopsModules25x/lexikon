@@ -18,7 +18,7 @@ function b_sitemap_lexikon()
     // Permission
     global $xoopsUser;
     $gpermHandler = xoops_getHandler('groupperm');
-    $groups        = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
+    $groups       = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
     /** @var XoopsModuleHandler $moduleHandler */
     $moduleHandler = xoops_getHandler('module');
     $module        = $moduleHandler->getByDirname('lexikon');
@@ -31,10 +31,10 @@ function b_sitemap_lexikon()
     $ret = [];
     while (list($id, $name) = $db->fetchRow($result)) {
         $ret['parent'][] = [
-                            'id'    => $id,
-                            'title' => $myts->htmlSpecialChars($name),
-                            'url'   => "category.php?categoryID=$id"
-                           ];
+            'id'    => $id,
+            'title' => $myts->htmlSpecialChars($name),
+            'url'   => "category.php?categoryID=$id"
+        ];
     }
 
     return $ret;

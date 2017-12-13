@@ -42,13 +42,7 @@ if (!function_exists('mb_ucfirst') && function_exists('mb_substr')) {
 $suggest = isset($_GET['suggest']) ? ((int)$_GET['suggest']) : 0;
 
 if ($suggest > 0) {
-    $terminosql = $xoopsDB->query('SELECT term FROM '
-                                  . $xoopsDB->prefix('lxentries')
-                                  . ' WHERE datesub < '
-                                  . time()
-                                  . " AND datesub > 0 AND request = '1' AND entryID = '"
-                                  . $suggest
-                                  . "'");
+    $terminosql = $xoopsDB->query('SELECT term FROM ' . $xoopsDB->prefix('lxentries') . ' WHERE datesub < ' . time() . " AND datesub > 0 AND request = '1' AND entryID = '" . $suggest . "'");
     list($termino) = $xoopsDB->fetchRow($terminosql);
 } else {
     $termino = '';
@@ -98,8 +92,7 @@ switch ($op) {
             }
         } else {
             if (!is_object($xoopsUser)
-                && $gpermHandler->checkRight('lexikon_submit', $perm_itemid, $groups, $module_id)
-            ) {
+                && $gpermHandler->checkRight('lexikon_submit', $perm_itemid, $groups, $module_id)) {
                 $uid = 0;
             } else {
                 redirect_header('index.php', 3, _NOPERM);
@@ -128,7 +121,7 @@ switch ($op) {
         $term4sql = LexikonUtility::sanitizeFieldName($myts->htmlspecialchars($_POST['term']));
         $init     = mb_substr($term4sql, 0, 1);
         $init     = preg_match('/[a-zA-Zа-яА-Я0-9]/', $init) ? mb_strtoupper($init) : '#';
-        
+
         $datesub = time();
 
         $submit      = 1;
@@ -173,10 +166,7 @@ switch ($op) {
             $tags['ITEM_BODY']     = $shortdefinition;
             $tags['DATESUB']       = formatTimestamp($datesub, 'd M Y');
             $tags['ITEM_URL']      = XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/admin/entry.php?op=mod&entryID=' . $newid;
-            $sql                   = 'SELECT name FROM '
-                                      . $xoopsDB->prefix('lxcategories')
-                                      . ' WHERE categoryID='
-                                      . $categoryID;
+            $sql                   = 'SELECT name FROM ' . $xoopsDB->prefix('lxcategories') . ' WHERE categoryID=' . $categoryID;
             $result                = $xoopsDB->query($sql);
             $row                   = $xoopsDB->fetchArray($result);
             $tags['CATEGORY_NAME'] = $row['name'];

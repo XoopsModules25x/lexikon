@@ -282,8 +282,7 @@ function list_blockinstances()
         $description4show = '';
         foreach ($block_configs as $bconf) {
             if ($block['show_func'] == $bconf['show_func'] && $block['func_file'] == $bconf['file']
-                && (empty($bconf['template']) || $block['template'] == $bconf['template'])
-            ) {
+                && (empty($bconf['template']) || $block['template'] == $bconf['template'])) {
                 if (!empty($bconf['description'])) {
                     $description4show = $myts->htmlSpecialChars($bconf['description']);
                 }
@@ -325,11 +324,7 @@ function list_groups2()
 {
     global $target_mid, $target_mname, $xoopsDB;
 
-    $result = $xoopsDB->query('SELECT i.instanceid,i.title FROM '
-                              . $xoopsDB->prefix('block_instance')
-                              . ' i LEFT JOIN '
-                              . $xoopsDB->prefix('newblocks')
-                              . " b ON i.bid=b.bid WHERE b.mid='$target_mid'");
+    $result = $xoopsDB->query('SELECT i.instanceid,i.title FROM ' . $xoopsDB->prefix('block_instance') . ' i LEFT JOIN ' . $xoopsDB->prefix('newblocks') . " b ON i.bid=b.bid WHERE b.mid='$target_mid'");
 
     $item_list = [];
     while (list($iid, $title) = $xoopsDB->fetchRow($result)) {

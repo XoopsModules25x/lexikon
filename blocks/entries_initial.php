@@ -14,11 +14,11 @@ defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
 function uchr($a)
 {
     if (is_scalar($a)) {
-        $a= func_get_args();
+        $a = func_get_args();
     }
-    $str= '';
+    $str = '';
     foreach ($a as $code) {
-        $str.= html_entity_decode('&#'.$code.';', ENT_NOQUOTES, 'UTF-8');
+        $str .= html_entity_decode('&#' . $code . ';', ENT_NOQUOTES, 'UTF-8');
     }
     return $str;
 }
@@ -62,15 +62,9 @@ function b_lxentries_alpha_show($options)
     $block['moduledirname'] = $lexikon->dirname();
     $count                  = 0;
     for ($a = 48; $a < (48 + 10); ++$a) {
-        $letterlinks = [];
-        $initial     = uchr($a);
-        $sql                     = $xoopsDB->query('SELECT init FROM '
-                                                   . $xoopsDB->prefix('lxentries')
-                                                   . " WHERE init = '$initial' AND datesub < '"
-                                                   . time()
-                                                   . "' AND datesub > '0' AND offline= '0' AND submit='0' AND request='0' "
-                                                   . $catperms
-                                                   . ' ');
+        $letterlinks             = [];
+        $initial                 = uchr($a);
+        $sql                     = $xoopsDB->query('SELECT init FROM ' . $xoopsDB->prefix('lxentries') . " WHERE init = '$initial' AND datesub < '" . time() . "' AND datesub > '0' AND offline= '0' AND submit='0' AND request='0' " . $catperms . ' ');
         $howmany                 = $xoopsDB->getRowsNum($sql);
         $letterlinks['total']    = $howmany;
         $letterlinks['id']       = uchr($a);
@@ -80,15 +74,9 @@ function b_lxentries_alpha_show($options)
         $block['initstuff'][] = $letterlinks;
     }
     for ($a = 65; $a < (65 + 26); ++$a) {
-        $letterlinks = [];
-        $initial     = uchr($a);
-        $sql                     = $xoopsDB->query('SELECT init FROM '
-                                                   . $xoopsDB->prefix('lxentries')
-                                                   . " WHERE init = '$initial' AND datesub < '"
-                                                   . time()
-                                                   . "' AND datesub > '0' AND offline= '0' AND submit='0' AND request='0' "
-                                                   . $catperms
-                                                   . ' ');
+        $letterlinks             = [];
+        $initial                 = uchr($a);
+        $sql                     = $xoopsDB->query('SELECT init FROM ' . $xoopsDB->prefix('lxentries') . " WHERE init = '$initial' AND datesub < '" . time() . "' AND datesub > '0' AND offline= '0' AND submit='0' AND request='0' " . $catperms . ' ');
         $howmany                 = $xoopsDB->getRowsNum($sql);
         $letterlinks['total']    = $howmany;
         $letterlinks['id']       = uchr($a);

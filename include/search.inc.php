@@ -25,8 +25,8 @@ function lx_search($queryarray, $andor, $limit, $offset, $userid)
     $searchincomments = false;
     require_once XOOPS_ROOT_PATH . '/modules/lexikon/include/common.inc.php';
     require_once XOOPS_ROOT_PATH . '/modules/lexikon/class/Utility.php';
-    $hightlight_key = '';
-    $highlight      = LexikonUtility::getModuleOption('config_highlighter');
+    $hightlight_key   = '';
+    $highlight        = LexikonUtility::getModuleOption('config_highlighter');
     $searchincomments = CONFIG_SEARCH_COMMENTS;
     /** @var XoopsModuleHandler $moduleHandler */
     $moduleHandler = xoops_getHandler('module');
@@ -49,7 +49,7 @@ function lx_search($queryarray, $andor, $limit, $offset, $userid)
             $keywords       = '';
             $hightlight_key = '';
         } else {
-            $keywords = implode('+', $queryarray);
+            $keywords       = implode('+', $queryarray);
             $hightlight_key = '&amp;keywords=' . $keywords;
         }
     }

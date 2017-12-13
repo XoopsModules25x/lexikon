@@ -11,7 +11,7 @@ require_once __DIR__ . '/admin_header.php';
 $myts = MyTextSanitizer::getInstance();
 xoops_cp_header();
 xoops_load('XoopsUserUtility');
-$adminObject  = \Xmf\Module\Admin::getInstance();
+$adminObject = \Xmf\Module\Admin::getInstance();
 $adminObject->displayNavigation(basename(__FILE__));
 $adminObject->addItemButton(_AM_LEXIKON_CREATECAT, 'category.php?op=addcat', 'add');
 $adminObject->displayButton('left');
@@ -73,22 +73,10 @@ function categoryDefault()
         $class = 'odd';
         if ($numrows > 0) { // That is, if there ARE columns in the system
             while (list($categoryID, $name, $description, $total, $weight, $logourl) = $xoopsDB->fetchRow($resultC2)) {
-                $name = $myts->htmlSpecialChars($name);
+                $name        = $myts->htmlSpecialChars($name);
                 $description = strip_tags(htmlspecialchars_decode($description));
-                $modify      = "<a href='category.php?op=mod&categoryID="
-                                . $categoryID
-                                . "'><img src="
-                                . $pathIcon16
-                                . "/edit.png alt='"
-                                . _AM_LEXIKON_EDITCAT
-                                . "'></a>";
-                $delete      = "<a href='category.php?op=del&categoryID="
-                                . $categoryID
-                                . "'><img src="
-                                . $pathIcon16
-                                . "/delete.png  alt='"
-                                . _AM_LEXIKON_DELETECAT
-                                . "'></a>";
+                $modify      = "<a href='category.php?op=mod&categoryID=" . $categoryID . "'><img src=" . $pathIcon16 . "/edit.png alt='" . _AM_LEXIKON_EDITCAT . "'></a>";
+                $delete      = "<a href='category.php?op=del&categoryID=" . $categoryID . "'><img src=" . $pathIcon16 . "/delete.png  alt='" . _AM_LEXIKON_DELETECAT . "'></a>";
 
                 echo "<tr class='" . $class . "'>";
                 $class = ('even' === $class) ? 'odd' : 'even';
@@ -191,7 +179,7 @@ function categoryEdit($categoryID = '')
 
         $path_catimg       = 'uploads/' . $xoopsModule->getVar('dirname') . '/categories/images';
         $image_option_tray = new XoopsFormElementTray(_AM_LEXIKON_CATIMAGE . '<br>' . _AM_LEXIKON_CATIMG_DSC . '<br>' . $path_catimg);
-        $image_array = XoopsLists::getImgListAsArray(XOOPS_ROOT_PATH . '/' . $path_catimg . '/');
+        $image_array       = XoopsLists::getImgListAsArray(XOOPS_ROOT_PATH . '/' . $path_catimg . '/');
         array_unshift($image_array, _NONE);
 
         $image_select = new XoopsFormSelect('', 'logourl', $logourl);
@@ -200,15 +188,9 @@ function categoryEdit($categoryID = '')
         $image_tray = new XoopsFormElementTray('', '&nbsp;');
         $image_tray->addElement($image_select);
         if (!empty($logourl) && file_exists(XOOPS_ROOT_PATH . '/' . $path_catimg . '/' . $logourl)) {
-            $image_tray->addElement(new XoopsFormLabel(
-                '',
-                        "<div style='padding: 4px;'><img src=\"" . XOOPS_URL . '/' . $path_catimg . '/' . $logourl . '" name="img" id="img" alt="" ></div>'
-            ));
+            $image_tray->addElement(new XoopsFormLabel('', "<div style='padding: 4px;'><img src=\"" . XOOPS_URL . '/' . $path_catimg . '/' . $logourl . '" name="img" id="img" alt="" ></div>'));
         } else {
-            $image_tray->addElement(new XoopsFormLabel(
-                '',
-                        "<div style='padding: 4px;'><img src=\"" . XOOPS_URL . '/' . $path_catimg . '/blank.gif" name="img" id="img" alt="" ></div>'
-            ));
+            $image_tray->addElement(new XoopsFormLabel('', "<div style='padding: 4px;'><img src=\"" . XOOPS_URL . '/' . $path_catimg . '/blank.gif" name="img" id="img" alt="" ></div>'));
         }
         $image_option_tray->addElement($image_tray);
         $sform->addElement($image_option_tray);
@@ -245,6 +227,7 @@ function categoryEdit($categoryID = '')
     $sform->display();
     unset($hidden);
 }
+
 /**
  * Code to delete existing categories
  * @param string $categoryID
@@ -291,6 +274,7 @@ function categoryDelete($categoryID = '')
         require_once __DIR__ . '/admin_footer.php';
     }
 }
+
 /**
  * @param string $categoryID
  */
@@ -315,12 +299,12 @@ function categorySave($categoryID = '')
     $maxfileheight = $xoopsModuleConfig['imguploadwd'];
     if (!empty($_FILES['userfile']['name'])) {
         $allowed_mimetypes = [
-                              'image/gif',
-                              'image/jpeg',
-                              'image/pjpeg',
-                              'image/x-png',
-                              'image/png'
-                             ];
+            'image/gif',
+            'image/jpeg',
+            'image/pjpeg',
+            'image/x-png',
+            'image/png'
+        ];
         $uploader          = new XoopsMediaUploader(XOOPS_ROOT_PATH . '/uploads/' . $xoopsModule->getVar('dirname') . '/categories/images/', $allowed_mimetypes, $maxfilesize, $maxfilewidth, $maxfileheight);
 
         if ($uploader->fetchMedia($_POST['xoops_upload_file'][0])) {
@@ -339,8 +323,7 @@ function categorySave($categoryID = '')
     // Run the query and update the data
     if (!$_POST['categoryID']) {
         if ($xoopsDB->query('INSERT INTO ' . $xoopsDB->prefix('lxcategories') . " (categoryID, name, description, weight, logourl)
-                                 VALUES (0, '$name', '$description', '$weight', '$logourl')")
-        ) {
+                                 VALUES (0, '$name', '$description', '$weight', '$logourl')")) {
             $newid = $xoopsDB->getInsertId();
             // Increment author's posts count (only if it's a new definition)
             if (is_object($xoopsUser) && empty($categoryID)) {
@@ -373,8 +356,7 @@ function categorySave($categoryID = '')
         if ($xoopsDB->queryF('
                                 UPDATE ' . $xoopsDB->prefix('lxcategories') . "
                                 SET name = '$name', description = '$description', weight = '$weight' , logourl = '$logourl'
-                                WHERE categoryID = '$categoryID'")
-        ) {
+                                WHERE categoryID = '$categoryID'")) {
             lx_save_Permissions($groups, $categoryID, 'lexikon_view');
             redirect_header('category.php', 1, _AM_LEXIKON_CATMODIFIED);
         } else {
@@ -382,6 +364,7 @@ function categorySave($categoryID = '')
         }
     }
 }
+
 /**
  * Available operations
  **/

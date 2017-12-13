@@ -123,22 +123,10 @@ function b_lxentries_random_show()
                      . '" width="16" height="16" ></a>&nbsp;';
 
         if (1 == $lxConfig['multicats']) {
-            $block['content'] = '<div style="font-size: 12px; font-weight: bold; background-color: #ccc; padding: 4px; margin: 0;"><a href="'
-                                . XOOPS_URL
-                                . '/modules/'
-                                . $lexikon->dirname()
-                                . "/category.php?categoryID=$categoryID\">$categoryname</a></div>";
-            $block['content'] .= "<div style=\"padding: 4px 0 0 0; color: #456;\"><h5 style=\"margin: 0;\">$adminlinks $userlinks <a href=\""
-                                 . XOOPS_URL
-                                 . '/modules/'
-                                 . $lexikon->dirname()
-                                 . "/entry.php?entryID=$entryID\">$term</a></h5>$definition</div>";
+            $block['content'] = '<div style="font-size: 12px; font-weight: bold; background-color: #ccc; padding: 4px; margin: 0;"><a href="' . XOOPS_URL . '/modules/' . $lexikon->dirname() . "/category.php?categoryID=$categoryID\">$categoryname</a></div>";
+            $block['content'] .= "<div style=\"padding: 4px 0 0 0; color: #456;\"><h5 style=\"margin: 0;\">$adminlinks $userlinks <a href=\"" . XOOPS_URL . '/modules/' . $lexikon->dirname() . "/entry.php?entryID=$entryID\">$term</a></h5>$definition</div>";
         } else {
-            $block['content'] = "<div style=\"padding: 4px; color: #456;\"><h5 style=\"margin: 0;\">$adminlinks $userlinks <a style=\"margin: 0;\" href=\""
-                                . XOOPS_URL
-                                . '/modules/'
-                                . $lexikon->dirname()
-                                . "/entry.php?entryID=$entryID\">$term</a></h5>$definition</div>";
+            $block['content'] = "<div style=\"padding: 4px; color: #456;\"><h5 style=\"margin: 0;\">$adminlinks $userlinks <a style=\"margin: 0;\" href=\"" . XOOPS_URL . '/modules/' . $lexikon->dirname() . "/entry.php?entryID=$entryID\">$term</a></h5>$definition</div>";
         }
     }
 

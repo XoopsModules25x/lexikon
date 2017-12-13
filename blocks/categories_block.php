@@ -32,8 +32,8 @@ function b_lxcategories_show($options)
     $cats      = $gpermHandler->getItemIds('lexikon_view', $groups, $module_id);
     $totalcats = count($cats);
 
-    $block = [];
-    $sql   = 'SELECT categoryID, name, total FROM ' . $xoopsDB->prefix('lxcategories') . ' WHERE ' . $catperms . ' ORDER BY ' . $options[0] . ' DESC';
+    $block  = [];
+    $sql    = 'SELECT categoryID, name, total FROM ' . $xoopsDB->prefix('lxcategories') . ' WHERE ' . $catperms . ' ORDER BY ' . $options[0] . ' DESC';
     $result = $xoopsDB->query($sql, $options[1], 0);
 
     if ($totalcats > 0) { // If there are categories

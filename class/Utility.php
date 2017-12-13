@@ -44,7 +44,8 @@ class LexikonUtility
                     file_put_contents($folder . '/index.html', '<script>history.go(-1);</script>');
                 }
             }
-        } catch (Exception $e) {
+        }
+        catch (Exception $e) {
             echo 'Caught exception: ', $e->getMessage(), "\n", '<br>';
         }
     }
@@ -183,21 +184,9 @@ class LexikonUtility
                     $username = $user->getVar('name');
                 }
                 if (!empty($usernameu)) {
-                    $linkeduser = "$usernameu [<a href='"
-                                          . XOOPS_URL
-                                          . '/userinfo.php?uid='
-                                          . $userid
-                                          . "'>"
-                                          . $ts->htmlSpecialChars($username)
-                                          . '</a>]';
+                    $linkeduser = "$usernameu [<a href='" . XOOPS_URL . '/userinfo.php?uid=' . $userid . "'>" . $ts->htmlSpecialChars($username) . '</a>]';
                 } else {
-                    $linkeduser = "<a href='"
-                              . XOOPS_URL
-                              . '/userinfo.php?uid='
-                              . $userid
-                              . "'>"
-                              . ucfirst($ts->htmlSpecialChars($username))
-                              . '</a>';
+                    $linkeduser = "<a href='" . XOOPS_URL . '/userinfo.php?uid=' . $userid . "'>" . ucfirst($ts->htmlSpecialChars($username)) . '</a>';
                 }
 
                 return $linkeduser;
@@ -299,6 +288,7 @@ class LexikonUtility
     }
 
     // To display the list of categories
+
     /**
      * @return array
      */
@@ -310,9 +300,7 @@ class LexikonUtility
         $gpermHandler = xoops_getHandler('groupperm');
         $block0       = [];
         $count        = 1;
-        $resultcat    = $xoopsDB->query('SELECT categoryID, name, total, logourl FROM '
-                                    . $xoopsDB->prefix('lxcategories')
-                                    . ' ORDER BY weight ASC');
+        $resultcat    = $xoopsDB->query('SELECT categoryID, name, total, logourl FROM ' . $xoopsDB->prefix('lxcategories') . ' ORDER BY weight ASC');
         while (list($catID, $name, $total, $logourl) = $xoopsDB->fetchRow($resultcat)) {
             if ($gpermHandler->checkRight('lexikon_view', $catID, $groups, $xoopsModule->getVar('mid'))) {
                 $catlinks = [];
@@ -340,10 +328,10 @@ class LexikonUtility
      * @return array
      */
     //function uchr($a) {
-//    if (is_scalar($a)) $a= func_get_args();
-//    $str= '';
-//    foreach ($a as $code) $str.= html_entity_decode('&#'.$code.';',ENT_NOQUOTES,'UTF-8');
-//    return $str;
+    //    if (is_scalar($a)) $a= func_get_args();
+    //    $str= '';
+    //    foreach ($a as $code) $str.= html_entity_decode('&#'.$code.';',ENT_NOQUOTES,'UTF-8');
+    //    return $str;
     //}
 
     public static function getAlphaArray()
@@ -367,14 +355,11 @@ class LexikonUtility
         {
             return mb_convert_encoding(pack('N', $a), mb_internal_encoding(), 'UCS-4BE');
         }
+
         for ($a = 48; $a < (48 + 10); ++$a) {
             $letterlinks             = [];
             $initial                 = unichr($a);
-            $sql                     = $xoopsDB->query('SELECT entryID FROM '
-                                                       . $xoopsDB->prefix('lxentries')
-                                                       . " WHERE init = '$initial' AND submit = '0' AND offline ='0' AND request = '0' "
-                                                       . $catperms
-                                                       . '');
+            $sql                     = $xoopsDB->query('SELECT entryID FROM ' . $xoopsDB->prefix('lxentries') . " WHERE init = '$initial' AND submit = '0' AND offline ='0' AND request = '0' " . $catperms . '');
             $howmany                 = $xoopsDB->getRowsNum($sql);
             $letterlinks['total']    = $howmany;
             $letterlinks['id']       = unichr($a);
@@ -385,11 +370,7 @@ class LexikonUtility
         for ($a = 65; $a < (65 + 26); ++$a) {
             $letterlinks             = [];
             $initial                 = unichr($a);
-            $sql                     = $xoopsDB->query('SELECT entryID FROM '
-                                                       . $xoopsDB->prefix('lxentries')
-                                                       . " WHERE init = '$initial' AND submit = '0' AND offline ='0' AND request = '0' "
-                                                       . $catperms
-                                                       . '');
+            $sql                     = $xoopsDB->query('SELECT entryID FROM ' . $xoopsDB->prefix('lxentries') . " WHERE init = '$initial' AND submit = '0' AND offline ='0' AND request = '0' " . $catperms . '');
             $howmany                 = $xoopsDB->getRowsNum($sql);
             $letterlinks['total']    = $howmany;
             $letterlinks['id']       = unichr($a);
@@ -411,7 +392,7 @@ class LexikonUtility
             $letterlinks['linktext'] = unichr($a);
             $alpha['initial'][] = $letterlinks;
         }*/
-    
+
         return $alpha;
     }
 
@@ -464,14 +445,16 @@ class LexikonUtility
                              . '" href="/modules/lexikon/admin/entry.php?op=mod&entryID='
                              . $variable['id']
                              . '" target="_blank"><img src="'
-                             . $pathIcon16 . '/edit.png"   alt="'
+                             . $pathIcon16
+                             . '/edit.png"   alt="'
                              . _MD_LEXIKON_EDITTERM
                              . '" style="width:16px; height:16px;"></a>&nbsp;<a TITLE="'
                              . _DELETE
                              . '" href="admin/entry.php?op=del&entryID='
                              . $variable['id']
                              . '" target="_self"><img src="'
-                             . $pathIcon16 . '/delete.png" alt="'
+                             . $pathIcon16
+                             . '/delete.png" alt="'
                              . _MD_LEXIKON_DELTERM
                              . '" style="width:16px; height:16px;"></a>&nbsp;';
             }
@@ -482,7 +465,8 @@ class LexikonUtility
                          . '" href="print.php?entryID='
                          . $variable['id']
                          . '" target="_blank"><img src="'
-                         . $pathIcon16 . '/printer.png"  alt="'
+                         . $pathIcon16
+                         . '/printer.png"  alt="'
                          . _MD_LEXIKON_PRINTTERM
                          . '" style="width:16px; height:16px;"></a>&nbsp;<a TITLE="'
                          . _MD_LEXIKON_SENDTOFRIEND
@@ -497,20 +481,14 @@ class LexikonUtility
                          . '/entry.php?entryID='
                          . $variable['id']
                          . ' " target="_blank"><img src="'
-                         . $pathIcon16 . '/mail_replay.png" alt="'
+                         . $pathIcon16
+                         . '/mail_replay.png" alt="'
                          . _MD_LEXIKON_SENDTOFRIEND
                          . '" style="width:16px; height:16px;"></a>&nbsp;';
             if ((0 != $xoopsModuleConfig['com_rule'])
                 && (!empty($xoopsModuleConfig['com_anonpost'])
-                    || is_object($xoopsUser))
-            ) {
-                $srvlinks .= '<a TITLE="'
-                             . _COMMENTS
-                             . '?" href="comment_new.php?com_itemid='
-                             . $variable['id']
-                             . '" target="_parent"><img src="assets/images/comments.gif" alt="'
-                             . _COMMENTS
-                             . '?" style="width:16px; height:16px;"></a>&nbsp;';
+                    || is_object($xoopsUser))) {
+                $srvlinks .= '<a TITLE="' . _COMMENTS . '?" href="comment_new.php?com_itemid=' . $variable['id'] . '" target="_parent"><img src="assets/images/comments.gif" alt="' . _COMMENTS . '?" style="width:16px; height:16px;"></a>&nbsp;';
             }
         }
 
@@ -518,6 +496,7 @@ class LexikonUtility
     }
 
     // entry footer
+
     /**
      * @param $variable
      * @return string
@@ -758,6 +737,7 @@ class LexikonUtility
     }
 
     // Create meta description based on content
+
     /**
      * @param $content
      */
@@ -774,6 +754,7 @@ class LexikonUtility
     }
 
     // Create pagetitles
+
     /**
      * @param string $article
      * @param string $topic
@@ -806,6 +787,7 @@ class LexikonUtility
     }
 
     // clear descriptions
+
     /**
      * @param $document
      * @return mixed
@@ -854,6 +836,7 @@ class LexikonUtility
     }
 
     //Retrieve moduleoptions equivalent to $Xoopsmoduleconfig
+
     /**
      * @param         $option
      * @param  string $repmodule
@@ -870,8 +853,7 @@ class LexikonUtility
         $retval = false;
         if (isset($xoopsModuleConfig)
             && (is_object($xoopsModule) && $xoopsModule->getVar('dirname') == $repmodule
-                && $xoopsModule->getVar('isactive'))
-        ) {
+                && $xoopsModule->getVar('isactive'))) {
             if (isset($xoopsModuleConfig[$option])) {
                 $retval = $xoopsModuleConfig[$option];
             }
@@ -1057,9 +1039,7 @@ class LexikonUtility
                 return false;
             }
         }
-        $result = $xoopsDB->query('SELECT * FROM '
-                              . $xoopsDB->prefix('users')
-                              . " WHERE uid='$uids'");
+        $result = $xoopsDB->query('SELECT * FROM ' . $xoopsDB->prefix('users') . " WHERE uid='$uids'");
         if ($xoopsDB->getRowsNum($result) <= 0) {
             return false;
         }
@@ -1069,6 +1049,7 @@ class LexikonUtility
     }
 
     // Get all terms published by an author
+
     /**
      * @param $uid
      */
@@ -1114,6 +1095,7 @@ class LexikonUtility
     }
 
     // Returns the author's IDs for authorslist
+
     /**
      * @param  int $limit
      * @param  int $start
@@ -1124,9 +1106,7 @@ class LexikonUtility
         global $xoopsDB;
 
         $ret    = [];
-        $sql    = 'SELECT DISTINCT(uid) AS uid FROM '
-              . $xoopsDB->prefix('lxentries')
-              . ' WHERE offline = 0 ';
+        $sql    = 'SELECT DISTINCT(uid) AS uid FROM ' . $xoopsDB->prefix('lxentries') . ' WHERE offline = 0 ';
         $sql    .= ' ORDER BY uid';
         $result = $xoopsDB->query($sql);
         while ($myrow = $xoopsDB->fetchArray($result)) {
@@ -1137,6 +1117,7 @@ class LexikonUtility
     }
 
     // link to userprofile
+
     /**
      * @param $userid
      * @return string
@@ -1149,17 +1130,7 @@ class LexikonUtility
             $memberHandler = xoops_getHandler('member');
             $user          = $memberHandler->getUser($userid);
             if (is_object($user)) {
-                $linkeduser = '<A TITLE="'
-                              . _MD_LEXIKON_AUTHORPROFILETEXT
-                              . '" HREF="'
-                              . XOOPS_URL
-                              . '/modules/'
-                              . $xoopsModule->dirname()
-                              . '/profile.php?uid='
-                              . $uid
-                              . '">'
-                              . $user->getVar('uname')
-                              . '</a>';
+                $linkeduser = '<A TITLE="' . _MD_LEXIKON_AUTHORPROFILETEXT . '" HREF="' . XOOPS_URL . '/modules/' . $xoopsModule->dirname() . '/profile.php?uid=' . $uid . '">' . $user->getVar('uname') . '</a>';
                 //$linkeduser = XoopsUserUtility::getUnameFromId ( $uid );
                 //$linkeduser .= '<div style=\'position:relative; right: 4px; top: 2px;\'><A TITLE="'._MD_LEXIKON_AUTHORPROFILETEXT.'" HREF="'.XOOPS_URL.'/modules/'.$xoopsModule->dirname().'/profile.php?uid='.$uid.'">'._MD_LEXIKON_AUTHORPROFILETEXT.'</a></div>';
                 return $linkeduser;
@@ -1170,6 +1141,7 @@ class LexikonUtility
     }
 
     // functionset to assign terms with accentuated or umlaut initials to the adequate initial
+
     /**
      * @param $string
      * @return mixed|string
@@ -1276,7 +1248,7 @@ class LexikonUtility
             'ae',
             'dh',
             'th'
-            ];
+        ];
         $string              = str_replace($double_chars['in'], $double_chars['out'], $string);
 
         return $string;
@@ -1339,6 +1311,7 @@ class LexikonUtility
     }
 
     // Verify that a term does not exist for submissions and requests (both user frontend and admin backend)
+
     /**
      * @param $term
      * @param $table
@@ -1355,6 +1328,7 @@ class LexikonUtility
     }
 
     // Static method to get author data block authors - from AMS
+
     /**
      * @param  int    $limit
      * @param  string $sort

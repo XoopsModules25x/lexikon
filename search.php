@@ -14,8 +14,8 @@ global $xoTheme, $xoopsDB, $xoopsModule, $xoopsModuleConfig, $searchtype;
 $myts = MyTextSanitizer::getInstance();
 // -- options
 require_once XOOPS_ROOT_PATH . '/modules/lexikon/include/common.inc.php';
-$highlight = false;
-$highlight = ($xoopsModuleConfig['config_highlighter'] = 1) ? 1 : 0;
+$highlight      = false;
+$highlight      = ($xoopsModuleConfig['config_highlighter'] = 1) ? 1 : 0;
 $hightlight_key = '';
 
 require_once XOOPS_ROOT_PATH . '/class/pagenav.php';
@@ -90,13 +90,7 @@ if (!$query) {
 } else {
     // IF results, count number
     $catrestrict = " categoryID IN ($catids) ";
-    $searchquery = $xoopsDB->query('SELECT COUNT(*) as nrows FROM '
-                                   . $xoopsDB->prefix('lxentries')
-                                   . " w WHERE offline='0' AND "
-                                   . $catrestrict
-                                   . ' '
-                                   . $andcatid
-                                   . " AND $searchtype   ORDER BY term DESC");
+    $searchquery = $xoopsDB->query('SELECT COUNT(*) as nrows FROM ' . $xoopsDB->prefix('lxentries') . " w WHERE offline='0' AND " . $catrestrict . ' ' . $andcatid . " AND $searchtype   ORDER BY term DESC");
     list($results) = $xoopsDB->fetchRow($searchquery);
 
     if (0 == $results) {

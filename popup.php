@@ -17,15 +17,11 @@ if (!$entryID) {
 //global $xoopsModuleConfig;
 $myts = MyTextSanitizer::getInstance();
 
-$sqlQuery = $xoopsDB->query('SELECT * FROM '
-                            . $xoopsDB->prefix('lxentries')
-                            . " WHERE entryID=$entryID");
+$sqlQuery = $xoopsDB->query('SELECT * FROM ' . $xoopsDB->prefix('lxentries') . " WHERE entryID=$entryID");
 $sqlfetch = $xoopsDB->fetchArray($sqlQuery);
 if (1 == $xoopsModuleConfig['multicats']) {
     $cID       = $sqlfetch['categoryID'];
-    $sqlquery2 = $xoopsDB->query('SELECT name FROM '
-                                  . $xoopsDB->prefix('lxcategories')
-                                  . " WHERE categoryID = $cID");
+    $sqlquery2 = $xoopsDB->query('SELECT name FROM ' . $xoopsDB->prefix('lxcategories') . " WHERE categoryID = $cID");
     $sqlfetch2 = $xoopsDB->fetchArray($sqlquery2);
     $catname   = $myts->htmlSpecialChars($sqlfetch2['name']);
 }

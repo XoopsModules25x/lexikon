@@ -255,9 +255,7 @@ function FormImport()
 {
     global $xoopsConfig, $xoopsDB, $xoopsModule;
     //lx_importMenu(9);
-    echo "<strong style='color: #2F5376; margin-top:6px; font-size:medium'>"
-        . _AM_LEXIKON_IMPORT_WORDBOOK
-         . '</strong><br><br>';
+    echo "<strong style='color: #2F5376; margin-top:6px; font-size:medium'>" . _AM_LEXIKON_IMPORT_WORDBOOK . '</strong><br><br>';
     /** @var XoopsModuleHandler $moduleHandler */
     $moduleHandler  = xoops_getHandler('module');
     $wordbookModule = $moduleHandler->getByDirname('wordbook');
@@ -265,49 +263,26 @@ function FormImport()
     if (is_object($wordbookModule)) {
         echo "<table style='width:100%; border:0;' class='outer'>";
         echo '<tr>';
-        echo "<td colspan='2' class='bg3' style='text-align:left;'><span style='font-size: x-small; '><b>"
-        . _AM_LEXIKON_MODULEHEADIMPORTWB
-        . '</b></span></td>';
+        echo "<td colspan='2' class='bg3' style='text-align:left;'><span style='font-size: x-small; '><b>" . _AM_LEXIKON_MODULEHEADIMPORTWB . '</b></span></td>';
         echo '</tr>';
 
         echo '<tr>';
-        echo "<td class='head' style='width:200px; text-align:center;'><img src='"
-             . XOOPS_URL
-             . '/modules/'
-             . $xoopsModule->dirname()
-             . '/assets/images/dialog-important.png'
-             . "' alt='' style='margin-right:10px;  margin-top:20px; text-align:middle;'></td>";
-        echo "<td class='even' style='text-align:center;'><br><b><span style='font-size:x-small; color:red;'>"
-        . _AM_LEXIKON_IMPORTWARN
-        . '</span></b></td>';
+        echo "<td class='head' style='width:200px; text-align:center;'><img src='" . XOOPS_URL . '/modules/' . $xoopsModule->dirname() . '/assets/images/dialog-important.png' . "' alt='' style='margin-right:10px;  margin-top:20px; text-align:middle;'></td>";
+        echo "<td class='even' style='text-align:center;'><br><b><span style='font-size:x-small; color:red;'>" . _AM_LEXIKON_IMPORTWARN . '</span></b></td>';
         echo '</tr>';
 
         echo '<tr>';
-        echo "<td class='head' style='width:200px; text-align:left'><span style='font-size:x-small;'>"
-        . _AM_LEXIKON_IMPORTDELWB
-        . '</span></td>';
+        echo "<td class='head' style='width:200px; text-align:left'><span style='font-size:x-small;'>" . _AM_LEXIKON_IMPORTDELWB . '</span></td>';
         echo "<td class='even' style='text-align:center;'><form action='importdictionary.php?op=import' method=POST>
-        <input type='radio' name='delete' value='1'>&nbsp;"
-        . _YES
-        . "&nbsp;&nbsp;
-        <input type='radio' name='delete' value='0' checked>&nbsp;"
-        . _NO
-        . '</td>';
+        <input type='radio' name='delete' value='1'>&nbsp;" . _YES . "&nbsp;&nbsp;
+        <input type='radio' name='delete' value='0' checked>&nbsp;" . _NO . '</td>';
         echo "</tr><tr><td class='head' style='width:200px; text-align:center;'>&nbsp;</td>";
         echo "<td class='even' style='text-align:center;'>
-        <input type='submit' name='button' id='import' value='"
-        . _AM_LEXIKON_IMPORT
-        . "'>&nbsp;
-        <input type='button' name='cancel' value='"
-        . _CANCEL
-        . "' onclick='history.go(-1);'></td>";
+        <input type='submit' name='button' id='import' value='" . _AM_LEXIKON_IMPORT . "'>&nbsp;
+        <input type='button' name='cancel' value='" . _CANCEL . "' onclick='history.go(-1);'></td>";
         echo "</tr></table><br>\n";
     } else {
-        echo "<br><b><span style='color:red'>"
-        . _AM_LEXIKON_IMPORT_ERROR_MODULE
-        . "</span></b><br><br><a href='import.php'><button>"
-        . _AM_LEXIKON_BACK
-             . '</button></a>';
+        echo "<br><b><span style='color:red'>" . _AM_LEXIKON_IMPORT_ERROR_MODULE . "</span></b><br><br><a href='import.php'><button>" . _AM_LEXIKON_BACK . '</button></a>';
     }
     require_once __DIR__ . '/admin_footer.php';
 }

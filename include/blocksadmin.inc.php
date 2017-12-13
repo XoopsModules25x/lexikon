@@ -17,7 +17,6 @@
  * @author       XOOPS Development Team, Kazumi Ono (AKA onokazu)
  */
 
-
 if (!is_object($xoopsUser) || !is_object($xoopsModule) || !$xoopsUser->isAdmin($xoopsModule->mid())) {
     exit('Access Denied');
 }
@@ -35,8 +34,7 @@ if (!empty($_POST['bid'])) {
 
 if (isset($_GET['op'])) {
     if ('edit' === $_GET['op'] || 'delete' === $_GET['op'] || 'delete_ok' === $_GET['op']
-        || 'clone' === $_GET['op'] /* || $_GET['op'] == 'previewpopup'*/
-    ) {
+        || 'clone' === $_GET['op'] /* || $_GET['op'] == 'previewpopup'*/) {
         $op  = $_GET['op'];
         $bid = isset($_GET['bid']) ? (int)$_GET['bid'] : 0;
     }
@@ -342,15 +340,11 @@ if ('delete' === $op) {
         $message = _AM_MODULECANT;
         redirect_header('admin.php?fct=blocksadmin', 4, $message);
     } else {
-        xoops_confirm(
-            [
-                      'fct' => 'blocksadmin',
-                      'op' => 'delete_ok',
-                      'bid' => $myblock->getVar('bid')
-                      ] + $xoopsGTicket->getTicketArray(__LINE__, 1800, 'myblocksadmin'),
-            'admin.php',
-                      sprintf(_AM_RUSUREDEL, $myblock->getVar('title'))
-        );
+        xoops_confirm([
+                          'fct' => 'blocksadmin',
+                          'op'  => 'delete_ok',
+                          'bid' => $myblock->getVar('bid')
+                      ] + $xoopsGTicket->getTicketArray(__LINE__, 1800, 'myblocksadmin'), 'admin.php', sprintf(_AM_RUSUREDEL, $myblock->getVar('title')));
     }
     // end of delete_block() GIJ
     xoops_cp_footer();
@@ -550,8 +544,8 @@ function myblocksadmin_update_block(
     $bctype,
     $bcachetime,
     $bmodule,
-    $options = []
-) {
+    $options = [])
+{
     global $xoopsConfig;
     /* if (empty($bmodule)) {
         xoops_cp_header();
@@ -654,8 +648,8 @@ function myblocksadmin_update_blockinstance(
     $bcachetime,
     $bmodule,
     $options = [],
-    $bid = null
-) {
+    $bid = null)
+{
     global $xoopsDB;
 
     $instanceHandler = xoops_getHandler('blockinstance');
@@ -693,15 +687,7 @@ function myblocksadmin_update_blockinstance(
             $page   = explode('-', $mid);
             $mid    = $page[0];
             $pageid = $page[1];
-            $GLOBALS['xoopsDB']->query('INSERT INTO '
-                                       . $GLOBALS['xoopsDB']->prefix('block_module_link')
-                                       . ' VALUES ('
-                                       . $instance->getVar('instanceid')
-                                       . ', '
-                                       . (int)$mid
-                                       . ', '
-                                       . (int)$pageid
-                                       . ')');
+            $GLOBALS['xoopsDB']->query('INSERT INTO ' . $GLOBALS['xoopsDB']->prefix('block_module_link') . ' VALUES (' . $instance->getVar('instanceid') . ', ' . (int)$mid . ', ' . (int)$pageid . ')');
         }
 
         return _MD_AM_DBUPDATED;

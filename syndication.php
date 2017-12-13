@@ -63,11 +63,7 @@ if (0 != $zerotest) {
         }
         if (1 == $xoopsModuleConfig['multicats']) {
             $syndication['catID'] = $myrow['categoryID'];
-            $resultY              = $xoopsDB->query('SELECT categoryID, name FROM '
-                                                    . $xoopsDB->prefix('lxcategories')
-                                                    . ' WHERE categoryID = '
-                                                    . $myrow['categoryID']
-                                                    . ' ');
+            $resultY              = $xoopsDB->query('SELECT categoryID, name FROM ' . $xoopsDB->prefix('lxcategories') . ' WHERE categoryID = ' . $myrow['categoryID'] . ' ');
             list($categoryID, $name) = $xoopsDB->fetchRow($resultY);
             $syndication['categoryname'] = $myts->displayTarea($name);
         }

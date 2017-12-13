@@ -45,11 +45,11 @@ function lx_adminMenu($currentoption = 0, $breadcrumb = '')
 
     $tpl = new XoopsTpl();
     $tpl->assign([
-                  'headermenu'      => $headermenu,
-                  'adminmenu'       => $adminmenu,
-                  'current'         => $currentoption,
-                  'breadcrumb'      => $breadcrumb,
-                  'headermenucount' => count($headermenu)
+                     'headermenu'      => $headermenu,
+                     'adminmenu'       => $adminmenu,
+                     'current'         => $currentoption,
+                     'breadcrumb'      => $breadcrumb,
+                     'headermenucount' => count($headermenu)
                  ]);
     $tpl->display('db:lx_adminmenu.tpl');
     echo "<br>\n";
@@ -134,9 +134,7 @@ function lx_importMenu($currentoption = 0, $breadcrumb = '')
     global $cf;
     echo "<table style='border:0; width:99%;'>
               <tr><td style='vertical-align:top;'>
-              <strong style='color: #2F5376; margin-top:6px; font-size:medium'>"
-              . _AM_LEXIKON_IMPORT_MENU
-         . '</strong><br>';
+              <strong style='color: #2F5376; margin-top:6px; font-size:medium'>" . _AM_LEXIKON_IMPORT_MENU . '</strong><br>';
     if ($cf > 0) {
         echo '<span style="font-size:x-small">' . _AM_LEXIKON_OTHERMODS . '</span><br><br>';
     } else {
@@ -155,9 +153,7 @@ function lx_importMenu($currentoption = 0, $breadcrumb = '')
         $wb_imgurl = XOOPS_URL . '/modules/wordbook/images';
         ++$cf;
         echo "<a href='importwordbook.php'>
-                  <img src='" . $wb_imgurl . "/wb_slogo.png' alt='wb_slogo.png' title='Wordbook' style='height:39px; width:69px;'><span>"
-                  . _AM_LEXIKON_IMPORT_WORDBOOK
-             . '</span></a>';
+                  <img src='" . $wb_imgurl . "/wb_slogo.png' alt='wb_slogo.png' title='Wordbook' style='height:39px; width:69px;'><span>" . _AM_LEXIKON_IMPORT_WORDBOOK . '</span></a>';
     } //else { echo "". 'wordbook' ."";}
     $dictionaryModule = $moduleHandler->getByDirname('dictionary');
     $got_options      = false;
@@ -165,9 +161,7 @@ function lx_importMenu($currentoption = 0, $breadcrumb = '')
         $dic_imgurl = XOOPS_URL . '/modules/dictionary/images';
         ++$cf;
         echo "<a href='importdictionary.php'>
-                  <img src='" . $dic_imgurl . "/dictionary_logo.png' alt='Dictionary' title='Dictionary' style='height:39px; width:69px;'><span>"
-                  . _AM_LEXIKON_IMPORT_DICTIONARY
-             . '</span></a>';
+                  <img src='" . $dic_imgurl . "/dictionary_logo.png' alt='Dictionary' title='Dictionary' style='height:39px; width:69px;'><span>" . _AM_LEXIKON_IMPORT_DICTIONARY . '</span></a>';
     } //else { echo "<B>&middot;</B>". 'dictionary' ."";}
     $glossaireModule = $moduleHandler->getByDirname('glossaire');
     $got_options     = false;
@@ -175,9 +169,7 @@ function lx_importMenu($currentoption = 0, $breadcrumb = '')
         $glo_imgurl = XOOPS_URL . '/modules/glossaire.';
         ++$cf;
         echo "<a href='importglossaire.php'>
-                  <img src='" . $glo_imgurl . "/glossaire_logo.jpg' alt='Glossaire' title='Glossaire' style='height:31px; width:88px;'><span>"
-                  . _AM_LEXIKON_IMPORT_GLOSSAIRE
-             . '</span></a>';
+                  <img src='" . $glo_imgurl . "/glossaire_logo.jpg' alt='Glossaire' title='Glossaire' style='height:31px; width:88px;'><span>" . _AM_LEXIKON_IMPORT_GLOSSAIRE . '</span></a>';
     } //else { echo "<B>&middot;</B>". 'glossaire' ."";}
     $wiwimodModule = $moduleHandler->getByDirname('wiwimod');
     $got_options   = false;
@@ -185,9 +177,7 @@ function lx_importMenu($currentoption = 0, $breadcrumb = '')
         $wiwi_imgurl = XOOPS_URL . '/modules/wiwimod/images';
         ++$cf;
         echo "<a href='importwiwimod.php'>
-                  <img src='" . $wiwi_imgurl . "/wiwilogo.gif' alt='Wiwimod' title='Wiwimod' style='height:39px; width:69px;'><span>"
-                  . _AM_LEXIKON_IMPORT_WIWIMOD
-             . '</span></a>';
+                  <img src='" . $wiwi_imgurl . "/wiwilogo.gif' alt='Wiwimod' title='Wiwimod' style='height:39px; width:69px;'><span>" . _AM_LEXIKON_IMPORT_WIWIMOD . '</span></a>';
     } //else { echo "<B>&middot;</B>". 'wiwimod' ."";}
     $xwordsModule = $moduleHandler->getByDirname('xwords');
     $got_options  = false;
@@ -195,9 +185,7 @@ function lx_importMenu($currentoption = 0, $breadcrumb = '')
         $xwd_imgurl = XOOPS_URL . '/modules/xwords/images';
         ++$cf;
         echo "<a href='importxwords.php'>
-                  <img src='" . $xwd_imgurl . "/xwords_slogo.png' alt='Xwords' title='Xwords' style='height:39px; width:69px;'><span>"
-                  . _AM_LEXIKON_IMPORT_XWORDS
-             . '</span></a>';
+                  <img src='" . $xwd_imgurl . "/xwords_slogo.png' alt='Xwords' title='Xwords' style='height:39px; width:69px;'><span>" . _AM_LEXIKON_IMPORT_XWORDS . '</span></a>';
     }// else { echo "<B>&middot;</B>". 'xwords' ."";}
     echo '</div></td><tr></table>';
 }
@@ -364,27 +352,13 @@ function lx_buildTable()
     echo "<div style='color:#2F5376; margin:6px 0 0 0;'>";
     echo "<table class='outer' style='width:100%;'>";
     echo '<tr>';
-    echo "<th style='width:40px; text-align:center;'>"
-    . _AM_LEXIKON_ENTRYID
-         . '</td>';
-    echo "<th style='width:100px; text-align:center;'>"
-    . _AM_LEXIKON_ENTRYCATNAME
-         . '</td>';
-    echo "<th style='text-align:center;'>"
-    . _AM_LEXIKON_TERM
-         . '</td>';
-    echo "<th style='width:90px; text-align:center;'>"
-    . _AM_LEXIKON_AUTHOR
-         . '</td>';
-    echo "<th style='width:90px; text-align:center;'>"
-    . _AM_LEXIKON_ENTRYCREATED
-         . '</td>';
-    echo "<th style='width:40px; text-align:center;'>"
-    . _AM_LEXIKON_STATUS
-         . '</td>';
-    echo "<th style='width:60px; text-align:center;'>"
-    . _AM_LEXIKON_ACTION
-         . '</td>';
+    echo "<th style='width:40px; text-align:center;'>" . _AM_LEXIKON_ENTRYID . '</td>';
+    echo "<th style='width:100px; text-align:center;'>" . _AM_LEXIKON_ENTRYCATNAME . '</td>';
+    echo "<th style='text-align:center;'>" . _AM_LEXIKON_TERM . '</td>';
+    echo "<th style='width:90px; text-align:center;'>" . _AM_LEXIKON_AUTHOR . '</td>';
+    echo "<th style='width:90px; text-align:center;'>" . _AM_LEXIKON_ENTRYCREATED . '</td>';
+    echo "<th style='width:40px; text-align:center;'>" . _AM_LEXIKON_STATUS . '</td>';
+    echo "<th style='width:60px; text-align:center;'>" . _AM_LEXIKON_ACTION . '</td>';
     echo '</tr>';
 }
 
@@ -403,7 +377,7 @@ function lx_save_Permissions($groups, $id, $perm_name)
     $hModule  = xoops_getHandler('module');
     $lxModule = $hModule->getByDirname('lexikon');
 
-    $module_id     = $lxModule->getVar('mid');
+    $module_id    = $lxModule->getVar('mid');
     $gpermHandler = xoops_getHandler('groupperm');
 
     /*
@@ -465,11 +439,11 @@ function lx_getinit($init)
 function uchr($a)
 {
     if (is_scalar($a)) {
-        $a= func_get_args();
+        $a = func_get_args();
     }
-    $str= '';
+    $str = '';
     foreach ($a as $code) {
-        $str.= html_entity_decode('&#'.$code.';', ENT_NOQUOTES, 'UTF-8');
+        $str .= html_entity_decode('&#' . $code . ';', ENT_NOQUOTES, 'UTF-8');
     }
     return $str;
 }

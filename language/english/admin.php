@@ -62,10 +62,7 @@ define('_AM_LEXIKON_ENTRYISON', 'Entry is online');
 define('_AM_LEXIKON_ENTRYMODIFIED', 'The definition was modified successfully!');
 define('_AM_LEXIKON_ENTRYNOTCREATED', 'Sorry. It was not possible to create this entry!');
 define('_AM_LEXIKON_ENTRYNOTUPDATED', 'Sorry. It was not possible to update the entry!');
-define(
-    '_AM_LEXIKON_ENTRYREFERENCE',
-       "Reference<span style='font-size: xx-small; font-weight: normal; display: block;'>(Write here the source of your<br>definition, such as a book,<br>article, or person.)</span>"
-);
+define('_AM_LEXIKON_ENTRYREFERENCE', "Reference<span style='font-size: xx-small; font-weight: normal; display: block;'>(Write here the source of your<br>definition, such as a book,<br>article, or person.)</span>");
 define('_AM_LEXIKON_ENTRYTERM', '[*] Term');
 define('_AM_LEXIKON_ENTRYURL', "Related site<span style='font-size: xx-small; font-weight: normal; display: block;'>(Please enter a valid URL with<br>or without the HTTP prefix.)</span>");
 define('_AM_LEXIKON_ITEMEXISTS', 'A term with that name already exists in the glossary. Please choose another term!');
@@ -137,10 +134,8 @@ define('_AM_LEXIKON_ABOUT_AUTHOR_INFO', 'Author info');
 define('_AM_LEXIKON_ABOUT_AUTHOR_NAME', 'Author name');
 define('_AM_LEXIKON_ABOUT_AUTHOR_WORD', "Author's word");
 define('_AM_LEXIKON_ABOUT_DISCLAIMER', 'Disclaimer');
-define(
-    '_AM_LEXIKON_ABOUT_DISCLAIMER_TEXT',
-       'GPL-licensed.<br>This module comes as is, without any guarantees whatsoever. This module is a Release Candidate and should not be used on a production web site. The module is still under active development and its use is under your own responsibility, which means the author is not responsible.'
-);
+define('_AM_LEXIKON_ABOUT_DISCLAIMER_TEXT',
+       'GPL-licensed.<br>This module comes as is, without any guarantees whatsoever. This module is a Release Candidate and should not be used on a production web site. The module is still under active development and its use is under your own responsibility, which means the author is not responsible.');
 define('_AM_LEXIKON_ABOUT_CHANGELOG', 'Changelog');
 define('_AM_LEXIKON_ABOUT_README', 'Readme');
 define('_AM_LEXIKON_ABOUT_DEMO', 'Demo Site(s)');
@@ -173,18 +168,12 @@ define('_AM_LEXIKON_UPGR_ACCESS_ERROR', 'Error, to use the upgrade script, you m
 //categories
 define('_AM_LEXIKON_SELECT', 'Select...');
 define('_AM_LEXIKON_SHOTIMAGE', 'Category Image');
-define(
-    '_AM_LEXIKON_SHOTIMAGEDSC',
-       "<div style:\float:'right'; align='right'\>Screenshot image must be a valid image file under uploads/lexikon/categories/images directory (ex. shot.gif). Leave it blank if there is no image file.</DIV>"
-);
+define('_AM_LEXIKON_SHOTIMAGEDSC', "<div style:\float:'right'; align='right'\>Screenshot image must be a valid image file under uploads/lexikon/categories/images directory (ex. shot.gif). Leave it blank if there is no image file.</DIV>");
 define('_AM_LEXIKON_LOGOUP', 'Upload Image');
 define('_AM_LEXIKON_NONE', '---NONE---');
 define('_AM_LEXIKON_CATIMGUPLOAD', 'Upload a category Image');
 define('_AM_LEXIKON_CATIMG_DSC', 'Category images are kept in');
-define(
-    '_AM_LEXIKON_CAT_GROUPSVIEW',
-       "Category Access Permissions:<div style='padding-top: 8px;'><span style='font-weight: normal;'>Select user groups who will have access to this Category.</span></div>"
-);
+define('_AM_LEXIKON_CAT_GROUPSVIEW', "Category Access Permissions:<div style='padding-top: 8px;'><span style='font-weight: normal;'>Select user groups who will have access to this Category.</span></div>");
 define('_AM_LEXIKON_FILESUCCESS', 'Image uploaded successfully');
 
 define('_AM_LEXIKON_SENTCONFIRMMAIL', 'The Approval has been sent to <b>%s</b> as a confirmation email.');
@@ -231,10 +220,8 @@ define('_AM_LEXIKON_SUBMITFORM', 'Submit');
 define('_AM_LEXIKON_REQUESTFORM', 'Request');
 define('_AM_LEXIKON_VIEWFORM_DSC', 'Select, who can view which category');
 define('_AM_LEXIKON_APPROVEFORM_DSC', 'Automatically approve frontside submissions by these groups. <br> Not yet implemented!');
-define(
-    '_AM_LEXIKON_APPROVEPERM_WARN',
-       'Due to certain aspects of this module including copyright infringement, local moral or legal issues and the possibility of malicious code in submitted media files, it is recommended that automatic approval by anonymous users should not be allowed.  All submissions should be reviewed by a module admin.'
-);
+define('_AM_LEXIKON_APPROVEPERM_WARN',
+       'Due to certain aspects of this module including copyright infringement, local moral or legal issues and the possibility of malicious code in submitted media files, it is recommended that automatic approval by anonymous users should not be allowed.  All submissions should be reviewed by a module admin.');
 define('_AM_LEXIKON_SUBMITFORM_DSC', 'Allow users to submit an entry and, if published, modify that entry.<br>Allow submissions per category.');
 define('_AM_LEXIKON_REQUESTFORM_DSC', 'The specified group will have access to a request form.');
 define('_AM_LEXIKON_MODIFYFORM_DSC', 'The specified group will have the permission to request modifications of all definitions.<br>A user is always allowed to modify his/her own submissions.');

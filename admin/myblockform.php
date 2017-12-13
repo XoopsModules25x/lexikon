@@ -28,11 +28,11 @@ if (isset($block['name'])) {
 }
 $side_select = new XoopsFormSelect(_AM_BLKTYPE, 'bside', $block['side']);
 $side_select->addOptionArray([
-                              0 => _AM_SBLEFT,
-                              1 => _AM_SBRIGHT,
-                              3 => _AM_CBLEFT,
-                              4 => _AM_CBRIGHT,
-                              5 => _AM_CBCENTER
+                                 0 => _AM_SBLEFT,
+                                 1 => _AM_SBRIGHT,
+                                 3 => _AM_CBLEFT,
+                                 4 => _AM_CBRIGHT,
+                                 5 => _AM_CBCENTER
                              ]);
 $form->addElement($side_select);
 $form->addElement(new XoopsFormText(_AM_WEIGHT, 'bweight', 2, 5, $block['weight']));
@@ -53,14 +53,10 @@ $form->addElement(new XoopsFormText(_AM_TITLE, 'btitle', 50, 255, $block['title'
 if ($block['is_custom']) {
 
     // Custom Block's textarea
-    $notice_for_tags = '<span style="font-size:x-small;font-weight:bold;">'
-                        . _AM_USEFULTAGS
-                        . '</span><br><span style="font-size:x-small;font-weight:normal;">'
-                        . sprintf(_AM_BLOCKTAG1, '{X_SITEURL}', XOOPS_URL
-                        . '/') . '</span>';
+    $notice_for_tags = '<span style="font-size:x-small;font-weight:bold;">' . _AM_USEFULTAGS . '</span><br><span style="font-size:x-small;font-weight:normal;">' . sprintf(_AM_BLOCKTAG1, '{X_SITEURL}', XOOPS_URL . '/') . '</span>';
     $current_op      = 'clone' === @$_GET['op'] ? 'clone' : 'edit';
     $uri_to_myself   = XOOPS_URL . "/modules/blocksadmin/admin/admin.php?fct=blocksadmin&amp;op=$current_op&amp;bid={$block['bid']}";
-    $can_use_spaw = true;
+    $can_use_spaw    = true;
     if ($usespaw && $can_use_spaw) {
         // SPAW Config
         include XOOPS_ROOT_PATH . '/common/spaw/spaw_control.class.php';
@@ -83,34 +79,22 @@ if ($block['is_custom']) {
 
     $ctype_select = new XoopsFormSelect(_AM_CTYPE, 'bctype', $block['ctype']);
     $ctype_select->addOptionArray([
-                                    'H' => _AM_HTML,
-                                    'P' => _AM_PHP,
-                                    'S' => _AM_AFWSMILE,
-                                    'T' => _AM_AFNOSMILE
-                                    ]);
+                                      'H' => _AM_HTML,
+                                      'P' => _AM_PHP,
+                                      'S' => _AM_AFWSMILE,
+                                      'T' => _AM_AFNOSMILE
+                                  ]);
     $form->addElement($ctype_select);
 } else {
     if ('' != $block['template'] && !defined('XOOPS_ORETEKI')) {
         $tplfileHandler = xoops_getHandler('tplfile');
         $btemplate      = $tplfileHandler->find($GLOBALS['xoopsConfig']['template_set'], 'block', $block['bid']);
         if (count($btemplate) > 0) {
-            $form->addElement(new XoopsFormLabel(_AM_CONTENT, '<a href="'
-                                                               . XOOPS_URL
-                                                               . '/modules/system/admin.php?fct=tplsets&op=edittpl&id='
-                                                               . $btemplate[0]->getVar('tpl_id')
-                                                               . '">'
-                                                               . _AM_EDITTPL
-                                                               . '</a>'));
+            $form->addElement(new XoopsFormLabel(_AM_CONTENT, '<a href="' . XOOPS_URL . '/modules/system/admin.php?fct=tplsets&op=edittpl&id=' . $btemplate[0]->getVar('tpl_id') . '">' . _AM_EDITTPL . '</a>'));
         } else {
             $btemplate2 =& $tplfileHandler->find('default', 'block', $block['bid']);
             if (count($btemplate2) > 0) {
-                $form->addElement(new XoopsFormLabel(_AM_CONTENT, '<a href="'
-                                                                  . XOOPS_URL
-                                                                  . '/modules/system/admin.php?fct=tplsets&op=edittpl&id='
-                                                                  . $btemplate2[0]->getVar('tpl_id')
-                                                                  . '" target="_blank">'
-                                                                  . _AM_EDITTPL
-                                                                  . '</a>'));
+                $form->addElement(new XoopsFormLabel(_AM_CONTENT, '<a href="' . XOOPS_URL . '/modules/system/admin.php?fct=tplsets&op=edittpl&id=' . $btemplate2[0]->getVar('tpl_id') . '" target="_blank">' . _AM_EDITTPL . '</a>'));
             }
         }
     }

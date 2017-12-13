@@ -32,42 +32,24 @@ require_once XOOPS_ROOT_PATH . '/class/xoopslists.php';
 require_once XOOPS_ROOT_PATH . '/class/xoopsform/grouppermform.php';
 $myts = MyTextSanitizer::getInstance();
 xoops_cp_header();
-$adminObject  = \Xmf\Module\Admin::getInstance();
+$adminObject = \Xmf\Module\Admin::getInstance();
 $adminObject->displayNavigation(basename(__FILE__));
 
 $permtoset                = isset($_POST['permtoset']) ? (int)$_POST['permtoset'] : 1;
 $selected                 = [
-                              '',
-                              '',
-                              '',
-                              ''
-                             ];
+    '',
+    '',
+    '',
+    ''
+];
 $selected[$permtoset - 1] = 'selected';
 echo "<div style='clear:both;'><form method='post' name='fselperm' action='permissions.php'>
-      <table class='outer' style='width:99%;'><tr><td class='head' colspan='2' style='text-align:left;'><strong>"
-      . _AM_LEXIKON_PERMFORM
-      . "</strong></td></tr><tr><td class='odd' style='text-align:left; width:120px;'>
+      <table class='outer' style='width:99%;'><tr><td class='head' colspan='2' style='text-align:left;'><strong>" . _AM_LEXIKON_PERMFORM . "</strong></td></tr><tr><td class='odd' style='text-align:left; width:120px;'>
       <select name='permtoset' onChange='document.fselperm.submit()'>
-      <option value='1'"
-      . $selected[0]
-      . '>'
-      . _AM_LEXIKON_VIEWFORM
-      . "</option>
-      <option value='2'"
-      . $selected[1]
-      . '>'
-      . _AM_LEXIKON_SUBMITFORM
-      . "</option>
-      <option value='3'"
-      . $selected[2]
-      . '>'
-      . _AM_LEXIKON_APPROVEFORM
-      . "</option>
-      <option value='4'"
-      . $selected[3]
-      . '>'
-      . _AM_LEXIKON_REQUESTFORM
-      . "</option></select></td><td class='odd' style='text-align:left;'><input type='submit' name='go'>
+      <option value='1'" . $selected[0] . '>' . _AM_LEXIKON_VIEWFORM . "</option>
+      <option value='2'" . $selected[1] . '>' . _AM_LEXIKON_SUBMITFORM . "</option>
+      <option value='3'" . $selected[2] . '>' . _AM_LEXIKON_APPROVEFORM . "</option>
+      <option value='4'" . $selected[3] . '>' . _AM_LEXIKON_REQUESTFORM . "</option></select></td><td class='odd' style='text-align:left;'><input type='submit' name='go'>
       </tr></table></form>";
 
 switch ($permtoset) {
@@ -92,10 +74,10 @@ switch ($permtoset) {
         $permdesc  = _AM_LEXIKON_REQUESTFORM_DSC;
         break;
 }
-$modid        = $xoopsModule->getVar('mid');
-$permform     = new XoopsGroupPermForm($title, $modid, $perm_name, $permdesc, 'admin/permissions.php');
-$catstree     = new LexikonTree($xoopsDB->prefix('lxcategories'), 'categoryID', '');
-$catsresult   = $xoopsDB->query('SELECT categoryID, name FROM ' . $xoopsDB->prefix('lxcategories') . ' ORDER BY weight');
+$modid      = $xoopsModule->getVar('mid');
+$permform   = new XoopsGroupPermForm($title, $modid, $perm_name, $permdesc, 'admin/permissions.php');
+$catstree   = new LexikonTree($xoopsDB->prefix('lxcategories'), 'categoryID', '');
+$catsresult = $xoopsDB->query('SELECT categoryID, name FROM ' . $xoopsDB->prefix('lxcategories') . ' ORDER BY weight');
 while ($myrow = $xoopsDB->fetchArray($catsresult)) {
     $catid    = $myrow['categoryID'];
     $cattitle = $myts->htmlSpecialChars($myrow['name']);

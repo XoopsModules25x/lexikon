@@ -41,15 +41,7 @@ function b_lxentries_top_show($options)
     $block['speed']       = isset($options[6]) && '' != $options[6] ? $options[6] : '2';
     $block['bgcolor']     = isset($options[7]) && '' != $options[7] ? $options[7] : '#FFFFFF';
 
-    $sql    = 'SELECT entryID, categoryID, term, counter FROM '
-              . $xoopsDB->prefix('lxentries')
-              . ' WHERE datesub < '
-              . time()
-              . " AND datesub > 0 AND offline = '0' "
-              . $catperms
-              . ' ORDER BY '
-              . $options[0]
-              . ' DESC';
+    $sql    = 'SELECT entryID, categoryID, term, counter FROM ' . $xoopsDB->prefix('lxentries') . ' WHERE datesub < ' . time() . " AND datesub > 0 AND offline = '0' " . $catperms . ' ORDER BY ' . $options[0] . ' DESC';
     $result = $xoopsDB->query($sql, $options[1], 0);
 
     if ($totalwords > 0) { // If there are definitions
