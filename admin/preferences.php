@@ -9,7 +9,7 @@
 require_once __DIR__ . '/../../../mainfile.php';
 
 require_once XOOPS_ROOT_PATH . '/kernel/module.php';
-require_once XOOPS_ROOT_PATH . '/modules/lexikon/class/lexikontree.php'; // -- LionHell
+require_once XOOPS_ROOT_PATH . '/modules/lexikon/class/LexikonTree.php'; // -- LionHell
 require_once XOOPS_ROOT_PATH . '/class/xoopslists.php';
 require_once XOOPS_ROOT_PATH . '/class/pagenav.php';
 require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
@@ -19,7 +19,7 @@ if (file_exists(__DIR__ . '/../language/' . $xoopsConfig['language'] . '/main.ph
 } else {
     include __DIR__ . '/../language/english/main.php';
 }
-require_once XOOPS_ROOT_PATH . '/modules/lexikon/class/utility.php';
+require_once XOOPS_ROOT_PATH . '/modules/lexikon/class/Utility.php';
 require_once XOOPS_ROOT_PATH . '/modules/lexikon/admin/functions.php';
 require_once XOOPS_ROOT_PATH . '/kernel/module.php';
 $xoopsModule = XoopsModule::getByDirname('lexikon');
@@ -48,9 +48,6 @@ function addAdminMenu($buf)
     $html    = preg_replace($pattern, $replace, $buf);
 
     return $html;
-
-    //      ereg("(.*)(<div class='content'>.*)",$buf,$regs);
-    //      return $regs[1].$btnsbar.$regs[2];
 }
 
 /*

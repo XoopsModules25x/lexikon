@@ -12,8 +12,8 @@ defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
  */
 function b_sitemap_lexikon()
 {
-    $db   = XoopsDatabaseFactory::getDatabaseConnection();
-    $myts = MyTextSanitizer::getInstance();
+    $db   = \XoopsDatabaseFactory::getDatabaseConnection();
+    $myts = \MyTextSanitizer::getInstance();
 
     // Permission
     global $xoopsUser;

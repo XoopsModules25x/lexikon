@@ -1,28 +1,23 @@
 <?php
 /**
- *
  * Module: Lexikon -  glossary module
- * Version: v 1.00
- * Release Date: 18 Dec 2011
  * Author: hsalazar
  * Licence: GNU
  */
+#$xoopsOption['pagetype'] = "search";
 
 use Xmf\Request;
-
-#$xoopsOption['pagetype'] = "search";
 
 include __DIR__ . '/header.php';
 $GLOBALS['xoopsOption']['template_main'] = 'lx_search.tpl';
 include XOOPS_ROOT_PATH . '/header.php';
 
 global $xoTheme, $xoopsDB, $xoopsModule, $xoopsModuleConfig, $searchtype;
-$myts = MyTextSanitizer::getInstance();
+$myts = \MyTextSanitizer::getInstance();
 // -- options
 require_once XOOPS_ROOT_PATH . '/modules/lexikon/include/common.inc.php';
-$highlight = false;
-$highlight = ($xoopsModuleConfig['config_highlighter'] = 1) ? 1 : 0;
-//$highlight = LexikonUtility::getModuleOption('config_highlighter');
+$highlight      = false;
+$highlight      = ($xoopsModuleConfig['config_highlighter'] = 1) ? 1 : 0;
 $hightlight_key = '';
 
 require_once XOOPS_ROOT_PATH . '/class/pagenav.php';
@@ -54,7 +49,7 @@ $queries    = [];
 
 if (1 == $xoopsModuleConfig['multicats']) {
     $xoopsTpl->assign('multicats', 1);
-    $totalcats = LexikonUtility::countCats();
+    $totalcats = $utility::countCats();
     $xoopsTpl->assign('totalcats', $totalcats);
 } else {
     $xoopsTpl->assign('multicats', 0);
@@ -84,7 +79,7 @@ if (1 == $xoopsModuleConfig['multicats']) {
 }
 
 // Counter
-$publishedwords = LexikonUtility::countWords();
+$publishedwords = $utility::countWords();
 $xoopsTpl->assign('publishedwords', $publishedwords);
 
 // If there's no term here (calling directly search page)
@@ -92,7 +87,7 @@ if (!$query) {
     // Display message saying there's no term and explaining how to search
     $xoopsTpl->assign('intro', _MD_LEXIKON_NOSEARCHTERM);
     // Display search form
-    $searchform = LexikonUtility::showSearchForm();
+    $searchform = $utility::showSearchForm();
     $xoopsTpl->assign('searchform', $searchform);
 } else {
     // IF results, count number
@@ -105,7 +100,7 @@ if (!$query) {
         $xoopsTpl->assign('intro', _MD_LEXIKON_NORESULTS);
 
         // Display search form
-        $searchform = LexikonUtility::showSearchForm();
+        $searchform = $utility::showSearchForm();
         $xoopsTpl->assign('searchform', $searchform);
         // $results > 0 -> there were search results
     } else {
@@ -118,7 +113,6 @@ if (!$query) {
             if ($highlight) {
                 $xoopsTpl->assign('highlight', true);
                 $hightlight_key = '&amp;keywords=' . urlencode(trim($query));
-                //$hightlight_key = '&keywords='.urlencode(trim(implode(' ',$query)));
             } else {
                 $xoopsTpl->assign('highlight', false);
             }
@@ -158,15 +152,15 @@ if (!$query) {
             $eachresult['categoryID'] = $categoryID;
             $eachresult['term']       = ucfirst($myts->htmlSpecialChars($term));
             $eachresult['date']       = formatTimestamp($datesub, $xoopsModuleConfig['dateformat']);
-            $eachresult['ref']        = LexikonUtility::getHTMLHighlight($query, $myts->htmlSpecialChars($ref), '<b style="background-color: #FFFF80; ">', '</b>');
+            $eachresult['ref']        = $utility::getHTMLHighlight($query, $myts->htmlSpecialChars($ref), '<b style="background-color: #FFFF80; ">', '</b>');
             $eachresult['catname']    = $myts->htmlSpecialChars($catname);
             $tempdef                  = $myts->displayTarea($definition, 1, 1, 1, 1, 1);
-            $eachresult['definition'] = LexikonUtility::getHTMLHighlight($query, $tempdef, '<b style="background-color: #FFFF80; ">', '</b>');
+            $eachresult['definition'] = $utility::getHTMLHighlight($query, $tempdef, '<b style="background-color: #FFFF80; ">', '</b>');
             if ($highlight) {
                 $eachresult['keywords'] = $hightlight_key;
             }
             // Functional links
-            $microlinks               = LexikonUtility::getServiceLinks($eachresult);
+            $microlinks               = $utility::getServiceLinks($eachresult);
             $eachresult['microlinks'] = $microlinks;
             $resultset['match'][]     = $eachresult;
         }
@@ -175,13 +169,13 @@ if (!$query) {
         $xoopsTpl->assign('intro', sprintf(_MD_LEXIKON_THEREWERE, $results, $query));
 
         $linkstring          = 'term=' . $query . '&start';
-        $pagenav             = new XoopsPageNav($results, $xoopsModuleConfig['indexperpage'], $start, $linkstring);
+        $pagenav             = new \XoopsPageNav($results, $xoopsModuleConfig['indexperpage'], $start, $linkstring);
         $resultset['navbar'] = '<div style="text-align:right;">' . $pagenav->renderNav(6) . '</div>';
 
         $xoopsTpl->assign('resultset', $resultset);
 
         // Display search form
-        $searchform = LexikonUtility::showSearchForm();
+        $searchform = $utility::showSearchForm();
         $xoopsTpl->assign('searchform', $searchform);
     }
 }

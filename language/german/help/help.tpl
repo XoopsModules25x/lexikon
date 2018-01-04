@@ -9,17 +9,17 @@
     <h4 class="odd">Description</h4>
 
     <p class="even">Lexikon is designed as a user-friendly glossary application for XOOPS. <br> <br>
-        </p>
+    </p>
 
     <h4 class="odd">Install/uninstall</h4>
 
     <p class="even">No special measures necessary, follow the standard installation process –
-    extract the module folder into the ../modules directory. Then install the
-    module through Admin -> System Module -> Modules.<br> <br>
-    Detailed instructions on installing modules are available in the
-    <a href="http://goo.gl/adT2i">XOOPS Operations Manual</a> </p>
+        extract the module folder into the ../modules directory. Then install the
+        module through Admin -> System Module -> Modules.<br> <br>
+        Detailed instructions on installing modules are available in the
+        <a href="http://goo.gl/adT2i">XOOPS Operations Manual</a></p>
 
-    
+
     <h4 class="odd">Operating instructions</h4>
 
     This module and its operations are very simple.<br> <br>

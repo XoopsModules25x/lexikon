@@ -52,10 +52,8 @@ define('_MD_LEXIKON_INTENTRYFOUND', 'Hier ist ein interessanter Eintrag den ich 
 define('_MD_LEXIKON_INTROREQUEST', 'Haben Sie in unserem Lexikon nicht die Definition gefunden nach der Sie gesucht haben? F&uuml;llen Sie dieses Formular aus und senden uns den Begriff. Wir suchen nach der Definition und f&uuml;gen sie hinzu.');
 define('_MD_LEXIKON_LOOKON', 'Suchen nach');
 define('_MD_LEXIKON_MAINHEAD', 'Willkommen auf %s');
-define(
-    '_MD_LEXIKON_MAININTRO',
-       'In diesem Bereich finden Sie sowohl unseren Katalog an Glossar-Eintr&auml;gen, als auch die neuesten Eintr&auml;ge in den Kategorien. Klicken Sie auf den Kategorienamen und Sie sehen alle Eintr&auml;ge die mit dieser Kategorie verkn&uuml;pft sind oder klicken Sie auf einen Eintragnamen um den Eintrag direkt zu lesen. Abh&auml;ngig von Ihren Berechtigungen k&ouml;nnen Sie jeden Eintrag bewerten, Benachrichtigungen setzen oder Kommentare schreiben.'
-);
+define('_MD_LEXIKON_MAININTRO',
+       'In diesem Bereich finden Sie sowohl unseren Katalog an Glossar-Eintr&auml;gen, als auch die neuesten Eintr&auml;ge in den Kategorien. Klicken Sie auf den Kategorienamen und Sie sehen alle Eintr&auml;ge die mit dieser Kategorie verkn&uuml;pft sind oder klicken Sie auf einen Eintragnamen um den Eintrag direkt zu lesen. Abh&auml;ngig von Ihren Berechtigungen k&ouml;nnen Sie jeden Eintrag bewerten, Benachrichtigungen setzen oder Kommentare schreiben.');
 define('_MD_LEXIKON_MAINNOSELECTCAT', 'Sie haben keine g&uuml;ltige Kategorie ausgew&auml;hlt');
 define('_MD_LEXIKON_MAINNOTOPICS', 'Es gibt keine Eintr&auml;ge f&uuml;r diese Kategorie');
 define('_MD_LEXIKON_MESSAGESENT', 'Nachricht an %s verschickt.');
@@ -93,10 +91,8 @@ define('_MD_LEXIKON_SENDSTORY', 'Diesen Eintrag an einen Freund schicken');
 define('_MD_LEXIKON_SENDTOFRIEND', 'Diesen Begriff an einen Freund schicken');
 define('_MD_LEXIKON_SENT', 'Eingeschickt am: ');
 define('_MD_LEXIKON_SENTCONFIRMMAIL', 'Ihre Kommentare wurde als Best&auml;tigungsmail an <b>%s</b> geschickt.');
-define(
-    '_MD_LEXIKON_STILLNOTHINGHERE',
-       "<h4 style='margin: 0;'>W&ouml;rterbuch leer</h4>Verzeihung: Wir haben noch keine Eintr&auml;ge in unserem W&ouml;rterbuch. Sie k&ouml;nnen uns helfen, in dem Sie Begriffe deren Bedeutung Sie gerne wissen w&uuml;rden, anfragen. Falls Sie ein registrierter User sind, k&ouml;nnen Sie uns auch helfen, in dem Sie Definitionen einschicken die Sie kennen."
-);
+define('_MD_LEXIKON_STILLNOTHINGHERE',
+       "<h4 style='margin: 0;'>W&ouml;rterbuch leer</h4>Verzeihung: Wir haben noch keine Eintr&auml;ge in unserem W&ouml;rterbuch. Sie k&ouml;nnen uns helfen, in dem Sie Begriffe deren Bedeutung Sie gerne wissen w&uuml;rden, anfragen. Falls Sie ein registrierter User sind, k&ouml;nnen Sie uns auch helfen, in dem Sie Definitionen einschicken die Sie kennen.");
 define('_MD_LEXIKON_SUB_SMNAME', 'F&uuml;llen Sie dieses Formular aus um Ihren Eintrag einzuschicken');
 define('_MD_LEXIKON_SUB_SNEWNAME', 'Einen Eintrag schicken an %s');
 define('_MD_LEXIKON_SUB_SNEWNAMEDESC', 'Bitte f&uuml;llen Sie das folgende Formular aus, um einen neuen Eintrag einzuschicken. Je nach Einstellung wird der Eintrag vorher gepr&uuml;ft oder automatisch freigegeben.');
@@ -192,10 +188,8 @@ define('_MD_LEXIKON_WWW', 'Website');
 define('_MD_LEXIKON_RANDOMIZE', 'n&auml;chster Eintrag');
 define('_MD_LEXIKON_TERMOFTHEDAY', 'Term of the day');
 define('_MD_LEXIKON_SYNDICATION', 'Webmastercontent');
-define(
-    '_MD_LEXIKON_SYNCODE',
-       "&lt;iframe style='background-color: #FFFFFF'; marginwidth=0 marginheight=0 width='220' height='260' src='%s/modules/%s/syndication.php' frameborder='0' topmargin='0' leftmargin='0' scrolling='no' allowtransparency='true' /&gt; [Your user agent does not support frames or is currently configured not to display frames.]</iframe>"
-);
+define('_MD_LEXIKON_SYNCODE',
+       "&lt;iframe style='background-color: #FFFFFF'; marginwidth=0 marginheight=0 width='220' height='260' src='%s/modules/%s/syndication.php' frameborder='0' topmargin='0' leftmargin='0' scrolling='no' allowtransparency='true' /> [Your user agent does not support frames or is currently configured not to display frames.]</iframe>");
 define('_MD_LEXIKON_SUB_SYNNAME', 'Gratis Webmastercontent f&uuml;r ihre Site');
 define('_MD_LEXIKON_INTROCONTENTSYN', 'Haben Sie Gefallen an unseren Glossar-Einträgen gefunden? Sie können Glossar-Inhalte von %s auf Ihrer website einbinden. Dazu f&uuml;gen Sie diesen Quelltext auf ihrer website ein.');
 define('_MD_LEXIKON_POWER', 'Powered by ');

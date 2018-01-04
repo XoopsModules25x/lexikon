@@ -11,11 +11,11 @@ defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
  */
 function myDeleteByModule(XoopsDatabase $db, $gperm_modid, $gperm_name = null, $gperm_itemid = null)
 {
-    $criteria = new CriteriaCompo(new Criteria('gperm_modid', (int)$gperm_modid));
+    $criteria = new \CriteriaCompo(new \Criteria('gperm_modid', (int)$gperm_modid));
     if (isset($gperm_name)) {
-        $criteria->add(new Criteria('gperm_name', $gperm_name));
+        $criteria->add(new \Criteria('gperm_name', $gperm_name));
         if (isset($gperm_itemid)) {
-            $criteria->add(new Criteria('gperm_itemid', (int)$gperm_itemid));
+            $criteria->add(new \Criteria('gperm_itemid', (int)$gperm_itemid));
         }
     }
     $sql = 'DELETE FROM ' . $db->prefix('group_permission') . ' ' . $criteria->renderWhere();
@@ -48,7 +48,7 @@ if (is_array($_POST['perms']) && !empty($_POST['perms'])) {
             // echo "<pre>" ;
             // var_dump( $_POST['perms'] ) ;
             // exit ;
-            if (false != myDeleteByModule($gpermHandler->db, $modid, $perm_name, $item_id)) {
+            if (false !== myDeleteByModule($gpermHandler->db, $modid, $perm_name, $item_id)) {
                 if (empty($perm_data['groups'])) {
                     continue;
                 }
@@ -86,16 +86,3 @@ if (is_array($_POST['perms']) && !empty($_POST['perms'])) {
         }
     }
 }
-/*
-$backlink = XOOPS_URL.'/admin.php';
-if ($module->getVar('hasadmin')) {
-    $adminindex = $module->getInfo('adminindex');
-    if ($adminindex) {
-        $backlink = XOOPS_URL.'/modules/'.$module->getVar('dirname').'/'.$adminindex;
-    }
-}
-
-$msg[] = '<br><br><a href="'.$backlink.'">'._BACK.'</a>';
-xoops_cp_header();
-xoops_result($msg);
-xoops_cp_footer();  GIJ */

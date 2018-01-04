@@ -11,7 +11,6 @@ require_once __DIR__ . '/../../../include/cp_header.php';
 
 require_once __DIR__ . '/mygrouppermform.php';
 require_once XOOPS_ROOT_PATH . '/class/xoopsblock.php';
-//require_once __DIR__ . '/../include/gtickets.php';
 
 $xoops_system_path = XOOPS_ROOT_PATH . '/modules/system';
 
@@ -71,7 +70,7 @@ if (!$syspermHandler->checkRight('system_admin', XOOPS_SYSTEM_BLOCK, $xoopsUser-
 }
 
 // get blocks owned by the module (Imported from xoopsblock.php then modified)
-$db        = XoopsDatabaseFactory::getDatabaseConnection();
+$db        = \XoopsDatabaseFactory::getDatabaseConnection();
 $sql       = 'SELECT bid,name,show_func,func_file,template FROM ' . $db->prefix('newblocks') . " WHERE mid='$target_mid'";
 $result    = $db->query($sql);
 $block_arr = [];
@@ -89,7 +88,7 @@ function list_blockinstances()
 {
     global $query4redirect, $block_arr;
 
-    $myts = MyTextSanitizer::getInstance();
+    $myts = \MyTextSanitizer::getInstance();
 
     // cachetime options
     $cachetimes = [
@@ -120,8 +119,8 @@ function list_blockinstances()
         </tr>\n";
 
     // get block instances
-    $crit     = new Criteria('bid', '(' . implode(',', array_keys($block_arr)) . ')', 'IN');
-    $criteria = new CriteriaCompo($crit);
+    $crit     = new \Criteria('bid', '(' . implode(',', array_keys($block_arr)) . ')', 'IN');
+    $criteria = new \CriteriaCompo($crit);
     $criteria->setSort('visible DESC, side ASC, weight');
     $instanceHandler = xoops_getHandler('blockinstance');
     $instances       = $instanceHandler->getObjects($criteria, true, true);
@@ -130,8 +129,8 @@ function list_blockinstances()
     $module_list[_AM_SYSTEMLEVEL]['0-2'] = _AM_ADMINBLOCK;
     $module_list[_AM_SYSTEMLEVEL]['0-1'] = _AM_TOPPAGE;
     $module_list[_AM_SYSTEMLEVEL]['0-0'] = _AM_ALLPAGES;
-    $criteria                            = new CriteriaCompo(new Criteria('hasmain', 1));
-    $criteria->add(new Criteria('isactive', 1));
+    $criteria                            = new \CriteriaCompo(new \Criteria('hasmain', 1));
+    $criteria->add(new \Criteria('isactive', 1));
     /** @var XoopsModuleHandler $moduleHandler */
     $moduleHandler = xoops_getHandler('module');
     $module_main   = $moduleHandler->getObjects($criteria, true, true);
@@ -331,7 +330,7 @@ function list_groups2()
         $item_list[$iid] = $title;
     }
 
-    $form = new MyXoopsGroupPermForm(_MD_AM_ADGS, 1, 'block_read', '');
+    $form = new \MyXoopsGroupPermForm(_MD_AM_ADGS, 1, 'block_read', '');
     if ($target_mid > 1) {
         $form->addAppendix('module_admin', $target_mid, $target_mname . ' ' . _AM_ACTIVERIGHTS);
         $form->addAppendix('module_read', $target_mid, $target_mname . ' ' . _AM_ACCESSRIGHTS);

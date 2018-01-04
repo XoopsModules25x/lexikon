@@ -28,13 +28,26 @@
 
 //error_reporting(E_ALL);
 
+
+use XoopsModules\Lexikon;
+
 /**
  * @param      $module
  * @param null $prev_version
  * @return bool|null
  */
-function xoops_module_update_lexikon(&$module, $prev_version = null)
+function xoops_module_update_lexikon($module, $prev_version = null)
 {
+    $moduleDirName = basename(dirname(__DIR__));
+    $capsDirName   = strtoupper($moduleDirName);
+
+    /** @var Lexikon\Helper $helper */
+    /** @var Lexikon\Utility $utility */
+    /** @var Lexikon\Configurator $configurator */
+    $helper       = Lexikon\Helper::getInstance();
+    $utility      = new Lexikon\Utility();
+    $configurator = new Lexikon\Configurator();
+
     $ret = null;
     if ($prev_version < 152) {
         $ret = xoops_module_update_lexikon_v152($module);
@@ -51,7 +64,7 @@ function xoops_module_update_lexikon(&$module, $prev_version = null)
  * @param $xoopsModule
  * @return bool
  */
-function xoops_module_update_lexikon_v152(&$xoopsModule)
+function xoops_module_update_lexikon_v152($xoopsModule)
 {
 
     /**

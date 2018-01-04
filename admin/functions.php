@@ -2,8 +2,6 @@
 /**
  *
  * Module: lexikon
- * Version: v 1.00
- * Release Date: 18 Dec 2011
  * Author: Yerres
  * Licence: GNU
  */
@@ -45,7 +43,7 @@ function lx_adminMenu($currentoption = 0, $breadcrumb = '')
 
     include __DIR__ . '/menu.php';
 
-    $tpl = new XoopsTpl();
+    $tpl = new \XoopsTpl();
     $tpl->assign([
                      'headermenu'      => $headermenu,
                      'adminmenu'       => $adminmenu,
@@ -83,7 +81,7 @@ function lx_FieldExists($fieldname, $table)
  * @copyright (c) Instant Zero
  * @param $field
  * @param $table
- * @return
+ * @return bool|\mysqli_result
  */
 
 function lx_AddField($field, $table)
@@ -109,9 +107,8 @@ function lx_AddField($field, $table)
 function lx_alterTable($field, $table)
 {
     global $xoopsDB;
-    $sql    = 'SHOW COLUMNS FROM ' . $table . " LIKE '" . $field . '\'';
+    $sql    = 'SHOW COLUMNS FROM ' . $table . " LIKE '" . $field . "'";
     $result = $xoopsDB->queryF($sql);
-    //if ($result) {
     if (0 == $xoopsDB->getRowsNum($result)) {
         $sql = 'ALTER TABLE ' . $xoopsDB->prefix($table) . ' ADD `' . $field . '`';
 
@@ -135,35 +132,18 @@ function lx_alterTable($field, $table)
 function lx_importMenu($currentoption = 0, $breadcrumb = '')
 {
     global $cf;
-    echo '<style type="text/css">
-    br {clear: left;}
-    img {border:0;}
-    #menu {width:400px; position:relative;  height:80px; margin:1em auto auto 2em;}
-    #menu a:visited, #menu a {text-decoration:none; color:#d00; font-weight:bold;}
-    #menu a:visited img, #menu a img{filter: alpha(opacity=40);
-    filter: progid:DXImageTransform.Microsoft.Alpha(opacity=40);
-    -moz-opacity: 0.40; opacity:0.4;
-}
-    #menu a:hover {background-color:trans; color:#06a;}
-    #menu a span {display:none;}
-    #menu a:hover span {display:block; position:absolute; top:50px; left:0; font-size:12px; height:18px; padding:4px; font-weight:normal; color:#a40;}
+    echo "<table style='border:0; width:99%;'>
+              <tr><td style='vertical-align:top;'>
+              <strong style='color: #2F5376; margin-top:6px; font-size:medium'>" . _AM_LEXIKON_IMPORT_MENU . '</strong><br>';
+    if ($cf > 0) {
+        echo '<span style="font-size:x-small">' . _AM_LEXIKON_OTHERMODS . '</span><br><br>';
 
-    #menu a:hover img { filter: alpha(opacity=100);
-    filter: progid:DXImageTransform.Microsoft.Alpha(opacity=100);
-    -moz-opacity: 1.00; opacity:1;
-}
-    </style>';
-    echo " <TABLE BORDER=0 CELLPADDING=1 CELLSPACING=2 width='98%'>
-    <tr><td width='200' VALIGN='top'>
-    <h3>Import Menu</h3><span style='font-size:1'>";
-    if ($cf < 5) {
-        echo '' . _AM_LEXIKON_OTHERMODS . '';
     } else {
-        echo '' . _AM_LEXIKON_NOOTHERMODS . '';
+        echo '<span style="font-size:x-small; color:red;">' . _AM_LEXIKON_NOOTHERMODS . '</span><br><br>';
     }
 
-    echo "</FONT></td><td VALIGN='top'>
-    <div id=\"menu\">";
+    echo "</td><td style='vertical-align:top;'>
+              <div id='menu'>";
     // show only modules located on the system
     /** @var XoopsModuleHandler $moduleHandler */
     $moduleHandler  = xoops_getHandler('module');
@@ -173,40 +153,42 @@ function lx_importMenu($currentoption = 0, $breadcrumb = '')
     if (is_object($wordbookModule)) {
         $wb_imgurl = XOOPS_URL . '/modules/wordbook/images';
         ++$cf;
-        echo '<a href="importwordbook.php">
-        <img src="' . $wb_imgurl . '/wb_slogo.png" alt="wb_slogo.png" title="Wordbook" height="39" width="69"><span>Import Wordbook</span></a>';
+        echo "<a href='importwordbook.php'>
+                  <img src='" . $wb_imgurl . "/wb_slogo.png' alt='wb_slogo.png' title='Wordbook' style='height:39px; width:69px;'><span>" . _AM_LEXIKON_IMPORT_WORDBOOK . '</span></a>';
     } //else { echo "". 'wordbook' ."";}
     $dictionaryModule = $moduleHandler->getByDirname('dictionary');
     $got_options      = false;
     if (is_object($dictionaryModule)) {
         $dic_imgurl = XOOPS_URL . '/modules/dictionary/images';
         ++$cf;
-        echo '<a href="importdictionary.php">
-        <img src="' . $dic_imgurl . '/dictionary_logo.png" alt="Dictionary" title="Dictionary" height="39" width="69"><span>Import Dictionary</span></a>';
+        echo "<a href='importdictionary.php'>
+                  <img src='" . $dic_imgurl . "/dictionary_logo.png' alt='Dictionary' title='Dictionary' style='height:39px; width:69px;'><span>" . _AM_LEXIKON_IMPORT_DICTIONARY . '</span></a>';
     } //else { echo "<B>&middot;</B>". 'dictionary' ."";}
     $glossaireModule = $moduleHandler->getByDirname('glossaire');
     $got_options     = false;
     if (is_object($glossaireModule)) {
         $glo_imgurl = XOOPS_URL . '/modules/glossaire.';
         ++$cf;
-        echo '<a href="importglossaire.php">
-        <img src="' . $glo_imgurl . '/glossaire_logo.jpg" alt="Glossaire" title="Glossaire" height="31" width="88"><span>Import Glossaire</span></a>';
+        echo "<a href='importglossaire.php'>
+                  <img src='" . $glo_imgurl . "/glossaire_logo.jpg' alt='Glossaire' title='Glossaire' style='height:31px; width:88px;'><span>" . _AM_LEXIKON_IMPORT_GLOSSAIRE . '</span></a>';
     } //else { echo "<B>&middot;</B>". 'glossaire' ."";}
     $wiwimodModule = $moduleHandler->getByDirname('wiwimod');
     $got_options   = false;
     if (is_object($wiwimodModule)) {
         $wiwi_imgurl = XOOPS_URL . '/modules/wiwimod/images';
         ++$cf;
-        echo '<a href="importwiwimod.php"><img src="' . $wiwi_imgurl . '/wiwilogo.gif" alt="Wiwimod" title="Wiwimod" height="39" width="69"><span>Import Wiwimod</span></a>';
+        echo "<a href='importwiwimod.php'>
+                  <img src='" . $wiwi_imgurl . "/wiwilogo.gif' alt='Wiwimod' title='Wiwimod' style='height:39px; width:69px;'><span>" . _AM_LEXIKON_IMPORT_WIWIMOD . '</span></a>';
     } //else { echo "<B>&middot;</B>". 'wiwimod' ."";}
     $xwordsModule = $moduleHandler->getByDirname('xwords');
     $got_options  = false;
     if (is_object($xwordsModule)) {
         $xwd_imgurl = XOOPS_URL . '/modules/xwords/images';
         ++$cf;
-        echo '<a href="importxwords.php"><img src="' . $xwd_imgurl . '/xwords_slogo.png" alt="Xwords" title="Xwords" height="39" width="69"><span>Import Xwords</span></a>';
+        echo "<a href='importxwords.php'>
+                  <img src='" . $xwd_imgurl . "/xwords_slogo.png' alt='Xwords' title='Xwords' style='height:39px; width:69px;'><span>" . _AM_LEXIKON_IMPORT_XWORDS . '</span></a>';
     }// else { echo "<B>&middot;</B>". 'xwords' ."";}
-    echo '</div></td><tr></TABLE>';
+    echo '</div></td><tr></table>';
 }
 
 /**
@@ -265,7 +247,7 @@ function lx_collapsableBar($tablename = '', $iconname = '')
     </script>
     <?php
     // HTML Error Fixed by 5Vision
-    echo "<div style=\"color: #2F5376; margin: 6px 0 0 0; \"><a href=\"#\" onClick=\"toggle('" . $tablename . '\'); toggleIcon(\'' . $iconname . '\');">';
+    echo "<div style='color:#2F5376; margin:6px 0 0 0;'><a href='#' onClick=\"toggle('" . $tablename . "'); toggleIcon('" . $iconname . "');\">";
 }
 
 /**
@@ -277,11 +259,11 @@ function lx_collapsableBar($tablename = '', $iconname = '')
 function lx_GetStatistics($limit)
 {
     $ret  = [];
-    $db   = XoopsDatabaseFactory::getDatabaseConnection();
+    $db   = \XoopsDatabaseFactory::getDatabaseConnection();
     $tbls = $db->prefix('lxentries');
     $tblt = $db->prefix('lxcategories');
 
-    $db = XoopsDatabaseFactory::getDatabaseConnection();
+    $db = \XoopsDatabaseFactory::getDatabaseConnection();
     // Number of Definitions per Category, including offline and submitted terms
     $ret2   = [];
     $sql    = "SELECT count(s.entryID) as cpt, s.categoryID, t.name FROM $tbls s, $tblt t WHERE s.categoryID=t.categoryID GROUP BY s.categoryID ORDER BY t.name";
@@ -369,17 +351,15 @@ function lx_buildTable()
 {
     global $xoopsConfig, $xoopsModuleConfig, $xoopsModule;
     echo "<div style='color: #2F5376; margin: 6px 0 0 0; '>";
-    echo "<table width='100%' cellspacing='2' cellpadding='3' border='0' class='outer'>";
-    //echo "<tr><td colspan='7' class='odd'>";
-    //echo "<strong>". _AM_LEXIKON_INVENTORY . "</strong></td></tr>";
+    echo "<table class='outer' style='width:100%;'>";
     echo '<tr >';
-    echo "<th width='40px'  align='center'><b>" . _AM_LEXIKON_ENTRYID . '</b></td>';
-    echo "<th width='100px'  align='center'><b>" . _AM_LEXIKON_ENTRYCATNAME . '</b></td>';
-    echo "<th align='center'><b>" . _AM_LEXIKON_TERM . '</b></td>';
-    echo "<th width='90px'  align='center'><b>" . _AM_LEXIKON_AUTHOR . '</b></td>';
-    echo "<th width='90px'  align='center'><b>" . _AM_LEXIKON_ENTRYCREATED . '</b></td>';
-    echo "<th width='40px'  align='center'><b>" . _AM_LEXIKON_STATUS . '</b></td>';
-    echo "<th width='60px'  align='center'><b>" . _AM_LEXIKON_ACTION . '</b></td>';
+    echo "<th style='width:40px; text-align:center;'>" . _AM_LEXIKON_ENTRYID . '</td>';
+    echo "<th style='width:100px; text-align:center;'>" . _AM_LEXIKON_ENTRYCATNAME . '</td>';
+    echo "<th style='text-align:center;'>" . _AM_LEXIKON_TERM . '</td>';
+    echo "<th style='width:90px; text-align:center;'>" . _AM_LEXIKON_AUTHOR . '</td>';
+    echo "<th style='width:90px; text-align:center;'>" . _AM_LEXIKON_ENTRYCREATED . '</td>';
+    echo "<th style='width:40px; text-align:center;'>" . _AM_LEXIKON_STATUS . '</td>';
+    echo "<th style='width:60px; text-align:center;'>" . _AM_LEXIKON_ACTION . '</td>';
     echo '</tr>';
 }
 
@@ -424,15 +404,46 @@ function lx_save_Permissions($groups, $id, $perm_name)
 function lx_getinit($init)
 {
     global $init;
-    echo "<select name='init'>";
+    echo "<div><select name='init'>";
     echo "<option value='#'>&nbsp; # &nbsp;</option>";
-    for ($a = 65; $a < (65 + 26); ++$a) {
-        if (chr($a) == $init) {
+    for ($a = 48; $a < (48 + 10); ++$a) {
+        if (uchr($a) == $init) {
             $opt_selected = 'selected';
         } else {
             $opt_selected = '';
         }
-        echo "<option value='" . chr($a) . "' $opt_selected>&nbsp; " . chr($a) . ' &nbsp;</option>';
+        echo "<option value='" . uchr($a) . "' $opt_selected>&nbsp;" . uchr($a) . '&nbsp;</option>';
     }
+    for ($a = 65; $a < (65 + 26); ++$a) {
+        if (uchr($a) == $init) {
+            $opt_selected = 'selected';
+        } else {
+            $opt_selected = '';
+        }
+        echo "<option value='" . uchr($a) . "' $opt_selected>&nbsp;" . uchr($a) . '&nbsp;</option>';
+    }
+    /*for ($a = 1040; $a < (1040 + 32); ++$a) {
+        if (uchr($a) == $init) {
+            $opt_selected = 'selected';
+        } else {
+            $opt_selected = '';
+        }
+        echo "<option value='" . uchr($a) . "' $opt_selected>&nbsp;" . uchr($a) . "&nbsp;</option>";
+    }*/
     echo '</select></div>';
+}
+/**
+ * @param $a
+ * @return string
+ */
+function uchr($a)
+{
+    if (is_scalar($a)) {
+        $a = func_get_args();
+    }
+    $str = '';
+    foreach ($a as $code) {
+        $str .= html_entity_decode('&#' . $code . ';', ENT_NOQUOTES, 'UTF-8');
+    }
+    return $str;
 }

@@ -14,12 +14,12 @@ $GLOBALS['xoopsOption']['template_main'] = 'lx_index.tpl';
 require_once XOOPS_ROOT_PATH . '/header.php';
 require_once XOOPS_ROOT_PATH . '/modules/lexikon/include/common.inc.php';
 global $xoTheme, $xoopsUser;
-$myts = MyTextSanitizer::getInstance();
+$myts = \MyTextSanitizer::getInstance();
 
 // Disable cache since content differs for each user
 //$xoopsConfig["module_cache"][$xoopsModule->getVar("mid")] = 0;
 
-LexikonUtility::calculateTotals();
+$utility::calculateTotals();
 $xoopsTpl->assign('multicats', (int)$xoopsModuleConfig['multicats']);
 $rndlength = !empty($xoopsModuleConfig['rndlength']) ? (int)$xoopsModuleConfig['rndlength'] : 150;
 
@@ -27,7 +27,7 @@ $rndlength = !empty($xoopsModuleConfig['rndlength']) ? (int)$xoopsModuleConfig['
 $gpermHandler = xoops_getHandler('groupperm');
 $groups       = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
 $module_id    = $xoopsModule->getVar('mid');
-$perm_itemid  = isset($categoryID) ? (int)$categoryID : 0;
+$perm_itemid  = isset($categoryID) ? $categoryID : 0;
 if (!$gpermHandler->checkRight('lexikon_view', $perm_itemid, $groups, $module_id)) {
     redirect_header('javascript:history.go(-1)', 2, _NOPERM);
 }
@@ -39,12 +39,25 @@ if (count($allowed_cats) > 0) {
     return '0';
 }
 
+if (!function_exists('mb_ucfirst') && function_exists('mb_substr')) {
+    /**
+     * @param $string
+     * @return false|string
+     */
+    function mb_ucfirst($string)
+    {
+        $string = mb_ereg_replace("^[\ ]+", '', $string);
+        $string = mb_strtoupper(mb_substr($string, 0, 1, 'UTF-8'), 'UTF-8') . mb_substr($string, 1, mb_strlen($string), 'UTF-8');
+        return $string;
+    }
+}
+
 // Counts
 $xoopsTpl->assign('multicats', (int)$xoopsModuleConfig['multicats']);
 if (1 == $xoopsModuleConfig['multicats']) {
-    $xoopsTpl->assign('totalcats', (int)LexikonUtility::countCats());
+    $xoopsTpl->assign('totalcats', (int)$utility::countCats());
 }
-$publishedwords = LexikonUtility::countWords();
+$publishedwords = $utility::countWords();
 $xoopsTpl->assign('publishedwords', $publishedwords);
 
 // If there's no entries yet in the system...
@@ -53,10 +66,10 @@ if (0 == $publishedwords) {
 }
 
 // To display the search form
-$xoopsTpl->assign('searchform', LexikonUtility::showSearchForm());
+$xoopsTpl->assign('searchform', $utility::showSearchForm());
 
 // To display the linked letter list
-$alpha = LexikonUtility::getAlphaArray();
+$alpha = $utility::getAlphaArray();
 $xoopsTpl->assign('alpha', $alpha);
 
 list($howmanyother) = $xoopsDB->fetchRow($xoopsDB->query('SELECT COUNT(*) FROM ' . $xoopsDB->prefix('lxentries') . " WHERE init = '#' AND offline ='0' " . $catperms . ' '));
@@ -64,7 +77,7 @@ $xoopsTpl->assign('totalother', $howmanyother);
 
 // To display the tree of categories
 if (1 == $xoopsModuleConfig['multicats']) {
-    $xoopsTpl->assign('block0', LexikonUtility::getCategoryArray());
+    $xoopsTpl->assign('block0', $utility::getCategoryArray());
     $xoopsTpl->assign('layout', CONFIG_CATEGORY_LAYOUT_PLAIN);
     if (1 == $xoopsModuleConfig['useshots']) {
         $xoopsTpl->assign('show_screenshot', true);
@@ -76,17 +89,14 @@ if (1 == $xoopsModuleConfig['multicats']) {
 }
 // To display the recent entries block
 $block1   = [];
-$result05 = $xoopsDB->query(
-    'SELECT entryID, categoryID, term, datesub FROM ' . $xoopsDB->prefix('lxentries') . ' WHERE datesub < ' . time() . " AND datesub > 0 AND submit = '0' AND offline = '0' AND request = '0' " . $catperms . ' ORDER BY datesub DESC',
-    (int)$xoopsModuleConfig['blocksperpage'],
-                            0
-);
+$result05 = $xoopsDB->query('SELECT entryID, categoryID, term, datesub FROM ' . $xoopsDB->prefix('lxentries') . ' WHERE datesub < ' . time() . " AND datesub > 0 AND submit = '0' AND offline = '0' AND request = '0' " . $catperms . ' ORDER BY datesub DESC', (int)$xoopsModuleConfig['blocksperpage'],
+                            0);
 if ($publishedwords > 0) { // If there are definitions
     //while (list( $entryID, $term, $datesub ) = $xoopsDB->fetchRow($result05)) {
     while (list($entryID, $categoryID, $term, $datesub) = $xoopsDB->fetchRow($result05)) {
         $newentries             = [];
         $xoopsModule            = XoopsModule::getByDirname('lexikon');
-        $linktext               = ucfirst($myts->htmlSpecialChars($term));
+        $linktext               = mb_ucfirst($myts->htmlSpecialChars($term));
         $newentries['linktext'] = $linktext;
         $newentries['id']       = $entryID;
         $newentries['date']     = formatTimestamp($datesub, 's');
@@ -104,7 +114,7 @@ if ($publishedwords > 0) {
     while (list($entryID, $term, $counter) = $xoopsDB->fetchRow($result06)) {
         $popentries             = [];
         $xoopsModule            = XoopsModule::getByDirname('lexikon');
-        $linktext               = ucfirst($myts->htmlSpecialChars($term));
+        $linktext               = mb_ucfirst($myts->htmlSpecialChars($term));
         $popentries['linktext'] = $linktext;
         $popentries['id']       = $entryID;
         $popentries['counter']  = (int)$counter;
@@ -131,7 +141,7 @@ if (0 != $zerotest) {
     while ($myrow = $xoopsDB->fetchArray($resultZ)) {
         $random         = [];
         $random['id']   = $myrow['entryID'];
-        $random['term'] = ucfirst($myrow['term']);
+        $random['term'] = mb_ucfirst($myrow['term']);
 
         if (!XOOPS_USE_MULTIBYTES) {
             $random['definition'] = $myts->displayTarea(xoops_substr($myrow['definition'], 0, $rndlength - 1), $myrow['html'], $myrow['smiley'], $myrow['xcodes'], 1, $myrow['breaks']);
@@ -145,7 +155,7 @@ if (0 != $zerotest) {
             $random['categoryname'] = $myts->displayTarea($name);
         }
     }
-    $microlinks = LexikonUtility::getServiceLinks($random);
+    $microlinks = $utility::getServiceLinks($random);
     $xoopsTpl->assign('random', $random);
 }
 
@@ -161,7 +171,7 @@ if ($xoopsUser && $xoopsUser->isAdmin()) {
         while (list($entryID, $term) = $xoopsDB->fetchRow($resultS)) {
             $subentries             = [];
             $xoopsModule            = XoopsModule::getByDirname('lexikon');
-            $linktext               = ucfirst($myts->htmlSpecialChars($term));
+            $linktext               = mb_ucfirst($myts->htmlSpecialChars($term));
             $subentries['linktext'] = $linktext;
             $subentries['id']       = $entryID;
 
@@ -181,7 +191,7 @@ if ($xoopsUser && $xoopsUser->isAdmin()) {
         while (list($entryID, $term) = $xoopsDB->fetchRow($resultR)) {
             $reqentries             = [];
             $xoopsModule            = XoopsModule::getByDirname('lexikon');
-            $linktext               = ucfirst($myts->htmlSpecialChars($term));
+            $linktext               = mb_ucfirst($myts->htmlSpecialChars($term));
             $reqentries['linktext'] = $linktext;
             $reqentries['id']       = $entryID;
 
@@ -202,7 +212,7 @@ if ($xoopsUser && $xoopsUser->isAdmin()) {
         while (list($entryID, $term) = $xoopsDB->fetchRow($resultR)) {
             $reqentries             = [];
             $xoopsModule            = XoopsModule::getByDirname('lexikon');
-            $linktext               = ucfirst($myts->htmlSpecialChars($term));
+            $linktext               = mb_ucfirst($myts->htmlSpecialChars($term));
             $reqentries['linktext'] = $linktext;
             $reqentries['id']       = $entryID;
 
@@ -223,7 +233,7 @@ if (0 != $publishedwords) {
     $xoopsTpl->assign('showcount', (int)$xoopsModuleConfig['showcount']);
 }
 $xoopsTpl->assign('alpha', $alpha);
-$xoopsTpl->assign('teaser', LexikonUtility::getModuleOption('teaser'));
+$xoopsTpl->assign('teaser', $utility::getModuleOption('teaser'));
 if (1 == $xoopsModuleConfig['syndication']) {
     $xoopsTpl->assign('syndication', true);
 }

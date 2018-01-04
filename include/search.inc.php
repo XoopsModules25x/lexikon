@@ -24,14 +24,10 @@ function lx_search($queryarray, $andor, $limit, $offset, $userid)
     $highlight        = false;
     $searchincomments = false;
     require_once XOOPS_ROOT_PATH . '/modules/lexikon/include/common.inc.php';
-    require_once XOOPS_ROOT_PATH . '/modules/lexikon/class/utility.php';
-    $hightlight_key = '';
-    $highlight      = LexikonUtility::getModuleOption('config_highlighter');
-    //if ( is_object($xoopsUser) ) {
+    require_once XOOPS_ROOT_PATH . '/modules/lexikon/class/Utility.php';
+    $hightlight_key   = '';
+    $highlight        = $utility::getModuleOption('config_highlighter');
     $searchincomments = CONFIG_SEARCH_COMMENTS;
-    //  } else {
-    //      $searchincomments = false ;
-    //  }
     /** @var XoopsModuleHandler $moduleHandler */
     $moduleHandler = xoops_getHandler('module');
     $module        = $moduleHandler->getByDirname('lexikon');
@@ -53,8 +49,7 @@ function lx_search($queryarray, $andor, $limit, $offset, $userid)
             $keywords       = '';
             $hightlight_key = '';
         } else {
-            $keywords = implode('+', $queryarray);
-            //$keywords='&keywords='.urlencode(trim(implode(' ',$queryarray)));
+            $keywords       = implode('+', $queryarray);
             $hightlight_key = '&amp;keywords=' . $keywords;
         }
     }
@@ -117,13 +112,6 @@ function lx_search($queryarray, $andor, $limit, $offset, $userid)
         $result = $xoopsDB->query($sql, $limit, $offset);
         while ($myrow = $xoopsDB->fetchArray($result)) {
             $display = true;
-            //permission
-            /*if ($module_id && $gpermHandler) {
-                if (!$gpermHandler->checkRight("lexikon_view", $myrow['com_itemid'], $groups, $module_id)) {
-                //if (!$gpermHandler->checkRight("lexikon_view", $myrow['categoryID'], $groups, $xoopsModule -> getVar('mid'))) {
-                    $display = false;
-                }
-            }*/
             list($entryID, $offline) = $xoopsDB->fetchRow($xoopsDB->query('
                                          SELECT entryID, offline
                                          FROM ' . $xoopsDB->prefix('lxentries') . ' WHERE entryID = ' . $myrow['com_itemid'] . ' '));

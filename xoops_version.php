@@ -10,69 +10,65 @@
  * @credits        hsalazar, catzwolf, Dario Garcia and many others
  */
 
-defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
+include __DIR__ . '/preloads/autoloader.php';
 
-$modversion['version']       = '1.52';
-$modversion['module_status'] = 'Beta 2';
-$modversion['release_date']  = '2017/02/05';
-$modversion['name']          = _MI_LEXIKON_MD_NAME;
-$modversion['description']   = _MI_LEXIKON_MD_DESC;
-$modversion['author']        = 'Yerres';
-$modversion['credits']       = 'hsalazar, Mondarse, Catzwolf, and many more';
-$modversion['help']          = 'page=help';
-$modversion['license']       = 'GNU GPL 2.0 or later';
-$modversion['license_url']   = 'www.gnu.org/licenses/gpl-2.0.html';
-$modversion['official']      = 0; //1 indicates supported by XOOPS Dev Team, 0 means 3rd party supported
-$modversion['image']         = 'assets/images/logoModule.png';
-$modversion['dirname']       = basename(__DIR__);
-$modversion['onInstall']     = 'include/install_function.php';
-$modversion['onUpdate']      = 'include/update_function.php';
+$moduleDirName = basename(__DIR__);
+$modversion    = [
+    'version'       => 1.53,
+    'module_status' => 'Beta 1',
+    'release_date'  => '2017/12/12',
+    'name'          => _MI_LEXIKON_MD_NAME,
+    'description'   => _MI_LEXIKON_MD_DESC,
+    'author'        => 'Yerres',
+    'credits'       => 'hsalazar, Mondarse, Catzwolf, and many more',
+    'help'          => 'page=help',
+    'license'       => 'GNU GPL 2.0 or later',
+    'license_url'   => 'www.gnu.org/licenses/gpl-2.0.html',
+    'official'      => 0, //1 indicates supported by XOOPS Dev Team, 0 means 3rd party supported
+    'image'         => 'assets/images/logoModule.png',
+    'dirname'       => basename(__DIR__),
+    'onInstall'     => 'include/install_function.php',
+    'onUpdate'      => 'include/update_function.php',
 
-//$modversion['dirmoduleadmin'] = '/Frameworks/moduleclasses/moduleadmin';
-//$modversion['icons16']        = '../../Frameworks/moduleclasses/icons/16';
-//$modversion['icons32']        = '../../Frameworks/moduleclasses/icons/32';
-$modversion['modicons16'] = 'assets/images/icons/16';
-$modversion['modicons32'] = 'assets/images/icons/32';
+    'modicons16' => 'assets/images/icons/16',
+    'modicons32' => 'assets/images/icons/32',
 
-$modversion['license_file']        = XOOPS_URL . '/modules/lexikon/gpl.txt';
-$modversion['status_version']      = '1.52';
-$modversion['release']             = '2012-05-10';
-$modversion['last_update']         = '2015/01/12';
-$modversion['module_website_url']  = 'www.xoops.org';
-$modversion['module_website_name'] = 'XOOPS';
-$modversion['min_php']             = '5.5';
-$modversion['min_xoops']           = '2.5.9';
-$modversion['min_admin']           = '1.2';
-$modversion['min_db']              = ['mysql' => '5.5'];
+    'license_file'        => XOOPS_URL . '/modules/lexikon/gpl.txt',
+    'status_version'      => 1.52,
+    'release'             => '2012-05-10',
+    'last_update'         => '2015/01/12',
+    'module_website_url'  => 'www.xoops.org',
+    'module_website_name' => 'XOOPS',
+    'min_php'             => '5.5',
+    'min_xoops'           => '2.5.8',
+    'min_admin'           => '1.2',
+    'min_db'              => ['mysql' => '5.1'],
 
-$modversion['author_word']         = '-';
-$modversion['module_website_url']  = 'https://xoops.org/';
-$modversion['module_website_name'] = 'XOOPS';
-
-// Admin things
-$modversion['hasAdmin']   = 1;
-$modversion['adminindex'] = 'admin/index.php';
-$modversion['adminmenu']  = 'admin/menu.php';
-
-// Sql
-$modversion['sqlfile']['mysql'] = 'sql/mysql.sql';
-$modversion['tables']           = [
-    'lxcategories',
-    'lxentries'
+    'author_word'         => '-',
+    'module_website_url'  => 'https://xoops.org/',
+    'module_website_name' => 'XOOPS',
+    // Admin things
+    'hasAdmin'            => 1,
+    'adminindex'          => 'admin/index.php',
+    'adminmenu'           => 'admin/menu.php',
+    // Sql
+    'sqlfile'             => ['mysql' => 'sql/mysql.sql'],
+    'tables'              => [
+        'lxcategories',
+        'lxentries'
+    ],
+    // Search
+    'hasSearch'           => 1,
+    'search'              => [
+        'file' => 'include/search.inc.php',
+        'func' => 'lx_search',
+    ],
+    // Menu
+    'hasMain'             => 1,
+    'system_menu'         => 1,
+    // Use smarty
+    'use_smarty'          => 1,
 ];
-
-// Search
-$modversion['hasSearch']      = 1;
-$modversion['search']['file'] = 'include/search.inc.php';
-$modversion['search']['func'] = 'lx_search';
-
-// Menu
-$modversion['hasMain']     = 1;
-$modversion['system_menu'] = 1;
-
-// Use smarty
-$modversion['use_smarty'] = 1;
-
 global $xoopsUser, $xoopsDB, $xoopsModuleConfig;
 /** @var XoopsModuleHandler $moduleHandler */
 $moduleHandler = xoops_getHandler('module');
@@ -94,13 +90,11 @@ if (is_object($xoopsUser)) {
         ++$i;
     }
 }
-#if ( isset($xoopsModuleConfig['authorprofile']) && $xoopsModuleConfig['authorprofile'] == 1 ) {
 if (isset($lxConfig['authorprofile']) && 1 == $lxConfig['authorprofile']) {
     $modversion['sub'][$i]['name'] = _MI_LEXIKON_SUB_SMNAME6;
     $modversion['sub'][$i]['url']  = 'authorlist.php';
     ++$i;
 }
-//if ( $xoopsUser || isset($xoopsModuleConfig['contentsyndication']) && $xoopsModuleConfig['contentsyndication'] == 1 ) {
 if (isset($lxConfig['contentsyndication']) && 1 == $lxConfig['contentsyndication']) {
     $modversion['sub'][$i]['name'] = _MI_LEXIKON_SUB_SMNAME7;
     $modversion['sub'][$i]['url']  = 'content.php';
@@ -126,11 +120,9 @@ if ($lexikon) {
 $modversion['sub'][$i]['name'] = constant('_MI_LEXIKON_SUB_SMNAME3');
 $modversion['sub'][$i]['url']  = 'search.php';
 ++$i;
-//if ( isset($xoopsModuleConfig['catsinmenu']) && $xoopsModuleConfig['catsinmenu'] == 1 && $xoopsModuleConfig['multicats']) {
-#if (isset($xoopsModuleConfig['catsinmenu']) && $xoopsModuleConfig['catsinmenu'] == 1 && isset($xoopsModuleConfig['multicats']) && $xoopsModuleConfig["multicats"] == 1) {
 if (isset($lxConfig['catsinmenu']) && 1 == $lxConfig['catsinmenu'] && isset($lxConfig['multicats'])
     && 1 == $lxConfig['multicats']) {
-    $myts = MyTextSanitizer::getInstance();
+    $myts = \MyTextSanitizer::getInstance();
     $sql  = $xoopsDB->query('SELECT categoryID, name FROM ' . $xoopsDB->prefix('lxcategories') . ' ORDER BY weight ASC');
     while (list($categoryID, $name) = $xoopsDB->fetchRow($sql)) {
         if ($gpermHandler->checkRight('lexikon_view', $categoryID, $groups, $lexikon->getVar('mid'))) {
@@ -325,6 +317,9 @@ $modversion['templates'][]  = [
     'description' => 'Lexikon Definition Tagbar'
 ];
 
+$modversion['templates'][] = ['file' => 'admin/lexikon_admin_entries.tpl', 'description' => ''];
+$modversion['templates'][] = ['file' => 'admin/lexikon_admin_categories.tpl', 'description' => ''];
+
 // Config Settings
 $modversion['config'] = [];
 
@@ -362,7 +357,15 @@ $modversion['config'][] = [
     'formtype'    => 'select',
     'valuetype'   => 'int',
     'default'     => 20,
-    'options'     => ['5' => 5, '10' => 10, '15' => 15, '20' => 20, '25' => 25, '30' => 30, '50' => 50]
+    'options'     => [
+        '5'  => 5,
+        '10' => 10,
+        '15' => 15,
+        '20' => 20,
+        '25' => 25,
+        '30' => 30,
+        '50' => 50
+    ]
 ];
 
 $modversion['config'][] = [
@@ -372,7 +375,15 @@ $modversion['config'][] = [
     'formtype'    => 'select',
     'valuetype'   => 'int',
     'default'     => 10,
-    'options'     => ['5' => 5, '10' => 10, '15' => 15, '20' => 20, '25' => 25, '30' => 30, '50' => 50]
+    'options'     => [
+        '5'  => 5,
+        '10' => 10,
+        '15' => 15,
+        '20' => 20,
+        '25' => 25,
+        '30' => 30,
+        '50' => 50
+    ]
 ];
 
 $modversion['config'][] = [
@@ -382,7 +393,15 @@ $modversion['config'][] = [
     'formtype'    => 'select',
     'valuetype'   => 'int',
     'default'     => 5,
-    'options'     => ['5' => 5, '10' => 10, '15' => 15, '20' => 20, '25' => 25, '30' => 30, '50' => 50]
+    'options'     => [
+        '5'  => 5,
+        '10' => 10,
+        '15' => 15,
+        '20' => 20,
+        '25' => 25,
+        '30' => 30,
+        '50' => 50
+    ]
 ];
 
 $modversion['config'][] = [
@@ -661,6 +680,26 @@ $modversion['config'][] = [
     'default'     => 1
 ];
 
+
+$modversion['config'][] = [
+    'name' => 'adminpager',
+    'title' => 'MI_LEXIKON_ADMINPAGER',
+    'description' => 'MI_LEXIKON_ADMINPAGER_DESC',
+    'formtype' => 'textbox',
+    'valuetype' => 'int',
+    'default' => 10
+];
+
+$modversion['config'][] = [
+    'name' => 'userpager',
+    'title' => 'MI_LEXIKON_USERPAGER',
+    'description' => 'MI_LEXIKON_USERPAGER_DESC',
+    'formtype' => 'textbox',
+    'valuetype' => 'int',
+    'default' => 10
+];
+
+
 //Comments (Mondarse)
 $modversion['hasComments']          = 1;
 $modversion['comments']['itemName'] = 'entryID';
@@ -677,82 +716,99 @@ $modversion['hasNotification']             = 1;
 $modversion['notification']['lookup_file'] = 'include/notification.inc.php';
 $modversion['notification']['lookup_func'] = 'lexikon_notify_iteminfo';
 
-$modversion['notification']['category'][1]['name']           = 'global';
-$modversion['notification']['category'][1]['title']          = _MI_LEXIKON_NOTIFY;
-$modversion['notification']['category'][1]['description']    = _MI_LEXIKON_NOTIFYDSC;
-$modversion['notification']['category'][1]['subscribe_from'] = ['index.php', 'category.php', 'entry.php'];
-$modversion['notification']['category'][1]['allow_bookmark'] = 0;
-
-$modversion['notification']['category'][2]['name']           = 'category';
-$modversion['notification']['category'][2]['title']          = _MI_LEXIKON_NOTIFY_CAT;
-$modversion['notification']['category'][2]['description']    = _MI_LEXIKON_NOTIFY_CATDSC;
-$modversion['notification']['category'][2]['subscribe_from'] = ['category.php', 'entry.php'];
-$modversion['notification']['category'][2]['item_name']      = 'categoryID';
-$modversion['notification']['category'][2]['allow_bookmark'] = 1;
-
-$modversion['notification']['category'][3]['name']           = 'term';
-$modversion['notification']['category'][3]['title']          = _MI_LEXIKON_NOTIFY_TERM;
-$modversion['notification']['category'][3]['description']    = _MI_LEXIKON_NOTIFY_TERMDSC;
-$modversion['notification']['category'][3]['subscribe_from'] = 'entry.php';
-$modversion['notification']['category'][3]['item_name']      = 'entryID';
-$modversion['notification']['category'][3]['allow_bookmark'] = 1;
-
-$modversion['notification']['event'][1]['name']     = 'new_post';
-$modversion['notification']['event'][1]['category'] = 'global';
-#$modversion['notification']['event'][1]['category'] = 'term';
-$modversion['notification']['event'][1]['title']         = _MI_LEXIKON_NEWPOST_NOTIFY;
-$modversion['notification']['event'][1]['caption']       = _MI_LEXIKON_NEWPOST_NOTIFYCAP;
-$modversion['notification']['event'][1]['description']   = _MI_LEXIKON_NEWPOST_NOTIFYDSC;
-$modversion['notification']['event'][1]['mail_template'] = 'lexikon_newpost_notify';
-$modversion['notification']['event'][1]['mail_subject']  = _MI_LEXIKON_NEWPOST_NOTIFYSBJ;
-
-$modversion['notification']['event'][2]['name']          = 'new_category';
-$modversion['notification']['event'][2]['category']      = 'global';
-$modversion['notification']['event'][2]['title']         = _MI_LEXIKON_NEWCAT_NOTIFY;
-$modversion['notification']['event'][2]['caption']       = _MI_LEXIKON_NEWCAT_NOTIFYCAP;
-$modversion['notification']['event'][2]['description']   = _MI_LEXIKON_NEWCAT_NOTIFYDSC;
-$modversion['notification']['event'][2]['mail_template'] = 'lexikon_newcat_notify';
-$modversion['notification']['event'][2]['mail_subject']  = _MI_LEXIKON_NEWCAT_NOTIFYSBJ;
-
-$modversion['notification']['event'][3]['name']          = 'term_request';
-$modversion['notification']['event'][3]['category']      = 'global';
-$modversion['notification']['event'][3]['title']         = _MI_LEXIKON_GLOBAL_TERMREQUEST_NOTIFY;
-$modversion['notification']['event'][3]['caption']       = _MI_LEXIKON_GLOBAL_TERMREQUEST_NOTIFYCAP;
-$modversion['notification']['event'][3]['description']   = _MI_LEXIKON_GLOBAL_TERMREQUEST_NOTIFYDSC;
-$modversion['notification']['event'][3]['mail_template'] = 'global_termrequest_notify';
-$modversion['notification']['event'][3]['mail_subject']  = _MI_LEXIKON_GLOBAL_TERMREQUEST_NOTIFYSBJ;
-
-$modversion['notification']['event'][4]['name']          = 'term_submit';
-$modversion['notification']['event'][4]['category']      = 'global';
-$modversion['notification']['event'][4]['admin_only']    = 1;
-$modversion['notification']['event'][4]['title']         = _MI_LEXIKON_GLOBAL_TERMSUBMIT_NOTIFY;
-$modversion['notification']['event'][4]['caption']       = _MI_LEXIKON_GLOBAL_TERMSUBMIT_NOTIFYCAP;
-$modversion['notification']['event'][4]['description']   = _MI_LEXIKON_GLOBAL_TERMSUBMIT_NOTIFYDSC;
-$modversion['notification']['event'][4]['mail_template'] = 'global_termsubmit_notify';
-$modversion['notification']['event'][4]['mail_subject']  = _MI_LEXIKON_GLOBAL_TERMSUBMIT_NOTIFYSBJ;
-
-$modversion['notification']['event'][5]['name']          = 'new_post';
-$modversion['notification']['event'][5]['category']      = 'category';
-$modversion['notification']['event'][5]['title']         = _MI_LEXIKON_CATEGORY_NEWTERM_NOTIFY;
-$modversion['notification']['event'][5]['caption']       = _MI_LEXIKON_CATEGORY_NEWTERM_NOTIFYCAP;
-$modversion['notification']['event'][5]['description']   = _MI_LEXIKON_CATEGORY_NEWTERM_NOTIFYDSC;
-$modversion['notification']['event'][5]['mail_template'] = 'category_newterm_notify';
-$modversion['notification']['event'][5]['mail_subject']  = _MI_LEXIKON_CATEGORY_NEWTERM_NOTIFYSBJ;
-
-$modversion['notification']['event'][6]['name']          = 'term_submit';
-$modversion['notification']['event'][6]['category']      = 'category';
-$modversion['notification']['event'][6]['admin_only']    = 1;
-$modversion['notification']['event'][6]['title']         = _MI_LEXIKON_CATEGORY_TERMSUBMIT_NOTIFY;
-$modversion['notification']['event'][6]['caption']       = _MI_LEXIKON_CATEGORY_TERMSUBMIT_NOTIFYCAP;
-$modversion['notification']['event'][6]['description']   = _MI_LEXIKON_CATEGORY_TERMSUBMIT_NOTIFYDSC;
-$modversion['notification']['event'][6]['mail_template'] = 'category_termsubmit_notify';
-$modversion['notification']['event'][6]['mail_subject']  = _MI_LEXIKON_CATEGORY_TERMSUBMIT_NOTIFYSBJ;
-
-$modversion['notification']['event'][7]['name']          = 'approve';
-$modversion['notification']['event'][7]['category']      = 'term';
-$modversion['notification']['event'][7]['invisible']     = 1;
-$modversion['notification']['event'][7]['title']         = _MI_LEXIKON_TERM_APPROVE_NOTIFY;
-$modversion['notification']['event'][7]['caption']       = _MI_LEXIKON_TERM_APPROVE_NOTIFYCAP;
-$modversion['notification']['event'][7]['description']   = _MI_LEXIKON_TERM_APPROVE_NOTIFYDSC;
-$modversion['notification']['event'][7]['mail_template'] = 'term_approve_notify';
-$modversion['notification']['event'][7]['mail_subject']  = _MI_LEXIKON_TERM_APPROVE_NOTIFYSBJ;
+$modversion['notification']['category'][] = [
+    'name'           => 'global',
+    'title'          => _MI_LEXIKON_NOTIFY,
+    'description'    => _MI_LEXIKON_NOTIFYDSC,
+    'subscribe_from' => [
+        'index.php',
+        'category.php',
+        'entry.php'
+    ],
+    'allow_bookmark' => 0
+];
+$modversion['notification']['category'][] = [
+    'name'           => 'category',
+    'title'          => _MI_LEXIKON_NOTIFY_CAT,
+    'description'    => _MI_LEXIKON_NOTIFY_CATDSC,
+    'subscribe_from' => [
+        'category.php',
+        'entry.php'
+    ],
+    'item_name'      => 'categoryID',
+    'allow_bookmark' => 1
+];
+$modversion['notification']['category'][] = [
+    'name'           => 'term',
+    'title'          => _MI_LEXIKON_NOTIFY_TERM,
+    'description'    => _MI_LEXIKON_NOTIFY_TERMDSC,
+    'subscribe_from' => 'entry.php',
+    'item_name'      => 'entryID',
+    'allow_bookmark' => 1
+];
+$modversion['notification']['event'][]    = [
+    'name'          => 'new_post',
+    'category'      => 'global',
+    'title'         => _MI_LEXIKON_NEWPOST_NOTIFY,
+    'caption'       => _MI_LEXIKON_NEWPOST_NOTIFYCAP,
+    'description'   => _MI_LEXIKON_NEWPOST_NOTIFYDSC,
+    'mail_template' => 'lexikon_newpost_notify',
+    'mail_subject'  => _MI_LEXIKON_NEWPOST_NOTIFYSBJ
+];
+$modversion['notification']['event'][]    = [
+    'name'          => 'new_category',
+    'category'      => 'global',
+    'title'         => _MI_LEXIKON_NEWCAT_NOTIFY,
+    'caption'       => _MI_LEXIKON_NEWCAT_NOTIFYCAP,
+    'description'   => _MI_LEXIKON_NEWCAT_NOTIFYDSC,
+    'mail_template' => 'lexikon_newcat_notify',
+    'mail_subject'  => _MI_LEXIKON_NEWCAT_NOTIFYSBJ
+];
+$modversion['notification']['event'][]    = [
+    'name'          => 'term_request',
+    'category'      => 'global',
+    'title'         => _MI_LEXIKON_GLOBAL_TERMREQUEST_NOTIFY,
+    'caption'       => _MI_LEXIKON_GLOBAL_TERMREQUEST_NOTIFYCAP,
+    'description'   => _MI_LEXIKON_GLOBAL_TERMREQUEST_NOTIFYDSC,
+    'mail_template' => 'global_termrequest_notify',
+    'mail_subject'  => _MI_LEXIKON_GLOBAL_TERMREQUEST_NOTIFYSBJ
+];
+$modversion['notification']['event'][]    = [
+    'name'          => 'term_submit',
+    'category'      => 'global',
+    'admin_only'    => 1,
+    'title'         => _MI_LEXIKON_GLOBAL_TERMSUBMIT_NOTIFY,
+    'caption'       => _MI_LEXIKON_GLOBAL_TERMSUBMIT_NOTIFYCAP,
+    'description'   => _MI_LEXIKON_GLOBAL_TERMSUBMIT_NOTIFYDSC,
+    'mail_template' => 'global_termsubmit_notify',
+    'mail_subject'  => _MI_LEXIKON_GLOBAL_TERMSUBMIT_NOTIFYSBJ
+];
+$modversion['notification']['event'][]    = [
+    'name'          => 'new_post',
+    'category'      => 'category',
+    'title'         => _MI_LEXIKON_CATEGORY_NEWTERM_NOTIFY,
+    'caption'       => _MI_LEXIKON_CATEGORY_NEWTERM_NOTIFYCAP,
+    'description'   => _MI_LEXIKON_CATEGORY_NEWTERM_NOTIFYDSC,
+    'mail_template' => 'category_newterm_notify',
+    'mail_subject'  => _MI_LEXIKON_CATEGORY_NEWTERM_NOTIFYSBJ
+];
+$modversion['notification']['event'][]    = [
+    'name'          => 'term_submit',
+    'category'      => 'category',
+    'admin_only'    => 1,
+    'title'         => _MI_LEXIKON_CATEGORY_TERMSUBMIT_NOTIFY,
+    'caption'       => _MI_LEXIKON_CATEGORY_TERMSUBMIT_NOTIFYCAP,
+    'description'   => _MI_LEXIKON_CATEGORY_TERMSUBMIT_NOTIFYDSC,
+    'mail_template' => 'category_termsubmit_notify',
+    'mail_subject'  => _MI_LEXIKON_CATEGORY_TERMSUBMIT_NOTIFYSBJ
+];
+$modversion['notification']['event'][]    = [
+    'name'          => 'approve',
+    'category'      => 'term',
+    'invisible'     => 1,
+    'title'         => _MI_LEXIKON_TERM_APPROVE_NOTIFY,
+    'caption'       => _MI_LEXIKON_TERM_APPROVE_NOTIFYCAP,
+    'description'   => _MI_LEXIKON_TERM_APPROVE_NOTIFYDSC,
+    'mail_template' => 'term_approve_notify',
+    'mail_subject'  => _MI_LEXIKON_TERM_APPROVE_NOTIFYSBJ
+];

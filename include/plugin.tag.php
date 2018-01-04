@@ -5,8 +5,6 @@
  * @copyright      The XOOPS project https://xoops.org/
  * @license        http://www.fsf.org/copyleft/gpl.html GNU public license
  * @author         Taiwen Jiang (phppp or D.J.) <php_pp@hotmail.com>
- * @since          1.00
- * @version        $Id$
  * @package        module::tag
  */
 defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
@@ -33,7 +31,7 @@ function lexikon_tag_iteminfo(&$items)
     }
 
     global $xoopsDB;
-    $myts = MyTextSanitizer::getInstance();
+    $myts = \MyTextSanitizer::getInstance();
 
     $items_id = [];
 
@@ -48,14 +46,13 @@ function lexikon_tag_iteminfo(&$items)
 
     foreach (array_keys($items) as $cat_id) {
         foreach (array_keys($items[$cat_id]) as $item_id) {
-            $sql = 'SELECT  l.entryID, l.categoryID, l.term AS ltitle, l.definition, l.uid, l.datesub, l.offline, c.name AS cname FROM '
-                   . $xoopsDB->prefix('lxentries')
-                   . ' l, '
-                   . $xoopsDB->prefix('lxcategories')
-                   . ' c WHERE l.entryID='
-                   . $item_id
-                   . ' AND l.categoryID=c.categoryID AND l.offline=0 ORDER BY l.datesub DESC';
-            //$sql = "SELECT  l.entryID, l.categoryID, l.term as ltitle, l.definition, l.uid, l.datesub, l.offline,l.item_tag, c.name as cname FROM ".$xoopsDB->prefix('lxentries')." l, ".$xoopsDB->prefix('lxcategories')." c WHERE l.entryID=".$item_id." AND l.categoryID=c.categoryID AND l.offline=0 ORDER BY l.datesub DESC";
+            $sql                      = 'SELECT  l.entryID, l.categoryID, l.term AS ltitle, l.definition, l.uid, l.datesub, l.offline, c.name AS cname FROM '
+                                        . $xoopsDB->prefix('lxentries')
+                                        . ' l, '
+                                        . $xoopsDB->prefix('lxcategories')
+                                        . ' c WHERE l.entryID='
+                                        . $item_id
+                                        . ' AND l.categoryID=c.categoryID AND l.offline=0 ORDER BY l.datesub DESC';
             $result                   = $xoopsDB->query($sql);
             $row                      = $xoopsDB->fetchArray($result);
             $items[$cat_id][$item_id] = [
@@ -63,8 +60,6 @@ function lexikon_tag_iteminfo(&$items)
                 'uid'     => $row['uid'],
                 'link'    => "entry.php?entryID=$item_id",
                 'time'    => $row['datesub'],
-                //"tags"       => $row['item_tag'], // optional
-                //"content"    => $myts->displayTarea( $row['definition'], 0 ),
                 'content' => $row['definition'],
             ];
         }

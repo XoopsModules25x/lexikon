@@ -1,9 +1,6 @@
 <?php
 /**
- *
  * Module: Lexikon - glossary module
- * Version: v 1.00
- * Release Date: 8 May 2004
  * Author: hsalazar
  * Licence: GNU
  */
@@ -13,10 +10,7 @@ use Xmf\Request;
 include __DIR__ . '/header.php';
 
 global $xoTheme, $xoopsUser, $xoopsModuleConfig, $xoopsModule;
-/*if ( !is_object( $xoopsUser ) && $xoopsModuleConfig['allowreq'] == 0 ) {
-    redirect_header( "index.php", 1, _NOPERM );
 
-}*/
 // permissions
 $gpermHandler = xoops_getHandler('groupperm');
 $groups       = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
@@ -54,7 +48,7 @@ if (!Request::hasVar('submit', 'POST')) {
     //    extract($_POST);
 
     $display   = 'D';
-    $myts      = MyTextSanitizer::getInstance();
+    $myts      = \MyTextSanitizer::getInstance();
     $usermail  = Request::getEmail('usermail', '', 'POST');
     $username  = Request::getString('username', '', 'POST');
     $reqterm   = Request::getString('reqterm', '', 'POST');
@@ -135,10 +129,8 @@ if (!Request::hasVar('submit', 'POST')) {
         $xoopsMailer->setSubject($subject);
         $xoopsMailer->setBody($adminMessage);
         $xoopsMailer->send();
-        //$messagesent = sprintf(_MD_LEXIKON_MESSAGESENT,$xoopsConfig['sitename'])."<br>"._MD_LEXIKON_THANKS1."";
     }
     //send 'received!' mail
-    //if (LexikonUtility::getModuleOption('mailtosender') && $address) {
     if (1 == $xoopsModuleConfig['mailtosender'] && $address) {
         $conf_subject = _MD_LEXIKON_THANKS2;
         $userMessage  = sprintf(_MD_LEXIKON_GOODDAY2, $logname);
@@ -161,11 +153,7 @@ if (!Request::hasVar('submit', 'POST')) {
 
         $messagesent = sprintf(_MD_LEXIKON_MESSAGESENT, $xoopsConfig['sitename']) . '<br>' . _MD_LEXIKON_THANKS1 . '';
         $messagesent .= sprintf(_MD_LEXIKON_SENTCONFIRMMAIL, $address);
-        //}
-        //if ($xoopsModuleConfig['mailtoadmin'] == 1) {
-        //$messagesent .= sprintf(_MD_LEXIKON_SENTCONFIRMMAIL,$address);
     } else {
-        //$messagesent = sprintf(_MD_LEXIKON_SENTCONFIRMMAIL,$address);
         $messagesent = sprintf(_MD_LEXIKON_MESSAGESENT, $xoopsConfig['sitename']) . '<br>' . _MD_LEXIKON_THANKS1 . '';
     }
     redirect_header('index.php', 2, $messagesent);

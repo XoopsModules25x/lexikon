@@ -8,10 +8,12 @@
  * Licence: GNU
  */
 
+use XoopsModules\Lexikon;
+
 require_once __DIR__ . '/admin_header.php';
 xoops_cp_header();
 
-$myts = MyTextSanitizer::getInstance();
+$myts = \MyTextSanitizer::getInstance();
 global $xoopsUser, $xoopsConfig, $xoopsModuleConfig, $xoopsModule, $entryID;
 xoops_load('XoopsUserUtility');
 $adminObject = \Xmf\Module\Admin::getInstance();
@@ -19,7 +21,6 @@ $adminObject->displayNavigation(basename(__FILE__));
 $adminObject->addItemButton(_AM_LEXIKON_CREATECAT, 'category.php?op=addcat', 'add');
 $adminObject->addItemButton(_AM_LEXIKON_CREATEENTRY, 'entry.php?op=add', 'add');
 $adminObject->displayButton('left');
-//require_once XOOPS_ROOT_PATH . "/class/xoopslists.php";
 require_once XOOPS_ROOT_PATH . '/class/pagenav.php';
 
 $startentry = isset($_GET['startentry']) ? (int)$_GET['startentry'] : 0;
@@ -66,36 +67,25 @@ $result05 = $xoopsDB->query('SELECT COUNT(*)
                                WHERE offline = '1'  ");
 list($totaloffline) = $xoopsDB->fetchRow($result05);
 
-// Adapted from Smartsection
-//echo "<table width='100%' class='outer' style=\"margin-top: 6px; clear:both;\" ; cellspacing='2' cellpadding='3' border='0' ><tr>";
-//echo "<td class='odd'>" . _AM_LEXIKON_TOTALENTRIES . "</td><td align='center' class='even'>" . $totalpublished . "</td>";
-//if ($xoopsModuleConfig['multicats'] == 1) {
-//  echo "<td class='odd'>" . _AM_LEXIKON_TOTALCATS . "</td><td align='center' class='even'>" . $totalcategories . "</td>";
-//}
-//echo "<td class='odd'>" . _AM_LEXIKON_TOTALSUBM . "</td><td align='center' class='even'>" . $totalsubmitted . "</td>";
-//echo "<td class='odd'>" . _AM_LEXIKON_TOTALREQ . "</td><td align='center' class='even'>" . $totalrequested . "</td>";
-//echo "</tr></table>";
-//echo "<br><br>";
 //--- category dropdown
 if (1 == $xoopsModuleConfig['multicats']) {
-    // $cattree = new XoopsTree( $xoopsDB->prefix("lxcategories"), "categoryID", "0" );
-    $cattree = new LexikonTree($xoopsDB->prefix('lxcategories'), 'categoryID', '0');
-    echo "<table class='outer' width='100%'><tr ><td colspan=\"2\" class='even'><strong>" . _AM_LEXIKON_INVENTORY . '</strong></td></tr>';
-    echo '<tr class="odd" ><td width="30%" align="left">';
-    echo '<form method=get action=\"category.php\">';
+    // $cattree = new \XoopsTree( $xoopsDB->prefix("lxcategories"), "categoryID", "0" );
+    $cattree = new Lexikon\LexikonTree($xoopsDB->prefix('lxcategories'), 'categoryID', '0');
+    echo "<table class='outer' style='width:100%;'><tr class='odd'><td>";
+
+    echo "</td></tr><tr><td class='head' colspan='2' class='even'><strong>" . _AM_LEXIKON_INVENTORY . '</strong></td></tr>';
+    echo "<tr class='odd'><td text-align:left;'>";
+    echo '<form method=get action="category.php">';
     $cattree->makeMySelBox('name', 'weight DESC', 0, 1, '', 'window.location="category.php?op=mod&amp;categoryID="+this.value');
     echo '</form>';
-    echo '</td><td align="left">';
-    echo "<input type='button' name='button' onClick=\"location='category.php?op=addcat'\" value=' " . _AM_LEXIKON_CREATECAT . '\' >&nbsp;&nbsp;';
-    echo "<input type='button' name='button' onclick=\"location='entry.php?op=add'\" value='" . _AM_LEXIKON_CREATEENTRY . '\'>&nbsp;&nbsp;';
     echo '</td></tr>';
-    echo '</table><P><br>';
+    echo '</table><br>';
 } else {
     //--- create button
-    echo '<form><div style="margin-bottom: 12px;">';
-    echo "<input type='button' name='button' onclick=\"location='entry.php?op=add'\" value='" . _AM_LEXIKON_CREATEENTRY . '\'>&nbsp;&nbsp;';
+    echo "<form><div style='margin-bottom:12px;'>";
+    echo "<input type='button' name='button' onclick=\"location='entry.php?op=add'\" value='" . _AM_LEXIKON_CREATEENTRY . "'>&nbsp;&nbsp;";
     echo '</div></form>';
-    echo '<br><span style="color: #567; margin: 3px 0 12px 0; font-size: small; display: block; "><b>' . _AM_LEXIKON_ALLITEMSMSG . '</b></span>';
+    echo "<br><span style='color:#567; margin:3px 0 12px 0; font-size:small; display:block;'><b>" . _AM_LEXIKON_ALLITEMSMSG . '</b></span>';
 }
 // database update
 if (!lx_FieldExists('logourl', $xoopsDB->prefix('lxcategories'))
@@ -106,9 +96,9 @@ if (!lx_FieldExists('logourl', $xoopsDB->prefix('lxcategories'))
          . '/modules/'
          . $xoopsModule->getVar('dirname')
          . '/assets/images/dialog-important.png'
-         . '\' alt=\'\' hspace=\'0\' vspace=\'0\' align=\'left\' style=\'margin-right: 10px; \'><A href=\'upgrade.php\'>'
+         . "' alt='' style='margin-right:10px; text-align:left;'><a href='upgrade.php'>"
          . _AM_LEXIKON_PLEASE_UPGRADE
-         . '</A></td></tr></table></P>';
+         . '</a></td></tr></table>';
 }
 
 //--- navigation bar
@@ -200,14 +190,8 @@ switch ($statussel) {
         break;
 }
 // -- Code to show selected terms
-echo "<form name='pick' id='pick' action='" . $_SERVER['PHP_SELF'] . '\' method=\'POST\' style=\'margin: 0;\'>';
-
-echo "
-    <table width='100%' cellspacing='1' cellpadding='2' border='0' style='border-left: 1px solid silver; border-top: 1px solid silver; border-right: 1px solid silver;'>
-        <tr>
-            <td><span style='font-weight: bold; font-variant: small-caps;'>" . _AM_LEXIKON_SHOWING . ' ' . $caption . "</span></td>
-            <td align='right'>" . _AM_LEXIKON_SELECT_SORT . "
-                <select name='sortsel' onchange='submit()'>
+echo "<form name='pick' id='pick' action='" . $_SERVER['PHP_SELF'] . "' method='POST' style='margin:0;'>";
+echo "<table class='outer' style='width:100%;'><tr><th><span style='font-weight:bold; font-variant:small-caps;'>" . _AM_LEXIKON_SHOWING . ' ' . $caption . "</span></th><th style='text-align:right;'>" . _AM_LEXIKON_SELECT_SORT . " <select name='sortsel' onchange='submit()'>
                     <option value='entryID' $sorttxtentryID>" . _AM_LEXIKON_ENTRYID . "</option>
                     <option value='term' $sorttxtterm>" . _AM_LEXIKON_TERM . "</option>
                     <option value='uid' $sorttxtauthor>" . _AM_LEXIKON_AUTHOR . "</option>
@@ -217,18 +201,14 @@ echo "
                 <select name='ordersel' onchange='submit()'>
                     <option value='ASC' $ordertxtasc>" . _ASCENDING . "</option>
                     <option value='DESC' $ordertxtdesc>" . _DESCENDING . '</option>
-                </select>
-            ' . _AM_LEXIKON_STATUS . " :
+               </select> ' . _AM_LEXIKON_STATUS . ":
                 <select name='statussel' onchange='submit()'>
                     <option value='0' $selectedtxt0>" . _ALL . " [$totalterms]</option>
                     <option value='1' $selectedtxt1>" . _AM_LEXIKON_SUBMITS . " [$totalsubmitted]</option>
                     <option value='2' $selectedtxt2>" . _AM_LEXIKON_PUBLISHED . " [$totalpublished]</option>
                     <option value='3' $selectedtxt3>" . _AM_LEXIKON_SHOWOFFLINE . " [$totaloffline]</option>
                     <option value='4' $selectedtxt4>" . _AM_LEXIKON_SHOWREQUESTS . " [$totalrequested]</option>
-                </select>
-            </td>
-        </tr>
-    </table>
+                </select></td></tr></table>
     </form>";
 
 // Get number of entries in the selected state
@@ -236,7 +216,8 @@ $statusSelected = (0 == $statussel) ? -1 : $statussel;
 $results        = $xoopsDB->query('SELECT COUNT(*)
                                 FROM ' . $xoopsDB->prefix('lxentries') . '
                                 ' . $cond . '
-                                ORDER BY ' . $sortsel . ' ' . $ordersel . ' ');
+                                    ORDER BY ' . $sortsel . ' ' . $ordersel . '
+                                  ');
 list($numrows) = $xoopsDB->fetchRow($results);
 // creating the content
 $sql = 'SELECT entryID, categoryID, term, uid, datesub, offline
@@ -245,85 +226,87 @@ $sql = 'SELECT entryID, categoryID, term, uid, datesub, offline
        ORDER BY ' . $sortsel . ' ' . $ordersel . ' ';
 
 $items            = $xoopsDB->query($sql, $xoopsModuleConfig['perpage'], $startentry);//missing nav. extras
+
 $totalItemsOnPage = count($numrows);
+
 
 lx_buildTable();
 
 if ($numrows > 0) {
     $class = 'odd';
-    while (list($entryID, $categoryID, $term, $uid, $created, $offline) = $xoopsDB->fetchrow($items)) {
+    while (list($entryID, $categoryID, $term, $uid, $created, $offline) = $xoopsDB->fetchRow($items)) {
         // Creating the items
         $resultcn = $xoopsDB->query('SELECT name
                                        FROM ' . $xoopsDB->prefix('lxcategories') . "
                                        WHERE categoryID = '$categoryID'");
-        list($name) = $xoopsDB->fetchrow($resultcn);
+        list($name) = $xoopsDB->fetchRow($resultcn);
         $catname = $myts->htmlSpecialChars($name);
         $sentby  = XoopsUserUtility::getUnameFromId($uid);
         $term    = $myts->htmlSpecialChars($term);
         $created = formatTimestamp($created, 's');
-        $modify  = "<a href='entry.php?op=mod&entryID=" . $entryID . '\'><img src=' . $pathIcon16 . "/edit.png width='16' height='16' ALT='" . _AM_LEXIKON_EDITENTRY . '\'></a>&nbsp;';
-        $delete  = "<a href='entry.php?op=del&entryID=" . $entryID . '\'><img src=' . $pathIcon16 . "/delete.png width='16' height='16' ALT='" . _AM_LEXIKON_DELETEENTRY . '\'></a>';
+        $modify  = "<a href='entry.php?op=mod&entryID=" . $entryID . "'><img src=" . $pathIcon16 . "/edit.png alt='" . _AM_LEXIKON_EDITENTRY . "'></a>";
+        $delete  = "<a href='entry.php?op=del&entryID=" . $entryID . "'><img src=" . $pathIcon16 . "/delete.png alt='" . _AM_LEXIKON_DELETEENTRY . "'></a>";
 
         for ($i = 0; $i < $totalItemsOnPage; ++$i) {
             $approve = '';
             switch ($items) {
                 //case _LEXIKON_STATUS_SUBMITTED :
                 case '1':
-                    $statustxt = '<img src=' . XOOPS_URL . '/modules/' . $xoopsModule->dirname() . "/assets/images/icon/off.gif alt='" . _AM_LEXIKON_ENTRYISOFF . '\'>';
+                    $statustxt = '<img src=' . XOOPS_URL . '/modules/' . $xoopsModule->dirname() . "/assets/images/icon/off.gif alt='" . _AM_LEXIKON_ENTRYISOFF . "'>";
                     break;
 
                 //case _LEXIKON_STATUS_PUBLISHED :
                 case '2':
-                    $statustxt = '<img src=' . XOOPS_URL . '/modules/' . $xoopsModule->dirname() . "/assets/images/icon/on.gif alt='" . _AM_LEXIKON_ENTRYISON . '\'>';
+                    $statustxt = '<img src=' . XOOPS_URL . '/modules/' . $xoopsModule->dirname() . "/assets/images/icon/on.gif alt='" . _AM_LEXIKON_ENTRYISON . "'>";
                     break;
 
                 //case _LEXIKON_STATUS_OFFLINE :
                 case '3':
-                    $statustxt = '<img src=' . XOOPS_URL . '/modules/' . $xoopsModule->dirname() . "/assets/images/icon/off.gif alt='" . _AM_LEXIKON_ENTRYISOFF . '\'>';
+                    $statustxt = '<img src=' . XOOPS_URL . '/modules/' . $xoopsModule->dirname() . "/assets/images/icon/off.gif alt='" . _AM_LEXIKON_ENTRYISOFF . "'>";
                     break;
 
                 //case _LEXIKON_STATUS_REQ :
                 case '4':
-                    $statustxt = '<img src=' . XOOPS_URL . '/modules/' . $xoopsModule->dirname() . "/assets/images/icon/off.gif alt='" . _AM_LEXIKON_ENTRYISOFF . '\'>';
+                    $statustxt = '<img src=' . XOOPS_URL . '/modules/' . $xoopsModule->dirname() . "/assets/images/icon/off.gif alt='" . _AM_LEXIKON_ENTRYISOFF . "'>";
                     break;
 
                 case 'default':
                 default:
                     if (0 == $offline) {
-                        $statustxt = '<img src=' . XOOPS_URL . '/modules/' . $xoopsModule->dirname() . "/assets/images/icon/on.gif alt='" . _AM_LEXIKON_ENTRYISON . '\'>';
+                        $statustxt = '<img src=' . XOOPS_URL . '/modules/' . $xoopsModule->dirname() . "/assets/images/icon/on.gif alt='" . _AM_LEXIKON_ENTRYISON . "'>";
                     } else {
-                        $statustxt = '<img src=' . XOOPS_URL . '/modules/' . $xoopsModule->dirname() . "/assets/images/icon/off.gif alt='" . _AM_LEXIKON_ENTRYISOFF . '\'>';
+                        $statustxt = '<img src=' . XOOPS_URL . '/modules/' . $xoopsModule->dirname() . "/assets/images/icon/off.gif alt='" . _AM_LEXIKON_ENTRYISOFF . "'>";
                     }
                     $approve = '';
                     break;
             }
 
-            echo "<tr class='" . $class . '\'>';
+            echo "<tr class='" . $class . "'>";
             $class = ('even' === $class) ? 'odd' : 'even';
 
-            echo "<td  align='center'>" . $entryID . '</td>';
-            echo "<td  align='left'>" . $catname . '</td>';
-            echo "<td  align='left'><a href='../entry.php?entryID=" . $entryID . '\'>' . $term . '</td>';
-            echo "<td  align='center'>" . $sentby . '</td>';
-            echo "<td  align='center'>" . $created . '</td>';
-            echo "<td  align='center'>" . $statustxt . '</td>';
-            echo "<td  align='center'> " . $approve . $modify . $delete . '</td>';
+            echo "<td style='text-align:center;'>" . $entryID . '</td>';
+            echo "<td style='text-align:left;'>" . $catname . '</td>';
+            echo "<td style='text-align:left;'><a href='../entry.php?entryID=" . $entryID . "'>" . $term . '</td>';
+            echo "<td style='text-align:center;'>" . $sentby . '</td>';
+            echo "<td style='text-align:center;'>" . $created . '</td>';
+            echo "<td style='text-align:center;'>" . $statustxt . '</td>';
+            echo "<td style='text-align:center;'>" . $approve . $modify . '-' . $delete . '</td>';
             echo '</tr>';
         }
     }
 } else {
     // that is no item corresponding the status
     echo '<tr>';
-    echo "<td class='head' align='center' colspan= '7'>" . _AM_LEXIKON_NOITEMSSEL . '</td>';
+    echo "<td class='head' style='text-align:center;' colspan= '7'>" . _AM_LEXIKON_NOITEMSSEL . '</td>';
     echo '</tr>';
 }
 echo "</table>\n";
 
-echo "<span style=\"color: #567; margin: 3px 0 18px 0; font-size: small; display: block; \">$status_explanation</span>";
-$pagenav = new XoopsPageNav($numrows, $xoopsModuleConfig['perpage'], $startentry, 'startentry', "statussel=$statussel&amp;sortsel=$sortsel&amp;ordersel=$ordersel");
+echo "<span style='color:#567; margin:3px 0 18px 0; font-size:small; display:block;'>$status_explanation</span>";
+$pagenav = new \XoopsPageNav($numrows, $xoopsModuleConfig['perpage'], $startentry, 'startentry', "statussel=$statussel&amp;sortsel=$sortsel&amp;ordersel=$ordersel");
 echo '<div style="text-align:right;">' . $pagenav->renderNav(12) . '</div>';
-echo "<br><br>\n";
+echo "<br>\n";
 echo '</div>';
 
 //----
-xoops_cp_footer();
+require_once __DIR__ . '/admin_footer.php';

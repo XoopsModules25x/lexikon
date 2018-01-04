@@ -1,9 +1,6 @@
 <?php
 /**
- *
  * Module: Lexikon - glossary module
- * Version: v 1.00
- * Release Date: 18 Dec 2011
  * orig. Author: nagl@dictionary
  * Licence: GNU
  */
@@ -13,12 +10,12 @@ include XOOPS_ROOT_PATH . '/header.php';
 
 xoops_header(false);
 
-$entryID = isset($_GET['entryID']) ? (int)((int)$_GET['entryID']) : 0;
+$entryID = isset($_GET['entryID']) ? ((int)$_GET['entryID']) : 0;
 if (!$entryID) {
     exit();
 }
 //global $xoopsModuleConfig;
-$myts = MyTextSanitizer::getInstance();
+$myts = \MyTextSanitizer::getInstance();
 
 $sqlQuery = $xoopsDB->query('SELECT * FROM ' . $xoopsDB->prefix('lxentries') . " WHERE entryID=$entryID");
 $sqlfetch = $xoopsDB->fetchArray($sqlQuery);

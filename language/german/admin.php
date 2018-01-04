@@ -129,10 +129,8 @@ define('_AM_LEXIKON_ABOUT_AUTHOR_INFO', 'Autor info');
 define('_AM_LEXIKON_ABOUT_AUTHOR_NAME', 'Autor Name');
 define('_AM_LEXIKON_ABOUT_AUTHOR_WORD', 'Autorenkommentar');
 define('_AM_LEXIKON_ABOUT_DISCLAIMER', 'Disclaimer');
-define(
-    '_AM_LEXIKON_ABOUT_DISCLAIMER_TEXT',
-       'GPL-licensed.<br>This module comes as is, without any guarantees whatsoever. This module is a Release Candidate and should not be used on a production web site. The module is still under active development and its use is under your own responsibility, which means the author is not responsible.'
-);
+define('_AM_LEXIKON_ABOUT_DISCLAIMER_TEXT',
+       'GPL-licensed.<br>This module comes as is, without any guarantees whatsoever. This module is a Release Candidate and should not be used on a production web site. The module is still under active development and its use is under your own responsibility, which means the author is not responsible.');
 define('_AM_LEXIKON_ABOUT_CHANGELOG', 'Changelog');
 define('_AM_LEXIKON_ABOUT_README', 'Liesmich');
 define('_AM_LEXIKON_ABOUT_DEMO', 'Demo Site(s)');
@@ -141,11 +139,11 @@ define('_AM_LEXIKON_ABOUT_SUBMIT_BUG_TEXT', 'Fehler melden');
 define('_AM_LEXIKON_ABOUT_SUBMIT_FEATURE', 'Anfrage für neues Feature einsenden');
 define('_AM_LEXIKON_ABOUT_SUBMIT_FEATURE_TEXT', 'Featureanfrage einsenden');
 // Import
-define('_AM_LEXIKON_MODULEHEADIMPORTWB', 'Wordbook &mdash;&gt; Lexikon Import Skript');
-define('_AM_LEXIKON_MODULEHEADIMPORT', 'Dictionary &mdash;&gt; Lexikon Import Skript');
-define('_AM_LEXIKON_MODULEHEADIMPORTGLO', 'Glossaire &mdash;&gt; Lexikon Import Skript');
-define('_AM_LEXIKON_MODULEHEADIMPORTXWO', 'XWords &mdash;&gt; Lexikon Import Skript');
-define('_AM_LEXIKON_MODULEHEADIMPORTWW', 'Wiwimod &mdash;&gt; Lexikon Import Skript');
+define('_AM_LEXIKON_MODULEHEADIMPORTWB', 'Wordbook &mdash;> Lexikon Import Skript');
+define('_AM_LEXIKON_MODULEHEADIMPORT', 'Dictionary &mdash;> Lexikon Import Skript');
+define('_AM_LEXIKON_MODULEHEADIMPORTGLO', 'Glossaire &mdash;> Lexikon Import Skript');
+define('_AM_LEXIKON_MODULEHEADIMPORTXWO', 'XWords &mdash;> Lexikon Import Skript');
+define('_AM_LEXIKON_MODULEHEADIMPORTWW', 'Wiwimod &mdash;> Lexikon Import Skript');
 define('_AM_LEXIKON_MODULEIMPORTEMPTY10', 'zu importierende Datenbank fehlt oder ist leer!');
 define('_AM_LEXIKON_MODULEIMPORTERCOM', 'Kommentare erfolgreich zum Lexikon importiert');
 define('_AM_LEXIKON_MODULEIMPORTERNOCOM', 'Fehler beim Transferieren der Kommentare zum Lexikon Modul.');
@@ -209,10 +207,8 @@ define('_AM_LEXIKON_SUBMITFORM', 'Einsenden');
 define('_AM_LEXIKON_REQUESTFORM', 'Anfordern');
 define('_AM_LEXIKON_VIEWFORM_DSC', 'Kategorie betrachten - Berechtigungen');
 define('_AM_LEXIKON_APPROVEFORM_DSC', 'Automatically approve frontside submissions by these groups. <br> Not yet implemented!');
-define(
-    '_AM_LEXIKON_APPROVEPERM_WARN',
-       'Due to certain aspects of this module including copyright infringement, local moral or legal issues and the possibility of malicious code in submitted media files, it is recommended that automatic approval by anonymous users should not be allowed.  All submissions should be reviewed by a module admin.'
-);
+define('_AM_LEXIKON_APPROVEPERM_WARN',
+       'Due to certain aspects of this module including copyright infringement, local moral or legal issues and the possibility of malicious code in submitted media files, it is recommended that automatic approval by anonymous users should not be allowed.  All submissions should be reviewed by a module admin.');
 define('_AM_LEXIKON_SUBMITFORM_DSC', 'Allow users to submit an entry and, if published, modify that entry.');
 define('_AM_LEXIKON_REQUESTFORM_DSC', 'The specified group will have access to a request form.');
 define('_AM_LEXIKON_MODIFYFORM_DSC', 'Die angegebene Gruppe wird die Berechtigung zum Bearbeiten der Definitionen haben.<br>Ein User ist immer berechtigt, seine eigenen Einträge zu bearbeiten.');

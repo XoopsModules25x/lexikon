@@ -7,9 +7,9 @@ if (substr(XOOPS_VERSION, 6, 3) < 2.1) {
 
     // Keep Block option values when update (by nobunobu)
     global $xoopsDB;
-    $query  = 'SELECT mid FROM ' . $xoopsDB->prefix('modules') . " WHERE dirname='" . $modversion['dirname'] . '\' ';
+    $query  = 'SELECT mid FROM ' . $xoopsDB->prefix('modules') . " WHERE dirname='" . $modversion['dirname'] . "' ";
     $result = $xoopsDB->query($query);
-    $record = $xoopsDB->fetcharray($result);
+    $record = $xoopsDB->fetchArray($result);
     if ($record) {
         $mid   = $record['mid'];
         $count = count($modversion['blocks']);
@@ -18,12 +18,12 @@ if (substr(XOOPS_VERSION, 6, 3) < 2.1) {
         $fresult = $xoopsDB->query($sql);
         while ($fblock = $xoopsDB->fetchArray($fresult)) {
             $local_msgs[] = 'Non Defined Block <b>' . $fblock['name'] . '</b> will be deleted';
-            $sql          = 'DELETE FROM ' . $xoopsDB->prefix('newblocks') . " WHERE bid='" . $fblock['bid'] . '\'';
+            $sql          = 'DELETE FROM ' . $xoopsDB->prefix('newblocks') . " WHERE bid='" . $fblock['bid'] . "'";
             $iret         = $xoopsDB->query($sql);
         }
 
         for ($i = 1; $i <= $count; ++$i) {
-            $sql     = 'SELECT name,options FROM ' . $xoopsDB->prefix('newblocks') . ' WHERE mid=' . $mid . ' AND func_num=' . $i . " AND show_func='" . addslashes($modversion['blocks'][$i]['show_func']) . '\' AND func_file=\'' . addslashes($modversion['blocks'][$i]['file']) . '\'';
+            $sql     = 'SELECT name,options FROM ' . $xoopsDB->prefix('newblocks') . ' WHERE mid=' . $mid . ' AND func_num=' . $i . " AND show_func='" . addslashes($modversion['blocks'][$i]['show_func']) . "' AND func_file='" . addslashes($modversion['blocks'][$i]['file']) . "'";
             $fresult = $xoopsDB->query($sql);
             $fblock  = $xoopsDB->fetchArray($fresult);
             if (isset($fblock['options'])) {

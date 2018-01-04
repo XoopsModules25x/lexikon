@@ -16,6 +16,6 @@ Please do not reply to this message.
 
 -----------
 
-{X_SITENAME} ({X_SITEURL}) 
+{X_SITENAME} ({X_SITEURL})
 The webmaster
 {X_ADMINMAIL}

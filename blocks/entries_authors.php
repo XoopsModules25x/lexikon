@@ -1,9 +1,6 @@
 <?php
 /**
- *
  * Module: Lexikon -  glossary module
- * Version: v 1.00
- * Release Date: 8 May 2004
  * Author: adapted from AMS
  * Licence: GNU
  */
@@ -15,7 +12,7 @@ defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
  */
 function b_lx_author_show($options)
 {
-    $myts = MyTextSanitizer::getInstance();
+    $myts = \MyTextSanitizer::getInstance();
     /** @var XoopsModuleHandler $moduleHandler */
     $moduleHandler = xoops_getHandler('module');
     $lexikon       = $moduleHandler->getByDirname('lexikon');
@@ -23,13 +20,13 @@ function b_lx_author_show($options)
         $configHandler = xoops_getHandler('config');
         $lxConfig      = $configHandler->getConfigsByCat(0, $lexikon->getVar('mid'));
     }
-    require_once XOOPS_ROOT_PATH . '/modules/lexikon/class/utility.php';
+    require_once XOOPS_ROOT_PATH . '/modules/lexikon/class/Utility.php';
 
     $block = [];
     if (!isset($options[3])) {
         $options[3] = 'average';
     }
-    $authors = LexikonUtility::getBlockAuthors($options[1], $options[0], $options[2], $options[3]);
+    $authors = $utility::getBlockAuthors($options[1], $options[0], $options[2], $options[3]);
     if (is_array($authors) && count($authors) > 0) {
         $block['authors'] = $authors;
     }
@@ -45,21 +42,21 @@ function b_lx_author_show($options)
 function b_lx_author_edit($options)
 {
     require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
-    $form = new XoopsFormElementTray('', '<br>');
+    $form = new \XoopsFormElementTray('', '<br>');
 
-    $sort_select = new XoopsFormSelect(_MB_LEXIKON_ORDER, 'options[0]', $options[0]);
+    $sort_select = new \XoopsFormSelect(_MB_LEXIKON_ORDER, 'options[0]', $options[0]);
     $sort_select->addOption('count', _MB_LEXIKON_TERMSCOUNT);
     $sort_select->addOption('read', _MB_LEXIKON_HITS);
     $form->addElement($sort_select);
 
-    $form->addElement(new XoopsFormText(_MB_LEXIKON_DISP, 'options[1]', 20, 15, $options[1]));
+    $form->addElement(new \XoopsFormText(_MB_LEXIKON_DISP, 'options[1]', 20, 15, $options[1]));
 
-    $name_select = new XoopsFormSelect(_MB_LEXIKON_DISPLAYNAME, 'options[2]', $options[2]);
+    $name_select = new \XoopsFormSelect(_MB_LEXIKON_DISPLAYNAME, 'options[2]', $options[2]);
     $name_select->addOption('uname', _MB_LEXIKON_USERNAME);
     $name_select->addOption('name', _MB_LEXIKON_REALNAME);
     $form->addElement($name_select);
 
-    $average_select = new XoopsFormSelect(_MB_LEXIKON_COMPUTING, 'options[3]', $options[3]);
+    $average_select = new \XoopsFormSelect(_MB_LEXIKON_COMPUTING, 'options[3]', $options[3]);
     $average_select->addOption('average', _MB_LEXIKON_AVERAGE);
     $average_select->addOption('total', _MB_LEXIKON_TOTALS);
     $form->addElement($average_select);

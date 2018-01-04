@@ -1,9 +1,6 @@
 <?php
 /**
- *
  * Module: Lexikon - glossary module
- * Version: v 1.00
- * Release Date: 18 Dec 2011
  * Author: Yerres
  * Licence: GNU
  */
@@ -13,8 +10,8 @@ if (function_exists('mb_http_output')) {
 include __DIR__ . '/../../mainfile.php';
 require_once XOOPS_ROOT_PATH . '/header.php';
 require_once XOOPS_ROOT_PATH . '/class/template.php';
-$tpl = new XoopsTpl();
-$tpl->xoops_setCaching(0);
+$tpl = new \XoopsTpl();
+$tpl->caching=(0);
 
 global $xoopsUser, $xoopsDB, $xoopsConfig, $xoopsModuleConfig;
 $myts = MyTextSanitizer:: getInstance();
@@ -46,7 +43,6 @@ if ($numrows > 1) {
 } else {
     $entrynumber = 0;
 }
-//$resultZ = $xoopsDB -> query ( " SELECT entryID, categoryID, term, definition FROM ".$xoopsDB->prefix("lxentries")." WHERE offline = '0' AND submit = '0' AND request = '0' LIMIT $entrynumber, 1");
 $resultZ = $xoopsDB->query('SELECT a.entryID, a.categoryID, a.term, a.definition, a.offline, b.* FROM '
                            . $xoopsDB->prefix('lxentries')
                            . ' a, '

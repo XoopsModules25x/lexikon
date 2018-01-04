@@ -48,9 +48,7 @@ if (!is_object($xoopsModule)) {
 $moduleHandler = xoops_getHandler('module');
 if (!empty($_GET['dirname'])) {
     $target_module = $moduleHandler->getByDirname($_GET['dirname']);
-}/* else if ( ! empty( $_GET['mid'] ) ) {
-    $target_module = $moduleHandler->get( (int)( $_GET['mid'] ) );
-}*/
+}
 
 if (!empty($target_module) && is_object($target_module)) {
     // specified by dirname
@@ -74,13 +72,12 @@ if (!$syspermHandler->checkRight('system_admin', XOOPS_SYSTEM_BLOCK, $xoopsUser-
 }
 
 // get blocks owned by the module (Imported from xoopsblock.php then modified)
-//$block_arr = XoopsBlock::getByModule( $target_mid ) ;
-$db        = XoopsDatabaseFactory::getDatabaseConnection();
+$db        = \XoopsDatabaseFactory::getDatabaseConnection();
 $sql       = 'SELECT * FROM ' . $db->prefix('newblocks') . " WHERE mid='$target_mid' ORDER BY visible DESC,side,weight";
 $result    = $db->query($sql);
 $block_arr = [];
 while ($myrow = $db->fetchArray($result)) {
-    $block_arr[] = new XoopsBlock($myrow);
+    $block_arr[] = new \XoopsBlock($myrow);
 }
 
 function list_blocks()
@@ -106,8 +103,7 @@ function list_blocks()
     lx_collapsableBar('default', 'defaultIcon');
     echo "<img  onclick=\"toggle('default'); toggleIcon('defaultIcon');\" id='defaultIcon' src='" . XOOPS_URL . "/modules/lexikon/assets/images/close12.gif' alt=''></a>&nbsp; " . _AM_BADMIN . '<br><br>';
     echo "<div id='default' style='float:left; width:100%;'>";
-    echo "
-    <form action='admin.php' name='blockadmin' method='post'>
+    echo "<form action='admin.php' name='blockadmin' method='post'>
         <table width='95%' class='outer' cellpadding='4' cellspacing='1'>
         <tr valign='middle'>
             <th>" . _AM_TITLE . "</th>
@@ -184,7 +180,7 @@ function list_blocks()
         }
 
         // target modules
-        $db            = XoopsDatabaseFactory::getDatabaseConnection();
+        $db            = \XoopsDatabaseFactory::getDatabaseConnection();
         $result        = $db->query('SELECT module_id FROM ' . $db->prefix('block_module_link') . " WHERE block_id='$bid'");
         $selected_mids = [];
         while (list($selected_mid) = $db->fetchRow($result)) {
@@ -192,8 +188,8 @@ function list_blocks()
         }
         /** @var XoopsModuleHandler $moduleHandler */
         $moduleHandler = xoops_getHandler('module');
-        $criteria      = new CriteriaCompo(new Criteria('hasmain', 1));
-        $criteria->add(new Criteria('isactive', 1));
+        $criteria      = new \CriteriaCompo(new \Criteria('hasmain', 1));
+        $criteria->add(new \Criteria('isactive', 1));
         $module_list     = $moduleHandler->getList($criteria);
         $module_list[-1] = _AM_TOPPAGE;
         $module_list[0]  = _AM_ALLPAGES;
@@ -289,8 +285,7 @@ function list_blocks()
         $class = ('even' === $class) ? 'odd' : 'even';
     }
 
-    echo "
-        <tr>
+    echo "<tr>
             <td class='foot' align='center' colspan='6'>
                 <input type='hidden' name='query4redirect' value='$query4redirect'>
                 <input type='hidden' name='fct' value='blocksadmin'>
@@ -334,7 +329,7 @@ function list_groups()
         $item_list[$block_arr[$i]->getVar('bid')] = $block_arr[$i]->getVar('title');
     }
 
-    $form = new MyXoopsGroupPermForm(_MD_AM_ADGS, 1, 'block_read', '');
+    $form = new \MyXoopsGroupPermForm(_MD_AM_ADGS, 1, 'block_read', '');
     if ($target_mid > 1) {
         $form->addAppendix('module_admin', $target_mid, $target_mname . ' ' . _AM_ACTIVERIGHTS);
         $form->addAppendix('module_read', $target_mid, $target_mname . ' ' . _AM_ACCESSRIGHTS);
@@ -357,7 +352,6 @@ if (!empty($_POST['submit'])) {
 
 xoops_cp_header();
 require_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->dirname() . '/admin/functions.php';
-//lx_adminMenu(3, _AM_LEXIKON_BLOCKS);
 
 if (!empty($block_arr)) {
     echo "<h4 style='text-align:left;'>$target_mname : " . _AM_BADMIN . "</h4>\n";

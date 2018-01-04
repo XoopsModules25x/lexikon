@@ -24,6 +24,7 @@ var dhtmlgoodies_tooltipMaxWidth = 200;
 var dhtmlgoodies_tooltipMinWidth = 100;
 var dhtmlgoodies_iframe = false;
 var tooltip_is_msie = (navigator.userAgent.indexOf('MSIE') >= 0 && navigator.userAgent.indexOf('opera') == -1 && document.all) ? true : false;
+
 function showTooltip(e, tooltipTxt) {
 
     var bodyWidth = Math.max(document.body.clientWidth, document.documentElement.clientWidth) - 20;
@@ -51,10 +52,10 @@ function showTooltip(e, tooltipTxt) {
 
     dhtmlgoodies_tooltip.style.display = 'block';
     dhtmlgoodies_tooltipShadow.style.display = 'block';
-    if (tooltip_is_msie)dhtmlgoodies_iframe.style.display = 'block';
+    if (tooltip_is_msie) dhtmlgoodies_iframe.style.display = 'block';
 
     var st = Math.max(document.body.scrollTop, document.documentElement.scrollTop);
-    if (navigator.userAgent.toLowerCase().indexOf('safari') >= 0)st = 0;
+    if (navigator.userAgent.toLowerCase().indexOf('safari') >= 0) st = 0;
     var leftPos = e.clientX + 10;
 
     dhtmlgoodies_tooltip.style.width = null;    // Reset style width if it's set
@@ -71,7 +72,7 @@ function showTooltip(e, tooltipTxt) {
     }
 
     var tooltipWidth = dhtmlgoodies_tooltip.offsetWidth;
-    if (tooltipWidth < dhtmlgoodies_tooltipMinWidth)tooltipWidth = dhtmlgoodies_tooltipMinWidth;
+    if (tooltipWidth < dhtmlgoodies_tooltipMinWidth) tooltipWidth = dhtmlgoodies_tooltipMinWidth;
 
 
     dhtmlgoodies_tooltip.style.width = tooltipWidth + 'px';
@@ -96,5 +97,5 @@ function showTooltip(e, tooltipTxt) {
 function hideTooltip() {
     dhtmlgoodies_tooltip.style.display = 'none';
     dhtmlgoodies_tooltipShadow.style.display = 'none';
-    if (tooltip_is_msie)dhtmlgoodies_iframe.style.display = 'none';
+    if (tooltip_is_msie) dhtmlgoodies_iframe.style.display = 'none';
 }

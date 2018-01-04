@@ -2,32 +2,32 @@
 /**
  *
  * Module: Lexikon
- * Version: v 1.00
- * Release Date: 8 May 2004
  * Author: hsalazar
  * Chanegs: Yerres
  * Licence: GNU
  */
 
+use XoopsModules\Lexikon;
+
 global $term, $definition, $ref, $url, $xoopsUser, $xoopsModule, $xoopsModuleConfig;
 
-require_once XOOPS_ROOT_PATH . '/modules/lexikon/class/lexikontree.php'; // -- LionHell
+require_once XOOPS_ROOT_PATH . '/modules/lexikon/class/LexikonTree.php'; // -- LionHell
 include XOOPS_ROOT_PATH . '/class/xoopslists.php';
 include XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
 
 $guesteditoruse = $xoopsModuleConfig['wysiwyg_guests'];
-$myts           = MyTextSanitizer::getInstance();
-$mytree         = new LexikonTree($xoopsDB->prefix('lxcategories'), 'categoryID', '0');
-$sform          = new XoopsThemeForm(_MD_LEXIKON_SUB_SMNAME, 'storyform', xoops_getenv('PHP_SELF'), 'post', true);
+$myts           = \MyTextSanitizer::getInstance();
+$mytree         = new Lexikon\LexikonTree($xoopsDB->prefix('lxcategories'), 'categoryID', '0');
+$sform          = new \XoopsThemeForm(_MD_LEXIKON_SUB_SMNAME, 'storyform', xoops_getenv('PHP_SELF'), 'post', true);
 
 if ('1' == $xoopsModuleConfig['multicats']) {
     // perms adapted category select
     $groups       = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
     $gpermHandler = xoops_getHandler('groupperm');
-    $allowed_cats =& $gpermHandler->getItemIds('lexikon_submit', $groups, $xoopsModule->getVar('mid'));
+    $allowed_cats = $gpermHandler->getItemIds('lexikon_submit', $groups, $xoopsModule->getVar('mid'));
     if (is_array($allowed_cats)) {
-        $mytree         = new LexikonTree($xoopsDB->prefix('lxcategories'), 'categoryID', '0');
-        $categoryselect = new XoopsFormSelect(_MD_LEXIKON_ENTRYCATEGORY, 'categoryID', $allowed_cats);
+        $mytree         = new Lexikon\LexikonTree($xoopsDB->prefix('lxcategories'), 'categoryID', '0');
+        $categoryselect = new \XoopsFormSelect(_MD_LEXIKON_ENTRYCATEGORY, 'categoryID', $allowed_cats);
         $tbl            = [];
         $tbl            = $mytree->getChildTreeArray(0, 'name');
         foreach ($tbl as $oneline) {
@@ -37,75 +37,61 @@ if ('1' == $xoopsModuleConfig['multicats']) {
                 }
 
                 $oneline['prefix'] = str_replace('.', '-', $oneline['prefix']);
-                //if (in_array($oneline['categoryID'], $allowed_cats)) {
                 $categoryselect->addOption($oneline['categoryID'], $oneline['prefix'] . ' ' . $oneline['name']);
             }
         }
     }
     $sform->addElement($categoryselect, true);
-    /*    ob_start();
-        $sform -> addElement( new XoopsFormHidden( 'categoryID', $categoryID ) );
-        $mytree -> makeMySelBox( "name", "name", $categoryID );
-        $sform -> addElement( new XoopsFormLabel( _MD_LEXIKON_ENTRYCATEGORY, ob_get_contents() ) );
-        ob_end_clean();
-    */
 }
 // This part is common to edit/add
-$myts = MyTextSanitizer::getInstance();
+$myts = \MyTextSanitizer::getInstance();
 $term = $myts->htmlSpecialChars($term);
-$sform->addElement(new XoopsFormText(_MD_LEXIKON_ENTRY, 'term', 50, 80, $term), true);
+$sform->addElement(new \XoopsFormText(_MD_LEXIKON_ENTRY, 'term', 50, 80, $term), true);
 
-/*$editor = LexikonUtility::getWysiwygForm( _MD_LEXIKON_DEFINITION, 'definition', _MD_LEXIKON_WRITEHERE, 15, 60 );
-  if ($definition == _MD_LEXIKON_WRITEHERE) {
-      $editor -> setExtra( 'onfocus="this.select()"' );
-  }
-  $sform->addElement($editor,true);
-  unset($editor);
-*/
 //editor for guests/users
 if (isset($guesteditoruse)) {
     //if (isset($xoopsUser) && is_object($xoopsUser) ) {
     if ($xoopsUser) {
-        $editor = LexikonUtility::getWysiwygForm(_MD_LEXIKON_DEFINITION, 'definition', _MD_LEXIKON_WRITEHERE, 15, 60);
+        $editor = $utility::getWysiwygForm(_MD_LEXIKON_DEFINITION, 'definition', _MD_LEXIKON_WRITEHERE, 15, 60);
         if (_MD_LEXIKON_WRITEHERE == $definition) {
             $editor->setExtra('onfocus="this.select()"');
         }
         $sform->addElement($editor, true);
         unset($editor);
     } else {
-        $def_block = new XoopsFormDhtmlTextArea(_MD_LEXIKON_DEFINITION, 'definition', _MD_LEXIKON_WRITEHERE, 15, 60);
+        $def_block = new \XoopsFormDhtmlTextArea(_MD_LEXIKON_DEFINITION, 'definition', _MD_LEXIKON_WRITEHERE, 15, 60);
         $def_block->setExtra('onfocus="this.select()"');
         $sform->addElement($def_block, true);
     }
 }
 
-$sform->addElement(new XoopsFormTextArea(_MD_LEXIKON_REFERENCE, 'ref', $ref, 5, 50), false);
-$sform->addElement(new XoopsFormText(_MD_LEXIKON_URL, 'url', 50, 80, $url), false);
+$sform->addElement(new \XoopsFormTextArea(_MD_LEXIKON_REFERENCE, 'ref', $ref, 5, 50), false);
+$sform->addElement(new \XoopsFormText(_MD_LEXIKON_URL, 'url', 50, 80, $url), false);
 
 if (is_object($xoopsUser)) {
     $uid = $xoopsUser->getVar('uid');
-    $sform->addElement(new XoopsFormHidden('uid', $uid));
+    $sform->addElement(new \XoopsFormHidden('uid', $uid));
 
-    $notify_checkbox = new XoopsFormCheckBox('', 'notifypub', $notifypub);
+    $notify_checkbox = new \XoopsFormCheckBox('', 'notifypub', $notifypub);
     $notify_checkbox->addOption(1, _MD_LEXIKON_NOTIFY);
     $sform->addElement($notify_checkbox);
 }
 //--- Captcha - Ohne Gewähr
-if (1 == LexikonUtility::getModuleOption('captcha')) {
+if (1 == $utility::getModuleOption('captcha')) {
     $skipMember = 1;
-} elseif (2 == LexikonUtility::getModuleOption('captcha')) {
+} elseif (2 == $utility::getModuleOption('captcha')) {
     $skipMember = 0;
 }
 if (0 != $xoopsModuleConfig['captcha']) {
     xoops_load('XoopsFormCaptcha');
     if (class_exists('XoopsFormCaptcha')) {
-        $sform->addElement(new XoopsFormCaptcha('', 'xoopscaptcha', $skipMember), true);
+        $sform->addElement(new \XoopsFormCaptcha('', 'xoopscaptcha', $skipMember), true);
     }
 }
-$button_tray = new XoopsFormElementTray('', '');
-$hidden      = new XoopsFormHidden('op', 'post');
+$button_tray = new \XoopsFormElementTray('', '');
+$hidden      = new \XoopsFormHidden('op', 'post');
 $button_tray->addElement($hidden);
-$button_tray->addElement(new XoopsFormButton('', 'post', _MD_LEXIKON_CREATE, 'submit'));
+$button_tray->addElement(new \XoopsFormButton('', 'post', _MD_LEXIKON_CREATE, 'submit'));
 
 $sform->addElement($button_tray);
 

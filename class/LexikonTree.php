@@ -1,4 +1,5 @@
-<?php
+<?php namespace XoopsModules\Lexikon;
+
 /**
  * XOOPS tree handler
  *
@@ -43,12 +44,11 @@ class LexikonTree
      * @param $table_name
      * @param $id_name
      * @param $pid_name
-     * @return lexikontree
      */
     public function __construct($table_name, $id_name, $pid_name)
     {
         //        $GLOBALS['xoopsLogger']->addDeprecated("Class '" . __CLASS__ . "' is deprecated, check 'XoopsObjectTree' in tree.php");
-        $this->db    = XoopsDatabaseFactory::getDatabaseConnection();
+        $this->db    = \XoopsDatabaseFactory::getDatabaseConnection();
         $this->table = $table_name;
         $this->id    = $id_name;
         $this->pid   = $pid_name;
@@ -178,7 +178,7 @@ class LexikonTree
             return $path;
         }
         list($parentid, $name) = $this->db->fetchRow($result);
-        $myts = MyTextSanitizer::getInstance();
+        $myts = \MyTextSanitizer::getInstance();
         $name = $myts->htmlspecialchars($name);
         $path = '/' . $name . $path . '';
         if (0 == $parentid) {
@@ -205,10 +205,10 @@ class LexikonTree
         if ('' == $sel_name) {
             $sel_name = $this->id;
         }
-        $myts = MyTextSanitizer::getInstance();
-        echo "<select name='" . $sel_name . '\'';
+        $myts = \MyTextSanitizer::getInstance();
+        echo "<select name='" . $sel_name . "'";
         if ('' != $onchange) {
-            echo " onchange='" . $onchange . '\'';
+            echo " onchange='" . $onchange . "'";
         }
         echo ">\n";
         $sql = 'SELECT ' . $this->id . ', ' . $title . ' FROM ' . $this->table . ' WHERE ' . $this->pid . '=0';
@@ -260,9 +260,9 @@ class LexikonTree
             return $path;
         }
         list($parentid, $name) = $this->db->fetchRow($result);
-        $myts = MyTextSanitizer::getInstance();
+        $myts = \MyTextSanitizer::getInstance();
         $name = $myts->htmlspecialchars($name);
-        $path = "<a href='" . $funcURL . '&amp;' . $this->id . '=' . $sel_id . '\'>' . $name . '</a>' . $path . '';
+        $path = "<a href='" . $funcURL . '&amp;' . $this->id . '=' . $sel_id . "'>" . $name . '</a>' . $path . '';
         if (0 == $parentid) {
             return $path;
         }

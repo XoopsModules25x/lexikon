@@ -5,20 +5,17 @@
  * Licence: GNU
  */
 
-$moduleDirName = basename(dirname(__DIR__));
+use XoopsModules\Lexikon;
 
-if (false !== ($moduleHelper = Xmf\Module\Helper::getHelper($moduleDirName))) {
-} else {
-    $moduleHelper = Xmf\Module\Helper::getHelper('system');
-}
+require_once __DIR__ . '/../class/Helper.php';
+//require_once __DIR__ . '/../include/common.php';
+$helper = Lexikon\Helper::getInstance();
 
-$pathIcon32 = \Xmf\Module\Admin::menuIconPath('');
-//$pathModIcon32 = $moduleHelper->getModule()->getInfo('modicons32');
-
-$moduleHelper->loadLanguage('modinfo');
+$pathIcon32    = \Xmf\Module\Admin::menuIconPath('');
+$pathModIcon32 = $helper->getModule()->getInfo('modicons32');
 
 $adminmenu[] = [
-    'title' => _AM_MODULEADMIN_HOME,
+    'title' => _MI_LEXIKON_HOME,
     'link'  => 'admin/index.php',
     'icon'  => $pathIcon32 . '/home.png',
 ];
@@ -35,6 +32,7 @@ $adminmenu[] = [
     'icon'  => $pathIcon32 . '/category.png',
 ];
 
+
 $adminmenu[] = [
     'title' => _MI_LEXIKON_ADMENU3,
     'link'  => 'admin/entry.php',
@@ -45,6 +43,12 @@ $adminmenu[] = [
     'title' => _MI_LEXIKON_ADMENU12,
     'link'  => 'admin/statistics.php',
     'icon'  => $pathIcon32 . '/stats.png',
+];
+
+$adminmenu[] = [
+    'title' => _MI_LEXIKON_SHOWSUBMISSIONS,
+    'link'  => 'admin/submissions.php',
+    'icon'  => $pathIcon32 . '/event.png',
 ];
 
 $adminmenu[] = [
@@ -62,7 +66,19 @@ $adminmenu[] = [
 ];
 
 $adminmenu[] = [
-    'title' => _AM_MODULEADMIN_ABOUT,
+    'title' => _MI_LEXIKON_ABOUT,
     'link'  => 'admin/about.php',
     'icon'  => $pathIcon32 . '/about.png',
+];
+
+$adminmenu[] = [
+    'title' => _MI_LEXIKON_ADMENU2,
+    'link'  => 'admin/categories.php',
+    'icon'  => $pathIcon32 . '/category.png',
+];
+
+$adminmenu[] = [
+    'title' => _MI_LEXIKON_ADMENU3,
+    'link'  => 'admin/entries.php',
+    'icon'  => $pathIcon32 . '/add.png',
 ];

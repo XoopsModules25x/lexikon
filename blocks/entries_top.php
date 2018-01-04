@@ -1,9 +1,6 @@
 <?php
 /**
- *
  * Module: Lexikon - glossary module
- * Version: v 1.00
- * Release Date: 8 May 2004
  * Author: hsalazar
  * Licence: GNU
  */
@@ -59,7 +56,6 @@ function b_lxentries_top_show($options)
             $block['popstuff'][] = $popentries;
         }
     }
-
     return $block;
 }
 
@@ -78,28 +74,28 @@ function b_lxentries_top_edit($options)
     $form .= "<option value='term' " . (('term' === $options[0]) ? ' selected' : '') . '>' . _MB_LEXIKON_NAME . "</option>\n";
     $form .= '</select><br></td></tr>';
     //---
-    $form .= "<tr><td class='even'>" . _MB_LEXIKON_DISP . "</td><td class='odd'><input type='text' name='options[]' value='" . $options[1] . '\'>&nbsp;' . _MB_LEXIKON_TERMS . '<br></td></tr>';
+    $form .= "<tr><td class='even'>" . _MB_LEXIKON_DISP . "</td><td class='odd'><input type='text' name='options[]' value='" . $options[1] . "' >&nbsp;" . _MB_LEXIKON_TERMS . '<br></td></tr>';
     //---
     $form .= "<tr><td class='even'>" . _MB_LEXIKON_MARQUEE . "</td><td class='odd'>";
-    $form .= "<input type='radio' name='options[2]' value='1'" . ((1 == $options[2]) ? ' checked' : '') . '>' . _YES . '&nbsp;';
-    $form .= "<input type='radio' name='options[2]' value='0'" . ((0 == $options[2]) ? ' checked' : '') . '>' . _NO . '<br></td></tr>';
+    $form .= "<input type='radio' name='options[2]' value='1'" . ((1 == $options[2]) ? ' checked' : '') . ' >' . _YES . '&nbsp;';
+    $form .= "<input type='radio' name='options[2]' value='0'" . ((0 == $options[2]) ? ' checked' : '') . ' >' . _NO . '<br></td></tr>';
     //---
     $form .= "<tr><td class='even'>" . _MB_LEXIKON_ALTERNATE . "</td><td class='odd'>";
-    $form .= "<input type='radio' name='options[3]' value='1'" . ((1 == $options[3]) ? ' checked' : '') . '>' . _YES . '&nbsp;';
-    $form .= "<input type='radio' name='options[3]' value='0'" . ((0 == $options[3]) ? ' checked' : '') . '>' . _NO . '<br></td></tr>';
+    $form .= "<input type='radio' name='options[3]' value='1'" . ((1 == $options[3]) ? ' checked' : '') . ' >' . _YES . '&nbsp;';
+    $form .= "<input type='radio' name='options[3]' value='0'" . ((0 == $options[3]) ? ' checked' : '') . ' >' . _NO . '<br></td></tr>';
     $form .= '</td></tr>';
     //---
     $form .= "<tr><td class='even'>" . _MB_LEXIKON_SHOWCOUNT . "</td><td class='odd'>";
-    $form .= "<input type='radio' name='options[4]' value='1'" . ((1 == $options[4]) ? ' checked' : '') . '>' . _YES . '&nbsp;';
-    $form .= "<input type='radio' name='options[4]' value='0'" . ((0 == $options[4]) ? ' checked' : '') . '>' . _NO . '<br></td></tr>';
+    $form .= "<input type='radio' name='options[4]' value='1'" . ((1 == $options[4]) ? ' checked' : '') . ' >' . _YES . '&nbsp;';
+    $form .= "<input type='radio' name='options[4]' value='0'" . ((0 == $options[4]) ? ' checked' : '') . ' >' . _NO . '<br></td></tr>';
     //---
     $form .= "<tr><td class='even'>" . _MB_LEXIKON_DIRECTION . "</td><td class='odd'><select name='options[5]'>";
     $form .= "<option value='up' " . (('up' === $options[5]) ? ' selected' : '') . '>' . _MB_LEXIKON_UP . "</option>\n";
     $form .= "<option value='down' " . (('down' === $options[5]) ? ' selected' : '') . '>' . _MB_LEXIKON_DOWN . "</option>\n";
     $form .= "</select></td></tr>\n";
     //---
-    $form .= "<tr><td class='even'>" . _MB_LEXIKON_BSPEED . "</td><td class='odd'><input type='text' name='options[6]' size='16' maxlength=2 value='" . $options[6] . '\'></td></tr>';
-    $form .= "<tr><td class='even'>" . _MB_LEXIKON_BACKGROUNDCOLOR . "</td><td class='odd'><input type='text' name='options[7]' size='16'  value='" . $options[7] . '\'></td></tr>';
+    $form .= "<tr><td class='even'>" . _MB_LEXIKON_BSPEED . "</td><td class='odd'><input type='text' name='options[6]' size='16' maxlength=2 value='" . $options[6] . "' ></td></tr>";
+    $form .= "<tr><td class='even'>" . _MB_LEXIKON_BACKGROUNDCOLOR . "</td><td class='odd'><input type='text' name='options[7]' size='16'  value='" . $options[7] . "' ></td></tr>";
     $form .= '</table>';
 
     //----

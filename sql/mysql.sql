@@ -63,7 +63,7 @@ CREATE TABLE `lxentries` (
   `notifypub`  INT(11)          NOT NULL DEFAULT '0',
   `request`    INT(11)          NOT NULL DEFAULT '0',
   `comments`   INT(11) UNSIGNED NOT NULL DEFAULT '0',
-  `item_tag`   TEXT             ,
+  `item_tag`   TEXT,
   PRIMARY KEY (`entryID`),
   UNIQUE KEY entryID (`entryID`),
   FULLTEXT KEY definition (`definition`)

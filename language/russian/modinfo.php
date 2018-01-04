@@ -252,3 +252,6 @@ define('_MI_LEXIKON_TERM_APPROVE_NOTIFYSBJ', '[{X_SITENAME}] {X_MODULE} авто
 
 //
 define('_MI_LEXIKON_IMPORT', 'Импортировать');
+
+define('_MI_LEXIKON_HOME', 'Home');
+define('_MI_LEXIKON_ABOUT', 'About');

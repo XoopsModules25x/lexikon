@@ -24,11 +24,9 @@ $fct = empty($_GET['fct']) ? $fct : trim($_GET['fct']);
 if (empty($fct)) {
     $fct = 'preferences';
 }
-//if (isset($fct) && $fct == "users") {
-//  $xoopsOption['pagetype'] = "user";
-//}
+
 include __DIR__ . '/../../../mainfile.php';
-// include "../../mainfile.php"; GIJ
+
 include XOOPS_ROOT_PATH . '/include/cp_functions.php';
 
 require_once XOOPS_ROOT_PATH . '/kernel/module.php';
@@ -71,8 +69,6 @@ if (0 != $admintest) {
                 $groups = $xoopsUser->getGroups();
                 if (in_array(XOOPS_GROUP_ADMIN, $groups)
                     || false !== $syspermHandler->checkRight('system_admin', $category, $groups, $xoopsModule->getVar('mid'))) {
-                    //                  if (file_exists(XOOPS_ROOT_PATH."/modules/system/admin/".$fct."/main.php")) {
-                    //                      require_once XOOPS_ROOT_PATH."/modules/system/admin/".$fct."/main.php"; GIJ
                     if (file_exists(__DIR__ . "/../include/{$fct}.inc.php")) {
                         require_once __DIR__ . "/../include/{$fct}.inc.php";
                     } else {
@@ -98,9 +94,9 @@ if (0 != $admintest) {
     }
 }
 
-if (false != $error) {
+if (false !== $error) {
     xoops_cp_header();
-    echo '<h4>System Configuration</h4>';
+    echo '<h4>' . _AM_SYSTEM_CONFIG . '</h4>';
     echo '<table class="outer" cellpadding="4" cellspacing="1">';
     echo '<tr>';
     $groups = $xoopsUser->getGroups();
@@ -120,9 +116,9 @@ if (false != $error) {
             include $admin_dir . '/' . $file . '/xoops_version.php';
             if ($modversion['hasAdmin']) {
                 $category = isset($modversion['category']) ? (int)$modversion['category'] : 0;
-                if (false != $all_ok || in_array($modversion['category'], $ok_syscats)) {
+                if (false !== $all_ok || in_array($modversion['category'], $ok_syscats)) {
                     echo "<td class='$class' align='center' valign='bottom' width='19%'>";
-                    echo "<a href='" . XOOPS_URL . '/modules/system/admin.php?fct=' . $file . '\'><b>' . trim($modversion['name']) . "</b></a>\n";
+                    echo "<a href='" . XOOPS_URL . '/modules/system/admin.php?fct=' . $file . "'><b>" . trim($modversion['name']) . "</b></a>\n";
                     echo '</td>';
                     ++$counter;
                     $class = ('even' === $class) ? 'odd' : 'even';

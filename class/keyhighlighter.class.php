@@ -67,7 +67,7 @@ class lx_keyhighlighter
         $this->keywords         = $keywords;
         $this->singlewords      = $singlewords;
         $this->replace_callback = $replace_callback;
-        //ob_start (array (&$this, 'highlight'));
+        //ob_start ([$this, 'highlight']);
     }
 
     /**
