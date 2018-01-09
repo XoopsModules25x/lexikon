@@ -155,7 +155,6 @@ function lx_Statistics()
 /* -- Available operations -- */
 $op = isset($_GET['op']) ? $_GET['op'] : (isset($_POST['op']) ? $_POST['op'] : '');
 switch ($op) {
-
     default:
         lx_Statistics();
         break;

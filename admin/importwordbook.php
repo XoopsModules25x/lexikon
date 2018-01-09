@@ -26,6 +26,7 @@
 use Xmf\Request;
 
 require_once __DIR__ . '/admin_header.php';
+
 $op = '';
 
 /****
@@ -121,8 +122,8 @@ function DefinitionImport($delete)
      ****/
 
     $sql1    = $xoopsDB->query('
-                              SELECT *
-                              FROM ' . $xoopsDB->prefix('wbentries') . '
+                                SELECT *
+                                FROM ' . $xoopsDB->prefix('wbentries') . '
                               ');
     $result1 = $xoopsDB->getRowsNum($sql1);
     if ($result1) {
@@ -298,7 +299,6 @@ switch ($op) {
         $delete = isset($_GET['delete']) ? (int)$_GET['delete'] : (int)$_POST['delete'];
         DefinitionImport($delete);
         break;
-
     default:
         FormImport();
         break;

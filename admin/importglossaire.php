@@ -117,7 +117,7 @@ function DefinitionImport($delete)
      * Import ENTRIES
      ****/
     $sqlQuery = $xoopsDB->query('SELECT id, lettre, nom, definition, affiche
-                              FROM ' . $xoopsDB->prefix('glossaire'));
+                                  FROM ' . $xoopsDB->prefix('glossaire'));
     $fecha    = time() - 1;
     while ($sqlfetch = $xoopsDB->fetchArray($sqlQuery)) {
         $glo               = [];
@@ -159,9 +159,9 @@ function DefinitionImport($delete)
     }
 
     $sqlQuery = $xoopsDB->query('
-                              SELECT mid
-                              FROM ' . $xoopsDB->prefix('modules') . "
-                              WHERE dirname = 'glossaire'");
+                                SELECT mid
+                                FROM ' . $xoopsDB->prefix('modules') . "
+                                WHERE dirname = 'glossaire'");
     list($gloID) = $xoopsDB->fetchRow($sqlQuery);
     echo '<p>' . _AM_LEXIKON_IMPORT_MODULE_ID . ': ' . $gloID . '</p>';
     echo '<p>' . _AM_LEXIKON_IMPORT_MODULE_LEX_ID . ': ' . $xoopsModule->getVar('mid') . '<br>';

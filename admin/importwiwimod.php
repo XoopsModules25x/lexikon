@@ -97,12 +97,12 @@ function DefinitionImport($delete)
         // delete notifications
         xoops_notification_deletebymodule($xoopsModule->getVar('mid'));
         //get all entries
-        $result3 = $xoopsDB->query('SELECT entryID FROM ' . $xoopsDB->prefix('lxentries') . ' ');
+        $result3 = $xoopsDB->query('SELECT entryID FROM ' . $xoopsDB->prefix('lxentries') . '');
         //delete comments for each entry
         while (list($entryID) = $xoopsDB->fetchRow($result3)) {
             xoops_comment_delete($xoopsModule->getVar('mid'), $entryID);
         }
-        $resultC = $xoopsDB->query('SELECT categoryID FROM ' . $xoopsDB->prefix('lxcategories') . ' ');
+        $resultC = $xoopsDB->query('SELECT categoryID FROM ' . $xoopsDB->prefix('lxcategories') . '');
         while (list($categoryID) = $xoopsDB->fetchRow($resultC)) {
             // delete permissions
             xoops_groupperm_deletebymoditem($xoopsModule->getVar('mid'), 'lexikon_view', $categoryID);
@@ -125,7 +125,7 @@ function DefinitionImport($delete)
 
     $fecha = time() - 1;
     while ($sqlfetch = $xoopsDB->fetchArray($sqlQuery)) {
-        $wiwi          = [];
+        $wiwi                 = [];
         $wiwi['id']    = $sqlfetch['id'];
         $wiwi['title'] = $sqlfetch['title'];
         $wiwi['body']         = $myts->addSlashes(import2db($sqlfetch['body']));

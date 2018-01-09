@@ -84,7 +84,7 @@ if (count($uid_ids) > 0) {
             // authortotals
             list($num) = $xoopsDB->fetchRow($xoopsDB->query('SELECT COUNT(*)
                                             FROM ' . $xoopsDB->prefix('lxentries') . "
-                                                            WHERE uid='" . $one_user->getVar('uid') . "' " . $catperms . ' '));
+                                            WHERE uid='" . $one_user->getVar('uid') . "' " . $catperms . ' '));
             $authortotal = $num;
             // location
             if ('' != $one_user->getVar('user_from')) {

@@ -16,7 +16,7 @@ xoops_cp_header();
 $myts = \MyTextSanitizer::getInstance();
 global $xoopsUser, $xoopsConfig, $xoopsModuleConfig, $xoopsModule, $entryID;
 xoops_load('XoopsUserUtility');
-$adminObject = \Xmf\Module\Admin::getInstance();
+$adminObject  = \Xmf\Module\Admin::getInstance();
 $adminObject->displayNavigation(basename(__FILE__));
 $adminObject->addItemButton(_AM_LEXIKON_CREATECAT, 'category.php?op=addcat', 'add');
 $adminObject->addItemButton(_AM_LEXIKON_CREATEENTRY, 'entry.php?op=add', 'add');
@@ -190,7 +190,7 @@ switch ($statussel) {
         break;
 }
 // -- Code to show selected terms
-echo "<form name='pick' id='pick' action='" . $_SERVER['PHP_SELF'] . "' method='POST' style='margin:0;'>";
+echo "<form name='pick' id='pick' action='" . $_SERVER['PHP_SELF'] . "' method='POST' style='margin: 0;'>";
 echo "<table class='outer' style='width:100%;'><tr><th><span style='font-weight:bold; font-variant:small-caps;'>" . _AM_LEXIKON_SHOWING . ' ' . $caption . "</span></th><th style='text-align:right;'>" . _AM_LEXIKON_SELECT_SORT . " <select name='sortsel' onchange='submit()'>
                     <option value='entryID' $sorttxtentryID>" . _AM_LEXIKON_ENTRYID . "</option>
                     <option value='term' $sorttxtterm>" . _AM_LEXIKON_TERM . "</option>
@@ -216,8 +216,8 @@ $statusSelected = (0 == $statussel) ? -1 : $statussel;
 $results        = $xoopsDB->query('SELECT COUNT(*)
                                 FROM ' . $xoopsDB->prefix('lxentries') . '
                                 ' . $cond . '
-                                    ORDER BY ' . $sortsel . ' ' . $ordersel . '
-                                  ');
+                                ORDER BY ' . $sortsel . ' ' . $ordersel . '
+                                ');
 list($numrows) = $xoopsDB->fetchRow($results);
 // creating the content
 $sql = 'SELECT entryID, categoryID, term, uid, datesub, offline
@@ -307,6 +307,5 @@ $pagenav = new \XoopsPageNav($numrows, $xoopsModuleConfig['perpage'], $startentr
 echo '<div style="text-align:right;">' . $pagenav->renderNav(12) . '</div>';
 echo "<br>\n";
 echo '</div>';
-
 //----
 require_once __DIR__ . '/admin_footer.php';

@@ -239,32 +239,32 @@ function list_blocks()
             <td class='$class'>
                 $name
                 <br>
-                <input type='text' name='title[$bid]' value='$title' size='20'>
+                <input type='text' name='title[$bid]' value='$title' size='20' >
             </td>
             <td class='$class' align='center' nowrap='nowrap' width='125px'>
       <div align='center' >
-        <input type='radio' name='side[$bid]' value='" . XOOPS_CENTERBLOCK_LEFT . "'$ssel2>
-        <input type='radio' name='side[$bid]' value='" . XOOPS_CENTERBLOCK_CENTER . "'$ssel3>
-        <input type='radio' name='side[$bid]' value='" . XOOPS_CENTERBLOCK_RIGHT . "'$ssel4>
+          <input type='radio' name='side[$bid]' value='" . XOOPS_CENTERBLOCK_LEFT . "'$ssel2 >
+          <input type='radio' name='side[$bid]' value='" . XOOPS_CENTERBLOCK_CENTER . "'$ssel3 >
+          <input type='radio' name='side[$bid]' value='" . XOOPS_CENTERBLOCK_RIGHT . "'$ssel4 >
       </div>
       <div>
-        <span style='float:right;'><input type='radio' name='side[$bid]' value='" . XOOPS_SIDEBLOCK_RIGHT . "'$ssel1></span>
-        <div align='left'><input type='radio' name='side[$bid]' value='" . XOOPS_SIDEBLOCK_LEFT . "'$ssel0></div>
+          <span style='float:right;'><input type='radio' name='side[$bid]' value='" . XOOPS_SIDEBLOCK_RIGHT . "'$ssel1 ></span>
+          <div align='left'><input type='radio' name='side[$bid]' value='" . XOOPS_SIDEBLOCK_LEFT . "'$ssel0 ></div>
       </div>
       <div align='center'>
-        <input type='radio' name='side[$bid]' value='" . XOOPS_CENTERBLOCK_BOTTOMLEFT . "'$ssel5>
-        <input type='radio' name='side[$bid]' value='" . XOOPS_CENTERBLOCK_BOTTOM . "'$ssel7>
-        <input type='radio' name='side[$bid]' value='" . XOOPS_CENTERBLOCK_BOTTOMRIGHT . "'$ssel6>
+          <input type='radio' name='side[$bid]' value='" . XOOPS_CENTERBLOCK_BOTTOMLEFT . "'$ssel5 >
+          <input type='radio' name='side[$bid]' value='" . XOOPS_CENTERBLOCK_BOTTOM . "'$ssel7 >
+          <input type='radio' name='side[$bid]' value='" . XOOPS_CENTERBLOCK_BOTTOMRIGHT . "'$ssel6 >
       </div>
       <br>
         <div style='float:left;width:30%;'>&nbsp;</div>
                 <div style='float:left;background-color:$scoln;'>
-                    <input type='radio' name='side[$bid]' value='-1'  $sseln>
+                    <input type='radio' name='side[$bid]' value='-1'  $sseln >
                 </div>
                 <div style='float:left;'>" . _NONE . "</div>
             </td>
             <td class='$class' align='center'>
-                <input type='text' name=weight[$bid] value='$weight' size='3' maxlength='5' style='text-align:right;'>
+                <input type='text' name=weight[$bid] value='$weight' size='3' maxlength='5' style='text-align:right;' >
             </td>
             <td class='$class' align='center'>
                 <select name='bmodule[$bid][]' size='5' multiple='multiple'>
@@ -278,7 +278,7 @@ function list_blocks()
             </td>
             <td class='$class' align='right'>
                 <a href='admin.php?fct=blocksadmin&amp;op=edit&amp;bid=$bid'>" . _EDIT . "</a>{$delete_link}{$clone_link}
-                <input type='hidden' name='bid[$bid]' value='$bid'>
+                <input type='hidden' name='bid[$bid]' value='$bid' >
             </td>
         </tr>\n";
 
@@ -287,11 +287,11 @@ function list_blocks()
 
     echo "<tr>
             <td class='foot' align='center' colspan='6'>
-                <input type='hidden' name='query4redirect' value='$query4redirect'>
-                <input type='hidden' name='fct' value='blocksadmin'>
-                <input type='hidden' name='op' value='order'>
+                <input type='hidden' name='query4redirect' value='$query4redirect' >
+                <input type='hidden' name='fct' value='blocksadmin' >
+                <input type='hidden' name='op' value='order' >
                 " . $GLOBALS['xoopsSecurity']->getTokenHTML('myblocksadmin') . "
-                <input type='submit' name='submit' value='" . _SUBMIT . "'>
+                <input type='submit' name='submit' value='" . _SUBMIT . "' >
             </td>
         </tr>
         </table>
@@ -322,7 +322,7 @@ function list_groups()
 {
     global $target_mid, $target_mname, $block_arr;
     lx_collapsableBar('groups', 'groupIcon');
-    echo "<img  onclick=\"toggle('groups'); toggleIcon('groupsIcon');\" id='groupsIcon' src='" . XOOPS_URL . "/modules/lexikon/assets/images/close12.gif' alt=''></a>&nbsp; " . _MD_AM_ADGS . ' <br>';
+    echo "<img  onclick=\"toggle('groups'); toggleIcon('groupsIcon');\" id='groupsIcon' src='" . XOOPS_URL . "/modules/lexikon/assets/images/close12.gif' alt='' ></a>&nbsp; " . _MD_AM_ADGS . ' <br>';
     echo "<div id='groups' style='float:left; width:100%;'>";
     $item_list = [];
     foreach (array_keys($block_arr) as $i) {

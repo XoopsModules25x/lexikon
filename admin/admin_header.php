@@ -31,7 +31,7 @@ require_once __DIR__ . '/../class/LexikonTree.php'; // -- LionHell
 require_once $path . '/class/xoopslists.php';
 require_once $path . '/class/xoopsformloader.php';
 
-$moduleDirName = basename(dirname(__DIR__));
+    $moduleDirName = basename(dirname(__DIR__));
 /** @var Lexikon\Helper $helper */
 $helper = Lexikon\Helper::getInstance();
 

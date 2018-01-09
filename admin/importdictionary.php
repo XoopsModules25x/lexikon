@@ -116,8 +116,8 @@ function DefinitionImport($delete)
      ****/
 
     $sql1 = $xoopsDB->query('
-                              SELECT *
-                              FROM ' . $xoopsDB->prefix('dictionary') . ' ');
+                            SELECT *
+                            FROM ' . $xoopsDB->prefix('dictionary') . ' ');
 
     $result1 = $xoopsDB->getRowsNum($sql1);
     if ($result1) {
@@ -178,8 +178,8 @@ function DefinitionImport($delete)
      ****/
 
     $sqlQuery = $xoopsDB->query('
-                              SELECT mid FROM ' . $xoopsDB->prefix('modules') . "
-                              WHERE dirname = 'dictionary'");
+                                SELECT mid FROM ' . $xoopsDB->prefix('modules') . "
+                                WHERE dirname = 'dictionary'");
     list($dicID) = $xoopsDB->fetchRow($sqlQuery);
     echo '<p>' . _AM_LEXIKON_IMPORT_MODULE_ID . ': ' . $dicID . '</p>';
     echo '<p>' . _AM_LEXIKON_IMPORT_MODULE_LEX_ID . ': ' . $xoopsModule->getVar('mid') . '</p><br>';

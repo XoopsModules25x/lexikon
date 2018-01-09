@@ -34,7 +34,7 @@ require_once XOOPS_ROOT_PATH . '/class/xoopslists.php';
 require_once XOOPS_ROOT_PATH . '/class/xoopsform/grouppermform.php';
 $myts = \MyTextSanitizer::getInstance();
 xoops_cp_header();
-$adminObject = \Xmf\Module\Admin::getInstance();
+$adminObject  = \Xmf\Module\Admin::getInstance();
 $adminObject->displayNavigation(basename(__FILE__));
 
 $permtoset                = isset($_POST['permtoset']) ? (int)$_POST['permtoset'] : 1;
@@ -76,7 +76,7 @@ switch ($permtoset) {
         $permdesc  = _AM_LEXIKON_REQUESTFORM_DSC;
         break;
 }
-$modid      = $xoopsModule->getVar('mid');
+$modid    = $xoopsModule->getVar('mid');
 $permform   = new \XoopsGroupPermForm($title, $modid, $perm_name, $permdesc, 'admin/permissions.php');
 $catstree   = new Lexikon\LexikonTree($xoopsDB->prefix('lxcategories'), 'categoryID', '');
 $catsresult = $xoopsDB->query('SELECT categoryID, name FROM ' . $xoopsDB->prefix('lxcategories') . ' ORDER BY weight');

@@ -14,7 +14,7 @@ require_once __DIR__ . '/admin_header.php';
 $myts = \MyTextSanitizer::getInstance();
 xoops_cp_header();
 xoops_load('XoopsUserUtility');
-$adminObject = \Xmf\Module\Admin::getInstance();
+$adminObject  = \Xmf\Module\Admin::getInstance();
 $adminObject->displayNavigation(basename(__FILE__));
 $adminObject->addItemButton(_AM_LEXIKON_CREATECAT, 'category.php?op=addcat', 'add');
 $adminObject->displayButton('left');
@@ -76,7 +76,7 @@ function categoryDefault()
         $class = 'odd';
         if ($numrows > 0) { // That is, if there ARE columns in the system
             while (list($categoryID, $name, $description, $total, $weight, $logourl) = $xoopsDB->fetchRow($resultC2)) {
-                $name        = $myts->htmlSpecialChars($name);
+                $name = $myts->htmlSpecialChars($name);
                 $description = strip_tags(htmlspecialchars_decode($description));
                 $modify      = "<a href='category.php?op=mod&categoryID=" . $categoryID . "'><img src=" . $pathIcon16 . "/edit.png alt='" . _AM_LEXIKON_EDITCAT . "'></a>";
                 $delete      = "<a href='category.php?op=del&categoryID=" . $categoryID . "'><img src=" . $pathIcon16 . "/delete.png  alt='" . _AM_LEXIKON_DELETECAT . "'></a>";
@@ -120,7 +120,7 @@ function categoryEdit($categoryID = '')
     require_once XOOPS_ROOT_PATH . '/class/xoopsform/grouppermform.php';
 
     $utility      = new Lexikon\Utility();
-    
+
     $weight      = 1;
     $name        = '';
     $description = '';
@@ -144,7 +144,7 @@ function categoryEdit($categoryID = '')
         $gpermHandler  = xoops_getHandler('groupperm');
 
         $groups = $gpermHandler->getGroupIds('lexikon_view', $categoryID, $xoopsModule->getVar('mid'));
-        //$groups = $groups;
+        //        $groups = $groups;
         if (0 == $xoopsDB->getRowsNum($result)) {
             redirect_header('index.php', 1, _AM_LEXIKON_NOCATTOEDIT);
         }
@@ -184,7 +184,7 @@ function categoryEdit($categoryID = '')
 
         $path_catimg       = 'uploads/' . $xoopsModule->getVar('dirname') . '/categories/images';
         $image_option_tray = new \XoopsFormElementTray(_AM_LEXIKON_CATIMAGE . '<br>' . _AM_LEXIKON_CATIMG_DSC . '<br>' . $path_catimg);
-        $image_array       = XoopsLists::getImgListAsArray(XOOPS_ROOT_PATH . '/' . $path_catimg . '/');
+        $image_array = XoopsLists::getImgListAsArray(XOOPS_ROOT_PATH . '/' . $path_catimg . '/');
         array_unshift($image_array, _NONE);
 
         $image_select = new \XoopsFormSelect('', 'logourl', $logourl);
@@ -299,7 +299,7 @@ function categorySave($categoryID = '')
     $groups      = Request::getArray('group', [], 'POST'); //isset($_POST['groups']) ? $_POST['groups'] : array();
     // image upload
     $logourl       = '';
-    $maxfilesize   = $xoopsModuleConfig['imguploadsize'];
+    $maxfilesize = $xoopsModuleConfig['imguploadsize'];
     $maxfilewidth  = $xoopsModuleConfig['imguploadwd'];
     $maxfileheight = $xoopsModuleConfig['imguploadwd'];
     if (!empty($_FILES['userfile']['name'])) {

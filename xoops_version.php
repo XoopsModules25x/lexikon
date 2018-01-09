@@ -47,26 +47,26 @@ $modversion    = [
     'author_word'         => '-',
     'module_website_url'  => 'https://xoops.org/',
     'module_website_name' => 'XOOPS',
-    // Admin things
+// Admin things
     'hasAdmin'            => 1,
     'adminindex'          => 'admin/index.php',
     'adminmenu'           => 'admin/menu.php',
-    // Sql
+// Sql
     'sqlfile'             => ['mysql' => 'sql/mysql.sql'],
     'tables'              => [
-        'lxcategories',
-        'lxentries'
+    'lxcategories',
+    'lxentries'
     ],
-    // Search
+// Search
     'hasSearch'           => 1,
     'search'              => [
         'file' => 'include/search.inc.php',
         'func' => 'lx_search',
     ],
-    // Menu
+// Menu
     'hasMain'             => 1,
     'system_menu'         => 1,
-    // Use smarty
+// Use smarty
     'use_smarty'          => 1,
 ];
 global $xoopsUser, $xoopsDB, $xoopsModuleConfig;
@@ -642,21 +642,21 @@ $modversion['config'][] = [
 
 //Uploads : max width/height for image upload
 $modversion['config'][] = [
-    'name'        => 'imguploadwd',
+    'name'            => 'imguploadwd',
     'title'       => '_MI_LEXIKON_IMGUPLOADWD',
     'description' => '_MI_LEXIKON_IMGUPLOADWD_DESC',
-    'formtype'    => 'textbox',
-    'valuetype'   => 'text',
+    'formtype'        => 'textbox',
+    'valuetype'    => 'text',
     'default'     => 200
 ];
 
 //Uploads : max size for image upload
 $modversion['config'][] = [
-    'name'        => 'imguploadsize',
+    'name'            => 'imguploadsize',
     'title'       => '_MI_LEXIKON_IMGUPLOADSIZE',
     'description' => '_MI_LEXIKON_IMGUPLOADSIZE_DESC',
-    'formtype'    => 'textbox',
-    'valuetype'   => 'text',
+    'formtype'        => 'textbox',
+    'valuetype'    => 'text',
     'default'     => 10485760
 ]; // 1 MB
 

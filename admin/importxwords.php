@@ -121,8 +121,8 @@ function DefinitionImport($delete)
      ****/
 
     $sql1 = $xoopsDB->query('
-                              SELECT *
-                              FROM ' . $xoopsDB->prefix('xwords_ent') . ' ');
+                             SELECT *
+                             FROM ' . $xoopsDB->prefix('xwords_ent') . ' ');
 
     $result1 = $xoopsDB->getRowsNum($sql1);
     if ($result1) {
