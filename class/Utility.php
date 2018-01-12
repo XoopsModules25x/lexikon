@@ -154,7 +154,7 @@ class Utility
         global $xoopsUser, $xoopsDB;
         $gpermHandler = xoops_getHandler('groupperm');
         $groups       = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
-        /** @var XoopsModuleHandler $moduleHandler */
+        /** @var \XoopsModuleHandler $moduleHandler */
         $moduleHandler = xoops_getHandler('module');
         $module        = $moduleHandler->getByDirname('lexikon');
         $module_id     = $module->getVar('mid');
@@ -213,7 +213,7 @@ class Utility
         global $xoopsUser, $xoopsDB, $xoopsModule;
         $gpermHandler = xoops_getHandler('groupperm');
         $groups       = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
-        /** @var XoopsModuleHandler $moduleHandler */
+        /** @var \XoopsModuleHandler $moduleHandler */
         $moduleHandler = xoops_getHandler('module');
         $module        = $moduleHandler->getByDirname('lexikon');
         $module_id     = $module->getVar('mid');
@@ -270,45 +270,6 @@ class Utility
         return $alpha;
     }
 
-    public static function lettersChoice()
-    {
-        $pedigree = LexikonLexikon::getInstance();
-        xoops_load('XoopsLocal');
-
-        $criteria = $pedigree->getHandler('tree')->getActiveCriteria();
-        $criteria->setGroupby('UPPER(LEFT(NAAM,1))');
-        $countsByLetters = $pedigree->getHandler('tree')->getCounts($criteria);
-        // Fill alphabet array
-        $alphabet       = \XoopsLocal::getAlphabet();
-        $alphabet_array = [];
-        foreach ($alphabet as $letter) {
-            $letter_array = [];
-            if (isset($countsByLetters[$letter])) {
-                $letter_array['letter'] = $letter;
-                $letter_array['count']  = $countsByLetters[$letter];
-                $letter_array['url']    = '' . XOOPS_URL . '/modules/' . $pedigree->getModule()->dirname() . "/result.php?f=NAAM&amp;l=1&amp;w={$letter}%25&amp;o=NAAM";
-            } else {
-                $letter_array['letter'] = $letter;
-                $letter_array['count']  = 0;
-                $letter_array['url']    = '';
-            }
-            $alphabet_array[$letter] = $letter_array;
-            unset($letter_array);
-        }
-        // Render output
-        if (!isset($GLOBALS['xoTheme']) || !is_object($GLOBALS['xoTheme'])) {
-            require_once $GLOBALS['xoops']->path('class/theme.php');
-            $GLOBALS['xoTheme'] = new xos_opal_Theme();
-        }
-        require_once $GLOBALS['xoops']->path('class/template.php');
-        $letterschoiceTpl          = new \XoopsTpl();
-        $letterschoiceTpl->caching = false; // Disable cache
-        $letterschoiceTpl->assign('alphabet', $alphabet_array);
-        $html = $letterschoiceTpl->fetch('db:' . $pedigree->getModule()->dirname() . '_common_letterschoice.tpl');
-        unset($letterschoiceTpl);
-
-        return $html;
-    }
 
     /**
      * chr() with unicode support
@@ -346,7 +307,7 @@ class Utility
     {
         global $xoopsUser, $xoopsDB, $xoopsModule, $xoopsModuleConfig, $xoopsConfig, $entrytype;
 
-        /** @var XoopsModuleHandler $moduleHandler */
+        /** @var \XoopsModuleHandler $moduleHandler */
         $moduleHandler = xoops_getHandler('module');
         $moduleInfo    = $moduleHandler->get($xoopsModule->getVar('mid'));
         $pathIcon16    = \Xmf\Module\Admin::iconUrl('', 16);
@@ -774,7 +735,7 @@ class Utility
                 $retval = $xoopsModuleConfig[$option];
             }
         } else {
-            /** @var XoopsModuleHandler $moduleHandler */
+            /** @var \XoopsModuleHandler $moduleHandler */
             $moduleHandler = xoops_getHandler('module');
             $module        = $moduleHandler->getByDirname($repmodule);
             $configHandler = xoops_getHandler('config');
@@ -815,7 +776,7 @@ class Utility
      * @param  string                                                                                                                         $width
      * @param  string                                                                                                                         $height
      * @param  string                                                                                                                         $supplemental
-     * @return bool|XoopsFormEditor
+     * @return bool|\XoopsFormEditor
      *
      */
     public static function getWysiwygForm($caption, $name, $value = '', $width = '100%', $height = '400px', $supplemental = '')
@@ -1492,7 +1453,7 @@ class Utility
     public static function meta_keywords($content)
     {
         global $xoopsTpl, $xoTheme;
-        $myts    = MyTextSanitizer::getInstance();
+        $myts    = \MyTextSanitizer::getInstance();
         $content = $myts->undoHtmlSpecialChars($myts->displayTarea($content));
         if (null !== $xoTheme && is_object($xoTheme)) {
             $xoTheme->addMeta('meta', 'keywords', strip_tags($content));
@@ -1507,7 +1468,7 @@ class Utility
     public static function meta_description($content)
     {
         global $xoopsTpl, $xoTheme;
-        $myts    = MyTextSanitizer::getInstance();
+        $myts    = \MyTextSanitizer::getInstance();
         $content = $myts->undoHtmlSpecialChars($myts->displayTarea($content));
         if (null !== $xoTheme && is_object($xoTheme)) {
             $xoTheme->addMeta('meta', 'description', strip_tags($content));

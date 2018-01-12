@@ -7,6 +7,8 @@
  * Licence: GNU
  */
 
+use XoopsModules\Lexikon;
+
 include __DIR__ . '/header.php';
 $GLOBALS['xoopsOption']['template_main'] = 'lx_authorlist.tpl';
 require_once XOOPS_ROOT_PATH . '/header.php';

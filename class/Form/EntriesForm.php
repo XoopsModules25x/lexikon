@@ -25,7 +25,7 @@ use Xmf\Request;
 use Xmf\Module\Helper;
 use Xmf\Module\Helper\Permission;
 use XoopsModules\Lexikon;
-use XoopsModules\Lexikon\forms;
+use XoopsModules\Lexikon\Form;
 
 require_once __DIR__ . '/../../include/config.php';
 

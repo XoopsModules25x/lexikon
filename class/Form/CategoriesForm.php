@@ -26,7 +26,7 @@ use Xmf\Request;
 use Xmf\Module\Helper;
 use Xmf\Module\Helper\Permission;
 use XoopsModules\Lexikon;
-use XoopsModules\Lexikon\forms;
+use XoopsModules\Lexikon\Form;
 
 require_once __DIR__ . '/../../include/config.php';
 
@@ -96,10 +96,10 @@ class CategoriesForm extends \XoopsThemeForm
         $this->addElement(new \XoopsFormText(AM_LEXIKON_CATEGORIES_LOGOURL, 'logourl', 50, 255, $this->targetObject->getVar('logourl')), false);
 
         //permissions
-        /** @var XoopsMemberHandler $memberHandler */
+        /** @var \XoopsMemberHandler $memberHandler */
         $memberHandler = xoops_getHandler('member');
         $groupList     = $memberHandler->getGroupList();
-        /** @var XoopsGroupPermHandler $gpermHandler */
+        /** @var \XoopsGroupPermHandler $gpermHandler */
         $gpermHandler = xoops_getHandler('groupperm');
         $fullList     = array_keys($groupList);
 

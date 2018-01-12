@@ -700,7 +700,7 @@ function lx_isX23()
  * @param string $width
  * @param string $height
  * @param string $supplemental
- * @return bool|\XoopsFormDhtmlTextArea|\XoopsFormEditor|\XoopsFormFckeditor|\XoopsFormHtmlarea|\XoopsFormTextArea|\XoopsFormTinyeditorTextArea
+ * @return bool|\XoopsFormDhtmlTextArea|\XoopsFormEditor|\XoopsFormHtmlarea|\XoopsFormTextArea|\XoopsFormTinyeditorTextArea
  */
 function &lx_getWysiwygForm($caption, $name, $value = '', $width = '100%', $height = '400px', $supplemental = '')
 {
@@ -753,14 +753,7 @@ function &lx_getWysiwygForm($caption, $name, $value = '', $width = '100%', $heig
                 $editor = new \XoopsFormTinyeditorTextArea(['caption' => $caption, 'name' => $name, 'value' => $value, 'width' => '100%', 'height' => '400px']);
             }
             break;
-
-        case 'koivi':
-            if (is_readable(XOOPS_ROOT_PATH . '/class/wysiwyg/formwysiwygtextarea.php')) {
-                require_once XOOPS_ROOT_PATH . '/class/wysiwyg/formwysiwygtextarea.php';
-                $editor = new \XoopsFormWysiwygTextArea($caption, $name, $value, $width, $height, '');
-            }
-            break;
-    }
+     }
 
     return $editor;
 }

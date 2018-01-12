@@ -23,7 +23,7 @@
 
 use Xmf\Module\Helper\Permission;
 use XoopsModules\Lexikon;
-use XoopsModules\Lexikon\forms;
+use XoopsModules\Lexikon\Form;
 
 $moduleDirName = basename(dirname(__DIR__));
 

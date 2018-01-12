@@ -23,7 +23,7 @@
 
 use Xmf\Module\Helper\Permission;
 use Xoopsmodules\Lexikon;
-use Xoopsmodules\Lexikon\forms;
+use Xoopsmodules\Lexikon\Form;
 
 require_once __DIR__ . '/../include/common.php';
 
@@ -56,13 +56,13 @@ class Categories extends \XoopsObject
      * Get form
      *
      * @param null
-     * @return LexikonCategoriesForm
+     * @return Lexikon\Form\CategoriesForm
      */
     public function getForm()
     {
         require_once XOOPS_ROOT_PATH . '/modules/lexikon/class/form/categories.php';
 
-        $form = new forms\CategoriesForm($this);
+        $form = new Form\CategoriesForm($this);
         return $form;
     }
 

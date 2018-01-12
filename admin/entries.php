@@ -29,7 +29,7 @@ use Xmf\Module\Helper;
 use Xmf\Module\Helper\Permission;
 use Xmf\Request;
 use XoopsModules\Lexikon;
-use XoopsModules\Lexikon\forms;
+use XoopsModules\Lexikon\Form;
 
 require_once __DIR__ . '/admin_header.php';
 xoops_cp_header();
@@ -326,7 +326,7 @@ switch ($op) {
 
         $id_field = Request::getString('entryID', '');
 
-        if (\Lexikon\Utility::cloneRecord('lexikon_entries', 'entryID', $id_field)) {
+        if (Lexikon\Utility::cloneRecord('lexikon_entries', 'entryID', $id_field)) {
             redirect_header('entries.php', 3, AM_LEXIKON_CLONED_OK);
         } else {
             redirect_header('entries.php', 3, AM_LEXIKON_CLONED_FAILED);

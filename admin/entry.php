@@ -7,6 +7,7 @@
  * Licence: GNU
  */
 
+use Xmf\Request;
 use XoopsModules\Lexikon;
 
 require_once __DIR__ . '/admin_header.php';

@@ -71,7 +71,7 @@ class Entries extends \XoopsObject
      * Get form
      *
      * @param null
-     * @return LexikonEntriesForm
+     * @return Form\EntriesForm
      */
     public function getForm()
     {
