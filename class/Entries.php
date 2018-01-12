@@ -23,7 +23,7 @@
 
 use Xmf\Module\Helper\Permission;
 use XoopsModules\Lexikon;
-use XoopsModules\Lexikon\forms;
+use XoopsModules\Lexikon\Form;
 
 require_once __DIR__ . '/../include/common.php';
 
@@ -64,7 +64,7 @@ class Entries extends \XoopsObject
         $this->initVar('notifypub', XOBJ_DTYPE_INT);
         $this->initVar('request', XOBJ_DTYPE_INT);
         $this->initVar('comments', XOBJ_DTYPE_INT);
-        $this->initVar('item_tag', XOBJ_DTYPE_OTHER);
+//        $this->initVar('item_tag', XOBJ_DTYPE_OTHER);
     }
 
     /**
@@ -75,9 +75,9 @@ class Entries extends \XoopsObject
      */
     public function getForm()
     {
-        require_once XOOPS_ROOT_PATH . '/modules/lexikon/class/form/entries.php';
+//        require_once XOOPS_ROOT_PATH . '/modules/lexikon/class/form/entries.php';
 
-        $form = new forms\EntriesForm($this);
+        $form = new Form\EntriesForm($this);
         return $form;
     }
 

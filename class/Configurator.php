@@ -1,4 +1,4 @@
-<?php namespace Xoopsmodules\lexikon;
+<?php namespace Xoopsmodules\Lexikon;
 
 /*
  You may not change or alter any portion of this comment or credits

@@ -228,9 +228,8 @@ define('_MD_LEXIKON_MUSTREGFIRST', 'У Вас нет доступа к этом�
 /**
  * @return array
  */
-function getAlphabet()
-{
-    $alphabet = [
+return [
+    'alphabet' => [
         '0',
         '1',
         '2',
@@ -272,7 +271,8 @@ function getAlphabet()
         'Э',
         'Ю',
         'Я'
+    ],
     ];
-
-    return $alphabet;
-}
+//
+//    return $alphabet;
+//}

@@ -8,6 +8,8 @@
  * Licence: GNU
  */
 
+use XoopsModules\Lexikon;
+
 include __DIR__ . '/header.php';
 
 $GLOBALS['xoopsOption']['template_main'] = 'lx_index.tpl';
@@ -68,13 +70,39 @@ if (0 == $publishedwords) {
 // To display the search form
 $xoopsTpl->assign('searchform', $utility::showSearchForm());
 
+//--------------------------------------------------------------
 // To display the linked letter list
 $alpha = $utility::getAlphaArray();
 $xoopsTpl->assign('alpha', $alpha);
+$alphaCount = count($alpha);
 
 list($howmanyother) = $xoopsDB->fetchRow($xoopsDB->query('SELECT COUNT(*) FROM ' . $xoopsDB->prefix('lxentries') . " WHERE init = '#' AND offline ='0' " . $catperms . ' '));
 $xoopsTpl->assign('totalother', $howmanyother);
 
+//-----------------------------------------
+
+
+
+// Letter Choice Start ---------------------------------------
+
+$moduleDirName = basename(__DIR__);
+$moduleDirNameUpper = strtoupper($moduleDirName);
+
+Lexikon\Helper::getInstance()->loadLanguage('common');
+$xoopsTpl->assign('letterChoiceTitle', constant('CO_' . $moduleDirNameUpper . '_' . 'BROWSETOTOPIC'));
+/** @var \XoopsDatabase $db */
+$db           = \XoopsDatabaseFactory::getDatabase();
+$objHandler =  Lexikon\Helper::getInstance()->getHandler('Entries');
+$choicebyletter = new Lexikon\Common\LetterChoice($objHandler, null, null, range('a', 'z'), 'init', LEXIKON_URL . '/letter.php');
+$catarray['letters']  = $choicebyletter->render($alphaCount, $howmanyother);
+$xoopsTpl->assign('catarray', $catarray);
+
+// Letter Choice End ------------------------------------
+
+
+
+
+//---------------------------------------------
 // To display the tree of categories
 if (1 == $xoopsModuleConfig['multicats']) {
     $xoopsTpl->assign('block0', $utility::getCategoryArray());

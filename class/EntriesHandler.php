@@ -22,8 +22,6 @@
  */
 
 use Xmf\Module\Helper\Permission;
-use XoopsModules\Lexikon;
-use  XoopsModules\Lexikon\forms;
 
 $moduleDirName = basename(dirname(__DIR__));
 

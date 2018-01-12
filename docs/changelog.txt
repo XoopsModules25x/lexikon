@@ -3,6 +3,7 @@
 - replaced $xoopsGTicket to $GLOBALS['xoopsSecurity'] (mamba)
 - added namespaces (mamba)
 - added Request (mamba)
+- added LetterChoice highlighting available items (mamba)
 
 WORK IN PROGRESS
 

@@ -39,12 +39,14 @@
                 <legend>&nbsp;<{$smarty.const._MD_LEXIKON_BROWSELETTER}>&nbsp;</legend>
                 <div class="search_abc_l">
                     <a href="<{$xoops_url}>/modules/<{$lang_moduledirname}>/letter.php"
-                    ><abbr name="[&nbsp;<{$publishedwords}>&nbsp;]"><{$smarty.const._MD_LEXIKON_ALL}></abbr></a></div>
+                    ><abbr name="[&nbsp;<{$publishedwords}>&nbsp;]"><{$smarty.const._MD_LEXIKON_ALL}></abbr></a>
+                </div>
                 <div class="search_abc_c">&nbsp;|
                     <{foreach item=letterlinks from=$alpha.initial}>
                         <{if $letterlinks.total > 0}>&nbsp;<a href="<{$xoops_url}>/modules/<{$lang_moduledirname}>/letter.php?init=<{$letterlinks.id}>"><abbr name="[&nbsp;<{$letterlinks.total}>&nbsp;]"><{/if}><{$letterlinks.linktext}></abbr>
                         <{if $letterlinks.total > 0}></a><{/if}>&nbsp;|
-                    <{/foreach}></div>
+                    <{/foreach}>
+                </div>
                 <div class="search_abc_r">
                     <{if $totalother > 0}>&nbsp;<a
                             href="<{$xoops_url}>/modules/<{$lang_moduledirname}>/letter.php?init=<{$smarty.const._MD_LEXIKON_OTHER}>"
@@ -54,6 +56,21 @@
             </fieldset>
         </div>
     </div>
+
+
+
+
+    <{*-------------Letter Choice Start -----------------------------*}>
+
+
+    <{if $catarray.letters}>
+        <div class="lexikon_head_catletters" align="center">
+            <{$letterChoiceTitle}>
+            <{$catarray.letters}></div>
+        <br>
+    <{/if}>
+    <{*-------------Letter Choice End -----------------------------*}>
+
 
     <{* Category block *}>
     <{if $layout == '0'}>

@@ -1,4 +1,4 @@
-<?php namespace XoopsModules\Lexikon\forms;
+<?php namespace XoopsModules\Lexikon\Form;
 
 /*
  You may not change or alter any portion of this comment or credits
@@ -197,7 +197,7 @@ class EntriesForm extends \XoopsThemeForm
         // Comments
         //$this->addElement(new \XoopsFormText(AM_LEXIKON_ENTRIES_COMMENTS, 'comments', 50, 255, $this->targetObject->getVar('comments')), false);
         // Item_tag
-        $this->addElement(new \XoopsFormTextArea(AM_LEXIKON_ENTRIES_ITEM_TAG, 'item_tag', $this->targetObject->getVar('item_tag'), 4, 47), false);
+//        $this->addElement(new \XoopsFormTextArea(AM_LEXIKON_ENTRIES_ITEM_TAG, 'item_tag', $this->targetObject->getVar('item_tag'), 4, 47), false);
 
         $this->addElement(new \XoopsFormHidden('op', 'save'));
         $this->addElement(new \XoopsFormButton('', 'submit', _SUBMIT, 'submit'));

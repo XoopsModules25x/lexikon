@@ -1,4 +1,4 @@
-<?php namespace XoopsModules\Lexikon\forms;
+<?php namespace XoopsModules\Lexikon\Form;
 
 /*
  You may not change or alter any portion of this comment or credits

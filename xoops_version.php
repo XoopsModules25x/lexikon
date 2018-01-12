@@ -16,7 +16,7 @@ $moduleDirName = basename(__DIR__);
 $modversion    = [
     'version'       => 1.53,
     'module_status' => 'Beta 1',
-    'release_date'  => '2017/12/12',
+    'release_date'  => '2018/01/11',
     'name'          => _MI_LEXIKON_MD_NAME,
     'description'   => _MI_LEXIKON_MD_DESC,
     'author'        => 'Yerres',
@@ -319,6 +319,12 @@ $modversion['templates'][]  = [
 
 $modversion['templates'][] = ['file' => 'admin/lexikon_admin_entries.tpl', 'description' => ''];
 $modversion['templates'][] = ['file' => 'admin/lexikon_admin_categories.tpl', 'description' => ''];
+
+
+$modversion['templates'][] = [
+    'file'        => $modversion['dirname'] . '_letterschoice.tpl',
+    'description' => ''
+];
 
 // Config Settings
 $modversion['config'] = [];
