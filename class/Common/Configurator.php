@@ -56,6 +56,5 @@ class Configurator
         $this->oldFiles        = $config->oldFiles;
         $this->oldFolders      = $config->oldFolders;
         $this->modCopyright    = $config->modCopyright;
-
     }
 }

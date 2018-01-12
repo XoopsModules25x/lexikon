@@ -27,8 +27,8 @@ $modversion    = [
     'official'      => 0, //1 indicates supported by XOOPS Dev Team, 0 means 3rd party supported
     'image'         => 'assets/images/logoModule.png',
     'dirname'       => basename(__DIR__),
-    'onInstall'     => 'include/install_function.php',
-    'onUpdate'      => 'include/update_function.php',
+//    'onInstall'     => 'include/install_function.php',
+//    'onUpdate'      => 'include/update_function.php',
 
     'modicons16' => 'assets/images/icons/16',
     'modicons32' => 'assets/images/icons/32',
@@ -45,8 +45,6 @@ $modversion    = [
     'min_db'              => ['mysql' => '5.1'],
 
     'author_word'         => '-',
-    'module_website_url'  => 'https://xoops.org/',
-    'module_website_name' => 'XOOPS',
 // Admin things
     'hasAdmin'            => 1,
     'adminindex'          => 'admin/index.php',
@@ -63,6 +61,10 @@ $modversion    = [
         'file' => 'include/search.inc.php',
         'func' => 'lx_search',
     ],
+    // ------------------- Install/Update -------------------
+    'onInstall'           => 'include/oninstall.php',
+    'onUpdate'            => 'include/onupdate.php',
+    'onUninstall'         => 'include/onuninstall.php',
 // Menu
     'hasMain'             => 1,
     'system_menu'         => 1,

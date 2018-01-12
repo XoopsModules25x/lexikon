@@ -19,42 +19,54 @@
 
 use XoopsModules\Lexikon;
 
+include __DIR__ . '/../preloads/autoloader.php';
+
+
 $moduleDirName = basename(dirname(__DIR__));
+$moduleDirNameUpper = strtoupper($moduleDirName);
 
-require_once __DIR__ . '/../class/Helper.php';
-require_once __DIR__ . '/../class/Utility.php';
-require_once __DIR__ . '/../class/EntriesHandler.php';
-require_once __DIR__ . '/../class/CategoriesHandler.php';
-
-if (!defined('LEXIKON_MODULE_PATH')) {
-    define('LEXIKON_DIRNAME', basename(dirname(__DIR__)));
-    define('LEXIKON_URL', XOOPS_URL . '/modules/' . LEXIKON_DIRNAME);
-    define('LEXIKON_IMAGE_URL', LEXIKON_URL . '/assets/images/');
-    define('LEXIKON_ROOT_PATH', XOOPS_ROOT_PATH . '/modules/' . LEXIKON_DIRNAME);
-    define('LEXIKON_IMAGE_PATH', LEXIKON_ROOT_PATH . '/assets/images');
-    define('LEXIKON_ADMIN_URL', LEXIKON_URL . '/admin/');
-    define('LEXIKON_UPLOAD_URL', XOOPS_UPLOAD_URL . '/' . LEXIKON_DIRNAME);
-    define('LEXIKON_UPLOAD_PATH', XOOPS_UPLOAD_PATH . '/' . LEXIKON_DIRNAME);
-}
 
 /** @var \XoopsDatabase $db */
-/** @var Lexikon\Helper $helper */
+/** @var  Lexikon\Helper $helper */
 /** @var Lexikon\Utility $utility */
-$db           = \XoopsDatabaseFactory::getDatabase();
-$helper       = Lexikon\Helper::getInstance();
-$utility      = new Lexikon\Utility();
-$configurator = new Lexikon\Configurator();
+
+$db     = \XoopsDatabaseFactory::getDatabaseConnection();
+$helper = Lexikon\Helper::getInstance();
+$utility = new Lexikon\Utility();
+//$configurator = new Lexikon\Common\Configurator();
 
 $helper->loadLanguage('common');
 
-//handlers
+
 $entriesHandler     = new Lexikon\EntriesHandler($db);
 $categoriesHandler     = new Lexikon\CategoriesHandler($db);
 
 $pathIcon16    = Xmf\Module\Admin::iconUrl('', 16);
 $pathIcon32    = Xmf\Module\Admin::iconUrl('', 32);
-$pathModIcon16 = $helper->getModule()->getInfo('modicons16');
-$pathModIcon32 = $helper->getModule()->getInfo('modicons32');
+//$pathModIcon16 = $helper->getModule()->getInfo('modicons16');
+//$pathModIcon32 = $helper->getModule()->getInfo('modicons32');
+
+
+if (!defined($moduleDirNameUpper . '_CONSTANTS_DEFINED')) {
+    define($moduleDirNameUpper . '_DIRNAME', basename(dirname(__DIR__)));
+    define($moduleDirNameUpper . '_ROOT_PATH', XOOPS_ROOT_PATH . '/modules/' . $moduleDirName );
+    define($moduleDirNameUpper . '_PATH', XOOPS_ROOT_PATH . '/modules/' . $moduleDirName );
+    define($moduleDirNameUpper . '_URL', XOOPS_URL . '/modules/' . $moduleDirName );
+    define($moduleDirNameUpper . '_IMAGES_URL', constant($moduleDirNameUpper . '_URL') . '/assets/images/');
+    define($moduleDirNameUpper . '_IMAGES_PATH', constant($moduleDirNameUpper . '_ROOT_PATH') . '/assets/images/');
+    define($moduleDirNameUpper . '_ADMIN_URL', constant($moduleDirNameUpper . '_URL') . '/admin/');
+    define($moduleDirNameUpper . '_ADMIN_PATH', constant($moduleDirNameUpper . '_ROOT_PATH') . '/admin/');
+    define($moduleDirNameUpper . '_ADMIN', constant($moduleDirNameUpper . '_URL') . '/admin/index.php');
+    //    define($moduleDirNameUpper . '_AUTHOR_LOGOIMG', constant($moduleDirNameUpper . '_URL') . '/assets/images/logoModule.png');
+    define($moduleDirNameUpper . '_UPLOAD_URL', XOOPS_UPLOAD_URL . '/' . $moduleDirName); // WITHOUT Trailing slash
+    define($moduleDirNameUpper . '_UPLOAD_PATH', XOOPS_UPLOAD_PATH . '/' . $moduleDirName); // WITHOUT Trailing slash
+    define($moduleDirNameUpper . '_CAT_IMAGES_URL', XOOPS_UPLOAD_URL . ' / ' . constant($moduleDirNameUpper . '_DIRNAME') . '/images/category');
+    define($moduleDirNameUpper . '_CAT_IMAGES_PATH', XOOPS_UPLOAD_PATH . '/' . constant($moduleDirNameUpper . '_DIRNAME') . ' / images / category');
+    define($moduleDirNameUpper . '_CACHE_PATH', XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/');
+    define($moduleDirNameUpper . '_AUTHOR_LOGOIMG', $pathIcon32 . '/xoopsmicrobutton.gif');
+    define($moduleDirNameUpper . '_CONSTANTS_DEFINED', 1);
+}
+
 
 $icons = [
     'edit'    => "<img src='" . $pathIcon16 . "/edit.png'  alt=" . _EDIT . "' align='middle'>",
@@ -64,11 +76,26 @@ $icons = [
     'print'   => "<img src='" . $pathIcon16 . "/printer.png' alt='" . _CLONE . "' align='middle'>",
     'pdf'     => "<img src='" . $pathIcon16 . "/pdf.png' alt='" . _CLONE . "' align='middle'>",
     'add'     => "<img src='" . $pathIcon16 . "/add.png' alt='" . _ADD . "' align='middle'>",
-    '0'       => "<img src='" . $pathIcon16 . "/0.png' alt='" . _ADD . "' align='middle'>",
-    '1'       => "<img src='" . $pathIcon16 . "/1.png' alt='" . _ADD . "' align='middle'>",
+    '0'       => "<img src='" . $pathIcon16 . "/0.png' alt='" . 0 . "' align='middle'>",
+    '1'       => "<img src='" . $pathIcon16 . "/1.png' alt='" . 1 . "' align='middle'>",
 ];
+
+$debug = false;
 
 // MyTextSanitizer object
 $myts = \MyTextSanitizer::getInstance();
 
-$debug = false;
+if (!isset($GLOBALS['xoopsTpl']) || !($GLOBALS['xoopsTpl'] instanceof \XoopsTpl)) {
+    require_once $GLOBALS['xoops']->path('class/template.php');
+    $GLOBALS['xoopsTpl'] = new \XoopsTpl();
+}
+
+$GLOBALS['xoopsTpl']->assign('mod_url', XOOPS_URL . '/modules/' . $moduleDirName);
+// Local icons path
+if (is_object($helper->getModule())) {
+    $pathModIcon16 = $helper->getModule()->getInfo('modicons16');
+    $pathModIcon32 = $helper->getModule()->getInfo('modicons32');
+
+    $GLOBALS['xoopsTpl']->assign('pathModIcon16', XOOPS_URL . '/modules/' . $moduleDirName . '/' . $pathModIcon16);
+    $GLOBALS['xoopsTpl']->assign('pathModIcon32', $pathModIcon32);
+}
