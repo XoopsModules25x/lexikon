@@ -307,5 +307,6 @@ $pagenav = new \XoopsPageNav($numrows, $xoopsModuleConfig['perpage'], $startentr
 echo '<div style="text-align:right;">' . $pagenav->renderNav(12) . '</div>';
 echo "<br>\n";
 echo '</div>';
+
 //----
 require_once __DIR__ . '/admin_footer.php';
