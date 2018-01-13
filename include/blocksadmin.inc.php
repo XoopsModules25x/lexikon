@@ -93,7 +93,7 @@ if (isset($_POST['previewblock'])) {
     xoops_cp_header();
     require_once XOOPS_ROOT_PATH . '/class/template.php';
     $xoopsTpl = new \XoopsTpl();
-    $xoopsTpl->caching=(0);
+    $xoopsTpl->caching=0;
     $block['bid'] = $bid;
 
     if ('clone_ok' === $op) {
@@ -596,7 +596,7 @@ function myblocksadmin_update_block(
         }
         require_once XOOPS_ROOT_PATH . '/class/template.php';
         $xoopsTpl = new \XoopsTpl();
-        $xoopsTpl->caching=(2);
+        $xoopsTpl->caching=2;
         if ('' != $myblock->getVar('template')) {
             if ($xoopsTpl->is_cached('db:' . $myblock->getVar('template'))) {
                 if (!$xoopsTpl->clear_cache('db:' . $myblock->getVar('template'))) {

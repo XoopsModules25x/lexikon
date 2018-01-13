@@ -11,7 +11,7 @@ include __DIR__ . '/../../mainfile.php';
 require_once XOOPS_ROOT_PATH . '/header.php';
 require_once XOOPS_ROOT_PATH . '/class/template.php';
 $tpl = new \XoopsTpl();
-$tpl->caching=(0);
+$tpl->caching=0;
 
 global $xoopsUser, $xoopsDB, $xoopsConfig, $xoopsModuleConfig;
 $myts = MyTextSanitizer:: getInstance();

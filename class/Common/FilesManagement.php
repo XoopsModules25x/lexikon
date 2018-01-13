@@ -96,7 +96,7 @@ trait FilesManagement
 
         // Make destination directory
         if (!is_dir($dest)) {
-            mkdir($dest);
+            @mkdir($dest);
         }
 
         // Loop through the folder

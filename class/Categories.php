@@ -1,4 +1,4 @@
-<?php namespace Xoopsmodules\Lexikon;
+<?php namespace XoopsModules\Lexikon;
 
 /*
  You may not change or alter any portion of this comment or credits
@@ -22,8 +22,8 @@
  */
 
 use Xmf\Module\Helper\Permission;
-use Xoopsmodules\Lexikon;
-use Xoopsmodules\Lexikon\Form;
+use XoopsModules\Lexikon;
+use XoopsModules\Lexikon\Form;
 
 require_once __DIR__ . '/../include/common.php';
 

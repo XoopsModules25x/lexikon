@@ -352,6 +352,7 @@ function entryEdit($entryID = '')
 function entrySave($entryID = '')
 {
     global $xoopsUser, $xoopsConfig, $xoopsModuleConfig, $xoopsModule, $xoopsDB;
+    $utility      = new Lexikon\Utility();
     $myts    = \MyTextSanitizer::getInstance();
     $entryID = isset($_POST['entryID']) ? (int)$_POST['entryID'] : (int)$_GET['entryID'];
     if (1 == $xoopsModuleConfig['multicats']) {
