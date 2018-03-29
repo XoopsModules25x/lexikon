@@ -5,6 +5,10 @@
  * Licence: GNU
  */
 
+use XoopsModules\Lexikon;
+/** @var Lexikon\Helper $helper */
+$helper = Lexikon\Helper::getInstance();
+
 include __DIR__ . '/header.php';
 $GLOBALS['xoopsOption']['template_main'] = 'lx_profile.tpl';
 require_once XOOPS_ROOT_PATH . '/header.php';
@@ -12,7 +16,7 @@ global $xoopsModule, $xoopsUser;
 require_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->getVar('dirname') . '/class/Utility.php';
 $myts = \MyTextSanitizer::getInstance();
 
-if (empty($xoopsUser) && !$xoopsModuleConfig['authorprofile']) {
+if (empty($xoopsUser) && !$helper->getConfig('authorprofile')) {
     redirect_header(XOOPS_URL . '/user.php', 3, _MD_LEXIKON_MUSTREGFIRST);
 }
 
@@ -51,7 +55,7 @@ list($num) = $xoopsDB->fetchRow($xoopsDB->query('SELECT COUNT(*)
 // total results
 $authortermstotal = $num;
 
-if ($authortermstotal >= $xoopsModuleConfig['indexperpage']) {
+if ($authortermstotal >= $helper->getConfig('indexperpage')) {
     $xoopsTpl->assign('navi', true);
 } else {
     $xoopsTpl->assign('navi', false);

@@ -80,7 +80,7 @@ $modid    = $xoopsModule->getVar('mid');
 $permform   = new \XoopsGroupPermForm($title, $modid, $perm_name, $permdesc, 'admin/permissions.php');
 $catstree   = new Lexikon\LexikonTree($xoopsDB->prefix('lxcategories'), 'categoryID', '');
 $catsresult = $xoopsDB->query('SELECT categoryID, name FROM ' . $xoopsDB->prefix('lxcategories') . ' ORDER BY weight');
-while ($myrow = $xoopsDB->fetchArray($catsresult)) {
+while (false !== ($myrow = $xoopsDB->fetchArray($catsresult))) {
     $catid    = $myrow['categoryID'];
     $cattitle = $myts->htmlSpecialChars($myrow['name']);
     $permform->addItem($catid, $cattitle);

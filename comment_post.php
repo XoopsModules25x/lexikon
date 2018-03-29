@@ -16,6 +16,9 @@
  * @since
  * @author       XOOPS Development Team
  */
+use XoopsModules\Lexikon;
+/** @var Lexikon\Helper $helper */
+$helper = Lexikon\Helper::getInstance();
 
 include __DIR__ . '/../../mainfile.php';
 //--- verify that the user can post comments
@@ -23,10 +26,10 @@ global $xoopsModuleConfig, $xoopsUser;
 if (!isset($xoopsModuleConfig)) {
     die();
 }
-if (0 == $xoopsModuleConfig['com_rule']) {
+if (0 == $helper->getConfig('com_rule')) {
     die();
 }    // Comments deactivated
-if (0 == $xoopsModuleConfig['com_anonpost'] && !is_object($xoopsUser)) {
+if (0 == $helper->getConfig('com_anonpost') && !is_object($xoopsUser)) {
     die();
 } // Anonymous users can't post
 

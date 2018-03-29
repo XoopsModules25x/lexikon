@@ -95,11 +95,11 @@ function DefinitionImport($delete)
         //get all entries
         $result3 = $xoopsDB->query('SELECT entryID FROM ' . $xoopsDB->prefix('lxentries') . ' ');
         //now for each entry, delete the coments
-        while (list($entryID) = $xoopsDB->fetchRow($result3)) {
+        while (false !== (list($entryID) = $xoopsDB->fetchRow($result3))) {
             xoops_comment_delete($xoopsModule->getVar('mid'), $entryID);
         }
         $resultC = $xoopsDB->query('SELECT categoryID FROM ' . $xoopsDB->prefix('lxcategories') . ' ');
-        while (list($categoryID) = $xoopsDB->fetchRow($resultC)) {
+        while (false !== (list($categoryID) = $xoopsDB->fetchRow($resultC))) {
             // delete permissions
             xoops_groupperm_deletebymoditem($xoopsModule->getVar('mid'), 'lexikon_view', $categoryID);
             xoops_groupperm_deletebymoditem($xoopsModule->getVar('mid'), 'lexikon_submit', $categoryID);
@@ -122,7 +122,7 @@ function DefinitionImport($delete)
     $result1 = $xoopsDB->getRowsNum($sql1);
     if ($result1) {
         $fecha = time() - 1;
-        while ($row2 = $xoopsDB->fetchArray($sql1)) {
+        while (false !== ($row2 = $xoopsDB->fetchArray($sql1))) {
             $entryID    = (int)$row2['id'];
             $init       = $myts->addSlashes($row2['letter']);
             $term       = $myts->addSlashes(import2db($row2['name']));

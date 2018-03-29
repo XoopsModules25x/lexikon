@@ -9,12 +9,14 @@
  */
 
 use XoopsModules\Lexikon;
+/** @var Lexikon\Helper $helper */
+$helper = Lexikon\Helper::getInstance();
 
 require_once __DIR__ . '/admin_header.php';
 xoops_cp_header();
 
 $myts = \MyTextSanitizer::getInstance();
-global $xoopsUser, $xoopsConfig, $xoopsModuleConfig, $xoopsModule, $entryID;
+global $xoopsUser, $xoopsConfig,  $xoopsModule, $entryID;
 xoops_load('XoopsUserUtility');
 $adminObject  = \Xmf\Module\Admin::getInstance();
 $adminObject->displayNavigation(basename(__FILE__));
@@ -68,7 +70,7 @@ $result05 = $xoopsDB->query('SELECT COUNT(*)
 list($totaloffline) = $xoopsDB->fetchRow($result05);
 
 //--- category dropdown
-if (1 == $xoopsModuleConfig['multicats']) {
+if (1 == $helper->getConfig('multicats')) {
     // $cattree = new \XoopsTree( $xoopsDB->prefix("lxcategories"), "categoryID", "0" );
     $cattree = new Lexikon\LexikonTree($xoopsDB->prefix('lxcategories'), 'categoryID', '0');
     echo "<table class='outer' style='width:100%;'><tr class='odd'><td>";
@@ -225,7 +227,7 @@ $sql = 'SELECT entryID, categoryID, term, uid, datesub, offline
        ' . $cond . '
        ORDER BY ' . $sortsel . ' ' . $ordersel . ' ';
 
-$items            = $xoopsDB->query($sql, $xoopsModuleConfig['perpage'], $startentry);//missing nav. extras
+$items            = $xoopsDB->query($sql, $helper->getConfig('perpage'), $startentry);//missing nav. extras
 
 $totalItemsOnPage = count($numrows);
 
@@ -234,7 +236,7 @@ lx_buildTable();
 
 if ($numrows > 0) {
     $class = 'odd';
-    while (list($entryID, $categoryID, $term, $uid, $created, $offline) = $xoopsDB->fetchRow($items)) {
+    while (false !== (list($entryID, $categoryID, $term, $uid, $created, $offline) = $xoopsDB->fetchRow($items))) {
         // Creating the items
         $resultcn = $xoopsDB->query('SELECT name
                                        FROM ' . $xoopsDB->prefix('lxcategories') . "
@@ -303,7 +305,7 @@ if ($numrows > 0) {
 echo "</table>\n";
 
 echo "<span style='color:#567; margin:3px 0 18px 0; font-size:small; display:block;'>$status_explanation</span>";
-$pagenav = new \XoopsPageNav($numrows, $xoopsModuleConfig['perpage'], $startentry, 'startentry', "statussel=$statussel&amp;sortsel=$sortsel&amp;ordersel=$ordersel");
+$pagenav = new \XoopsPageNav($numrows, $helper->getConfig('perpage'), $startentry, 'startentry', "statussel=$statussel&amp;sortsel=$sortsel&amp;ordersel=$ordersel");
 echo '<div style="text-align:right;">' . $pagenav->renderNav(12) . '</div>';
 echo "<br>\n";
 echo '</div>';

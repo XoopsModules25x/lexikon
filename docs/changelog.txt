@@ -1,4 +1,4 @@
-<h5>1.53 Beta 1     [NOT RELEASED]</h5>  Dev: Xoops 2.5.9, PHP 7.2.0
+<h5>1.53 Beta 1     [NOT RELEASED]</h5>  Dev: Xoops 2.5.9, PHP 7.2.3
 <hr>
 - replaced $xoopsGTicket to $GLOBALS['xoopsSecurity'] (mamba)
 - added namespaces (mamba)

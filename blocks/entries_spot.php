@@ -5,7 +5,7 @@
  * Licence: GNU
  */
 
-defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
+defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 /* This function spotlights a category, with a spotlight definition and links to others */
 /**
@@ -107,7 +107,7 @@ function b_lxspot_show($options)
             $resultC = $xoopsDB->query('SELECT entryID, term, datesub FROM ' . $xoopsDB->prefix('lxentries') . ' WHERE categoryID = ' . $options[0] . ' AND entryID != ' . $block['termID'] . ' AND submit = 0 AND offline = 0 AND block= 1 ORDER BY ' . $options[7] . ' DESC ', $options[1], 0);
 
             $i = 0;
-            while ($myrow = $xoopsDB->fetchArray($resultC)) {
+            while (false !== ($myrow = $xoopsDB->fetchArray($resultC))) {
                 if ($i < $options[1]) {
                     $morelinks         = [];
                     $morelinks['id']   = $myrow['entryID'];
@@ -137,7 +137,7 @@ function b_lxspot_edit($options)
     $resultcat = $xoopsDB->query('SELECT categoryID, name FROM ' . $xoopsDB->prefix('lxcategories') . ' ORDER BY categoryID');
     $form      = "<table border='0'>";
     $form      .= '<tr><td>' . _MB_LEXIKON_SELECTCAT . '</td><td><select name="options[]">';
-    while (list($categoryID, $name) = $xoopsDB->fetchRow($resultcat)) {
+    while (false !== (list($categoryID, $name) = $xoopsDB->fetchRow($resultcat))) {
         $form .= '<option value=' . $categoryID . ' ' . (($options[0] == $categoryID) ? ' selected' : '') . ">$categoryID : $name</option>\n";
     }
     $form .= "</select><br></td></tr>\n";

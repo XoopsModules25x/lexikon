@@ -8,19 +8,21 @@
  */
 
 use XoopsModules\Lexikon;
+/** @var Lexikon\Helper $helper */
+$helper = Lexikon\Helper::getInstance();
 
-global $term, $definition, $ref, $url, $xoopsUser, $xoopsModule, $xoopsModuleConfig;
+global $term, $definition, $ref, $url, $xoopsUser, $xoopsModule;
 
 require_once XOOPS_ROOT_PATH . '/modules/lexikon/class/LexikonTree.php'; // -- LionHell
 include XOOPS_ROOT_PATH . '/class/xoopslists.php';
 include XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
 
-$guesteditoruse = $xoopsModuleConfig['wysiwyg_guests'];
+$guesteditoruse = $helper->getConfig('wysiwyg_guests');
 $myts           = \MyTextSanitizer::getInstance();
 $mytree         = new Lexikon\LexikonTree($xoopsDB->prefix('lxcategories'), 'categoryID', '0');
 $sform          = new \XoopsThemeForm(_MD_LEXIKON_SUB_SMNAME, 'storyform', xoops_getenv('PHP_SELF'), 'post', true);
 
-if ('1' == $xoopsModuleConfig['multicats']) {
+if ('1' == $helper->getConfig('multicats')) {
     // perms adapted category select
     $groups       = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
     $gpermHandler = xoops_getHandler('groupperm');
@@ -82,7 +84,7 @@ if (1 == $utility::getModuleOption('captcha')) {
 } elseif (2 == $utility::getModuleOption('captcha')) {
     $skipMember = 0;
 }
-if (0 != $xoopsModuleConfig['captcha']) {
+if (0 != $helper->getConfig('captcha')) {
     xoops_load('XoopsFormCaptcha');
     if (class_exists('XoopsFormCaptcha')) {
         $sform->addElement(new \XoopsFormCaptcha('', 'xoopscaptcha', $skipMember), true);

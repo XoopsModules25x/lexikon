@@ -5,6 +5,10 @@
  * Licence: GNU
  */
 
+use XoopsModules\Lexikon;
+/** @var Lexikon\Helper $helper */
+$helper = Lexikon\Helper::getInstance();
+
 include __DIR__ . '/header.php';
 $GLOBALS['xoopsOption']['template_main'] = 'lx_entry.tpl';
 require_once XOOPS_ROOT_PATH . '/header.php';
@@ -46,14 +50,14 @@ $xoopsTpl->assign('alpha', $alpha);
 list($howmanyother) = $xoopsDB->fetchRow($xoopsDB->query('SELECT COUNT(entryID) FROM ' . $xoopsDB->prefix('lxentries') . " WHERE init = '#' AND offline ='0' " . $catperms . ' '));
 $xoopsTpl->assign('totalother', $howmanyother);
 
-$xoopsTpl->assign('multicats', (int)$xoopsModuleConfig['multicats']);
+$xoopsTpl->assign('multicats', (int)$helper->getConfig('multicats'));
 // To display the list of categories
-if (1 == $xoopsModuleConfig['multicats']) {
+if (1 == $helper->getConfig('multicats')) {
     $xoopsTpl->assign('block0', $utility::getCategoryArray());
     $xoopsTpl->assign('layout', CONFIG_CATEGORY_LAYOUT_PLAIN);
-    if (1 == $xoopsModuleConfig['useshots']) {
+    if (1 == $helper->getConfig('useshots')) {
         $xoopsTpl->assign('show_screenshot', true);
-        $xoopsTpl->assign('logo_maximgwidth', $xoopsModuleConfig['logo_maximgwidth']);
+        $xoopsTpl->assign('logo_maximgwidth', $helper->getConfig('logo_maximgwidth'));
         $xoopsTpl->assign('lang_noscreenshot', _MD_LEXIKON_NOSHOTS);
     } else {
         $xoopsTpl->assign('show_screenshot', false);
@@ -66,7 +70,7 @@ if (!$entryID) {
     if ($entryID <= 0) {
         redirect_header('javascript:history.go(-1)', 2, _MD_LEXIKON_UNKNOWNERROR);
     }
-    if (!$xoopsUser || ($xoopsUser->isAdmin($xoopsModule->mid()) && 1 == $xoopsModuleConfig['adminhits'])
+    if (!$xoopsUser || ($xoopsUser->isAdmin($xoopsModule->mid()) && 1 == $helper->getConfig('adminhits'))
         || ($xoopsUser
             && !$xoopsUser->isAdmin($xoopsModule->mid()))) {
         $xoopsDB->queryF('UPDATE ' . $xoopsDB->prefix('lxentries') . " SET counter = counter+1 WHERE entryID = $entryID ");
@@ -81,7 +85,7 @@ if (!$entryID) {
     }
 }
 
-while (list($entryID, $categoryID, $term, $init, $definition, $ref, $url, $uid, $submit, $datesub, $counter, $html, $smiley, $xcodes, $breaks, $block, $offline) = $xoopsDB->fetchRow($result)) {
+while (false !== (list($entryID, $categoryID, $term, $init, $definition, $ref, $url, $uid, $submit, $datesub, $counter, $html, $smiley, $xcodes, $breaks, $block, $offline) = $xoopsDB->fetchRow($result))) {
     $catID = (int)$categoryID;
     if (!$gpermHandler->checkRight('lexikon_view', (int)$categoryID, $groups, $module_id)) {
         redirect_header('index.php', 3, _NOPERM);
@@ -95,10 +99,10 @@ while (list($entryID, $categoryID, $term, $init, $definition, $ref, $url, $uid, 
     if (1 == $thisterm['offline'] && !$xoopsUserIsAdmin) {
         redirect_header('javascript:history.go(-1)', 3, _MD_LEXIKON_ENTRYISOFF);
     }
-    if (1 == $xoopsModuleConfig['multicats']) {
+    if (1 == $helper->getConfig('multicats')) {
         $thisterm['categoryID'] = (int)$categoryID;
         $catname                = $xoopsDB->query('SELECT name FROM ' . $xoopsDB->prefix('lxcategories') . " WHERE categoryID = $categoryID ");
-        while (list($name) = $xoopsDB->fetchRow($catname)) {
+        while (false !== (list($name) = $xoopsDB->fetchRow($catname))) {
             $thisterm['catname'] = $myts->htmlSpecialChars($name);
         }
     }
@@ -112,28 +116,28 @@ while (list($entryID, $categoryID, $term, $init, $definition, $ref, $url, $uid, 
     }
     $thisterm['offline'] = (int)$offline;
 
-    if (1 != $xoopsModuleConfig['linkterms'] && 2 != $xoopsModuleConfig['linkterms']) {
+    if (1 != $helper->getConfig('linkterms') && 2 != $helper->getConfig('linkterms')) {
         $utility::getModuleHeader();
         $xoopsTpl->assign('xoops_module_header', $lexikon_module_header);
     } else {
         $xoopsTpl->assign('xoops_module_header', '<link rel="stylesheet" type="text/css" href="assets/css/style.css">');
     }
 
-    if (1 != $xoopsModuleConfig['linkterms']) {
+    if (1 != $helper->getConfig('linkterms')) {
         // Code to make links out of glossary terms
         $parts = explode('>', $definition);
 
         // First, retrieve all terms from the glossary...
         $allterms = $xoopsDB->query('SELECT entryID, term, definition FROM ' . $xoopsDB->prefix('lxentries') . " WHERE offline ='0' " . $catperms . ' ');
 
-        while (list($entryID, $term, $definition) = $xoopsDB->fetchRow($allterms)) {
+        while (false !== (list($entryID, $term, $definition) = $xoopsDB->fetchRow($allterms))) {
             foreach ($parts as $key => $part) {
                 if ($term != $glossaryterm) {
                     $term_q      = preg_quote($term, '/');
                     $search_term = "/\b$term_q\b/SsUi";
                     //static link
                     $staticURL = '' . XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/entry.php?entryID=' . ucfirst($entryID) . '';
-                    switch ($xoopsModuleConfig['linkterms']) {
+                    switch ($helper->getConfig('linkterms')) {
                         default:
                             $replace_term = '<span><b><a style="cursor:help;border-bottom: 1px dotted #000;color: #2F5376;" href="' . $staticURL . '" >' . $term . '</a></b></span>';
                             break;
@@ -163,9 +167,9 @@ while (list($entryID, $categoryID, $term, $init, $definition, $ref, $url, $uid, 
     $thisterm['ref']        = $myts->displayTarea($ref, $html, $smiley, $xcodes, 1, $breaks);
     $thisterm['url']        = $myts->makeClickable($url, $allowimage = 0);
     //$thisterm['submitter'] = XoopsUserUtility::getUnameFromId ( $uid );
-    if (1 == $xoopsModuleConfig['showsubmitter']) {
+    if (1 == $helper->getConfig('showsubmitter')) {
         $xoopsTpl->assign('showsubmitter', true);
-        if (1 == $xoopsModuleConfig['authorprofile']) {
+        if (1 == $helper->getConfig('authorprofile')) {
             $thisterm['submitter'] = $utility::getLinkedProfileFromId($uid);
         } else {
             $thisterm['submitter'] = XoopsUserUtility::getUnameFromId($uid);
@@ -174,7 +178,7 @@ while (list($entryID, $categoryID, $term, $init, $definition, $ref, $url, $uid, 
         $xoopsTpl->assign('showsubmitter', false);
     }
     $thisterm['submit']  = (int)$submit;
-    $thisterm['datesub'] = formatTimestamp($datesub, $xoopsModuleConfig['dateformat']);
+    $thisterm['datesub'] = formatTimestamp($datesub, $helper->getConfig('dateformat'));
     $thisterm['counter'] = (int)$counter;
     $thisterm['block']   = (int)$block;
     $thisterm['dir']     = $xoopsModule->dirname();
@@ -195,7 +199,7 @@ $xoopsTpl->assign('lang_modulename', $xoopsModule->name());
 $xoopsTpl->assign('lang_moduledirname', $xoopsModule->getVar('dirname'));
 $xoopsTpl->assign('entryID', $entryID);
 $xoopsTpl->assign('submittedon', sprintf(_MD_LEXIKON_SUBMITTEDON, $thisterm['datesub']));
-if (1 == $xoopsModuleConfig['showsubmitter']) {
+if (1 == $helper->getConfig('showsubmitter')) {
     $xoopsTpl->assign('submitter', sprintf(_MD_LEXIKON_SUBMITTEDBY, $thisterm['submitter']));
 }
 $xoopsTpl->assign('counter', sprintf(_MD_LEXIKON_COUNT, $thisterm['counter']));
@@ -236,14 +240,14 @@ if (is_object($tagsModule)) {
 
 //--- linkterms assigns
 // Balloontips
-if (5 == $xoopsModuleConfig['linkterms']) {
+if (5 == $helper->getConfig('linkterms')) {
     $xoopsTpl->assign('balloontips', true);
 } else {
     $xoopsTpl->assign('balloontips', false);
 }
 
 // Show Bookmark icons ?
-switch ($xoopsModuleConfig['bookmarkme']) {
+switch ($helper->getConfig('bookmarkme')) {
     case '0':
     default:
         $xoopsTpl->assign('bookmarkme', false);
@@ -261,7 +265,7 @@ switch ($xoopsModuleConfig['bookmarkme']) {
 }
 // Meta data
 $meta_description = xoops_substr($utility::convertHtml2text($thisterm['definition']), 0, 150);
-if (1 == $xoopsModuleConfig['multicats']) {
+if (1 == $helper->getConfig('multicats')) {
     $utility::createPageTitle($thisterm['term'] . ' - ' . $thisterm['catname']);
     $utility::extractKeywords($myts->htmlSpecialChars($xoopsModule->name()) . ' ,' . $thisterm['term'] . ' ,' . $thisterm['catname'] . ', ' . $meta_description . ', ' . $tagsmeta);
     $utility::getMetaDescription($myts->htmlSpecialChars($xoopsModule->name()) . ' ' . $thisterm['catname'] . ' ' . $thisterm['term'] . ' ' . $meta_description);

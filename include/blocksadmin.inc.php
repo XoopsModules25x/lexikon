@@ -356,7 +356,7 @@ if ('edit' === $op) {
     $sql     = 'SELECT module_id FROM ' . $db->prefix('block_module_link') . ' WHERE block_id=' . (int)$bid;
     $result  = $db->query($sql);
     $modules = [];
-    while ($row = $db->fetchArray($result)) {
+    while (false !== ($row = $db->fetchArray($result))) {
         $modules[] = (int)$row['module_id'];
     }
     $is_custom = ('C' === $myblock->getVar('block_type') || 'E' === $myblock->getVar('block_type')) ? true : false;
@@ -397,7 +397,7 @@ if ('clone' === $op) {
     $sql     = 'SELECT module_id FROM ' . $db->prefix('block_module_link') . ' WHERE block_id=' . (int)$bid;
     $result  = $db->query($sql);
     $modules = [];
-    while ($row = $db->fetchArray($result)) {
+    while (false !== ($row = $db->fetchArray($result))) {
         $modules[] = (int)$row['module_id'];
     }
     $is_custom = ('C' === $myblock->getVar('block_type') || 'E' === $myblock->getVar('block_type')) ? true : false;
@@ -508,7 +508,7 @@ if ('clone_ok' === $op) {
 
     $sql    = 'SELECT gperm_groupid FROM ' . $db->prefix('group_permission') . " WHERE gperm_name='block_read' AND gperm_modid='1' AND gperm_itemid='$bid'";
     $result = $db->query($sql);
-    while (list($gid) = $db->fetchRow($result)) {
+    while (false !== (list($gid) = $db->fetchRow($result))) {
         $sql = 'INSERT INTO ' . $db->prefix('group_permission') . " (gperm_groupid, gperm_itemid, gperm_modid, gperm_name) VALUES ($gid, $newid, 1, 'block_read')";
         $db->query($sql);
     }
@@ -540,8 +540,8 @@ function myblocksadmin_update_block(
     $bctype,
     $bcachetime,
     $bmodule,
-    $options = [])
-{
+    $options = []
+) {
     global $xoopsConfig;
     /* if (empty($bmodule)) {
         xoops_cp_header();
@@ -588,10 +588,10 @@ function myblocksadmin_update_block(
     $msg = _AM_DBUPDATED;
     if (false !== $myblock->store()) {
         $db  = \XoopsDatabaseFactory::getDatabaseConnection();
-        $sql = sprintf('DELETE FROM "%s" WHERE block_id = "%u"', $db->prefix('block_module_link'), $bid);
+        $sql = sprintf('DELETE FROM %s WHERE block_id = %u', $db->prefix('block_module_link'), $bid);
         $db->query($sql);
         foreach ($bmodule as $bmid) {
-            $sql = sprintf('INSERT INTO "%s" (block_id, module_id) VALUES ("%u", "%d")', $db->prefix('block_module_link'), $bid, (int)$bmid);
+            $sql = sprintf('INSERT INTO %s (block_id, module_id) VALUES (%u, %d)', $db->prefix('block_module_link'), $bid, (int)$bmid);
             $db->query($sql);
         }
         require_once XOOPS_ROOT_PATH . '/class/template.php';
@@ -644,8 +644,8 @@ function myblocksadmin_update_blockinstance(
     $bcachetime,
     $bmodule,
     $options = [],
-    $bid = null)
-{
+    $bid = null
+) {
     global $xoopsDB;
 
     $instanceHandler = xoops_getHandler('blockinstance');

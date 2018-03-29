@@ -126,7 +126,7 @@ if (isset($lxConfig['catsinmenu']) && 1 == $lxConfig['catsinmenu'] && isset($lxC
     && 1 == $lxConfig['multicats']) {
     $myts = \MyTextSanitizer::getInstance();
     $sql  = $xoopsDB->query('SELECT categoryID, name FROM ' . $xoopsDB->prefix('lxcategories') . ' ORDER BY weight ASC');
-    while (list($categoryID, $name) = $xoopsDB->fetchRow($sql)) {
+    while (false !== (list($categoryID, $name) = $xoopsDB->fetchRow($sql))) {
         if ($gpermHandler->checkRight('lexikon_view', $categoryID, $groups, $lexikon->getVar('mid'))) {
             $name                          = $myts->htmlSpecialChars($name);
             $categoryID                    = (int)$categoryID;

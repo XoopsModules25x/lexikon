@@ -25,7 +25,7 @@
  * @param $xoopsModule
  * @return bool
  */
-function xoops_module_install_lexikon(XoopsObject $xoopsModule)
+function xoops_module_install_lexikon(\XoopsObject $xoopsModule)
 {
     $module_id     = $xoopsModule->getVar('mid');
     $gpermHandler  = xoops_getHandler('groupperm');

@@ -17,17 +17,21 @@
  * @author       XOOPS Development Team
  */
 
+use XoopsModules\Lexikon;
+/** @var Lexikon\Helper $helper */
+$helper = Lexikon\Helper::getInstance();
+
 include __DIR__ . '/../../mainfile.php';
-global $xoopsModuleConfig, $xoopsUser;
+global $xoopsUser;
 $com_itemid = isset($_GET['com_itemid']) ? (int)$_GET['com_itemid'] : 0;
 //--- verify that the user can post comments
-if (!isset($xoopsModuleConfig)) {
-    die();
-}
-if (0 == $xoopsModuleConfig['com_rule']) {
+//if (!isset($xoopsModuleConfig)) {
+//    die();
+//}
+if (0 == $helper->getConfig('com_rule')) {
     die();
 }    // Comments deactivated
-if (0 == $xoopsModuleConfig['com_anonpost'] && !is_object($xoopsUser)) {
+if (0 == $helper->getConfig('com_anonpost') && !is_object($xoopsUser)) {
     die();
 } // Anonymous users can't post
 

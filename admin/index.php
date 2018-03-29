@@ -30,10 +30,10 @@ $adminObject  = \Xmf\Module\Admin::getInstance();
 $summary = $utility::getSummary();
 
 $adminObject->addInfoBox(_AM_LEXIKON_SUMMARY);
-$adminObject->addInfoBoxLine(sprintf(_AM_LEXIKON_TOTALENTRIES2, '<span class="green">' . $summary['publishedEntries'] . '</span>'),'','green');
-$adminObject->addInfoBoxLine(sprintf(_AM_LEXIKON_TOTALCATS2, '<span class="green">' .$summary['availableCategories']. '</span>'),'','green');
-$adminObject->addInfoBoxLine(sprintf(_AM_LEXIKON_TOTALSUBM2, '<span class="red">' .$summary['submittedEntries']. '</span>'),'','red');
-$adminObject->addInfoBoxLine(sprintf(_AM_LEXIKON_TOTALREQ2, '<span class="red">' .$summary['requestedEntries']. '</span>'),'','red');
+$adminObject->addInfoBoxLine(sprintf(_AM_LEXIKON_TOTALENTRIES2, '<span class="green">' . $summary['publishedEntries'] . '</span>'), '', 'green');
+$adminObject->addInfoBoxLine(sprintf(_AM_LEXIKON_TOTALCATS2, '<span class="green">' .$summary['availableCategories']. '</span>'), '', 'green');
+$adminObject->addInfoBoxLine(sprintf(_AM_LEXIKON_TOTALSUBM2, '<span class="red">' .$summary['submittedEntries']. '</span>'), '', 'red');
+$adminObject->addInfoBoxLine(sprintf(_AM_LEXIKON_TOTALREQ2, '<span class="red">' .$summary['requestedEntries']. '</span>'), '', 'red');
 
 $adminObject->displayNavigation(basename(__FILE__));
 $adminObject->displayIndex();

@@ -42,12 +42,12 @@ function xoops_module_pre_install_lexikon(\XoopsModule $module)
     // check for minimum PHP version
     $phpSuccess   = $utility::checkVerPhp($module);
 
-if (false !== $xoopsSuccess && false !==  $phpSuccess) {        
-    $moduleTables =& $module->getInfo('tables');
-    foreach ($moduleTables as $table) {
-        $GLOBALS['xoopsDB']->queryF('DROP TABLE IF EXISTS ' . $GLOBALS['xoopsDB']->prefix($table) . ';');
+    if (false !== $xoopsSuccess && false !==  $phpSuccess) {
+        $moduleTables =& $module->getInfo('tables');
+        foreach ($moduleTables as $table) {
+            $GLOBALS['xoopsDB']->queryF('DROP TABLE IF EXISTS ' . $GLOBALS['xoopsDB']->prefix($table) . ';');
+        }
     }
-}
     return $xoopsSuccess && $phpSuccess;
 }
 /**
@@ -58,21 +58,21 @@ if (false !== $xoopsSuccess && false !==  $phpSuccess) {
  * @return bool true if installation successful, false if not
  */
 function xoops_module_install_lexikon(\XoopsModule $module)
-{   
+{
     $moduleDirName = basename(dirname(__DIR__));
     
     /** @var Lexikon\Helper $helper */
     /** @var Lexikon\Utility $utility */
-   /** @var Common\Configurator $configurator */
+    /** @var Common\Configurator $configurator */
     $helper       = Lexikon\Helper::getInstance();
     $utility      = new Lexikon\Utility();
-     $configurator = new Common\Configurator();
+    $configurator = new Common\Configurator();
      
-       // Load language files
+    // Load language files
     $helper->loadLanguage('admin');
-    $helper->loadLanguage('modinfo');    
+    $helper->loadLanguage('modinfo');
     
-     // default Permission Settings ----------------------
+    // default Permission Settings ----------------------
     $moduleId = $module->getVar('mid');
     $moduleId2    = $helper->getModule()->mid();
     //$moduleName = $module->getVar('name');
@@ -100,7 +100,7 @@ function xoops_module_install_lexikon(\XoopsModule $module)
         }
     }
     
-        //  ---  COPY test folder files ---------------
+    //  ---  COPY test folder files ---------------
     if (count($configurator->copyTestFolders) > 0) {
         //        $file = __DIR__ . '/../testdata/images/';
         foreach (array_keys($configurator->copyTestFolders) as $i) {

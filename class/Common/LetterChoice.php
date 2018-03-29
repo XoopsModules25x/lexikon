@@ -1,4 +1,5 @@
 <?php namespace XoopsModules\Lexikon\Common;
+
 /*
  You may not change or alter any portion of this comment or credits
  of supporting developers from this source code or any supporting source code
@@ -24,7 +25,6 @@
  */
 
 use XoopsModules\Lexikon;
-
 
 defined('XOOPS_ROOT_PATH') || die('XOOPS root path not defined');
 require_once __DIR__ . '/../../include/common.php';
@@ -79,7 +79,6 @@ class LetterChoice
         $extra_arg = '',
         $caseSensitive = false
     ) {
-
         $this->helper     = Lexikon\Helper::getInstance();
         $this->objHandler = $objHandler;
         $this->criteria   = null === $criteria ? new \CriteriaCompo() : $criteria;

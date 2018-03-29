@@ -5,7 +5,7 @@
  * Licence: GNU
  */
 
-defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
+defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 /**
  * @return array
@@ -46,7 +46,7 @@ function b_lxentries_random_show()
 
     $result = $xoopsDB->query('SELECT entryID, categoryID, term, definition FROM ' . $xoopsDB->prefix('lxentries') . " WHERE offline = '0' AND block = '1' " . $catperms . " LIMIT $entrynumber, 1");
 
-    while ($myrow = $xoopsDB->fetchArray($result)) {
+    while (false !== ($myrow = $xoopsDB->fetchArray($result))) {
         //$entryID = (int)($entryID);
         $entryID = (int)$myrow['entryID'];
         $term    = ucfirst($myts->displayTarea($myrow['term']));

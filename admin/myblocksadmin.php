@@ -76,7 +76,7 @@ $db        = \XoopsDatabaseFactory::getDatabaseConnection();
 $sql       = 'SELECT * FROM ' . $db->prefix('newblocks') . " WHERE mid='$target_mid' ORDER BY visible DESC,side,weight";
 $result    = $db->query($sql);
 $block_arr = [];
-while ($myrow = $db->fetchArray($result)) {
+while (false !== ($myrow = $db->fetchArray($result))) {
     $block_arr[] = new \XoopsBlock($myrow);
 }
 
@@ -183,7 +183,7 @@ function list_blocks()
         $db            = \XoopsDatabaseFactory::getDatabaseConnection();
         $result        = $db->query('SELECT module_id FROM ' . $db->prefix('block_module_link') . " WHERE block_id='$bid'");
         $selected_mids = [];
-        while (list($selected_mid) = $db->fetchRow($result)) {
+        while (false !== (list($selected_mid) = $db->fetchRow($result))) {
             $selected_mids[] = (int)$selected_mid;
         }
         /** @var XoopsModuleHandler $moduleHandler */

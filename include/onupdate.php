@@ -80,11 +80,11 @@ function xoops_module_update_lexikon(\XoopsModule $module, $previousVersion = nu
     
     /** @var Lexikon\Helper $helper */
     /** @var Lexikon\Utility $utility */
-   /** @var Lexikon\Common\Configurator $configurator */
+    /** @var Lexikon\Common\Configurator $configurator */
     $helper       = Lexikon\Helper::getInstance();
     $utility      = new Lexikon\Utility();
-     $configurator = new Lexikon\Common\Configurator();
-      $helper->loadLanguage('common');
+    $configurator = new Lexikon\Common\Configurator();
+    $helper->loadLanguage('common');
 
 
     if ($previousVersion < 240) {
@@ -152,7 +152,7 @@ function xoops_module_update_lexikon(\XoopsModule $module, $previousVersion = nu
         $sql = 'DELETE FROM ' . $GLOBALS['xoopsDB']->prefix('tplfile') . " WHERE `tpl_module` = '" . $module->getVar('dirname', 'n') . "' AND `tpl_file` LIKE '%.html%'";
         $GLOBALS['xoopsDB']->queryF($sql);
         
-            /** @var XoopsGroupPermHandler $gpermHandler */
+        /** @var XoopsGroupPermHandler $gpermHandler */
         $gpermHandler = xoops_getHandler('groupperm');
         return $gpermHandler->deleteByModule($module->getVar('mid'), 'item_read');
     }

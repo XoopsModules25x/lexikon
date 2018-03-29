@@ -7,6 +7,9 @@
  */
 
 use Xmf\Request;
+use XoopsModules\Lexikon;
+/** @var Lexikon\Helper $helper */
+$helper = Lexikon\Helper::getInstance();
 
 include __DIR__ . '/header.php';
 
@@ -29,7 +32,9 @@ if (empty($entryID)) {
  */
 function printPage($entryID)
 {
-    global $xoopsConfig, $xoopsDB, $xoopsModule, $xoopsModuleConfig, $myts;
+    global $xoopsConfig, $xoopsDB, $xoopsModule, $myts;
+    /** @var Lexikon\Helper $helper */
+    $helper = Lexikon\Helper::getInstance();
     $result1 = $xoopsDB->query('SELECT * FROM ' . $xoopsDB->prefix('lxentries') . " WHERE entryID = '$entryID' and submit = '0' order by datesub");
     $Ok      = $xoopsDB->getRowsNum($result1);
     if ($Ok <= 0) {
@@ -67,7 +72,7 @@ function printPage($entryID)
     <div style='width: 650px; border: 1px solid #000; padding: 20px;'>
     <div style='text-align: center; display: block; padding-bottom: 12px; margin: 0 0 6px 0; border-bottom: 2px solid #ccc;'><img src='" . XOOPS_URL . '/modules/' . $xoopsModule->dirname() . "/assets/images/lx_slogo.png' border='0' alt=''><h2 style='margin: 0;'>" . $term . '</h2></div>
     <div></div>';
-    if (1 == $xoopsModuleConfig['multicats']) {
+    if (1 == $helper->getConfig('multicats')) {
         echo '<div>' . _MD_LEXIKON_ENTRYCATEGORY . '<b>' . $categoryname . '</b></div>';
     }
     echo "<div style='padding-bottom: 6px; border-bottom: 1px solid #ccc;'>" . _MD_LEXIKON_SUBMITTER . '<b>' . $authorname . "</b></div>

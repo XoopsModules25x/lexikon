@@ -60,7 +60,7 @@ switch ($op) {
         $categoriesTempRows  = $categoriesHandler->getCount();
         $categoriesTempArray = $categoriesHandler->getAll($criteria);/*
 //
-// 
+//
                     <th class='center width5'>".AM_LEXIKON_FORM_ACTION."</th>
 //                    </tr>";
 //            $class = "odd";

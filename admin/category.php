@@ -8,6 +8,8 @@
 
 use Xmf\Request;
 use XoopsModules\Lexikon;
+/** @var Lexikon\Helper $helper */
+$helper = Lexikon\Helper::getInstance();
 
 // -- General Stuff -- //
 require_once __DIR__ . '/admin_header.php';
@@ -33,7 +35,7 @@ function categoryDefault()
     $startsub   = isset($_GET['startsub']) ? (int)$_GET['startsub'] : 0;
     $datesub    = isset($_GET['datesub']) ? (int)$_GET['datesub'] : 0;
 
-    global $xoopsUser, $xoopsConfig, $xoopsDB, $xoopsModuleConfig, $xoopsModule, $entryID, $pathIcon16;
+    global $xoopsUser, $xoopsConfig, $xoopsDB,  $xoopsModule, $entryID, $pathIcon16;
 
     $myts = \MyTextSanitizer::getInstance();
     //    lx_adminMenu(1, _AM_LEXIKON_CATS);
@@ -49,7 +51,7 @@ function categoryDefault()
     $result04 = $xoopsDB->query('SELECT COUNT(*) FROM ' . $xoopsDB->prefix('lxentries') . " WHERE submit = '1' AND request = '1' ");
     list($totalrequested) = $xoopsDB->fetchRow($result04);
 
-    if (1 == $xoopsModuleConfig['multicats']) {
+    if (1 == $helper->getConfig('multicats')) {
         /**
          * Code to show existing categories
          **/
@@ -63,7 +65,7 @@ function categoryDefault()
         $resultC1 = $xoopsDB->query('SELECT COUNT(*) FROM ' . $xoopsDB->prefix('lxcategories') . ' ');
         list($numrows) = $xoopsDB->fetchRow($resultC1);
         $sql      = 'SELECT * FROM ' . $xoopsDB->prefix('lxcategories') . ' ORDER BY weight';
-        $resultC2 = $xoopsDB->query($sql, $xoopsModuleConfig['perpage'], $startcat);
+        $resultC2 = $xoopsDB->query($sql, $helper->getConfig('perpage'), $startcat);
 
         echo "<th style='width:40px; text-align:center;'>" . _AM_LEXIKON_ID . "</td>
         <th style='text-align:center;'><b>" . _AM_LEXIKON_WEIGHT . "</b></td>
@@ -75,7 +77,7 @@ function categoryDefault()
 
         $class = 'odd';
         if ($numrows > 0) { // That is, if there ARE columns in the system
-            while (list($categoryID, $name, $description, $total, $weight, $logourl) = $xoopsDB->fetchRow($resultC2)) {
+            while (false !== (list($categoryID, $name, $description, $total, $weight, $logourl) = $xoopsDB->fetchRow($resultC2))) {
                 $name = $myts->htmlSpecialChars($name);
                 $description = strip_tags(htmlspecialchars_decode($description));
                 $modify      = "<a href='category.php?op=mod&categoryID=" . $categoryID . "'><img src=" . $pathIcon16 . "/edit.png alt='" . _AM_LEXIKON_EDITCAT . "'></a>";
@@ -100,7 +102,7 @@ function categoryDefault()
             $categoryID = '0';
         }
         echo "</table>\n";
-        $pagenav = new \XoopsPageNav($numrows, $xoopsModuleConfig['perpage'], $startcat, 'startcat');
+        $pagenav = new \XoopsPageNav($numrows, $helper->getConfig('perpage'), $startcat, 'startcat');
         echo '<div style="text-align:right;">' . $pagenav->renderNav(8) . '</div>';
         echo "<br><br>\n";
         echo '</div>';
@@ -126,7 +128,9 @@ function categoryEdit($categoryID = '')
     $description = '';
     $logourl     = '';
 
-    global $xoopsUser, $xoopsConfig, $xoopsDB, $xoopsModuleConfig, $xoopsModule;
+    global $xoopsUser, $xoopsConfig, $xoopsDB, $xoopsModule;
+    /** @var Lexikon\Helper $helper */
+    $helper = Lexikon\Helper::getInstance();
 
     // If there is a parameter, and the id exists, retrieve data: we're editing a column
     if ($categoryID) {
@@ -174,7 +178,7 @@ function categoryEdit($categoryID = '')
     $sform->addElement(new \XoopsFormText(_AM_LEXIKON_CATPOSIT, 'weight', 4, 4, $weight), true);
     $sform->addElement(new \XoopsFormHidden('categoryID', $categoryID));
     //CategoryImage
-    if (1 == $xoopsModuleConfig['useshots']) {
+    if (1 == $helper->getConfig('useshots')) {
         //CategoryImage :: Common querys from Article module by phppp
         $image_option_tray = new \XoopsFormElementTray('<strong>' . _AM_LEXIKON_CATIMGUPLOAD . '</strong>', '<br>');
         $image_option_tray->addElement(new \XoopsFormFile('', 'userfile', ''));
@@ -258,7 +262,7 @@ function categoryDelete($categoryID = '')
         //get all entries in the category
         $result3 = $xoopsDB->query('SELECT entryID from ' . $xoopsDB->prefix('lxentries') . " where categoryID = $idc");
         //now for each entry, delete the coments
-        while (list($entryID) = $xoopsDB->fetchRow($result3)) {
+        while (false !== (list($entryID) = $xoopsDB->fetchRow($result3))) {
             xoops_comment_delete($xoopsModule->getVar('mid'), $entryID);
             xoops_notification_deletebyitem($xoopsModule->getVar('mid'), 'term', $entryID);
         }
@@ -287,7 +291,9 @@ function categorySave($categoryID = '')
 {
     require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
     require_once XOOPS_ROOT_PATH . '/class/uploader.php';
-    global $xoopsUser, $xoopsConfig, $xoopsModuleConfig, $xoopsModule, $xoopsDB, $myts, $categoryID;
+    global $xoopsUser, $xoopsConfig,  $xoopsModule, $xoopsDB, $myts, $categoryID;
+    /** @var Lexikon\Helper $helper */
+    $helper = Lexikon\Helper::getInstance();
     //print_r ($_POST);
     $categoryID  = Request::getInt('categoryID', 0);
     $weight      = Request::getInt('weight', 0); //isset($_POST['weight']) ? (int)$_POST['weight'] : (int)$_GET['weight'];
@@ -299,9 +305,9 @@ function categorySave($categoryID = '')
     $groups      = Request::getArray('group', [], 'POST'); //isset($_POST['groups']) ? $_POST['groups'] : array();
     // image upload
     $logourl       = '';
-    $maxfilesize = $xoopsModuleConfig['imguploadsize'];
-    $maxfilewidth  = $xoopsModuleConfig['imguploadwd'];
-    $maxfileheight = $xoopsModuleConfig['imguploadwd'];
+    $maxfilesize = $helper->getConfig('imguploadsize');
+    $maxfilewidth  = $helper->getConfig('imguploadwd');
+    $maxfileheight = $helper->getConfig('imguploadwd');
     if (!empty($_FILES['userfile']['name'])) {
         $allowed_mimetypes = [
             'image/gif',
@@ -341,7 +347,7 @@ function categorySave($categoryID = '')
                 }
             }
             //notification
-            if (!empty($xoopsModuleConfig['notification_enabled'])) {
+            if (!empty($helper->getConfig('notification_enabled'))) {
                 if (0 == $newid) {
                     $newid = $xoopsDB->getInsertId();
                 }

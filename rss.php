@@ -90,7 +90,7 @@ if (!$tpl->is_cached('db:lexikon_rss.tpl')) {
         $tpl->assign('image_width', $width);
         $tpl->assign('image_height', $height);
     }
-    while ($row = $db->fetchArray($result)) {
+    while (false !== ($row = $db->fetchArray($result))) {
         $tpl->append('items', [
             'title'       => htmlspecialchars($row['term'], ENT_QUOTES, 'utf-8'),
             'link'        => XOOPS_URL . '/modules/lexikon/entry.php?entryID=' . $row['entryID'],

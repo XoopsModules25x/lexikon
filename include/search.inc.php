@@ -7,7 +7,10 @@
  * Author: hsalazar
  * Licence: GNU
  */
-defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
+
+use XoopsModules\Lexikon;
+
+defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 /**
  * @param $queryarray
@@ -24,7 +27,8 @@ function lx_search($queryarray, $andor, $limit, $offset, $userid)
     $highlight        = false;
     $searchincomments = false;
     require_once XOOPS_ROOT_PATH . '/modules/lexikon/include/common.inc.php';
-    require_once XOOPS_ROOT_PATH . '/modules/lexikon/class/Utility.php';
+//    require_once XOOPS_ROOT_PATH . '/modules/lexikon/class/Utility.php';
+    $utility = new Lexikon\Utility();
     $hightlight_key   = '';
     $highlight        = $utility::getModuleOption('config_highlighter');
     $searchincomments = CONFIG_SEARCH_COMMENTS;
@@ -69,7 +73,7 @@ function lx_search($queryarray, $andor, $limit, $offset, $userid)
     $ret    = [];
     $i      = 0;
 
-    while ($myrow = $xoopsDB->fetchArray($result)) {
+    while (false !== ($myrow = $xoopsDB->fetchArray($result))) {
         $display = true;
         if ($module_id && $gpermHandler) {
             if (!$gpermHandler->checkRight('lexikon_view', $myrow['categoryID'], $groups, $module_id)) {
@@ -110,7 +114,7 @@ function lx_search($queryarray, $andor, $limit, $offset, $userid)
         $i      = $ind;
         $sql    .= 'ORDER BY com_created DESC';
         $result = $xoopsDB->query($sql, $limit, $offset);
-        while ($myrow = $xoopsDB->fetchArray($result)) {
+        while (false !== ($myrow = $xoopsDB->fetchArray($result))) {
             $display = true;
             list($entryID, $offline) = $xoopsDB->fetchRow($xoopsDB->query('
                                          SELECT entryID, offline

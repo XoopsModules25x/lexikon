@@ -52,7 +52,7 @@ class EntriesForm extends \XoopsThemeForm
 
         /** @var \XoopsDatabase $db */
         /** @var Lexikon\Helper $helper */
-        $db           = \XoopsDatabaseFactory::getDatabase();
+        $db           = \XoopsDatabaseFactory::getDatabaseConnection();
         $helper       = Lexikon\Helper::getInstance();
         $utility      = new Lexikon\Utility();
 
@@ -89,30 +89,30 @@ class EntriesForm extends \XoopsThemeForm
 
         // Definition
 
-/*
-        if (class_exists('XoopsFormEditor')) {
-            $editorOptions           = array();
-            $editorOptions['name']   = 'definition';
-            $editorOptions['value']  = $this->targetObject->getVar('definition', 'e');
-            $editorOptions['rows']   = 5;
-            $editorOptions['cols']   = 40;
-            $editorOptions['width']  = '100%';
-            $editorOptions['height'] = '400px';
-            //$editorOptions['editor'] = xoops_getModuleOption('lexikon_editor', 'lexikon');
-            //$this->addElement( new \XoopsFormEditor(AM_LEXIKON_ENTRIES_DEFINITION, 'definition', $editorOptions), false  );
-            if ($helper->isUserAdmin()) {
-                $descEditor = new \XoopsFormEditor(AM_LEXIKON_ENTRIES_DEFINITION, $helper->getConfig('lexikonEditorAdmin'), $editorOptions, $nohtml = false, $onfailure = 'textarea');
-            } else {
-                $descEditor = new \XoopsFormEditor(AM_LEXIKON_ENTRIES_DEFINITION, $helper->getConfig('lexikonEditorUser'), $editorOptions, $nohtml = false, $onfailure = 'textarea');
-            }
-        } else {
-            $descEditor = new \XoopsFormDhtmlTextArea(AM_LEXIKON_ENTRIES_DEFINITION, 'description', $this->targetObject->getVar('description', 'e'), '100%', '100%');
-        }
-        $this->addElement($descEditor);
-*/
+        /*
+                if (class_exists('XoopsFormEditor')) {
+                    $editorOptions           = array();
+                    $editorOptions['name']   = 'definition';
+                    $editorOptions['value']  = $this->targetObject->getVar('definition', 'e');
+                    $editorOptions['rows']   = 5;
+                    $editorOptions['cols']   = 40;
+                    $editorOptions['width']  = '100%';
+                    $editorOptions['height'] = '400px';
+                    //$editorOptions['editor'] = xoops_getModuleOption('lexikon_editor', 'lexikon');
+                    //$this->addElement( new \XoopsFormEditor(AM_LEXIKON_ENTRIES_DEFINITION, 'definition', $editorOptions), false  );
+                    if ($helper->isUserAdmin()) {
+                        $descEditor = new \XoopsFormEditor(AM_LEXIKON_ENTRIES_DEFINITION, $helper->getConfig('lexikonEditorAdmin'), $editorOptions, $nohtml = false, $onfailure = 'textarea');
+                    } else {
+                        $descEditor = new \XoopsFormEditor(AM_LEXIKON_ENTRIES_DEFINITION, $helper->getConfig('lexikonEditorUser'), $editorOptions, $nohtml = false, $onfailure = 'textarea');
+                    }
+                } else {
+                    $descEditor = new \XoopsFormDhtmlTextArea(AM_LEXIKON_ENTRIES_DEFINITION, 'description', $this->targetObject->getVar('description', 'e'), '100%', '100%');
+                }
+                $this->addElement($descEditor);
+        */
 
         $definition = $this->targetObject->getVar('definition', 'e');
-        $editor = $utility::getWysiwygForm(_AM_LEXIKON_ENTRYDEF, 'definition',  $definition, 15, 60);
+        $editor = $utility::getWysiwygForm(_AM_LEXIKON_ENTRYDEF, 'definition', $definition, 15, 60);
         if (_MD_LEXIKON_WRITEHERE == $definition) {
             $editor->setExtra('onfocus="this.select()"');
         }

@@ -22,7 +22,6 @@ use Xmf\Request;
 use XoopsModules\Lexikon;
 use XoopsModules\Lexikon\Common;
 
-
 //require_once __DIR__ . '/../include/common.php';
 
 /**
@@ -36,7 +35,7 @@ class Utility
 
     use Common\FilesManagement; // Files Management Trait
 
-    //--------------- Custom module methods -----------------------------    
+    //--------------- Custom module methods -----------------------------
 
     /**
      * static::getLinkedUnameFromId()
@@ -88,7 +87,7 @@ class Utility
         echo "<option value='-1'>------</option>";
         $result = $xoopsDB->query('SELECT uid, uname FROM ' . $xoopsDB->prefix('users') . ' ORDER BY uname');
 
-        while (list($uid, $uname) = $xoopsDB->fetchRow($result)) {
+        while (false !== (list($uid, $uname) = $xoopsDB->fetchRow($result))) {
             if ($uid == $user) {
                 $opt_selected = 'selected';
             } else {
@@ -107,7 +106,7 @@ class Utility
 
         $result01 = $xoopsDB->query('SELECT categoryID, total FROM ' . $xoopsDB->prefix('lxcategories') . ' ');
         list($totalcategories) = $xoopsDB->getRowsNum($result01);
-        while (list($categoryID, $total) = $xoopsDB->fetchRow($result01)) {
+        while (false !== (list($categoryID, $total) = $xoopsDB->fetchRow($result01))) {
             if ($gpermHandler->checkRight('lexikon_view', $categoryID, $groups, $xoopsModule->getVar('mid'))) {
                 $newcount = self::countByCategory($categoryID);
                 $xoopsDB->queryF('UPDATE ' . $xoopsDB->prefix('lxcategories') . " SET total = '$newcount' WHERE categoryID = '$categoryID'");
@@ -126,7 +125,7 @@ class Utility
         $gpermHandler = xoops_getHandler('groupperm');
         $count        = 0;
         $sql          = $xoopsDB->query('SELECT entryID FROM ' . $xoopsDB->prefix('lxentries') . " WHERE offline = '0' AND categoryID = '$c'");
-        while ($myrow = $xoopsDB->fetchArray($sql)) {
+        while (false !== ($myrow = $xoopsDB->fetchArray($sql))) {
             ++$count;
         }
 
@@ -175,14 +174,16 @@ class Utility
      */
     public static function getCategoryArray()
     {
-        global $xoopsDB, $xoopsModuleConfig, $xoopsUser, $xoopsModule;
+        global $xoopsDB,  $xoopsUser, $xoopsModule;
+        /** @var Lexikon\Helper $helper */
+        $helper = Lexikon\Helper::getInstance();
         $myts         = \MyTextSanitizer::getInstance();
         $groups       = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
         $gpermHandler = xoops_getHandler('groupperm');
         $block0       = [];
         $count        = 1;
         $resultcat    = $xoopsDB->query('SELECT categoryID, name, total, logourl FROM ' . $xoopsDB->prefix('lxcategories') . ' ORDER BY weight ASC');
-        while (list($catID, $name, $total, $logourl) = $xoopsDB->fetchRow($resultcat)) {
+        while (false !== (list($catID, $name, $total, $logourl) = $xoopsDB->fetchRow($resultcat))) {
             if ($gpermHandler->checkRight('lexikon_view', $catID, $groups, $xoopsModule->getVar('mid'))) {
                 $catlinks = [];
                 ++$count;
@@ -305,7 +306,9 @@ class Utility
      */
     public static function getServiceLinks($variable)
     {
-        global $xoopsUser, $xoopsDB, $xoopsModule, $xoopsModuleConfig, $xoopsConfig, $entrytype;
+        global $xoopsUser, $xoopsDB, $xoopsModule, $xoopsConfig, $entrytype;
+        /** @var Lexikon\Helper $helper */
+        $helper = Lexikon\Helper::getInstance();
 
         /** @var \XoopsModuleHandler $moduleHandler */
         $moduleHandler = xoops_getHandler('module');
@@ -360,8 +363,8 @@ class Utility
                          . '/mail_replay.png" alt="'
                          . _MD_LEXIKON_SENDTOFRIEND
                          . '" style="width:16px; height:16px;"></a>&nbsp;';
-            if ((0 != $xoopsModuleConfig['com_rule'])
-                && (!empty($xoopsModuleConfig['com_anonpost'])
+            if ((0 != $helper->getConfig('com_rule'))
+                && (!empty($helper->getConfig('com_anonpost'))
                     || is_object($xoopsUser))) {
                 $srvlinks .= '<a TITLE="' . _COMMENTS . '?" href="comment_new.php?com_itemid=' . $variable['id'] . '" target="_parent"><img src="assets/images/comments.gif" alt="' . _COMMENTS . '?" style="width:16px; height:16px;"></a>&nbsp;';
             }
@@ -378,7 +381,9 @@ class Utility
      */
     public static function getServiceLinksNew($variable)
     {
-        global $xoopsUser, $xoopsDB, $xoopsModule, $xoopsModuleConfig, $xoopsConfig, $myts;
+        global $xoopsUser, $xoopsDB, $xoopsModule,  $xoopsConfig, $myts;
+        /** @var Lexikon\Helper $helper */
+        $helper = Lexikon\Helper::getInstance();
         $srvlinks2 = '<a TITLE="'
                      . _MD_LEXIKON_PRINTTERM
                      . '" href="print.php?entryID='
@@ -415,7 +420,10 @@ class Utility
      */
     public static function showSearchForm()
     {
-        global $xoopsUser, $xoopsDB, $xoopsModule, $xoopsModuleConfig, $xoopsConfig;
+        global $xoopsUser, $xoopsDB, $xoopsModule,  $xoopsConfig;
+        /** @var Lexikon\Helper $helper */
+        $helper = Lexikon\Helper::getInstance();
+
         $gpermHandler = xoops_getHandler('groupperm');
         $groups       = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
 
@@ -426,14 +434,14 @@ class Utility
         $searchform .= '<select name="type"><option value="1">' . _MD_LEXIKON_TERMS . '</option><option value="2">' . _MD_LEXIKON_DEFINS . '</option>';
         $searchform .= '<option SELECTED value="3">' . _MD_LEXIKON_TERMSDEFS . '</option></select></td></tr>';
 
-        if (1 == $xoopsModuleConfig['multicats']) {
+        if (1 == $helper->getConfig('multicats')) {
             $searchform .= '<tr><td style="text-align: right; line-height: 200%;">' . _MD_LEXIKON_CATEGORY . '</td>';
             $searchform .= '<td>&nbsp;</td><td style="text-align: left;">';
             $resultcat  = $xoopsDB->query('SELECT categoryID, name FROM ' . $xoopsDB->prefix('lxcategories') . ' ORDER BY categoryID');
             $searchform .= '<select name="categoryID">';
             $searchform .= '<option value="0">' . _MD_LEXIKON_ALLOFTHEM . '</option>';
 
-            while (list($categoryID, $name) = $xoopsDB->fetchRow($resultcat)) {
+            while (false !== (list($categoryID, $name) = $xoopsDB->fetchRow($resultcat))) {
                 if ($gpermHandler->checkRight('lexikon_view', (int)$categoryID, $groups, $xoopsModule->getVar('mid'))) {
                     $searchform .= "<option value=\"$categoryID\">$categoryID : $name</option>";
                 }
@@ -492,9 +500,11 @@ class Utility
      */
     public static function extractKeywords($content)
     {
-        global $xoopsTpl, $xoTheme, $xoopsModule, $xoopsModuleConfig;
+        global $xoopsTpl, $xoTheme, $xoopsModule;
+        /** @var Lexikon\Helper $helper */
+        $helper = Lexikon\Helper::getInstance();
         require_once XOOPS_ROOT_PATH . '/modules/lexikon/include/common.inc.php';
-        $keywords_count = $xoopsModuleConfig['metakeywordsnum'];
+        $keywords_count = $helper->getConfig('metakeywordsnum');
         $tmp            = [];
         if (isset($_SESSION['xoops_keywords_limit'])) {    // Search the "Minimum keyword length"
             $limit = $_SESSION['xoops_keywords_limit'];
@@ -855,42 +865,45 @@ class Utility
      */
     public static function getModuleHeader()
     {
-        global $xoopsTpl, $xoTheme, $xoopsModule, $xoopsModuleConfig, $lexikon_module_header;
+        global $xoopsTpl, $xoTheme, $xoopsModule,  $lexikon_module_header;
+        /** @var Lexikon\Helper $helper */
+        $helper = Lexikon\Helper::getInstance();
+
         if (isset($xoTheme) && is_object($xoTheme)) {
             $xoTheme->addStylesheet('modules/lexikon/assets/css/style.css');
-            if (3 == $xoopsModuleConfig['linkterms']) {
+            if (3 == $helper->getConfig('linkterms')) {
                 $xoTheme->addStylesheet('modules/lexikon/assets/css/linkterms.css');
                 $xoTheme->addScript('/modules/lexikon/assets/js/tooltipscript2.js', ['type' => 'text/javascript']);
             }
-            if (4 == $xoopsModuleConfig['linkterms']) {
+            if (4 == $helper->getConfig('linkterms')) {
                 $xoTheme->addScript('/modules/lexikon/assets/js/popup.js', ['type' => 'text/javascript']);
             }
-            if (5 == $xoopsModuleConfig['linkterms']) {
+            if (5 == $helper->getConfig('linkterms')) {
                 $xoTheme->addStylesheet('modules/lexikon/assets/css/linkterms.css');
                 $xoTheme->addScript('/modules/lexikon/assets/js/balloontooltip.js', ['type' => 'text/javascript']);
             }
-            if (6 == $xoopsModuleConfig['linkterms']) {
+            if (6 == $helper->getConfig('linkterms')) {
                 $xoTheme->addStylesheet('modules/lexikon/assets/css/linkterms.css');
                 $xoTheme->addScript('/modules/lexikon/assets/js/shadowtooltip.js', ['type' => 'text/javascript']);
             }
         } else {
             $lexikon_url = XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname');
-            if (3 == $xoopsModuleConfig['linkterms']) {
+            if (3 == $helper->getConfig('linkterms')) {
                 $lexikon_module_header = '<link rel="stylesheet" type="text/css" href="assets/css/style.css" >
             <link rel="stylesheet" type="text/css" href="assets/css/linkterms.css" >
             <script src="' . $lexikon_url . '/assets/js/tooltipscript2.js" type="text/javascript"></script>';
             }
-            if (4 == $xoopsModuleConfig['linkterms']) {
+            if (4 == $helper->getConfig('linkterms')) {
                 $lexikon_module_header = '<link rel="stylesheet" type="text/css" href="assets/css/style.css" >
             <link rel="stylesheet" type="text/css" href="assets/css/linkterms.css" >
             <script src="' . $lexikon_url . '/assets/js/popup.js" type="text/javascript"></script>';
             }
-            if (5 == $xoopsModuleConfig['linkterms']) {
+            if (5 == $helper->getConfig('linkterms')) {
                 $lexikon_module_header = '<link rel="stylesheet" type="text/css" href="assets/css/style.css" >
             <link rel="stylesheet" type="text/css" href="assets/css/linkterms.css" >
             <script src="' . $lexikon_url . '/assets/js/balloontooltip.js" type="text/javascript"></script>';
             }
-            if (6 == $xoopsModuleConfig['linkterms']) {
+            if (6 == $helper->getConfig('linkterms')) {
                 $lexikon_module_header = '<link rel="stylesheet" type="text/css" href="assets/css/style.css" >
             <link rel="stylesheet" type="text/css" href="assets/css/linkterms.css" >
             <script src="' . $lexikon_url . '/assets/js/shadowtooltip.js" type="text/javascript"></script>';
@@ -934,7 +947,9 @@ class Utility
     public static function getAuthorProfile($uid)
     {
         require_once XOOPS_ROOT_PATH . '/class/pagenav.php';
-        global $authortermstotal, $xoopsTpl, $xoopsDB, $xoopsUser, $xoopsModuleConfig;
+        global $authortermstotal, $xoopsTpl, $xoopsDB, $xoopsUser;
+        /** @var Lexikon\Helper $helper */
+        $helper = Lexikon\Helper::getInstance();
         $myts = \MyTextSanitizer::getInstance();
         //permissions
         $gpermHandler = xoops_getHandler('groupperm');
@@ -948,7 +963,7 @@ class Utility
         $catperms      = " AND categoryID IN ($catids) ";
 
         $start = isset($_GET['start']) ? (int)$_GET['start'] : 0;
-        $limit = $xoopsModuleConfig['indexperpage'];
+        $limit = $helper->getConfig('indexperpage');
 
         $sql = $xoopsDB->query('SELECT *
                               FROM ' . $xoopsDB->prefix('lxentries') . "
@@ -956,18 +971,18 @@ class Utility
                               ORDER BY term
                               LIMIT $start,$limit");
 
-        while ($row = $xoopsDB->fetchArray($sql)) {
+        while (false !== ($row = $xoopsDB->fetchArray($sql))) {
             $xoopsTpl->append('entries', [
                 'id'      => $row['entryID'],
                 'name'    => $row['term'],
-                'date'    => date($xoopsModuleConfig['dateformat'], $row['datesub']),
+                'date'    => date($helper->getConfig('dateformat'), $row['datesub']),
                 'counter' => $row['counter']
             ]);
         }
 
         $navstring                = '';
         $navstring                .= 'uid=' . $uid . '&start';
-        $pagenav                  = new \XoopsPageNav($authortermstotal, $xoopsModuleConfig['indexperpage'], $start, $navstring);
+        $pagenav                  = new \XoopsPageNav($authortermstotal, $helper->getConfig('indexperpage'), $start, $navstring);
         $authortermsarr['navbar'] = '<span style="text-align:right;">' . $pagenav->renderNav(6) . '</span>';
         $xoopsTpl->assign('authortermsarr', $authortermsarr);
     }
@@ -987,7 +1002,7 @@ class Utility
         $sql    = 'SELECT DISTINCT(uid) AS uid FROM ' . $xoopsDB->prefix('lxentries') . ' WHERE offline = 0 ';
         $sql    .= ' ORDER BY uid';
         $result = $xoopsDB->query($sql);
-        while ($myrow = $xoopsDB->fetchArray($result)) {
+        while (false !== ($myrow = $xoopsDB->fetchArray($result))) {
             $ret[] = $myrow['uid'];
         }
 
@@ -1188,7 +1203,7 @@ class Utility
     public static function isTermPresent($term, $table)
     {
         global $xoopsDB;
-        $sql    = sprintf('SELECT COUNT(*) FROM "%s" WHERE term = "%s"', $table, $xoopsDB->quoteString(addslashes($term)));
+        $sql    = sprintf('SELECT COUNT(*) FROM %s WHERE term = %s', $table, $xoopsDB->quoteString(addslashes($term)));
         $result = $xoopsDB->query($sql);
         list($count) = $xoopsDB->fetchRow($result);
 
@@ -1234,7 +1249,7 @@ class Utility
             return false;
         }
 
-        while ($row = $db->fetchArray($result)) {
+        while (false !== ($row = $db->fetchArray($result))) {
             if ('name' === $name && '' == $row['name']) {
                 $row['name'] = \XoopsUser::getUnameFromId($row['uid']);
             }
@@ -1494,7 +1509,7 @@ class Utility
         $sql    = 'SELECT COLUMN_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = "' . $table . '" AND COLUMN_NAME = "' . $columnName . '"';
         $result = $GLOBALS['xoopsDB']->query($sql);
         if (!$result) {
-            exit ($GLOBALS['xoopsDB']->error());
+            exit($GLOBALS['xoopsDB']->error());
         }
 
         $row      = $GLOBALS['xoopsDB']->fetchBoth($result);
@@ -1518,7 +1533,7 @@ class Utility
         // set the auto-incremented id's value to blank.
         unset($tempTable[$id_field]);
         // insert cloned copy of the original  record 
-        $result = $GLOBALS['xoopsDB']->queryF("INSERT INTO $table (" . implode(', ', array_keys($tempTable)) . ") VALUES ('" . implode("', '", array_values($tempTable)) . "')") or exit ($GLOBALS['xoopsDB']->error());
+        $result = $GLOBALS['xoopsDB']->queryF("INSERT INTO $table (" . implode(', ', array_keys($tempTable)) . ") VALUES ('" . implode("', '", array_values($tempTable)) . "')") or exit($GLOBALS['xoopsDB']->error());
 
         if ($result) {
             // Return the new id

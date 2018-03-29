@@ -9,6 +9,8 @@
 
 use Xmf\Request;
 use XoopsModules\Lexikon;
+/** @var Lexikon\Helper $helper */
+$helper = Lexikon\Helper::getInstance();
 
 require_once __DIR__ . '/admin_header.php';
 $myts = \MyTextSanitizer::getInstance();
@@ -25,7 +27,9 @@ error_reporting(E_ERROR | E_WARNING | E_PARSE);
 /* -- Available operations -- */
 function entryDefault()
 {
-    global $xoopsUser, $xoopsConfig, $xoopsDB, $xoopsModuleConfig, $xoopsModule, $entryID, $pathIcon16;
+    global $xoopsUser, $xoopsConfig, $xoopsDB,  $xoopsModule, $entryID, $pathIcon16;
+    /** @var Lexikon\Helper $helper */
+    $helper = Lexikon\Helper::getInstance();
     require_once XOOPS_ROOT_PATH . '/class/xoopslists.php';
     require_once XOOPS_ROOT_PATH . '/class/pagenav.php';
     xoops_load('XoopsUserUtility');
@@ -71,8 +75,8 @@ function entryDefault()
            FROM ' . $xoopsDB->prefix('lxentries') . '
            WHERE submit = 0
            ORDER BY entryID DESC';
-    $resultA2 = $xoopsDB->query($sql, $xoopsModuleConfig['perpage'], $startentry);
-    $result   = $xoopsDB->query($sql, $xoopsModuleConfig['perpage']);
+    $resultA2 = $xoopsDB->query($sql, $helper->getConfig('perpage'), $startentry);
+    $result   = $xoopsDB->query($sql, $helper->getConfig('perpage'));
 
     echo "  <table class='outer' width='100%' border='0'>
     <tr>
@@ -81,7 +85,7 @@ function entryDefault()
     echo '<tr>';
 
     echo "<th style='width:40px; text-align:center;'>" . _AM_LEXIKON_ENTRYID . '</td>';
-    if (1 == $xoopsModuleConfig['multicats']) {
+    if (1 == $helper->getConfig('multicats')) {
         echo "<th style='width:20%; text-align:center;'>" . _AM_LEXIKON_ENTRYCATNAME . '</td>';
     }
     echo "<th style='width:*; text-align:center;'>" . _AM_LEXIKON_ENTRYTERM . "</td>
@@ -94,7 +98,7 @@ function entryDefault()
     if ($numrows > 0) {
         // That is, if there ARE entries in the system
 
-        while (list($entryID, $categoryID, $term, $uid, $created, $offline) = $xoopsDB->fetchRow($resultA2)) {
+        while (false !== (list($entryID, $categoryID, $term, $uid, $created, $offline) = $xoopsDB->fetchRow($resultA2))) {
             $resultA3 = $xoopsDB->query('SELECT name
                                            FROM ' . $xoopsDB->prefix('lxcategories') . "
                                            WHERE categoryID = '$categoryID'");
@@ -117,7 +121,7 @@ function entryDefault()
 
             echo "<td align='center'>" . $entryID . '</td>';
 
-            if (1 == $xoopsModuleConfig['multicats']) {
+            if (1 == $helper->getConfig('multicats')) {
                 echo "<td class='odd' style='text-align:left;'>" . $catname . '</td>';
             }
             echo "<td class='odd' style='text-align:left;'><a href='../entry.php?entryID=" . $entryID . "'>" . $term . "</a></td>
@@ -133,7 +137,7 @@ function entryDefault()
         echo '</tr></div>';
     }
     echo "</table>\n";
-    $pagenav = new \XoopsPageNav($numrows, $xoopsModuleConfig['perpage'], $startentry, 'startentry');
+    $pagenav = new \XoopsPageNav($numrows, $helper->getConfig('perpage'), $startentry, 'startentry');
     echo '<div style="text-align:right;">' . $pagenav->renderNav(8) . '</div>';
     echo "<br>\n";
     echo '</div>';
@@ -145,7 +149,10 @@ function entryDefault()
  */
 function entryEdit($entryID = '')
 {
-    global $xoopsUser, $xoopsConfig, $xoopsDB, $xoopsModuleConfig, $xoopsModule, $init;
+    global $xoopsUser, $xoopsConfig, $xoopsDB,  $xoopsModule, $init;
+    /** @var Lexikon\Helper $helper */
+    $helper = Lexikon\Helper::getInstance();
+
     $myts    = \MyTextSanitizer::getInstance();
     $utility = new Lexikon\Utility();
     /**
@@ -218,7 +225,7 @@ function entryEdit($entryID = '')
     } else { // there's no parameter, so we're adding an entry
         $result01 = $xoopsDB->query('SELECT COUNT(*) FROM ' . $xoopsDB->prefix('lxcategories') . ' ');
         list($totalcats) = $xoopsDB->fetchRow($result01);
-        if (0 == $totalcats && 1 == $xoopsModuleConfig['multicats']) {
+        if (0 == $totalcats && 1 == $helper->getConfig('multicats')) {
             redirect_header('index.php', 1, _AM_LEXIKON_NEEDONECOLUMN);
         }
         $uid = $xoopsUser->getVar('uid');
@@ -228,7 +235,7 @@ function entryEdit($entryID = '')
 
     $sform->setExtra('enctype="multipart/form-data"');
     // Category selector
-    if (1 == $xoopsModuleConfig['multicats']) {
+    if (1 == $helper->getConfig('multicats')) {
         $mytree         = new Lexikon\LexikonTree($xoopsDB->prefix('lxcategories'), 'categoryID', '0');
         $categoryselect = new \XoopsFormSelect(_AM_LEXIKON_CATNAME, 'categoryID', $categoryID);
         $tbl            = [];
@@ -351,11 +358,13 @@ function entryEdit($entryID = '')
  */
 function entrySave($entryID = '')
 {
-    global $xoopsUser, $xoopsConfig, $xoopsModuleConfig, $xoopsModule, $xoopsDB;
+    global $xoopsUser, $xoopsConfig,  $xoopsModule, $xoopsDB;
+    /** @var Lexikon\Helper $helper */
+    $helper = Lexikon\Helper::getInstance();
     $utility      = new Lexikon\Utility();
     $myts    = \MyTextSanitizer::getInstance();
     $entryID = isset($_POST['entryID']) ? (int)$_POST['entryID'] : (int)$_GET['entryID'];
-    if (1 == $xoopsModuleConfig['multicats']) {
+    if (1 == $helper->getConfig('multicats')) {
         $categoryID = Request::getInt('categoryID', 0);
     } else {
         $categoryID = 1;
@@ -388,7 +397,7 @@ function entrySave($entryID = '')
     $moduleHandler = xoops_getHandler('module');
     $tagsModule    = $moduleHandler->getByDirname('tag');
     if (is_object($tagsModule)) {
-        $tagHandler = xoops_getModuleHandler('tag', 'tag');
+        $tagHandler = \XoopsModules\Tag\Helper::getInstance()->getHandler('Tag'); // xoops_getModuleHandler('tag', 'tag');
         $tagHandler->updateByItem($_POST['item_tag'], $entryID, $xoopsModule->getVar('dirname'), $catid = 0);
     }
     // Save to database
@@ -412,7 +421,7 @@ function entrySave($entryID = '')
                 }
             }
             // trigger Notification only if its a new definition
-            if (!empty($xoopsModuleConfig['notification_enabled'])) {
+            if (!empty($helper->getConfig('notification_enabled'))) {
                 global $xoopsModule;
                 if (0 == $newid) {
                     $newid = $xoopsDB->getInsertId();
@@ -442,7 +451,7 @@ function entrySave($entryID = '')
                             . $xoopsDB->prefix('lxentries')
                             . " SET term = '$term', categoryID = '$categoryID', init = '$init', definition = '$definition', ref = '$ref', url = '$url', uid = '$uid', submit = '$submit', datesub = '$date', html = '$html', smiley = '$smiley', xcodes = '$xcodes', breaks = '$breaks', block = '$block', offline = '$offline', notifypub = '$notifypub', request = '$request' WHERE entryID = '$entryID'")) {
             // trigger Notification only if its a new submission
-            if (!empty($xoopsModuleConfig['notification_enabled'])) {
+            if (!empty($helper->getConfig('notification_enabled'))) {
                 global $xoopsModule;
                 $notificationHandler   = xoops_getHandler('notification');
                 $tags                  = [];

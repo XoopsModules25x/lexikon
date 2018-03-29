@@ -4,6 +4,11 @@
  * Author: Yerres
  * Licence: GNU
  */
+
+use XoopsModules\Lexikon;
+/** @var Lexikon\Helper $helper */
+$helper = Lexikon\Helper::getInstance();
+
 if (function_exists('mb_http_output')) {
     mb_http_output('pass');
 }
@@ -13,11 +18,11 @@ require_once XOOPS_ROOT_PATH . '/class/template.php';
 $tpl = new \XoopsTpl();
 $tpl->caching=0;
 
-global $xoopsUser, $xoopsDB, $xoopsConfig, $xoopsModuleConfig;
+global $xoopsUser, $xoopsDB, $xoopsConfig;
 $myts = MyTextSanitizer:: getInstance();
 
-//if ( !is_object( $xoopsUser ) && $xoopsModuleConfig['contentsyndication'] == 0 ) {
-if (0 == $xoopsModuleConfig['contentsyndication']) {
+//if ( !is_object( $xoopsUser ) && $helper->getConfig('contentsyndication') == 0 ) {
+if (0 == $helper->getConfig('contentsyndication')) {
     echo ' ' . _NOPERM . ' ';
     exit();
 }
@@ -26,7 +31,7 @@ $groups       = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_AN
 $gpermHandler = xoops_getHandler('groupperm');
 $module_id    = $xoopsModule->getVar('mid');
 
-$tpl->assign('multicats', (int)$xoopsModuleConfig['multicats']);
+$tpl->assign('multicats', (int)$helper->getConfig('multicats'));
 
 // To display the syndicated definition
 //list($numrows) = $xoopsDB -> fetchRow($xoopsDB->query("SELECT COUNT(*) FROM ".$xoopsDB -> prefix("lxentries")." WHERE offline = '0' AND submit = '0' AND request = '0'"));
@@ -53,15 +58,15 @@ $resultZ = $xoopsDB->query('SELECT a.entryID, a.categoryID, a.term, a.definition
 
 $zerotest = $xoopsDB->getRowsNum($resultZ);
 if (0 != $zerotest) {
-    while ($myrow = $xoopsDB->fetchArray($resultZ)) {
+    while (false !== ($myrow = $xoopsDB->fetchArray($resultZ))) {
         $syndication         = [];
         $syndication['id']   = $myrow['entryID'];
         $syndication['term'] = ucfirst($myrow['term']);
         if (!XOOPS_USE_MULTIBYTES) {
-            $syndication['definition'] = $myts->displayTarea(xoops_substr($myrow['definition'], 0, $xoopsModuleConfig['rndlength'] - 3), 1, 1, 1, 1, 1);
-            // note: if the definitions are too long try : $xoopsModuleConfig['rndlength'] -20 ) and decrease font-size:x-small below ...
+            $syndication['definition'] = $myts->displayTarea(xoops_substr($myrow['definition'], 0, $helper->getConfig('rndlength') - 3), 1, 1, 1, 1, 1);
+            // note: if the definitions are too long try : $helper->getConfig('rndlength') -20 ) and decrease font-size:x-small below ...
         }
-        if (1 == $xoopsModuleConfig['multicats']) {
+        if (1 == $helper->getConfig('multicats')) {
             $syndication['catID'] = $myrow['categoryID'];
             $resultY              = $xoopsDB->query('SELECT categoryID, name FROM ' . $xoopsDB->prefix('lxcategories') . ' WHERE categoryID = ' . $myrow['categoryID'] . ' ');
             list($categoryID, $name) = $xoopsDB->fetchRow($resultY);

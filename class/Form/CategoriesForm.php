@@ -119,7 +119,7 @@ class CategoriesForm extends \XoopsThemeForm
 
         $selectPermAdmin = new \XoopsFormCheckBox('', 'admin', XOOPS_GROUP_ADMIN);
         $selectPermAdmin->addOption($groupIdAdmin, $groupNameAdmin);
-        $selectPermAdmin->setExtra("disabled='disabled'"); //comment it out, if you want to allow to remove permissions for the admin 
+        $selectPermAdmin->setExtra("disabled='disabled'"); //comment it out, if you want to allow to remove permissions for the admin
 
         // ********************************************************
         // permission view items

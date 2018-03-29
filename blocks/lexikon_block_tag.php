@@ -52,7 +52,7 @@
  *    </li>
  * </ul>
  *
- * {@link TagTag}
+ * {@link Tag}
  *
  * @param    array $options :
  *                          $options[0] - number of tags to display

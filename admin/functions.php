@@ -6,6 +6,8 @@
  * Licence: GNU
  */
 
+use XoopsModules\Lexikon;
+
 if (is_object($xoopsUser)) {
     $xoopsModule = XoopsModule::getByDirname('lexikon');
     if (!$xoopsUser->isAdmin($xoopsModule->mid())) {
@@ -30,16 +32,10 @@ function lx_adminMenu($currentoption = 0, $breadcrumb = '')
     require_once XOOPS_ROOT_PATH . '/class/template.php';
 
     global $xoopsDB, $xoopsModule, $xoopsConfig;
-    if (file_exists(XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->dirname() . '/language/' . $xoopsConfig['language'] . '/modinfo.php')) {
-        require_once XOOPS_ROOT_PATH . '/modules/lexikon/language/' . $xoopsConfig['language'] . '/modinfo.php';
-    } else {
-        require_once XOOPS_ROOT_PATH . '/modules/lexikon/language/english/modinfo.php';
-    }
-    if (file_exists(XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->dirname() . '/language/' . $xoopsConfig['language'] . '/admin.php')) {
-        require_once XOOPS_ROOT_PATH . '/modules/lexikon/language/' . $xoopsConfig['language'] . '/admin.php';
-    } else {
-        require_once XOOPS_ROOT_PATH . '/modules/lexikon/language/english/admin.php';
-    }
+    /** @var Lexikon\Helper $helper */
+    $helper = Lexikon\Helper::getInstance();
+    $helper->loadLanguage('admin');
+    $helper->loadLanguage('modinfo');
 
     include __DIR__ . '/menu.php';
 
@@ -137,7 +133,6 @@ function lx_importMenu($currentoption = 0, $breadcrumb = '')
               <strong style='color: #2F5376; margin-top:6px; font-size:medium'>" . _AM_LEXIKON_IMPORT_MENU . '</strong><br>';
     if ($cf > 0) {
         echo '<span style="font-size:x-small">' . _AM_LEXIKON_OTHERMODS . '</span><br><br>';
-
     } else {
         echo '<span style="font-size:x-small; color:red;">' . _AM_LEXIKON_NOOTHERMODS . '</span><br><br>';
     }
@@ -268,7 +263,7 @@ function lx_GetStatistics($limit)
     $ret2   = [];
     $sql    = "SELECT count(s.entryID) as cpt, s.categoryID, t.name FROM $tbls s, $tblt t WHERE s.categoryID=t.categoryID GROUP BY s.categoryID ORDER BY t.name";
     $result = $db->query($sql);
-    while ($myrow = $db->fetchArray($result)) {
+    while (false !== ($myrow = $db->fetchArray($result))) {
         $ret2[$myrow['categoryID']] = $myrow;
     }
     $ret['termspercategory'] = $ret2;
@@ -278,7 +273,7 @@ function lx_GetStatistics($limit)
     $ret2   = [];
     $sql    = "SELECT Sum(counter) as cpt, categoryID FROM $tbls GROUP BY categoryID ORDER BY categoryID";
     $result = $db->query($sql);
-    while ($myrow = $db->fetchArray($result)) {
+    while (false !== ($myrow = $db->fetchArray($result))) {
         $ret2[$myrow['categoryID']] = $myrow['cpt'];
     }
     $ret['readspercategory'] = $ret2;
@@ -287,7 +282,7 @@ function lx_GetStatistics($limit)
     $ret2   = [];
     $sql    = "SELECT Count(entryID) as cpt, categoryID FROM $tbls WHERE offline > 0 OR submit > 0 GROUP BY categoryID ORDER BY categoryID";
     $result = $db->query($sql);
-    while ($myrow = $db->fetchArray($result)) {
+    while (false !== ($myrow = $db->fetchArray($result))) {
         $ret2[$myrow['categoryID']] = $myrow['cpt'];
     }
     $ret['offlinepercategory'] = $ret2;
@@ -297,7 +292,7 @@ function lx_GetStatistics($limit)
     $ret2   = [];
     $sql    = "SELECT Count(Distinct(uid)) as cpt, categoryID FROM $tbls GROUP BY categoryID ORDER BY categoryID";
     $result = $db->query($sql);
-    while ($myrow = $db->fetchArray($result)) {
+    while (false !== ($myrow = $db->fetchArray($result))) {
         $ret2[$myrow['categoryID']] = $myrow['cpt'];
     }
     $ret['authorspercategory'] = $ret2;
@@ -307,7 +302,7 @@ function lx_GetStatistics($limit)
     $ret2   = [];
     $sql    = "SELECT s.entryID, s.uid, s.term, s.counter, s.categoryID, t.name  FROM $tbls s, $tblt t WHERE s.categoryID=t.categoryID ORDER BY s.counter DESC";
     $result = $db->query($sql, (int)$limit);
-    while ($myrow = $db->fetchArray($result)) {
+    while (false !== ($myrow = $db->fetchArray($result))) {
         $ret2[$myrow['entryID']] = $myrow;
     }
     $ret['mostreadterms'] = $ret2;
@@ -317,7 +312,7 @@ function lx_GetStatistics($limit)
     $ret2   = [];
     $sql    = "SELECT s.entryID, s.uid, s.term, s.counter, s.categoryID, t.name  FROM $tbls s, $tblt t WHERE s.categoryID=t.categoryID ORDER BY s.counter";
     $result = $db->query($sql, (int)$limit);
-    while ($myrow = $db->fetchArray($result)) {
+    while (false !== ($myrow = $db->fetchArray($result))) {
         $ret2[$myrow['entryID']] = $myrow;
     }
     $ret['lessreadterms'] = $ret2;
@@ -327,7 +322,7 @@ function lx_GetStatistics($limit)
     $ret2   = [];
     $sql    = "SELECT Sum(counter) as cpt, uid FROM $tbls GROUP BY uid ORDER BY cpt DESC";
     $result = $db->query($sql, (int)$limit);
-    while ($myrow = $db->fetchArray($result)) {
+    while (false !== ($myrow = $db->fetchArray($result))) {
         $ret2[$myrow['uid']] = $myrow['cpt'];
     }
     $ret['mostreadauthors'] = $ret2;
@@ -337,7 +332,7 @@ function lx_GetStatistics($limit)
     $ret2   = [];
     $sql    = "SELECT Count(*) as cpt, uid FROM $tbls GROUP BY uid ORDER BY cpt DESC";
     $result = $db->query($sql, (int)$limit);
-    while ($myrow = $db->fetchArray($result)) {
+    while (false !== ($myrow = $db->fetchArray($result))) {
         $ret2[$myrow['uid']] = $myrow['cpt'];
     }
     $ret['biggestcontributors'] = $ret2;

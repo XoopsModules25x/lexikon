@@ -5,7 +5,7 @@
  * version 1.5
  */
 
-defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
+defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 /**
  * @return array
@@ -29,7 +29,7 @@ function b_sitemap_lexikon()
     $result        = $db->query('SELECT categoryID, name FROM ' . $db->prefix('lxcategories') . ' ' . $catperms . ' ORDER BY weight');
 
     $ret = [];
-    while (list($id, $name) = $db->fetchRow($result)) {
+    while (false !== (list($id, $name) = $db->fetchRow($result))) {
         $ret['parent'][] = [
             'id'    => $id,
             'title' => $myts->htmlSpecialChars($name),

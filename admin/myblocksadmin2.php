@@ -5,7 +5,7 @@
 //                          GIJOE <http://www.peak.ne.jp>                   //
 // ------------------------------------------------------------------------- //
 
-defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
+defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 require_once __DIR__ . '/../../../include/cp_header.php';
 
@@ -74,7 +74,7 @@ $db        = \XoopsDatabaseFactory::getDatabaseConnection();
 $sql       = 'SELECT bid,name,show_func,func_file,template FROM ' . $db->prefix('newblocks') . " WHERE mid='$target_mid'";
 $result    = $db->query($sql);
 $block_arr = [];
-while (list($bid, $bname, $show_func, $func_file, $template) = $db->fetchRow($result)) {
+while (false !== (list($bid, $bname, $show_func, $func_file, $template) = $db->fetchRow($result))) {
     $block_arr[$bid] = [
         'name'      => $bname,
         'show_func' => $show_func,
@@ -326,7 +326,7 @@ function list_groups2()
     $result = $xoopsDB->query('SELECT i.instanceid,i.title FROM ' . $xoopsDB->prefix('block_instance') . ' i LEFT JOIN ' . $xoopsDB->prefix('newblocks') . " b ON i.bid=b.bid WHERE b.mid='$target_mid'");
 
     $item_list = [];
-    while (list($iid, $title) = $xoopsDB->fetchRow($result)) {
+    while (false !== (list($iid, $title) = $xoopsDB->fetchRow($result))) {
         $item_list[$iid] = $title;
     }
 

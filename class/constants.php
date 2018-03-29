@@ -1,4 +1,4 @@
-<?php
+<?php namespace XoopsModules\Lexikon;
 
 /*
  You may not change or alter any portion of this comment or credits
@@ -20,7 +20,7 @@
  * @link            https://xoops.org/
  * @since           1.0.0
  */
-defined('XOOPS_ROOT_PATH') || exit('Restricted access');
+defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 /**
  *
@@ -32,6 +32,6 @@ defined('XOOPS_ROOT_PATH') || exit('Restricted access');
  * work correctly if trying to upgrade if these values have been changed.
  *
  **/
-interface LexikonConstants
+class Constants
 {
 }

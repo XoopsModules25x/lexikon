@@ -5,12 +5,16 @@
  * Licence: GNU
  */
 
+use XoopsModules\Lexikon;
+/** @var Lexikon\Helper $helper */
+$helper = Lexikon\Helper::getInstance();
+
 include __DIR__ . '/header.php';
 $GLOBALS['xoopsOption']['template_main'] = 'lx_content.tpl';
 include XOOPS_ROOT_PATH . '/header.php';
-global $xoTheme, $xoopsUser, $xoopsModuleConfig;
+global $xoTheme, $xoopsUser;
 $myts = \MyTextSanitizer::getInstance();
-if (!is_object($xoopsUser) && 0 == $xoopsModuleConfig['contentsyndication']) {
+if (!is_object($xoopsUser) && 0 == $helper->getConfig('contentsyndication')) {
     redirect_header(XOOPS_URL . '/user.php?xoops_redirect=' . parse_url($_SERVER['PHP_SELF']), 5, _NOPERM);
 }
 

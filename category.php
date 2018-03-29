@@ -9,6 +9,9 @@
  */
 
 use Xmf\Request;
+use XoopsModules\Lexikon;
+/** @var Lexikon\Helper $helper */
+$helper = Lexikon\Helper::getInstance();
 
 include __DIR__ . '/header.php';
 $GLOBALS['xoopsOption']['template_main'] = 'lx_category.tpl';
@@ -16,11 +19,11 @@ require_once XOOPS_ROOT_PATH . '/header.php';
 global $xoTheme, $xoopsUser;
 $myts = \MyTextSanitizer::getInstance();
 require_once XOOPS_ROOT_PATH . '/modules/lexikon/include/common.inc.php';
-$limit      = $xoopsModuleConfig['indexperpage'];
+$limit      = $helper->getConfig('indexperpage');
 $categoryID = isset($_GET['categoryID']) ? (int)$_GET['categoryID'] : 0;
 require_once XOOPS_ROOT_PATH . '/class/pagenav.php';
 $start = Request::getInt('start', 0, 'GET');
-$xoopsTpl->assign('multicats', (int)$xoopsModuleConfig['multicats']);
+$xoopsTpl->assign('multicats', (int)$helper->getConfig('multicats'));
 
 // Permission
 $gpermHandler = xoops_getHandler('groupperm');
@@ -47,12 +50,12 @@ list($howmanyother) = $xoopsDB->fetchRow($xoopsDB->query('SELECT COUNT(*) FROM '
 $xoopsTpl->assign('totalother', $howmanyother);
 
 // get the list of Maincategories :: or return to mainpage
-if (1 == $xoopsModuleConfig['multicats']) {
+if (1 == $helper->getConfig('multicats')) {
     $xoopsTpl->assign('block0', $utility::getCategoryArray());
     $xoopsTpl->assign('layout', CONFIG_CATEGORY_LAYOUT_PLAIN);
-    if (1 == $xoopsModuleConfig['useshots']) {
+    if (1 == $helper->getConfig('useshots')) {
         $xoopsTpl->assign('show_screenshot', true);
-        $xoopsTpl->assign('logo_maximgwidth', $xoopsModuleConfig['logo_maximgwidth']);
+        $xoopsTpl->assign('logo_maximgwidth', $helper->getConfig('logo_maximgwidth'));
         $xoopsTpl->assign('lang_noscreenshot', _MD_LEXIKON_NOSHOTS);
     } else {
         $xoopsTpl->assign('show_screenshot', false);
@@ -75,8 +78,8 @@ if (!$categoryID) {
 
     // How many categories will we show in this page?
     $queryA  = 'SELECT * FROM ' . $xoopsDB->prefix('lxcategories') . ' ' . $catperms2 . ' ORDER BY weight ASC';
-    $resultA = $xoopsDB->query($queryA, $xoopsModuleConfig['indexperpage'], $start);
-    while (list($categoryID, $name, $description, $total, $weight, $logourl) = $xoopsDB->fetchRow($resultA)) {
+    $resultA = $xoopsDB->query($queryA, $helper->getConfig('indexperpage'), $start);
+    while (false !== (list($categoryID, $name, $description, $total, $weight, $logourl) = $xoopsDB->fetchRow($resultA))) {
         if ($logourl && 'http://' !== $logourl) {
             $logourl = $myts->htmlSpecialChars($logourl);
         } else {
@@ -97,7 +100,7 @@ if (!$categoryID) {
         $catsarray['single'][] = $eachcat;
     }
 
-    $pagenav             = new \XoopsPageNav($totalcats, $xoopsModuleConfig['indexperpage'], $start, 'start');
+    $pagenav             = new \XoopsPageNav($totalcats, $helper->getConfig('indexperpage'), $start, 'start');
     $catsarray['navbar'] = '<div style="text-align:right;">' . $pagenav->renderNav(6) . '</div>';
 
     $xoopsTpl->assign('catsarray', $catsarray);
@@ -117,7 +120,7 @@ if (!$categoryID) {
     if ($xoopsDB->getRowsNum($catdata) <= 0) {
         redirect_header('index.php', 2, _MD_LEXIKON_UNKNOWNERROR);
     }
-    while (list($categoryID, $name, $description, $total, $logourl) = $xoopsDB->fetchRow($catdata)) {
+    while (false !== (list($categoryID, $name, $description, $total, $logourl) = $xoopsDB->fetchRow($catdata))) {
         if ($gpermHandler->checkRight('lexikon_view', $categoryID, $groups, $xoopsModule->getVar('mid'))) {
             if (0 == $total) {
                 redirect_header('javascript:history.go(-1)', 1, _MD_LEXIKON_NOENTRIESINCAT);
@@ -140,10 +143,10 @@ if (!$categoryID) {
 
             // Now we retrieve a specific number of entries according to start variable
             $queryB  = 'SELECT entryID, term, definition, html, smiley, xcodes, breaks, comments FROM ' . $xoopsDB->prefix('lxentries') . " WHERE categoryID = '$categoryID' AND submit ='0' AND offline = '0' ORDER BY term ASC";
-            $resultB = $xoopsDB->query($queryB, $xoopsModuleConfig['indexperpage'], $start);
+            $resultB = $xoopsDB->query($queryB, $helper->getConfig('indexperpage'), $start);
 
-            //while (list( $entryID, $term, $definition ) = $xoopsDB->fetchRow($resultB))
-            while (list($entryID, $term, $definition, $html, $smiley, $xcodes, $breaks, $comments) = $xoopsDB->fetchRow($resultB)) {
+            //while (false !== (list( $entryID, $term, $definition ) = $xoopsDB->fetchRow($resultB)))
+            while (false !== (list($entryID, $term, $definition, $html, $smiley, $xcodes, $breaks, $comments) = $xoopsDB->fetchRow($resultB))) {
                 $eachentry         = [];
                 $xoopsModule       = XoopsModule::getByDirname('lexikon');
                 $eachentry['dir']  = $xoopsModule->dirname();
@@ -152,8 +155,8 @@ if (!$categoryID) {
                 if (!XOOPS_USE_MULTIBYTES) {
                     $eachentry['definition'] = $myts->displayTarea($definition, $html, $smiley, $xcodes, 1, $breaks);
                 }
-                if ((0 != $xoopsModuleConfig['com_rule'])
-                    || ((0 != $xoopsModuleConfig['com_rule'])
+                if ((0 != $helper->getConfig('com_rule'))
+                    || ((0 != $helper->getConfig('com_rule'))
                         && is_object($xoopsUser))) {
                     if (0 != $comments) {
                         $eachentry['comments'] = "<a href='entry.php?entryID=" . $eachentry['id'] . "'>" . $comments . '&nbsp;' . _COMMENTS . '</a>';
@@ -170,7 +173,7 @@ if (!$categoryID) {
         }
     }
     $navstring = 'categoryID=' . $singlecat['id'] . '&start';
-    $pagenav   = new \XoopsPageNav($entriesincat, $xoopsModuleConfig['indexperpage'], $start, $navstring);
+    $pagenav   = new \XoopsPageNav($entriesincat, $helper->getConfig('indexperpage'), $start, $navstring);
 
     $entriesarray['navbar'] = '<div style="text-align:right;">' . $pagenav->renderNav(6) . '</div>';
 
@@ -187,7 +190,7 @@ if (!$categoryID) {
 
 $xoopsTpl->assign('lang_modulename', $xoopsModule->name());
 $xoopsTpl->assign('lang_moduledirname', $xoopsModule->getVar('dirname'));
-if (1 == $xoopsModuleConfig['syndication']) {
+if (1 == $helper->getConfig('syndication')) {
     $xoopsTpl->assign('syndication', true);
 }
 if ($xoopsUser) {

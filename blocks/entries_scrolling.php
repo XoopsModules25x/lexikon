@@ -8,7 +8,7 @@
  * Licence : GPL
  *
  */
-defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
+defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 /**
  * @param $options
@@ -61,7 +61,7 @@ function b_scrolling_term_show($options)
     $totals = $xoopsDB->getRowsNum($sql);
 
     if ($totals > 1) {
-        while (list($entryID, $term, $definition, $datesub, $html) = $xoopsDB->fetchRow($sql)) {
+        while (false !== (list($entryID, $term, $definition, $datesub, $html) = $xoopsDB->fetchRow($sql))) {
             $items         = [];
             $userlink      = '<a style="cursor:help;background-color: transparent;" href=\"' . XOOPS_URL . '/modules/' . $lexikon->dirname() . '/entry.php?entryID=' . (int)$entryID . '\">';
             $items['id']   = (int)$entryID;
@@ -139,7 +139,7 @@ function b_scrolling_term_edit($options)
     }
     $form      .= '>' . _ALL . '</option>';
     $resultcat = $xoopsDB->query('SELECT categoryID, name FROM ' . $xoopsDB->prefix('lxcategories') . ' ORDER BY categoryID ASC');
-    while (list($categoryID, $name) = $xoopsDB->fetchRow($resultcat)) {
+    while (false !== (list($categoryID, $name) = $xoopsDB->fetchRow($resultcat))) {
         $sel  = ($isAll || in_array($categoryID, $options_cat)) ? ' selected' : '';
         $form .= '<option value=' . $categoryID . " $sel>$categoryID : $name</option>\n";
     }

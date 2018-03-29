@@ -46,7 +46,7 @@ $permHelper = new Permission($moduleDirName);
 $uploadDir  = XOOPS_UPLOAD_PATH . '/lexikon/images/';
 $uploadUrl  = XOOPS_UPLOAD_URL . '/lexikon/images/';
 
-$db           = \XoopsDatabaseFactory::getDatabase();
+$db           = \XoopsDatabaseFactory::getDatabaseConnection();
 $categoriesHandler     = new Lexikon\CategoriesHandler($db);
 
 switch ($op) {
@@ -65,7 +65,7 @@ switch ($op) {
         $entriesTempRows  = $entriesHandler->getCount();
         $entriesTempArray = $entriesHandler->getAll($criteria);/*
 //
-// 
+//
                     <th class='center width5'>".AM_LEXIKON_FORM_ACTION."</th>
 //                    </tr>";
 //            $class = "odd";

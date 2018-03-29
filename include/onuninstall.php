@@ -31,7 +31,7 @@ use XoopsModules\Lexikon;
  */
 function xoops_module_pre_uninstall_lexikon(\XoopsModule $module)
 {
-  // Do some synchronization if needed
+    // Do some synchronization if needed
     return true;
 }
 
@@ -44,12 +44,12 @@ function xoops_module_pre_uninstall_lexikon(\XoopsModule $module)
  */
 function xoops_module_uninstall_lexikon(\XoopsModule $module)
 {
-     include __DIR__ . '/../preloads/autoloader.php';
+    include __DIR__ . '/../preloads/autoloader.php';
     $moduleDirName = basename(dirname(__DIR__));
     $moduleDirNameUpper = strtoupper($moduleDirName); //$capsDirName
 
     /** @var Lexikon\Helper $helper */
-        /** @var Lexikon\Utility $utility */
+    /** @var Lexikon\Utility $utility */
     $helper = Lexikon\Helper::getInstance();
     $utility      = new Lexikon\Utility();
 //    $configurator = new Lexikon\Common\Configurator();
@@ -62,20 +62,20 @@ function xoops_module_uninstall_lexikon(\XoopsModule $module)
     //------------------------------------------------------------------
     // Remove uploads folder (and all subfolders) if they exist
     //------------------------------------------------------------------
-/*
-    $old_directories = [$GLOBALS['xoops']->path("uploads/{$moduleDirName}")];
-    foreach ($old_directories as $old_dir) {
-        $dirInfo = new \SplFileInfo($old_dir);
-        if ($dirInfo->isDir()) {
-            // The directory exists so delete it
-            if (false === $utility::rrmdir($old_dir)) {
-                $module->setErrors(sprintf(constant('CO_' . $moduleDirNameUpper . '_ERROR_BAD_DEL_PATH'), $old_dir));
-                $success = false;
+    /*
+        $old_directories = [$GLOBALS['xoops']->path("uploads/{$moduleDirName}")];
+        foreach ($old_directories as $old_dir) {
+            $dirInfo = new \SplFileInfo($old_dir);
+            if ($dirInfo->isDir()) {
+                // The directory exists so delete it
+                if (false === $utility::rrmdir($old_dir)) {
+                    $module->setErrors(sprintf(constant('CO_' . $moduleDirNameUpper . '_ERROR_BAD_DEL_PATH'), $old_dir));
+                    $success = false;
+                }
             }
+            unset($dirInfo);
         }
-        unset($dirInfo);
-    }
-    */
+        */
     
     /*
     //------------ START ----------------

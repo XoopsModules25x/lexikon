@@ -4,7 +4,7 @@
  * Author: Yerres
  * Licence: GNU
  */
-defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
+defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 /**
  * @param $options
@@ -37,7 +37,7 @@ function b_lxcategories_show($options)
     $result = $xoopsDB->query($sql, $options[1], 0);
 
     if ($totalcats > 0) { // If there are categories
-        while (list($categoryID, $name, $total) = $xoopsDB->fetchRow($result)) {
+        while (false !== (list($categoryID, $name, $total) = $xoopsDB->fetchRow($result))) {
             $catlist             = [];
             $linktext            = $myts->htmlSpecialChars($name);
             $catlist['dir']      = $lexikon->dirname();

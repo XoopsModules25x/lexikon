@@ -1,7 +1,7 @@
 <?php
 // $Id$
 
-defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
+defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 if (substr(XOOPS_VERSION, 6, 3) < 2.1) {
 
@@ -16,7 +16,7 @@ if (substr(XOOPS_VERSION, 6, 3) < 2.1) {
 
         $sql     = 'SELECT * FROM ' . $xoopsDB->prefix('newblocks') . ' WHERE mid=' . $mid . " AND block_type <>'D' AND func_num > $count";
         $fresult = $xoopsDB->query($sql);
-        while ($fblock = $xoopsDB->fetchArray($fresult)) {
+        while (false !== ($fblock = $xoopsDB->fetchArray($fresult))) {
             $local_msgs[] = 'Non Defined Block <b>' . $fblock['name'] . '</b> will be deleted';
             $sql          = 'DELETE FROM ' . $xoopsDB->prefix('newblocks') . " WHERE bid='" . $fblock['bid'] . "'";
             $iret         = $xoopsDB->query($sql);

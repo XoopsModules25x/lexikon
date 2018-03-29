@@ -6,10 +6,13 @@
  */
 
 use Xmf\Request;
+use XoopsModules\Lexikon;
+/** @var Lexikon\Helper $helper */
+$helper = Lexikon\Helper::getInstance();
 
 include __DIR__ . '/header.php';
 
-global $xoTheme, $xoopsUser, $xoopsModuleConfig, $xoopsModule;
+global $xoTheme, $xoopsUser, $xoopsModule;
 
 // permissions
 $gpermHandler = xoops_getHandler('groupperm');
@@ -84,7 +87,7 @@ if (!Request::hasVar('submit', 'POST')) {
         }
     }
     // trigger Notification
-    if (!empty($xoopsModuleConfig['notification_enabled'])) {
+    if (!empty($helper->getConfig('notification_enabled'))) {
         global $xoopsModule;
         if (0 == $newid) {
             $newid = $xoopsDB->getInsertId();
@@ -111,7 +114,7 @@ if (!Request::hasVar('submit', 'POST')) {
         $address = $xoopsConfig['adminmail'];
     }
 
-    if (1 == $xoopsModuleConfig['mailtoadmin']) {
+    if (1 == $helper->getConfig('mailtoadmin')) {
         $adminMessage = sprintf(_MD_LEXIKON_WHOASKED, $logname);
         $adminMessage .= '' . $reqterm . "\n";
         $adminMessage .= '' . _MD_LEXIKON_EMAILLEFT . " $address\n";
@@ -131,7 +134,7 @@ if (!Request::hasVar('submit', 'POST')) {
         $xoopsMailer->send();
     }
     //send 'received!' mail
-    if (1 == $xoopsModuleConfig['mailtosender'] && $address) {
+    if (1 == $helper->getConfig('mailtosender') && $address) {
         $conf_subject = _MD_LEXIKON_THANKS2;
         $userMessage  = sprintf(_MD_LEXIKON_GOODDAY2, $logname);
         $userMessage  .= "\n\n";

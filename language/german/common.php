@@ -72,5 +72,3 @@ define('CO_' . $moduleDirNameUpper . '_SUPPORT', 'Support');
 define('CO_' . $moduleDirNameUpper . '_' . 'BROWSETOTOPIC', "<span style='font-weight: bold;'>Browse items alphabetically</span>");
 define('CO_' . $moduleDirNameUpper . '_OTHER', 'Другое');
 define('CO_' . $moduleDirNameUpper . '_ALL', 'Все');
-
-

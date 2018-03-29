@@ -5,7 +5,7 @@
  * Licence: GNU
  */
 
-defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
+defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 /**
  * @param $options
@@ -46,7 +46,7 @@ function b_lxentries_new_show($options)
     $result = $xoopsDB->query($sql, $options[1], 0);
 
     if ($totalwords > 0) { // If there are definitions
-        while (list($entryID, $categoryID, $term, $datesub) = $xoopsDB->fetchRow($result)) {
+        while (false !== (list($entryID, $categoryID, $term, $datesub) = $xoopsDB->fetchRow($result))) {
             $newentries             = [];
             $linktext               = ucfirst($myts->htmlSpecialChars($term));
             $newentries['dir']      = $lexikon->dirname();

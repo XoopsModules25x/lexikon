@@ -17,7 +17,7 @@
  * @author       XOOPS Development Team
  */
 
-defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
+defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 $usespaw = empty($_GET['usespaw']) ? 0 : 1;
 

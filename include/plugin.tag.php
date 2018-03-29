@@ -7,7 +7,7 @@
  * @author         Taiwen Jiang (phppp or D.J.) <php_pp@hotmail.com>
  * @package        module::tag
  */
-defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
+defined('XOOPS_ROOT_PATH') || die('Restricted access');
 /**
  * Get item fields:
  * title

@@ -8,6 +8,8 @@
  */
 
 use XoopsModules\Lexikon;
+/** @var Lexikon\Helper $helper */
+$helper = Lexikon\Helper::getInstance();
 
 include __DIR__ . '/header.php';
 $GLOBALS['xoopsOption']['template_main'] = 'lx_authorlist.tpl';
@@ -19,11 +21,11 @@ $authorlistext = false;
 $myts          = \MyTextSanitizer::getInstance();
 $utility      = new Lexikon\Utility();
 
-if (empty($xoopsUser) && !$xoopsModuleConfig['authorprofile']) {
+if (empty($xoopsUser) && !$helper->getConfig('authorprofile')) {
     redirect_header(XOOPS_URL . '/user.php', 3, _MD_LEXIKON_MUSTREGFIRST);
 }
 $result = $xoopsDB->query('SELECT * FROM ' . $xoopsDB->prefix('lxcategories') . ' ');
-if ('0' == $xoopsDB->getRowsNum($result) && '1' == $xoopsModuleConfig['multicats']) {
+if ('0' == $xoopsDB->getRowsNum($result) && '1' == $helper->getConfig('multicats')) {
     redirect_header('index.php', 3, _AM_LEXIKON_NOCOLEXISTS);
 }
 //permissions

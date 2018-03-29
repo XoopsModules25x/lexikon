@@ -7,6 +7,9 @@
 #$xoopsOption['pagetype'] = "search";
 
 use Xmf\Request;
+use XoopsModules\Lexikon;
+/** @var Lexikon\Helper $helper */
+$helper = Lexikon\Helper::getInstance();
 
 include __DIR__ . '/header.php';
 $GLOBALS['xoopsOption']['template_main'] = 'lx_search.tpl';
@@ -17,7 +20,7 @@ $myts = \MyTextSanitizer::getInstance();
 // -- options
 require_once XOOPS_ROOT_PATH . '/modules/lexikon/include/common.inc.php';
 $highlight      = false;
-$highlight      = ($xoopsModuleConfig['config_highlighter'] = 1) ? 1 : 0;
+$highlight      = ($helper->getConfig('config_highlighter') = 1) ? 1 : 0;
 $hightlight_key = '';
 
 require_once XOOPS_ROOT_PATH . '/class/pagenav.php';
@@ -47,7 +50,7 @@ $categoryID = Request::getInt('categoryID', 0, 'GET'); //isset($categoryID) ? (i
 $type       = Request::getInt('type', 3, 'GET'); //isset($type) ? (int)$type : 3;
 $queries    = [];
 
-if (1 == $xoopsModuleConfig['multicats']) {
+if (1 == $helper->getConfig('multicats')) {
     $xoopsTpl->assign('multicats', 1);
     $totalcats = $utility::countCats();
     $xoopsTpl->assign('totalcats', $totalcats);
@@ -67,7 +70,7 @@ if ('3' == $type) {
     $searchtype = "(( term LIKE '%$query%' OR definition LIKE '%$query%' OR ref LIKE '%$query%' ))";
 }
 
-if (1 == $xoopsModuleConfig['multicats']) {
+if (1 == $helper->getConfig('multicats')) {
     // If the search is in a particular category
     if ($categoryID > 0) {
         $andcatid = "AND categoryID = '$categoryID' ";
@@ -102,7 +105,7 @@ if (!$query) {
         // Display search form
         $searchform = $utility::showSearchForm();
         $xoopsTpl->assign('searchform', $searchform);
-        // $results > 0 -> there were search results
+    // $results > 0 -> there were search results
     } else {
         // Show paginated list of results
         // We'll put the results in an array
@@ -119,7 +122,7 @@ if (!$query) {
         }
 
         // How many results will we show in this page?
-        if (1 == $xoopsModuleConfig['multicats']) {
+        if (1 == $helper->getConfig('multicats')) {
             // If the search is in a particular category
             if ($categoryID > 0) {
                 $andcatid2 = "AND w.categoryID = '$categoryID' ";
@@ -142,16 +145,16 @@ if (!$query) {
                      . $searchtype
                      . ' ';
         $queryA    .= '  ORDER BY w.term ASC';
-        $resultA   = $xoopsDB->query($queryA, $xoopsModuleConfig['indexperpage'], $start);
+        $resultA   = $xoopsDB->query($queryA, $helper->getConfig('indexperpage'), $start);
 
-        while (list($entryID, $categoryID, $term, $init, $definition, $datesub, $ref, $catname) = $xoopsDB->fetchRow($resultA)) {
+        while (false !== (list($entryID, $categoryID, $term, $init, $definition, $datesub, $ref, $catname) = $xoopsDB->fetchRow($resultA))) {
             $eachresult               = [];
             $xoopsModule              = XoopsModule::getByDirname('lexikon');
             $eachresult['dir']        = $xoopsModule->dirname();
             $eachresult['id']         = $entryID;
             $eachresult['categoryID'] = $categoryID;
             $eachresult['term']       = ucfirst($myts->htmlSpecialChars($term));
-            $eachresult['date']       = formatTimestamp($datesub, $xoopsModuleConfig['dateformat']);
+            $eachresult['date']       = formatTimestamp($datesub, $helper->getConfig('dateformat'));
             $eachresult['ref']        = $utility::getHTMLHighlight($query, $myts->htmlSpecialChars($ref), '<b style="background-color: #FFFF80; ">', '</b>');
             $eachresult['catname']    = $myts->htmlSpecialChars($catname);
             $tempdef                  = $myts->displayTarea($definition, 1, 1, 1, 1, 1);
@@ -169,7 +172,7 @@ if (!$query) {
         $xoopsTpl->assign('intro', sprintf(_MD_LEXIKON_THEREWERE, $results, $query));
 
         $linkstring          = 'term=' . $query . '&start';
-        $pagenav             = new \XoopsPageNav($results, $xoopsModuleConfig['indexperpage'], $start, $linkstring);
+        $pagenav             = new \XoopsPageNav($results, $helper->getConfig('indexperpage'), $start, $linkstring);
         $resultset['navbar'] = '<div style="text-align:right;">' . $pagenav->renderNav(6) . '</div>';
 
         $xoopsTpl->assign('resultset', $resultset);
