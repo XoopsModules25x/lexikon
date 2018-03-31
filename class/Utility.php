@@ -962,7 +962,7 @@ class Utility
         $catids        = implode(',', $allowed_cats);
         $catperms      = " AND categoryID IN ($catids) ";
 
-        $start = isset($_GET['start']) ? (int)$_GET['start'] : 0;
+        $start = \Xmf\Request::getInt('start', 0, 'GET');
         $limit = $helper->getConfig('indexperpage');
 
         $sql = $xoopsDB->query('SELECT *

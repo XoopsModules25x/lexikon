@@ -21,7 +21,7 @@ $tpl->cache_lifetime = 3600;
 
 $db           = \XoopsDatabaseFactory::getDatabaseConnection();
 $myts         = \MyTextSanitizer::getInstance();
-$category_rss = isset($_GET['categoryID']) ? $_GET['categoryID'] : 0;
+$category_rss = \Xmf\Request::getInt('categoryID', 0, GET);
 //permissions
 $gpermHandler = xoops_getHandler('groupperm');
 $groups       = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;

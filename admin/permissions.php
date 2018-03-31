@@ -37,7 +37,7 @@ xoops_cp_header();
 $adminObject  = \Xmf\Module\Admin::getInstance();
 $adminObject->displayNavigation(basename(__FILE__));
 
-$permtoset                = isset($_POST['permtoset']) ? (int)$_POST['permtoset'] : 1;
+$permtoset                = \Xmf\Request::getInt('permtoset', 1, 'POST');
 $selected                 = [
     '',
     '',

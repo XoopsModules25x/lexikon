@@ -25,13 +25,13 @@ $adminObject->addItemButton(_AM_LEXIKON_CREATEENTRY, 'entry.php?op=add', 'add');
 $adminObject->displayButton('left');
 require_once XOOPS_ROOT_PATH . '/class/pagenav.php';
 
-$startentry = isset($_GET['startentry']) ? (int)$_GET['startentry'] : 0;
-$entryID    = isset($_POST['entryID']) ? (int)$_POST['entryID'] : 0;
-$pick       = isset($_GET['pick']) ? (int)$_GET['pick'] : 0;
-$pick       = isset($_POST['pick']) ? (int)$_POST['pick'] : $pick;
+$startentry = \Xmf\Request::getInt('startentry', 0, 'GET');
+$entryID    = \Xmf\Request::getInt('entryID', 0, 'POST');
+$pick       = \Xmf\Request::getInt('pick', 0, 'GET');
+$pick       = \Xmf\Request::getInt('pick', $pick, 'POST');
 
-$statussel = isset($_GET['statussel']) ? (int)$_GET['statussel'] : 0;
-$statussel = isset($_POST['statussel']) ? (int)$_POST['statussel'] : $statussel;
+$statussel = \Xmf\Request::getInt('statussel', 0, 'GET');
+$statussel = \Xmf\Request::getInt('statussel', $statussel, 'POST');
 
 $sortsel = isset($_GET['sortsel']) ? $_GET['sortsel'] : 'entryID';
 $sortsel = isset($_POST['sortsel']) ? $_POST['sortsel'] : $sortsel;

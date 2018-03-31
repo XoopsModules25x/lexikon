@@ -296,7 +296,7 @@ $op = Request::getCmd('op', '');
 
 switch ($op) {
     case 'import':
-        $delete = isset($_GET['delete']) ? (int)$_GET['delete'] : (int)$_POST['delete'];
+        $delete = \Xmf\Request::getInt('delete', (int)$_POST['delete'], 'GET');
         DefinitionImport($delete);
         break;
     default:

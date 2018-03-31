@@ -22,7 +22,7 @@ if ($highlight) {
     require_once XOOPS_ROOT_PATH . '/modules/lexikon/class/keyhighlighter.class.php';
 }
 
-$entryID = isset($_GET['entryID']) ? (int)$_GET['entryID'] : 0;
+$entryID = \Xmf\Request::getInt('entryID', 0, 'GET');
 if (empty($entryID)) {
     redirect_header('index.php', 3, _MD_LEXIKON_UNKNOWNERROR);
 }
@@ -223,7 +223,7 @@ $tagsModule    = $moduleHandler->getByDirname('tag');
 if (is_object($tagsModule)) {
     require_once XOOPS_ROOT_PATH . '/modules/tag/include/tagbar.php';
 
-    $itemid = isset($_GET['entryID']) ? (int)$_GET['entryID'] : 0;
+    $itemid = \Xmf\Request::getInt('entryID', 0, 'GET');
     $catid  = 0;
     //$xoopsTpl->assign('tagbar', tagBar($itemid, $catid = 0));
     $tagbar = tagBar($itemid, $catid);

@@ -20,7 +20,7 @@ global $xoTheme, $xoopsUser;
 $myts = \MyTextSanitizer::getInstance();
 require_once XOOPS_ROOT_PATH . '/modules/lexikon/include/common.inc.php';
 $limit      = $helper->getConfig('indexperpage');
-$categoryID = isset($_GET['categoryID']) ? (int)$_GET['categoryID'] : 0;
+$categoryID = \Xmf\Request::getInt('categoryID', 0, 'GET');
 require_once XOOPS_ROOT_PATH . '/class/pagenav.php';
 $start = Request::getInt('start', 0, 'GET');
 $xoopsTpl->assign('multicats', (int)$helper->getConfig('multicats'));

@@ -21,7 +21,7 @@ if (empty($xoopsUser) && !$helper->getConfig('authorprofile')) {
 }
 
 // User & Perm validation
-$uid = isset($_GET['uid']) ? (int)$_GET['uid'] : 0;
+$uid = \Xmf\Request::getInt('uid', 0, 'GET');
 if (empty($uid)) {
     redirect_header('index.php', 2, _ERRORS);
 }

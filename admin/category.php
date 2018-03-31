@@ -30,10 +30,10 @@ function categoryDefault()
     require_once XOOPS_ROOT_PATH . '/class/xoopslists.php';
     require_once XOOPS_ROOT_PATH . '/class/pagenav.php';
 
-    $startentry = isset($_GET['startentry']) ? (int)$_GET['startentry'] : 0;
-    $startcat   = isset($_GET['startcat']) ? (int)$_GET['startcat'] : 0;
-    $startsub   = isset($_GET['startsub']) ? (int)$_GET['startsub'] : 0;
-    $datesub    = isset($_GET['datesub']) ? (int)$_GET['datesub'] : 0;
+    $startentry = \Xmf\Request::getInt('startentry', 0, 'GET');
+    $startcat   = \Xmf\Request::getInt('startcat', 0, 'GET');
+    $startsub   = \Xmf\Request::getInt('startsub', 0, 'GET');
+    $datesub    = \Xmf\Request::getInt('datesub', 0, 'GET');
 
     global $xoopsUser, $xoopsConfig, $xoopsDB,  $xoopsModule, $entryID, $pathIcon16;
 

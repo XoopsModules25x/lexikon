@@ -16,7 +16,7 @@ require_once __DIR__ . '/../../../include/cp_header.php';
 xoops_cp_header();
 require_once __DIR__ . '/admin_header.php';
 global $xoopsUser, $xoopsModule, $xoopsDB;
-$go = isset($_POST['go']) ? $_POST['go'] : 0;
+$go = \Xmf\Request::getInt('go', 0, POST);
 
 /**
  * @param $msg

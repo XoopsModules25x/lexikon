@@ -36,7 +36,7 @@ if (isset($_GET['op'])) {
     if ('edit' === $_GET['op'] || 'delete' === $_GET['op'] || 'delete_ok' === $_GET['op']
         || 'clone' === $_GET['op'] /* || $_GET['op'] == 'previewpopup'*/) {
         $op  = $_GET['op'];
-        $bid = isset($_GET['bid']) ? (int)$_GET['bid'] : 0;
+        $bid = \Xmf\Request::getInt('bid', 0, 'GET');
     }
 }
 
@@ -297,10 +297,10 @@ if ('update' === $op) {
       if ( !empty($_POST['options']) ) { $options = $_POST['options']; } else { $options = array(); }
       update_block($bid, $bside, $bweight, $bvisible, $btitle, $bcontent, $bctype, $bcachetime, $bmodule, $options);*/
 
-    $bcachetime = isset($_POST['bcachetime']) ? (int)$_POST['bcachetime'] : 0;
+    $bcachetime = \Xmf\Request::getInt('bcachetime', 0, 'POST');
     $options    = isset($_POST['options']) ? $_POST['options'] : [];
-    $bcontent   = isset($_POST['bcontent']) ? $_POST['bcontent'] : '';
-    $bctype     = isset($_POST['bctype']) ? $_POST['bctype'] : '';
+    $bcontent   = \Xmf\Request::getString('bcontent', '', 'POST');
+    $bctype     = \Xmf\Request::getString('bctype', '', 'POST');
     $bmodule    = (isset($_POST['bmodule']) && is_array($_POST['bmodule'])) ? $_POST['bmodule'] : [-1]; // GIJ +
     $msg        = myblocksadmin_update_block($_POST['bid'], $_POST['bside'], $_POST['bweight'], $_POST['bvisible'], $_POST['btitle'], $bcontent, $bctype, $bcachetime, $bmodule, $options); // GIJ !
     redirect_header('myblocksadmin.php', 1, $msg);

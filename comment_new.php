@@ -23,7 +23,7 @@ $helper = Lexikon\Helper::getInstance();
 
 include __DIR__ . '/../../mainfile.php';
 global $xoopsUser;
-$com_itemid = isset($_GET['com_itemid']) ? (int)$_GET['com_itemid'] : 0;
+$com_itemid = \Xmf\Request::getInt('com_itemid', 0, 'GET');
 //--- verify that the user can post comments
 //if (!isset($xoopsModuleConfig)) {
 //    die();
