@@ -10,13 +10,13 @@
 
 use Xmf\Request;
 use XoopsModules\Lexikon;
-/** @var Lexikon\Helper $helper */
-$helper = Lexikon\Helper::getInstance();
 
 include __DIR__ . '/header.php';
 $GLOBALS['xoopsOption']['template_main'] = 'lx_letter.tpl';
 require_once XOOPS_ROOT_PATH . '/header.php';
 require_once XOOPS_ROOT_PATH . '/modules/lexikon/include/common.inc.php';
+/** @var Lexikon\Helper $helper */
+$helper = Lexikon\Helper::getInstance();
 
 global $xoTheme, $xoopsUser;
 $myts = \MyTextSanitizer::getInstance();
@@ -30,10 +30,10 @@ $publishedwords = $utility::countWords();
 $xoopsTpl->assign('publishedwords', $publishedwords);
 
 //permissions
-$gpermHandler = xoops_getHandler('groupperm');
+$grouppermHandler = xoops_getHandler('groupperm');
 $groups       = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
 $module_id    = $xoopsModule->getVar('mid');
-$allowed_cats = $gpermHandler->getItemIds('lexikon_view', $groups, $module_id);
+$allowed_cats = $grouppermHandler->getItemIds('lexikon_view', $groups, $module_id);
 $catids       = implode(',', $allowed_cats);
 $catperms     = " AND categoryID IN ($catids) ";
 

@@ -374,18 +374,18 @@ function lx_save_Permissions($groups, $id, $perm_name)
     $lxModule = $hModule->getByDirname('lexikon');
 
     $module_id    = $lxModule->getVar('mid');
-    $gpermHandler = xoops_getHandler('groupperm');
+    $grouppermHandler = xoops_getHandler('groupperm');
 
     /*
     * First, if the permissions are already there, delete them
     */
-    $gpermHandler->deleteByModule($module_id, $perm_name, $id);
+    $grouppermHandler->deleteByModule($module_id, $perm_name, $id);
     /*
     *  Save the new permissions
     */
     if (is_array($groups)) {
         foreach ($groups as $group_id) {
-            $gpermHandler->addRight($perm_name, $id, $group_id, $module_id);
+            $grouppermHandler->addRight($perm_name, $id, $group_id, $module_id);
         }
     }
 

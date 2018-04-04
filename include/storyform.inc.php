@@ -25,8 +25,8 @@ $sform          = new \XoopsThemeForm(_MD_LEXIKON_SUB_SMNAME, 'storyform', xoops
 if ('1' == $helper->getConfig('multicats')) {
     // perms adapted category select
     $groups       = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
-    $gpermHandler = xoops_getHandler('groupperm');
-    $allowed_cats = $gpermHandler->getItemIds('lexikon_submit', $groups, $xoopsModule->getVar('mid'));
+    $grouppermHandler = xoops_getHandler('groupperm');
+    $allowed_cats = $grouppermHandler->getItemIds('lexikon_submit', $groups, $xoopsModule->getVar('mid'));
     if (is_array($allowed_cats)) {
         $mytree         = new Lexikon\LexikonTree($xoopsDB->prefix('lxcategories'), 'categoryID', '0');
         $categoryselect = new \XoopsFormSelect(_MD_LEXIKON_ENTRYCATEGORY, 'categoryID', $allowed_cats);

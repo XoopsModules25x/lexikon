@@ -57,14 +57,14 @@ if ($suggest > 0) {
     $termino = '';
 }
 //--- Permissions ---
-$gpermHandler = xoops_getHandler('groupperm');
+$grouppermHandler = xoops_getHandler('groupperm');
 $groups       = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
 $module_id    = $xoopsModule->getVar('mid');
 $perm_itemid  = Request::getInt('categoryID', 0, 'POST');
-if (!$gpermHandler->checkRight('lexikon_submit', $perm_itemid, $groups, $module_id)) {
+if (!$grouppermHandler->checkRight('lexikon_submit', $perm_itemid, $groups, $module_id)) {
     redirect_header('index.php', 3, _MD_LEXIKON_MUSTREGFIRST);
 }
-$totalcats    = $gpermHandler->getItemIds('lexikon_submit', $groups, $module_id);
+$totalcats    = $grouppermHandler->getItemIds('lexikon_submit', $groups, $module_id);
 $permitsubmit = count($totalcats);
 if (0 == $permitsubmit && '1' == $helper->getConfig('multicats')) {
     redirect_header('javascript:history.go(-1)', 3, _NOPERM);
@@ -88,7 +88,7 @@ switch ($op) {
         require_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->getVar('dirname') . '/class/Utility.php';
         $myts = MyTextSanitizer:: getInstance();
         //permissions
-        $gpermHandler = xoops_getHandler('groupperm');
+        $grouppermHandler = xoops_getHandler('groupperm');
         $groups       = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
         $module_id    = $xoopsModule->getVar('mid');
         $perm_itemid  = Request::getInt('categoryID', 0, 'POST');
@@ -101,7 +101,7 @@ switch ($op) {
             }
         } else {
             if (!is_object($xoopsUser)
-                && $gpermHandler->checkRight('lexikon_submit', $perm_itemid, $groups, $module_id)) {
+                && $grouppermHandler->checkRight('lexikon_submit', $perm_itemid, $groups, $module_id)) {
                 $uid = 0;
             } else {
                 redirect_header('index.php', 3, _NOPERM);
@@ -139,7 +139,7 @@ switch ($op) {
         $block       = 1;
         $autoapprove = 0;
 
-        if ($gpermHandler->checkRight('lexikon_approve', $perm_itemid, $groups, $module_id)) {
+        if ($grouppermHandler->checkRight('lexikon_approve', $perm_itemid, $groups, $module_id)) {
             $submit      = 0;
             $offline     = 0;
             $autoapprove = 1;

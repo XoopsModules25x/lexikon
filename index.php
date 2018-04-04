@@ -9,10 +9,11 @@
  */
 
 use XoopsModules\Lexikon;
-/** @var Lexikon\Helper $helper */
-$helper = Lexikon\Helper::getInstance();
 
 include __DIR__ . '/header.php';
+
+/** @var Lexikon\Helper $helper */
+$helper = Lexikon\Helper::getInstance();
 
 $GLOBALS['xoopsOption']['template_main'] = 'lx_index.tpl';
 require_once XOOPS_ROOT_PATH . '/header.php';
@@ -28,14 +29,14 @@ $xoopsTpl->assign('multicats', (int)$helper->getConfig('multicats'));
 $rndlength = !empty($helper->getConfig('rndlength')) ? (int)$helper->getConfig('rndlength') : 150;
 
 //permissions
-$gpermHandler = xoops_getHandler('groupperm');
+$grouppermHandler = xoops_getHandler('groupperm');
 $groups       = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
 $module_id    = $xoopsModule->getVar('mid');
 $perm_itemid  = isset($categoryID) ? $categoryID : 0;
-if (!$gpermHandler->checkRight('lexikon_view', $perm_itemid, $groups, $module_id)) {
+if (!$grouppermHandler->checkRight('lexikon_view', $perm_itemid, $groups, $module_id)) {
     redirect_header('javascript:history.go(-1)', 2, _NOPERM);
 }
-$allowed_cats = $gpermHandler->getItemIds('lexikon_view', $groups, $module_id);
+$allowed_cats = $grouppermHandler->getItemIds('lexikon_view', $groups, $module_id);
 if (count($allowed_cats) > 0) {
     $catids   = implode(',', $allowed_cats);
     $catperms = " AND categoryID IN ($catids) ";

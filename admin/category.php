@@ -145,9 +145,9 @@ function categoryEdit($categoryID = '')
         //permissions
         $memberHandler = xoops_getHandler('member');
         $group_list    = $memberHandler->getGroupList();
-        $gpermHandler  = xoops_getHandler('groupperm');
+        $grouppermHandler  = xoops_getHandler('groupperm');
 
-        $groups = $gpermHandler->getGroupIds('lexikon_view', $categoryID, $xoopsModule->getVar('mid'));
+        $groups = $grouppermHandler->getGroupIds('lexikon_view', $categoryID, $xoopsModule->getVar('mid'));
         //        $groups = $groups;
         if (0 == $xoopsDB->getRowsNum($result)) {
             redirect_header('index.php', 1, _AM_LEXIKON_NOCATTOEDIT);

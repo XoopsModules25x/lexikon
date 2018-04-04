@@ -29,9 +29,9 @@ function b_scrolling_term_show($options)
     require_once XOOPS_ROOT_PATH . '/modules/lexikon/class/Utility.php';
 
     $groups       = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
-    $gpermHandler = xoops_getHandler('groupperm');
+    $grouppermHandler = xoops_getHandler('groupperm');
     $module_id    = $lexikon->getVar('mid');
-    $allowed_cats = $gpermHandler->getItemIds('lexikon_view', $groups, $module_id);
+    $allowed_cats = $grouppermHandler->getItemIds('lexikon_view', $groups, $module_id);
 
     $block                = [];
     $block['speed']       = isset($options[1]) && '' != $options[1] ? $options[1] : '';

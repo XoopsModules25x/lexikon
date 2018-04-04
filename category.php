@@ -26,13 +26,13 @@ $start = Request::getInt('start', 0, 'GET');
 $xoopsTpl->assign('multicats', (int)$helper->getConfig('multicats'));
 
 // Permission
-$gpermHandler = xoops_getHandler('groupperm');
+$grouppermHandler = xoops_getHandler('groupperm');
 $groups       = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
 $module_id    = $xoopsModule->getVar('mid');
-$allowed_cats = $gpermHandler->getItemIds('lexikon_view', $groups, $module_id);
+$allowed_cats = $grouppermHandler->getItemIds('lexikon_view', $groups, $module_id);
 $catids       = implode(',', $allowed_cats);
 $catperms     = " AND categoryID IN ($catids) ";
-if (!$gpermHandler->checkRight('lexikon_view', $categoryID, $groups, $xoopsModule->getVar('mid'))) {
+if (!$grouppermHandler->checkRight('lexikon_view', $categoryID, $groups, $xoopsModule->getVar('mid'))) {
     redirect_header('index.php', 3, _NOPERM);
 }
 // If there's no entries yet in the system...
@@ -121,7 +121,7 @@ if (!$categoryID) {
         redirect_header('index.php', 2, _MD_LEXIKON_UNKNOWNERROR);
     }
     while (false !== (list($categoryID, $name, $description, $total, $logourl) = $xoopsDB->fetchRow($catdata))) {
-        if ($gpermHandler->checkRight('lexikon_view', $categoryID, $groups, $xoopsModule->getVar('mid'))) {
+        if ($grouppermHandler->checkRight('lexikon_view', $categoryID, $groups, $xoopsModule->getVar('mid'))) {
             if (0 == $total) {
                 redirect_header('javascript:history.go(-1)', 1, _MD_LEXIKON_NOENTRIESINCAT);
             }

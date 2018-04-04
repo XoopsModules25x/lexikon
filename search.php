@@ -34,10 +34,10 @@ if (1 != $xoopsConfigSearch['enable_search']) {
 }
 
 // permissions
-$gpermHandler = xoops_getHandler('groupperm');
+$grouppermHandler = xoops_getHandler('groupperm');
 $groups       = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
 $module_id    = $xoopsModule->getVar('mid');
-$allowed_cats = $gpermHandler->getItemIds('lexikon_view', $groups, $module_id);
+$allowed_cats = $grouppermHandler->getItemIds('lexikon_view', $groups, $module_id);
 $catids       = implode(',', $allowed_cats);
 
 //extract($_GET);

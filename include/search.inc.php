@@ -37,9 +37,9 @@ function lx_search($queryarray, $andor, $limit, $offset, $userid)
     $module        = $moduleHandler->getByDirname('lexikon');
     $module_id     = $module->getVar('mid');
     // Permissions
-    $gpermHandler = xoops_getHandler('groupperm');
+    $grouppermHandler = xoops_getHandler('groupperm');
     $groups       = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
-    $allowed_cats = $gpermHandler->getItemIds('lexikon_view', $groups, $module_id);
+    $allowed_cats = $grouppermHandler->getItemIds('lexikon_view', $groups, $module_id);
     $catids       = implode(',', $allowed_cats);
 
     $sql = 'SELECT entryID, categoryID, term, definition, ref, uid, datesub FROM ' . $xoopsDB->prefix('lxentries') . ' WHERE submit = 0 AND offline = 0 ';
@@ -75,9 +75,9 @@ function lx_search($queryarray, $andor, $limit, $offset, $userid)
 
     while (false !== ($myrow = $xoopsDB->fetchArray($result))) {
         $display = true;
-        if ($module_id && $gpermHandler) {
-            if (!$gpermHandler->checkRight('lexikon_view', $myrow['categoryID'], $groups, $module_id)) {
-                //if (!$gpermHandler->checkRight("lexikon_view", $categoryID, $groups, $module_id)) {
+        if ($module_id && $grouppermHandler) {
+            if (!$grouppermHandler->checkRight('lexikon_view', $myrow['categoryID'], $groups, $module_id)) {
+                //if (!$grouppermHandler->checkRight("lexikon_view", $categoryID, $groups, $module_id)) {
                 $display = false;
             }
         }

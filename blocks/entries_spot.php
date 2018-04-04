@@ -27,7 +27,7 @@ function b_lxspot_show($options)
         $lxConfig      = $configHandler->getConfigsByCat(0, $lexikon->getVar('mid'));
     }
 
-    $gpermHandler = xoops_getHandler('groupperm');
+    $grouppermHandler = xoops_getHandler('groupperm');
     $groups       = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
     $module_id    = $lexikon->getVar('mid');
 
@@ -80,7 +80,7 @@ function b_lxspot_show($options)
     $resultB = $xoopsDB->query('SELECT name, logourl FROM ' . $xoopsDB->prefix('lxcategories') . ' WHERE categoryID = ' . $options[0] . ' ');
     list($name, $logourl) = $xoopsDB->fetchRow($resultB);
     if ($lexikon = $moduleHandler->getByDirname('lexikon')) {
-        if ($gpermHandler->checkRight('lexikon_view', $options[0], $groups, $module_id)) {
+        if ($grouppermHandler->checkRight('lexikon_view', $options[0], $groups, $module_id)) {
             // get the items
             $block['userID']     = ((int)$authorID);
             $block['authorname'] = XoopsUserUtility::getUnameFromId((int)$authorID);

@@ -97,6 +97,8 @@ class LetterChoice
     /**
      * Create choice by letter
      *
+     * @param null $alphaCount
+     * @param null $howmanyother
      * @return string
      */
     public function render($alphaCount = null, $howmanyother = null)

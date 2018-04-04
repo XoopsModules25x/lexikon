@@ -23,13 +23,13 @@ function b_lxcategories_show($options)
         $lxConfig      = $configHandler->getConfigsByCat(0, $lexikon->getVar('mid'));
     }
     $groups       = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
-    $gpermHandler = xoops_getHandler('groupperm');
+    $grouppermHandler = xoops_getHandler('groupperm');
     $module_id    = $lexikon->getVar('mid');
-    $allowed_cats = $gpermHandler->getItemIds('lexikon_view', $groups, $module_id);
+    $allowed_cats = $grouppermHandler->getItemIds('lexikon_view', $groups, $module_id);
     $catids       = implode(',', $allowed_cats);
     $catperms     = " categoryID IN ($catids) ";
 
-    $cats      = $gpermHandler->getItemIds('lexikon_view', $groups, $module_id);
+    $cats      = $grouppermHandler->getItemIds('lexikon_view', $groups, $module_id);
     $totalcats = count($cats);
 
     $block  = [];

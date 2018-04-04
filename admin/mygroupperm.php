@@ -41,14 +41,14 @@ if (!is_object($module) || !$module->getVar('isactive')) {
 $memberHandler = xoops_getHandler('member');
 $group_list    = $memberHandler->getGroupList();
 if (is_array($_POST['perms']) && !empty($_POST['perms'])) {
-    $gpermHandler = xoops_getHandler('groupperm');
+    $grouppermHandler = xoops_getHandler('groupperm');
     foreach ($_POST['perms'] as $perm_name => $perm_data) {
         foreach ($perm_data['itemname'] as $item_id => $item_name) {
             // checking code
             // echo "<pre>" ;
             // var_dump( $_POST['perms'] ) ;
             // exit ;
-            if (false !== myDeleteByModule($gpermHandler->db, $modid, $perm_name, $item_id)) {
+            if (false !== myDeleteByModule($grouppermHandler->db, $modid, $perm_name, $item_id)) {
                 if (empty($perm_data['groups'])) {
                     continue;
                 }
@@ -67,12 +67,12 @@ if (is_array($_POST['perms']) && !empty($_POST['perms'])) {
                                 }
                             }
                         }
-                        $gperm = $gpermHandler->create();
+                        $gperm = $grouppermHandler->create();
                         $gperm->setVar('gperm_groupid', $group_id);
                         $gperm->setVar('gperm_name', $perm_name);
                         $gperm->setVar('gperm_modid', $modid);
                         $gperm->setVar('gperm_itemid', $item_id);
-                        if (!$gpermHandler->insert($gperm)) {
+                        if (!$grouppermHandler->insert($gperm)) {
                             $msg[] = sprintf(_MD_AM_PERMADDNG, '<b>' . $perm_name . '</b>', '<b>' . $perm_data['itemname'][$item_id] . '</b>', '<b>' . $group_list[$group_id] . '</b>');
                         } else {
                             $msg[] = sprintf(_MD_AM_PERMADDOK, '<b>' . $perm_name . '</b>', '<b>' . $perm_data['itemname'][$item_id] . '</b>', '<b>' . $group_list[$group_id] . '</b>');

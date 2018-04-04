@@ -99,8 +99,8 @@ class CategoriesForm extends \XoopsThemeForm
         /** @var \XoopsMemberHandler $memberHandler */
         $memberHandler = xoops_getHandler('member');
         $groupList     = $memberHandler->getGroupList();
-        /** @var \XoopsGroupPermHandler $gpermHandler */
-        $gpermHandler = xoops_getHandler('groupperm');
+        /** @var \XoopsGroupPermHandler $grouppermHandler */
+        $grouppermHandler = xoops_getHandler('groupperm');
         $fullList     = array_keys($groupList);
 
         //========================================================================
@@ -123,7 +123,7 @@ class CategoriesForm extends \XoopsThemeForm
 
         // ********************************************************
         // permission view items
-        $cat_gperms_read     = $gpermHandler->getGroupIds('lexikon_view', $this->targetObject->getVar('categoryID'), $mid);
+        $cat_gperms_read     = $grouppermHandler->getGroupIds('lexikon_view', $this->targetObject->getVar('categoryID'), $mid);
         $arr_cat_gperms_read = $this->targetObject->isNew() ? '0' : $cat_gperms_read;
 
         $permsTray = new \XoopsFormElementTray(AM_LEXIKON_PERMISSIONS_VIEW, '');
@@ -151,7 +151,7 @@ class CategoriesForm extends \XoopsThemeForm
 
         // ********************************************************
         // permission submit item
-        $cat_gperms_create     = $gpermHandler->getGroupIds('lexikon_submit', $this->targetObject->getVar('categoryID'), $mid);
+        $cat_gperms_create     = $grouppermHandler->getGroupIds('lexikon_submit', $this->targetObject->getVar('categoryID'), $mid);
         $arr_cat_gperms_create = $this->targetObject->isNew() ? '0' : $cat_gperms_create;
 
         $permsTray = new \XoopsFormElementTray(AM_LEXIKON_PERMISSIONS_SUBMIT, '');
@@ -178,7 +178,7 @@ class CategoriesForm extends \XoopsThemeForm
 
         // ********************************************************
         // permission approve items
-        $cat_gperms_admin     = $gpermHandler->getGroupIds('lexikon_approve', $this->targetObject->getVar('categoryID'), $mid);
+        $cat_gperms_admin     = $grouppermHandler->getGroupIds('lexikon_approve', $this->targetObject->getVar('categoryID'), $mid);
         $arr_cat_gperms_admin = $this->targetObject->isNew() ? '0' : $cat_gperms_admin;
 
         $permsTray = new \XoopsFormElementTray(AM_LEXIKON_PERMISSIONS_APPROVE, '');

@@ -153,17 +153,17 @@ class MyXoopsGroupPermForm extends XoopsForm
             $this->_itemTree[$item_id]['allchild'] = [];
             $this->_loadAllChildItemIds($item_id, $this->_itemTree[$item_id]['allchild']);
         }
-        $gpermHandler  = xoops_getHandler('groupperm');
+        $grouppermHandler  = xoops_getHandler('groupperm');
         $memberHandler = xoops_getHandler('member');
         $glist         = $memberHandler->getGroupList();
         foreach (array_keys($glist) as $i) {
             // get selected item id(s) for each group
-            $selected = $gpermHandler->getItemIds($this->_permName, $i, $this->_modid);
+            $selected = $grouppermHandler->getItemIds($this->_permName, $i, $this->_modid);
             $ele      = new \MyXoopsGroupFormCheckBox($glist[$i], 'perms[' . $this->_permName . ']', $i, $selected);
             $ele->setOptionTree($this->_itemTree);
 
             foreach ($this->_appendix as $key => $append) {
-                $this->_appendix[$key]['selected'] = $gpermHandler->checkRight($append['permname'], $append['itemid'], $i, $this->_modid);
+                $this->_appendix[$key]['selected'] = $grouppermHandler->checkRight($append['permname'], $append['itemid'], $i, $this->_modid);
             }
             $ele->setAppendix($this->_appendix);
             $this->addElement($ele);

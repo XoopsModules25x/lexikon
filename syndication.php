@@ -28,7 +28,7 @@ if (0 == $helper->getConfig('contentsyndication')) {
 }
 //permissions
 $groups       = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
-$gpermHandler = xoops_getHandler('groupperm');
+$grouppermHandler = xoops_getHandler('groupperm');
 $module_id    = $xoopsModule->getVar('mid');
 
 $tpl->assign('multicats', (int)$helper->getConfig('multicats'));

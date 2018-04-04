@@ -30,13 +30,13 @@ if (!$data) {
     redirect_header('index.php', 2, _MD_LEXIKON_UNKNOWNERROR);
 }
 //permissions
-$gpermHandler = xoops_getHandler('groupperm');
+$grouppermHandler = xoops_getHandler('groupperm');
 $groups       = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
 /** @var XoopsModuleHandler $moduleHandler */
 $moduleHandler = xoops_getHandler('module');
 $module        = $moduleHandler->getByDirname('lexikon');
 $module_id     = $module->getVar('mid');
-$allowed_cats  = $gpermHandler->getItemIds('lexikon_view', $groups, $module_id);
+$allowed_cats  = $grouppermHandler->getItemIds('lexikon_view', $groups, $module_id);
 $catids        = implode(',', $allowed_cats);
 $catperms      = " AND categoryID IN ($catids) ";
 

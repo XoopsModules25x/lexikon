@@ -15,11 +15,11 @@ include __DIR__ . '/header.php';
 global $xoTheme, $xoopsUser, $xoopsModule;
 
 // permissions
-$gpermHandler = xoops_getHandler('groupperm');
+$grouppermHandler = xoops_getHandler('groupperm');
 $groups       = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
 $module_id    = $xoopsModule->getVar('mid');
 $perm_itemid  = Request::getInt('categoryID', 0, 'POST');
-if (!$gpermHandler->checkRight('lexikon_request', $perm_itemid, $groups, $module_id)) {
+if (!$grouppermHandler->checkRight('lexikon_request', $perm_itemid, $groups, $module_id)) {
     redirect_header('history.go(-1)', 3, _ERRORS);
 }
 if (!Request::hasVar('submit', 'POST')) {

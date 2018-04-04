@@ -28,10 +28,10 @@ if (empty($entryID)) {
 }
 $entrytype = 1;
 // permissions
-$gpermHandler = xoops_getHandler('groupperm');
+$grouppermHandler = xoops_getHandler('groupperm');
 $groups       = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
 $module_id    = $xoopsModule->getVar('mid');
-$allowed_cats = $gpermHandler->getItemIds('lexikon_view', $groups, $module_id);
+$allowed_cats = $grouppermHandler->getItemIds('lexikon_view', $groups, $module_id);
 $catids       = implode(',', $allowed_cats);
 $catperms     = " AND categoryID IN ($catids) ";
 
@@ -87,7 +87,7 @@ if (!$entryID) {
 
 while (false !== (list($entryID, $categoryID, $term, $init, $definition, $ref, $url, $uid, $submit, $datesub, $counter, $html, $smiley, $xcodes, $breaks, $block, $offline) = $xoopsDB->fetchRow($result))) {
     $catID = (int)$categoryID;
-    if (!$gpermHandler->checkRight('lexikon_view', (int)$categoryID, $groups, $module_id)) {
+    if (!$grouppermHandler->checkRight('lexikon_view', (int)$categoryID, $groups, $module_id)) {
         redirect_header('index.php', 3, _NOPERM);
     }
 

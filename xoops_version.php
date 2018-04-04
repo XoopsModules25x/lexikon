@@ -104,16 +104,16 @@ if (isset($lxConfig['contentsyndication']) && 1 == $lxConfig['contentsyndication
 }
 if ($lexikon) {
     $groups       = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
-    $gpermHandler = xoops_getHandler('groupperm');
-    if ($gpermHandler->checkRight('lexikon_submit', 0, $groups, $lexikon->getVar('mid'))) {
+    $grouppermHandler = xoops_getHandler('groupperm');
+    if ($grouppermHandler->checkRight('lexikon_submit', 0, $groups, $lexikon->getVar('mid'))) {
         $modversion['sub'][$i]['name'] = _MI_LEXIKON_SUB_SMNAME1;
         $modversion['sub'][$i]['url']  = 'submit.php';
         ++$i;
     }
 
     $groups       = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
-    $gpermHandler = xoops_getHandler('groupperm');
-    if ($gpermHandler->checkRight('lexikon_request', 0, $groups, $lexikon->getVar('mid'))) {
+    $grouppermHandler = xoops_getHandler('groupperm');
+    if ($grouppermHandler->checkRight('lexikon_request', 0, $groups, $lexikon->getVar('mid'))) {
         $modversion['sub'][$i]['name'] = constant('_MI_LEXIKON_SUB_SMNAME2');
         $modversion['sub'][$i]['url']  = 'request.php';
         ++$i;
@@ -127,7 +127,7 @@ if (isset($lxConfig['catsinmenu']) && 1 == $lxConfig['catsinmenu'] && isset($lxC
     $myts = \MyTextSanitizer::getInstance();
     $sql  = $xoopsDB->query('SELECT categoryID, name FROM ' . $xoopsDB->prefix('lxcategories') . ' ORDER BY weight ASC');
     while (false !== (list($categoryID, $name) = $xoopsDB->fetchRow($sql))) {
-        if ($gpermHandler->checkRight('lexikon_view', $categoryID, $groups, $lexikon->getVar('mid'))) {
+        if ($grouppermHandler->checkRight('lexikon_view', $categoryID, $groups, $lexikon->getVar('mid'))) {
             $name                          = $myts->htmlSpecialChars($name);
             $categoryID                    = (int)$categoryID;
             $modversion['sub'][$i]['name'] = $name;

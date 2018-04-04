@@ -152,9 +152,9 @@ function xoops_module_update_lexikon(\XoopsModule $module, $previousVersion = nu
         $sql = 'DELETE FROM ' . $GLOBALS['xoopsDB']->prefix('tplfile') . " WHERE `tpl_module` = '" . $module->getVar('dirname', 'n') . "' AND `tpl_file` LIKE '%.html%'";
         $GLOBALS['xoopsDB']->queryF($sql);
         
-        /** @var XoopsGroupPermHandler $gpermHandler */
-        $gpermHandler = xoops_getHandler('groupperm');
-        return $gpermHandler->deleteByModule($module->getVar('mid'), 'item_read');
+        /** @var XoopsGroupPermHandler $grouppermHandler */
+        $grouppermHandler = xoops_getHandler('groupperm');
+        return $grouppermHandler->deleteByModule($module->getVar('mid'), 'item_read');
     }
     return true;
 }

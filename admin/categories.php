@@ -193,19 +193,19 @@ switch ($op) {
         //===============================================================
 
         $mid = $GLOBALS['xoopsModule']->mid();
-        /** @var XoopsGroupPermHandler $gpermHandler */
-        $gpermHandler = xoops_getHandler('groupperm');
+        /** @var XoopsGroupPermHandler $grouppermHandler */
+        $grouppermHandler = xoops_getHandler('groupperm');
         $categoryID   = Request::getInt('categoryID', 0);
 
         /**
          * @param $myArray
          * @param $permissionGroup
          * @param $categoryID
-         * @param $gpermHandler
+         * @param $grouppermHandler
          * @param $permissionName
          * @param $mid
          */
-        function setPermissions($myArray, $permissionGroup, $categoryID, $gpermHandler, $permissionName, $mid)
+        function setPermissions($myArray, $permissionGroup, $categoryID, $grouppermHandler, $permissionName, $mid)
         {
             $permissionArray = $myArray;
             if ($categoryID > 0) {
@@ -213,33 +213,33 @@ switch ($op) {
                 $GLOBALS['xoopsDB']->query($sql);
             }
             //admin
-            $gperm = $gpermHandler->create();
+            $gperm = $grouppermHandler->create();
             $gperm->setVar('gperm_groupid', XOOPS_GROUP_ADMIN);
             $gperm->setVar('gperm_name', $permissionName);
             $gperm->setVar('gperm_modid', $mid);
             $gperm->setVar('gperm_itemid', $categoryID);
-            $gpermHandler->insert($gperm);
+            $grouppermHandler->insert($gperm);
             unset($gperm);
             //non-Admin groups
             if (is_array($permissionArray)) {
                 foreach ($permissionArray as $key => $cat_groupperm) {
                     if ($cat_groupperm > 0) {
-                        $gperm = $gpermHandler->create();
+                        $gperm = $grouppermHandler->create();
                         $gperm->setVar('gperm_groupid', $cat_groupperm);
                         $gperm->setVar('gperm_name', $permissionName);
                         $gperm->setVar('gperm_modid', $mid);
                         $gperm->setVar('gperm_itemid', $categoryID);
-                        $gpermHandler->insert($gperm);
+                        $grouppermHandler->insert($gperm);
                         unset($gperm);
                     }
                 }
             } elseif ($permissionArray > 0) {
-                $gperm = $gpermHandler->create();
+                $gperm = $grouppermHandler->create();
                 $gperm->setVar('gperm_groupid', $permissionArray);
                 $gperm->setVar('gperm_name', $permissionName);
                 $gperm->setVar('gperm_modid', $mid);
                 $gperm->setVar('gperm_itemid', $categoryID);
-                $gpermHandler->insert($gperm);
+                $grouppermHandler->insert($gperm);
                 unset($gperm);
             }
         }
@@ -249,7 +249,7 @@ switch ($op) {
         $permissionName    = 'lexikon_view';
         $permissionArray   = Request::getArray($permissionGroup, '');
         $permissionArray[] = XOOPS_GROUP_ADMIN;
-        //setPermissions($permissionArray, $permissionGroup, $categoryID, $gpermHandler, $permissionName, $mid);
+        //setPermissions($permissionArray, $permissionGroup, $categoryID, $grouppermHandler, $permissionName, $mid);
         $permHelper->savePermissionForItem($permissionName, $categoryID, $permissionArray);
 
         //setPermissions for Submit items
@@ -257,7 +257,7 @@ switch ($op) {
         $permissionName    = 'lexikon_submit';
         $permissionArray   = Request::getArray($permissionGroup, '');
         $permissionArray[] = XOOPS_GROUP_ADMIN;
-        //setPermissions($permissionArray, $permissionGroup, $categoryID, $gpermHandler, $permissionName, $mid);
+        //setPermissions($permissionArray, $permissionGroup, $categoryID, $grouppermHandler, $permissionName, $mid);
         $permHelper->savePermissionForItem($permissionName, $categoryID, $permissionArray);
 
         //setPermissions for Approve items
@@ -265,7 +265,7 @@ switch ($op) {
         $permissionName    = 'lexikon_approve';
         $permissionArray   = Request::getArray($permissionGroup, '');
         $permissionArray[] = XOOPS_GROUP_ADMIN;
-        //setPermissions($permissionArray, $permissionGroup, $categoryID, $gpermHandler, $permissionName, $mid);
+        //setPermissions($permissionArray, $permissionGroup, $categoryID, $grouppermHandler, $permissionName, $mid);
         $permHelper->savePermissionForItem($permissionName, $categoryID, $permissionArray);
 
         /*
@@ -278,30 +278,30 @@ switch ($op) {
                         $GLOBALS['xoopsDB']->query($sql);
                     }
                     //admin
-                    $gperm = $gpermHandler->create();
+                    $gperm = $grouppermHandler->create();
                     $gperm->setVar('gperm_groupid', XOOPS_GROUP_ADMIN);
                     $gperm->setVar('gperm_name', 'lexikon_view');
                     $gperm->setVar('gperm_modid', $mid);
                     $gperm->setVar('gperm_itemid', $categoryID);
-                    $gpermHandler->insert($gperm);
+                    $grouppermHandler->insert($gperm);
                     unset($gperm);
                     if (is_array($arr_lexikon_view)) {
                         foreach ($arr_lexikon_view as $key => $cat_groupperm) {
-                            $gperm = $gpermHandler->create();
+                            $gperm = $grouppermHandler->create();
                             $gperm->setVar('gperm_groupid', $cat_groupperm);
                             $gperm->setVar('gperm_name', 'lexikon_view');
                             $gperm->setVar('gperm_modid', $mid);
                             $gperm->setVar('gperm_itemid', $categoryID);
-                            $gpermHandler->insert($gperm);
+                            $grouppermHandler->insert($gperm);
                             unset($gperm);
                         }
                     } else {
-                        $gperm = $gpermHandler->create();
+                        $gperm = $grouppermHandler->create();
                         $gperm->setVar('gperm_groupid', $arr_lexikon_view);
                         $gperm->setVar('gperm_name', 'lexikon_view');
                         $gperm->setVar('gperm_modid', $mid);
                         $gperm->setVar('gperm_itemid', $categoryID);
-                        $gpermHandler->insert($gperm);
+                        $grouppermHandler->insert($gperm);
                         unset($gperm);
                     }
         */

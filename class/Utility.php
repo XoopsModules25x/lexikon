@@ -102,12 +102,12 @@ class Utility
     {
         global $xoopsUser, $xoopsDB, $xoopsModule;
         $groups       = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
-        $gpermHandler = xoops_getHandler('groupperm');
+        $grouppermHandler = xoops_getHandler('groupperm');
 
         $result01 = $xoopsDB->query('SELECT categoryID, total FROM ' . $xoopsDB->prefix('lxcategories') . ' ');
         list($totalcategories) = $xoopsDB->getRowsNum($result01);
         while (false !== (list($categoryID, $total) = $xoopsDB->fetchRow($result01))) {
-            if ($gpermHandler->checkRight('lexikon_view', $categoryID, $groups, $xoopsModule->getVar('mid'))) {
+            if ($grouppermHandler->checkRight('lexikon_view', $categoryID, $groups, $xoopsModule->getVar('mid'))) {
                 $newcount = self::countByCategory($categoryID);
                 $xoopsDB->queryF('UPDATE ' . $xoopsDB->prefix('lxcategories') . " SET total = '$newcount' WHERE categoryID = '$categoryID'");
             }
@@ -122,7 +122,7 @@ class Utility
     {
         global $xoopsUser, $xoopsDB, $xoopsModule;
         $groups       = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
-        $gpermHandler = xoops_getHandler('groupperm');
+        $grouppermHandler = xoops_getHandler('groupperm');
         $count        = 0;
         $sql          = $xoopsDB->query('SELECT entryID FROM ' . $xoopsDB->prefix('lxentries') . " WHERE offline = '0' AND categoryID = '$c'");
         while (false !== ($myrow = $xoopsDB->fetchArray($sql))) {
@@ -138,9 +138,9 @@ class Utility
     public static function countCats()
     {
         global $xoopsUser, $xoopsModule;
-        $gpermHandler = xoops_getHandler('groupperm');
+        $grouppermHandler = xoops_getHandler('groupperm');
         $groups       = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
-        $totalcats    = $gpermHandler->getItemIds('lexikon_view', $groups, $xoopsModule->getVar('mid'));
+        $totalcats    = $grouppermHandler->getItemIds('lexikon_view', $groups, $xoopsModule->getVar('mid'));
 
         return count($totalcats);
     }
@@ -151,13 +151,13 @@ class Utility
     public static function countWords()
     {
         global $xoopsUser, $xoopsDB;
-        $gpermHandler = xoops_getHandler('groupperm');
+        $grouppermHandler = xoops_getHandler('groupperm');
         $groups       = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
         /** @var \XoopsModuleHandler $moduleHandler */
         $moduleHandler = xoops_getHandler('module');
         $module        = $moduleHandler->getByDirname('lexikon');
         $module_id     = $module->getVar('mid');
-        $allowed_cats  = $gpermHandler->getItemIds('lexikon_view', $groups, $module_id);
+        $allowed_cats  = $grouppermHandler->getItemIds('lexikon_view', $groups, $module_id);
         $catids        = implode(',', $allowed_cats);
         $catperms      = " AND categoryID IN ($catids) ";
 
@@ -179,12 +179,12 @@ class Utility
         $helper = Lexikon\Helper::getInstance();
         $myts         = \MyTextSanitizer::getInstance();
         $groups       = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
-        $gpermHandler = xoops_getHandler('groupperm');
+        $grouppermHandler = xoops_getHandler('groupperm');
         $block0       = [];
         $count        = 1;
         $resultcat    = $xoopsDB->query('SELECT categoryID, name, total, logourl FROM ' . $xoopsDB->prefix('lxcategories') . ' ORDER BY weight ASC');
         while (false !== (list($catID, $name, $total, $logourl) = $xoopsDB->fetchRow($resultcat))) {
-            if ($gpermHandler->checkRight('lexikon_view', $catID, $groups, $xoopsModule->getVar('mid'))) {
+            if ($grouppermHandler->checkRight('lexikon_view', $catID, $groups, $xoopsModule->getVar('mid'))) {
                 $catlinks = [];
                 ++$count;
                 if ($logourl && 'http://' !== $logourl) {
@@ -212,13 +212,13 @@ class Utility
     public static function getAlphaArray()
     {
         global $xoopsUser, $xoopsDB, $xoopsModule;
-        $gpermHandler = xoops_getHandler('groupperm');
+        $grouppermHandler = xoops_getHandler('groupperm');
         $groups       = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
         /** @var \XoopsModuleHandler $moduleHandler */
         $moduleHandler = xoops_getHandler('module');
         $module        = $moduleHandler->getByDirname('lexikon');
         $module_id     = $module->getVar('mid');
-        $allowed_cats  = $gpermHandler->getItemIds('lexikon_view', $groups, $module_id);
+        $allowed_cats  = $grouppermHandler->getItemIds('lexikon_view', $groups, $module_id);
         $catids        = implode(',', $allowed_cats);
         $catperms      = " AND categoryID IN ($catids) ";
         $alpha         = [];
@@ -424,7 +424,7 @@ class Utility
         /** @var Lexikon\Helper $helper */
         $helper = Lexikon\Helper::getInstance();
 
-        $gpermHandler = xoops_getHandler('groupperm');
+        $grouppermHandler = xoops_getHandler('groupperm');
         $groups       = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
 
         $searchform = '<table style="width:100%;">';
@@ -442,7 +442,7 @@ class Utility
             $searchform .= '<option value="0">' . _MD_LEXIKON_ALLOFTHEM . '</option>';
 
             while (false !== (list($categoryID, $name) = $xoopsDB->fetchRow($resultcat))) {
-                if ($gpermHandler->checkRight('lexikon_view', (int)$categoryID, $groups, $xoopsModule->getVar('mid'))) {
+                if ($grouppermHandler->checkRight('lexikon_view', (int)$categoryID, $groups, $xoopsModule->getVar('mid'))) {
                     $searchform .= "<option value=\"$categoryID\">$categoryID : $name</option>";
                 }
             }
@@ -952,13 +952,13 @@ class Utility
         $helper = Lexikon\Helper::getInstance();
         $myts = \MyTextSanitizer::getInstance();
         //permissions
-        $gpermHandler = xoops_getHandler('groupperm');
+        $grouppermHandler = xoops_getHandler('groupperm');
         $groups       = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
         /** @var XoopsModuleHandler $moduleHandler */
         $moduleHandler = xoops_getHandler('module');
         $module        = $moduleHandler->getByDirname('lexikon');
         $module_id     = $module->getVar('mid');
-        $allowed_cats  = $gpermHandler->getItemIds('lexikon_view', $groups, $module_id);
+        $allowed_cats  = $grouppermHandler->getItemIds('lexikon_view', $groups, $module_id);
         $catids        = implode(',', $allowed_cats);
         $catperms      = " AND categoryID IN ($catids) ";
 
@@ -1203,7 +1203,7 @@ class Utility
     public static function isTermPresent($term, $table)
     {
         global $xoopsDB;
-        $sql    = sprintf('SELECT COUNT(*) FROM %s WHERE term = %s', $table, $xoopsDB->quoteString(addslashes($term)));
+        $sql    = sprintf('SELECT COUNT(*) FROM `%s` WHERE term = %s', $table, $xoopsDB->quoteString(addslashes($term)));
         $result = $xoopsDB->query($sql);
         list($count) = $xoopsDB->fetchRow($result);
 
@@ -1513,7 +1513,7 @@ class Utility
         }
 
         $row      = $GLOBALS['xoopsDB']->fetchBoth($result);
-        $enumList = explode(',', str_replace("'", '', substr($row['COLUMN_TYPE'], 5, strlen($row['COLUMN_TYPE']) - 6)));
+        $enumList = explode(',', str_replace("'", '', substr($row['COLUMN_TYPE'], 5, -6)));
         return $enumList;
     }
 
