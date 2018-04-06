@@ -57,9 +57,10 @@ function addAdminMenu($buf)
 if (!isset($_POST['fct'])) {
     $_GET['fct'] = $_GET['fct'] = 'preferences';
 }
-if (!isset($_POST['op'])) {
-    $_GET['op'] = $_GET['op'] = 'showmod';
-}
+
+$op    = \Xmf\Request::getCmd('op', 'showmod');
+
+
 if (!isset($_POST['mod'])) {
     $_GET['mod'] = $_GET['mod'] = $xoopsModule->getVar('mid');
 }

@@ -29,7 +29,7 @@ if (!empty($_POST['op'])) {
     $op = $_POST['op'];
 }
 if (!empty($_POST['bid'])) {
-    $bid = (int)$_POST['bid'];
+    $bid = \Xmf\Request::getInt('bid', 0, 'POST');
 }
 
 if (isset($_GET['op'])) {
@@ -50,17 +50,17 @@ if (isset($_POST['previewblock'])) {
     }
 
     if (!empty($_POST['bside'])) {
-        $bside = (int)$_POST['bside'];
+        $bside = \Xmf\Request::getInt('bside', 0, 'POST');
     } else {
         $bside = 0;
     }
     if (!empty($_POST['bweight'])) {
-        $bweight = (int)$_POST['bweight'];
+        $bweight = \Xmf\Request::getInt('bweight', 0, 'POST');
     } else {
         $bweight = 0;
     }
     if (!empty($_POST['bvisible'])) {
-        $bvisible = (int)$_POST['bvisible'];
+        $bvisible = \Xmf\Request::getInt('bvisible', 0, 'POST');
     } else {
         $bvisible = 0;
     }
@@ -85,7 +85,7 @@ if (isset($_POST['previewblock'])) {
         $bctype = '';
     }
     if (!empty($_POST['bcachetime'])) {
-        $bcachetime = (int)$_POST['bcachetime'];
+        $bcachetime = \Xmf\Request::getInt('bcachetime', 0, 'POST');
     } else {
         $bcachetime = 0;
     }

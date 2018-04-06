@@ -254,7 +254,7 @@ function categoryDelete($categoryID = '')
         die();
     }
 
-    $ok     = Request::getInt('ok', 0, 'POST'); //isset($_POST['ok']) ? (int)$_POST['ok'] : 0;
+    $ok     = Request::getInt('ok', 0, 'POST'); //isset($_POST['ok']) ? \Xmf\Request::getInt('ok', 0, 'POST') : 0;
     $result = $xoopsDB->query('SELECT categoryID, name FROM ' . $xoopsDB->prefix('lxcategories') . " WHERE categoryID = $idc");
     list($categoryID, $name) = $xoopsDB->fetchRow($result);
     // confirmed, so delete
@@ -296,7 +296,7 @@ function categorySave($categoryID = '')
     $helper = Lexikon\Helper::getInstance();
     //print_r ($_POST);
     $categoryID  = Request::getInt('categoryID', 0);
-    $weight      = Request::getInt('weight', 0); //isset($_POST['weight']) ? (int)$_POST['weight'] : (int)$_GET['weight'];
+    $weight      = Request::getInt('weight', 0); //isset($_POST['weight']) ? \Xmf\Request::getInt('weight', 0, 'POST') : \Xmf\Request::getInt('weight', 0, 'GET');
     $name        = Request::getString('name', ''); //isset($_POST['name']) ? htmlspecialchars($_POST['name']) : htmlspecialchars($_GET['name']);
     $description = $myts->htmlSpecialChars(Request::getString('description', ''));//isset($_POST['description']) ? htmlspecialchars($_POST['description']) : htmlspecialchars($_GET['description']);
     $description =& $myts->xoopsCodeDecode($myts->censorString($description), $allowimage = 1);

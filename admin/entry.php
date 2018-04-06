@@ -363,19 +363,19 @@ function entrySave($entryID = '')
     $helper = Lexikon\Helper::getInstance();
     $utility      = new Lexikon\Utility();
     $myts    = \MyTextSanitizer::getInstance();
-    $entryID = \Xmf\Request::getInt('entryID', (int)$_GET['entryID'], 'POST');
+    $entryID = \Xmf\Request::getInt('entryID', \Xmf\Request::getInt('entryID', 0, 'GET'), 'POST');
     if (1 == $helper->getConfig('multicats')) {
         $categoryID = Request::getInt('categoryID', 0);
     } else {
         $categoryID = 1;
     }
-    $block  = \Xmf\Request::getInt('block', (int)$_GET['block'], 'POST');
-    $breaks = \Xmf\Request::getInt('breaks', (int)$_GET['breaks'], 'POST');
+    $block  = \Xmf\Request::getInt('block', \Xmf\Request::getInt('block', 0, 'GET'), 'POST');
+    $breaks = \Xmf\Request::getInt('breaks', \Xmf\Request::getInt('breaks', 0, 'GET'), 'POST');
 
-    $html    = \Xmf\Request::getInt('html', (int)$_GET['html'], 'POST');
-    $smiley  = \Xmf\Request::getInt('smiley', (int)$_GET['smiley'], 'POST');
-    $xcodes  = \Xmf\Request::getInt('xcodes', (int)$_GET['xcodes'], 'POST');
-    $offline = \Xmf\Request::getInt('offline', (int)$_GET['offline'], 'POST');
+    $html    = \Xmf\Request::getInt('html', \Xmf\Request::getInt('html', 0, 'GET'), 'POST');
+    $smiley  = \Xmf\Request::getInt('smiley', \Xmf\Request::getInt('smiley', 0, 'GET'), 'POST');
+    $xcodes  = \Xmf\Request::getInt('xcodes', \Xmf\Request::getInt('xcodes', 0, 'GET'), 'POST');
+    $offline = \Xmf\Request::getInt('offline', \Xmf\Request::getInt('offline', 0, 'GET'), 'POST');
     $term = $myts->addSlashes(xoops_trim($_POST['term']));
     // LionHell pour initiale automatique
     $init = mb_substr($term, 0, 1);
@@ -388,7 +388,7 @@ function entrySave($entryID = '')
 
     $date   = time();
     $submit = 0;
-    $notifypub = \Xmf\Request::getInt('notifypub', (int)$_GET['notifypub'], 'POST');
+    $notifypub = \Xmf\Request::getInt('notifypub', \Xmf\Request::getInt('notifypub', 0, 'GET'), 'POST');
     $request   = 0;
     $uid       = \Xmf\Request::getInt('author', $xoopsUser->uid(), 'POST');
 
@@ -520,7 +520,7 @@ function entrySave($entryID = '')
 function entryDelete($entryID = '')
 {
     global $xoopsDB, $xoopsModule;
-    $entryID = \Xmf\Request::getInt('entryID', (int)$_GET['entryID'], 'POST');
+    $entryID = \Xmf\Request::getInt('entryID', \Xmf\Request::getInt('entryID', 0, 'GET'), 'POST');
     $ok      = \Xmf\Request::getInt('ok', 0, 'POST');
     $result  = $xoopsDB->query('SELECT entryID, term, uid FROM ' . $xoopsDB->prefix('lxentries') . " WHERE entryID = $entryID");
     list($entryID, $term, $uid) = $xoopsDB->fetchRow($result);
@@ -556,7 +556,7 @@ if (isset($_POST['op'])) {
 }
 switch ($op) {
     case 'mod':
-        $entryID = \Xmf\Request::getInt('entryID', (int)$_POST['entryID'], 'GET');
+        $entryID = \Xmf\Request::getInt('entryID', \Xmf\Request::getInt('entryID', 0, 'POST'), 'GET');
         entryEdit($entryID);
         break;
 

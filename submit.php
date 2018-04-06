@@ -115,9 +115,7 @@ switch ($op) {
         $notifypub = !empty($_POST['notifypub']) ? 1 : 0;
 
         if (1 == $helper->getConfig('multicats')) {
-            $categoryID = (int)$_POST['categoryID'];
-        } else {
-            $categoryID = 1;
+            $categoryID = \Xmf\Request::getInt('categoryID', 1, 'POST');
         }
         $term       = $myts->addSlashes($myts->censorString($_POST['term']));
         $definition = $myts->addSlashes($myts->censorString($_POST['definition']));

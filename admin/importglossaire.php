@@ -81,10 +81,10 @@ function DefinitionImport($delete)
     $errorcounter = 0;
 
     if (isset($delete)) {
-        $delete = (int)$_POST['delete'];
+        $delete = \Xmf\Request::getInt('delete', 0, 'POST');
     } else {
         if (isset($delete)) {
-            $delete = (int)$_POST['delete'];
+            $delete = \Xmf\Request::getInt('delete', 0, 'POST');
         }
     }
 
@@ -225,7 +225,7 @@ global $op;
 $op = Request::getCmd('op', '');
 switch ($op) {
     case 'import':
-        $delete = \Xmf\Request::getInt('delete', (int)$_POST['delete'], 'GET');
+        $delete = \Xmf\Request::getInt('delete', \Xmf\Request::getInt('delete', 0, 'POST'), 'GET');
         DefinitionImport($delete);
         break;
     default:
