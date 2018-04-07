@@ -49,46 +49,14 @@ if (isset($_POST['previewblock'])) {
         die('Invalid bid.');
     }
 
-    if (!empty($_POST['bside'])) {
-        $bside = \Xmf\Request::getInt('bside', 0, 'POST');
-    } else {
-        $bside = 0;
-    }
-    if (!empty($_POST['bweight'])) {
-        $bweight = \Xmf\Request::getInt('bweight', 0, 'POST');
-    } else {
-        $bweight = 0;
-    }
-    if (!empty($_POST['bvisible'])) {
-        $bvisible = \Xmf\Request::getInt('bvisible', 0, 'POST');
-    } else {
-        $bvisible = 0;
-    }
-    if (!empty($_POST['bmodule'])) {
-        $bmodule = $_POST['bmodule'];
-    } else {
-        $bmodule = [];
-    }
-    if (!empty($_POST['btitle'])) {
-        $btitle = $_POST['btitle'];
-    } else {
-        $btitle = '';
-    }
-    if (!empty($_POST['bcontent'])) {
-        $bcontent = $_POST['bcontent'];
-    } else {
-        $bcontent = '';
-    }
-    if (!empty($_POST['bctype'])) {
-        $bctype = $_POST['bctype'];
-    } else {
-        $bctype = '';
-    }
-    if (!empty($_POST['bcachetime'])) {
-        $bcachetime = \Xmf\Request::getInt('bcachetime', 0, 'POST');
-    } else {
-        $bcachetime = 0;
-    }
+    $bside = \Xmf\Request::getInt('bside', 0, 'POST');
+    $bweight = \Xmf\Request::getInt('bweight', 0, 'POST');
+    $bvisible = \Xmf\Request::getInt('bvisible', 0, 'POST');
+    $bmodule = \Xmf\Request::getArray('bmodule', [], 'POST');
+    $btitle = \Xmf\Request::getString('btitle', '', 'POST');
+    $bcontent = \Xmf\Request::getString('bcontent', '', 'POST');
+    $bctype = \Xmf\Request::getString('bctype', '', 'POST');
+    $bcachetime = \Xmf\Request::getInt('bcachetime', 0, 'POST');
 
     xoops_cp_header();
     require_once XOOPS_ROOT_PATH . '/class/template.php';
@@ -177,17 +145,17 @@ if ('order' === $op) {
     if (!$GLOBALS['xoopsSecurity']->check(true, $_REQUEST['myblocksadmin'])) {
         redirect_header(XOOPS_URL . '/', 3, $GLOBALS['xoopsSecurity']->getErrors());
     }
-    if (!empty($_POST['side'])) {
+   if (\Xmf\Request::hasVar('side', 'POST')) {
         $side = $_POST['side'];
     }
     //  if ( !empty($_POST['weight']) ) { $weight = $_POST['weight']; }
-    if (!empty($_POST['visible'])) {
+   if (\Xmf\Request::hasVar('visible', 'POST')) {
         $visible = $_POST['visible'];
     }
     //  if ( !empty($_POST['oldside']) ) { $oldside = $_POST['oldside']; }
     //  if ( !empty($_POST['oldweight']) ) { $oldweight = $_POST['oldweight']; }
     //  if ( !empty($_POST['oldvisible']) ) { $oldvisible = $_POST['oldvisible']; }
-    if (!empty($_POST['bid'])) {
+   if (\Xmf\Request::hasVar('bid', 'POST')) {
         $bid = $_POST['bid'];
     } else {
         $bid = [];
@@ -228,13 +196,13 @@ if ('order2' === $op) {
     } else {
 
         // else change order
-        if (!empty($_POST['side'])) {
+       if (\Xmf\Request::hasVar('side', 'POST')) {
             $side = $_POST['side'];
         }
-        if (!empty($_POST['visible'])) {
+       if (\Xmf\Request::hasVar('visible', 'POST')) {
             $visible = $_POST['visible'];
         }
-        if (!empty($_POST['id'])) {
+       if (\Xmf\Request::hasVar('id', 'POST')) {
             $id = $_POST['id'];
         } else {
             $id = [];
@@ -591,7 +559,7 @@ function myblocksadmin_update_block(
         $sql = sprintf('DELETE FROM `%s` WHERE block_id = %u', $db->prefix('block_module_link'), $bid);
         $db->query($sql);
         foreach ($bmodule as $bmid) {
-            $sql = sprintf('INSERT INTO %s (block_id, module_id) VALUES (%u, %d)', $db->prefix('block_module_link'), $bid, (int)$bmid);
+            $sql = sprintf('INSERT INTO `%s` (block_id, module_id) VALUES (%u, %d)', $db->prefix('block_module_link'), $bid, (int)$bmid);
             $db->query($sql);
         }
         require_once XOOPS_ROOT_PATH . '/class/template.php';
