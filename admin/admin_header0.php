@@ -8,13 +8,13 @@
  * Licence: GNU
  */
 
-include __DIR__ . '/../../../mainfile.php';
-require_once __DIR__ . '/../../../include/cp_header.php';
+include  dirname(dirname(dirname(__DIR__))) . '/mainfile.php';
+require_once  dirname(dirname(dirname(__DIR__))) . '/include/cp_header.php';
 
 if (file_exists(__DIR__ . '/../' . $xoopsConfig['language'] . '/main.php')) {
-    include __DIR__ . '/../language/' . $xoopsConfig['language'] . '/main.php';
+    include  dirname(__DIR__) . '/language/' . $xoopsConfig['language'] . '/main.php';
 } else {
-    include __DIR__ . '/../language/english/main.php';
+    include  dirname(__DIR__) . '/language/english/main.php';
 }
 require_once XOOPS_ROOT_PATH . '/modules/lexikon/class/Utility.php';
 require_once XOOPS_ROOT_PATH . '/modules/lexikon/admin/functions.php';

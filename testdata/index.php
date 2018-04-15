@@ -15,7 +15,7 @@
  * @author          Michael Beck (aka Mamba)
  */
 
-require_once __DIR__ . '/../../../mainfile.php';
+require_once  dirname(dirname(dirname(__DIR__))) . '/mainfile.php';
 
 $op = \Xmf\Request::getCmd('op', '');
 

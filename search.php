@@ -8,19 +8,20 @@
 
 use Xmf\Request;
 use XoopsModules\Lexikon;
-/** @var Lexikon\Helper $helper */
-$helper = Lexikon\Helper::getInstance();
 
 include __DIR__ . '/header.php';
 $GLOBALS['xoopsOption']['template_main'] = 'lx_search.tpl';
 include XOOPS_ROOT_PATH . '/header.php';
+
+/** @var Lexikon\Helper $helper */
+$helper = Lexikon\Helper::getInstance();
 
 global $xoTheme, $xoopsDB, $xoopsModule, $xoopsModuleConfig, $searchtype;
 $myts = \MyTextSanitizer::getInstance();
 // -- options
 require_once XOOPS_ROOT_PATH . '/modules/lexikon/include/common.inc.php';
 $highlight      = false;
-$highlight      = ($helper->getConfig('config_highlighter') = 1) ? 1 : 0;
+$highlight      = ($helper->getConfig('config_highlighter') == 1) ? 1 : 0;
 $hightlight_key = '';
 
 require_once XOOPS_ROOT_PATH . '/class/pagenav.php';

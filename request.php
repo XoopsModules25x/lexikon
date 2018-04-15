@@ -7,11 +7,11 @@
 
 use Xmf\Request;
 use XoopsModules\Lexikon;
-/** @var Lexikon\Helper $helper */
-$helper = Lexikon\Helper::getInstance();
 
 include __DIR__ . '/header.php';
 
+/** @var Lexikon\Helper $helper */
+$helper = Lexikon\Helper::getInstance();
 global $xoTheme, $xoopsUser, $xoopsModule;
 
 // permissions
@@ -92,6 +92,7 @@ if (!Request::hasVar('submit', 'POST')) {
         if (0 == $newid) {
             $newid = $xoopsDB->getInsertId();
         }
+        /** @var \XoopsNotificationHandler $notificationHandler */
         $notificationHandler = xoops_getHandler('notification');
         $tags                = [];
         $tags['ITEM_NAME']   = $reqterm;

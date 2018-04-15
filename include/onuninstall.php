@@ -44,7 +44,7 @@ function xoops_module_pre_uninstall_lexikon(\XoopsModule $module)
  */
 function xoops_module_uninstall_lexikon(\XoopsModule $module)
 {
-    include __DIR__ . '/../preloads/autoloader.php';
+    include  dirname(__DIR__) . '/preloads/autoloader.php';
     $moduleDirName = basename(dirname(__DIR__));
     $moduleDirNameUpper = strtoupper($moduleDirName); //$capsDirName
 

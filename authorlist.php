@@ -8,14 +8,13 @@
  */
 
 use XoopsModules\Lexikon;
-/** @var Lexikon\Helper $helper */
-$helper = Lexikon\Helper::getInstance();
 
 include __DIR__ . '/header.php';
 $GLOBALS['xoopsOption']['template_main'] = 'lx_authorlist.tpl';
 require_once XOOPS_ROOT_PATH . '/header.php';
+/** @var Lexikon\Helper $helper */
+$helper = Lexikon\Helper::getInstance();
 global $xoopsUser, $xoTheme, $xoopsTpl, $authortermstotal, $xoopsModule;
-require_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->dirname() . '/class/Utility.php';
 require_once XOOPS_ROOT_PATH . '/modules/lexikon/include/common.inc.php';
 $authorlistext = false;
 $myts          = \MyTextSanitizer::getInstance();

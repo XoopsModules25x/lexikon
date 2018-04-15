@@ -83,7 +83,7 @@ function b_lxspot_show($options)
         if ($grouppermHandler->checkRight('lexikon_view', $options[0], $groups, $module_id)) {
             // get the items
             $block['userID']     = ((int)$authorID);
-            $block['authorname'] = XoopsUserUtility::getUnameFromId((int)$authorID);
+            $block['authorname'] = \XoopsUserUtility::getUnameFromId((int)$authorID);
             $block['name']       = xoops_substr($name, 0, (int)$options[9]);
             $block['catID']      = (int)$options[0];
             $block['catimage']   = stripslashes($logourl);

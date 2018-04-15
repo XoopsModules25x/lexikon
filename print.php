@@ -8,10 +8,11 @@
 
 use Xmf\Request;
 use XoopsModules\Lexikon;
-/** @var Lexikon\Helper $helper */
-$helper = Lexikon\Helper::getInstance();
 
 include __DIR__ . '/header.php';
+
+/** @var Lexikon\Helper $helper */
+$helper = Lexikon\Helper::getInstance();
 
 //foreach ($_POST as $k => $v) {
 //    ${$k} = $v;

@@ -30,7 +30,7 @@ if ((!defined('XOOPS_ROOT_PATH')) || !$GLOBALS['xoopsUser'] instanceof \XoopsUse
     exit('Restricted access' . PHP_EOL);
 }
 
-include __DIR__ . '/../preloads/autoloader.php';
+include  dirname(__DIR__) . '/preloads/autoloader.php';
 
 /**
  * @param string $tablename
@@ -141,7 +141,7 @@ function xoops_module_update_lexikon(\XoopsModule $module, $previousVersion = nu
 
         //  ---  COPY blank.png FILES ---------------
         if (count($configurator->copyBlankFiles) > 0) {
-            $file = __DIR__ . '/../assets/images/blank.png';
+            $file =  dirname(__DIR__) . '/assets/images/blank.png';
             foreach (array_keys($configurator->copyBlankFiles) as $i) {
                 $dest = $configurator->copyBlankFiles[$i] . '/blank.png';
                 $utility::copyFile($file, $dest);

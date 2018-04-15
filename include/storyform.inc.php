@@ -8,14 +8,15 @@
  */
 
 use XoopsModules\Lexikon;
-/** @var Lexikon\Helper $helper */
-$helper = Lexikon\Helper::getInstance();
 
 global $term, $definition, $ref, $url, $xoopsUser, $xoopsModule;
 
 require_once XOOPS_ROOT_PATH . '/modules/lexikon/class/LexikonTree.php'; // -- LionHell
 include XOOPS_ROOT_PATH . '/class/xoopslists.php';
 include XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
+
+/** @var Lexikon\Helper $helper */
+$helper = Lexikon\Helper::getInstance();
 
 $guesteditoruse = $helper->getConfig('wysiwyg_guests');
 $myts           = \MyTextSanitizer::getInstance();

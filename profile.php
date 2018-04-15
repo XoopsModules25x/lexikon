@@ -6,14 +6,15 @@
  */
 
 use XoopsModules\Lexikon;
-/** @var Lexikon\Helper $helper */
-$helper = Lexikon\Helper::getInstance();
 
 include __DIR__ . '/header.php';
 $GLOBALS['xoopsOption']['template_main'] = 'lx_profile.tpl';
 require_once XOOPS_ROOT_PATH . '/header.php';
 global $xoopsModule, $xoopsUser;
-require_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->getVar('dirname') . '/class/Utility.php';
+
+/** @var Lexikon\Helper $helper */
+$helper = Lexikon\Helper::getInstance();
+
 $myts = \MyTextSanitizer::getInstance();
 
 if (empty($xoopsUser) && !$helper->getConfig('authorprofile')) {

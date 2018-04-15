@@ -22,7 +22,6 @@ use Xmf\Request;
 use XoopsModules\Lexikon;
 use XoopsModules\Lexikon\Common;
 
-//require_once __DIR__ . '/../include/common.php';
 
 /**
  * Class Utility

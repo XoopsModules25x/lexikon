@@ -17,10 +17,12 @@
  * @author       XOOPS Development Team
  */
 use XoopsModules\Lexikon;
+
+include  dirname(dirname(__DIR__)) . '/mainfile.php';
+
 /** @var Lexikon\Helper $helper */
 $helper = Lexikon\Helper::getInstance();
 
-include __DIR__ . '/../../mainfile.php';
 //--- verify that the user can post comments
 global $xoopsModuleConfig, $xoopsUser;
 if (!isset($xoopsModuleConfig)) {

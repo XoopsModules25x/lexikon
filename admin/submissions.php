@@ -9,10 +9,11 @@
 //file obsolete . remains for compatibility reasons
 
 use XoopsModules\Lexikon;
-/** @var Lexikon\Helper $helper */
-$helper = Lexikon\Helper::getInstance();
 
 require_once __DIR__ . '/admin_header.php';
+
+/** @var Lexikon\Helper $helper */
+$helper = Lexikon\Helper::getInstance();
 $myts = \MyTextSanitizer::getInstance();
 xoops_load('XoopsUserUtility');
 
@@ -121,7 +122,7 @@ switch ($op) {
                                            WHERE categoryID = '$categoryID'");
                 list($name) = $xoopsDB->fetchRow($resultS3);
 
-                $sentby = XoopsUserUtility::getUnameFromId($uid);
+                $sentby = \XoopsUserUtility::getUnameFromId($uid);
 
                 $catname = $myts->htmlSpecialChars($name);
                 $term    = $myts->htmlSpecialChars($term);
@@ -193,7 +194,7 @@ switch ($op) {
                                              WHERE categoryID = '$categoryID'");
                 list($name) = $xoopsDB->fetchRow($resultS3);
 
-                $sentby = XoopsUserUtility::getUnameFromId($uid);
+                $sentby = \XoopsUserUtility::getUnameFromId($uid);
 
                 $catname = $myts->htmlSpecialChars($name);
                 $term    = $myts->htmlSpecialChars($term);
@@ -263,7 +264,7 @@ switch ($op) {
                                              WHERE categoryID = '$categoryID'");
                 list($name) = $xoopsDB->fetchRow($resultS3);
 
-                $sentby = XoopsUserUtility::getUnameFromId($uid);
+                $sentby = \XoopsUserUtility::getUnameFromId($uid);
 
                 $catname = $myts->htmlSpecialChars($name);
                 $term    = $myts->htmlSpecialChars($term);

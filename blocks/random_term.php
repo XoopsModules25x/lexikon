@@ -24,6 +24,7 @@ function b_lxentries_random_show()
         $lxConfig      = $configHandler->getConfigsByCat(0, $lexikon->getVar('mid'));
     }
     $groups       = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
+    /** @var \XoopsGroupPermHandler $grouppermHandler */
     $grouppermHandler = xoops_getHandler('groupperm');
     $module_id    = $lexikon->getVar('mid');
     $allowed_cats = $grouppermHandler->getItemIds('lexikon_view', $groups, $module_id);

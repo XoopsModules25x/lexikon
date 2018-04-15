@@ -374,6 +374,7 @@ function lx_save_Permissions($groups, $id, $perm_name)
     $lxModule = $hModule->getByDirname('lexikon');
 
     $module_id    = $lxModule->getVar('mid');
+    /** @var \XoopsGroupPermHandler $grouppermHandler */
     $grouppermHandler = xoops_getHandler('groupperm');
 
     /*

@@ -8,8 +8,6 @@
  */
 
 use XoopsModules\Lexikon;
-/** @var Lexikon\Helper $helper */
-$helper = Lexikon\Helper::getInstance();
 
 if (!defined('XOOPS_ROOT_PATH')) {
     die('XOOPS root path not defined');
@@ -1148,7 +1146,7 @@ function lexikon_block_getAuthors($limit = 5, $sort = 'count', $name = 'uname', 
 
     while (false !== ($row = $db->fetchArray($result))) {
         if ('name' === $name && '' == $row['name']) {
-            $row['name'] = XoopsUser::getUnameFromId($row['uid']);
+            $row['name'] = \XoopsUser::getUnameFromId($row['uid']);
         }
         $row['count'] = round($row['count'], 0);
         $ret[]        = $row;

@@ -6,8 +6,6 @@
  */
 
 use XoopsModules\Lexikon;
-/** @var Lexikon\Helper $helper */
-$helper = Lexikon\Helper::getInstance();
 
 include __DIR__ . '/header.php';
 $GLOBALS['xoopsOption']['template_main'] = 'lx_entry.tpl';
@@ -15,6 +13,8 @@ require_once XOOPS_ROOT_PATH . '/header.php';
 global $xoTheme, $xoopsUser, $lexikon_module_header;
 $myts = \MyTextSanitizer::getInstance();
 xoops_load('XoopsUserUtility');
+/** @var Lexikon\Helper $helper */
+$helper = Lexikon\Helper::getInstance();
 
 require_once XOOPS_ROOT_PATH . '/modules/lexikon/include/common.inc.php';
 $highlight = $utility::getModuleOption('config_highlighter');
@@ -172,7 +172,7 @@ while (false !== (list($entryID, $categoryID, $term, $init, $definition, $ref, $
         if (1 == $helper->getConfig('authorprofile')) {
             $thisterm['submitter'] = $utility::getLinkedProfileFromId($uid);
         } else {
-            $thisterm['submitter'] = XoopsUserUtility::getUnameFromId($uid);
+            $thisterm['submitter'] = \XoopsUserUtility::getUnameFromId($uid);
         }
     } else {
         $xoopsTpl->assign('showsubmitter', false);

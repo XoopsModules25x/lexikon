@@ -23,7 +23,7 @@
 use XoopsModules\Lexikon;
 use XoopsModules\Lexikon\Common;
 
-include __DIR__ . '/../preloads/autoloader.php';
+include  dirname(__DIR__) . '/preloads/autoloader.php';
 
 /**
  * Prepares system prior to attempting to install module
@@ -93,7 +93,7 @@ function xoops_module_install_lexikon(\XoopsModule $module)
     }
     //  ---  COPY blank.png FILES ---------------
     if (count($configurator->copyBlankFiles) > 0) {
-        $file = __DIR__ . '/../assets/images/blank.png';
+        $file =  dirname(__DIR__) . '/assets/images/blank.png';
         foreach (array_keys($configurator->copyBlankFiles) as $i) {
             $dest = $configurator->copyBlankFiles[$i] . '/blank.png';
             $utility::copyFile($file, $dest);
@@ -102,7 +102,7 @@ function xoops_module_install_lexikon(\XoopsModule $module)
     
     //  ---  COPY test folder files ---------------
     if (count($configurator->copyTestFolders) > 0) {
-        //        $file = __DIR__ . '/../testdata/images/';
+        //        $file =  dirname(__DIR__) . '/testdata/images/';
         foreach (array_keys($configurator->copyTestFolders) as $i) {
             $src  = $configurator->copyTestFolders[$i][0];
             $dest = $configurator->copyTestFolders[$i][1];

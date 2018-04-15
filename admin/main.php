@@ -9,11 +9,12 @@
  */
 
 use XoopsModules\Lexikon;
-/** @var Lexikon\Helper $helper */
-$helper = Lexikon\Helper::getInstance();
 
 require_once __DIR__ . '/admin_header.php';
 xoops_cp_header();
+
+/** @var Lexikon\Helper $helper */
+$helper = Lexikon\Helper::getInstance();
 
 $myts = \MyTextSanitizer::getInstance();
 global $xoopsUser, $xoopsConfig,  $xoopsModule, $entryID;
@@ -243,7 +244,7 @@ if ($numrows > 0) {
                                        WHERE categoryID = '$categoryID'");
         list($name) = $xoopsDB->fetchRow($resultcn);
         $catname = $myts->htmlSpecialChars($name);
-        $sentby  = XoopsUserUtility::getUnameFromId($uid);
+        $sentby  = \XoopsUserUtility::getUnameFromId($uid);
         $term    = $myts->htmlSpecialChars($term);
         $created = formatTimestamp($created, 's');
         $modify  = "<a href='entry.php?op=mod&entryID=" . $entryID . "'><img src=" . $pathIcon16 . "/edit.png alt='" . _AM_LEXIKON_EDITENTRY . "'></a>";

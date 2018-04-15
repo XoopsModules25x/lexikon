@@ -9,11 +9,12 @@
 
 use Xmf\Request;
 use XoopsModules\Lexikon;
-/** @var Lexikon\Helper $helper */
-$helper = Lexikon\Helper::getInstance();
 
 require_once __DIR__ . '/admin_header.php';
 $myts = \MyTextSanitizer::getInstance();
+
+/** @var Lexikon\Helper $helper */
+$helper = Lexikon\Helper::getInstance();
 
 xoops_cp_header();
 $adminObject  = \Xmf\Module\Admin::getInstance();

@@ -18,10 +18,10 @@
  */
 
 use XoopsModules\Lexikon;
+
+include  dirname(dirname(__DIR__)) . '/mainfile.php';
 /** @var Lexikon\Helper $helper */
 $helper = Lexikon\Helper::getInstance();
-
-include __DIR__ . '/../../mainfile.php';
 global $xoopsUser;
 $com_itemid = \Xmf\Request::getInt('com_itemid', 0, 'GET');
 //--- verify that the user can post comments

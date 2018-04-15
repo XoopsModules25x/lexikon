@@ -58,7 +58,7 @@ Remaining bugs: Tags keywords not saved on item creation. Must be re-entered on 
 - Replaced text by language constant in importwordbook.php
 - Category image by default fixed.
 - HTML bug on category startpage fixed.
-- XoopsUserUtlity bug in statistics.php fixed.
+- \XoopsUserUtlity bug in statistics.php fixed.
 
 Remaining bugs: XoopsTree deprecated , tags keywords not saved on item creation. Must be re-entered on item edit.
 

@@ -6,17 +6,18 @@
  */
 
 use XoopsModules\Lexikon;
-/** @var Lexikon\Helper $helper */
-$helper = Lexikon\Helper::getInstance();
 
 if (function_exists('mb_http_output')) {
     mb_http_output('pass');
 }
-include __DIR__ . '/../../mainfile.php';
+include  dirname(dirname(__DIR__)) . '/mainfile.php';
 require_once XOOPS_ROOT_PATH . '/header.php';
 require_once XOOPS_ROOT_PATH . '/class/template.php';
 $tpl = new \XoopsTpl();
 $tpl->caching=0;
+
+/** @var Lexikon\Helper $helper */
+$helper = Lexikon\Helper::getInstance();
 
 global $xoopsUser, $xoopsDB, $xoopsConfig;
 $myts = MyTextSanitizer:: getInstance();

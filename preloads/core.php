@@ -20,7 +20,7 @@ defined('XOOPS_ROOT_PATH') || die('Restricted access');
 /**
  * Class LexikonCorePreload
  */
-class LexikonCorePreload extends XoopsPreloadItem
+class LexikonCorePreload extends \XoopsPreloadItem
 {
     // to add PSR-4 autoloader
     /**

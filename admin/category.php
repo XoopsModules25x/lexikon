@@ -8,11 +8,13 @@
 
 use Xmf\Request;
 use XoopsModules\Lexikon;
-/** @var Lexikon\Helper $helper */
-$helper = Lexikon\Helper::getInstance();
 
 // -- General Stuff -- //
 require_once __DIR__ . '/admin_header.php';
+
+/** @var Lexikon\Helper $helper */
+$helper = Lexikon\Helper::getInstance();
+
 $myts = \MyTextSanitizer::getInstance();
 xoops_cp_header();
 xoops_load('XoopsUserUtility');
@@ -188,7 +190,7 @@ function categoryEdit($categoryID = '')
 
         $path_catimg       = 'uploads/' . $xoopsModule->getVar('dirname') . '/categories/images';
         $image_option_tray = new \XoopsFormElementTray(_AM_LEXIKON_CATIMAGE . '<br>' . _AM_LEXIKON_CATIMG_DSC . '<br>' . $path_catimg);
-        $image_array = XoopsLists::getImgListAsArray(XOOPS_ROOT_PATH . '/' . $path_catimg . '/');
+        $image_array = \XoopsLists::getImgListAsArray(XOOPS_ROOT_PATH . '/' . $path_catimg . '/');
         array_unshift($image_array, _NONE);
 
         $image_select = new \XoopsFormSelect('', 'logourl', $logourl);
@@ -352,6 +354,7 @@ function categorySave($categoryID = '')
                     $newid = $xoopsDB->getInsertId();
                 }
                 global $xoopsModule;
+                /** @var \XoopsNotificationHandler $notificationHandler */
                 $notificationHandler = xoops_getHandler('notification');
                 $tags                = [];
                 $tags['ITEM_NAME']   = $name;

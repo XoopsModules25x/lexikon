@@ -6,13 +6,14 @@
  */
 
 use XoopsModules\Lexikon;
-/** @var Lexikon\Helper $helper */
-$helper = Lexikon\Helper::getInstance();
 
 include __DIR__ . '/header.php';
 include XOOPS_ROOT_PATH . '/header.php';
 
 xoops_header(false);
+
+/** @var Lexikon\Helper $helper */
+$helper = Lexikon\Helper::getInstance();
 
 $entryID = isset($_GET['entryID']) ? (\Xmf\Request::getInt('entryID', 0, 'GET')) : 0;
 if (!$entryID) {

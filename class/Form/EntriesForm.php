@@ -21,13 +21,10 @@
  * @since           1.0.0
  */
 
-use Xmf\Request;
-use Xmf\Module\Helper;
-use Xmf\Module\Helper\Permission;
 use XoopsModules\Lexikon;
 use XoopsModules\Lexikon\Form;
 
-require_once __DIR__ . '/../../include/config.php';
+require_once  dirname(dirname(__DIR__)) . '/include/config.php';
 
 $moduleDirName = basename(dirname(dirname(__DIR__)));
 /** @var Lexikon\Helper $helper */

@@ -25,7 +25,7 @@ use Xmf\Module\Helper\Permission;
 use XoopsModules\Lexikon;
 use XoopsModules\Lexikon\Form;
 
-require_once __DIR__ . '/../include/common.php';
+require_once  dirname(__DIR__) . '/include/common.php';
 
 $moduleDirName = basename(dirname(__DIR__));
 
