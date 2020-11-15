@@ -28,6 +28,7 @@ use XoopsModules\Lexikon\{
     Utility
 };
 /** @var Helper $helper */
+/** @var Utility $utility */
 /** @var Configurator $configurator */
 
 require dirname(__DIR__) . '/preloads/autoloader.php';
@@ -40,7 +41,6 @@ require dirname(__DIR__) . '/preloads/autoloader.php';
  */
 function xoops_module_pre_install_lexikon(\XoopsModule $module)
 {
-    /** @var Lexikon\Utility $utility */
     $utility = new Utility();
 
     //check for minimum XOOPS version

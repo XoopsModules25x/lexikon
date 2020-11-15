@@ -1,0 +1,40 @@
+-
+    gperm_groupid: '1'
+    gperm_itemid: '1'
+    gperm_modid: '42'
+    gperm_name: lexikon_approve
+-
+    gperm_groupid: '1'
+    gperm_itemid: '1'
+    gperm_modid: '42'
+    gperm_name: lexikon_submit
+-
+    gperm_groupid: '3'
+    gperm_itemid: '1'
+    gperm_modid: '42'
+    gperm_name: lexikon_view
+-
+    gperm_groupid: '2'
+    gperm_itemid: '1'
+    gperm_modid: '42'
+    gperm_name: lexikon_view
+-
+    gperm_groupid: '1'
+    gperm_itemid: '1'
+    gperm_modid: '42'
+    gperm_name: lexikon_view
+-
+    gperm_groupid: '9'
+    gperm_itemid: '1'
+    gperm_modid: '42'
+    gperm_name: lexikon_view
+-
+    gperm_groupid: '8'
+    gperm_itemid: '1'
+    gperm_modid: '42'
+    gperm_name: lexikon_view
+-
+    gperm_groupid: '7'
+    gperm_itemid: '1'
+    gperm_modid: '42'
+    gperm_name: lexikon_view

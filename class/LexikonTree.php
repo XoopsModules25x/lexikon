@@ -180,7 +180,7 @@ class LexikonTree
         }
         [$parentid, $name] = $this->db->fetchRow($result);
         $myts = \MyTextSanitizer::getInstance();
-        $name = $myts->htmlSpecialChars($name);
+        $name = htmlspecialchars($name);
         $path = '/' . $name . $path . '';
         if (0 == $parentid) {
             return $path;
@@ -231,7 +231,7 @@ class LexikonTree
             $arr = $this->getChildTreeArray($catid, $order);
             foreach ($arr as $option) {
                 $option['prefix'] = \str_replace('.', '--', $option['prefix']);
-                $catpath          = $option['prefix'] . '&nbsp;' . $myts->htmlSpecialChars($option[$title]);
+                $catpath          = $option['prefix'] . '&nbsp;' . htmlspecialchars($option[$title]);
                 if ($option[$this->id] == $preset_id) {
                     $sel = ' selected';
                 }
@@ -263,7 +263,7 @@ class LexikonTree
         }
         [$parentid, $name] = $this->db->fetchRow($result);
         $myts = \MyTextSanitizer::getInstance();
-        $name = $myts->htmlSpecialChars($name);
+        $name = htmlspecialchars($name);
         $path = "<a href='" . $funcURL . '&amp;' . $this->id . '=' . $sel_id . "'>" . $name . '</a>' . $path . '';
         if (0 == $parentid) {
             return $path;

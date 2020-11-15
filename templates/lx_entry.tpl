@@ -147,7 +147,7 @@
         <{if $bookmarkme == 2}>
             <{include file="db:lx_bookmark.tpl"}>
         <{/if}>
-        <{if $tagbar}>
+        <{if $tagbar|default:false}>
             <div class="letters">
                 <{include file="db:lx_tag_bar.tpl"}>
             </div>

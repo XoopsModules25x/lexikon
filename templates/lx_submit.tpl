@@ -16,9 +16,9 @@
         <legend>&nbsp;<{$storyform.title}>&nbsp;</legend>
         <table cellspacing="1">
             <{foreach item=element from=$storyform.elements}>
-                <{if $element.hidden !== true}>
+                <{if $element.hidden|default:false  !== true}>
                     <tr>
-                        <td style="text-align: right; line-height: 200%; width:160px;"><{$element.caption}></td>
+                        <td style="text-align: right; line-height: 200%; width:160px;"><{$element.caption|default:'' }></td>
                         <td style="width:10px;">&nbsp;</td>
                         <td style="text-align: left;"><{$element.body}></td>
                     </tr>

@@ -8,7 +8,11 @@
  */
 
 use Xmf\Request;
-use XoopsModules\Lexikon;
+use XoopsModules\Lexikon\{
+    Helper,
+    Utility
+};
+/** @var Helper $helper */
 
 if (!defined('XOOPS_ROOT_PATH')) {
     exit('XOOPS root path not defined');
@@ -170,14 +174,14 @@ function lx_CatsArray()
             $catlinks = [];
             $count++;
             if ($logourl && 'http://' !== $logourl) {
-                $logourl = $myts->htmlSpecialChars($logourl);
+                $logourl = htmlspecialchars($logourl);
             } else {
                 $logourl = '';
             }
             $xoopsModule          = XoopsModule::getByDirname('lexikon');
             $catlinks['id']       = (int)$catID;
             $catlinks['total']    = (int)$total;
-            $catlinks['linktext'] = $myts->htmlSpecialChars($name);
+            $catlinks['linktext'] = htmlspecialchars($name);
             $catlinks['image']    = $logourl;
             $catlinks['count']    = $count;
 

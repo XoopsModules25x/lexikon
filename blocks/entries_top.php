@@ -49,7 +49,7 @@ function b_lxentries_top_show($options)
     if ($totalwords > 0) { // If there are definitions
         while (list($entryID, $categoryID, $term, $counter) = $xoopsDB->fetchRow($result)) {
             $popentries             = [];
-            $linktext               = $myts->htmlSpecialChars($term);
+            $linktext               = htmlspecialchars($term);
             $popentries['dir']      = $lexikon->dirname();
             $popentries['linktext'] = $linktext;
             $popentries['id']       = (int)$entryID;

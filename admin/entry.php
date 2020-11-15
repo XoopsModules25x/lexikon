@@ -8,10 +8,11 @@
 
 use Xmf\Module\Admin;
 use Xmf\Request;
-use XoopsModules\Tag;
+//use XoopsModules\Tag;
 use XoopsModules\Lexikon\{
     Helper,
-    Utility
+    Utility,
+    LexikonTree
 };
 /** @var Helper $helper */
 
@@ -121,8 +122,8 @@ function entryDefault()
             [$name] = $xoopsDB->fetchRow($resultA3);
 
             $sentby  = \XoopsUserUtility::getUnameFromId($uid);
-            $catname = $myts->htmlSpecialChars($name);
-            $term    = $myts->htmlSpecialChars($term);
+            $catname = htmlspecialchars($name);
+            $term    = htmlspecialchars($term);
             $created = formatTimestamp($created, 's');
             $modify  = "<a href='entry.php?op=mod&entryID=" . $entryID . "'><img src=" . $pathIcon16 . "/edit.png alt='" . _AM_LEXIKON_EDITENTRY . "'></a>";
             $delete  = "<a href='entry.php?op=del&entryID=" . $entryID . "'><img src=" . $pathIcon16 . "/delete.png alt='" . _AM_LEXIKON_DELETEENTRY . "'></a>";
@@ -235,7 +236,7 @@ function entryEdit($entryID = '')
         if (!$xoopsDB->getRowsNum($result)) {
             redirect_header('index.php', 1, _AM_LEXIKON_NOENTRYTOEDIT);
         }
-        $term = ($myts->htmlSpecialChars($term));
+        $term = (htmlspecialchars($term));
 
         echo "<strong style='color: #2F5376; margin-top:6px; font-size:medium'>" . _AM_LEXIKON_ADMINENTRYMNGMT . '</strong>';
         $sform = new \XoopsThemeForm(_AM_LEXIKON_MODENTRY . ": $term", 'op', xoops_getenv('SCRIPT_NAME'), 'post', true);
@@ -253,7 +254,7 @@ function entryEdit($entryID = '')
     $sform->setExtra('enctype="multipart/form-data"');
     // Category selector
     if (1 == $helper->getConfig('multicats')) {
-        $mytree         = new Lexikon\LexikonTree($xoopsDB->prefix('lxcategories'), 'categoryID', '0');
+        $mytree         = new LexikonTree($xoopsDB->prefix('lxcategories'), 'categoryID', '0');
         $categoryselect = new \XoopsFormSelect(_AM_LEXIKON_CATNAME, 'categoryID', $categoryID);
         $tbl            = [];
         $tbl            = $mytree->getChildTreeArray(0, 'name');
@@ -297,10 +298,18 @@ function entryEdit($entryID = '')
     /** @var \XoopsModuleHandler $moduleHandler */
     $moduleHandler = xoops_getHandler('module');
     $tagsModule    = $moduleHandler->getByDirname('tag');
-    if (is_object($tagsModule)) {
-        require_once XOOPS_ROOT_PATH . '/modules/tag/include/formtag.php';
-        $sform->addElement(new \TagFormTag('item_tag', 60, 255, $entryID, $catid = 0));
-    }
+//    if (is_object($tagsModule)) {
+//        require_once XOOPS_ROOT_PATH . '/modules/tag/include/formtag.php';
+//        $sform->addElement(new \TagFormTag('item_tag', 60, 255, $entryID, $catid = 0));
+//    }
+
+//    if (class_exists('TagFormTag')) {
+//        $formobj['tags'] = new FormTag('tags', 60, 255, $xcontent['xcontent']->getVar('storyid'), $xcontent['xcontent']->getVar('catid'));
+//    } else {
+//        $formobj['tags'] = new \XoopsFormHidden('tags', $xcontent['xcontent']->getVar('tags'));
+//    }
+
+
     // Code to take entry offline, for maintenance purposes
     $offline_radio = new \XoopsFormRadioYN(_AM_LEXIKON_SWITCHOFFLINE, 'offline', $offline, ' ' . _AM_LEXIKON_YES . '', ' ' . _AM_LEXIKON_NO . '');
     $sform->addElement($offline_radio);
@@ -410,11 +419,11 @@ function entrySave($entryID = '')
     //-- module Tag
     /** @var \XoopsModuleHandler $moduleHandler */
     $moduleHandler = xoops_getHandler('module');
-    $tagsModule    = $moduleHandler->getByDirname('tag');
-    if (is_object($tagsModule)) {
-        $tagHandler = Tag\Helper::getInstance()->getHandler('Tag'); // xoops_getModuleHandler('tag', 'tag');
-        $tagHandler->updateByItem($_POST['item_tag'], $entryID, $xoopsModule->getVar('dirname'), $catid = 0);
-    }
+//    $tagsModule    = $moduleHandler->getByDirname('tag');
+//    if (is_object($tagsModule)) {
+//        $tagHandler = Tag\Helper::getInstance()->getHandler('Tag'); // xoops_getModuleHandler('tag', 'tag');
+//        $tagHandler->updateByItem($_POST['item_tag'], $entryID, $xoopsModule->getVar('dirname'), $catid = 0);
+//    }
     // Save to database
     if (!$entryID) {
         // verify that the term does not exists
@@ -447,7 +456,7 @@ function entrySave($entryID = '')
                 /** @var XoopsNotificationHandler $notificationHandler */
                 $notificationHandler   = xoops_getHandler('notification');
                 $tags                  = [];
-                $shortdefinition       = $myts->htmlSpecialChars(xoops_substr(strip_tags($definition), 0, 45));
+                $shortdefinition       = htmlspecialchars(xoops_substr(strip_tags($definition), 0, 45));
                 $tags['ITEM_NAME']     = $term;
                 $tags['ITEM_BODY']     = $shortdefinition;
                 $tags['DATESUB']       = formatTimestamp($date, 'd M Y');
@@ -476,7 +485,7 @@ function entrySave($entryID = '')
                 global $xoopsModule;
                 $notificationHandler   = xoops_getHandler('notification');
                 $tags                  = [];
-                $shortdefinition       = $myts->htmlSpecialChars(xoops_substr(strip_tags($definition), 0, 45));
+                $shortdefinition       = htmlspecialchars(xoops_substr(strip_tags($definition), 0, 45));
                 $tags['ITEM_NAME']     = $term;
                 $tags['ITEM_BODY']     = $shortdefinition;
                 $tags['DATESUB']       = formatTimestamp($date, 'd M Y');

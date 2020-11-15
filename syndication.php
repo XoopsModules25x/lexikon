@@ -5,7 +5,11 @@
  * Licence: GNU
  */
 
-use XoopsModules\Lexikon;
+use XoopsModules\Lexikon\{
+    Helper,
+    Utility
+};
+/** @var Helper $helper */
 
 if (function_exists('mb_http_output')) {
     mb_http_output('pass');

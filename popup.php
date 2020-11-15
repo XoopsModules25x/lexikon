@@ -6,7 +6,11 @@
  */
 
 use Xmf\Request;
-use XoopsModules\Lexikon;
+use XoopsModules\Lexikon\{
+    Helper,
+    Utility
+};
+/** @var Helper $helper */
 
 require __DIR__ . '/header.php';
 require XOOPS_ROOT_PATH . '/header.php';
@@ -29,9 +33,9 @@ if (1 == $helper->getConfig('multicats')) {
     $cID       = $sqlfetch['categoryID'];
     $sqlquery2 = $xoopsDB->query('SELECT name FROM ' . $xoopsDB->prefix('lxcategories') . " WHERE categoryID = $cID");
     $sqlfetch2 = $xoopsDB->fetchArray($sqlquery2);
-    $catname   = $myts->htmlSpecialChars($sqlfetch2['name']);
+    $catname   = htmlspecialchars($sqlfetch2['name']);
 }
-$term       = $myts->htmlSpecialChars($sqlfetch['term']);
+$term       = htmlspecialchars($sqlfetch['term']);
 $definition = $myts->displayTarea($sqlfetch['definition'], $sqlfetch['html'], $sqlfetch['smiley'], 1, 1, 1);
 
 echo '</head><body>

@@ -5,10 +5,14 @@
  * Licence: GNU
  */
 
-use XoopsModules\Lexikon;
+use XoopsModules\Lexikon\{
+    Helper,
+    Utility
+};
+/** @var Helper $helper */
 
-require __DIR__ . '/header.php';
 $GLOBALS['xoopsOption']['template_main'] = 'lx_content.tpl';
+require __DIR__ . '/header.php';
 require XOOPS_ROOT_PATH . '/header.php';
 
 
@@ -31,11 +35,11 @@ $xoopsTpl->assign('modulename', $xoopsModule->dirname());
 $xoopsTpl->assign('lang_modulename', $xoopsModule->name());
 $xoopsTpl->assign('lang_moduledirname', $xoopsModule->getVar('dirname'));
 
-$xoopsTpl->assign('xoops_pagetitle', _MD_LEXIKON_SYNDICATION . ' - ' . $myts->htmlSpecialChars($xoopsModule->name()));
+$xoopsTpl->assign('xoops_pagetitle', _MD_LEXIKON_SYNDICATION . ' - ' . htmlspecialchars($xoopsModule->name()));
 $xoopsTpl->assign('xoops_module_header', '<link rel="stylesheet" type="text/css" href="assets/css/style.css" >');
 
 // Meta data
-$meta_description = _MD_LEXIKON_SYNDICATION . ' - ' . $myts->htmlSpecialChars($xoopsModule->name());
+$meta_description = _MD_LEXIKON_SYNDICATION . ' - ' . htmlspecialchars($xoopsModule->name());
 if (isset($xoTheme) && is_object($xoTheme)) {
     $xoTheme->addMeta('meta', 'description', $meta_description);
 } else {

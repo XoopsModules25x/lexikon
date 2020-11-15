@@ -6,7 +6,12 @@
  * Licence: GNU
  */
 
-use XoopsModules\Lexikon;
+use XoopsModules\Lexikon\{
+    Helper,
+    Utility,
+    LexikonTree
+};
+/** @var Helper $helper */
 
 global $term, $definition, $ref, $url, $xoopsUser, $xoopsModule;
 
@@ -19,7 +24,7 @@ $helper = Helper::getInstance();
 
 $guesteditoruse = $helper->getConfig('wysiwyg_guests');
 $myts           = \MyTextSanitizer::getInstance();
-$mytree         = new Lexikon\LexikonTree($xoopsDB->prefix('lxcategories'), 'categoryID', '0');
+$mytree         = new LexikonTree($xoopsDB->prefix('lxcategories'), 'categoryID', '0');
 $sform          = new \XoopsThemeForm(_MD_LEXIKON_SUB_SMNAME, 'storyform', xoops_getenv('SCRIPT_NAME'), 'post', true);
 
 if ('1' == $helper->getConfig('multicats')) {
@@ -29,7 +34,7 @@ if ('1' == $helper->getConfig('multicats')) {
     $grouppermHandler = xoops_getHandler('groupperm');
     $allowed_cats     = $grouppermHandler->getItemIds('lexikon_submit', $groups, $xoopsModule->getVar('mid'));
     if (is_array($allowed_cats)) {
-        $mytree         = new Lexikon\LexikonTree($xoopsDB->prefix('lxcategories'), 'categoryID', '0');
+        $mytree         = new LexikonTree($xoopsDB->prefix('lxcategories'), 'categoryID', '0');
         $categoryselect = new \XoopsFormSelect(_MD_LEXIKON_ENTRYCATEGORY, 'categoryID', $allowed_cats);
         $tbl            = [];
         $tbl            = $mytree->getChildTreeArray(0, 'name');
@@ -48,7 +53,7 @@ if ('1' == $helper->getConfig('multicats')) {
 }
 // This part is common to edit/add
 $myts = \MyTextSanitizer::getInstance();
-$term = $myts->htmlSpecialChars($term);
+$term = htmlspecialchars($term);
 $sform->addElement(new \XoopsFormText(_MD_LEXIKON_ENTRY, 'term', 50, 80, $term), true);
 
 //editor for guests/users

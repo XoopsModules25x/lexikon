@@ -161,7 +161,7 @@ function list_blockinstances()
         $title      = $instances[$i]->getVar('title');
         $bcachetime = $instances[$i]->getVar('bcachetime');
         $bid        = $instances[$i]->getVar('bid');
-        $name       = $myts->htmlSpecialChars($block_arr[$bid]['name']);
+        $name       = htmlspecialchars($block_arr[$bid]['name']);
 
         $visiblein = $instances[$i]->getVisibleIn();
 
@@ -296,7 +296,7 @@ function list_blockinstances()
             if ($block['show_func'] == $bconf['show_func'] && $block['func_file'] == $bconf['file']
                 && (empty($bconf['template']) || $block['template'] == $bconf['template'])) {
                 if (!empty($bconf['description'])) {
-                    $description4show = $myts->htmlSpecialChars($bconf['description']);
+                    $description4show = htmlspecialchars($bconf['description']);
                 }
             }
         }
@@ -304,7 +304,7 @@ function list_blockinstances()
         echo "
         <tr>
             <td class='$class' align='left'>
-                " . $myts->htmlSpecialChars($block['name']) . "
+                " . htmlspecialchars($block['name']) . "
             </td>
             <td class='$class' align='left' colspan='4'>
                 $description4show

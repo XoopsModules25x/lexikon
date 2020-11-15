@@ -6,10 +6,15 @@
  */
 
 use Xmf\Request;
-use XoopsModules\Lexikon;
+use XoopsModules\Lexikon\{
+    Helper,
+    Utility
+};
+/** @var Helper $helper */
+
+$GLOBALS['xoopsOption']['template_main'] = 'lx_entry.tpl';
 
 require __DIR__ . '/header.php';
-$GLOBALS['xoopsOption']['template_main'] = 'lx_entry.tpl';
 require_once XOOPS_ROOT_PATH . '/header.php';
 global $xoTheme, $xoopsUser, $lexikon_module_header;
 $myts = \MyTextSanitizer::getInstance();
@@ -107,12 +112,12 @@ while (list($entryID, $categoryID, $term, $init, $definition, $ref, $url, $uid, 
         $thisterm['categoryID'] = (int)$categoryID;
         $catname                = $xoopsDB->query('SELECT name FROM ' . $xoopsDB->prefix('lxcategories') . " WHERE categoryID = $categoryID ");
         while (list($name) = $xoopsDB->fetchRow($catname)) {
-            $thisterm['catname'] = $myts->htmlSpecialChars($name);
+            $thisterm['catname'] = htmlspecialchars($name);
         }
     }
 
-    $glossaryterm     = $myts->htmlSpecialChars($term);
-    $thisterm['term'] = ucfirst($myts->htmlSpecialChars($term));
+    $glossaryterm     = htmlspecialchars($term);
+    $thisterm['term'] = ucfirst(htmlspecialchars($term));
     if ('#' === $init) {
         $thisterm['init'] = _MD_LEXIKON_OTHER;
     } else {
@@ -146,18 +151,18 @@ while (list($entryID, $categoryID, $term, $init, $definition, $ref, $url, $uid, 
                             $replace_term = '<span><b><a style="cursor:help;border-bottom: 1px dotted #000;color: #2F5376;" href="' . $staticURL . '" >' . $term . '</a></b></span>';
                             break;
                         case 3: //tooltip
-                            $tooltipdef   = $myts->htmlSpecialChars(xoops_substr(strip_tags($definition), 0, 150));
+                            $tooltipdef   = htmlspecialchars(xoops_substr(strip_tags($definition), 0, 150));
                             $replace_term = '<a class="parser" href="' . $staticURL . '" onMouseover="ddrivetip(\'' . $tooltipdef . '\', 300)"; onMouseout=\'hideddrivetip()\'>' . $term . '</a>';
                             break;
                         case 4://simple popup
                             $replace_term = '<a style="cursor:help;border-bottom: 1px dotted #000;color: #2F5376;" href="#" onClick=\'popup("popup.php?entryID=' . $entryID . '","details", 420, 350); return false\'>' . $term . '</a>';
                             break;
                         case 5:// balloon tooltip
-                            $tooltipdef   = $myts->htmlSpecialChars(xoops_substr(strip_tags($definition), 0, 150));
+                            $tooltipdef   = htmlspecialchars(xoops_substr(strip_tags($definition), 0, 150));
                             $replace_term = '<a class="parser" href="' . $staticURL . '" onMouseover="showToolTip(event,\'' . $tooltipdef . '\');return false"; onMouseout=\'hideToolTip()\'>' . $term . '</a>';
                             break;
                         case 6:// shadow tooltip
-                            $tooltipdef   = $myts->htmlSpecialChars(xoops_substr(strip_tags($definition), 0, 150));
+                            $tooltipdef   = htmlspecialchars(xoops_substr(strip_tags($definition), 0, 150));
                             $replace_term = '<a class="parser" href="' . $staticURL . '" onmouseout="hideTooltip()" onmouseover="showTooltip(event,\'' . $tooltipdef . '\')"; >' . $term . '</a>';
                             break;
                     }
@@ -187,7 +192,7 @@ while (list($entryID, $categoryID, $term, $init, $definition, $ref, $url, $uid, 
     $thisterm['block']   = (int)$block;
     $thisterm['dir']     = $xoopsModule->dirname();
     if ($highlight && isset($_GET['keywords'])) {
-        $keywords               = $myts->htmlSpecialChars(trim(urldecode($_GET['keywords'])));
+        $keywords               = htmlspecialchars(trim(urldecode($_GET['keywords'])));
         $h                      = new Lexikon\Keyhighlighter($keywords, true, 'lx_myhighlighter');
         $thisterm['definition'] = $h->highlight($thisterm['definition']);
         $thisterm['ref']        = $h->highlight($thisterm['ref']);
@@ -219,28 +224,30 @@ function lx_myhighlighter($matches)
     return '<span style="font-weight: bolder; background-color: #FFFF80;">' . $matches[0] . '</span>';
 }
 
+
 //--- Display tags of this term
+$tagsmeta = '';
 #$itemid = $entryID;
 /** @var \XoopsModuleHandler $moduleHandler */
-$moduleHandler = xoops_getHandler('module');
-$tagsModule    = $moduleHandler->getByDirname('tag');
-if (is_object($tagsModule)) {
-    require_once XOOPS_ROOT_PATH . '/modules/tag/include/tagbar.php';
-
-    $itemid = Request::getInt('entryID', 0, 'GET');
-    $catid  = 0;
-    //$xoopsTpl->assign('tagbar', tagBar($itemid, $catid = 0));
-    $tagbar = tagBar($itemid, $catid);
-    if ($tagbar) {
-        $xoopsTpl->assign('tagbar', $tagbar);
-        $tagsmeta = implode(' ', $tagbar['tags']);
-    } else {
-        $tagsmeta = '';
-    }
-} else {
-    $xoopsTpl->assign('tagbar', false);
-    $tagsmeta = '';
-}
+//$moduleHandler = xoops_getHandler('module');
+//$tagsModule    = $moduleHandler->getByDirname('tag');
+//if (is_object($tagsModule)) {
+//    require_once XOOPS_ROOT_PATH . '/modules/tag/include/tagbar.php';
+//
+//    $itemid = Request::getInt('entryID', 0, 'GET');
+//    $catid  = 0;
+//    //$xoopsTpl->assign('tagbar', tagBar($itemid, $catid = 0));
+//    $tagbar = tagBar($itemid, $catid);
+//    if ($tagbar) {
+//        $xoopsTpl->assign('tagbar', $tagbar);
+//        $tagsmeta = implode(' ', $tagbar['tags']);
+//    } else {
+//        $tagsmeta = '';
+//    }
+//} else {
+//    $xoopsTpl->assign('tagbar', false);
+//    $tagsmeta = '';
+//}
 
 //--- linkterms assigns
 // Balloontips
@@ -271,12 +278,12 @@ switch ($helper->getConfig('bookmarkme')) {
 $meta_description = xoops_substr($utility::convertHtml2text($thisterm['definition']), 0, 150);
 if (1 == $helper->getConfig('multicats')) {
     $utility::createPageTitle($thisterm['term'] . ' - ' . $thisterm['catname']);
-    $utility::extractKeywords($myts->htmlSpecialChars($xoopsModule->name()) . ' ,' . $thisterm['term'] . ' ,' . $thisterm['catname'] . ', ' . $meta_description . ', ' . $tagsmeta);
-    $utility::getMetaDescription($myts->htmlSpecialChars($xoopsModule->name()) . ' ' . $thisterm['catname'] . ' ' . $thisterm['term'] . ' ' . $meta_description);
+    $utility::extractKeywords(htmlspecialchars($xoopsModule->name()) . ' ,' . $thisterm['term'] . ' ,' . $thisterm['catname'] . ', ' . $meta_description . ', ' . $tagsmeta);
+    $utility::getMetaDescription(htmlspecialchars($xoopsModule->name()) . ' ' . $thisterm['catname'] . ' ' . $thisterm['term'] . ' ' . $meta_description);
 } else {
     $utility::createPageTitle($thisterm['term']);
-    $utility::extractKeywords($myts->htmlSpecialChars($xoopsModule->name()) . ' ,' . $thisterm['term'] . ', ' . $meta_description . ', ' . $tagsmeta);
-    $utility::getMetaDescription($myts->htmlSpecialChars($xoopsModule->name()) . ' ' . $thisterm['term'] . ' ' . $meta_description);
+    $utility::extractKeywords(htmlspecialchars($xoopsModule->name()) . ' ,' . $thisterm['term'] . ', ' . $meta_description . ', ' . $tagsmeta);
+    $utility::getMetaDescription(htmlspecialchars($xoopsModule->name()) . ' ' . $thisterm['term'] . ' ' . $meta_description);
 }
 //Mondarse
 require XOOPS_ROOT_PATH . '/include/comment_view.php';

@@ -1,0 +1,104 @@
+lxcategories:
+    options: 'ENGINE=MyISAM DEFAULT CHARSET=utf8'
+    columns:
+        -
+            name: categoryID
+            attributes: ' tinyint(4)  NOT NULL auto_increment'
+        -
+            name: name
+            attributes: ' varchar(100)  NOT NULL  DEFAULT '''' '
+        -
+            name: description
+            attributes: ' text  NOT NULL '
+        -
+            name: total
+            attributes: ' int(11)  NOT NULL  DEFAULT ''0'' '
+        -
+            name: weight
+            attributes: ' int(11)  NOT NULL  DEFAULT ''1'' '
+        -
+            name: logourl
+            attributes: ' varchar(150)  NOT NULL  DEFAULT '''' '
+    keys:
+        columnID:
+            columns: categoryID
+            unique: true
+        PRIMARY:
+            columns: categoryID
+            unique: true
+lxentries:
+    options: 'ENGINE=MyISAM DEFAULT CHARSET=utf8'
+    columns:
+        -
+            name: entryID
+            attributes: ' int(8)  NOT NULL auto_increment'
+        -
+            name: categoryID
+            attributes: ' tinyint(4)  NOT NULL  DEFAULT ''0'' '
+        -
+            name: term
+            attributes: ' varchar(255)  NOT NULL  DEFAULT ''0'' '
+        -
+            name: init
+            attributes: ' varchar(1)  NOT NULL  DEFAULT ''0'' '
+        -
+            name: definition
+            attributes: ' text  NOT NULL '
+        -
+            name: ref
+            attributes: ' text  NOT NULL '
+        -
+            name: url
+            attributes: ' varchar(255)  NOT NULL  DEFAULT ''0'' '
+        -
+            name: uid
+            attributes: ' int(6)  DEFAULT ''1'' '
+        -
+            name: submit
+            attributes: ' int(1)  NOT NULL  DEFAULT ''0'' '
+        -
+            name: datesub
+            attributes: ' int(11)  NOT NULL  DEFAULT ''1033141070'' '
+        -
+            name: counter
+            attributes: ' int(8) unsigned  NOT NULL  DEFAULT ''0'' '
+        -
+            name: html
+            attributes: ' int(11)  NOT NULL  DEFAULT ''0'' '
+        -
+            name: smiley
+            attributes: ' int(11)  NOT NULL  DEFAULT ''0'' '
+        -
+            name: xcodes
+            attributes: ' int(11)  NOT NULL  DEFAULT ''0'' '
+        -
+            name: breaks
+            attributes: ' int(11)  NOT NULL  DEFAULT ''1'' '
+        -
+            name: block
+            attributes: ' int(11)  NOT NULL  DEFAULT ''0'' '
+        -
+            name: offline
+            attributes: ' int(11)  NOT NULL  DEFAULT ''0'' '
+        -
+            name: notifypub
+            attributes: ' int(11)  NOT NULL  DEFAULT ''0'' '
+        -
+            name: request
+            attributes: ' int(11)  NOT NULL  DEFAULT ''0'' '
+        -
+            name: comments
+            attributes: ' int(11) unsigned  NOT NULL  DEFAULT ''0'' '
+        -
+            name: item_tag
+            attributes: ' text '
+    keys:
+        definition:
+            columns: definition
+            unique: false
+        entryID:
+            columns: entryID
+            unique: true
+        PRIMARY:
+            columns: entryID
+            unique: true

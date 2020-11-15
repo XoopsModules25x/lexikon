@@ -4,20 +4,24 @@
 
 defined('XOOPS_ROOT_PATH') || exit('Restricted access');
 
+/** @var \XoopsConfigHandler $configHandler */
+/** @var \XoopsModuleHandler $moduleHandler */
+
 /**
  * @param $category
  * @param $item_id
  * @return mixed
  */
+
+
 function lexikon_notify_iteminfo($category, $item_id)
 {
     /*global $xoopsModule, $xoopsModuleConfig, $xoopsConfig;
 
     if (empty($xoopsModule) || $xoopsModule->getVar('dirname') != 'lexikon') {
-        /** @var \XoopsModuleHandler $moduleHandler */
+
     $moduleHandler = xoops_getHandler('module');
     $module        = $moduleHandler->getByDirname('lexikon');
-    /** @var \XoopsConfigHandler $configHandler */
     $configHandler = xoops_getHandler('config');
     $config        = $configHandler->getConfigsByCat(0, $module->getVar('mid'));
 }
@@ -26,6 +30,7 @@ else {
     $module = $xoopsModule;
     $config = $xoopsModuleConfig;
 }*/
+
 if (mb_strpos(__DIR__, '/') > 0) {
     $pathparts = explode('/', __DIR__);
 } else {

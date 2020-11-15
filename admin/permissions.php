@@ -28,7 +28,11 @@
 
 use Xmf\Module\Admin;
 use Xmf\Request;
-use XoopsModules\Lexikon;
+use XoopsModules\Lexikon\{
+    Helper,
+    Utility
+};
+/** @var Helper $helper */
 
 require_once __DIR__ . '/admin_header.php';
 require_once XOOPS_ROOT_PATH . '/class/xoopstree.php';
@@ -84,7 +88,7 @@ $catstree   = new Lexikon\LexikonTree($xoopsDB->prefix('lxcategories'), 'categor
 $catsresult = $xoopsDB->query('SELECT categoryID, name FROM ' . $xoopsDB->prefix('lxcategories') . ' ORDER BY weight');
 while (false !== ($myrow = $xoopsDB->fetchArray($catsresult))) {
     $catid    = $myrow['categoryID'];
-    $cattitle = $myts->htmlSpecialChars($myrow['name']);
+    $cattitle = htmlspecialchars($myrow['name']);
     $permform->addItem($catid, $cattitle);
 }
 

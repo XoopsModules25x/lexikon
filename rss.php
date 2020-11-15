@@ -5,11 +5,15 @@
  * Licence: GNU
  */
 
-global
 
 use Xmf\Request;
+use XoopsModules\Lexikon\{
+    Helper,
+    Utility
+};
+/** @var Helper $helper */
 
-$xoopsModule, $xoopsUser;
+global $xoopsModule, $xoopsUser;
 
 require dirname(dirname(__DIR__)) . '/mainfile.php';
 $GLOBALS['xoopsLogger']->activated = false;

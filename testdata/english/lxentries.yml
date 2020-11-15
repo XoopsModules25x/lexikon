@@ -1,0 +1,22 @@
+-
+    entryID: '1'
+    categoryID: '1'
+    term: XoopsObject
+    init: X
+    definition: "<strong>XoopsObject</strong> should be handled as an abstract class and has the following useful functions:\r\n    * initVar($key,$data_type,$value,$required,$maxlength,$options) - initialize a variable. Use this, when extending XoopsObject instead of declaring variables the normal way. for $data_type, see below. "
+    ref: XOOPS
+    url: 'http://xoops.org'
+    uid: '1'
+    submit: '0'
+    datesub: '1605475225'
+    counter: '0'
+    html: '1'
+    smiley: '1'
+    xcodes: '1'
+    breaks: '1'
+    block: '1'
+    offline: '0'
+    notifypub: '0'
+    request: '0'
+    comments: '0'
+    item_tag: null

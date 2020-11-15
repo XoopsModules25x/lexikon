@@ -7,7 +7,11 @@
  * Licence: GNU
  */
 
-use XoopsModules\Lexikon;
+use XoopsModules\Lexikon\{
+    Helper,
+    Utility
+};
+/** @var Helper $helper */
 
 defined('XOOPS_ROOT_PATH') || exit('Restricted access');
 

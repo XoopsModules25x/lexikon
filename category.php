@@ -8,7 +8,11 @@
  */
 
 use Xmf\Request;
-use XoopsModules\Lexikon;
+use XoopsModules\Lexikon\{
+    Helper,
+    Utility
+};
+/** @var Helper $helper */
 
 require __DIR__ . '/header.php';
 $GLOBALS['xoopsOption']['template_main'] = 'lx_category.tpl';
@@ -83,7 +87,7 @@ if (!$categoryID) {
     $resultA = $xoopsDB->query($queryA, $helper->getConfig('indexperpage'), $start);
     while (list($categoryID, $name, $description, $total, $weight, $logourl) = $xoopsDB->fetchRow($resultA)) {
         if ($logourl && 'http://' !== $logourl) {
-            $logourl = $myts->htmlSpecialChars($logourl);
+            $logourl = htmlspecialchars($logourl);
         } else {
             $logourl = '';
         }
@@ -91,7 +95,7 @@ if (!$categoryID) {
         $xoopsModule            = XoopsModule::getByDirname('lexikon');
         $eachcat['dir']         = $xoopsModule->dirname();
         $eachcat['id']          = (int)$categoryID;
-        $eachcat['name']        = $myts->htmlSpecialChars($name);
+        $eachcat['name']        = htmlspecialchars($name);
         $eachcat['description'] = $myts->displayTarea($description, 1, 1, 1, 1, 1);
         $eachcat['image']       = $logourl;
 
@@ -108,11 +112,11 @@ if (!$categoryID) {
     $xoopsTpl->assign('catsarray', $catsarray);
     $xoopsTpl->assign('pagetype', '0');
 
-    $utility::createPageTitle($myts->htmlSpecialChars(_MD_LEXIKON_ALLCATS));
+    $utility::createPageTitle(htmlspecialchars(_MD_LEXIKON_ALLCATS));
     // Meta data
     $meta_description = xoops_substr(strip_tags($eachcat['description']), 0, 150);
-    $utility::extractKeywords($myts->htmlSpecialChars($xoopsModule->name()) . ', ' . $eachcat['name'] . ', ' . $meta_description);
-    $utility::getMetaDescription($myts->htmlSpecialChars($xoopsModule->name()) . ' ' . $eachcat['name'] . ' ' . $meta_description);
+    $utility::extractKeywords(htmlspecialchars($xoopsModule->name()) . ', ' . $eachcat['name'] . ', ' . $meta_description);
+    $utility::getMetaDescription(htmlspecialchars($xoopsModule->name()) . ' ' . $eachcat['name'] . ' ' . $meta_description);
 } else {
     // There IS a $categoryID, thus we show only that category's description
 
@@ -130,9 +134,9 @@ if (!$categoryID) {
             $singlecat                = [];
             $singlecat['dir']         = $xoopsModule->dirname();
             $singlecat['id']          = $categoryID;
-            $singlecat['name']        = $myts->htmlSpecialChars($name);
+            $singlecat['name']        = htmlspecialchars($name);
             $singlecat['description'] = html_entity_decode($myts->displayTarea($description, 1, 1, 1, 1, 1)); // LionHell ajout html_entity ...
-            $singlecat['image']       = $myts->htmlSpecialChars($logourl);
+            $singlecat['image']       = htmlspecialchars($logourl);
 
             // Total entries in this category
             //$entriesincat = $utility::countByCategory($categoryID);
@@ -153,7 +157,7 @@ if (!$categoryID) {
                 $xoopsModule       = XoopsModule::getByDirname('lexikon');
                 $eachentry['dir']  = $xoopsModule->dirname();
                 $eachentry['id']   = $entryID;
-                $eachentry['term'] = ucfirst($myts->htmlSpecialChars($term));
+                $eachentry['term'] = ucfirst(htmlspecialchars($term));
                 if (!XOOPS_USE_MULTIBYTES) {
                     $eachentry['definition'] = $myts->displayTarea($definition, $html, $smiley, $xcodes, 1, $breaks);
                 }
@@ -181,12 +185,12 @@ if (!$categoryID) {
 
     $xoopsTpl->assign('entriesarray', $entriesarray);
     $xoopsTpl->assign('pagetype', '1');
-    $xoopsTpl->assign('xoops_pagetitle', $myts->htmlSpecialChars(_MD_LEXIKON_ENTRYCATEGORY . ' ' . $singlecat['name']) . ' - ' . $myts->htmlSpecialChars($xoopsModule->name()));
+    $xoopsTpl->assign('xoops_pagetitle', htmlspecialchars(_MD_LEXIKON_ENTRYCATEGORY . ' ' . $singlecat['name']) . ' - ' . htmlspecialchars($xoopsModule->name()));
     // Meta data
     if ($entriesincat > 0) {
         $meta_description = xoops_substr(strip_tags($singlecat['description']), 0, 150);
-        $utility::extractKeywords($myts->htmlSpecialChars($xoopsModule->name()) . ', ' . $singlecat['name'] . ', ' . $eachentry['term'] . ', ' . $meta_description);
-        $utility::getMetaDescription($myts->htmlSpecialChars($xoopsModule->name()) . ' ' . $singlecat['name'] . '  ' . $eachentry['term'] . ' ' . $meta_description);
+        $utility::extractKeywords(htmlspecialchars($xoopsModule->name()) . ', ' . $singlecat['name'] . ', ' . $eachentry['term'] . ', ' . $meta_description);
+        $utility::getMetaDescription(htmlspecialchars($xoopsModule->name()) . ' ' . $singlecat['name'] . '  ' . $eachentry['term'] . ' ' . $meta_description);
     }
 }
 

@@ -22,7 +22,11 @@ namespace XoopsModules\Lexikon;
 
 use Xmf\Module\Admin;
 use Xmf\Request;
-use XoopsModules\Lexikon;
+use XoopsModules\Lexikon\{
+    Helper,
+    Utility
+};
+/** @var Helper $helper */
 use XoopsModules\Lexikon\Common;
 use XoopsModules\Lexikon\Constants;
 
@@ -183,14 +187,14 @@ class Utility extends Common\SysUtility
                 $catlinks = [];
                 ++$count;
                 if ($logourl && 'http://' !== $logourl) {
-                    $logourl = $myts->htmlSpecialChars($logourl);
+                    $logourl = htmlspecialchars($logourl);
                 } else {
                     $logourl = '';
                 }
                 $xoopsModule          = \XoopsModule::getByDirname('lexikon');
                 $catlinks['id']       = (int)$catID;
                 $catlinks['total']    = (int)$total;
-                $catlinks['linktext'] = $myts->htmlSpecialChars($name);
+                $catlinks['linktext'] = htmlspecialchars($name);
                 $catlinks['image']    = $logourl;
                 $catlinks['count']    = $count;
 

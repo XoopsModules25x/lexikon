@@ -42,7 +42,7 @@ function b_lxcategories_show($options)
     if ($totalcats > 0) { // If there are categories
         while (list($categoryID, $name, $total) = $xoopsDB->fetchRow($result)) {
             $catlist             = [];
-            $linktext            = $myts->htmlSpecialChars($name);
+            $linktext            = htmlspecialchars($name);
             $catlist['dir']      = $lexikon->dirname();
             $catlist['linktext'] = $linktext;
             $catlist['id']       = (int)$categoryID;

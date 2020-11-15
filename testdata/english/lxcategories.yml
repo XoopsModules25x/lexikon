@@ -1,0 +1,14 @@
+-
+    categoryID: '1'
+    name: Xoops
+    description: 'XOOPS is an extensible, OO (Object Oriented), easy to use dynamic web content management system written in PHP. XOOPS is the ideal tool for developing small to large dynamic community websites, intra company portals, corporate portals, weblogs and much more.'
+    total: '1'
+    weight: '1'
+    logourl: ''
+-
+    categoryID: '2'
+    name: PHP
+    description: 'The BEST programming language'
+    total: '0'
+    weight: '1'
+    logourl: ''

@@ -6,10 +6,14 @@
  */
 
 use Xmf\Request;
-use XoopsModules\Lexikon;
+use XoopsModules\Lexikon\{
+    Helper,
+    Utility
+};
+/** @var Helper $helper */
 
-require __DIR__ . '/header.php';
 $GLOBALS['xoopsOption']['template_main'] = 'lx_profile.tpl';
+require __DIR__ . '/header.php';
 require_once XOOPS_ROOT_PATH . '/header.php';
 global $xoopsModule, $xoopsUser;
 
@@ -100,10 +104,10 @@ $xoopsTpl->assign('lang_authorprofile', _MD_LEXIKON_AUTHORPROFILE);
 $xoopsTpl->assign('author_name_with_link', sprintf("<a href='%s'>%s</a>", XOOPS_URL . '/userinfo.php?uid=' . $uid, $authname));
 
 $xoopsTpl->assign('xoops_module_header', '<link rel="stylesheet" type="text/css" href="assets/css/style.css" >');
-$xoopsTpl->assign('xoops_pagetitle', _MD_LEXIKON_AUTHORPROFILE . ' - ' . $authname . ' - ' . $myts->htmlSpecialChars($xoopsModule->name()));
+$xoopsTpl->assign('xoops_pagetitle', _MD_LEXIKON_AUTHORPROFILE . ' - ' . $authname . ' - ' . htmlspecialchars($xoopsModule->name()));
 
 // Meta data
-$meta_description = _MD_LEXIKON_AUTHORPROFILE . ' - ' . $authname . ' - ' . $myts->htmlSpecialChars($xoopsModule->name());
+$meta_description = _MD_LEXIKON_AUTHORPROFILE . ' - ' . $authname . ' - ' . htmlspecialchars($xoopsModule->name());
 if (isset($xoTheme) && is_object($xoTheme)) {
     $xoTheme->addMeta('meta', 'description', $meta_description);
 } else {

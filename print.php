@@ -7,7 +7,11 @@
  */
 
 use Xmf\Request;
-use XoopsModules\Lexikon;
+use XoopsModules\Lexikon\{
+    Helper,
+    Utility
+};
+/** @var Helper $helper */
 
 require __DIR__ . '/header.php';
 
@@ -50,14 +54,14 @@ function printPage($entryID)
     [$authorname, $username] = $xoopsDB->fetchRow($result3);
 
     $datetime     = formatTimestamp($datesub, 'D, d-M-Y, H:i');
-    $categoryname = $myts->htmlSpecialChars($name);
-    $term         = $myts->htmlSpecialChars($term);
+    $categoryname = htmlspecialchars($name);
+    $term         = htmlspecialchars($term);
     $definition   = str_replace('[pagebreak]', '<br style="page-break-after:always;">', $definition);
     $definition   = &$myts->displayTarea($definition, $html, $smiley, $xcodes, '', $breaks);
     if ('' == $authorname) {
-        $authorname = $myts->htmlSpecialChars($username);
+        $authorname = htmlspecialchars($username);
     } else {
-        $authorname = $myts->htmlSpecialChars($authorname);
+        $authorname = htmlspecialchars($authorname);
     }
     echo "<!DOCTYPE HTML>\n";
     echo "<html>\n<head>\n";

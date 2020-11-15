@@ -32,7 +32,7 @@ function b_sitemap_lexikon()
     while (list($id, $name) = $db->fetchRow($result)) {
         $ret['parent'][] = [
             'id'    => $id,
-            'title' => $myts->htmlSpecialChars($name),
+            'title' => htmlspecialchars($name),
             'url'   => "category.php?categoryID=$id",
         ];
     }

@@ -22,7 +22,12 @@
  * @since           1.0.0
  */
 
-use XoopsModules\Lexikon;
+use XoopsModules\Lexikon\{
+    Helper,
+    Utility
+};
+/** @var Helper $helper */
+/** @var Utility $utility */
 
 /**
  * Prepares system prior to attempting to uninstall module
@@ -48,8 +53,6 @@ function xoops_module_uninstall_lexikon(\XoopsModule $module)
     $moduleDirName      = basename(dirname(__DIR__));
     $moduleDirNameUpper = mb_strtoupper($moduleDirName); //$capsDirName
 
-
-    /** @var Lexikon\Utility $utility */
     $helper  = Helper::getInstance();
     $utility = new Utility();
     //    $configurator = new Lexikon\Common\Configurator();

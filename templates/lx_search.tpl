@@ -29,7 +29,7 @@
     </div>
 
     <div class="clearer2">
-        <{foreach item=eachresult from=$resultset.match}>
+        <{foreach item=eachresult from=$resultset.match|default:null}>
             <h4><img src="<{$xoops_url}>/modules/<{$eachresult.dir}>/assets/images/lx.png">&nbsp;<{$eachresult.microlinks}>
                 &nbsp;<a href="<{$xoops_url}>/modules/<{$eachresult.dir}>/entry.php?entryID=<{$eachresult.id}><{if $highlight == 1}><{$eachresult.keywords}><{/if}>"><{$eachresult.term}></a><{if $multicats == 1}>
                 <a href="<{$xoops_url}>/modules/<{$eachresult.dir}>/category.php?categoryID=<{$eachresult.categoryID}>">
@@ -40,5 +40,5 @@
         <{/foreach}>
         <div class="search_abc_l"></div>
         <div class="search_abc_c"></div>
-        <div class="search_abc_r"><{$resultset.navbar}></div>
+        <div class="search_abc_r"><{$resultset.navbar|default:null}></div>
     </div>

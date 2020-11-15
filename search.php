@@ -8,10 +8,14 @@
 #$xoopsOption['pagetype'] = "search";
 
 use Xmf\Request;
-use XoopsModules\Lexikon;
+use XoopsModules\Lexikon\{
+    Helper,
+    Utility
+};
+/** @var Helper $helper */
 
-require __DIR__ . '/header.php';
 $GLOBALS['xoopsOption']['template_main'] = 'lx_search.tpl';
+require __DIR__ . '/header.php';
 require XOOPS_ROOT_PATH . '/header.php';
 
 
@@ -157,10 +161,10 @@ if (!$query) {
             $eachresult['dir']        = $xoopsModule->dirname();
             $eachresult['id']         = $entryID;
             $eachresult['categoryID'] = $categoryID;
-            $eachresult['term']       = ucfirst($myts->htmlSpecialChars($term));
+            $eachresult['term']       = ucfirst(htmlspecialchars($term));
             $eachresult['date']       = formatTimestamp($datesub, $helper->getConfig('dateformat'));
-            $eachresult['ref']        = $utility::getHTMLHighlight($query, $myts->htmlSpecialChars($ref), '<b style="background-color: #FFFF80; ">', '</b>');
-            $eachresult['catname']    = $myts->htmlSpecialChars($catname);
+            $eachresult['ref']        = $utility::getHTMLHighlight($query, htmlspecialchars($ref), '<b style="background-color: #FFFF80; ">', '</b>');
+            $eachresult['catname']    = htmlspecialchars($catname);
             $tempdef                  = $myts->displayTarea($definition, 1, 1, 1, 1, 1);
             $eachresult['definition'] = $utility::getHTMLHighlight($query, $tempdef, '<b style="background-color: #FFFF80; ">', '</b>');
             if ($highlight) {
@@ -191,10 +195,10 @@ $xoopsTpl->assign('lang_modulename', $xoopsModule->name());
 $xoopsTpl->assign('lang_moduledirname', $xoopsModule->getVar('dirname'));
 
 $xoopsTpl->assign('xoops_module_header', '<link rel="stylesheet" type="text/css" href="assets/css/style.css">');
-$xoopsTpl->assign('xoops_pagetitle', _MD_LEXIKON_SEARCHENTRY . ' - ' . $myts->htmlSpecialChars($xoopsModule->name()));
+$xoopsTpl->assign('xoops_pagetitle', _MD_LEXIKON_SEARCHENTRY . ' - ' . htmlspecialchars($xoopsModule->name()));
 
 // Meta data
-$meta_description = _MD_LEXIKON_SEARCHENTRY . ' - ' . $myts->htmlSpecialChars($xoopsModule->name());
+$meta_description = _MD_LEXIKON_SEARCHENTRY . ' - ' . htmlspecialchars($xoopsModule->name());
 if (isset($xoTheme) && is_object($xoTheme)) {
     $xoTheme->addMeta('meta', 'description', $meta_description);
 } else {

@@ -12,15 +12,17 @@
  */
 require_once __DIR__ . '/preloads/autoloader.php';
 
-$moduleDirName = basename(__DIR__);
+$moduleDirName      = basename(__DIR__);
+$moduleDirNameUpper = mb_strtoupper($moduleDirName);
+
 $modversion    = [
     'version'       => 1.53,
-    'module_status' => 'Beta 1',
-    'release_date'  => '2018/01/11',
+    'module_status' => 'Beta 2',
+    'release_date'  => '2020/11/15',
     'name'          => _MI_LEXIKON_MD_NAME,
     'description'   => _MI_LEXIKON_MD_DESC,
     'author'        => 'Yerres',
-    'credits'       => 'hsalazar, Mondarse, Catzwolf, and many more',
+    'credits'       => 'hsalazar, Mondarse, Catzwolf, Mamba, Shmel, and many more',
     'help'          => 'page=help',
     'license'       => 'GNU GPL 2.0 or later',
     'license_url'   => 'www.gnu.org/licenses/gpl-2.0.html',
@@ -131,7 +133,7 @@ if (isset($lxConfig['catsinmenu']) && 1 == $lxConfig['catsinmenu'] && isset($lxC
     $sql  = $xoopsDB->query('SELECT categoryID, name FROM ' . $xoopsDB->prefix('lxcategories') . ' ORDER BY weight ASC');
     while (list($categoryID, $name) = $xoopsDB->fetchRow($sql)) {
         if ($grouppermHandler->checkRight('lexikon_view', $categoryID, $groups, $lexikon->getVar('mid'))) {
-            $name                          = $myts->htmlSpecialChars($name);
+            $name                          = htmlspecialchars($name);
             $categoryID                    = (int)$categoryID;
             $modversion['sub'][$i]['name'] = $name;
             $modversion['sub'][$i]['url']  = 'category.php?categoryID=' . $categoryID;
@@ -708,6 +710,30 @@ $modversion['config'][] = [
     'default'     => 10,
 ];
 
+/**
+ * Make Sample button visible?
+ */
+$modversion['config'][] = [
+    'name'        => 'displaySampleButton',
+    'title'       => 'CO_' . $moduleDirNameUpper . '_' . 'SHOW_SAMPLE_BUTTON',
+    'description' => 'CO_' . $moduleDirNameUpper . '_' . 'SHOW_SAMPLE_BUTTON_DESC',
+    'formtype'    => 'yesno',
+    'valuetype'   => 'int',
+    'default'     => 1,
+];
+
+/**
+ * Show Developer Tools?
+ */
+$modversion['config'][] = [
+    'name'        => 'displayDeveloperTools',
+    'title'       => 'CO_' . $moduleDirNameUpper . '_' . 'SHOW_DEV_TOOLS',
+    'description' => 'CO_' . $moduleDirNameUpper . '_' . 'SHOW_DEV_TOOLS_DESC',
+    'formtype'    => 'yesno',
+    'valuetype'   => 'int',
+    'default'     => 0,
+];
+// ------------------- Comments -------------------------
 //Comments (Mondarse)
 $modversion['hasComments']          = 1;
 $modversion['comments']['itemName'] = 'entryID';
@@ -718,7 +744,7 @@ $modversion['comments']['callback']['approve'] = 'lexikon_com_approve';
 $modversion['comments']['callback']['update']  = 'lexikon_com_update';
 //Comments (Mondarse)
 
-//Notification
+// ------------------- Notification ----------------------
 $modversion['notification']                = [];
 $modversion['hasNotification']             = 1;
 $modversion['notification']['lookup_file'] = 'include/notification.inc.php';

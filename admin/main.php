@@ -255,9 +255,9 @@ if ($numrows > 0) {
                                        WHERE categoryID = '$categoryID'"
         );
         [$name] = $xoopsDB->fetchRow($resultcn);
-        $catname = $myts->htmlSpecialChars($name);
+        $catname = htmlspecialchars($name);
         $sentby  = \XoopsUserUtility::getUnameFromId($uid);
-        $term    = $myts->htmlSpecialChars($term);
+        $term    = htmlspecialchars($term);
         $created = formatTimestamp($created, 's');
         $modify  = "<a href='entry.php?op=mod&entryID=" . $entryID . "'><img src=" . $pathIcon16 . "/edit.png alt='" . _AM_LEXIKON_EDITENTRY . "'></a>";
         $delete  = "<a href='entry.php?op=del&entryID=" . $entryID . "'><img src=" . $pathIcon16 . "/delete.png alt='" . _AM_LEXIKON_DELETEENTRY . "'></a>";

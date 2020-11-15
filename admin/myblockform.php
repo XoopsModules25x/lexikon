@@ -58,7 +58,7 @@ if ($block['is_custom']) {
     $uri_to_myself   = XOOPS_URL . "/modules/blocksadmin/admin/admin.php?fct=blocksadmin&amp;op=$current_op&amp;bid={$block['bid']}";
     $can_use_spaw    = true;
     $myts            = \MyTextSanitizer::getInstance();
-    $textarea        = new \XoopsFormDhtmlTextArea(_AM_CONTENT, 'bcontent', $myts->htmlSpecialChars($block['content']), 15, 70);
+    $textarea        = new \XoopsFormDhtmlTextArea(_AM_CONTENT, 'bcontent', htmlspecialchars($block['content']), 15, 70);
     if ($can_use_spaw) {
         $textarea->setDescription($notice_for_tags . "<br><br><a href='$uri_to_myself&amp;usespaw=1'>SPAW</a>");
     } else {

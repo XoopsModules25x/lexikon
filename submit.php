@@ -6,10 +6,14 @@
  */
 
 use Xmf\Request;
-use XoopsModules\Lexikon;
+use XoopsModules\Lexikon\{
+    Helper,
+    Utility
+};
+/** @var Helper $helper */
 
-require __DIR__ . '/header.php';
 $GLOBALS['xoopsOption']['template_main'] = 'lx_submit.tpl';
+require __DIR__ . '/header.php';
 require XOOPS_ROOT_PATH . '/header.php';
 
 require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
@@ -32,7 +36,7 @@ $op = 'form';
 //    $op = trim('edit');
 //}
 
-$op = Request::hasVar('post', 'POST') ? 'post' : Request::hasVar('edit', 'POST') ? 'edit' : $op;
+$op = Request::hasVar('post', 'POST') ? 'post' : (Request::hasVar('edit', 'POST') ? 'edit' : $op);
 
 //$suggest = isset($_GET['suggest']) ? $_GET['suggest'] : (isset($_POST['suggest']) ? $_POST['suggest'] : '');
 
@@ -129,7 +133,7 @@ switch ($op) {
             $url = '';
         }
         // this is for terms with umlaut or accented initials
-        $term4sql = $utility::sanitizeFieldName($myts->htmlSpecialChars($_POST['term']));
+        $term4sql = $utility::sanitizeFieldName(htmlspecialchars($_POST['term']));
         $init     = mb_substr($term4sql, 0, 1);
         $init     = preg_match('/[a-zA-Zа-яА-Я0-9]/u', $init) ? mb_strtoupper($init) : '#';
 
@@ -176,7 +180,7 @@ switch ($op) {
             /** @var XoopsNotificationHandler $notificationHandler */
             $notificationHandler   = xoops_getHandler('notification');
             $tags                  = [];
-            $shortdefinition       = $myts->htmlSpecialChars(xoops_substr(strip_tags($definition), 0, 45));
+            $shortdefinition       = htmlspecialchars(xoops_substr(strip_tags($definition), 0, 45));
             $tags['ITEM_NAME']     = $term;
             $tags['ITEM_BODY']     = $shortdefinition;
             $tags['DATESUB']       = formatTimestamp($datesub, 'd M Y');
@@ -304,10 +308,10 @@ switch ($op) {
 
         $xoopsTpl->assign('lang_modulename', $xoopsModule->name());
         $xoopsTpl->assign('lang_moduledirname', $xoopsModule->getVar('dirname'));
-        $xoopsTpl->assign('xoops_pagetitle', $myts->htmlSpecialChars($xoopsModule->name()) . ' - ' . _MD_LEXIKON_SUBMITART);
+        $xoopsTpl->assign('xoops_pagetitle', htmlspecialchars($xoopsModule->name()) . ' - ' . _MD_LEXIKON_SUBMITART);
         $xoopsTpl->assign('xoops_module_header', '<link rel="stylesheet" type="text/css" href="assets/css/style.css">');
         // Meta data
-        $meta_description = _MD_LEXIKON_SUBMITART . ' - ' . $myts->htmlSpecialChars($xoopsModule->name());
+        $meta_description = _MD_LEXIKON_SUBMITART . ' - ' . htmlspecialchars($xoopsModule->name());
         if (isset($xoTheme) && is_object($xoTheme)) {
             $xoTheme->addMeta('meta', 'description', $meta_description);
         } else {

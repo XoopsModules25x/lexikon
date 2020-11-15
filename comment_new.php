@@ -18,7 +18,11 @@
  */
 
 use Xmf\Request;
-use XoopsModules\Lexikon;
+use XoopsModules\Lexikon\{
+    Helper,
+    Utility
+};
+/** @var Helper $helper */
 
 require dirname(dirname(__DIR__)) . '/mainfile.php';
 

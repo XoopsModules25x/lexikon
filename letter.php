@@ -8,10 +8,14 @@
  */
 
 use Xmf\Request;
-use XoopsModules\Lexikon;
+use XoopsModules\Lexikon\{
+    Helper,
+    Utility
+};
+/** @var Helper $helper */
 
-require __DIR__ . '/header.php';
 $GLOBALS['xoopsOption']['template_main'] = 'lx_letter.tpl';
+require __DIR__ . '/header.php';
 require_once XOOPS_ROOT_PATH . '/header.php';
 require_once XOOPS_ROOT_PATH . '/modules/lexikon/include/common.inc.php';
 
@@ -96,12 +100,12 @@ if (!$init) {
             $eachentry['catid'] = (int)$categoryID;
             $resultF            = $xoopsDB->query('SELECT name FROM ' . $xoopsDB->prefix('lxcategories') . " WHERE categoryID = $categoryID ORDER BY name ASC");
             while (list($name) = $xoopsDB->fetchRow($resultF)) {
-                $eachentry['catname'] = $myts->htmlSpecialChars($name);
+                $eachentry['catname'] = htmlspecialchars($name);
             }
         }
 
         $eachentry['id']   = (int)$entryID;
-        $eachentry['term'] = mb_ucfirst($myts->htmlSpecialChars($term));
+        $eachentry['term'] = mb_ucfirst(htmlspecialchars($term));
 
         if ((0 != $helper->getConfig('com_rule')) || ((0 != $helper->getConfig('com_rule')) && is_object($xoopsUser))) {
             if (0 != $comments) {
@@ -128,7 +132,7 @@ if (!$init) {
     $xoopsTpl->assign('pagetype', '0');
     $xoopsTpl->assign('pageinitial', _MD_LEXIKON_ALL);
 
-    $utility::createPageTitle($myts->htmlSpecialChars(_MD_LEXIKON_BROWSELETTER . ' - ' . _MD_LEXIKON_ALL));
+    $utility::createPageTitle(htmlspecialchars(_MD_LEXIKON_BROWSELETTER . ' - ' . _MD_LEXIKON_ALL));
 } else {    // $init does exist
     $pagetype = 1;
     // There IS an initial letter, so we want to show just that letter's terms
@@ -155,7 +159,7 @@ if (!$init) {
     }
     $totalentries = $xoopsDB->getRowsNum($allentries);
     $xoopsTpl->assign('totalentries', $totalentries);
-    $utility::createPageTitle($myts->htmlSpecialChars(_MD_LEXIKON_BROWSELETTER . (isset($init['init']) ? (' - ' . $init['init']) : '')));
+    $utility::createPageTitle(htmlspecialchars(_MD_LEXIKON_BROWSELETTER . (isset($init['init']) ? (' - ' . $init['init']) : '')));
 
     while (list($entryID, $categoryID, $term, $definition, $uid, $html, $smiley, $xcodes, $breaks, $comments) = $xoopsDB->fetchRow($resultB)) {
         $eachentry        = [];
@@ -166,11 +170,11 @@ if (!$init) {
             $eachentry['catid'] = (int)$categoryID;
             $resultF            = $xoopsDB->query('SELECT name FROM ' . $xoopsDB->prefix('lxcategories') . " WHERE categoryID = $categoryID ORDER BY name ASC");
             while (list($name) = $xoopsDB->fetchRow($resultF)) {
-                $eachentry['catname'] = $myts->htmlSpecialChars($name);
+                $eachentry['catname'] = htmlspecialchars($name);
             }
         }
         $eachentry['id']   = (int)$entryID;
-        $eachentry['term'] = mb_ucfirst($myts->htmlSpecialChars($term));
+        $eachentry['term'] = mb_ucfirst(htmlspecialchars($term));
         if ('#' === $init) {
             $eachentry['init'] = _MD_LEXIKON_OTHER;
         } else {
@@ -201,7 +205,7 @@ if (!$init) {
     $xoopsTpl->assign('pagetype', '1');
     if ('#' === $eachentry['init']) {
         $xoopsTpl->assign('pageinitial', _MD_LEXIKON_OTHER);
-        $utility::createPageTitle($myts->htmlSpecialChars(_MD_LEXIKON_BROWSELETTER . ' - ' . _MD_LEXIKON_OTHER));
+        $utility::createPageTitle(htmlspecialchars(_MD_LEXIKON_BROWSELETTER . ' - ' . _MD_LEXIKON_OTHER));
     } else {
         $xoopsTpl->assign('pageinitial', mb_ucfirst($eachentry['init']));
     }
@@ -222,10 +226,10 @@ if ($publishedwords) {
     $meta_description = xoops_substr($utility::convertHtml2text($eachentry['definition']), 0, 150);
     if (1 == $helper->getConfig('multicats')) {
         $utility::extractKeywords($xoopsModule->name() . ' ,' . $eachentry['term'] . ', ' . $meta_description);
-        $utility::getMetaDescription($myts->htmlSpecialChars($xoopsModule->name()) . ' ' . $eachentry['catname'] . ' ' . $eachentry['term']);
+        $utility::getMetaDescription(htmlspecialchars($xoopsModule->name()) . ' ' . $eachentry['catname'] . ' ' . $eachentry['term']);
     } else {
-        $utility::extractKeywords($myts->htmlSpecialChars($xoopsModule->name()) . ', ' . $eachentry['term'] . ', ' . $meta_description);
-        $utility::getMetaDescription($myts->htmlSpecialChars($xoopsModule->name()) . ' ' . $eachentry['term'] . ' ' . $meta_description);
+        $utility::extractKeywords(htmlspecialchars($xoopsModule->name()) . ', ' . $eachentry['term'] . ', ' . $meta_description);
+        $utility::getMetaDescription(htmlspecialchars($xoopsModule->name()) . ' ' . $eachentry['term'] . ' ' . $meta_description);
     }
 }
 
