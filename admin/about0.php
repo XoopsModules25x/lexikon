@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * Module: Lexikon - glossary module
  * Version: v 1.5
  * Release Date:
@@ -15,7 +14,7 @@ $myts = \MyTextSanitizer::getInstance();
 
 xoops_cp_header();
 
-/** @var XoopsModuleHandler $moduleHandler */
+/** @var \XoopsModuleHandler $moduleHandler */
 $moduleHandler = xoops_getHandler('module');
 $versioninfo   = $moduleHandler->get($xoopsModule->getVar('mid'));
 echo '
@@ -38,7 +37,6 @@ echo '
 /**
  * display module info
  */
-
 function about()
 {
     $op = 'default';
@@ -113,7 +111,6 @@ function about()
 /**
  * readme file
  */
-
 function readme()
 {
     global $xoopsConfig, $xoopsModuleConfig, $xoopsModule, $versioninfo;

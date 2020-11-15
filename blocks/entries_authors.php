@@ -1,10 +1,11 @@
 <?php
+
 /**
  * Module: Lexikon -  glossary module
  * Author: adapted from AMS
  * Licence: GNU
  */
-defined('XOOPS_ROOT_PATH') || die('Restricted access');
+defined('XOOPS_ROOT_PATH') || exit('Restricted access');
 
 /**
  * @param $options
@@ -13,10 +14,11 @@ defined('XOOPS_ROOT_PATH') || die('Restricted access');
 function b_lx_author_show($options)
 {
     $myts = \MyTextSanitizer::getInstance();
-    /** @var XoopsModuleHandler $moduleHandler */
+    /** @var \XoopsModuleHandler $moduleHandler */
     $moduleHandler = xoops_getHandler('module');
     $lexikon       = $moduleHandler->getByDirname('lexikon');
     if (!isset($lxConfig)) {
+        /** @var \XoopsConfigHandler $configHandler */
         $configHandler = xoops_getHandler('config');
         $lxConfig      = $configHandler->getConfigsByCat(0, $lexikon->getVar('mid'));
     }
@@ -27,7 +29,7 @@ function b_lx_author_show($options)
         $options[3] = 'average';
     }
     $authors = $utility::getBlockAuthors($options[1], $options[0], $options[2], $options[3]);
-    if (is_array($authors) && count($authors) > 0) {
+    if ($authors && is_array($authors)) {
         $block['authors'] = $authors;
     }
     $block['profile'] = (1 == $lxConfig['authorprofile']) ? 1 : 0;

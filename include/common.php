@@ -11,40 +11,37 @@
 
 /**
  * @copyright    XOOPS Project https://xoops.org/
- * @license      GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @license      GNU GPL 2 or later (https://www.gnu.org/licenses/gpl-2.0.html)
  * @package
  * @since
  * @author       XOOPS Development Team
  */
 
+use Xmf\Module\Admin;
 use XoopsModules\Lexikon;
 
-include  dirname(__DIR__) . '/preloads/autoloader.php';
+require dirname(__DIR__) . '/preloads/autoloader.php';
 
-$moduleDirName = basename(dirname(__DIR__));
-$moduleDirNameUpper = strtoupper($moduleDirName);
-
+$moduleDirName      = basename(dirname(__DIR__));
+$moduleDirNameUpper = mb_strtoupper($moduleDirName);
 
 /** @var \XoopsDatabase $db */
-/** @var  Lexikon\Helper $helper */
+/** @var Lexikon\Helper $helper */
 /** @var Lexikon\Utility $utility */
-
-$db     = \XoopsDatabaseFactory::getDatabaseConnection();
-$helper = Lexikon\Helper::getInstance();
+$db      = \XoopsDatabaseFactory::getDatabaseConnection();
+$helper  = Lexikon\Helper::getInstance();
 $utility = new Lexikon\Utility();
 //$configurator = new Lexikon\Common\Configurator();
 
 $helper->loadLanguage('common');
 
+$entriesHandler    = new Lexikon\EntriesHandler($db);
+$categoriesHandler = new Lexikon\CategoriesHandler($db);
 
-$entriesHandler     = new Lexikon\EntriesHandler($db);
-$categoriesHandler     = new Lexikon\CategoriesHandler($db);
-
-$pathIcon16    = \Xmf\Module\Admin::iconUrl('', 16);
-$pathIcon32    = \Xmf\Module\Admin::iconUrl('', 32);
+$pathIcon16 = Admin::iconUrl('', 16);
+$pathIcon32 = Admin::iconUrl('', 32);
 //$pathModIcon16 = $helper->getModule()->getInfo('modicons16');
 //$pathModIcon32 = $helper->getModule()->getInfo('modicons32');
-
 
 if (!defined($moduleDirNameUpper . '_CONSTANTS_DEFINED')) {
     define($moduleDirNameUpper . '_DIRNAME', basename(dirname(__DIR__)));
@@ -65,7 +62,6 @@ if (!defined($moduleDirNameUpper . '_CONSTANTS_DEFINED')) {
     define($moduleDirNameUpper . '_AUTHOR_LOGOIMG', $pathIcon32 . '/xoopsmicrobutton.gif');
     define($moduleDirNameUpper . '_CONSTANTS_DEFINED', 1);
 }
-
 
 $icons = [
     'edit'    => "<img src='" . $pathIcon16 . "/edit.png'  alt=" . _EDIT . "' align='middle'>",

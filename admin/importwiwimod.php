@@ -72,7 +72,7 @@ function DefinitionImport($delete)
     $myts = \MyTextSanitizer::getInstance();
 
     $sqlQuery = $xoopsDB->query('SELECT count(id) AS count FROM ' . $xoopsDB->prefix('wiwimod'));
-    list($count) = $xoopsDB->fetchRow($sqlQuery);
+    [$count] = $xoopsDB->fetchRow($sqlQuery);
     if ($count < 1) {
         redirect_header('import.php', 1, _AM_LEXIKON_MODULEIMPORTEMPTY10);
     }
@@ -99,11 +99,11 @@ function DefinitionImport($delete)
         //get all entries
         $result3 = $xoopsDB->query('SELECT entryID FROM ' . $xoopsDB->prefix('lxentries') . '');
         //delete comments for each entry
-        while (false !== (list($entryID) = $xoopsDB->fetchRow($result3))) {
+        while (list($entryID) = $xoopsDB->fetchRow($result3)) {
             xoops_comment_delete($xoopsModule->getVar('mid'), $entryID);
         }
         $resultC = $xoopsDB->query('SELECT categoryID FROM ' . $xoopsDB->prefix('lxcategories') . '');
-        while (false !== (list($categoryID) = $xoopsDB->fetchRow($resultC))) {
+        while (list($categoryID) = $xoopsDB->fetchRow($resultC)) {
             // delete permissions
             xoops_groupperm_deletebymoditem($xoopsModule->getVar('mid'), 'lexikon_view', $categoryID);
             xoops_groupperm_deletebymoditem($xoopsModule->getVar('mid'), 'lexikon_submit', $categoryID);
@@ -119,15 +119,17 @@ function DefinitionImport($delete)
      * Import ENTRIES
      ****/
 
-    $sqlQuery = $xoopsDB->query('
+    $sqlQuery = $xoopsDB->query(
+        '
                               SELECT id, title, body, u_id, lastmodified datetime, visible
-                              FROM ' . $xoopsDB->prefix('wiwimod'));
+                              FROM ' . $xoopsDB->prefix('wiwimod')
+    );
 
     $fecha = time() - 1;
     while (false !== ($sqlfetch = $xoopsDB->fetchArray($sqlQuery))) {
         $wiwi                 = [];
-        $wiwi['id']    = $sqlfetch['id'];
-        $wiwi['title'] = $sqlfetch['title'];
+        $wiwi['id']           = $sqlfetch['id'];
+        $wiwi['title']        = $sqlfetch['title'];
         $wiwi['body']         = $myts->addSlashes(import2db($sqlfetch['body']));
         $wiwi['u_id']         = import2db($sqlfetch['u_id']);
         $wiwi['lastmodified'] = ++$fecha;
@@ -135,13 +137,17 @@ function DefinitionImport($delete)
         ++$wiwicounter;
 
         if ($delete) {
-            $insert = $xoopsDB->queryF('
+            $insert = $xoopsDB->queryF(
+                '
                                        INSERT INTO ' . $xoopsDB->prefix('lxentries') . " (entryID, term, definition, uid, datesub, offline, html)
-                                       VALUES ('" . $wiwi['id'] . "','" . $wiwi['title'] . "','" . $wiwi['body'] . "','" . $wiwi['u_id'] . "','" . $wiwi['lastmodified'] . "','" . $wiwi['visible'] . "','1')");
+                                       VALUES ('" . $wiwi['id'] . "','" . $wiwi['title'] . "','" . $wiwi['body'] . "','" . $wiwi['u_id'] . "','" . $wiwi['lastmodified'] . "','" . $wiwi['visible'] . "','1')"
+            );
         } else {
-            $insert = $xoopsDB->queryF('
+            $insert = $xoopsDB->queryF(
+                '
                                        INSERT INTO ' . $xoopsDB->prefix('lxentries') . " (entryID, term, definition, uid, datesub, offline, html)
-                                       VALUES ('','" . $wiwi['title'] . "','" . $wiwi['body'] . "','" . $wiwi['u_id'] . "','" . $wiwi['lastmodified'] . "','" . $wiwi['visible'] . "','1')");
+                                       VALUES ('','" . $wiwi['title'] . "','" . $wiwi['body'] . "','" . $wiwi['u_id'] . "','" . $wiwi['lastmodified'] . "','" . $wiwi['visible'] . "','1')"
+            );
         }
         if (!$insert) {
             ++$errorcounter;
@@ -150,6 +156,7 @@ function DefinitionImport($delete)
         // update user posts count
         if ($ret1) {
             if ($uid) {
+                /** @var \XoopsMemberHandler $memberHandler */
                 $memberHandler = xoops_getHandler('member');
                 $submitter     = $memberHandler->getUser($uid);
                 if (is_object($submitter)) {
@@ -161,10 +168,12 @@ function DefinitionImport($delete)
         }
     }
 
-    $sqlQuery = $xoopsDB->query('SELECT mid
+    $sqlQuery = $xoopsDB->query(
+        'SELECT mid
                               FROM ' . $xoopsDB->prefix('modules') . "
-                              WHERE dirname = 'wiwimod'");
-    list($wiwiID) = $xoopsDB->fetchRow($sqlQuery);
+                              WHERE dirname = 'wiwimod'"
+    );
+    [$wiwiID] = $xoopsDB->fetchRow($sqlQuery);
     echo '<p>' . _AM_LEXIKON_IMPORT_MODULE_ID . ': ' . $wiwiID . '</p>';
     echo '<p>' . _AM_LEXIKON_IMPORT_MODULE_LEX_ID . ': ' . $xoopsModule->getVar('mid') . '</p>';
     echo '<p>' . _AM_LEXIKON_IMPORT_UPDATE_COUNT . '</p>';
@@ -184,7 +193,7 @@ function FormImport()
     global $xoopsConfig, $xoopsDB, $xoopsModule;
     //lx_importMenu(9);
     echo "<strong style='color: #2F5376; margin-top:6px; font-size:medium'>" . _AM_LEXIKON_IMPORT_WIWIMOD . '</strong><br><br>';
-    /** @var XoopsModuleHandler $moduleHandler */
+    /** @var \XoopsModuleHandler $moduleHandler */
     $moduleHandler = xoops_getHandler('module');
     $wiwimodModule = $moduleHandler->getByDirname('wiwimod');
     $got_options   = false;

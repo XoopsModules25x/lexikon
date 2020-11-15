@@ -1,13 +1,12 @@
 <?php
+
 /**
- *
  * Module: Lexikon - glossary module
  * Version: v 1.00
  * Release Date: 8 May 2004
  * Author: hsalazar
  * Licence: GNU
  */
-
 define('_AM_LEXIKON_ACTION', 'Action');
 define('_AM_LEXIKON_ADMINCATMNGMT', 'Category edition');
 define('_AM_LEXIKON_ADMINENTRYMNGMT', 'Entry edition');
@@ -136,7 +135,7 @@ define('_AM_LEXIKON_ABOUT_AUTHOR_WORD', "Author's word");
 define('_AM_LEXIKON_ABOUT_DISCLAIMER', 'Disclaimer');
 define(
     '_AM_LEXIKON_ABOUT_DISCLAIMER_TEXT',
-       'GPL-licensed.<br>This module comes as is, without any guarantees whatsoever. This module is a Release Candidate and should not be used on a production web site. The module is still under active development and its use is under your own responsibility, which means the author is not responsible.'
+    'GPL-licensed.<br>This module comes as is, without any guarantees whatsoever. This module is a Release Candidate and should not be used on a production web site. The module is still under active development and its use is under your own responsibility, which means the author is not responsible.'
 );
 define('_AM_LEXIKON_ABOUT_CHANGELOG', 'Changelog');
 define('_AM_LEXIKON_ABOUT_README', 'Readme');
@@ -224,7 +223,7 @@ define('_AM_LEXIKON_VIEWFORM_DSC', 'Select, who can view which category');
 define('_AM_LEXIKON_APPROVEFORM_DSC', 'Automatically approve frontside submissions by these groups. <br> Not yet implemented!');
 define(
     '_AM_LEXIKON_APPROVEPERM_WARN',
-       'Due to certain aspects of this module including copyright infringement, local moral or legal issues and the possibility of malicious code in submitted media files, it is recommended that automatic approval by anonymous users should not be allowed.  All submissions should be reviewed by a module admin.'
+    'Due to certain aspects of this module including copyright infringement, local moral or legal issues and the possibility of malicious code in submitted media files, it is recommended that automatic approval by anonymous users should not be allowed.  All submissions should be reviewed by a module admin.'
 );
 define('_AM_LEXIKON_SUBMITFORM_DSC', 'Allow users to submit an entry and, if published, modify that entry.<br>Allow submissions per category.');
 define('_AM_LEXIKON_REQUESTFORM_DSC', 'The specified group will have access to a request form.');
@@ -296,16 +295,6 @@ define('_AM_LEXIKON_IMPORT_PROCESSED', 'Processed');
 define('_AM_LEXIKON_IMPORT_FINISH', 'Import finished!');
 define('_AM_LEXIKON_IMPORT_TO_ADMIN', 'Back to Admin');
 define('_AM_LEXIKON_IMPORT_ERROR_MODULE', 'Module Dictionary not found on this site.');
-
-
-
-
-
-
-
-
-
-
 
 //Index
 define('AM_LEXIKON_STATISTICS', 'Lexikon statistics');
@@ -406,6 +395,25 @@ define('AM_LEXIKON_VIDEO_EXPIREWARNING', 'The publishing date is after expiratio
 define('AM_LEXIKON_ADD_SAMPLEDATA', 'Import Sample Data (will delete ALL current data)');
 define('AM_LEXIKON_SAMPLEDATA_SUCCESS', 'Sample Date uploaded successfully');
 
-//Error NoFrameworks
-define('_AM_ERROR_NOFRAMEWORKS', 'Error: You don&#39;t use the Frameworks \'admin module\'. Please install this Frameworks');
 define('AM_LEXIKON_MAINTAINEDBY', 'is maintained by the');
+
+// Blocks & Groups Admin
+define('_AM_TOPPAGE', 'Top Page');
+define('_AM_ALLPAGES', 'All Pages');
+define('_AM_TITLE', 'Title');
+define('_AM_SIDE', 'Side');
+define('_AM_WEIGHT', 'Weight');
+define('_AM_VISIBLE', 'Visible');
+define('_AM_VISIBLEIN', 'Visible In');
+define('_AM_ACTION', 'Action');
+define('_AM_LATESTNEWS_TITLE', 'Title');
+define('_AM_LATESTNEWS_WEIGHT', 'Weight');
+define('_AM_BCACHETIME', 'Cache time');
+define('_AM_LATESTNEWS_ACTION', 'Action');
+define('_AM_ACTIVERIGHTS', 'Module administration rights');
+define('_AM_ACCESSRIGHTS', 'Module access rights');
+define('_AM_BADMIN', 'Blocks administration');
+define('_AM_ADGS', 'Groups');
+define('_AM_ALLMODULEPAGES', 'Groups');
+define('_AM_SYSTEMLEVEL', '_AM_SYSTEMLEVEL');
+define('_AM_ADMINBLOCK', '_AM_ADMINBLOCK');

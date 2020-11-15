@@ -4,14 +4,15 @@
  * Author: hsalazar
  * Licence: GNU
  */
+
 #$xoopsOption['pagetype'] = "search";
 
 use Xmf\Request;
 use XoopsModules\Lexikon;
 
-include __DIR__ . '/header.php';
+require __DIR__ . '/header.php';
 $GLOBALS['xoopsOption']['template_main'] = 'lx_search.tpl';
-include XOOPS_ROOT_PATH . '/header.php';
+require XOOPS_ROOT_PATH . '/header.php';
 
 /** @var Lexikon\Helper $helper */
 $helper = Lexikon\Helper::getInstance();
@@ -21,12 +22,13 @@ $myts = \MyTextSanitizer::getInstance();
 // -- options
 require_once XOOPS_ROOT_PATH . '/modules/lexikon/include/common.inc.php';
 $highlight      = false;
-$highlight      = ($helper->getConfig('config_highlighter') == 1) ? 1 : 0;
+$highlight      = (1 == $helper->getConfig('config_highlighter')) ? 1 : 0;
 $hightlight_key = '';
 
 require_once XOOPS_ROOT_PATH . '/class/pagenav.php';
 
 // Check if search is enabled site-wide
+/** @var \XoopsConfigHandler $configHandler */
 $configHandler     = xoops_getHandler('config');
 $xoopsConfigSearch = $configHandler->getConfigsByCat(XOOPS_CONF_SEARCH);
 if (1 != $xoopsConfigSearch['enable_search']) {
@@ -35,11 +37,12 @@ if (1 != $xoopsConfigSearch['enable_search']) {
 }
 
 // permissions
+/** @var \XoopsGroupPermHandler $grouppermHandler */
 $grouppermHandler = xoops_getHandler('groupperm');
-$groups       = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
-$module_id    = $xoopsModule->getVar('mid');
-$allowed_cats = $grouppermHandler->getItemIds('lexikon_view', $groups, $module_id);
-$catids       = implode(',', $allowed_cats);
+$groups           = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
+$module_id        = $xoopsModule->getVar('mid');
+$allowed_cats     = $grouppermHandler->getItemIds('lexikon_view', $groups, $module_id);
+$catids           = implode(',', $allowed_cats);
 
 //extract($_GET);
 //extract($_POST, EXTR_OVERWRITE);
@@ -97,7 +100,7 @@ if (!$query) {
     // IF results, count number
     $catrestrict = " categoryID IN ($catids) ";
     $searchquery = $xoopsDB->query('SELECT COUNT(*) as nrows FROM ' . $xoopsDB->prefix('lxentries') . " w WHERE offline='0' AND " . $catrestrict . ' ' . $andcatid . " AND $searchtype   ORDER BY term DESC");
-    list($results) = $xoopsDB->fetchRow($searchquery);
+    [$results] = $xoopsDB->fetchRow($searchquery);
 
     if (0 == $results) {
         // There's been no correspondences with the searched terms
@@ -106,7 +109,7 @@ if (!$query) {
         // Display search form
         $searchform = $utility::showSearchForm();
         $xoopsTpl->assign('searchform', $searchform);
-    // $results > 0 -> there were search results
+        // $results > 0 -> there were search results
     } else {
         // Show paginated list of results
         // We'll put the results in an array
@@ -148,7 +151,7 @@ if (!$query) {
         $queryA    .= '  ORDER BY w.term ASC';
         $resultA   = $xoopsDB->query($queryA, $helper->getConfig('indexperpage'), $start);
 
-        while (false !== (list($entryID, $categoryID, $term, $init, $definition, $datesub, $ref, $catname) = $xoopsDB->fetchRow($resultA))) {
+        while (list($entryID, $categoryID, $term, $init, $definition, $datesub, $ref, $catname) = $xoopsDB->fetchRow($resultA)) {
             $eachresult               = [];
             $xoopsModule              = XoopsModule::getByDirname('lexikon');
             $eachresult['dir']        = $xoopsModule->dirname();
@@ -198,4 +201,4 @@ if (isset($xoTheme) && is_object($xoTheme)) {
     $xoopsTpl->assign('xoops_meta_description', $meta_description);
 }
 
-include XOOPS_ROOT_PATH . '/footer.php';
+require XOOPS_ROOT_PATH . '/footer.php';

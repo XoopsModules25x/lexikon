@@ -69,7 +69,7 @@ function DefinitionImport($delete)
 {
     global $xoopsConfig, $xoopsDB, $xoopsModule, $myts;
     $sqlQuery = $xoopsDB->query('SELECT count(id) AS count FROM ' . $xoopsDB->prefix('dictionary'));
-    list($count) = $xoopsDB->fetchRow($sqlQuery);
+    [$count] = $xoopsDB->fetchRow($sqlQuery);
     if ($count < 1) {
         redirect_header('import.php', 1, _AM_LEXIKON_MODULEIMPORTEMPTY10);
     }
@@ -95,11 +95,11 @@ function DefinitionImport($delete)
         //get all entries
         $result3 = $xoopsDB->query('SELECT entryID FROM ' . $xoopsDB->prefix('lxentries') . ' ');
         //now for each entry, delete the coments
-        while (false !== (list($entryID) = $xoopsDB->fetchRow($result3))) {
+        while (list($entryID) = $xoopsDB->fetchRow($result3)) {
             xoops_comment_delete($xoopsModule->getVar('mid'), $entryID);
         }
         $resultC = $xoopsDB->query('SELECT categoryID FROM ' . $xoopsDB->prefix('lxcategories') . ' ');
-        while (false !== (list($categoryID) = $xoopsDB->fetchRow($resultC))) {
+        while (list($categoryID) = $xoopsDB->fetchRow($resultC)) {
             // delete permissions
             xoops_groupperm_deletebymoditem($xoopsModule->getVar('mid'), 'lexikon_view', $categoryID);
             xoops_groupperm_deletebymoditem($xoopsModule->getVar('mid'), 'lexikon_submit', $categoryID);
@@ -115,9 +115,11 @@ function DefinitionImport($delete)
      * Import ENTRIES
      ****/
 
-    $sql1 = $xoopsDB->query('
+    $sql1 = $xoopsDB->query(
+        '
                             SELECT *
-                            FROM ' . $xoopsDB->prefix('dictionary') . ' ');
+                            FROM ' . $xoopsDB->prefix('dictionary') . ' '
+    );
 
     $result1 = $xoopsDB->getRowsNum($sql1);
     if ($result1) {
@@ -143,17 +145,21 @@ function DefinitionImport($delete)
             ++$glocounter;
 
             if ($delete) {
-                $ret1 = $xoopsDB->queryF('
+                $ret1 = $xoopsDB->queryF(
+                    '
                                          INSERT INTO ' . $xoopsDB->prefix('lxentries') . "
                                          (entryID, init, term, definition, url,  submit, datesub, offline, comments)
                                          VALUES
-                                         ('$entryID', '$init', '$term', '$definition', '', '" . $row2['submit'] . "', '$datesub', '" . $row2['state'] . "', '$comments' )");
+                                         ('$entryID', '$init', '$term', '$definition', '', '" . $row2['submit'] . "', '$datesub', '" . $row2['state'] . "', '$comments' )"
+                );
             } else {
-                $ret1 = $xoopsDB->queryF('
+                $ret1 = $xoopsDB->queryF(
+                    '
                                          INSERT INTO ' . $xoopsDB->prefix('lxentries') . "
                                          (entryID, init, term, definition, url, submit, datesub, offline, comments)
                                          VALUES
-                                         ('', '$init', '$term', '$definition', '', '" . $row2['submit'] . "', '$datesub', '" . $row2['state'] . "',  '$comments' )");
+                                         ('', '$init', '$term', '$definition', '', '" . $row2['submit'] . "', '$datesub', '" . $row2['state'] . "',  '$comments' )"
+                );
             }
             if (!$ret1) {
                 ++$errorcounter;
@@ -162,6 +168,7 @@ function DefinitionImport($delete)
             // update user posts count
             if ($ret1) {
                 if ($uid) {
+                    /** @var \XoopsMemberHandler $memberHandler */
                     $memberHandler = xoops_getHandler('member');
                     $submitter     = $memberHandler->getUser($uid);
                     if (is_object($submitter)) {
@@ -177,17 +184,21 @@ function DefinitionImport($delete)
      * FINISH
      ****/
 
-    $sqlQuery = $xoopsDB->query('
+    $sqlQuery = $xoopsDB->query(
+        '
                                 SELECT mid FROM ' . $xoopsDB->prefix('modules') . "
-                                WHERE dirname = 'dictionary'");
-    list($dicID) = $xoopsDB->fetchRow($sqlQuery);
+                                WHERE dirname = 'dictionary'"
+    );
+    [$dicID] = $xoopsDB->fetchRow($sqlQuery);
     echo '<p>' . _AM_LEXIKON_IMPORT_MODULE_ID . ': ' . $dicID . '</p>';
     echo '<p>' . _AM_LEXIKON_IMPORT_MODULE_LEX_ID . ': ' . $xoopsModule->getVar('mid') . '</p><br>';
 
-    $commentaire = $xoopsDB->queryF('
+    $commentaire = $xoopsDB->queryF(
+        '
                                     UPDATE ' . $xoopsDB->prefix('xoopscomments') . "
                                     SET com_modid = '" . $xoopsModule->getVar('mid') . "'
-                                    WHERE  com_modid = '" . $dicID . "'");
+                                    WHERE  com_modid = '" . $dicID . "'"
+    );
     if (!$commentaire) {
         showerror(_AM_LEXIKON_IMPORT_ERROR_IMPORT_COMMENT . ':  ...');
     } else {
@@ -210,7 +221,7 @@ function FormImport()
     global $xoopsConfig, $xoopsDB, $xoopsModule;
     //lx_importMenu(9);
     echo "<strong style='color: #2F5376; margin-top:6px; font-size:medium'>" . _AM_LEXIKON_IMPORT_DICTIONARY . '</strong><br><br>';
-    /** @var XoopsModuleHandler $moduleHandler */
+    /** @var \XoopsModuleHandler $moduleHandler */
     $moduleHandler    = xoops_getHandler('module');
     $dictionaryModule = $moduleHandler->getByDirname('dictionary');
     $got_options      = false;

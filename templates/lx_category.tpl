@@ -46,7 +46,7 @@
                             <!-- Start category loop -->
                             <{foreach item=catlinks from=$block0.categories}>
                             <td>
-                                <{if $catlinks.image != "" && $show_screenshot == true}>
+                                <{if $catlinks.image != "" && $show_screenshot === true}>
                                     <a href="<{$xoops_url}>/modules/<{$lang_moduledirname}>/category.php?categoryID=<{$catlinks.id}>"
                                        target="_parent"><img
                                                 src="<{$xoops_url}>/uploads/<{$lang_moduledirname}>/categories/images/<{$catlinks.image}>"
@@ -58,7 +58,7 @@
                                     <{if $catlinks.total > 0}></a>&nbsp;<{/if}>[&nbsp;<{$catlinks.total}>&nbsp;]
                                 <{/if}>
                             </td>
-                            <{if $catlinks.count is div by 4}>
+                            <{if $catlinks.count % 4 == 0}>
                         </tr>
                         <tr>
                             <{/if}>
@@ -76,7 +76,7 @@
                     <legend>&nbsp;<{$smarty.const._MD_LEXIKON_BROWSECAT}>&nbsp;</legend>
                     <div class="letters">
                         <{foreach item=catlinks from=$block0.categories}>
-                        <{if $catlinks.image != "" && $show_screenshot == true}>
+                        <{if $catlinks.image != "" && $show_screenshot === true}>
                             <a href="<{$xoops_url}>/modules/<{$lang_moduledirname}>/category.php?categoryID=<{$category.id}>"
                                target="_parent">
                                 <img src="<{$xoops_url}>/uploads/<{$lang_moduledirname}>/categories/images/<{$catlinks.image}>"
@@ -113,7 +113,7 @@
         </div>
         <div class="search_abc_r"><{$entriesarray.navbar}></div>
         <{* syndication *}>
-        <{if $syndication == true}>
+        <{if $syndication === true}>
             <div class="rss_bottom"><a href="rss.php" title="recent entries"><img src="assets/images/rss.gif" alt="RSS"></a>
             </div>
         <{/if}>
@@ -138,7 +138,7 @@
         </div>
         <div class="search_abc_r"><{$entriesarray.navbar}></div>
         <{* syndication *}>
-        <{if $syndication == true}>
+        <{if $syndication === true}>
             <div class="rss_bottom"><a href="rss.php?categoryID=<{$singlecat.id}>" title="Recent terms in this category"><img src="assets/images/rss.gif" alt="RSS"></a>
             </div>
         <{/if}>

@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * Module: Lexikon - glossary module
  * Version: v 1.00
  * Release Date: 8 May 2004
@@ -11,7 +10,7 @@
 use Xmf\Request;
 use XoopsModules\Lexikon;
 
-include __DIR__ . '/header.php';
+require __DIR__ . '/header.php';
 $GLOBALS['xoopsOption']['template_main'] = 'lx_category.tpl';
 require_once XOOPS_ROOT_PATH . '/header.php';
 
@@ -28,12 +27,13 @@ $start = Request::getInt('start', 0, 'GET');
 $xoopsTpl->assign('multicats', (int)$helper->getConfig('multicats'));
 
 // Permission
+/** @var \XoopsGroupPermHandler $grouppermHandler */
 $grouppermHandler = xoops_getHandler('groupperm');
-$groups       = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
-$module_id    = $xoopsModule->getVar('mid');
-$allowed_cats = $grouppermHandler->getItemIds('lexikon_view', $groups, $module_id);
-$catids       = implode(',', $allowed_cats);
-$catperms     = " AND categoryID IN ($catids) ";
+$groups           = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
+$module_id        = $xoopsModule->getVar('mid');
+$allowed_cats     = $grouppermHandler->getItemIds('lexikon_view', $groups, $module_id);
+$catids           = implode(',', $allowed_cats);
+$catperms         = " AND categoryID IN ($catids) ";
 if (!$grouppermHandler->checkRight('lexikon_view', $categoryID, $groups, $xoopsModule->getVar('mid'))) {
     redirect_header('index.php', 3, _NOPERM);
 }
@@ -48,7 +48,7 @@ $xoopsTpl->assign('publishedwords', $publishedwords);
 $alpha = $utility::getAlphaArray();
 $xoopsTpl->assign('alpha', $alpha);
 
-list($howmanyother) = $xoopsDB->fetchRow($xoopsDB->query('SELECT COUNT(*) FROM ' . $xoopsDB->prefix('lxentries') . " WHERE init = '#' AND offline ='0' " . $catperms . ' '));
+[$howmanyother] = $xoopsDB->fetchRow($xoopsDB->query('SELECT COUNT(*) FROM ' . $xoopsDB->prefix('lxentries') . " WHERE init = '#' AND offline ='0' " . $catperms . ' '));
 $xoopsTpl->assign('totalother', $howmanyother);
 
 // get the list of Maincategories :: or return to mainpage
@@ -73,7 +73,7 @@ if (!$categoryID) {
     $resultcats = $xoopsDB->query('SELECT categoryID FROM ' . $xoopsDB->prefix('lxcategories') . ' ORDER BY weight DESC');
     $totalcats  = $xoopsDB->getRowsNum($resultcats);
     if (0 == $totalcats) {
-        redirect_header('javascript:history.go(-1)', 1, _MD_LEXIKON_NOCATSINSYSTEM);
+        redirect_header('<script>javascript:history.go(-1)</script>', 1, _MD_LEXIKON_NOCATSINSYSTEM);
     }
     // If there's no $categoryID, we want to show just the categories with their description
     $catsarray = [];
@@ -81,7 +81,7 @@ if (!$categoryID) {
     // How many categories will we show in this page?
     $queryA  = 'SELECT * FROM ' . $xoopsDB->prefix('lxcategories') . ' ' . $catperms2 . ' ORDER BY weight ASC';
     $resultA = $xoopsDB->query($queryA, $helper->getConfig('indexperpage'), $start);
-    while (false !== (list($categoryID, $name, $description, $total, $weight, $logourl) = $xoopsDB->fetchRow($resultA))) {
+    while (list($categoryID, $name, $description, $total, $weight, $logourl) = $xoopsDB->fetchRow($resultA)) {
         if ($logourl && 'http://' !== $logourl) {
             $logourl = $myts->htmlSpecialChars($logourl);
         } else {
@@ -122,10 +122,10 @@ if (!$categoryID) {
     if ($xoopsDB->getRowsNum($catdata) <= 0) {
         redirect_header('index.php', 2, _MD_LEXIKON_UNKNOWNERROR);
     }
-    while (false !== (list($categoryID, $name, $description, $total, $logourl) = $xoopsDB->fetchRow($catdata))) {
+    while (list($categoryID, $name, $description, $total, $logourl) = $xoopsDB->fetchRow($catdata)) {
         if ($grouppermHandler->checkRight('lexikon_view', $categoryID, $groups, $xoopsModule->getVar('mid'))) {
             if (0 == $total) {
-                redirect_header('javascript:history.go(-1)', 1, _MD_LEXIKON_NOENTRIESINCAT);
+                redirect_header('<script>javascript:history.go(-1)</script>', 1, _MD_LEXIKON_NOENTRIESINCAT);
             }
             $singlecat                = [];
             $singlecat['dir']         = $xoopsModule->dirname();
@@ -147,8 +147,8 @@ if (!$categoryID) {
             $queryB  = 'SELECT entryID, term, definition, html, smiley, xcodes, breaks, comments FROM ' . $xoopsDB->prefix('lxentries') . " WHERE categoryID = '$categoryID' AND submit ='0' AND offline = '0' ORDER BY term ASC";
             $resultB = $xoopsDB->query($queryB, $helper->getConfig('indexperpage'), $start);
 
-            //while (false !== (list( $entryID, $term, $definition ) = $xoopsDB->fetchRow($resultB)))
-            while (false !== (list($entryID, $term, $definition, $html, $smiley, $xcodes, $breaks, $comments) = $xoopsDB->fetchRow($resultB))) {
+            //while (list( $entryID, $term, $definition ) = $xoopsDB->fetchRow($resultB))
+            while (list($entryID, $term, $definition, $html, $smiley, $xcodes, $breaks, $comments) = $xoopsDB->fetchRow($resultB)) {
                 $eachentry         = [];
                 $xoopsModule       = XoopsModule::getByDirname('lexikon');
                 $eachentry['dir']  = $xoopsModule->dirname();
@@ -200,4 +200,4 @@ if ($xoopsUser) {
 }
 $xoopsTpl->assign('xoops_module_header', '<link rel="stylesheet" type="text/css" href="assets/css/style.css">');
 
-include XOOPS_ROOT_PATH . '/footer.php';
+require XOOPS_ROOT_PATH . '/footer.php';

@@ -11,28 +11,29 @@
 
 /**
  * @copyright    {@link https://xoops.org/ XOOPS Project}
- * @license      {@link http://www.gnu.org/licenses/gpl-2.0.html GNU GPL 2 or later}
+ * @license      {@link https://www.gnu.org/licenses/gpl-2.0.html GNU GPL 2 or later}
  * @package
  * @since
  * @author       XOOPS Development Team
  */
 
+use Xmf\Request;
 use XoopsModules\Lexikon;
 
-include  dirname(dirname(__DIR__)) . '/mainfile.php';
+require dirname(dirname(__DIR__)) . '/mainfile.php';
 /** @var Lexikon\Helper $helper */
 $helper = Lexikon\Helper::getInstance();
 global $xoopsUser;
-$com_itemid = \Xmf\Request::getInt('com_itemid', 0, 'GET');
+$com_itemid = Request::getInt('com_itemid', 0, 'GET');
 //--- verify that the user can post comments
 //if (!isset($xoopsModuleConfig)) {
-//    die();
+//    exit();
 //}
 if (0 == $helper->getConfig('com_rule')) {
-    die();
+    exit();
 }    // Comments deactivated
 if (0 == $helper->getConfig('com_anonpost') && !is_object($xoopsUser)) {
-    die();
+    exit();
 } // Anonymous users can't post
 
 if ($com_itemid > 0) {
@@ -41,10 +42,10 @@ if ($com_itemid > 0) {
     $result = $xoopsDB->query($sql);
     $row    = $xoopsDB->fetchArray($result);
     if (!$row['entryID']) {
-        redirect_header('javascript:history.go(-1)', 3, _NOPERM);
+        redirect_header('<script>javascript:history.go(-1)</script>', 3, _NOPERM);
     }
     $com_replytitle = $row['term'];
-    include XOOPS_ROOT_PATH . '/include/comment_new.php';
+    require XOOPS_ROOT_PATH . '/include/comment_new.php';
 } else {
     exit();
 }

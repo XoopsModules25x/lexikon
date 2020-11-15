@@ -10,7 +10,7 @@
                     href="<{$xoops_url}>/modules/<{$block.moduledirname}>/letter.php?init=<{$letterlinks.id}>"
                     title="[ <{$letterlinks.total}> ]"><{/if}><{$letterlinks.linktext}>&nbsp;<{if $letterlinks.total}></a><{/if}>
             <{if $block.layout == 1}>
-        </td><{if $letterlinks.count is div by $block.number }></tr>
+        </td><{if $letterlinks.count % $block.number == 0}></tr>
     <tr> <{/if}>
         <{/if}>
         <{/foreach}><{*$letterlinks.dir*}>

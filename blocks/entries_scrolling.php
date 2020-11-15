@@ -1,4 +1,5 @@
 <?php
+
 /** entries_scrolling.php v.1
  * XOOPS - PHP Content Management System
  * Copyright (c) 2017 <https://xoops.org>
@@ -6,9 +7,8 @@
  * Module: lexikon 1.5 beta
  * Author : Yerres
  * Licence : GPL
- *
  */
-defined('XOOPS_ROOT_PATH') || die('Restricted access');
+defined('XOOPS_ROOT_PATH') || exit('Restricted access');
 
 /**
  * @param $options
@@ -19,19 +19,21 @@ function b_scrolling_term_show($options)
     global $xoopsDB, $xoopsUser;
     $myts = MyTextSanitizer:: getInstance();
 
-    /** @var XoopsModuleHandler $moduleHandler */
+    /** @var \XoopsModuleHandler $moduleHandler */
     $moduleHandler = xoops_getHandler('module');
     $lexikon       = $moduleHandler->getByDirname('lexikon');
     if (!isset($lxConfig)) {
+        /** @var \XoopsConfigHandler $configHandler */
         $configHandler = xoops_getHandler('config');
         $lxConfig      = $configHandler->getConfigsByCat(0, $lexikon->getVar('mid'));
     }
     require_once XOOPS_ROOT_PATH . '/modules/lexikon/class/Utility.php';
 
-    $groups       = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
+    $groups = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
+    /** @var \XoopsGroupPermHandler $grouppermHandler */
     $grouppermHandler = xoops_getHandler('groupperm');
-    $module_id    = $lexikon->getVar('mid');
-    $allowed_cats = $grouppermHandler->getItemIds('lexikon_view', $groups, $module_id);
+    $module_id        = $lexikon->getVar('mid');
+    $allowed_cats     = $grouppermHandler->getItemIds('lexikon_view', $groups, $module_id);
 
     $block                = [];
     $block['speed']       = isset($options[1]) && '' != $options[1] ? $options[1] : '';
@@ -52,16 +54,18 @@ function b_scrolling_term_show($options)
         return $block;
     }
 
-    $sql    = $xoopsDB->query('
+    $sql    = $xoopsDB->query(
+        '
       SELECT entryID, term, definition, datesub, html
       FROM ' . $xoopsDB->prefix('lxentries') . '
       WHERE datesub < ' . time() . " AND datesub > 0 AND offline = '0' AND submit = '0' AND request = '0' AND  categoryID IN (" . $categories . ')
       ORDER BY ' . $options[8] . ' ' . $options[9] . '
-      LIMIT 0, ' . $options[0] . ' ');
+      LIMIT 0, ' . $options[0] . ' '
+    );
     $totals = $xoopsDB->getRowsNum($sql);
 
     if ($totals > 1) {
-        while (false !== (list($entryID, $term, $definition, $datesub, $html) = $xoopsDB->fetchRow($sql))) {
+        while (list($entryID, $term, $definition, $datesub, $html) = $xoopsDB->fetchRow($sql)) {
             $items         = [];
             $userlink      = '<a style="cursor:help;background-color: transparent;" href=\"' . XOOPS_URL . '/modules/' . $lexikon->dirname() . '/entry.php?entryID=' . (int)$entryID . '\">';
             $items['id']   = (int)$entryID;
@@ -80,6 +84,7 @@ function b_scrolling_term_show($options)
             $block['scrollitems'][] = $items;
         }
     }
+
     return $block;
 }
 
@@ -139,7 +144,7 @@ function b_scrolling_term_edit($options)
     }
     $form      .= '>' . _ALL . '</option>';
     $resultcat = $xoopsDB->query('SELECT categoryID, name FROM ' . $xoopsDB->prefix('lxcategories') . ' ORDER BY categoryID ASC');
-    while (false !== (list($categoryID, $name) = $xoopsDB->fetchRow($resultcat))) {
+    while (list($categoryID, $name) = $xoopsDB->fetchRow($resultcat)) {
         $sel  = ($isAll || in_array($categoryID, $options_cat)) ? ' selected' : '';
         $form .= '<option value=' . $categoryID . " $sel>$categoryID : $name</option>\n";
     }

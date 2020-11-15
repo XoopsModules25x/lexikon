@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * Module: Lexikon
  * Version: v 1.00
  * Release Date: 8 May 2004
@@ -10,7 +9,7 @@
 
 use XoopsModules\Lexikon;
 
-defined('XOOPS_ROOT_PATH') || die('Restricted access');
+defined('XOOPS_ROOT_PATH') || exit('Restricted access');
 
 /**
  * @param $queryarray
@@ -27,20 +26,21 @@ function lx_search($queryarray, $andor, $limit, $offset, $userid)
     $highlight        = false;
     $searchincomments = false;
     require_once XOOPS_ROOT_PATH . '/modules/lexikon/include/common.inc.php';
-//    require_once XOOPS_ROOT_PATH . '/modules/lexikon/class/Utility.php';
-    $utility = new Lexikon\Utility();
+    //    require_once XOOPS_ROOT_PATH . '/modules/lexikon/class/Utility.php';
+    $utility          = new Lexikon\Utility();
     $hightlight_key   = '';
     $highlight        = $utility::getModuleOption('config_highlighter');
     $searchincomments = CONFIG_SEARCH_COMMENTS;
-    /** @var XoopsModuleHandler $moduleHandler */
+    /** @var \XoopsModuleHandler $moduleHandler */
     $moduleHandler = xoops_getHandler('module');
     $module        = $moduleHandler->getByDirname('lexikon');
     $module_id     = $module->getVar('mid');
     // Permissions
+    /** @var \XoopsGroupPermHandler $grouppermHandler */
     $grouppermHandler = xoops_getHandler('groupperm');
-    $groups       = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
-    $allowed_cats = $grouppermHandler->getItemIds('lexikon_view', $groups, $module_id);
-    $catids       = implode(',', $allowed_cats);
+    $groups           = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
+    $allowed_cats     = $grouppermHandler->getItemIds('lexikon_view', $groups, $module_id);
+    $catids           = implode(',', $allowed_cats);
 
     $sql = 'SELECT entryID, categoryID, term, definition, ref, uid, datesub FROM ' . $xoopsDB->prefix('lxentries') . ' WHERE submit = 0 AND offline = 0 ';
     $sql .= " AND categoryID IN ($catids) ";
@@ -116,9 +116,13 @@ function lx_search($queryarray, $andor, $limit, $offset, $userid)
         $result = $xoopsDB->query($sql, $limit, $offset);
         while (false !== ($myrow = $xoopsDB->fetchArray($result))) {
             $display = true;
-            list($entryID, $offline) = $xoopsDB->fetchRow($xoopsDB->query('
+            [$entryID, $offline] = $xoopsDB->fetchRow(
+                $xoopsDB->query(
+                    '
                                          SELECT entryID, offline
-                                         FROM ' . $xoopsDB->prefix('lxentries') . ' WHERE entryID = ' . $myrow['com_itemid'] . ' '));
+                                         FROM ' . $xoopsDB->prefix('lxentries') . ' WHERE entryID = ' . $myrow['com_itemid'] . ' '
+                )
+            );
             if (1 == $offline) {
                 $display = false;
             }

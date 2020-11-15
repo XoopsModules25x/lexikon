@@ -7,9 +7,9 @@
 
 use XoopsModules\Lexikon;
 
-include __DIR__ . '/header.php';
+require __DIR__ . '/header.php';
 $GLOBALS['xoopsOption']['template_main'] = 'lx_content.tpl';
-include XOOPS_ROOT_PATH . '/header.php';
+require XOOPS_ROOT_PATH . '/header.php';
 
 /** @var Lexikon\Helper $helper */
 $helper = Lexikon\Helper::getInstance();
@@ -17,12 +17,12 @@ $helper = Lexikon\Helper::getInstance();
 global $xoTheme, $xoopsUser;
 $myts = \MyTextSanitizer::getInstance();
 if (!is_object($xoopsUser) && 0 == $helper->getConfig('contentsyndication')) {
-    redirect_header(XOOPS_URL . '/user.php?xoops_redirect=' . parse_url($_SERVER['PHP_SELF']), 5, _NOPERM);
+    redirect_header(XOOPS_URL . '/user.php?xoops_redirect=' . parse_url($_SERVER['SCRIPT_NAME']), 5, _NOPERM);
 }
 
 require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
 
-include __DIR__ . '/include/syndication.inc.php';
+require __DIR__ . '/include/syndication.inc.php';
 $yform->assign($xoopsTpl);
 
 // Various strings
@@ -42,4 +42,4 @@ if (isset($xoTheme) && is_object($xoTheme)) {
     $xoopsTpl->assign('xoops_meta_description', $meta_description);
 }
 
-include XOOPS_ROOT_PATH . '/footer.php';
+require XOOPS_ROOT_PATH . '/footer.php';

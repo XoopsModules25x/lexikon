@@ -8,16 +8,16 @@
 use Xmf\Request;
 use XoopsModules\Lexikon;
 
-include __DIR__ . '/header.php';
+require __DIR__ . '/header.php';
 $GLOBALS['xoopsOption']['template_main'] = 'lx_submit.tpl';
-include XOOPS_ROOT_PATH . '/header.php';
+require XOOPS_ROOT_PATH . '/header.php';
 
 require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
 
 /** @var Lexikon\Helper $helper */
 $helper = Lexikon\Helper::getInstance();
 
-global $xoTheme, $xoopsUser, $xoopsConfig,  $xoopsModule;
+global $xoTheme, $xoopsUser, $xoopsConfig, $xoopsModule;
 
 $result = $xoopsDB->query('SELECT * FROM ' . $xoopsDB->prefix('lxcategories') . ' ');
 if ('0' == $xoopsDB->getRowsNum($result) && '1' == $helper->getConfig('multicats')) {
@@ -26,9 +26,9 @@ if ('0' == $xoopsDB->getRowsNum($result) && '1' == $helper->getConfig('multicats
 
 $op = 'form';
 
-//if (isset($_POST['post'])) {
+//if (\Xmf\Request::hasVar('post', 'POST')) {
 //    $op = trim('post');
-//} elseif (isset($_POST['edit'])) {
+//} elseif (\Xmf\Request::hasVar('edit', 'POST')) {
 //    $op = trim('edit');
 //}
 
@@ -45,6 +45,7 @@ if (!function_exists('mb_ucfirst') && function_exists('mb_substr')) {
     {
         $string = mb_ereg_replace("^[\ ]+", '', $string);
         $string = mb_strtoupper(mb_substr($string, 0, 1, 'UTF-8'), 'UTF-8') . mb_substr($string, 1, mb_strlen($string), 'UTF-8');
+
         return $string;
     }
 }
@@ -53,22 +54,23 @@ $suggest = Request::getInt('suggest', 0, 'GET'); //isset($_GET['suggest']) ? (in
 
 if ($suggest > 0) {
     $terminosql = $xoopsDB->query('SELECT term FROM ' . $xoopsDB->prefix('lxentries') . ' WHERE datesub < ' . time() . " AND datesub > 0 AND request = '1' AND entryID = '" . $suggest . "'");
-    list($termino) = $xoopsDB->fetchRow($terminosql);
+    [$termino] = $xoopsDB->fetchRow($terminosql);
 } else {
     $termino = '';
 }
 //--- Permissions ---
+/** @var \XoopsGroupPermHandler $grouppermHandler */
 $grouppermHandler = xoops_getHandler('groupperm');
-$groups       = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
-$module_id    = $xoopsModule->getVar('mid');
-$perm_itemid  = Request::getInt('categoryID', 0, 'POST');
+$groups           = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
+$module_id        = $xoopsModule->getVar('mid');
+$perm_itemid      = Request::getInt('categoryID', 0, 'POST');
 if (!$grouppermHandler->checkRight('lexikon_submit', $perm_itemid, $groups, $module_id)) {
     redirect_header('index.php', 3, _MD_LEXIKON_MUSTREGFIRST);
 }
 $totalcats    = $grouppermHandler->getItemIds('lexikon_submit', $groups, $module_id);
 $permitsubmit = count($totalcats);
 if (0 == $permitsubmit && '1' == $helper->getConfig('multicats')) {
-    redirect_header('javascript:history.go(-1)', 3, _NOPERM);
+    redirect_header('<script>javascript:history.go(-1)</script>', 3, _NOPERM);
 }
 switch ($op) {
     case 'post':
@@ -79,7 +81,7 @@ switch ($op) {
                 $xoopsCaptcha = XoopsCaptcha::getInstance();
                 if (!$xoopsCaptcha->verify()) {
                     echo $xoopsCaptcha->getMessage();
-                    redirect_header('javascript:history.go(-1)', 2, _CAPTCHA_INVALID_CODE);
+                    redirect_header('<script>javascript:history.go(-1)</script>', 2, _CAPTCHA_INVALID_CODE);
                 }
             }
         }
@@ -89,10 +91,11 @@ switch ($op) {
         require_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->getVar('dirname') . '/class/Utility.php';
         $myts = MyTextSanitizer:: getInstance();
         //permissions
+        /** @var \XoopsGroupPermHandler $grouppermHandler */
         $grouppermHandler = xoops_getHandler('groupperm');
-        $groups       = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
-        $module_id    = $xoopsModule->getVar('mid');
-        $perm_itemid  = Request::getInt('categoryID', 0, 'POST');
+        $groups           = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
+        $module_id        = $xoopsModule->getVar('mid');
+        $perm_itemid      = Request::getInt('categoryID', 0, 'POST');
 
         $html = 1;
         if ($xoopsUser) {
@@ -126,7 +129,7 @@ switch ($op) {
             $url = '';
         }
         // this is for terms with umlaut or accented initials
-        $term4sql = $utility::sanitizeFieldName($myts->htmlspecialchars($_POST['term']));
+        $term4sql = $utility::sanitizeFieldName($myts->htmlSpecialChars($_POST['term']));
         $init     = mb_substr($term4sql, 0, 1);
         $init     = preg_match('/[a-zA-Zа-яА-Я0-9]/u', $init) ? mb_strtoupper($init) : '#';
 
@@ -145,14 +148,17 @@ switch ($op) {
         }
         // verify that the term not exists
         if ($utility::isTermPresent($term, $xoopsDB->prefix('lxentries'))) {
-            redirect_header('javascript:history.go(-1)', 2, _MD_LEXIKON_ITEMEXISTS . '<br>' . $term);
+            redirect_header('<script>javascript:history.go(-1)</script>', 2, _MD_LEXIKON_ITEMEXISTS . '<br>' . $term);
         }
-        $result = $xoopsDB->query('INSERT INTO '
-                                  . $xoopsDB->prefix('lxentries')
-                                  . " (entryID, categoryID, term, init, definition, ref, url, uid, submit, datesub, html, smiley, xcodes, breaks, block, offline, notifypub ) VALUES ('', '$categoryID', '$term', '$init', '$definition', '$ref', '$url', '$uid', '$submit', '$datesub', '$html', '$smiley', '$xcodes', '$breaks','$block', '$offline', '$notifypub')");
+        $result = $xoopsDB->query(
+            'INSERT INTO '
+            . $xoopsDB->prefix('lxentries')
+            . " (entryID, categoryID, term, init, definition, ref, url, uid, submit, datesub, html, smiley, xcodes, breaks, block, offline, notifypub ) VALUES ('', '$categoryID', '$term', '$init', '$definition', '$ref', '$url', '$uid', '$submit', '$datesub', '$html', '$smiley', '$xcodes', '$breaks','$block', '$offline', '$notifypub')"
+        );
         $newid  = $xoopsDB->getInsertId();
         // Increment author's posts count
         if (is_object($xoopsUser) && empty($entryID) && $autoapprove) {
+            /** @var \XoopsMemberHandler $memberHandler */
             $memberHandler = xoops_getHandler('member');
             $submitter     = $memberHandler->getUser($uid);
             if (is_object($submitter)) {
@@ -167,6 +173,7 @@ switch ($op) {
             if (0 == $newid) {
                 $newid = $xoopsDB->getInsertId();
             }
+            /** @var XoopsNotificationHandler $notificationHandler */
             $notificationHandler   = xoops_getHandler('notification');
             $tags                  = [];
             $shortdefinition       = $myts->htmlSpecialChars(xoops_substr(strip_tags($definition), 0, 45));
@@ -182,7 +189,7 @@ switch ($op) {
             if (1 == $helper->getConfig('autoapprove')) {
                 $notificationHandler->triggerEvent('category', $categoryID, 'new_post', $tags);
                 $notificationHandler->triggerEvent('global', 0, 'new_post', $tags);
-            //sample: $notificationHandler->triggerEvent($category, $item_id, $events, $tags, $user_list=array(), $module_id=null, $omit_user_id=null)
+                //sample: $notificationHandler->triggerEvent($category, $item_id, $events, $tags, $user_list=array(), $module_id=null, $omit_user_id=null)
             } else {
                 $notificationHandler->triggerEvent('global', 0, 'term_submit', $tags);
                 $notificationHandler->triggerEvent('category', 0, 'term_submit', $tags);
@@ -199,7 +206,7 @@ switch ($op) {
             } else {
                 $username = $xoopsUser->getVar('uname', 'E');
                 $result   = $xoopsDB->query('select email from ' . $xoopsDB->prefix('users') . " WHERE uname='$username'");
-                list($usermail) = $xoopsDB->fetchRow($result);
+                [$usermail] = $xoopsDB->fetchRow($result);
             }
 
             if (1 == $helper->getConfig('mailtoadmin')) {
@@ -262,11 +269,10 @@ switch ($op) {
         }
         exit();
         break;
-
     case 'form':
     default:
         global $xoopsUser, $_SERVER;
-        require_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->dirname() . '/class/Utility.php';// to create pagetitle
+        require_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->dirname() . '/class/Utility.php'; // to create pagetitle
         $myts = MyTextSanitizer:: getInstance();
         if (!is_object($xoopsUser)) {
             $name = _MD_LEXIKON_GUEST;
@@ -308,6 +314,6 @@ switch ($op) {
             $xoopsTpl->assign('xoops_meta_description', $meta_description);
         }
 
-        include XOOPS_ROOT_PATH . '/footer.php';
+        require XOOPS_ROOT_PATH . '/footer.php';
         break;
 }

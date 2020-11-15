@@ -1,4 +1,6 @@
-<?php namespace XoopsModules\Lexikon;
+<?php
+
+namespace XoopsModules\Lexikon;
 
 /**
  * XOOPS tree handler
@@ -11,13 +13,11 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
  * @copyright       XOOPS Project (https://xoops.org)
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 (https://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @package         kernel
  * @since           2.0.0
  * @author          Kazumi Ono (AKA onokazu) http://www.myweb.ne.jp/, http://jp.xoops.org/
  */
-
-// defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 /**
  * Abstract base class for forms
@@ -37,9 +37,9 @@ class LexikonTree
     public $order; //specifies the order of query results
     public $title; // name of a field in table $table which will be used when  selection box and paths are generated
     public $db;
-
     //constructor of class LexikonTree
     //sets the names of table, unique id, and parend id
+
     /**
      * @param $table_name
      * @param $id_name
@@ -76,7 +76,7 @@ class LexikonTree
             return $arr;
         }
         while (false !== ($myrow = $this->db->fetchArray($result))) {
-            array_push($arr, $myrow);
+            \array_push($arr, $myrow);
         }
 
         return $arr;
@@ -98,8 +98,8 @@ class LexikonTree
         if (0 == $count) {
             return $idarray;
         }
-        while (false !== (list($id) = $this->db->fetchRow($result))) {
-            array_push($idarray, $id);
+        while (list($id) = $this->db->fetchRow($result)) {
+            \array_push($idarray, $id);
         }
 
         return $idarray;
@@ -126,8 +126,8 @@ class LexikonTree
         if (0 == $count) {
             return $idarray;
         }
-        while (false !== (list($r_id) = $this->db->fetchRow($result))) {
-            array_push($idarray, $r_id);
+        while (list($r_id) = $this->db->fetchRow($result)) {
+            \array_push($idarray, $r_id);
             $idarray = $this->getAllChildId($r_id, $order, $idarray);
         }
 
@@ -151,11 +151,11 @@ class LexikonTree
             $sql .= " ORDER BY $order";
         }
         $result = $this->db->query($sql);
-        list($r_id) = $this->db->fetchRow($result);
+        [$r_id] = $this->db->fetchRow($result);
         if (0 == $r_id) {
             return $idarray;
         }
-        array_push($idarray, $r_id);
+        \array_push($idarray, $r_id);
         $idarray = $this->getAllParentId($r_id, $order, $idarray);
 
         return $idarray;
@@ -163,6 +163,7 @@ class LexikonTree
 
     //generates path from the root id to a given id($sel_id)
     // the path is delimetered with "/"
+
     /**
      * @param        $sel_id
      * @param        $title
@@ -177,9 +178,9 @@ class LexikonTree
         if (0 == $this->db->getRowsNum($result)) {
             return $path;
         }
-        list($parentid, $name) = $this->db->fetchRow($result);
+        [$parentid, $name] = $this->db->fetchRow($result);
         $myts = \MyTextSanitizer::getInstance();
-        $name = $myts->htmlspecialchars($name);
+        $name = $myts->htmlSpecialChars($name);
         $path = '/' . $name . $path . '';
         if (0 == $parentid) {
             return $path;
@@ -192,6 +193,7 @@ class LexikonTree
     //makes a nicely ordered selection box
     //$preset_id is used to specify a preselected item
     //set $none to 1 to add a option with value 0
+
     /**
      * @param        $title
      * @param string $order
@@ -219,7 +221,7 @@ class LexikonTree
         if ($none) {
             echo "<option value='0'>----</option>\n";
         }
-        while (false !== (list($catid, $name) = $this->db->fetchRow($result))) {
+        while (list($catid, $name) = $this->db->fetchRow($result)) {
             $sel = '';
             if ($catid == $preset_id) {
                 $sel = ' selected';
@@ -228,8 +230,8 @@ class LexikonTree
             $sel = '';
             $arr = $this->getChildTreeArray($catid, $order);
             foreach ($arr as $option) {
-                $option['prefix'] = str_replace('.', '--', $option['prefix']);
-                $catpath          = $option['prefix'] . '&nbsp;' . $myts->htmlspecialchars($option[$title]);
+                $option['prefix'] = \str_replace('.', '--', $option['prefix']);
+                $catpath          = $option['prefix'] . '&nbsp;' . $myts->htmlSpecialChars($option[$title]);
                 if ($option[$this->id] == $preset_id) {
                     $sel = ' selected';
                 }
@@ -259,9 +261,9 @@ class LexikonTree
         if (0 == $this->db->getRowsNum($result)) {
             return $path;
         }
-        list($parentid, $name) = $this->db->fetchRow($result);
+        [$parentid, $name] = $this->db->fetchRow($result);
         $myts = \MyTextSanitizer::getInstance();
-        $name = $myts->htmlspecialchars($name);
+        $name = $myts->htmlSpecialChars($name);
         $path = "<a href='" . $funcURL . '&amp;' . $this->id . '=' . $sel_id . "'>" . $name . '</a>' . $path . '';
         if (0 == $parentid) {
             return $path;
@@ -273,6 +275,7 @@ class LexikonTree
 
     //generates id path from the root id to a given id
     // the path is delimetered with "/"
+
     /**
      * @param        $sel_id
      * @param string $path
@@ -286,7 +289,7 @@ class LexikonTree
         if (0 == $this->db->getRowsNum($result)) {
             return $path;
         }
-        list($parentid) = $this->db->fetchRow($result);
+        [$parentid] = $this->db->fetchRow($result);
         $path = '/' . $sel_id . $path . '';
         if (0 == $parentid) {
             return $path;
@@ -318,7 +321,7 @@ class LexikonTree
             return $parray;
         }
         while (false !== ($row = $this->db->fetchArray($result))) {
-            array_push($parray, $row);
+            \array_push($parray, $row);
             $parray = $this->getAllChild($row[$this->id], $order, $parray);
         }
 
@@ -328,10 +331,10 @@ class LexikonTree
     /**
      * Enter description here...
      *
-     * @param  int|mixed    $sel_id
-     * @param  string|mixed $order
-     * @param  array|mixed  $parray
-     * @param  string|mixed $r_prefix
+     * @param int|mixed    $sel_id
+     * @param string|mixed $order
+     * @param array|mixed  $parray
+     * @param string|mixed $r_prefix
      * @return array|mixed
      */
     public function getChildTreeArray($sel_id = 0, $order = '', $parray = [], $r_prefix = '')
@@ -348,7 +351,7 @@ class LexikonTree
         }
         while (false !== ($row = $this->db->fetchArray($result))) {
             $row['prefix'] = $r_prefix . '.';
-            array_push($parray, $row);
+            \array_push($parray, $row);
             $parray = $this->getChildTreeArray($row[$this->id], $order, $parray, $row['prefix']);
         }
 

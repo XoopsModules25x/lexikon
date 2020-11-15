@@ -7,6 +7,7 @@
  * Author: hsalazar
  * Licence: GNU
  */
+
 // Blocks
 define('_MB_LEXIKON_DATE', 'Ver&ouml;ffentlichungsdatum');
 define('_MB_LEXIKON_DELTERM', 'Diesen Begriff l&ouml;schen');

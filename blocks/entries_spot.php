@@ -1,11 +1,11 @@
 <?php
+
 /**
  * Module: Lexikon
  * credits: hsalazar, Smartfactory, Eric Juden & ackbarr ->Project XHelp
  * Licence: GNU
  */
-
-defined('XOOPS_ROOT_PATH') || die('Restricted access');
+defined('XOOPS_ROOT_PATH') || exit('Restricted access');
 
 /* This function spotlights a category, with a spotlight definition and links to others */
 /**
@@ -19,17 +19,19 @@ function b_lxspot_show($options)
     xoops_load('XoopsUserUtility');
 
     $module_name = 'lexikon';
-    /** @var XoopsModuleHandler $moduleHandler */
+    /** @var \XoopsModuleHandler $moduleHandler */
     $moduleHandler = xoops_getHandler('module');
     $lexikon       = $moduleHandler->getByDirname('lexikon');
     if (!isset($lxConfig)) {
+        /** @var \XoopsConfigHandler $configHandler */
         $configHandler = xoops_getHandler('config');
         $lxConfig      = $configHandler->getConfigsByCat(0, $lexikon->getVar('mid'));
     }
 
+    /** @var \XoopsGroupPermHandler $grouppermHandler */
     $grouppermHandler = xoops_getHandler('groupperm');
-    $groups       = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
-    $module_id    = $lexikon->getVar('mid');
+    $groups           = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
+    $module_id        = $lexikon->getVar('mid');
 
     $block = [];
 
@@ -61,13 +63,16 @@ function b_lxspot_show($options)
     }
 
     // Retrieve the latest terms in the selected category
-    $resultA = $xoopsDB->query('SELECT entryID, categoryID, term, definition, uid, datesub, counter, html, smiley, xcodes, breaks, comments
+    $resultA = $xoopsDB->query(
+        'SELECT entryID, categoryID, term, definition, uid, datesub, counter, html, smiley, xcodes, breaks, comments
                                  FROM ' . $xoopsDB->prefix('lxentries') . '
                                  WHERE categoryID = ' . $options[0] . " AND submit = '0' AND offline = 0 AND block= 1
                                  ORDER BY datesub DESC", //ORDER BY " . $options[7] . " DESC ",
-                               1, 0);
+        1,
+        0
+    );
 
-    list($entryID, $categoryID, $term, $definition, $authorID, $datesub, $counter, $html, $smiley, $xcodes, $breaks, $comments) = $xoopsDB->fetchRow($resultA);
+    [$entryID, $categoryID, $term, $definition, $authorID, $datesub, $counter, $html, $smiley, $xcodes, $breaks, $comments] = $xoopsDB->fetchRow($resultA);
     $eID = (int)$entryID;
     // If there's no result - which means there's no definition yet...
     if (0 == $eID) {
@@ -78,8 +83,9 @@ function b_lxspot_show($options)
 
     // Retrieve the category name
     $resultB = $xoopsDB->query('SELECT name, logourl FROM ' . $xoopsDB->prefix('lxcategories') . ' WHERE categoryID = ' . $options[0] . ' ');
-    list($name, $logourl) = $xoopsDB->fetchRow($resultB);
-    if ($lexikon = $moduleHandler->getByDirname('lexikon')) {
+    [$name, $logourl] = $xoopsDB->fetchRow($resultB);
+    $lexikon = $moduleHandler->getByDirname('lexikon');
+    if ($lexikon) {
         if ($grouppermHandler->checkRight('lexikon_view', $options[0], $groups, $module_id)) {
             // get the items
             $block['userID']     = ((int)$authorID);
@@ -137,7 +143,7 @@ function b_lxspot_edit($options)
     $resultcat = $xoopsDB->query('SELECT categoryID, name FROM ' . $xoopsDB->prefix('lxcategories') . ' ORDER BY categoryID');
     $form      = "<table border='0'>";
     $form      .= '<tr><td>' . _MB_LEXIKON_SELECTCAT . '</td><td><select name="options[]">';
-    while (false !== (list($categoryID, $name) = $xoopsDB->fetchRow($resultcat))) {
+    while (list($categoryID, $name) = $xoopsDB->fetchRow($resultcat)) {
         $form .= '<option value=' . $categoryID . ' ' . (($options[0] == $categoryID) ? ' selected' : '') . ">$categoryID : $name</option>\n";
     }
     $form .= "</select><br></td></tr>\n";

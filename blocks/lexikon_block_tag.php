@@ -2,7 +2,9 @@
 /**
  * Module: Lexikon -  glossary module
  * Licence: GNU
+ * @param mixed $options
  */
+
 /**
  * Tag management
  *
@@ -54,7 +56,7 @@
  *
  * {@link Tag}
  *
- * @param    array $options :
+ * @param array $options    :
  *                          $options[0] - number of tags to display
  *                          $options[1] - time duration, in days, 0 for all the time
  *                          $options[2] - max font size (px or %)
@@ -64,7 +66,7 @@
 
 function lexikon_tag_block_cloud_show($options)
 {
-    /** @var XoopsModuleHandler $moduleHandler */
+    /** @var \XoopsModuleHandler $moduleHandler */
     $moduleHandler = xoops_getHandler('module');
     $module        = $moduleHandler->getByDirname('lexikon');
 
@@ -97,7 +99,7 @@ function lexikon_tag_block_top_show($options)
 {
     if (xoops_isActiveModule('tag')) {
         require_once XOOPS_ROOT_PATH . '/modules/tag/blocks/block.php';
-        /** @var XoopsModuleHandler $moduleHandler */
+        /** @var \XoopsModuleHandler $moduleHandler */
         $moduleHandler = xoops_getHandler('module');
         $module        = $moduleHandler->getByDirname('lexikon');
 

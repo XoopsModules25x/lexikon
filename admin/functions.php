@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * Module: lexikon
  * Author: Yerres
  * Licence: GNU
@@ -20,13 +19,12 @@ if (is_object($xoopsUser)) {
  * Function used to display an horizontal menu inside the admin panel
  * Enable webmasters to navigate thru the module's features.
  * Each time you select an option in the admin panel of the news module, this option is highlighted in this menu
+ * @param int    $currentoption
+ * @param string $breadcrumb
  * @package          lexikon
  * @orig             author: hsalazar, The smartfactory
  * @copyright    (c) XOOPS Project (https://xoops.org)
- * @param int    $currentoption
- * @param string $breadcrumb
  */
-
 function lx_adminMenu($currentoption = 0, $breadcrumb = '')
 {
     require_once XOOPS_ROOT_PATH . '/class/template.php';
@@ -37,16 +35,18 @@ function lx_adminMenu($currentoption = 0, $breadcrumb = '')
     $helper->loadLanguage('admin');
     $helper->loadLanguage('modinfo');
 
-    include __DIR__ . '/menu.php';
+    require __DIR__ . '/menu.php';
 
     $tpl = new \XoopsTpl();
-    $tpl->assign([
-                     'headermenu'      => $headermenu,
-                     'adminmenu'       => $adminmenu,
-                     'current'         => $currentoption,
-                     'breadcrumb'      => $breadcrumb,
-                     'headermenucount' => count($headermenu)
-                 ]);
+    $tpl->assign(
+        [
+            'headermenu'      => $headermenu,
+            'adminmenu'       => $adminmenu,
+            'current'         => $currentoption,
+            'breadcrumb'      => $breadcrumb,
+            'headermenucount' => count($headermenu),
+        ]
+    );
     $tpl->display('db:lx_adminmenu.tpl');
     echo "<br>\n";
 }
@@ -54,12 +54,12 @@ function lx_adminMenu($currentoption = 0, $breadcrumb = '')
 /**
  * Verify that a field exists inside a mysql table
  *
- * @package       Lexikon
- * @author        Instant Zero (http://xoops.instant-zero.com)
- * @copyright (c) Instant Zero
  * @param $fieldname
  * @param $table
  * @return bool
+ * @package       Lexikon
+ * @author        Instant Zero (http://xoops.instant-zero.com)
+ * @copyright (c) Instant Zero
  */
 function lx_FieldExists($fieldname, $table)
 {
@@ -72,14 +72,13 @@ function lx_FieldExists($fieldname, $table)
 /**
  * Add a field to a mysql table
  *
- * @package       Lexikon
- * @author        Instant Zero (http://xoops.instant-zero.com)
- * @copyright (c) Instant Zero
  * @param $field
  * @param $table
  * @return bool|\mysqli_result
+ * @package       Lexikon
+ * @author        Instant Zero (http://xoops.instant-zero.com)
+ * @copyright (c) Instant Zero
  */
-
 function lx_AddField($field, $table)
 {
     global $xoopsDB;
@@ -92,23 +91,22 @@ function lx_AddField($field, $table)
 /**
  * Change a field to a mysql table
  * desuet
- * @package       Lexikon
- * @author        Instant Zero (http://xoops.instant-zero.com)
- * @copyright (c) Instant Zero
  * @param $field
  * @param $table
  * @return bool
+ * @package       Lexikon
+ * @author        Instant Zero (http://xoops.instant-zero.com)
+ * @copyright (c) Instant Zero
  */
-
 function lx_alterTable($field, $table)
 {
     global $xoopsDB;
     $sql    = 'SHOW COLUMNS FROM ' . $table . " LIKE '" . $field . "'";
     $result = $xoopsDB->queryF($sql);
     if (0 == $xoopsDB->getRowsNum($result)) {
-        $sql = 'ALTER TABLE ' . $xoopsDB->prefix($table) . ' ADD `' . $field . '`';
-
-        return $xoopsDB->query($sql);
+        $sql    = 'ALTER TABLE ' . $xoopsDB->prefix($table) . ' ADD `' . $field . '`';
+        $result = $xoopsDB->query($sql);
+        return $result;
         //   }
     }
 
@@ -140,7 +138,7 @@ function lx_importMenu($currentoption = 0, $breadcrumb = '')
     echo "</td><td style='vertical-align:top;'>
               <div id='menu'>";
     // show only modules located on the system
-    /** @var XoopsModuleHandler $moduleHandler */
+    /** @var \XoopsModuleHandler $moduleHandler */
     $moduleHandler  = xoops_getHandler('module');
     $wordbookModule = $moduleHandler->getByDirname('wordbook');
     $got_options    = false;
@@ -188,12 +186,11 @@ function lx_importMenu($currentoption = 0, $breadcrumb = '')
 
 /**
  * collapsable bar for items lists
- * @package       lexikon
- * @copyright (c) XOOPS Project (https://xoops.org)
  * @param string $tablename
  * @param string $iconname
+ * @package       lexikon
+ * @copyright (c) XOOPS Project (https://xoops.org)
  */
-
 function lx_collapsableBar($tablename = '', $iconname = '')
 {
     ?>
@@ -366,14 +363,14 @@ function lx_buildTable()
  * @param $perm_name
  * @return bool
  */
-
 function lx_save_Permissions($groups, $id, $perm_name)
 {
-    $result   = true;
-    $hModule  = xoops_getHandler('module');
-    $lxModule = $hModule->getByDirname('lexikon');
+    $result = true;
+    /** @var \XoopsModuleHandler $moduleHandler */
+    $moduleHandler = xoops_getHandler('module');
+    $lxModule      = $moduleHandler->getByDirname('lexikon');
 
-    $module_id    = $lxModule->getVar('mid');
+    $module_id = $lxModule->getVar('mid');
     /** @var \XoopsGroupPermHandler $grouppermHandler */
     $grouppermHandler = xoops_getHandler('groupperm');
 
@@ -428,6 +425,7 @@ function lx_getinit($init)
     }*/
     echo '</select></div>';
 }
+
 /**
  * @param $a
  * @return string
@@ -441,5 +439,6 @@ function uchr($a)
     foreach ($a as $code) {
         $str .= html_entity_decode('&#' . $code . ';', ENT_NOQUOTES, 'UTF-8');
     }
+
     return $str;
 }

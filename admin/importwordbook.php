@@ -23,6 +23,7 @@
 // ------------------------------------------------------------------------ //
 //////////////////////////////////////////////////////////////////////////////
 
+use Xmf\Module\Admin;
 use Xmf\Request;
 
 require_once __DIR__ . '/admin_header.php';
@@ -36,7 +37,7 @@ switch ($op) {
     case 'default':
     default:
         xoops_cp_header();
-        $adminObject = \Xmf\Module\Admin::getInstance();
+        $adminObject = Admin::getInstance();
         $adminObject->displayNavigation(basename(__FILE__));
 
         global $xoopsUser, $xoopsConfig, $xoopsDB, $xoopsModuleConfig, $xoopsModule;
@@ -75,7 +76,7 @@ function DefinitionImport($delete)
 {
     global $xoopsUser, $xoopsConfig, $xoopsDB, $xoopsModule, $entryID, $myts;
     $sqlQuery = $xoopsDB->query('SELECT count(entryID) AS count FROM ' . $xoopsDB->prefix('wbentries'));
-    list($count) = $xoopsDB->fetchRow($sqlQuery);
+    [$count] = $xoopsDB->fetchRow($sqlQuery);
     if ($count < 1) {
         redirect_header('import.php', 1, _AM_LEXIKON_MODULEIMPORTEMPTY10);
     }
@@ -100,12 +101,12 @@ function DefinitionImport($delete)
         xoops_notification_deletebymodule($xoopsModule->getVar('mid'));
         //get all entries
         $resultE = $xoopsDB->query('SELECT entryID FROM ' . $xoopsDB->prefix('lxentries') . ' ');
-        while (false !== (list($entryID) = $xoopsDB->fetchRow($resultE))) {
+        while (list($entryID) = $xoopsDB->fetchRow($resultE)) {
             //delete comments for each entry
             xoops_comment_delete($xoopsModule->getVar('mid'), $entryID);
         }
         $resultC = $xoopsDB->query('SELECT categoryID FROM ' . $xoopsDB->prefix('lxcategories') . ' ');
-        while (false !== (list($categoryID) = $xoopsDB->fetchRow($resultC))) {
+        while (list($categoryID) = $xoopsDB->fetchRow($resultC)) {
             // delete permissions
             xoops_groupperm_deletebymoditem($xoopsModule->getVar('mid'), 'lexikon_view', $categoryID);
             xoops_groupperm_deletebymoditem($xoopsModule->getVar('mid'), 'lexikon_submit', $categoryID);
@@ -121,10 +122,12 @@ function DefinitionImport($delete)
      * Import ENTRIES
      ****/
 
-    $sql1    = $xoopsDB->query('
+    $sql1    = $xoopsDB->query(
+        '
                                 SELECT *
                                 FROM ' . $xoopsDB->prefix('wbentries') . '
-                              ');
+                              '
+    );
     $result1 = $xoopsDB->getRowsNum($sql1);
     if ($result1) {
         while (false !== ($row2 = $xoopsDB->fetchArray($sql1))) {
@@ -152,17 +155,21 @@ function DefinitionImport($delete)
             ++$wbkcounter;
 
             if ($delete) {
-                $ret1 = $xoopsDB->queryF('
+                $ret1 = $xoopsDB->queryF(
+                    '
                                          INSERT INTO ' . $xoopsDB->prefix('lxentries') . "
                                          (entryID, categoryID, term, init, definition, ref, url, uid, submit, datesub, counter, html, smiley, xcodes, breaks, block, offline, notifypub, request, comments)
                                          VALUES
-                                         ('$entryID', '$categoryID', '$term', '$init', '$definition', '$ref', '$url', '$uid', '$submit', '$datesub', '$counter', '$html', '$smiley', '$xcodes', '$breaks', '$block', '$offline', '$notifypub', '$request', '$comments' )");
+                                         ('$entryID', '$categoryID', '$term', '$init', '$definition', '$ref', '$url', '$uid', '$submit', '$datesub', '$counter', '$html', '$smiley', '$xcodes', '$breaks', '$block', '$offline', '$notifypub', '$request', '$comments' )"
+                );
             } else {
-                $ret1 = $xoopsDB->queryF('
+                $ret1 = $xoopsDB->queryF(
+                    '
                                          INSERT INTO ' . $xoopsDB->prefix('lxentries') . "
                                          (entryID, categoryID, term, init, definition, ref, url, uid, submit, datesub, counter, html, smiley, xcodes, breaks, block, offline, notifypub, request, comments)
                                          VALUES
-                                         ('', '$categoryID', '$term', '$init', '$definition', '$ref', '$url', '$uid', '$submit', '$datesub', '$counter', '$html', '$smiley', '$xcodes', '$breaks', '$block', '$offline', '$notifypub', '$request', '$comments' )");
+                                         ('', '$categoryID', '$term', '$init', '$definition', '$ref', '$url', '$uid', '$submit', '$datesub', '$counter', '$html', '$smiley', '$xcodes', '$breaks', '$block', '$offline', '$notifypub', '$request', '$comments' )"
+                );
             }
             if (!$ret1) {
                 ++$errorcounter;
@@ -171,6 +178,7 @@ function DefinitionImport($delete)
             // update user posts count
             if ($ret1) {
                 if ($uid) {
+                    /** @var \XoopsMemberHandler $memberHandler */
                     $memberHandler = xoops_getHandler('member');
                     $submitter     = $memberHandler->getUser($uid);
                     if (is_object($submitter)) {
@@ -187,9 +195,11 @@ function DefinitionImport($delete)
      * Import CATEGORIES
      ****/
 
-    $sql3 = $xoopsDB->query('SELECT *
+    $sql3 = $xoopsDB->query(
+        'SELECT *
                               FROM ' . $xoopsDB->prefix('wbcategories') . '
-                              ORDER BY categoryID');
+                              ORDER BY categoryID'
+    );
 
     $result3 = $xoopsDB->getRowsNum($sql3);
     if ($result3) {
@@ -203,15 +213,19 @@ function DefinitionImport($delete)
 
             // insert new field ``
             if ($delete) {
-                $ret3 = $xoopsDB->queryF('
+                $ret3 = $xoopsDB->queryF(
+                    '
                                          INSERT INTO ' . $xoopsDB->prefix('lxcategories') . "
                                          (categoryID, name, description, total, weight)
-                                         VALUES ('$categoryID','$name', '$description', '$total', '$weight')");
+                                         VALUES ('$categoryID','$name', '$description', '$total', '$weight')"
+                );
             } else {
-                $ret3 = $xoopsDB->queryF('
+                $ret3 = $xoopsDB->queryF(
+                    '
                                          INSERT INTO ' . $xoopsDB->prefix('lxcategories') . "
                                          (categoryID, name, description, total, weight)
-                                         VALUES ('', '$name', '$description', '$total', '$weight')");
+                                         VALUES ('', '$name', '$description', '$total', '$weight')"
+                );
             }
             if (!$ret3) {
                 ++$errorcounter;
@@ -224,19 +238,23 @@ function DefinitionImport($delete)
      * FINISH
      ****/
 
-    $sqlquery4 = $xoopsDB->query('
+    $sqlquery4 = $xoopsDB->query(
+        '
                                SELECT mid
                                FROM ' . $xoopsDB->prefix('modules') . "
-                               WHERE dirname = 'wordbook'");
-    list($wbkID) = $xoopsDB->fetchRow($sqlquery4);
+                               WHERE dirname = 'wordbook'"
+    );
+    [$wbkID] = $xoopsDB->fetchRow($sqlquery4);
 
     echo '<p>' . _AM_LEXIKON_IMPORT_MODULE_ID . ': ' . $wbkID . '</p>';
     echo '<p>' . _AM_LEXIKON_IMPORT_MODULE_LEX_ID . ': ' . $xoopsModule->getVar('mid') . '<br>';
 
-    $commentaire = $xoopsDB->queryF('
+    $commentaire = $xoopsDB->queryF(
+        '
                                     UPDATE ' . $xoopsDB->prefix('xoopscomments') . "
                                     SET com_modid = '" . $xoopsModule->getVar('mid') . "'
-                                    WHERE com_modid = '" . $wbkID . "'");
+                                    WHERE com_modid = '" . $wbkID . "'"
+    );
 
     if (!$commentaire) {
         showerror(_AM_LEXIKON_IMPORT_ERROR_IMPORT_COMMENT . ':  ...');
@@ -261,7 +279,7 @@ function FormImport()
     global $xoopsConfig, $xoopsDB, $xoopsModule;
     //lx_importMenu(9);
     echo "<strong style='color: #2F5376; margin-top:6px; font-size:medium'>" . _AM_LEXIKON_IMPORT_WORDBOOK . '</strong><br><br>';
-    /** @var XoopsModuleHandler $moduleHandler */
+    /** @var \XoopsModuleHandler $moduleHandler */
     $moduleHandler  = xoops_getHandler('module');
     $wordbookModule = $moduleHandler->getByDirname('wordbook');
     $got_options    = false;

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Tag info
  *
@@ -7,7 +8,7 @@
  * @author         Taiwen Jiang (phppp or D.J.) <php_pp@hotmail.com>
  * @package        module::tag
  */
-defined('XOOPS_ROOT_PATH') || die('Restricted access');
+defined('XOOPS_ROOT_PATH') || exit('Restricted access');
 /**
  * Get item fields:
  * title
@@ -18,12 +19,10 @@ defined('XOOPS_ROOT_PATH') || die('Restricted access');
  * uname
  * tags
  *
- * @var        array $items associative array of items: [modid][catid][itemid]
  *
- * @return    boolean
- *
+ * @param mixed $items
+ * @return    bool
  */
-
 function lexikon_tag_iteminfo(&$items)
 {
     if (empty($items) || !is_array($items)) {

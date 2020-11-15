@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * Module: Lexikon - glossary module
  * Version: v 1.00
  * Release Date: 18 Dec 2011
@@ -8,6 +7,8 @@
  * Licence: GNU
  */
 
+use Xmf\Module\Admin;
+use Xmf\Request;
 use XoopsModules\Lexikon;
 
 require_once __DIR__ . '/admin_header.php';
@@ -17,22 +18,22 @@ xoops_cp_header();
 $helper = Lexikon\Helper::getInstance();
 
 $myts = \MyTextSanitizer::getInstance();
-global $xoopsUser, $xoopsConfig,  $xoopsModule, $entryID;
+global $xoopsUser, $xoopsConfig, $xoopsModule, $entryID;
 xoops_load('XoopsUserUtility');
-$adminObject  = \Xmf\Module\Admin::getInstance();
+$adminObject = Admin::getInstance();
 $adminObject->displayNavigation(basename(__FILE__));
 $adminObject->addItemButton(_AM_LEXIKON_CREATECAT, 'category.php?op=addcat', 'add');
 $adminObject->addItemButton(_AM_LEXIKON_CREATEENTRY, 'entry.php?op=add', 'add');
 $adminObject->displayButton('left');
 require_once XOOPS_ROOT_PATH . '/class/pagenav.php';
 
-$startentry = \Xmf\Request::getInt('startentry', 0, 'GET');
-$entryID    = \Xmf\Request::getInt('entryID', 0, 'POST');
-$pick       = \Xmf\Request::getInt('pick', 0, 'GET');
-$pick       = \Xmf\Request::getInt('pick', $pick, 'POST');
+$startentry = Request::getInt('startentry', 0, 'GET');
+$entryID    = Request::getInt('entryID', 0, 'POST');
+$pick       = Request::getInt('pick', 0, 'GET');
+$pick       = Request::getInt('pick', $pick, 'POST');
 
-$statussel = \Xmf\Request::getInt('statussel', 0, 'GET');
-$statussel = \Xmf\Request::getInt('statussel', $statussel, 'POST');
+$statussel = Request::getInt('statussel', 0, 'GET');
+$statussel = Request::getInt('statussel', $statussel, 'POST');
 
 $sortsel = isset($_GET['sortsel']) ? $_GET['sortsel'] : 'entryID';
 $sortsel = isset($_POST['sortsel']) ? $_POST['sortsel'] : $sortsel;
@@ -41,34 +42,46 @@ $ordersel = isset($_GET['ordersel']) ? $_GET['ordersel'] : 'DESC';
 $ordersel = isset($_POST['ordersel']) ? $_POST['ordersel'] : $ordersel;
 
 //--- inventory
-$result = $xoopsDB->query('SELECT COUNT(*)
-                               FROM ' . $xoopsDB->prefix('lxcategories') . ' ');
-list($totalcategories) = $xoopsDB->fetchRow($result);
+$result = $xoopsDB->query(
+    'SELECT COUNT(*)
+                               FROM ' . $xoopsDB->prefix('lxcategories') . ' '
+);
+[$totalcategories] = $xoopsDB->fetchRow($result);
 
-$result01 = $xoopsDB->query('SELECT COUNT(*)
+$result01 = $xoopsDB->query(
+    'SELECT COUNT(*)
                                FROM ' . $xoopsDB->prefix('lxentries') . '
-                               ');
-list($totalterms) = $xoopsDB->fetchRow($result01);
+                               '
+);
+[$totalterms] = $xoopsDB->fetchRow($result01);
 
-$result02 = $xoopsDB->query('SELECT COUNT(*)
+$result02 = $xoopsDB->query(
+    'SELECT COUNT(*)
                                FROM ' . $xoopsDB->prefix('lxentries') . '
-                               WHERE offline = 0 AND submit = 0 AND request = 0 ');
-list($totalpublished) = $xoopsDB->fetchRow($result02);
+                               WHERE offline = 0 AND submit = 0 AND request = 0 '
+);
+[$totalpublished] = $xoopsDB->fetchRow($result02);
 
-$result03 = $xoopsDB->query('SELECT COUNT(*)
+$result03 = $xoopsDB->query(
+    'SELECT COUNT(*)
                                FROM ' . $xoopsDB->prefix('lxentries') . "
-                               WHERE submit = '1' AND request = '0' ");
-list($totalsubmitted) = $xoopsDB->fetchRow($result03);
+                               WHERE submit = '1' AND request = '0' "
+);
+[$totalsubmitted] = $xoopsDB->fetchRow($result03);
 
-$result04 = $xoopsDB->query('SELECT COUNT(*)
+$result04 = $xoopsDB->query(
+    'SELECT COUNT(*)
                                FROM ' . $xoopsDB->prefix('lxentries') . "
-                               WHERE submit = '1' AND request = '1' ");
-list($totalrequested) = $xoopsDB->fetchRow($result04);
+                               WHERE submit = '1' AND request = '1' "
+);
+[$totalrequested] = $xoopsDB->fetchRow($result04);
 
-$result05 = $xoopsDB->query('SELECT COUNT(*)
+$result05 = $xoopsDB->query(
+    'SELECT COUNT(*)
                                FROM ' . $xoopsDB->prefix('lxentries') . "
-                               WHERE offline = '1'  ");
-list($totaloffline) = $xoopsDB->fetchRow($result05);
+                               WHERE offline = '1'  "
+);
+[$totaloffline] = $xoopsDB->fetchRow($result05);
 
 //--- category dropdown
 if (1 == $helper->getConfig('multicats')) {
@@ -127,19 +140,15 @@ switch ($sortsel) {
     case 'term':
         $sorttxtterm = 'selected';
         break;
-
     case 'datesub':
         $sorttxtcreated = 'selected';
         break;
-
     case 'uid':
         $sorttxtauthor = 'selected';
         break;
-
     case 'categoryID':
         $sorttxtcats = 'selected';
         break;
-
     default:
         $sorttxtentryID = 'selected';
         break;
@@ -149,7 +158,6 @@ switch ($ordersel) {
     case 'ASC':
         $ordertxtasc = 'selected';
         break;
-
     default:
         $ordertxtdesc = 'selected';
         break;
@@ -163,28 +171,24 @@ switch ($statussel) {
         $cond               = '';
         $status_explanation = _AM_LEXIKON_ALL_EXP;
         break;
-
     case '1':
         $selectedtxt1       = 'selected';
         $caption            = _AM_LEXIKON_SUBMITTED;
         $cond               = ' WHERE submit = 1 AND request = 0 ';
         $status_explanation = _AM_LEXIKON_SUBMITTED_EXP;
         break;
-
     case '2':
         $selectedtxt2       = 'selected';
         $caption            = _AM_LEXIKON_PUBLISHED;
         $cond               = ' WHERE offline = 0 ';
         $status_explanation = _AM_LEXIKON_PUBLISHED_EXP;
         break;
-
     case '3':
         $selectedtxt3       = 'selected';
         $caption            = _AM_LEXIKON_SHOWOFFLINE;
         $cond               = ' WHERE offline = 1 ';
         $status_explanation = _AM_LEXIKON_OFFLINE_EXP;
         break;
-
     case '4':
         $selectedtxt4       = 'selected';
         $caption            = _AM_LEXIKON_SHOWREQUESTS;
@@ -193,7 +197,7 @@ switch ($statussel) {
         break;
 }
 // -- Code to show selected terms
-echo "<form name='pick' id='pick' action='" . $_SERVER['PHP_SELF'] . "' method='POST' style='margin: 0;'>";
+echo "<form name='pick' id='pick' action='" . $_SERVER['SCRIPT_NAME'] . "' method='POST' style='margin: 0;'>";
 echo "<table class='outer' style='width:100%;'><tr><th><span style='font-weight:bold; font-variant:small-caps;'>" . _AM_LEXIKON_SHOWING . ' ' . $caption . "</span></th><th style='text-align:right;'>" . _AM_LEXIKON_SELECT_SORT . " <select name='sortsel' onchange='submit()'>
                     <option value='entryID' $sorttxtentryID>" . _AM_LEXIKON_ENTRYID . "</option>
                     <option value='term' $sorttxtterm>" . _AM_LEXIKON_TERM . "</option>
@@ -216,33 +220,36 @@ echo "<table class='outer' style='width:100%;'><tr><th><span style='font-weight:
 
 // Get number of entries in the selected state
 $statusSelected = (0 == $statussel) ? -1 : $statussel;
-$results        = $xoopsDB->query('SELECT COUNT(*)
+$results        = $xoopsDB->query(
+    'SELECT COUNT(*)
                                 FROM ' . $xoopsDB->prefix('lxentries') . '
                                 ' . $cond . '
                                 ORDER BY ' . $sortsel . ' ' . $ordersel . '
-                                ');
-list($numrows) = $xoopsDB->fetchRow($results);
+                                '
+);
+[$numrows] = $xoopsDB->fetchRow($results);
 // creating the content
 $sql = 'SELECT entryID, categoryID, term, uid, datesub, offline
        FROM ' . $xoopsDB->prefix('lxentries') . '
        ' . $cond . '
        ORDER BY ' . $sortsel . ' ' . $ordersel . ' ';
 
-$items            = $xoopsDB->query($sql, $helper->getConfig('perpage'), $startentry);//missing nav. extras
+$items = $xoopsDB->query($sql, $helper->getConfig('perpage'), $startentry); //missing nav. extras
 
 $totalItemsOnPage = count($numrows);
-
 
 lx_buildTable();
 
 if ($numrows > 0) {
     $class = 'odd';
-    while (false !== (list($entryID, $categoryID, $term, $uid, $created, $offline) = $xoopsDB->fetchRow($items))) {
+    while (list($entryID, $categoryID, $term, $uid, $created, $offline) = $xoopsDB->fetchRow($items)) {
         // Creating the items
-        $resultcn = $xoopsDB->query('SELECT name
+        $resultcn = $xoopsDB->query(
+            'SELECT name
                                        FROM ' . $xoopsDB->prefix('lxcategories') . "
-                                       WHERE categoryID = '$categoryID'");
-        list($name) = $xoopsDB->fetchRow($resultcn);
+                                       WHERE categoryID = '$categoryID'"
+        );
+        [$name] = $xoopsDB->fetchRow($resultcn);
         $catname = $myts->htmlSpecialChars($name);
         $sentby  = \XoopsUserUtility::getUnameFromId($uid);
         $term    = $myts->htmlSpecialChars($term);
@@ -257,22 +264,18 @@ if ($numrows > 0) {
                 case '1':
                     $statustxt = '<img src=' . XOOPS_URL . '/modules/' . $xoopsModule->dirname() . "/assets/images/icon/off.gif alt='" . _AM_LEXIKON_ENTRYISOFF . "'>";
                     break;
-
                 //case _LEXIKON_STATUS_PUBLISHED :
                 case '2':
                     $statustxt = '<img src=' . XOOPS_URL . '/modules/' . $xoopsModule->dirname() . "/assets/images/icon/on.gif alt='" . _AM_LEXIKON_ENTRYISON . "'>";
                     break;
-
                 //case _LEXIKON_STATUS_OFFLINE :
                 case '3':
                     $statustxt = '<img src=' . XOOPS_URL . '/modules/' . $xoopsModule->dirname() . "/assets/images/icon/off.gif alt='" . _AM_LEXIKON_ENTRYISOFF . "'>";
                     break;
-
                 //case _LEXIKON_STATUS_REQ :
                 case '4':
                     $statustxt = '<img src=' . XOOPS_URL . '/modules/' . $xoopsModule->dirname() . "/assets/images/icon/off.gif alt='" . _AM_LEXIKON_ENTRYISOFF . "'>";
                     break;
-
                 case 'default':
                 default:
                     if (0 == $offline) {

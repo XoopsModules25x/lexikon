@@ -1,11 +1,11 @@
 <?php
 /**
- *
  * Module: Lexikon - glossary module
  * Author: hsalazar
  * Licence: GNU
  */
 
+use Xmf\Module\Admin;
 use Xmf\Request;
 use XoopsModules\Lexikon;
 
@@ -18,7 +18,7 @@ $helper = Lexikon\Helper::getInstance();
 $myts = \MyTextSanitizer::getInstance();
 xoops_cp_header();
 xoops_load('XoopsUserUtility');
-$adminObject  = \Xmf\Module\Admin::getInstance();
+$adminObject = Admin::getInstance();
 $adminObject->displayNavigation(basename(__FILE__));
 $adminObject->addItemButton(_AM_LEXIKON_CREATECAT, 'category.php?op=addcat', 'add');
 $adminObject->displayButton('left');
@@ -37,21 +37,21 @@ function categoryDefault()
     $startsub   = \Xmf\Request::getInt('startsub', 0, 'GET');
     $datesub    = \Xmf\Request::getInt('datesub', 0, 'GET');
 
-    global $xoopsUser, $xoopsConfig, $xoopsDB,  $xoopsModule, $entryID, $pathIcon16;
+    global $xoopsUser, $xoopsConfig, $xoopsDB, $xoopsModule, $entryID, $pathIcon16;
 
     $myts = \MyTextSanitizer::getInstance();
     //    lx_adminMenu(1, _AM_LEXIKON_CATS);
     $result01 = $xoopsDB->query('SELECT COUNT(*) FROM ' . $xoopsDB->prefix('lxcategories') . ' ');
-    list($totalcategories) = $xoopsDB->fetchRow($result01);
+    [$totalcategories] = $xoopsDB->fetchRow($result01);
 
     $result02 = $xoopsDB->query('SELECT COUNT(*) FROM ' . $xoopsDB->prefix('lxentries') . ' WHERE submit = 0');
-    list($totalpublished) = $xoopsDB->fetchRow($result02);
+    [$totalpublished] = $xoopsDB->fetchRow($result02);
 
     $result03 = $xoopsDB->query('SELECT COUNT(*) FROM ' . $xoopsDB->prefix('lxentries') . " WHERE submit = '1' AND request = '0' ");
-    list($totalsubmitted) = $xoopsDB->fetchRow($result03);
+    [$totalsubmitted] = $xoopsDB->fetchRow($result03);
 
     $result04 = $xoopsDB->query('SELECT COUNT(*) FROM ' . $xoopsDB->prefix('lxentries') . " WHERE submit = '1' AND request = '1' ");
-    list($totalrequested) = $xoopsDB->fetchRow($result04);
+    [$totalrequested] = $xoopsDB->fetchRow($result04);
 
     if (1 == $helper->getConfig('multicats')) {
         /**
@@ -65,7 +65,7 @@ function categoryDefault()
         echo '<tr>';
         // create existing columns table //doppio
         $resultC1 = $xoopsDB->query('SELECT COUNT(*) FROM ' . $xoopsDB->prefix('lxcategories') . ' ');
-        list($numrows) = $xoopsDB->fetchRow($resultC1);
+        [$numrows] = $xoopsDB->fetchRow($resultC1);
         $sql      = 'SELECT * FROM ' . $xoopsDB->prefix('lxcategories') . ' ORDER BY weight';
         $resultC2 = $xoopsDB->query($sql, $helper->getConfig('perpage'), $startcat);
 
@@ -79,8 +79,8 @@ function categoryDefault()
 
         $class = 'odd';
         if ($numrows > 0) { // That is, if there ARE columns in the system
-            while (false !== (list($categoryID, $name, $description, $total, $weight, $logourl) = $xoopsDB->fetchRow($resultC2))) {
-                $name = $myts->htmlSpecialChars($name);
+            while (list($categoryID, $name, $description, $total, $weight, $logourl) = $xoopsDB->fetchRow($resultC2)) {
+                $name        = $myts->htmlSpecialChars($name);
                 $description = strip_tags(htmlspecialchars_decode($description));
                 $modify      = "<a href='category.php?op=mod&categoryID=" . $categoryID . "'><img src=" . $pathIcon16 . "/edit.png alt='" . _AM_LEXIKON_EDITCAT . "'></a>";
                 $delete      = "<a href='category.php?op=del&categoryID=" . $categoryID . "'><img src=" . $pathIcon16 . "/delete.png  alt='" . _AM_LEXIKON_DELETECAT . "'></a>";
@@ -123,7 +123,7 @@ function categoryEdit($categoryID = '')
     require_once XOOPS_ROOT_PATH . '/class/uploader.php';
     require_once XOOPS_ROOT_PATH . '/class/xoopsform/grouppermform.php';
 
-    $utility      = new Lexikon\Utility();
+    $utility = new Lexikon\Utility();
 
     $weight      = 1;
     $name        = '';
@@ -136,18 +136,22 @@ function categoryEdit($categoryID = '')
 
     // If there is a parameter, and the id exists, retrieve data: we're editing a column
     if ($categoryID) {
-        $result = $xoopsDB->query('
+        $result = $xoopsDB->query(
+            '
                                      SELECT categoryID, name, description, total, weight,logourl
                                      FROM ' . $xoopsDB->prefix('lxcategories') . "
-                                     WHERE categoryID = '$categoryID'");
+                                     WHERE categoryID = '$categoryID'"
+        );
 
-        list($categoryID, $name, $description, $total, $weight, $logourl) = $xoopsDB->fetchRow($result);
+        [$categoryID, $name, $description, $total, $weight, $logourl] = $xoopsDB->fetchRow($result);
         $myts = \MyTextSanitizer::getInstance();
         $name = $myts->htmlSpecialChars($name);
         //permissions
+        /** @var \XoopsMemberHandler $memberHandler */
         $memberHandler = xoops_getHandler('member');
         $group_list    = $memberHandler->getGroupList();
-        $grouppermHandler  = xoops_getHandler('groupperm');
+        /** @var \XoopsGroupPermHandler $grouppermHandler */
+        $grouppermHandler = xoops_getHandler('groupperm');
 
         $groups = $grouppermHandler->getGroupIds('lexikon_view', $categoryID, $xoopsModule->getVar('mid'));
         //        $groups = $groups;
@@ -161,19 +165,19 @@ function categoryEdit($categoryID = '')
         //        lx_adminMenu(1, _AM_LEXIKON_CATS);
 
         echo "<strong style='color: #2F5376;margin-top: 6px;font-size:medium'>" . _AM_LEXIKON_CATSHEADER . '</strong>';
-        $sform = new \XoopsThemeForm(_AM_LEXIKON_MODCAT . ": $name", 'op', xoops_getenv('PHP_SELF'), 'post', true);
+        $sform = new \XoopsThemeForm(_AM_LEXIKON_MODCAT . ": $name", 'op', xoops_getenv('SCRIPT_NAME'), 'post', true);
     } else {
         //$myts = \MyTextSanitizer::getInstance();
         //        lx_adminMenu(1, _AM_LEXIKON_CATS);
         $groups = true;
         echo "<strong style='color: #2F5376;margin-top: 6px;font-size:medium'>" . _AM_LEXIKON_CATSHEADER . '</strong>';
-        $sform = new \XoopsThemeForm(_AM_LEXIKON_NEWCAT, 'op', xoops_getenv('PHP_SELF'), 'post', true);
+        $sform = new \XoopsThemeForm(_AM_LEXIKON_NEWCAT, 'op', xoops_getenv('SCRIPT_NAME'), 'post', true);
     }
 
     $sform->setExtra('enctype="multipart/form-data"');
     $sform->addElement(new \XoopsFormText(_AM_LEXIKON_CATNAME, 'name', 50, 80, $name), true);
 
-    $editor =  $utility::getWysiwygForm(_AM_LEXIKON_CATDESCRIPT, 'description', $description, 7, 60);
+    $editor = $utility::getWysiwygForm(_AM_LEXIKON_CATDESCRIPT, 'description', $description, 7, 60);
     $sform->addElement($editor, true);
     unset($editor);
 
@@ -190,7 +194,7 @@ function categoryEdit($categoryID = '')
 
         $path_catimg       = 'uploads/' . $xoopsModule->getVar('dirname') . '/categories/images';
         $image_option_tray = new \XoopsFormElementTray(_AM_LEXIKON_CATIMAGE . '<br>' . _AM_LEXIKON_CATIMG_DSC . '<br>' . $path_catimg);
-        $image_array = \XoopsLists::getImgListAsArray(XOOPS_ROOT_PATH . '/' . $path_catimg . '/');
+        $image_array       = \XoopsLists::getImgListAsArray(XOOPS_ROOT_PATH . '/' . $path_catimg . '/');
         array_unshift($image_array, _NONE);
 
         $image_select = new \XoopsFormSelect('', 'logourl', $logourl);
@@ -208,33 +212,33 @@ function categoryEdit($categoryID = '')
     }
     $sform->addElement(new \XoopsFormSelectGroup(_AM_LEXIKON_CAT_GROUPSVIEW, 'groups', true, $groups, 5, true));
 
-    $button_tray = new \XoopsFormElementTray('', '');
-    $hidden      = new \XoopsFormHidden('op', 'addcategory');
-    $button_tray->addElement($hidden);
+    $buttonTray = new \XoopsFormElementTray('', '');
+    $hidden     = new \XoopsFormHidden('op', 'addcategory');
+    $buttonTray->addElement($hidden);
 
     // No ID for column -- then it's new column, button says 'Create'
     if (!$categoryID) {
         $butt_create = new \XoopsFormButton('', '', _AM_LEXIKON_CREATE, 'submit');
         $butt_create->setExtra('onclick="this.form.elements.op.value=\'addcategory\'"');
-        $button_tray->addElement($butt_create);
+        $buttonTray->addElement($butt_create);
 
         $butt_clear = new \XoopsFormButton('', '', _AM_LEXIKON_CLEAR, 'reset');
-        $button_tray->addElement($butt_clear);
+        $buttonTray->addElement($butt_clear);
 
         $butt_cancel = new \XoopsFormButton('', '', _AM_LEXIKON_CANCEL, 'button');
         $butt_cancel->setExtra('onclick="history.go(-1)"');
-        $button_tray->addElement($butt_cancel);
+        $buttonTray->addElement($butt_cancel);
     } else { // button says 'Update'
         $butt_create = new \XoopsFormButton('', '', _AM_LEXIKON_MODIFY, 'submit');
         $butt_create->setExtra('onclick="this.form.elements.op.value=\'addcategory\'"');
-        $button_tray->addElement($butt_create);
+        $buttonTray->addElement($butt_create);
 
         $butt_cancel = new \XoopsFormButton('', '', _AM_LEXIKON_CANCEL, 'button');
         $butt_cancel->setExtra('onclick="history.go(-1)"');
-        $button_tray->addElement($butt_cancel);
+        $buttonTray->addElement($butt_cancel);
     }
 
-    $sform->addElement($button_tray);
+    $sform->addElement($buttonTray);
     $sform->display();
     unset($hidden);
 }
@@ -253,18 +257,18 @@ function categoryDelete($categoryID = '')
     }
     if ($idc <= 0) {
         header('location: category.php');
-        die();
+        exit();
     }
 
     $ok     = Request::getInt('ok', 0, 'POST'); //isset($_POST['ok']) ? \Xmf\Request::getInt('ok', 0, 'POST') : 0;
     $result = $xoopsDB->query('SELECT categoryID, name FROM ' . $xoopsDB->prefix('lxcategories') . " WHERE categoryID = $idc");
-    list($categoryID, $name) = $xoopsDB->fetchRow($result);
+    [$categoryID, $name] = $xoopsDB->fetchRow($result);
     // confirmed, so delete
     if (1 == $ok) {
         //get all entries in the category
         $result3 = $xoopsDB->query('SELECT entryID from ' . $xoopsDB->prefix('lxentries') . " where categoryID = $idc");
         //now for each entry, delete the coments
-        while (false !== (list($entryID) = $xoopsDB->fetchRow($result3))) {
+        while (list($entryID) = $xoopsDB->fetchRow($result3)) {
             xoops_comment_delete($xoopsModule->getVar('mid'), $entryID);
             xoops_notification_deletebyitem($xoopsModule->getVar('mid'), 'term', $entryID);
         }
@@ -293,21 +297,21 @@ function categorySave($categoryID = '')
 {
     require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
     require_once XOOPS_ROOT_PATH . '/class/uploader.php';
-    global $xoopsUser, $xoopsConfig,  $xoopsModule, $xoopsDB, $myts, $categoryID;
+    global $xoopsUser, $xoopsConfig, $xoopsModule, $xoopsDB, $myts, $categoryID;
     /** @var Lexikon\Helper $helper */
     $helper = Lexikon\Helper::getInstance();
     //print_r ($_POST);
     $categoryID  = Request::getInt('categoryID', 0);
     $weight      = Request::getInt('weight', 0); //isset($_POST['weight']) ? \Xmf\Request::getInt('weight', 0, 'POST') : \Xmf\Request::getInt('weight', 0, 'GET');
     $name        = Request::getString('name', ''); //isset($_POST['name']) ? htmlspecialchars($_POST['name']) : htmlspecialchars($_GET['name']);
-    $description = $myts->htmlSpecialChars(Request::getString('description', ''));//isset($_POST['description']) ? htmlspecialchars($_POST['description']) : htmlspecialchars($_GET['description']);
-    $description =& $myts->xoopsCodeDecode($myts->censorString($description), $allowimage = 1);
+    $description = $myts->htmlSpecialChars(Request::getString('description', '')); //isset($_POST['description']) ? htmlspecialchars($_POST['description']) : htmlspecialchars($_GET['description']);
+    $description = &$myts->xoopsCodeDecode($myts->censorString($description), $allowimage = 1);
     $name        = $myts->addSlashes(Request::getString('name', '', 'POST'));
     $logourl     = $myts->addSlashes(Request::getString('logourl', '', 'POST'));
     $groups      = Request::getArray('group', [], 'POST'); //isset($_POST['groups']) ? $_POST['groups'] : array();
     // image upload
     $logourl       = '';
-    $maxfilesize = $helper->getConfig('imguploadsize');
+    $maxfilesize   = $helper->getConfig('imguploadsize');
     $maxfilewidth  = $helper->getConfig('imguploadwd');
     $maxfileheight = $helper->getConfig('imguploadwd');
     if (!empty($_FILES['userfile']['name'])) {
@@ -316,7 +320,7 @@ function categorySave($categoryID = '')
             'image/jpeg',
             'image/pjpeg',
             'image/x-png',
-            'image/png'
+            'image/png',
         ];
         $uploader          = new \XoopsMediaUploader(XOOPS_ROOT_PATH . '/uploads/' . $xoopsModule->getVar('dirname') . '/categories/images/', $allowed_mimetypes, $maxfilesize, $maxfilewidth, $maxfileheight);
 
@@ -335,11 +339,14 @@ function categorySave($categoryID = '')
 
     // Run the query and update the data
     if (!$_POST['categoryID']) {
-        if ($xoopsDB->query('INSERT INTO ' . $xoopsDB->prefix('lxcategories') . " (categoryID, name, description, weight, logourl)
-                                 VALUES (0, '$name', '$description', '$weight', '$logourl')")) {
+        if ($xoopsDB->query(
+            'INSERT INTO ' . $xoopsDB->prefix('lxcategories') . " (categoryID, name, description, weight, logourl)
+                                 VALUES (0, '$name', '$description', '$weight', '$logourl')"
+        )) {
             $newid = $xoopsDB->getInsertId();
             // Increment author's posts count (only if it's a new definition)
             if (is_object($xoopsUser) && empty($categoryID)) {
+                /** @var \XoopsMemberHandler $memberHandler */
                 $memberHandler = xoops_getHandler('member');
                 $submitter     = $memberHandler->getUser($uid);
                 if (is_object($submitter)) {
@@ -367,10 +374,12 @@ function categorySave($categoryID = '')
             redirect_header('index.php', 1, _AM_LEXIKON_NOTUPDATED);
         }
     } else {
-        if ($xoopsDB->queryF('
+        if ($xoopsDB->queryF(
+            '
                                 UPDATE ' . $xoopsDB->prefix('lxcategories') . "
                                 SET name = '$name', description = '$description', weight = '$weight' , logourl = '$logourl'
-                                WHERE categoryID = '$categoryID'")) {
+                                WHERE categoryID = '$categoryID'"
+        )) {
             lx_save_Permissions($groups, $categoryID, 'lexikon_view');
             redirect_header('category.php', 1, _AM_LEXIKON_CATMODIFIED);
         } else {
@@ -383,10 +392,10 @@ function categorySave($categoryID = '')
  * Available operations
  **/
 $op = 'default';
-if (isset($_POST['op'])) {
+if (\Xmf\Request::hasVar('op', 'POST')) {
     $op = $_POST['op'];
 } else {
-    if (isset($_GET['op'])) {
+    if (\Xmf\Request::hasVar('op', 'GET')) {
         $op = $_GET['op'];
     }
 }
@@ -396,19 +405,15 @@ switch ($op) {
         $categoryID = Request::getInt('categoryID', 0);
         categoryEdit($categoryID);
         break;
-
     case 'addcat':
         categoryEdit();
         break;
-
     case 'addcategory':
         categorySave();
         break;
-
     case 'del':
         categoryDelete();
         break;
-
     case 'default':
     default:
         categoryDefault();

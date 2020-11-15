@@ -15,13 +15,12 @@
  *
  * @category        Module
  * @package         lexikon
- * @author          XOOPS Development Team <name@site.com> - <http://xoops.org>
+ * @author          XOOPS Development Team <name@site.com> - <https://xoops.org>
  * @copyright       {@link https://xoops.org/ XOOPS Project}
  * @license         GPL 2.0 or later
  * @link            https://xoops.org/
  * @since           1.0.0
  */
-
 
 use Xmf\Module\Helper\Permission;
 use Xmf\Request;
@@ -39,12 +38,12 @@ xoops_load('XoopsUserUtility');
 
 $adminObject->displayNavigation(basename(__FILE__));
 /** @var Permission $permHelper */
-$permHelper = new Permission($moduleDirName);
+$permHelper = new \Xmf\Module\Helper\Permission($moduleDirName);
 $uploadDir  = XOOPS_UPLOAD_PATH . '/lexikon/images/';
 $uploadUrl  = XOOPS_UPLOAD_URL . '/lexikon/images/';
 
-$db           = \XoopsDatabaseFactory::getDatabaseConnection();
-$categoriesHandler     = new Lexikon\CategoriesHandler($db);
+$db                = \XoopsDatabaseFactory::getDatabaseConnection();
+$categoriesHandler = new Lexikon\CategoriesHandler($db);
 
 switch ($op) {
     case 'list':
@@ -60,7 +59,7 @@ switch ($op) {
         $criteria->setLimit($entriesPaginationLimit);
         $criteria->setStart($start);
         $entriesTempRows  = $entriesHandler->getCount();
-        $entriesTempArray = $entriesHandler->getAll($criteria);/*
+        $entriesTempArray = $entriesHandler->getAll($criteria); /*
 //
 //
                     <th class='center width5'>".AM_LEXIKON_FORM_ACTION."</th>
@@ -96,8 +95,6 @@ switch ($op) {
         //    for ($i = 0; $i < $fieldsCount; ++$i) {
         if ($entriesCount > 0) {
             foreach (array_keys($entriesTempArray) as $i) {
-
-
                 //        $field = explode(':', $fields[$i]);
 
                 $selectorentryID = Lexikon\Utility::selectSorting(AM_LEXIKON_ENTRIES_ENTRYID, 'entryID');
@@ -107,7 +104,6 @@ switch ($op) {
                 $selectorcategoryID = Lexikon\Utility::selectSorting(AM_LEXIKON_ENTRIES_CATEGORYID, 'categoryID');
                 $GLOBALS['xoopsTpl']->assign('selectorcategoryID', $selectorcategoryID);
                 $entriesArray['categoryID'] = $categoriesHandler->get($entriesTempArray[$i]->getVar('categoryID'))->getVar('name');
-
 
                 $selectorterm = Lexikon\Utility::selectSorting(AM_LEXIKON_ENTRIES_TERM, 'term');
                 $GLOBALS['xoopsTpl']->assign('selectorterm', $selectorterm);
@@ -120,11 +116,11 @@ switch ($op) {
                 $selectordefinition = Lexikon\Utility::selectSorting(AM_LEXIKON_ENTRIES_DEFINITION, 'definition');
                 $GLOBALS['xoopsTpl']->assign('selectordefinition', $selectordefinition);
 
-                $entriesArray['definition'] = Lexikon\Utility::truncateTagSafe(($entriesTempArray[$i]->getVar('definition')), 80, $etc = '...', $breakWords = false);
+                $entriesArray['definition'] = Lexikon\Utility::truncateTagSafe($entriesTempArray[$i]->getVar('definition'), 80, $etc = '...', $breakWords = false);
 
                 $selectorref = Lexikon\Utility::selectSorting(AM_LEXIKON_ENTRIES_REF, 'ref');
                 $GLOBALS['xoopsTpl']->assign('selectorref', $selectorref);
-                $entriesArray['ref'] = ($entriesTempArray[$i]->getVar('ref'));
+                $entriesArray['ref'] = $entriesTempArray[$i]->getVar('ref');
 
                 $selectorurl = Lexikon\Utility::selectSorting(AM_LEXIKON_ENTRIES_URL, 'url');
                 $GLOBALS['xoopsTpl']->assign('selectorurl', $selectorurl);
@@ -134,25 +130,17 @@ switch ($op) {
                 $GLOBALS['xoopsTpl']->assign('selectoruid', $selectoruid);
                 $entriesArray['uid'] = \XoopsUserUtility::getUnameFromId($entriesTempArray[$i]->getVar('uid'));
 
-
-
-                $selectorsubmit = Lexikon\Utility::selectSorting(AM_LEXIKON_ENTRIES_SUBMIT, 'submit');
+                $selectorsubmit = Lexikon\Utility::selectSorting(_SUBMIT, 'submit');
                 $GLOBALS['xoopsTpl']->assign('selectorsubmit', $selectorsubmit);
                 $entriesArray['submit'] = $entriesTempArray[$i]->getVar('submit');
 
                 $selectordatesub = Lexikon\Utility::selectSorting(AM_LEXIKON_ENTRIES_DATESUB, 'datesub');
                 $GLOBALS['xoopsTpl']->assign('selectordatesub', $selectordatesub);
-//                $entriesArray['datesub'] = date(_DATESTRING, strtotime($entriesTempArray[$i]->getVar('datesub')));
-                $date = $entriesTempArray[$i]->getVar('datesub');
+                //                $entriesArray['datesub'] = date(_DATESTRING, strtotime($entriesTempArray[$i]->getVar('datesub')));
+                $date                    = $entriesTempArray[$i]->getVar('datesub');
                 $entriesArray['datesub'] = formatTimestamp($date, _SHORTDATESTRING);
 
-
-//                formatTimestamp($date, 'd M Y')
-
-
-
-
-
+                //                formatTimestamp($date, 'd M Y')
 
                 $selectorcounter = Lexikon\Utility::selectSorting(AM_LEXIKON_ENTRIES_COUNTER, 'counter');
                 $GLOBALS['xoopsTpl']->assign('selectorcounter', $selectorcounter);
@@ -180,9 +168,8 @@ switch ($op) {
 
                 $selectoroffline = Lexikon\Utility::selectSorting(AM_LEXIKON_ENTRIES_OFFLINE, 'offline');
                 $GLOBALS['xoopsTpl']->assign('selectoroffline', $selectoroffline);
-//                $entriesArray['offline'] = $entriesTempArray[$i]->getVar('offline');
-                $entriesArray['offline'] = (1 == $entriesTempArray[$i]->getVar('offline') ? $icons['1'] : "<border='0'>". $icons['0']);
-
+                //                $entriesArray['offline'] = $entriesTempArray[$i]->getVar('offline');
+                $entriesArray['offline'] = (1 == $entriesTempArray[$i]->getVar('offline') ? $icons['1'] : "<border='0'>" . $icons['0']);
 
                 $selectornotifypub = Lexikon\Utility::selectSorting(AM_LEXIKON_ENTRIES_NOTIFYPUB, 'notifypub');
                 $GLOBALS['xoopsTpl']->assign('selectornotifypub', $selectornotifypub);
@@ -242,19 +229,17 @@ switch ($op) {
         }
 
         break;
-
     case 'new':
         $adminObject->addItemButton(AM_LEXIKON_ENTRIES_LIST, 'entries.php', 'list');
         echo $adminObject->displayButton('left');
 
-        $entriesHandler     = new Lexikon\EntriesHandler($db);
-        $categoriesHandler     = new Lexikon\CategoriesHandler($db);
+        $entriesHandler    = new Lexikon\EntriesHandler($db);
+        $categoriesHandler = new Lexikon\CategoriesHandler($db);
 
         $entriesObject = $entriesHandler->create();
         $form          = $entriesObject->getForm();
         $form->display();
         break;
-
     case 'save':
         if (!$GLOBALS['xoopsSecurity']->check()) {
             redirect_header('entries.php', 3, implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
@@ -293,7 +278,6 @@ switch ($op) {
         $form = $entriesObject->getForm();
         $form->display();
         break;
-
     case 'edit':
         $adminObject->addItemButton(AM_LEXIKON_ADD_ENTRIES, 'entries.php?op=new', 'add');
         $adminObject->addItemButton(AM_LEXIKON_ENTRIES_LIST, 'entries.php', 'list');
@@ -302,7 +286,6 @@ switch ($op) {
         $form          = $entriesObject->getForm();
         $form->display();
         break;
-
     case 'delete':
         $entriesObject = $entriesHandler->get(Request::getString('entryID', ''));
         if (1 == Request::getInt('ok', 0)) {
@@ -318,7 +301,6 @@ switch ($op) {
             xoops_confirm(['ok' => 1, 'entryID' => Request::getString('entryID', ''), 'op' => 'delete'], Request::getCmd('REQUEST_URI', '', 'SERVER'), sprintf(AM_LEXIKON_FORMSUREDEL, $entriesObject->getVar('term')));
         }
         break;
-
     case 'clone':
 
         $id_field = Request::getString('entryID', '');

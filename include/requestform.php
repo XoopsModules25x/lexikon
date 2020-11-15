@@ -1,10 +1,10 @@
 <?php
+
 /**
  * Module: Lexikon - glossary module
  * Author: hsalazar
  * Licence: GNU
  */
-
 $rform = new \XoopsThemeForm(_MD_LEXIKON_REQUESTFORM, 'requestform', 'request.php');
 
 if (!$xoopsUser) {
@@ -26,5 +26,5 @@ if (is_object($xoopsUser)) {
     $rform->addElement($notify_checkbox);
 }
 
-$submit_button = new \XoopsFormButton('', 'submit', _MD_LEXIKON_SUBMIT, 'submit');
+$submit_button = new \XoopsFormButton('', 'submit', _SUBMIT, 'submit');
 $rform->addElement($submit_button);

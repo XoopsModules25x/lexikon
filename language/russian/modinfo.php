@@ -250,7 +250,6 @@ define('_MI_LEXIKON_TERM_APPROVE_NOTIFYCAP', 'Сообщите мне, когд�
 define('_MI_LEXIKON_TERM_APPROVE_NOTIFYDSC', 'Получение уведомления, когда этот термин будет одобрен.');
 define('_MI_LEXIKON_TERM_APPROVE_NOTIFYSBJ', '[{X_SITENAME}] {X_MODULE} автоматически оповещать: Термин утвержден');
 
-//
 define('_MI_LEXIKON_IMPORT', 'Импортировать');
 
 define('_MI_LEXIKON_HOME', 'Home');

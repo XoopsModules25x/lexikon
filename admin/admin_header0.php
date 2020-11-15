@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * Module: Lexikon - glossary module
  * Version: v 1.00
  * Release Date: 8 May 2004
@@ -8,14 +7,10 @@
  * Licence: GNU
  */
 
-include  dirname(dirname(dirname(__DIR__))) . '/mainfile.php';
-require_once  dirname(dirname(dirname(__DIR__))) . '/include/cp_header.php';
+require dirname(dirname(dirname(__DIR__))) . '/include/cp_header.php';
 
-if (file_exists(__DIR__ . '/../' . $xoopsConfig['language'] . '/main.php')) {
-    include  dirname(__DIR__) . '/language/' . $xoopsConfig['language'] . '/main.php';
-} else {
-    include  dirname(__DIR__) . '/language/english/main.php';
-}
+xoops_loadLanguage('main', basename(dirname(__DIR__)));
+
 require_once XOOPS_ROOT_PATH . '/modules/lexikon/class/Utility.php';
 require_once XOOPS_ROOT_PATH . '/modules/lexikon/admin/functions.php';
 require_once XOOPS_ROOT_PATH . '/kernel/module.php';

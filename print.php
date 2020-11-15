@@ -9,7 +9,7 @@
 use Xmf\Request;
 use XoopsModules\Lexikon;
 
-include __DIR__ . '/header.php';
+require __DIR__ . '/header.php';
 
 /** @var Lexikon\Helper $helper */
 $helper = Lexikon\Helper::getInstance();
@@ -35,31 +35,31 @@ function printPage($entryID)
 {
     global $xoopsConfig, $xoopsDB, $xoopsModule, $myts;
     /** @var Lexikon\Helper $helper */
-    $helper = Lexikon\Helper::getInstance();
+    $helper  = Lexikon\Helper::getInstance();
     $result1 = $xoopsDB->query('SELECT * FROM ' . $xoopsDB->prefix('lxentries') . " WHERE entryID = '$entryID' and submit = '0' order by datesub");
     $Ok      = $xoopsDB->getRowsNum($result1);
     if ($Ok <= 0) {
-        redirect_header('javascript:history.go(-1)', 3, _ERRORS);
+        redirect_header('<script>javascript:history.go(-1)</script>', 3, _ERRORS);
     }
-    list($entryID, $categoryID, $term, $init, $definition, $ref, $url, $uid, $submit, $datesub, $counter, $html, $smiley, $xcodes, $breaks, $block, $offline, $notifypub) = $xoopsDB->fetchRow($result1);
+    [$entryID, $categoryID, $term, $init, $definition, $ref, $url, $uid, $submit, $datesub, $counter, $html, $smiley, $xcodes, $breaks, $block, $offline, $notifypub] = $xoopsDB->fetchRow($result1);
 
     $result2 = $xoopsDB->query('SELECT name FROM ' . $xoopsDB->prefix('lxcategories') . " WHERE categoryID = '$categoryID'");
-    list($name) = $xoopsDB->fetchRow($result2);
+    [$name] = $xoopsDB->fetchRow($result2);
 
     $result3 = $xoopsDB->query('SELECT name, uname FROM ' . $xoopsDB->prefix('users') . " WHERE uid = '$uid'");
-    list($authorname, $username) = $xoopsDB->fetchRow($result3);
+    [$authorname, $username] = $xoopsDB->fetchRow($result3);
 
     $datetime     = formatTimestamp($datesub, 'D, d-M-Y, H:i');
     $categoryname = $myts->htmlSpecialChars($name);
     $term         = $myts->htmlSpecialChars($term);
     $definition   = str_replace('[pagebreak]', '<br style="page-break-after:always;">', $definition);
-    $definition   =& $myts->displayTarea($definition, $html, $smiley, $xcodes, '', $breaks);
+    $definition   = &$myts->displayTarea($definition, $html, $smiley, $xcodes, '', $breaks);
     if ('' == $authorname) {
         $authorname = $myts->htmlSpecialChars($username);
     } else {
         $authorname = $myts->htmlSpecialChars($authorname);
     }
-    echo "<!DOCTYPE HTML PUBLIC '-//W3C//DTD HTML 4.01 Transitional//EN'>\n";
+    echo "<!DOCTYPE HTML>\n";
     echo "<html>\n<head>\n";
     echo '<title>' . $xoopsConfig['sitename'] . ' ' . $term . ' ' . _MD_LEXIKON_PRINTTERM . "</title>\n";
     echo "<meta http-equiv='Content-Type' content='text/html; charset=" . _CHARSET . "'>\n";

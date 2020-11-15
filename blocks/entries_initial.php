@@ -1,11 +1,12 @@
 <?php
+
 /**
  * Module: Lexikon
  * Author: Yerres
  * adapted from xwords
  * Licence: GNU
  */
-defined('XOOPS_ROOT_PATH') || die('Restricted access');
+defined('XOOPS_ROOT_PATH') || exit('Restricted access');
 
 /**
  * @param $a
@@ -20,6 +21,7 @@ function uchr($a)
     foreach ($a as $code) {
         $str .= html_entity_decode('&#' . $code . ';', ENT_NOQUOTES, 'UTF-8');
     }
+
     return $str;
 }
 
@@ -32,19 +34,21 @@ function b_lxentries_alpha_show($options)
     global $xoopsDB, $xoopsUser, $xoopsModule;
     $myts = \MyTextSanitizer::getInstance();
 
-    /** @var XoopsModuleHandler $moduleHandler */
+    /** @var \XoopsModuleHandler $moduleHandler */
     $moduleHandler = xoops_getHandler('module');
     $lexikon       = $moduleHandler->getByDirname('lexikon');
     if (!isset($lxConfig)) {
+        /** @var \XoopsConfigHandler $configHandler */
         $configHandler = xoops_getHandler('config');
         $lxConfig      = $configHandler->getConfigsByCat(0, $lexikon->getVar('mid'));
     }
-    $groups       = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
+    $groups = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
+    /** @var \XoopsGroupPermHandler $grouppermHandler */
     $grouppermHandler = xoops_getHandler('groupperm');
-    $module_id    = $lexikon->getVar('mid');
-    $allowed_cats = $grouppermHandler->getItemIds('lexikon_view', $groups, $module_id);
-    $catids       = implode(',', $allowed_cats);
-    $catperms     = " AND categoryID IN ($catids) ";
+    $module_id        = $lexikon->getVar('mid');
+    $allowed_cats     = $grouppermHandler->getItemIds('lexikon_view', $groups, $module_id);
+    $catids           = implode(',', $allowed_cats);
+    $catperms         = " AND categoryID IN ($catids) ";
 
     $block = [];
     // To handle options in the template

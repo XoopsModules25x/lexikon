@@ -1,4 +1,6 @@
-<?php namespace XoopsModules\Lexikon;
+<?php
+
+namespace XoopsModules\Lexikon;
 
 /*
  You may not change or alter any portion of this comment or credits
@@ -9,21 +11,21 @@
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
+
+use Xmf\Module\Helper\Permission;
+
 /**
  * Module: lexikon
  *
  * @category        Module
  * @package         lexikon
- * @author          XOOPS Development Team <name@site.com> - <http://xoops.org>
+ * @author          XOOPS Development Team <name@site.com> - <https://xoops.org>
  * @copyright       {@link https://xoops.org/ XOOPS Project}
  * @license         GPL 2.0 or later
  * @link            https://xoops.org/
  * @since           1.0.0
  */
-
-use Xmf\Module\Helper\Permission;
-
-$moduleDirName = basename(dirname(__DIR__));
+$moduleDirName = \basename(\dirname(__DIR__));
 
 $permHelper = new Permission($moduleDirName);
 
@@ -36,8 +38,7 @@ class EntriesHandler extends \XoopsPersistableObjectHandler
      * Constructor
      * @param null|\XoopsDatabase $db
      */
-
-    public function __construct(\XoopsDatabase $db)
+    public function __construct(\XoopsDatabase $db = null)
     {
         parent::__construct($db, 'lxentries', Entries::class, 'entryID', 'term');
     }

@@ -1,18 +1,22 @@
 <?php
 /**
- *
  * Module: lexikon
  * Licence: GNU
  */
 
+use Xmf\Module\Admin;
 use XoopsModules\Lexikon;
 
-// require_once  dirname(__DIR__) . '/class/Helper.php';
 //require_once  dirname(__DIR__) . '/include/common.php';
+/** @var Lexikon\Helper $helper */
 $helper = Lexikon\Helper::getInstance();
+$helper->loadLanguage('common');
+$helper->loadLanguage('feedback');
 
-$pathIcon32    = \Xmf\Module\Admin::menuIconPath('');
-$pathModIcon32 = $helper->getModule()->getInfo('modicons32');
+$pathIcon32 = Admin::menuIconPath('');
+if (is_object($helper->getModule())) {
+    $pathModIcon32 = $helper->getModule()->getInfo('modicons32');
+}
 
 $adminmenu[] = [
     'title' => _MI_LEXIKON_HOME,
@@ -31,7 +35,6 @@ $adminmenu[] = [
     'link'  => 'admin/category.php',
     'icon'  => $pathIcon32 . '/category.png',
 ];
-
 
 $adminmenu[] = [
     'title' => _MI_LEXIKON_ADMENU3,
@@ -55,14 +58,18 @@ $adminmenu[] = [
     'title' => _MI_LEXIKON_ADMENU9,
     'link'  => 'admin/permissions.php',
     'icon'  => $pathIcon32 . '/permissions.png',
+];
 
+$adminmenu[] = [
+    'title' => _MI_LEXIKON_BLOCKADMIN,
+    'link'  => 'admin/myblocksadmin.php',
+    'icon'  => $pathIcon32 . '/block.png',
 ];
 
 $adminmenu[] = [
     'title' => _MI_LEXIKON_IMPORT,
     'link'  => 'admin/importwordbook.php',
     'icon'  => $pathIcon32 . '/compfile.png',
-
 ];
 
 $adminmenu[] = [

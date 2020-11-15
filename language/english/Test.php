@@ -1,11 +1,13 @@
-<?php namespace XoopsModules\Lexikon;
+<?php
+
+namespace XoopsModules\Lexikon;
+
+
 
 class Test
 {
-
     const MODULE_NAME = 'Lexikon';
-
-    const ROOT = $_SERVER['DOCUMENT_ROOT'] . 'project/';
+    const ROOT = public $_SERVER['DOCUMENT_ROOT'] . 'project/';
     const MODULE_DIRNAME = basename(dirname(__DIR__));
     const MODULE_URL = XOOPS_URL . '/modules/' . self::MODULE_DIRNAME;
     const IMAGES_URL = PUBLISHER_URL . '/assets/images';
@@ -20,5 +22,4 @@ class Test
     define('CLASS_PATH', XHELP_BASE_PATH.'/class');
     define('BASE_URL', XHELP_SITE_URL .'/modules/'. XHELP_DIR_NAME);
 */
-
 }

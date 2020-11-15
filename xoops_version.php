@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Lexikon XOOPS glossary Module
  *
@@ -9,8 +10,7 @@
  * @package        module::lexikon
  * @credits        hsalazar, catzwolf, Dario Garcia and many others
  */
-
-include __DIR__ . '/preloads/autoloader.php';
+require_once __DIR__ . '/preloads/autoloader.php';
 
 $moduleDirName = basename(__DIR__);
 $modversion    = [
@@ -27,8 +27,8 @@ $modversion    = [
     'official'      => 0, //1 indicates supported by XOOPS Dev Team, 0 means 3rd party supported
     'image'         => 'assets/images/logoModule.png',
     'dirname'       => basename(__DIR__),
-//    'onInstall'     => 'include/install_function.php',
-//    'onUpdate'      => 'include/update_function.php',
+    //    'onInstall'     => 'include/install_function.php',
+    //    'onUpdate'      => 'include/update_function.php',
 
     'modicons16' => 'assets/images/icons/16',
     'modicons32' => 'assets/images/icons/32',
@@ -39,44 +39,45 @@ $modversion    = [
     'last_update'         => '2015/01/12',
     'module_website_url'  => 'www.xoops.org',
     'module_website_name' => 'XOOPS',
-    'min_php'             => '5.5',
-    'min_xoops'           => '2.5.8',
+    'min_php'             => '7.2',
+    'min_xoops'           => '2.5.10',
     'min_admin'           => '1.2',
     'min_db'              => ['mysql' => '5.1'],
 
-    'author_word'         => '-',
-// Admin things
-    'hasAdmin'            => 1,
-    'adminindex'          => 'admin/index.php',
-    'adminmenu'           => 'admin/menu.php',
-// Sql
-    'sqlfile'             => ['mysql' => 'sql/mysql.sql'],
-    'tables'              => [
-    'lxcategories',
-    'lxentries'
+    'author_word' => '-',
+    // Admin things
+    'hasAdmin'    => 1,
+    'adminindex'  => 'admin/index.php',
+    'adminmenu'   => 'admin/menu.php',
+    // Sql
+    'sqlfile'     => ['mysql' => 'sql/mysql.sql'],
+    'tables'      => [
+        'lxcategories',
+        'lxentries',
     ],
-// Search
-    'hasSearch'           => 1,
-    'search'              => [
+    // Search
+    'hasSearch'   => 1,
+    'search'      => [
         'file' => 'include/search.inc.php',
         'func' => 'lx_search',
     ],
     // ------------------- Install/Update -------------------
-    'onInstall'           => 'include/oninstall.php',
-    'onUpdate'            => 'include/onupdate.php',
-    'onUninstall'         => 'include/onuninstall.php',
-// Menu
-    'hasMain'             => 1,
-    'system_menu'         => 1,
-// Use smarty
-    'use_smarty'          => 1,
+    'onInstall'   => 'include/oninstall.php',
+    'onUpdate'    => 'include/onupdate.php',
+    'onUninstall' => 'include/onuninstall.php',
+    // Menu
+    'hasMain'     => 1,
+    'system_menu' => 1,
+    // Use smarty
+    'use_smarty'  => 1,
 ];
 global $xoopsUser, $xoopsDB, $xoopsModuleConfig;
-/** @var XoopsModuleHandler $moduleHandler */
+/** @var \XoopsModuleHandler $moduleHandler */
 $moduleHandler = xoops_getHandler('module');
 $lexikon       = $moduleHandler->getByDirname($modversion['dirname']);
 if ($lexikon) {
     if (!isset($lxConfig)) {
+        /** @var \XoopsConfigHandler $configHandler */
         $configHandler = xoops_getHandler('config');
         $lxConfig      = $configHandler->getConfigsByCat(0, $lexikon->getVar('mid'));
     }
@@ -103,7 +104,8 @@ if (isset($lxConfig['contentsyndication']) && 1 == $lxConfig['contentsyndication
     ++$i;
 }
 if ($lexikon) {
-    $groups       = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
+    $groups = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
+    /** @var \XoopsGroupPermHandler $grouppermHandler */
     $grouppermHandler = xoops_getHandler('groupperm');
     if ($grouppermHandler->checkRight('lexikon_submit', 0, $groups, $lexikon->getVar('mid'))) {
         $modversion['sub'][$i]['name'] = _MI_LEXIKON_SUB_SMNAME1;
@@ -111,7 +113,8 @@ if ($lexikon) {
         ++$i;
     }
 
-    $groups       = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
+    $groups = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
+    /** @var \XoopsGroupPermHandler $grouppermHandler */
     $grouppermHandler = xoops_getHandler('groupperm');
     if ($grouppermHandler->checkRight('lexikon_request', 0, $groups, $lexikon->getVar('mid'))) {
         $modversion['sub'][$i]['name'] = constant('_MI_LEXIKON_SUB_SMNAME2');
@@ -126,7 +129,7 @@ if (isset($lxConfig['catsinmenu']) && 1 == $lxConfig['catsinmenu'] && isset($lxC
     && 1 == $lxConfig['multicats']) {
     $myts = \MyTextSanitizer::getInstance();
     $sql  = $xoopsDB->query('SELECT categoryID, name FROM ' . $xoopsDB->prefix('lxcategories') . ' ORDER BY weight ASC');
-    while (false !== (list($categoryID, $name) = $xoopsDB->fetchRow($sql))) {
+    while (list($categoryID, $name) = $xoopsDB->fetchRow($sql)) {
         if ($grouppermHandler->checkRight('lexikon_view', $categoryID, $groups, $lexikon->getVar('mid'))) {
             $name                          = $myts->htmlSpecialChars($name);
             $categoryID                    = (int)$categoryID;
@@ -147,7 +150,7 @@ $modversion['blocks'][1] = [
     'edit_func'   => 'b_lxentries_new_edit',
     'options'     => 'datesub|5|0|0|1|up||',
     'template'    => 'entries_new.tpl',
-    'can_clone'   => true
+    'can_clone'   => true,
 ];
 $modversion['blocks'][]  = [
     'file'        => 'entries_top.php',
@@ -157,7 +160,7 @@ $modversion['blocks'][]  = [
     'edit_func'   => 'b_lxentries_top_edit',
     'options'     => 'counter|5|0|0|1|up||',
     'template'    => 'entries_top.tpl',
-    'can_clone'   => true
+    'can_clone'   => true,
 ];
 $modversion['blocks'][]  = [
     'file'        => 'random_term.php',
@@ -165,7 +168,7 @@ $modversion['blocks'][]  = [
     'description' => 'Shows a random term',
     'show_func'   => 'b_lxentries_random_show',
     'template'    => 'entries_random.tpl',
-    'can_clone'   => true
+    'can_clone'   => true,
 ];
 $modversion['blocks'][]  = [
     'file'        => 'entries_initial.php',
@@ -175,7 +178,7 @@ $modversion['blocks'][]  = [
     'edit_func'   => 'b_lxentries_alpha_edit',
     'options'     => '1|8',
     'template'    => 'entries_initial.tpl',
-    'can_clone'   => true
+    'can_clone'   => true,
 ];
 $modversion['blocks'][]  = [
     'file'        => 'categories_block.php',
@@ -185,7 +188,7 @@ $modversion['blocks'][]  = [
     'edit_func'   => 'b_lxcategories_edit',
     'options'     => 'weight|5',
     'template'    => 'categories_block.tpl',
-    'can_clone'   => true
+    'can_clone'   => true,
 ];
 $modversion['blocks'][]  = [
     'file'        => 'entries_spot.php',
@@ -195,7 +198,7 @@ $modversion['blocks'][]  = [
     'edit_func'   => 'b_lxspot_edit',
     'options'     => '1|5|0|0|0|ver|0|datesub|65|25',
     'template'    => 'entries_spot.tpl',
-    'can_clone'   => true
+    'can_clone'   => true,
 ];
 $modversion['blocks'][]  = [
     'file'        => 'entries_authors.php',
@@ -205,7 +208,7 @@ $modversion['blocks'][]  = [
     'edit_func'   => 'b_lx_author_edit',
     'options'     => 'count|5|uname|total',
     'template'    => 'entries_authors.tpl',
-    'can_clone'   => true
+    'can_clone'   => true,
 ];
 $modversion['blocks'][]  = [
     'file'        => 'entries_scrolling.php',
@@ -215,7 +218,7 @@ $modversion['blocks'][]  = [
     'edit_func'   => 'b_scrolling_term_edit',
     'options'     => '5|2||up|0|200|1|1|RAND()|DESC|1',
     'template'    => 'entries_scrolling.tpl',
-    'can_clone'   => true
+    'can_clone'   => true,
 ];
 /*
  * $options:
@@ -233,7 +236,7 @@ $modversion['blocks'][] = [
     'edit_func'   => 'lexikon_tag_block_cloud_edit',
     'options'     => '100|0|150|80',
     'template'    => 'lexikon_tag_block_cloud.tpl',
-    'can_clone'   => true
+    'can_clone'   => true,
 ];
 /*
  * $options:
@@ -249,83 +252,82 @@ $modversion['blocks'][] = [
     'edit_func'   => 'lexikon_tag_block_top_edit',
     'options'     => '50|30|t',
     'template'    => 'lexikon_tag_block_top.tpl',
-    'can_clone'   => true
+    'can_clone'   => true,
 ];
 
 // Templates
 $modversion['templates']    = [];
 $modversion['templates'][1] = [
     'file'        => 'lx_category.tpl',
-    'description' => 'Display categories'
+    'description' => 'Display categories',
 ];
 $modversion['templates'][]  = [
     'file'        => 'lx_index.tpl',
-    'description' => 'Display index'
+    'description' => 'Display index',
 ];
 $modversion['templates'][]  = [
     'file'        => 'lx_entry.tpl',
-    'description' => 'Display term'
+    'description' => 'Display term',
 ];
 $modversion['templates'][]  = [
     'file'        => 'lx_letter.tpl',
-    'description' => 'Display letter'
+    'description' => 'Display letter',
 ];
 $modversion['templates'][]  = [
     'file'        => 'lx_search.tpl',
-    'description' => 'search glossary'
+    'description' => 'search glossary',
 ];
 $modversion['templates'][]  = [
     'file'        => 'lx_request.tpl',
-    'description' => 'Request a definition'
+    'description' => 'Request a definition',
 ];
 $modversion['templates'][]  = [
     'file'        => 'lx_submit.tpl',
-    'description' => 'Submit a definition'
+    'description' => 'Submit a definition',
 ];
 $modversion['templates'][]  = [
     'file'        => 'lx_adminmenu.tpl',
-    'description' => '(Admin) Tabs bar for administration pages'
+    'description' => '(Admin) Tabs bar for administration pages',
 ];
 $modversion['templates'][]  = [
     'file'        => 'lx_bookmark.tpl',
-    'description' => 'Social Bookmarking tags'
+    'description' => 'Social Bookmarking tags',
 ];
 $modversion['templates'][]  = [
     'file'        => 'lexikon_rss.tpl',
-    'description' => 'Display Lexikon rss feed'
+    'description' => 'Display Lexikon rss feed',
 ];
 $modversion['templates'][]  = [
     'file'        => 'lx_profile.tpl',
-    'description' => 'Glossary-profile of authors'
+    'description' => 'Glossary-profile of authors',
 ];
 $modversion['templates'][]  = [
     'file'        => 'lx_authorlist.tpl',
-    'description' => 'Glossary author List'
+    'description' => 'Glossary author List',
 ];
 $modversion['templates'][]  = [
     'file'        => 'lx_content.tpl',
-    'description' => 'content syndication dispatcher'
+    'description' => 'content syndication dispatcher',
 ];
 $modversion['templates'][]  = [
     'file'        => 'lx_syndication.tpl',
-    'description' => 'Webmaster content syndication'
+    'description' => 'Webmaster content syndication',
 ];
 $modversion['templates'][]  = [
     'file'        => 'lx_topten.tpl',
-    'description' => 'TOP10 Definitions'
+    'description' => 'TOP10 Definitions',
 ];
 $modversion['templates'][]  = [
     'file'        => 'lx_tag_bar.tpl',
-    'description' => 'Lexikon Definition Tagbar'
+    'description' => 'Lexikon Definition Tagbar',
 ];
 
 $modversion['templates'][] = ['file' => 'admin/lexikon_admin_entries.tpl', 'description' => ''];
 $modversion['templates'][] = ['file' => 'admin/lexikon_admin_categories.tpl', 'description' => ''];
 
-
 $modversion['templates'][] = [
     'file'        => $modversion['dirname'] . '_letterschoice.tpl',
-    'description' => ''
+    'description' => '',
 ];
 
 // Config Settings
@@ -337,7 +339,7 @@ $modversion['config'][1] = [
     'description' => '_MI_LEXIKON_MULTICATSDSC',
     'formtype'    => 'yesno',
     'valuetype'   => 'int',
-    'default'     => 1
+    'default'     => 1,
 ];
 
 $modversion['config'][] = [
@@ -346,7 +348,7 @@ $modversion['config'][] = [
     'description' => '_MI_LEXIKON_CATSINMENUDSC',
     'formtype'    => 'yesno',
     'valuetype'   => 'int',
-    'default'     => 0
+    'default'     => 0,
 ];
 
 $modversion['config'][] = [
@@ -355,7 +357,7 @@ $modversion['config'][] = [
     'description' => '_MI_LEXIKON_DATEFORMATDSC',
     'formtype'    => 'textbox',
     'valuetype'   => 'text',
-    'default'     => 'd.m.Y H:i'
+    'default'     => 'd.m.Y H:i',
 ];
 
 $modversion['config'][] = [
@@ -372,8 +374,8 @@ $modversion['config'][] = [
         '20' => 20,
         '25' => 25,
         '30' => 30,
-        '50' => 50
-    ]
+        '50' => 50,
+    ],
 ];
 
 $modversion['config'][] = [
@@ -390,8 +392,8 @@ $modversion['config'][] = [
         '20' => 20,
         '25' => 25,
         '30' => 30,
-        '50' => 50
-    ]
+        '50' => 50,
+    ],
 ];
 
 $modversion['config'][] = [
@@ -408,8 +410,8 @@ $modversion['config'][] = [
         '20' => 20,
         '25' => 25,
         '30' => 30,
-        '50' => 50
-    ]
+        '50' => 50,
+    ],
 ];
 
 $modversion['config'][] = [
@@ -418,7 +420,7 @@ $modversion['config'][] = [
     'description' => '_MI_LEXIKON_AUTOAPPROVEDSC',
     'formtype'    => 'yesno',
     'valuetype'   => 'int',
-    'default'     => 0
+    'default'     => 0,
 ];
 
 $modversion['config'][] = [
@@ -427,7 +429,7 @@ $modversion['config'][] = [
     'description' => '_MI_LEXIKON_ALLOWADMINHITSDSC',
     'formtype'    => 'yesno',
     'valuetype'   => 'int',
-    'default'     => 0
+    'default'     => 0,
 ];
 
 $modversion['config'][] = [
@@ -436,7 +438,7 @@ $modversion['config'][] = [
     'description' => '_MI_LEXIKON_MAILTOADMINDSC',
     'formtype'    => 'yesno',
     'valuetype'   => 'int',
-    'default'     => 1
+    'default'     => 1,
 ];
 
 $modversion['config'][] = [
@@ -445,7 +447,7 @@ $modversion['config'][] = [
     'description' => '_MI_LEXIKON_MAILTOSENDERDSC',
     'formtype'    => 'yesno',
     'valuetype'   => 'int',
-    'default'     => 0
+    'default'     => 0,
 ];
 
 $modversion['config'][] = [
@@ -454,7 +456,7 @@ $modversion['config'][] = [
     'description' => '_MI_LEXIKON_RANDOMLENGTHDSC',
     'formtype'    => 'textbox',
     'valuetype'   => 'int',
-    'default'     => 150
+    'default'     => 150,
 ];
 
 $modversion['config'][] = [
@@ -469,9 +471,9 @@ $modversion['config'][] = [
         '_MI_LEXIKON_TOOLTIP'    => 3,
         '_MI_LEXIKON_POPUP'      => 4,
         '_MI_LEXIKON_BUBBLETIPS' => 5,
-        '_MI_LEXIKON_SHADOWTIPS' => 6
+        '_MI_LEXIKON_SHADOWTIPS' => 6,
     ],
-    'default'     => 2
+    'default'     => 2,
 ];
 
 // WYSIWYG - Form-Option for X2.0.18ff
@@ -484,7 +486,7 @@ $modversion['config'][] = array(
     'formtype'      => 'select',
     'valuetype'     => 'text',
     'options'       => array_flip($editorHandler->getList()),
-    'default' => 'dhtml');
+    'default' => 'dhtmltextarea');
 */
 // WYSIWYG - Form-Options for XOOPS
 xoops_load('XoopsEditorHandler');
@@ -498,7 +500,7 @@ $modversion['config'][] = [
     'formtype'    => 'select',
     'valuetype'   => 'text',
     'options'     => $editorList,
-    'default'     => 'dhtmltextarea'
+    'default'     => 'dhtmltextarea',
 ];
 
 $modversion['config'][] = [
@@ -507,7 +509,7 @@ $modversion['config'][] = [
     'description' => '_MI_LEXIKON_EDIGUESTDSC',
     'formtype'    => 'yesno',
     'valuetype'   => 'int',
-    'default'     => 0
+    'default'     => 0,
 ];
 
 // add a textbox
@@ -517,7 +519,7 @@ $modversion['config'][] = [
     'description' => '_MI_LEXIKON_HEADERDSC',
     'formtype'    => 'textarea',
     'valuetype'   => 'text',
-    'default'     => ''
+    'default'     => '',
 ];
 
 $modversion['config'][] = [
@@ -526,7 +528,7 @@ $modversion['config'][] = [
     'description' => '_MI_LEXIKON_DISPPROLDSC',
     'formtype'    => 'yesno',
     'valuetype'   => 'int',
-    'default'     => 1
+    'default'     => 1,
 ];
 
 //show a link to this authors glossary profile
@@ -536,7 +538,7 @@ $modversion['config'][] = [
     'description' => '_MI_LEXIKON_AUTHORPROFILEDSC',
     'formtype'    => 'yesno',
     'valuetype'   => 'int',
-    'default'     => 0
+    'default'     => 0,
 ];
 
 $modversion['config'][] = [
@@ -545,7 +547,7 @@ $modversion['config'][] = [
     'description' => '_MI_LEXIKON_SHOWDATDSC',
     'formtype'    => 'yesno',
     'valuetype'   => 'int',
-    'default'     => 1
+    'default'     => 1,
 ];
 
 $modversion['config'][] = [
@@ -554,7 +556,7 @@ $modversion['config'][] = [
     'description' => '_MI_LEXIKON_SHOWCTRDSC',
     'formtype'    => 'yesno',
     'valuetype'   => 'int',
-    'default'     => 1
+    'default'     => 1,
 ];
 
 $modversion['config'][] = [
@@ -566,9 +568,9 @@ $modversion['config'][] = [
     'options'     => [
         '_NONE'   => 0,
         '_GUESTS' => 1,
-        '_ALL'    => 2
+        '_ALL'    => 2,
     ],
-    'default'     => 0
+    'default'     => 0,
 ];
 
 //  highlight search keywords in the definitions
@@ -578,7 +580,7 @@ $modversion['config'][] = [
     'description' => '_MI_LEXIKON_KEYWORDS_HIGHDSC',
     'formtype'    => 'yesno',
     'valuetype'   => 'int',
-    'default'     => 0
+    'default'     => 0,
 ];
 
 // Display social Bookmark icons ?
@@ -592,9 +594,9 @@ $modversion['config'][] = [
         '_NO'                  => 1,
         '_YES'                 => 2,
         '_MI_LEXIKON_ADDTHIS1' => 3,
-        '_MI_LEXIKON_ADDTHIS2' => 4
+        '_MI_LEXIKON_ADDTHIS2' => 4,
     ],
-    'default'     => 2
+    'default'     => 2,
 ];
 
 //option to set number of keywords
@@ -614,9 +616,9 @@ $modversion['config'][] = [
         _MI_LEXIKON_METANUM_50 => 50,
         _MI_LEXIKON_METANUM_60 => 60,
         _MI_LEXIKON_METANUM_70 => 70,
-        _MI_LEXIKON_METANUM_80 => 80
+        _MI_LEXIKON_METANUM_80 => 80,
     ],
-    'default'     => '40'
+    'default'     => '40',
 ];
 
 //category image
@@ -626,7 +628,7 @@ $modversion['config'][] = [
     'description' => '_MI_LEXIKON_USESHOTSDSC',
     'formtype'    => 'yesno',
     'valuetype'   => 'int',
-    'default'     => 1
+    'default'     => 1,
 ];
 
 $modversion['config'][] = [
@@ -635,7 +637,7 @@ $modversion['config'][] = [
     'description' => '_MI_LEXIKON_LOGOWIDTHDSC',
     'formtype'    => 'textbox',
     'valuetype'   => 'text',
-    'default'     => 20
+    'default'     => 20,
 ];
 
 // width in category view mode
@@ -645,27 +647,27 @@ $modversion['config'][] = [
     'description' => '_MI_LEXIKON_IMCATWDDSC',
     'formtype'    => 'textbox',
     'valuetype'   => 'text',
-    'default'     => 50
+    'default'     => 50,
 ];
 
 //Uploads : max width/height for image upload
 $modversion['config'][] = [
-    'name'            => 'imguploadwd',
+    'name'        => 'imguploadwd',
     'title'       => '_MI_LEXIKON_IMGUPLOADWD',
     'description' => '_MI_LEXIKON_IMGUPLOADWD_DESC',
-    'formtype'        => 'textbox',
-    'valuetype'    => 'text',
-    'default'     => 200
+    'formtype'    => 'textbox',
+    'valuetype'   => 'text',
+    'default'     => 200,
 ];
 
 //Uploads : max size for image upload
 $modversion['config'][] = [
-    'name'            => 'imguploadsize',
+    'name'        => 'imguploadsize',
     'title'       => '_MI_LEXIKON_IMGUPLOADSIZE',
     'description' => '_MI_LEXIKON_IMGUPLOADSIZE_DESC',
-    'formtype'        => 'textbox',
-    'valuetype'    => 'text',
-    'default'     => 10485760
+    'formtype'    => 'textbox',
+    'valuetype'   => 'text',
+    'default'     => 10485760,
 ]; // 1 MB
 
 //to activate RSS Syndication for users / guests
@@ -675,7 +677,7 @@ $modversion['config'][] = [
     'description' => '_MI_LEXIKON_RSSDSC',
     'formtype'    => 'yesno',
     'valuetype'   => 'int',
-    'default'     => 1
+    'default'     => 1,
 ];
 
 //to activate webmastercontent for users / guests
@@ -685,28 +687,26 @@ $modversion['config'][] = [
     'description' => '_MI_LEXIKON_SYNDICATIONDSC',
     'formtype'    => 'yesno',
     'valuetype'   => 'int',
-    'default'     => 1
+    'default'     => 1,
 ];
 
-
 $modversion['config'][] = [
-    'name' => 'adminpager',
-    'title' => 'MI_LEXIKON_ADMINPAGER',
+    'name'        => 'adminpager',
+    'title'       => 'MI_LEXIKON_ADMINPAGER',
     'description' => 'MI_LEXIKON_ADMINPAGER_DESC',
-    'formtype' => 'textbox',
-    'valuetype' => 'int',
-    'default' => 10
+    'formtype'    => 'textbox',
+    'valuetype'   => 'int',
+    'default'     => 10,
 ];
 
 $modversion['config'][] = [
-    'name' => 'userpager',
-    'title' => 'MI_LEXIKON_USERPAGER',
+    'name'        => 'userpager',
+    'title'       => 'MI_LEXIKON_USERPAGER',
     'description' => 'MI_LEXIKON_USERPAGER_DESC',
-    'formtype' => 'textbox',
-    'valuetype' => 'int',
-    'default' => 10
+    'formtype'    => 'textbox',
+    'valuetype'   => 'int',
+    'default'     => 10,
 ];
-
 
 //Comments (Mondarse)
 $modversion['hasComments']          = 1;
@@ -731,9 +731,9 @@ $modversion['notification']['category'][] = [
     'subscribe_from' => [
         'index.php',
         'category.php',
-        'entry.php'
+        'entry.php',
     ],
-    'allow_bookmark' => 0
+    'allow_bookmark' => 0,
 ];
 $modversion['notification']['category'][] = [
     'name'           => 'category',
@@ -741,10 +741,10 @@ $modversion['notification']['category'][] = [
     'description'    => _MI_LEXIKON_NOTIFY_CATDSC,
     'subscribe_from' => [
         'category.php',
-        'entry.php'
+        'entry.php',
     ],
     'item_name'      => 'categoryID',
-    'allow_bookmark' => 1
+    'allow_bookmark' => 1,
 ];
 $modversion['notification']['category'][] = [
     'name'           => 'term',
@@ -752,7 +752,7 @@ $modversion['notification']['category'][] = [
     'description'    => _MI_LEXIKON_NOTIFY_TERMDSC,
     'subscribe_from' => 'entry.php',
     'item_name'      => 'entryID',
-    'allow_bookmark' => 1
+    'allow_bookmark' => 1,
 ];
 $modversion['notification']['event'][]    = [
     'name'          => 'new_post',
@@ -761,7 +761,7 @@ $modversion['notification']['event'][]    = [
     'caption'       => _MI_LEXIKON_NEWPOST_NOTIFYCAP,
     'description'   => _MI_LEXIKON_NEWPOST_NOTIFYDSC,
     'mail_template' => 'lexikon_newpost_notify',
-    'mail_subject'  => _MI_LEXIKON_NEWPOST_NOTIFYSBJ
+    'mail_subject'  => _MI_LEXIKON_NEWPOST_NOTIFYSBJ,
 ];
 $modversion['notification']['event'][]    = [
     'name'          => 'new_category',
@@ -770,7 +770,7 @@ $modversion['notification']['event'][]    = [
     'caption'       => _MI_LEXIKON_NEWCAT_NOTIFYCAP,
     'description'   => _MI_LEXIKON_NEWCAT_NOTIFYDSC,
     'mail_template' => 'lexikon_newcat_notify',
-    'mail_subject'  => _MI_LEXIKON_NEWCAT_NOTIFYSBJ
+    'mail_subject'  => _MI_LEXIKON_NEWCAT_NOTIFYSBJ,
 ];
 $modversion['notification']['event'][]    = [
     'name'          => 'term_request',
@@ -779,7 +779,7 @@ $modversion['notification']['event'][]    = [
     'caption'       => _MI_LEXIKON_GLOBAL_TERMREQUEST_NOTIFYCAP,
     'description'   => _MI_LEXIKON_GLOBAL_TERMREQUEST_NOTIFYDSC,
     'mail_template' => 'global_termrequest_notify',
-    'mail_subject'  => _MI_LEXIKON_GLOBAL_TERMREQUEST_NOTIFYSBJ
+    'mail_subject'  => _MI_LEXIKON_GLOBAL_TERMREQUEST_NOTIFYSBJ,
 ];
 $modversion['notification']['event'][]    = [
     'name'          => 'term_submit',
@@ -789,7 +789,7 @@ $modversion['notification']['event'][]    = [
     'caption'       => _MI_LEXIKON_GLOBAL_TERMSUBMIT_NOTIFYCAP,
     'description'   => _MI_LEXIKON_GLOBAL_TERMSUBMIT_NOTIFYDSC,
     'mail_template' => 'global_termsubmit_notify',
-    'mail_subject'  => _MI_LEXIKON_GLOBAL_TERMSUBMIT_NOTIFYSBJ
+    'mail_subject'  => _MI_LEXIKON_GLOBAL_TERMSUBMIT_NOTIFYSBJ,
 ];
 $modversion['notification']['event'][]    = [
     'name'          => 'new_post',
@@ -798,7 +798,7 @@ $modversion['notification']['event'][]    = [
     'caption'       => _MI_LEXIKON_CATEGORY_NEWTERM_NOTIFYCAP,
     'description'   => _MI_LEXIKON_CATEGORY_NEWTERM_NOTIFYDSC,
     'mail_template' => 'category_newterm_notify',
-    'mail_subject'  => _MI_LEXIKON_CATEGORY_NEWTERM_NOTIFYSBJ
+    'mail_subject'  => _MI_LEXIKON_CATEGORY_NEWTERM_NOTIFYSBJ,
 ];
 $modversion['notification']['event'][]    = [
     'name'          => 'term_submit',
@@ -808,7 +808,7 @@ $modversion['notification']['event'][]    = [
     'caption'       => _MI_LEXIKON_CATEGORY_TERMSUBMIT_NOTIFYCAP,
     'description'   => _MI_LEXIKON_CATEGORY_TERMSUBMIT_NOTIFYDSC,
     'mail_template' => 'category_termsubmit_notify',
-    'mail_subject'  => _MI_LEXIKON_CATEGORY_TERMSUBMIT_NOTIFYSBJ
+    'mail_subject'  => _MI_LEXIKON_CATEGORY_TERMSUBMIT_NOTIFYSBJ,
 ];
 $modversion['notification']['event'][]    = [
     'name'          => 'approve',
@@ -818,5 +818,5 @@ $modversion['notification']['event'][]    = [
     'caption'       => _MI_LEXIKON_TERM_APPROVE_NOTIFYCAP,
     'description'   => _MI_LEXIKON_TERM_APPROVE_NOTIFYDSC,
     'mail_template' => 'term_approve_notify',
-    'mail_subject'  => _MI_LEXIKON_TERM_APPROVE_NOTIFYSBJ
+    'mail_subject'  => _MI_LEXIKON_TERM_APPROVE_NOTIFYSBJ,
 ];

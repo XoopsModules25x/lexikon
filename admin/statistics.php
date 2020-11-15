@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * Module: Lexikon - glossary module
  * Version: v 1.00
  * Release Date: 18 Dec 2011
@@ -9,6 +8,7 @@
  * Licence: GNU
  */
 
+use Xmf\Module\Admin;
 use Xmf\Request;
 use XoopsModules\Lexikon;
 
@@ -45,7 +45,6 @@ if (!isset($op)) {
  *   b) Biggest contributors
  *      The goal of this table is to know who is creating the biggest number of terms.
  **/
-
 function lx_Statistics()
 {
     global $xoopsModule, $xoopsConfig;
@@ -60,7 +59,7 @@ function lx_Statistics()
     $stats  = lx_GetStatistics($helper->getConfig('perpage'));
     $totals = [0, 0, 0, 0];
 
-    $adminObject = \Xmf\Module\Admin::getInstance();
+    $adminObject = Admin::getInstance();
     $adminObject->displayNavigation(basename(__FILE__));
     // First part of the stats, everything about categories
     $termspercategory   = $stats['termspercategory'];
@@ -96,7 +95,7 @@ function lx_Statistics()
         printf(
             "<tr class='" . $class . "'><td style='text-align:left;'><a href='%s' target ='_blank'>%s</a></td><td style='text-align:center;'>%u</td><td style='text-align:center;'>%u</td><td style='text-align:center;'>%u</td><td style='text-align:center;'>%u</td></tr>\n",
             $url,
-               $myts->displayTarea($data['name']),
+            $myts->displayTarea($data['name']),
             $terms,
             $views,
             $offline,
@@ -122,7 +121,7 @@ function lx_Statistics()
         printf(
             "<tr class='" . $class . "'><td style='text-align:left;'><a href='%s' target ='_blank'>%s</a></td><td style='text-align:left;'><a href='%s' target='_blank'>%s</a></td><td style='text-align:center;'>%s</td><td style='text-align:right;'>%u</td></tr>\n",
             $url1,
-               $myts->displayTarea($data['name']),
+            $myts->displayTarea($data['name']),
             $url2,
             $myts->displayTarea($data['term']),
             $sentby,
@@ -144,7 +143,7 @@ function lx_Statistics()
         printf(
             "<tr class='" . $class . "'><td style='text-align:left;'><a href='%s' target ='_blank'>%s</a></td><td style='text-align:left;'><a href='%s' target='_blank'>%s</a></td><td style='text-align:center;'>%s</td><td style='text-align:right;'>%u</td></tr>\n",
             $url1,
-               $myts->displayTarea($data['name']),
+            $myts->displayTarea($data['name']),
             $url2,
             $myts->displayTarea($data['term']),
             $sentby,
@@ -181,7 +180,7 @@ function lx_Statistics()
 }
 
 /* -- Available operations -- */
-$op    = \Xmf\Request::getCmd('op', '');
+$op = Request::getCmd('op', '');
 switch ($op) {
     default:
         lx_Statistics();

@@ -1,4 +1,6 @@
-<?php namespace XoopsModules\Lexikon;
+<?php
+
+namespace XoopsModules\Lexikon;
 
 /*
  You may not change or alter any portion of this comment or credits
@@ -14,16 +16,14 @@
  *
  * @category        Module
  * @package         lexikon
- * @author          XOOPS Development Team <name@site.com> - <http://xoops.org>
+ * @author          XOOPS Development Team <name@site.com> - <https://xoops.org>
  * @copyright       {@link https://xoops.org/ XOOPS Project}
  * @license         GPL 2.0 or later
  * @link            https://xoops.org/
  * @since           1.0.0
  */
-defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 /**
- *
  * Class to define lexikon module constant values. These constants are
  * used to make the code easier to read and to keep values in central
  * location if they need to be changed.  These should not normally need
@@ -32,6 +32,6 @@ defined('XOOPS_ROOT_PATH') || die('Restricted access');
  * work correctly if trying to upgrade if these values have been changed.
  *
  **/
-class Constants
+interface Constants
 {
 }

@@ -5,9 +5,10 @@
  * Licence: GNU
  */
 
+use Xmf\Request;
 use XoopsModules\Lexikon;
 
-include __DIR__ . '/header.php';
+require __DIR__ . '/header.php';
 $GLOBALS['xoopsOption']['template_main'] = 'lx_profile.tpl';
 require_once XOOPS_ROOT_PATH . '/header.php';
 global $xoopsModule, $xoopsUser;
@@ -22,7 +23,7 @@ if (empty($xoopsUser) && !$helper->getConfig('authorprofile')) {
 }
 
 // User & Perm validation
-$uid = \Xmf\Request::getInt('uid', 0, 'GET');
+$uid = Request::getInt('uid', 0, 'GET');
 if (empty($uid)) {
     redirect_header('index.php', 2, _ERRORS);
 }
@@ -31,9 +32,10 @@ if (!$data) {
     redirect_header('index.php', 2, _MD_LEXIKON_UNKNOWNERROR);
 }
 //permissions
+/** @var \XoopsGroupPermHandler $grouppermHandler */
 $grouppermHandler = xoops_getHandler('groupperm');
-$groups       = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
-/** @var XoopsModuleHandler $moduleHandler */
+$groups           = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
+/** @var \XoopsModuleHandler $moduleHandler */
 $moduleHandler = xoops_getHandler('module');
 $module        = $moduleHandler->getByDirname('lexikon');
 $module_id     = $module->getVar('mid');
@@ -46,12 +48,16 @@ $thisuser = new \XoopsUser($uid);
 $authname = $thisuser->getVar('uname');
 
 // get usertotals
-list($num) = $xoopsDB->fetchRow($xoopsDB->query('SELECT COUNT(*)
+[$num] = $xoopsDB->fetchRow(
+    $xoopsDB->query(
+        'SELECT COUNT(*)
                                 FROM ' . $xoopsDB->prefix('lxentries') . "
                                 WHERE uid='" . $uid . "' " . $catperms . "
                                 AND submit = '0' AND request = '0'
                                 AND offline = '0'
-                                "));
+                                "
+    )
+);
 
 // total results
 $authortermstotal = $num;
@@ -67,11 +73,13 @@ if (0 == $authortermstotal) {
     $xoopsTpl->assign('nothing', false);
 }
 // get infotext
-$result2 = $xoopsDB->query('SELECT COUNT(*)
+$result2 = $xoopsDB->query(
+    'SELECT COUNT(*)
                               FROM ' . $xoopsDB->prefix('lxentries') . "
                               WHERE uid='" . $uid . "' " . $catperms . "
-                              AND offline = '1' ");
-list($totalwaiting) = $xoopsDB->fetchRow($result2);
+                              AND offline = '1' "
+);
+[$totalwaiting] = $xoopsDB->fetchRow($result2);
 if (!$totalwaiting) {
     $xoopsTpl->assign('waiting', constant('_MD_LEXIKON_NOWAITINGTERMS'));
 } else {

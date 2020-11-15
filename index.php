@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * Module: Lexikon - glossary module
  * Version: v 1.00
  * Release Date: 8 May 2004
@@ -10,7 +9,7 @@
 
 use XoopsModules\Lexikon;
 
-include __DIR__ . '/header.php';
+require __DIR__ . '/header.php';
 
 /** @var Lexikon\Helper $helper */
 $helper = Lexikon\Helper::getInstance();
@@ -29,12 +28,13 @@ $xoopsTpl->assign('multicats', (int)$helper->getConfig('multicats'));
 $rndlength = !empty($helper->getConfig('rndlength')) ? (int)$helper->getConfig('rndlength') : 150;
 
 //permissions
+/** @var \XoopsGroupPermHandler $grouppermHandler */
 $grouppermHandler = xoops_getHandler('groupperm');
-$groups       = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
-$module_id    = $xoopsModule->getVar('mid');
-$perm_itemid  = isset($categoryID) ? $categoryID : 0;
+$groups           = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
+$module_id        = $xoopsModule->getVar('mid');
+$perm_itemid      = isset($categoryID) ? $categoryID : 0;
 if (!$grouppermHandler->checkRight('lexikon_view', $perm_itemid, $groups, $module_id)) {
-    redirect_header('javascript:history.go(-1)', 2, _NOPERM);
+    redirect_header('<script>javascript:history.go(-1)</script>', 2, _NOPERM);
 }
 $allowed_cats = $grouppermHandler->getItemIds('lexikon_view', $groups, $module_id);
 if (count($allowed_cats) > 0) {
@@ -53,6 +53,7 @@ if (!function_exists('mb_ucfirst') && function_exists('mb_substr')) {
     {
         $string = mb_ereg_replace("^[\ ]+", '', $string);
         $string = mb_strtoupper(mb_substr($string, 0, 1, 'UTF-8'), 'UTF-8') . mb_substr($string, 1, mb_strlen($string), 'UTF-8');
+
         return $string;
     }
 }
@@ -79,31 +80,26 @@ $alpha = $utility::getAlphaArray();
 $xoopsTpl->assign('alpha', $alpha);
 $alphaCount = count($alpha);
 
-list($howmanyother) = $xoopsDB->fetchRow($xoopsDB->query('SELECT COUNT(*) FROM ' . $xoopsDB->prefix('lxentries') . " WHERE init = '#' AND offline ='0' " . $catperms . ' '));
+[$howmanyother] = $xoopsDB->fetchRow($xoopsDB->query('SELECT COUNT(*) FROM ' . $xoopsDB->prefix('lxentries') . " WHERE init = '#' AND offline ='0' " . $catperms . ' '));
 $xoopsTpl->assign('totalother', $howmanyother);
 
 //-----------------------------------------
 
-
-
 // Letter Choice Start ---------------------------------------
 
-$moduleDirName = basename(__DIR__);
-$moduleDirNameUpper = strtoupper($moduleDirName);
+$moduleDirName      = basename(__DIR__);
+$moduleDirNameUpper = mb_strtoupper($moduleDirName);
 
 Lexikon\Helper::getInstance()->loadLanguage('common');
 $xoopsTpl->assign('letterChoiceTitle', constant('CO_' . $moduleDirNameUpper . '_' . 'BROWSETOTOPIC'));
 /** @var \XoopsDatabase $db */
-$db           = \XoopsDatabaseFactory::getDatabaseConnection();
-$objHandler =  Lexikon\Helper::getInstance()->getHandler('Entries');
-$choicebyletter = new Lexikon\Common\LetterChoice($objHandler, null, null, range('a', 'z'), 'init', LEXIKON_URL . '/letter.php');
-$catarray['letters']  = $choicebyletter->render($alphaCount, $howmanyother);
+$db                  = \XoopsDatabaseFactory::getDatabaseConnection();
+$objHandler          = Lexikon\Helper::getInstance()->getHandler('Entries');
+$choicebyletter      = new Lexikon\Common\LetterChoice($objHandler, null, null, range('a', 'z'), 'init', LEXIKON_URL . '/letter.php');
+$catarray['letters'] = $choicebyletter->render($alphaCount, $howmanyother);
 $xoopsTpl->assign('catarray', $catarray);
 
 // Letter Choice End ------------------------------------
-
-
-
 
 //---------------------------------------------
 // To display the tree of categories
@@ -123,11 +119,11 @@ $block1   = [];
 $result05 = $xoopsDB->query(
     'SELECT entryID, categoryID, term, datesub FROM ' . $xoopsDB->prefix('lxentries') . ' WHERE datesub < ' . time() . " AND datesub > 0 AND submit = '0' AND offline = '0' AND request = '0' " . $catperms . ' ORDER BY datesub DESC',
     (int)$helper->getConfig('blocksperpage'),
-                            0
+    0
 );
 if ($publishedwords > 0) { // If there are definitions
-    //while (false !== (list( $entryID, $term, $datesub ) = $xoopsDB->fetchRow($result05))) {
-    while (false !== (list($entryID, $categoryID, $term, $datesub) = $xoopsDB->fetchRow($result05))) {
+    //while (list( $entryID, $term, $datesub ) = $xoopsDB->fetchRow($result05)) {
+    while (list($entryID, $categoryID, $term, $datesub) = $xoopsDB->fetchRow($result05)) {
         $newentries             = [];
         $xoopsModule            = XoopsModule::getByDirname('lexikon');
         $linktext               = mb_ucfirst($myts->htmlSpecialChars($term));
@@ -145,7 +141,7 @@ $block2   = [];
 $result06 = $xoopsDB->query('SELECT entryID, term, counter FROM ' . $xoopsDB->prefix('lxentries') . ' WHERE datesub < ' . time() . " AND datesub > 0 AND submit = '0' AND offline = '0' AND request = '0' " . $catperms . ' ORDER BY counter DESC', (int)$helper->getConfig('blocksperpage'), 0);
 // If there are definitions
 if ($publishedwords > 0) {
-    while (false !== (list($entryID, $term, $counter) = $xoopsDB->fetchRow($result06))) {
+    while (list($entryID, $term, $counter) = $xoopsDB->fetchRow($result06)) {
         $popentries             = [];
         $xoopsModule            = XoopsModule::getByDirname('lexikon');
         $linktext               = mb_ucfirst($myts->htmlSpecialChars($term));
@@ -159,10 +155,9 @@ if ($publishedwords > 0) {
 }
 
 // To display the random term block
-list($numrows) = $xoopsDB->fetchRow($xoopsDB->query('SELECT COUNT(*) FROM ' . $xoopsDB->prefix('lxentries') . " WHERE submit = 'O' AND offline = '0' " . $catperms . ' '));
+[$numrows] = $xoopsDB->fetchRow($xoopsDB->query('SELECT COUNT(*) FROM ' . $xoopsDB->prefix('lxentries') . " WHERE submit = 'O' AND offline = '0' " . $catperms . ' '));
 if ($numrows > 1) {
     --$numrows;
-    mt_srand((double)microtime() * 1000000);
     $entrynumber = mt_rand(0, $numrows);
 } else {
     $entrynumber = 0;
@@ -185,7 +180,7 @@ if (0 != $zerotest) {
             $random['categoryID'] = $myrow['categoryID'];
 
             $resultY = $xoopsDB->query('SELECT categoryID, name FROM ' . $xoopsDB->prefix('lxcategories') . ' WHERE categoryID = ' . $myrow['categoryID'] . ' ');
-            list($categoryID, $name) = $xoopsDB->fetchRow($resultY);
+            [$categoryID, $name] = $xoopsDB->fetchRow($resultY);
             $random['categoryname'] = $myts->displayTarea($name);
         }
     }
@@ -202,7 +197,7 @@ if ($xoopsUser && $xoopsUser->isAdmin()) {
     $totalSwords = $xoopsDB->getRowsNum($resultS);
 
     if ($totalSwords > 0) { // If there are definitions
-        while (false !== (list($entryID, $term) = $xoopsDB->fetchRow($resultS))) {
+        while (list($entryID, $term) = $xoopsDB->fetchRow($resultS)) {
             $subentries             = [];
             $xoopsModule            = XoopsModule::getByDirname('lexikon');
             $linktext               = mb_ucfirst($myts->htmlSpecialChars($term));
@@ -222,7 +217,7 @@ if ($xoopsUser && $xoopsUser->isAdmin()) {
     $totalRwords = $xoopsDB->getRowsNum($resultR);
 
     if ($totalRwords > 0) { // If there are definitions
-        while (false !== (list($entryID, $term) = $xoopsDB->fetchRow($resultR))) {
+        while (list($entryID, $term) = $xoopsDB->fetchRow($resultR)) {
             $reqentries             = [];
             $xoopsModule            = XoopsModule::getByDirname('lexikon');
             $linktext               = mb_ucfirst($myts->htmlSpecialChars($term));
@@ -243,7 +238,7 @@ if ($xoopsUser && $xoopsUser->isAdmin()) {
     $totalRwords = $xoopsDB->getRowsNum($resultR);
 
     if ($totalRwords > 0) { // If there are definitions
-        while (false !== (list($entryID, $term) = $xoopsDB->fetchRow($resultR))) {
+        while (list($entryID, $term) = $xoopsDB->fetchRow($resultR)) {
             $reqentries             = [];
             $xoopsModule            = XoopsModule::getByDirname('lexikon');
             $linktext               = mb_ucfirst($myts->htmlSpecialChars($term));
@@ -285,4 +280,4 @@ if (isset($xoTheme) && is_object($xoTheme)) {
 }
 $xoopsTpl->assign('xoops_module_header', '<link rel="stylesheet" type="text/css" href="assets/css/style.css">');
 
-include XOOPS_ROOT_PATH . '/footer.php';
+require XOOPS_ROOT_PATH . '/footer.php';

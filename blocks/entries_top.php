@@ -1,11 +1,11 @@
 <?php
+
 /**
  * Module: Lexikon - glossary module
  * Author: hsalazar
  * Licence: GNU
  */
-
-defined('XOOPS_ROOT_PATH') || die('Restricted access');
+defined('XOOPS_ROOT_PATH') || exit('Restricted access');
 
 /**
  * @param $options
@@ -16,19 +16,21 @@ function b_lxentries_top_show($options)
     global $xoopsDB, $xoopsUser;
     $myts = MyTextSanitizer:: getInstance();
 
-    /** @var XoopsModuleHandler $moduleHandler */
+    /** @var \XoopsModuleHandler $moduleHandler */
     $moduleHandler = xoops_getHandler('module');
     $lexikon       = $moduleHandler->getByDirname('lexikon');
     if (!isset($lxConfig)) {
+        /** @var \XoopsConfigHandler $configHandler */
         $configHandler = xoops_getHandler('config');
         $lxConfig      = $configHandler->getConfigsByCat(0, $lexikon->getVar('mid'));
     }
-    $groups       = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
+    $groups = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
+    /** @var \XoopsGroupPermHandler $grouppermHandler */
     $grouppermHandler = xoops_getHandler('groupperm');
-    $module_id    = $lexikon->getVar('mid');
-    $allowed_cats = $grouppermHandler->getItemIds('lexikon_view', $groups, $module_id);
-    $catids       = implode(',', $allowed_cats);
-    $catperms     = " AND categoryID IN ($catids) ";
+    $module_id        = $lexikon->getVar('mid');
+    $allowed_cats     = $grouppermHandler->getItemIds('lexikon_view', $groups, $module_id);
+    $catids           = implode(',', $allowed_cats);
+    $catperms         = " AND categoryID IN ($catids) ";
 
     $words      = $xoopsDB->query('SELECT entryID FROM ' . $xoopsDB->prefix('lxentries') . " WHERE offline = '0' AND submit='0' AND request='0' AND block = '1'");
     $totalwords = $xoopsDB->getRowsNum($words);
@@ -45,7 +47,7 @@ function b_lxentries_top_show($options)
     $result = $xoopsDB->query($sql, $options[1], 0);
 
     if ($totalwords > 0) { // If there are definitions
-        while (false !== (list($entryID, $categoryID, $term, $counter) = $xoopsDB->fetchRow($result))) {
+        while (list($entryID, $categoryID, $term, $counter) = $xoopsDB->fetchRow($result)) {
             $popentries             = [];
             $linktext               = $myts->htmlSpecialChars($term);
             $popentries['dir']      = $lexikon->dirname();
@@ -56,6 +58,7 @@ function b_lxentries_top_show($options)
             $block['popstuff'][] = $popentries;
         }
     }
+
     return $block;
 }
 

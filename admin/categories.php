@@ -15,13 +15,12 @@
  *
  * @category        Module
  * @package         lexikon
- * @author          XOOPS Development Team <name@site.com> - <http://xoops.org>
+ * @author          XOOPS Development Team <name@site.com> - <https://xoops.org>
  * @copyright       {@link https://xoops.org/ XOOPS Project}
  * @license         GPL 2.0 or later
  * @link            https://xoops.org/
  * @since           1.0.0
  */
-
 
 use Xmf\Module\Helper\Permission;
 use Xmf\Request;
@@ -37,7 +36,7 @@ $sort  = Request::getString('sort', '');
 
 $adminObject->displayNavigation(basename(__FILE__));
 /** @var Permission $permHelper */
-$permHelper = new Permission($moduleDirName);
+$permHelper = new \Xmf\Module\Helper\Permission($moduleDirName);
 $uploadDir  = XOOPS_UPLOAD_PATH . '/lexikon/images/';
 $uploadUrl  = XOOPS_UPLOAD_URL . '/lexikon/images/';
 
@@ -55,7 +54,7 @@ switch ($op) {
         $criteria->setLimit($categoriesPaginationLimit);
         $criteria->setStart($start);
         $categoriesTempRows  = $categoriesHandler->getCount();
-        $categoriesTempArray = $categoriesHandler->getAll($criteria);/*
+        $categoriesTempArray = $categoriesHandler->getAll($criteria); /*
 //
 //
                     <th class='center width5'>".AM_LEXIKON_FORM_ACTION."</th>
@@ -91,8 +90,6 @@ switch ($op) {
         //    for ($i = 0; $i < $fieldsCount; ++$i) {
         if ($categoriesCount > 0) {
             foreach (array_keys($categoriesTempArray) as $i) {
-
-
                 //        $field = explode(':', $fields[$i]);
 
                 $selectorcategoryID = Lexikon\Utility::selectSorting(AM_LEXIKON_CATEGORIES_CATEGORYID, 'categoryID');
@@ -105,7 +102,7 @@ switch ($op) {
 
                 $selectordescription = Lexikon\Utility::selectSorting(AM_LEXIKON_CATEGORIES_DESCRIPTION, 'description');
                 $GLOBALS['xoopsTpl']->assign('selectordescription', $selectordescription);
-                $categoriesArray['description'] = ($categoriesTempArray[$i]->getVar('description'));
+                $categoriesArray['description'] = $categoriesTempArray[$i]->getVar('description');
 
                 $selectortotal = Lexikon\Utility::selectSorting(AM_LEXIKON_CATEGORIES_TOTAL, 'total');
                 $GLOBALS['xoopsTpl']->assign('selectortotal', $selectortotal);
@@ -161,7 +158,6 @@ switch ($op) {
         }
 
         break;
-
     case 'new':
         $adminObject->addItemButton(AM_LEXIKON_CATEGORIES_LIST, 'categories.php', 'list');
         echo $adminObject->displayButton('left');
@@ -170,7 +166,6 @@ switch ($op) {
         $form             = $categoriesObject->getForm();
         $form->display();
         break;
-
     case 'save':
         if (!$GLOBALS['xoopsSecurity']->check()) {
             redirect_header('categories.php', 3, implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
@@ -190,9 +185,9 @@ switch ($op) {
         //===============================================================
 
         $mid = $GLOBALS['xoopsModule']->mid();
-        /** @var XoopsGroupPermHandler $grouppermHandler */
+        /** @var \XoopsGroupPermHandler $grouppermHandler */
         $grouppermHandler = xoops_getHandler('groupperm');
-        $categoryID   = Request::getInt('categoryID', 0);
+        $categoryID       = Request::getInt('categoryID', 0);
 
         /**
          * @param $myArray
@@ -313,7 +308,6 @@ switch ($op) {
         $form = $categoriesObject->getForm();
         $form->display();
         break;
-
     case 'edit':
         $adminObject->addItemButton(AM_LEXIKON_ADD_CATEGORIES, 'categories.php?op=new', 'add');
         $adminObject->addItemButton(AM_LEXIKON_CATEGORIES_LIST, 'categories.php', 'list');
@@ -322,7 +316,6 @@ switch ($op) {
         $form             = $categoriesObject->getForm();
         $form->display();
         break;
-
     case 'delete':
         $categoriesObject = $categoriesHandler->get(Request::getString('categoryID', ''));
         if (1 == Request::getInt('ok', 0)) {
@@ -338,7 +331,6 @@ switch ($op) {
             xoops_confirm(['ok' => 1, 'categoryID' => Request::getString('categoryID', ''), 'op' => 'delete'], Request::getCmd('REQUEST_URI', '', 'SERVER'), sprintf(AM_LEXIKON_FORMSUREDEL, $categoriesObject->getVar('categoryID')));
         }
         break;
-
     case 'clone':
 
         $id_field = Request::getString('categoryID', '');

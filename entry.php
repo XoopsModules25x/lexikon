@@ -5,9 +5,10 @@
  * Licence: GNU
  */
 
+use Xmf\Request;
 use XoopsModules\Lexikon;
 
-include __DIR__ . '/header.php';
+require __DIR__ . '/header.php';
 $GLOBALS['xoopsOption']['template_main'] = 'lx_entry.tpl';
 require_once XOOPS_ROOT_PATH . '/header.php';
 global $xoTheme, $xoopsUser, $lexikon_module_header;
@@ -22,18 +23,19 @@ if ($highlight) {
     require_once XOOPS_ROOT_PATH . '/modules/lexikon/class/keyhighlighter.class.php';
 }
 
-$entryID = \Xmf\Request::getInt('entryID', 0, 'GET');
+$entryID = Request::getInt('entryID', 0, 'GET');
 if (empty($entryID)) {
     redirect_header('index.php', 3, _MD_LEXIKON_UNKNOWNERROR);
 }
 $entrytype = 1;
 // permissions
+/** @var \XoopsGroupPermHandler $grouppermHandler */
 $grouppermHandler = xoops_getHandler('groupperm');
-$groups       = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
-$module_id    = $xoopsModule->getVar('mid');
-$allowed_cats = $grouppermHandler->getItemIds('lexikon_view', $groups, $module_id);
-$catids       = implode(',', $allowed_cats);
-$catperms     = " AND categoryID IN ($catids) ";
+$groups           = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
+$module_id        = $xoopsModule->getVar('mid');
+$allowed_cats     = $grouppermHandler->getItemIds('lexikon_view', $groups, $module_id);
+$catids           = implode(',', $allowed_cats);
+$catperms         = " AND categoryID IN ($catids) ";
 
 // If there's no entries yet in the system...
 $publishedwords = $utility::countWords();
@@ -47,7 +49,7 @@ if (0 == $publishedwords) {
 $alpha = $utility::getAlphaArray();
 $xoopsTpl->assign('alpha', $alpha);
 
-list($howmanyother) = $xoopsDB->fetchRow($xoopsDB->query('SELECT COUNT(entryID) FROM ' . $xoopsDB->prefix('lxentries') . " WHERE init = '#' AND offline ='0' " . $catperms . ' '));
+[$howmanyother] = $xoopsDB->fetchRow($xoopsDB->query('SELECT COUNT(entryID) FROM ' . $xoopsDB->prefix('lxentries') . " WHERE init = '#' AND offline ='0' " . $catperms . ' '));
 $xoopsTpl->assign('totalother', $howmanyother);
 
 $xoopsTpl->assign('multicats', (int)$helper->getConfig('multicats'));
@@ -65,10 +67,10 @@ if (1 == $helper->getConfig('multicats')) {
 }
 
 if (!$entryID) {
-    redirect_header('javascript:history.go(-1)', 2, _MD_LEXIKON_UNKNOWNERROR);
+    redirect_header('<script>javascript:history.go(-1)</script>', 2, _MD_LEXIKON_UNKNOWNERROR);
 } else {
     if ($entryID <= 0) {
-        redirect_header('javascript:history.go(-1)', 2, _MD_LEXIKON_UNKNOWNERROR);
+        redirect_header('<script>javascript:history.go(-1)</script>', 2, _MD_LEXIKON_UNKNOWNERROR);
     }
     if (!$xoopsUser || ($xoopsUser->isAdmin($xoopsModule->mid()) && 1 == $helper->getConfig('adminhits'))
         || ($xoopsUser
@@ -76,16 +78,18 @@ if (!$entryID) {
         $xoopsDB->queryF('UPDATE ' . $xoopsDB->prefix('lxentries') . " SET counter = counter+1 WHERE entryID = $entryID ");
     }
 
-    $result = $xoopsDB->query('SELECT entryID, categoryID, term, init, definition, ref, url, uid, submit, datesub, counter, html, smiley, xcodes, breaks, block, offline, notifypub
+    $result = $xoopsDB->query(
+        'SELECT entryID, categoryID, term, init, definition, ref, url, uid, submit, datesub, counter, html, smiley, xcodes, breaks, block, offline, notifypub
                                  FROM ' . $xoopsDB->prefix('lxentries') . "
-                                 WHERE entryID = $entryID");
+                                 WHERE entryID = $entryID"
+    );
     // verify result
     if ($xoopsDB->getRowsNum($result) <= 0) {
         redirect_header('index.php', 2, _MD_LEXIKON_UNKNOWNERROR);
     }
 }
 
-while (false !== (list($entryID, $categoryID, $term, $init, $definition, $ref, $url, $uid, $submit, $datesub, $counter, $html, $smiley, $xcodes, $breaks, $block, $offline) = $xoopsDB->fetchRow($result))) {
+while (list($entryID, $categoryID, $term, $init, $definition, $ref, $url, $uid, $submit, $datesub, $counter, $html, $smiley, $xcodes, $breaks, $block, $offline) = $xoopsDB->fetchRow($result)) {
     $catID = (int)$categoryID;
     if (!$grouppermHandler->checkRight('lexikon_view', (int)$categoryID, $groups, $module_id)) {
         redirect_header('index.php', 3, _NOPERM);
@@ -97,12 +101,12 @@ while (false !== (list($entryID, $categoryID, $term, $init, $definition, $ref, $
     $thisterm['offline'] = (int)$offline;
     // exit if offline - except admin
     if (1 == $thisterm['offline'] && !$xoopsUserIsAdmin) {
-        redirect_header('javascript:history.go(-1)', 3, _MD_LEXIKON_ENTRYISOFF);
+        redirect_header('<script>javascript:history.go(-1)</script>', 3, _MD_LEXIKON_ENTRYISOFF);
     }
     if (1 == $helper->getConfig('multicats')) {
         $thisterm['categoryID'] = (int)$categoryID;
         $catname                = $xoopsDB->query('SELECT name FROM ' . $xoopsDB->prefix('lxcategories') . " WHERE categoryID = $categoryID ");
-        while (false !== (list($name) = $xoopsDB->fetchRow($catname))) {
+        while (list($name) = $xoopsDB->fetchRow($catname)) {
             $thisterm['catname'] = $myts->htmlSpecialChars($name);
         }
     }
@@ -130,7 +134,7 @@ while (false !== (list($entryID, $categoryID, $term, $init, $definition, $ref, $
         // First, retrieve all terms from the glossary...
         $allterms = $xoopsDB->query('SELECT entryID, term, definition FROM ' . $xoopsDB->prefix('lxentries') . " WHERE offline ='0' " . $catperms . ' ');
 
-        while (false !== (list($entryID, $term, $definition) = $xoopsDB->fetchRow($allterms))) {
+        while (list($entryID, $term, $definition) = $xoopsDB->fetchRow($allterms)) {
             foreach ($parts as $key => $part) {
                 if ($term != $glossaryterm) {
                     $term_q      = preg_quote($term, '/');
@@ -184,7 +188,7 @@ while (false !== (list($entryID, $categoryID, $term, $init, $definition, $ref, $
     $thisterm['dir']     = $xoopsModule->dirname();
     if ($highlight && isset($_GET['keywords'])) {
         $keywords               = $myts->htmlSpecialChars(trim(urldecode($_GET['keywords'])));
-        $h                      = new lx_keyhighlighter($keywords, true, 'lx_myhighlighter');
+        $h                      = new Lexikon\Keyhighlighter($keywords, true, 'lx_myhighlighter');
         $thisterm['definition'] = $h->highlight($thisterm['definition']);
         $thisterm['ref']        = $h->highlight($thisterm['ref']);
     }
@@ -217,13 +221,13 @@ function lx_myhighlighter($matches)
 
 //--- Display tags of this term
 #$itemid = $entryID;
-/** @var XoopsModuleHandler $moduleHandler */
+/** @var \XoopsModuleHandler $moduleHandler */
 $moduleHandler = xoops_getHandler('module');
 $tagsModule    = $moduleHandler->getByDirname('tag');
 if (is_object($tagsModule)) {
     require_once XOOPS_ROOT_PATH . '/modules/tag/include/tagbar.php';
 
-    $itemid = \Xmf\Request::getInt('entryID', 0, 'GET');
+    $itemid = Request::getInt('entryID', 0, 'GET');
     $catid  = 0;
     //$xoopsTpl->assign('tagbar', tagBar($itemid, $catid = 0));
     $tagbar = tagBar($itemid, $catid);
@@ -275,6 +279,6 @@ if (1 == $helper->getConfig('multicats')) {
     $utility::getMetaDescription($myts->htmlSpecialChars($xoopsModule->name()) . ' ' . $thisterm['term'] . ' ' . $meta_description);
 }
 //Mondarse
-include XOOPS_ROOT_PATH . '/include/comment_view.php';
+require XOOPS_ROOT_PATH . '/include/comment_view.php';
 //Mondarse
 require_once XOOPS_ROOT_PATH . '/footer.php';

@@ -1,4 +1,6 @@
-<?php namespace XoopsModules\Lexikon;
+<?php
+
+namespace XoopsModules\Lexikon;
 
 /*
  You may not change or alter any portion of this comment or credits
@@ -9,12 +11,13 @@
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
+
 /**
  * Module: lexikon
  *
  * @category        Module
  * @package         lexikon
- * @author          XOOPS Development Team <name@site.com> - <http://xoops.org>
+ * @author          XOOPS Development Team <name@site.com> - <https://xoops.org>
  * @copyright       {@link https://xoops.org/ XOOPS Project}
  * @license         GPL 2.0 or later
  * @link            https://xoops.org/
@@ -23,18 +26,24 @@
 
 use Xmf\Module\Helper\Permission;
 use XoopsModules\Lexikon;
-use XoopsModules\Lexikon\Form;
+use XoopsObject;
 
-require_once  dirname(__DIR__) . '/include/common.php';
+
+
+
+
+
+
+require_once dirname(__DIR__) . '/include/common.php';
 
 $moduleDirName = basename(dirname(__DIR__));
 
-$permHelper = new Permission($moduleDirName);
+$permHelper = new \Xmf\Module\Helper\Permission($moduleDirName);
 
 /**
  * Class Categories
  */
-class Categories extends \XoopsObject
+class Categories extends XoopsObject
 {
     /**
      * Constructor
@@ -63,6 +72,7 @@ class Categories extends \XoopsObject
         require_once XOOPS_ROOT_PATH . '/modules/lexikon/class/form/categories.php';
 
         $form = new Form\CategoriesForm($this);
+
         return $form;
     }
 

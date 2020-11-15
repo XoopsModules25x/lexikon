@@ -9,28 +9,27 @@
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
+
 /**
  * Module: lexikon
  *
  * @category        Module
  * @package         lexikon
- * @author          XOOPS Development Team <name@site.com> - <https://xoops.org>
+ * @author          XOOPS Development Team <https://xoops.org>
  * @copyright       {@link https://xoops.org/ XOOPS Project}
  * @license         GPL 2.0 or later
  * @link            https://xoops.org/
  * @since           1.0.0
  */
 
-
 use XoopsModules\Lexikon;
 
 if ((!defined('XOOPS_ROOT_PATH')) || !$GLOBALS['xoopsUser'] instanceof \XoopsUser
-    || !$GLOBALS['xoopsUser']->IsAdmin()
-) {
+    || !$GLOBALS['xoopsUser']->isAdmin()) {
     exit('Restricted access' . PHP_EOL);
 }
 
-include  dirname(__DIR__) . '/preloads/autoloader.php';
+require dirname(__DIR__) . '/preloads/autoloader.php';
 
 /**
  * @param string $tablename
@@ -44,9 +43,7 @@ function tableExists($tablename)
     return ($GLOBALS['xoopsDB']->getRowsNum($result) > 0);
 }
 
-
 /**
- *
  * Prepares system prior to attempting to install module
  * @param \XoopsModule $module {@link XoopsModule}
  *
@@ -56,39 +53,35 @@ function xoops_module_pre_update_lexikon(\XoopsModule $module)
 {
     /** @var Lexikon\Helper $helper */
     /** @var Lexikon\Utility $utility */
-    $helper       = Lexikon\Helper::getInstance();
-    $utility      = new Lexikon\Utility();
+    $helper  = Lexikon\Helper::getInstance();
+    $utility = new Lexikon\Utility();
 
     $xoopsSuccess = $utility::checkVerXoops($module);
     $phpSuccess   = $utility::checkVerPhp($module);
+
     return $xoopsSuccess && $phpSuccess;
 }
 
 /**
- *
  * Performs tasks required during update of the module
  * @param \XoopsModule $module {@link XoopsModule}
- * @param null        $previousVersion
+ * @param null         $previousVersion
  *
  * @return bool true if update successful, false if not
  */
-
 function xoops_module_update_lexikon(\XoopsModule $module, $previousVersion = null)
 {
-    $moduleDirName = basename(dirname(__DIR__));
-    $moduleDirNameUpper = strtoupper($moduleDirName);
-    
-    /** @var Lexikon\Helper $helper */
-    /** @var Lexikon\Utility $utility */
+    $moduleDirName      = basename(dirname(__DIR__));
+    $moduleDirNameUpper = mb_strtoupper($moduleDirName);
+
+    /** @var Lexikon\Helper $helper */ /** @var Lexikon\Utility $utility */
     /** @var Lexikon\Common\Configurator $configurator */
     $helper       = Lexikon\Helper::getInstance();
     $utility      = new Lexikon\Utility();
     $configurator = new Lexikon\Common\Configurator();
     $helper->loadLanguage('common');
 
-
     if ($previousVersion < 240) {
-
         //delete old HTML templates
         if (count($configurator->templateFolders) > 0) {
             foreach ($configurator->templateFolders as $folder) {
@@ -97,8 +90,8 @@ function xoops_module_update_lexikon(\XoopsModule $module, $previousVersion = nu
                     $templateList = array_diff(scandir($templateFolder, SCANDIR_SORT_NONE), ['..', '.']);
                     foreach ($templateList as $k => $v) {
                         $fileInfo = new \SplFileInfo($templateFolder . $v);
-                        if ('html' === $fileInfo->getExtension()  && 'index.html' !== $fileInfo->getFilename()) {
-                            if (file_exists($templateFolder . $v)) {
+                        if ('html' === $fileInfo->getExtension() && 'index.html' !== $fileInfo->getFilename()) {
+                            if (is_file($templateFolder . $v)) {
                                 unlink($templateFolder . $v);
                             }
                         }
@@ -106,7 +99,6 @@ function xoops_module_update_lexikon(\XoopsModule $module, $previousVersion = nu
                 }
             }
         }
-
 
         //  ---  DELETE OLD FILES ---------------
         if (count($configurator->oldFiles) > 0) {
@@ -126,7 +118,7 @@ function xoops_module_update_lexikon(\XoopsModule $module, $previousVersion = nu
             foreach (array_keys($configurator->oldFolders) as $i) {
                 $tempFolder = $GLOBALS['xoops']->path('modules/' . $moduleDirName . $configurator->oldFolders[$i]);
                 /** @var \XoopsObjectHandler $folderHandler */
-                $folderHandler   = \XoopsFile::getHandler('folder', $tempFolder);
+                $folderHandler = \XoopsFile::getHandler('folder', $tempFolder);
                 $folderHandler->delete($tempFolder);
             }
         }
@@ -141,7 +133,7 @@ function xoops_module_update_lexikon(\XoopsModule $module, $previousVersion = nu
 
         //  ---  COPY blank.png FILES ---------------
         if (count($configurator->copyBlankFiles) > 0) {
-            $file =  dirname(__DIR__) . '/assets/images/blank.png';
+            $file = dirname(__DIR__) . '/assets/images/blank.png';
             foreach (array_keys($configurator->copyBlankFiles) as $i) {
                 $dest = $configurator->copyBlankFiles[$i] . '/blank.png';
                 $utility::copyFile($file, $dest);
@@ -151,10 +143,12 @@ function xoops_module_update_lexikon(\XoopsModule $module, $previousVersion = nu
         //delete .html entries from the tpl table
         $sql = 'DELETE FROM ' . $GLOBALS['xoopsDB']->prefix('tplfile') . " WHERE `tpl_module` = '" . $module->getVar('dirname', 'n') . "' AND `tpl_file` LIKE '%.html%'";
         $GLOBALS['xoopsDB']->queryF($sql);
-        
-        /** @var XoopsGroupPermHandler $grouppermHandler */
+
+        /** @var \XoopsGroupPermHandler $grouppermHandler */
         $grouppermHandler = xoops_getHandler('groupperm');
+
         return $grouppermHandler->deleteByModule($module->getVar('mid'), 'item_read');
     }
+
     return true;
 }

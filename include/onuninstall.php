@@ -9,12 +9,13 @@
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
+
 /**
  * Module: lexikon
  *
  * @category        Module
  * @package         lexikon
- * @author          XOOPS Development Team <name@site.com> - <https://xoops.org>
+ * @author          XOOPS Development Team <https://xoops.org>
  * @copyright       {@link https://xoops.org/ XOOPS Project}
  * @license         GPL 2.0 or later
  * @link            https://xoops.org/
@@ -36,23 +37,22 @@ function xoops_module_pre_uninstall_lexikon(\XoopsModule $module)
 }
 
 /**
- *
  * Performs tasks required during uninstallation of the module
- * @param XoopsModule $module {@link XoopsModule}
+ * @param \XoopsModule $module {@link XoopsModule}
  *
  * @return bool true if uninstallation successful, false if not
  */
 function xoops_module_uninstall_lexikon(\XoopsModule $module)
 {
-    include  dirname(__DIR__) . '/preloads/autoloader.php';
-    $moduleDirName = basename(dirname(__DIR__));
-    $moduleDirNameUpper = strtoupper($moduleDirName); //$capsDirName
+    require dirname(__DIR__) . '/preloads/autoloader.php';
+    $moduleDirName      = basename(dirname(__DIR__));
+    $moduleDirNameUpper = mb_strtoupper($moduleDirName); //$capsDirName
 
     /** @var Lexikon\Helper $helper */
     /** @var Lexikon\Utility $utility */
-    $helper = Lexikon\Helper::getInstance();
-    $utility      = new Lexikon\Utility();
-//    $configurator = new Lexikon\Common\Configurator();
+    $helper  = Lexikon\Helper::getInstance();
+    $utility = new Lexikon\Utility();
+    //    $configurator = new Lexikon\Common\Configurator();
 
     // Load language files
     $helper->loadLanguage('admin');
@@ -76,7 +76,7 @@ function xoops_module_uninstall_lexikon(\XoopsModule $module)
             unset($dirInfo);
         }
         */
-    
+
     /*
     //------------ START ----------------
     //------------------------------------------------------------------

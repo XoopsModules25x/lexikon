@@ -6,8 +6,9 @@
  * @license        http://www.fsf.org/copyleft/gpl.html GNU public license
  * @author         Taiwen Jiang (phppp or D.J.) <php_pp@hotmail.com>
  * @package        module::tag
+ * @param mixed $items
  */
-// defined('XOOPS_ROOT_PATH') || die('Restricted access');
+
 /**
  * Get item fields:
  * title
@@ -18,12 +19,10 @@
  * uname
  * tags
  *
+ * @return bool
  * @var array $items associative array of items: [modid][catid][itemid]
  *
- * @return boolean
- *
  */
-
 function lexikon_tag_iteminfo(&$items)
 {
     if (empty($items) || !is_array($items)) {
@@ -60,7 +59,7 @@ function lexikon_tag_iteminfo(&$items)
                 'uid'     => $row['uid'],
                 'link'    => "entry.php?entryID=$item_id",
                 'time'    => $row['datesub'],
-                'content' => $row['definition']
+                'content' => $row['definition'],
             ];
         }
     }

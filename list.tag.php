@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Tag management for XOOPS
  *
@@ -7,5 +8,5 @@
  * @author         Taiwen Jiang (phppp or D.J.) <php_pp@hotmail.com>
  * @package        module::tag
  */
-include  dirname(dirname(__DIR__)) . '/mainfile.php';
-include XOOPS_ROOT_PATH . '/modules/tag/list.tag.php';
+require dirname(dirname(__DIR__)) . '/mainfile.php';
+require XOOPS_ROOT_PATH . '/modules/tag/list.tag.php';

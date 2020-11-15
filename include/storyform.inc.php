@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * Module: Lexikon
  * Author: hsalazar
  * Chanegs: Yerres
@@ -12,8 +11,8 @@ use XoopsModules\Lexikon;
 global $term, $definition, $ref, $url, $xoopsUser, $xoopsModule;
 
 require_once XOOPS_ROOT_PATH . '/modules/lexikon/class/LexikonTree.php'; // -- LionHell
-include XOOPS_ROOT_PATH . '/class/xoopslists.php';
-include XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
+require XOOPS_ROOT_PATH . '/class/xoopslists.php';
+require XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
 
 /** @var Lexikon\Helper $helper */
 $helper = Lexikon\Helper::getInstance();
@@ -21,13 +20,14 @@ $helper = Lexikon\Helper::getInstance();
 $guesteditoruse = $helper->getConfig('wysiwyg_guests');
 $myts           = \MyTextSanitizer::getInstance();
 $mytree         = new Lexikon\LexikonTree($xoopsDB->prefix('lxcategories'), 'categoryID', '0');
-$sform          = new \XoopsThemeForm(_MD_LEXIKON_SUB_SMNAME, 'storyform', xoops_getenv('PHP_SELF'), 'post', true);
+$sform          = new \XoopsThemeForm(_MD_LEXIKON_SUB_SMNAME, 'storyform', xoops_getenv('SCRIPT_NAME'), 'post', true);
 
 if ('1' == $helper->getConfig('multicats')) {
     // perms adapted category select
-    $groups       = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
+    $groups = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
+    /** @var \XoopsGroupPermHandler $grouppermHandler */
     $grouppermHandler = xoops_getHandler('groupperm');
-    $allowed_cats = $grouppermHandler->getItemIds('lexikon_submit', $groups, $xoopsModule->getVar('mid'));
+    $allowed_cats     = $grouppermHandler->getItemIds('lexikon_submit', $groups, $xoopsModule->getVar('mid'));
     if (is_array($allowed_cats)) {
         $mytree         = new Lexikon\LexikonTree($xoopsDB->prefix('lxcategories'), 'categoryID', '0');
         $categoryselect = new \XoopsFormSelect(_MD_LEXIKON_ENTRYCATEGORY, 'categoryID', $allowed_cats);
@@ -91,11 +91,11 @@ if (0 != $helper->getConfig('captcha')) {
         $sform->addElement(new \XoopsFormCaptcha('', 'xoopscaptcha', $skipMember), true);
     }
 }
-$button_tray = new \XoopsFormElementTray('', '');
-$hidden      = new \XoopsFormHidden('op', 'post');
-$button_tray->addElement($hidden);
-$button_tray->addElement(new \XoopsFormButton('', 'post', _MD_LEXIKON_CREATE, 'submit'));
+$buttonTray = new \XoopsFormElementTray('', '');
+$hidden     = new \XoopsFormHidden('op', 'post');
+$buttonTray->addElement($hidden);
+$buttonTray->addElement(new \XoopsFormButton('', 'post', _MD_LEXIKON_CREATE, 'submit'));
 
-$sform->addElement($button_tray);
+$sform->addElement($buttonTray);
 
 unset($hidden);

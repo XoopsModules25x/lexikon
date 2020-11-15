@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * Module: Lexikon
  * Author: Yerres
  * Licence: GNU
@@ -8,7 +7,7 @@
 
 global $xoopsUser, $xoopsModule, $xoopsModuleConfig;
 
-include XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
+require XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
 
 $yform = new \XoopsThemeForm(_MD_LEXIKON_SUB_SYNNAME, 'yform', '');
 

@@ -11,14 +11,15 @@
 
 /**
  * @copyright    {@link https://xoops.org/ XOOPS Project}
- * @license      {@link http://www.gnu.org/licenses/gpl-2.0.html GNU GPL 2 or later}
+ * @license      {@link https://www.gnu.org/licenses/gpl-2.0.html GNU GPL 2 or later}
  * @package
  * @since
  * @author       XOOPS Development Team
  */
+
 use XoopsModules\Lexikon;
 
-include  dirname(dirname(__DIR__)) . '/mainfile.php';
+require dirname(dirname(__DIR__)) . '/mainfile.php';
 
 /** @var Lexikon\Helper $helper */
 $helper = Lexikon\Helper::getInstance();
@@ -26,13 +27,13 @@ $helper = Lexikon\Helper::getInstance();
 //--- verify that the user can post comments
 global $xoopsModuleConfig, $xoopsUser;
 if (!isset($xoopsModuleConfig)) {
-    die();
+    exit();
 }
 if (0 == $helper->getConfig('com_rule')) {
-    die();
+    exit();
 }    // Comments deactivated
 if (0 == $helper->getConfig('com_anonpost') && !is_object($xoopsUser)) {
-    die();
+    exit();
 } // Anonymous users can't post
 
-include XOOPS_ROOT_PATH . '/include/comment_post.php';
+require XOOPS_ROOT_PATH . '/include/comment_post.php';

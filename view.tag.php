@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Tag management
  *
@@ -8,5 +9,5 @@
  * @since          1.00
  * @package        module::tag
  */
-include  dirname(dirname(__DIR__)) . '/mainfile.php';
-include XOOPS_ROOT_PATH . '/modules/tag/view.tag.php';
+require dirname(dirname(__DIR__)) . '/mainfile.php';
+require XOOPS_ROOT_PATH . '/modules/tag/view.tag.php';
