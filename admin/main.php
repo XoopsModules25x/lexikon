@@ -14,8 +14,8 @@ use XoopsModules\Lexikon;
 require_once __DIR__ . '/admin_header.php';
 xoops_cp_header();
 
-/** @var Lexikon\Helper $helper */
-$helper = Lexikon\Helper::getInstance();
+
+$helper = Helper::getInstance();
 
 $myts = \MyTextSanitizer::getInstance();
 global $xoopsUser, $xoopsConfig, $xoopsModule, $entryID;
@@ -236,7 +236,9 @@ $sql = 'SELECT entryID, categoryID, term, uid, datesub, offline
 
 $items = $xoopsDB->query($sql, $helper->getConfig('perpage'), $startentry); //missing nav. extras
 
-$totalItemsOnPage = count($numrows);
+if (is_array($numrows)) {
+    $totalItemsOnPage = count($numrows);
+}
 
 lx_buildTable();
 

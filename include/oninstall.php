@@ -22,8 +22,13 @@
  * @since           1.0.0
  */
 
-use XoopsModules\Lexikon;
-use XoopsModules\Lexikon\Common;
+use XoopsModules\Lexikon\{
+    Common\Configurator,
+    Helper,
+    Utility
+};
+/** @var Helper $helper */
+/** @var Configurator $configurator */
 
 require dirname(__DIR__) . '/preloads/autoloader.php';
 
@@ -36,7 +41,7 @@ require dirname(__DIR__) . '/preloads/autoloader.php';
 function xoops_module_pre_install_lexikon(\XoopsModule $module)
 {
     /** @var Lexikon\Utility $utility */
-    $utility = new Lexikon\Utility();
+    $utility = new Utility();
 
     //check for minimum XOOPS version
     $xoopsSuccess = $utility::checkVerXoops($module);
@@ -64,11 +69,9 @@ function xoops_module_install_lexikon(\XoopsModule $module)
 {
     $moduleDirName = basename(dirname(__DIR__));
 
-    /** @var Lexikon\Helper $helper */ /** @var Lexikon\Utility $utility */
-    /** @var Common\Configurator $configurator */
-    $helper       = Lexikon\Helper::getInstance();
-    $utility      = new Lexikon\Utility();
-    $configurator = new Common\Configurator();
+    $helper       = Helper::getInstance();
+    $utility      = new Utility();
+    $configurator = new Configurator();
 
     // Load language files
     $helper->loadLanguage('admin');

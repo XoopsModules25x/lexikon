@@ -14,8 +14,8 @@ require __DIR__ . '/header.php';
 $GLOBALS['xoopsOption']['template_main'] = 'lx_search.tpl';
 require XOOPS_ROOT_PATH . '/header.php';
 
-/** @var Lexikon\Helper $helper */
-$helper = Lexikon\Helper::getInstance();
+
+$helper = Helper::getInstance();
 
 global $xoTheme, $xoopsDB, $xoopsModule, $xoopsModuleConfig, $searchtype;
 $myts = \MyTextSanitizer::getInstance();

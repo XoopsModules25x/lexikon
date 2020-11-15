@@ -8,14 +8,17 @@
 
 use Xmf\Module\Admin;
 use Xmf\Request;
-use XoopsModules\Lexikon;
-use XoopsModules\Tag\Helper;
+use XoopsModules\Tag;
+use XoopsModules\Lexikon\{
+    Helper,
+    Utility
+};
+/** @var Helper $helper */
 
 require_once __DIR__ . '/admin_header.php';
 $myts = \MyTextSanitizer::getInstance();
 
-/** @var Lexikon\Helper $helper */
-$helper = Lexikon\Helper::getInstance();
+$helper = Helper::getInstance();
 
 xoops_cp_header();
 $adminObject = Admin::getInstance();
@@ -30,8 +33,7 @@ error_reporting(E_ERROR | E_WARNING | E_PARSE);
 function entryDefault()
 {
     global $xoopsUser, $xoopsConfig, $xoopsDB, $xoopsModule, $entryID, $pathIcon16;
-    /** @var Lexikon\Helper $helper */
-    $helper = Lexikon\Helper::getInstance();
+    $helper = Helper::getInstance();
     require_once XOOPS_ROOT_PATH . '/class/xoopslists.php';
     require_once XOOPS_ROOT_PATH . '/class/pagenav.php';
     xoops_load('XoopsUserUtility');
@@ -164,11 +166,10 @@ function entryDefault()
 function entryEdit($entryID = '')
 {
     global $xoopsUser, $xoopsConfig, $xoopsDB, $xoopsModule, $init;
-    /** @var Lexikon\Helper $helper */
-    $helper = Lexikon\Helper::getInstance();
+    $helper = Helper::getInstance();
 
     $myts    = \MyTextSanitizer::getInstance();
-    $utility = new Lexikon\Utility();
+    $utility = new Utility();
     /**
      * Clear all variables before we start
      */
@@ -374,9 +375,8 @@ function entryEdit($entryID = '')
 function entrySave($entryID = '')
 {
     global $xoopsUser, $xoopsConfig, $xoopsModule, $xoopsDB;
-    /** @var Lexikon\Helper $helper */
-    $helper  = Lexikon\Helper::getInstance();
-    $utility = new Lexikon\Utility();
+    $helper  = Helper::getInstance();
+    $utility = new Utility();
     $myts    = \MyTextSanitizer::getInstance();
     $entryID = \Xmf\Request::getInt('entryID', \Xmf\Request::getInt('entryID', 0, 'GET'), 'POST');
     if (1 == $helper->getConfig('multicats')) {
@@ -412,7 +412,7 @@ function entrySave($entryID = '')
     $moduleHandler = xoops_getHandler('module');
     $tagsModule    = $moduleHandler->getByDirname('tag');
     if (is_object($tagsModule)) {
-        $tagHandler = Helper::getInstance()->getHandler('Tag'); // xoops_getModuleHandler('tag', 'tag');
+        $tagHandler = Tag\Helper::getInstance()->getHandler('Tag'); // xoops_getModuleHandler('tag', 'tag');
         $tagHandler->updateByItem($_POST['item_tag'], $entryID, $xoopsModule->getVar('dirname'), $catid = 0);
     }
     // Save to database

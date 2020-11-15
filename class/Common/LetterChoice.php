@@ -92,7 +92,7 @@ class LetterChoice
         $caseSensitive = false
     ) {
         /** @var Lexikon\Helper $this ->helper */
-        $this->helper     = Lexikon\Helper::getInstance();
+        $this->helper     = Helper::getInstance();
         $this->objHandler = $objHandler;
         $this->criteria   = null === $criteria ? new CriteriaCompo() : $criteria;
         $this->field_name = null === $field_name ? $this->objHandler->identifierName : $field_name;

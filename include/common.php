@@ -18,7 +18,15 @@
  */
 
 use Xmf\Module\Admin;
-use XoopsModules\Lexikon;
+use XoopsModules\Lexikon\{
+    Common\Configurator,
+    Helper,
+    Utility,
+    EntriesHandler,
+    CategoriesHandler
+};
+/** @var Helper $helper */
+/** @var Utility $utility */
 
 require dirname(__DIR__) . '/preloads/autoloader.php';
 
@@ -26,17 +34,15 @@ $moduleDirName      = basename(dirname(__DIR__));
 $moduleDirNameUpper = mb_strtoupper($moduleDirName);
 
 /** @var \XoopsDatabase $db */
-/** @var Lexikon\Helper $helper */
-/** @var Lexikon\Utility $utility */
 $db      = \XoopsDatabaseFactory::getDatabaseConnection();
-$helper  = Lexikon\Helper::getInstance();
-$utility = new Lexikon\Utility();
-//$configurator = new Lexikon\Common\Configurator();
+$helper  = Helper::getInstance();
+$utility = new Utility();
+//$configurator = new Configurator();
 
 $helper->loadLanguage('common');
 
-$entriesHandler    = new Lexikon\EntriesHandler($db);
-$categoriesHandler = new Lexikon\CategoriesHandler($db);
+$entriesHandler    = new EntriesHandler($db);
+$categoriesHandler = new CategoriesHandler($db);
 
 $pathIcon16 = Admin::iconUrl('', 16);
 $pathIcon32 = Admin::iconUrl('', 32);

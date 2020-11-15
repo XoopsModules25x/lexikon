@@ -21,8 +21,8 @@ use XoopsModules\Lexikon;
 
 require dirname(dirname(__DIR__)) . '/mainfile.php';
 
-/** @var Lexikon\Helper $helper */
-$helper = Lexikon\Helper::getInstance();
+
+$helper = Helper::getInstance();
 
 //--- verify that the user can post comments
 global $xoopsModuleConfig, $xoopsUser;

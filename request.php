@@ -10,8 +10,8 @@ use XoopsModules\Lexikon;
 
 require __DIR__ . '/header.php';
 
-/** @var Lexikon\Helper $helper */
-$helper = Lexikon\Helper::getInstance();
+
+$helper = Helper::getInstance();
 global $xoTheme, $xoopsUser, $xoopsModule;
 
 // permissions

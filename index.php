@@ -11,8 +11,8 @@ use XoopsModules\Lexikon;
 
 require __DIR__ . '/header.php';
 
-/** @var Lexikon\Helper $helper */
-$helper = Lexikon\Helper::getInstance();
+
+$helper = Helper::getInstance();
 
 $GLOBALS['xoopsOption']['template_main'] = 'lx_index.tpl';
 require_once XOOPS_ROOT_PATH . '/header.php';
@@ -90,11 +90,11 @@ $xoopsTpl->assign('totalother', $howmanyother);
 $moduleDirName      = basename(__DIR__);
 $moduleDirNameUpper = mb_strtoupper($moduleDirName);
 
-Lexikon\Helper::getInstance()->loadLanguage('common');
+Helper::getInstance()->loadLanguage('common');
 $xoopsTpl->assign('letterChoiceTitle', constant('CO_' . $moduleDirNameUpper . '_' . 'BROWSETOTOPIC'));
 /** @var \XoopsDatabase $db */
 $db                  = \XoopsDatabaseFactory::getDatabaseConnection();
-$objHandler          = Lexikon\Helper::getInstance()->getHandler('Entries');
+$objHandler          = Helper::getInstance()->getHandler('Entries');
 $choicebyletter      = new Lexikon\Common\LetterChoice($objHandler, null, null, range('a', 'z'), 'init', LEXIKON_URL . '/letter.php');
 $catarray['letters'] = $choicebyletter->render($alphaCount, $howmanyother);
 $xoopsTpl->assign('catarray', $catarray);

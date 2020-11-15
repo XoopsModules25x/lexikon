@@ -417,3 +417,5 @@ define('_AM_ADGS', 'Groups');
 define('_AM_ALLMODULEPAGES', 'Groups');
 define('_AM_SYSTEMLEVEL', '_AM_SYSTEMLEVEL');
 define('_AM_ADMINBLOCK', '_AM_ADMINBLOCK');
+
+define('AM_CATEGORIES_SELECTED_ERROR', 'You selected nothing to delete');

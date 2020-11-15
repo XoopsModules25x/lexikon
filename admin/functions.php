@@ -30,8 +30,8 @@ function lx_adminMenu($currentoption = 0, $breadcrumb = '')
     require_once XOOPS_ROOT_PATH . '/class/template.php';
 
     global $xoopsDB, $xoopsModule, $xoopsConfig;
-    /** @var Lexikon\Helper $helper */
-    $helper = Lexikon\Helper::getInstance();
+
+    $helper = Helper::getInstance();
     $helper->loadLanguage('admin');
     $helper->loadLanguage('modinfo');
 

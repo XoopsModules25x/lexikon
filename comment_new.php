@@ -21,8 +21,8 @@ use Xmf\Request;
 use XoopsModules\Lexikon;
 
 require dirname(dirname(__DIR__)) . '/mainfile.php';
-/** @var Lexikon\Helper $helper */
-$helper = Lexikon\Helper::getInstance();
+
+$helper = Helper::getInstance();
 global $xoopsUser;
 $com_itemid = Request::getInt('com_itemid', 0, 'GET');
 //--- verify that the user can post comments

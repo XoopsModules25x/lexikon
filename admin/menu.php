@@ -5,18 +5,27 @@
  */
 
 use Xmf\Module\Admin;
-use XoopsModules\Lexikon;
+use XoopsModules\Lexikon\{
+    Helper
+};
+/** @var Admin $adminObject */
+/** @var Helper $helper */
 
-//require_once  dirname(__DIR__) . '/include/common.php';
-/** @var Lexikon\Helper $helper */
-$helper = Lexikon\Helper::getInstance();
+
+include dirname(__DIR__) . '/preloads/autoloader.php';
+
+$moduleDirName = basename(dirname(__DIR__));
+$moduleDirNameUpper = mb_strtoupper($moduleDirName);
+$helper = Helper::getInstance();
 $helper->loadLanguage('common');
 $helper->loadLanguage('feedback');
 
 $pathIcon32 = Admin::menuIconPath('');
 if (is_object($helper->getModule())) {
-    $pathModIcon32 = $helper->getModule()->getInfo('modicons32');
+    //    $pathModIcon32 = $helper->getModule()->getInfo('modicons32');
+    $pathModIcon32 = $helper->url($helper->getModule()->getInfo('modicons32'));
 }
+
 
 $adminmenu[] = [
     'title' => _MI_LEXIKON_HOME,

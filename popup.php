@@ -13,8 +13,8 @@ require XOOPS_ROOT_PATH . '/header.php';
 
 xoops_header(false);
 
-/** @var Lexikon\Helper $helper */
-$helper = Lexikon\Helper::getInstance();
+
+$helper = Helper::getInstance();
 
 $entryID = isset($_GET['entryID']) ? Request::getInt('entryID', 0, 'GET') : 0;
 if (!$entryID) {

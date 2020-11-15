@@ -27,7 +27,7 @@ function lx_search($queryarray, $andor, $limit, $offset, $userid)
     $searchincomments = false;
     require_once XOOPS_ROOT_PATH . '/modules/lexikon/include/common.inc.php';
     //    require_once XOOPS_ROOT_PATH . '/modules/lexikon/class/Utility.php';
-    $utility          = new Lexikon\Utility();
+    $utility          = new Utility();
     $hightlight_key   = '';
     $highlight        = $utility::getModuleOption('config_highlighter');
     $searchincomments = CONFIG_SEARCH_COMMENTS;

@@ -28,7 +28,12 @@
 
 //error_reporting(E_ALL);
 
-use XoopsModules\Lexikon;
+use XoopsModules\Lexikon\{
+    Helper,
+    Common\Configurator,
+    Utility
+};
+
 
 /**
  * @param      $module
@@ -40,11 +45,9 @@ function xoops_module_update_lexikon($module, $prev_version = null)
     $moduleDirName      = basename(dirname(__DIR__));
     $moduleDirNameUpper = mb_strtoupper($moduleDirName);
 
-    /** @var Lexikon\Helper $helper */ /** @var Lexikon\Utility $utility */
-    /** @var Lexikon\Common\Configurator $configurator */
-    $helper       = Lexikon\Helper::getInstance();
-    $utility      = new Lexikon\Utility();
-    $configurator = new Lexikon\Common\Configurator();
+    $helper       = Helper::getInstance();
+    $utility      = new Utility();
+    $configurator = new Configurator();
 
     $ret = null;
     if ($prev_version < 152) {

@@ -24,14 +24,18 @@ namespace XoopsModules\Lexikon\Form;
  * @since           1.0.0
  */
 
-use XoopsModules\Lexikon;
-use XoopsModules\Lexikon\Form;
+use XoopsModules\Lexikon\{
+    Helper,
+    Utility,
+    CategoriesHandler
+};
+
 
 require_once \dirname(\dirname(__DIR__)) . '/config/config.php';
 
 $moduleDirName = \basename(\dirname(\dirname(__DIR__)));
-/** @var Lexikon\Helper $helper */
-$helper = Lexikon\Helper::getInstance();
+
+$helper = Helper::getInstance();
 
 \xoops_load('XoopsFormLoader');
 
@@ -50,10 +54,10 @@ class EntriesForm extends \XoopsThemeForm
     public function __construct($target)
     {
         /** @var \XoopsDatabase $db */
-        /** @var Lexikon\Helper $helper */
+
         $db      = \XoopsDatabaseFactory::getDatabaseConnection();
-        $helper  = Lexikon\Helper::getInstance();
-        $utility = new Lexikon\Utility();
+        $helper  = Helper::getInstance();
+        $utility = new Utility();
 
         $this->targetObject = $target;
 
@@ -72,7 +76,7 @@ class EntriesForm extends \XoopsThemeForm
         // CategoryID
         //        $categoriesHandler    = xoops_getModuleHandler('categories', 'lexikon');
 
-        $categoriesHandler = new Lexikon\CategoriesHandler($db);
+        $categoriesHandler = new CategoriesHandler($db);
 
         $categories_id_select = new \XoopsFormSelect(\AM_LEXIKON_ENTRIES_CATEGORYID, 'categoryID', $this->targetObject->getVar('name'));
         $categories_id_select->addOptionArray($categoriesHandler->getList());

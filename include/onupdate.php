@@ -22,7 +22,14 @@
  * @since           1.0.0
  */
 
-use XoopsModules\Lexikon;
+use XoopsModules\Lexikon\{
+    Common\Configurator,
+    Helper,
+    Utility
+};
+/** @var Helper $helper */
+/** @var Utility $utility */
+/** @var Configurator $configurator */
 
 if ((!defined('XOOPS_ROOT_PATH')) || !$GLOBALS['xoopsUser'] instanceof \XoopsUser
     || !$GLOBALS['xoopsUser']->isAdmin()) {
@@ -51,10 +58,9 @@ function tableExists($tablename)
  */
 function xoops_module_pre_update_lexikon(\XoopsModule $module)
 {
-    /** @var Lexikon\Helper $helper */
-    /** @var Lexikon\Utility $utility */
-    $helper  = Lexikon\Helper::getInstance();
-    $utility = new Lexikon\Utility();
+
+    $helper  = Helper::getInstance();
+    $utility = new Utility();
 
     $xoopsSuccess = $utility::checkVerXoops($module);
     $phpSuccess   = $utility::checkVerPhp($module);
@@ -74,11 +80,9 @@ function xoops_module_update_lexikon(\XoopsModule $module, $previousVersion = nu
     $moduleDirName      = basename(dirname(__DIR__));
     $moduleDirNameUpper = mb_strtoupper($moduleDirName);
 
-    /** @var Lexikon\Helper $helper */ /** @var Lexikon\Utility $utility */
-    /** @var Lexikon\Common\Configurator $configurator */
-    $helper       = Lexikon\Helper::getInstance();
-    $utility      = new Lexikon\Utility();
-    $configurator = new Lexikon\Common\Configurator();
+    $helper       = Helper::getInstance();
+    $utility      = new Utility();
+    $configurator = Configurator();
     $helper->loadLanguage('common');
 
     if ($previousVersion < 240) {

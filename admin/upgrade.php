@@ -14,8 +14,8 @@ require_once __DIR__ . '/admin_header.php';
 
 xoops_cp_header();
 
-/** @var Lexikon\Helper $helper */
-$helper = Lexikon\Helper::getInstance();
+
+$helper = Helper::getInstance();
 
 global $xoopsUser, $xoopsModule, $xoopsDB;
 $go = Request::getInt('go', 0, 'POST');

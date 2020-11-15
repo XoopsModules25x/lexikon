@@ -16,11 +16,15 @@
 
 use Xmf\Database\TableLoad;
 use \Xmf\Request;
-use XoopsModules\Lexikon\{Helper,
-    Common,
+use Xmf\Yaml;
+use XoopsModules\Lexikon\{
+    Common\Configurator,
+    Helper,
     Utility
 };
-use Xmf\Yaml;
+/** @var Helper $helper */
+/** @var Utility $utility */
+/** @var Configurator $configurator */
 
 require_once dirname(__DIR__, 3) . '/include/cp_header.php';
 require dirname(__DIR__) . '/preloads/autoloader.php';
@@ -61,7 +65,7 @@ function loadSampleData()
     $moduleDirNameUpper = mb_strtoupper($moduleDirName);
 
     $utility      = new Utility();
-    $configurator = new Common\Configurator();
+    $configurator = new Configurator();
 
     $tables = \Xmf\Module\Helper::getHelper($moduleDirName)->getModule()->getInfo('tables');
 

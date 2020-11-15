@@ -11,8 +11,8 @@ use XoopsModules\Lexikon;
 
 require __DIR__ . '/header.php';
 
-/** @var Lexikon\Helper $helper */
-$helper = Lexikon\Helper::getInstance();
+
+$helper = Helper::getInstance();
 
 //foreach ($_POST as $k => $v) {
 //    ${$k} = $v;
@@ -34,8 +34,8 @@ if (empty($entryID)) {
 function printPage($entryID)
 {
     global $xoopsConfig, $xoopsDB, $xoopsModule, $myts;
-    /** @var Lexikon\Helper $helper */
-    $helper  = Lexikon\Helper::getInstance();
+
+    $helper  = Helper::getInstance();
     $result1 = $xoopsDB->query('SELECT * FROM ' . $xoopsDB->prefix('lxentries') . " WHERE entryID = '$entryID' and submit = '0' order by datesub");
     $Ok      = $xoopsDB->getRowsNum($result1);
     if ($Ok <= 0) {

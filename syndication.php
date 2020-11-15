@@ -16,8 +16,8 @@ require_once XOOPS_ROOT_PATH . '/class/template.php';
 $tpl          = new \XoopsTpl();
 $tpl->caching = 0;
 
-/** @var Lexikon\Helper $helper */
-$helper = Lexikon\Helper::getInstance();
+
+$helper = Helper::getInstance();
 
 global $xoopsUser, $xoopsDB, $xoopsConfig;
 $myts = MyTextSanitizer:: getInstance();

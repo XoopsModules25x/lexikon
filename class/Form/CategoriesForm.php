@@ -33,16 +33,17 @@ use XoopsFormElementTray;
 use XoopsFormHidden;
 use XoopsFormLabel;
 use XoopsFormText;
-use XoopsModules\Lexikon;
-use XoopsModules\Lexikon\Form;
+use XoopsModules\Lexikon\{
+    Form
+};
 use XoopsThemeForm;
 
 require_once dirname(dirname(__DIR__)) . '/config/config.php';
 
 $moduleDirName = basename(dirname(dirname(__DIR__)));
 $permHelper    = new \Xmf\Module\Helper\Permission($moduleDirName);
-/** @var Lexikon\Helper $helper */
-$helper = Lexikon\Helper::getInstance();
+
+$helper = Helper::getInstance();
 
 xoops_load('XoopsFormLoader');
 

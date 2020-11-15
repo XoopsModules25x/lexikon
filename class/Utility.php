@@ -170,8 +170,8 @@ class Utility extends Common\SysUtility
     public static function getCategoryArray()
     {
         global $xoopsDB, $xoopsUser, $xoopsModule;
-        /** @var Lexikon\Helper $helper */
-        $helper           = Lexikon\Helper::getInstance();
+
+        $helper           = Helper::getInstance();
         $myts             = \MyTextSanitizer::getInstance();
         $groups           = \is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
         $grouppermHandler = \xoops_getHandler('groupperm');
@@ -302,8 +302,8 @@ class Utility extends Common\SysUtility
     public static function getServiceLinks($variable)
     {
         global $xoopsUser, $xoopsDB, $xoopsModule, $xoopsConfig, $entrytype;
-        /** @var Lexikon\Helper $helper */
-        $helper = Lexikon\Helper::getInstance();
+
+        $helper = Helper::getInstance();
 
         /** @var \XoopsModuleHandler $moduleHandler */
         $moduleHandler = \xoops_getHandler('module');
@@ -377,8 +377,8 @@ class Utility extends Common\SysUtility
     public static function getServiceLinksNew($variable)
     {
         global $xoopsUser, $xoopsDB, $xoopsModule, $xoopsConfig, $myts;
-        /** @var Lexikon\Helper $helper */
-        $helper    = Lexikon\Helper::getInstance();
+
+        $helper    = Helper::getInstance();
         $srvlinks2 = '<a TITLE="'
                      . _MD_LEXIKON_PRINTTERM
                      . '" href="print.php?entryID='
@@ -416,8 +416,8 @@ class Utility extends Common\SysUtility
     public static function showSearchForm()
     {
         global $xoopsUser, $xoopsDB, $xoopsModule, $xoopsConfig;
-        /** @var Lexikon\Helper $helper */
-        $helper = Lexikon\Helper::getInstance();
+
+        $helper = Helper::getInstance();
 
         $grouppermHandler = \xoops_getHandler('groupperm');
         $groups           = \is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
@@ -497,8 +497,8 @@ class Utility extends Common\SysUtility
     public static function extractKeywords($content)
     {
         global $xoopsTpl, $xoTheme, $xoopsModule;
-        /** @var Lexikon\Helper $helper */
-        $helper = Lexikon\Helper::getInstance();
+
+        $helper = Helper::getInstance();
         require_once XOOPS_ROOT_PATH . '/modules/lexikon/include/common.inc.php';
         $keywords_count = $helper->getConfig('metakeywordsnum');
         $tmp            = [];
@@ -859,7 +859,7 @@ class Utility extends Common\SysUtility
      */
     public static function getEditor($helper = null, $options = null)
     {
-        /** @var Lexikon\Helper $helper */
+
         if (null === $options) {
             $options           = [];
             $options['name']   = 'Editor';
@@ -899,8 +899,8 @@ class Utility extends Common\SysUtility
     public static function getModuleHeader()
     {
         global $xoopsTpl, $xoTheme, $xoopsModule, $lexikon_module_header;
-        /** @var Lexikon\Helper $helper */
-        $helper = Lexikon\Helper::getInstance();
+
+        $helper = Helper::getInstance();
 
         if (isset($xoTheme) && \is_object($xoTheme)) {
             $xoTheme->addStylesheet('modules/lexikon/assets/css/style.css');
@@ -981,8 +981,8 @@ class Utility extends Common\SysUtility
     {
         require_once XOOPS_ROOT_PATH . '/class/pagenav.php';
         global $authortermstotal, $xoopsTpl, $xoopsDB, $xoopsUser;
-        /** @var Lexikon\Helper $helper */
-        $helper = Lexikon\Helper::getInstance();
+
+        $helper = Helper::getInstance();
         $myts   = \MyTextSanitizer::getInstance();
         //permissions
         $grouppermHandler = \xoops_getHandler('groupperm');
@@ -1473,7 +1473,7 @@ class Utility extends Common\SysUtility
         $select_view   = '';
         $moduleDirName = \basename(\dirname(__DIR__));
 
-        $helper = Lexikon\Helper::getInstance();
+        $helper = Helper::getInstance();
 
         $pathModIcon16 = XOOPS_URL . '/modules/' . $moduleDirName . '/' . $helper->getModule()->getInfo('modicons16');
 

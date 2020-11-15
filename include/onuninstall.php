@@ -48,10 +48,10 @@ function xoops_module_uninstall_lexikon(\XoopsModule $module)
     $moduleDirName      = basename(dirname(__DIR__));
     $moduleDirNameUpper = mb_strtoupper($moduleDirName); //$capsDirName
 
-    /** @var Lexikon\Helper $helper */
+
     /** @var Lexikon\Utility $utility */
-    $helper  = Lexikon\Helper::getInstance();
-    $utility = new Lexikon\Utility();
+    $helper  = Helper::getInstance();
+    $utility = new Utility();
     //    $configurator = new Lexikon\Common\Configurator();
 
     // Load language files

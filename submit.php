@@ -14,8 +14,8 @@ require XOOPS_ROOT_PATH . '/header.php';
 
 require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
 
-/** @var Lexikon\Helper $helper */
-$helper = Lexikon\Helper::getInstance();
+
+$helper = Helper::getInstance();
 
 global $xoTheme, $xoopsUser, $xoopsConfig, $xoopsModule;
 

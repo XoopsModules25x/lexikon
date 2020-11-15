@@ -18,7 +18,11 @@
  */
 
 use Xmf\Module\Admin;
-use XoopsModules\Lexikon;
+use XoopsModules\Lexikon\{
+    Helper,
+    Utility
+};
+/** @var Helper $helper */
 
 $path = dirname(dirname(dirname(__DIR__)));
 require_once $path . '/include/cp_header.php';
@@ -33,8 +37,8 @@ require_once $path . '/class/xoopslists.php';
 require_once $path . '/class/xoopsformloader.php';
 
 $moduleDirName = basename(dirname(__DIR__));
-/** @var Lexikon\Helper $helper */
-$helper = Lexikon\Helper::getInstance();
+
+$helper = Helper::getInstance();
 
 /** @var Xmf\Module\Admin $adminObject */
 $adminObject = Admin::getInstance();

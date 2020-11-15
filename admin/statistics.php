@@ -10,12 +10,15 @@
 
 use Xmf\Module\Admin;
 use Xmf\Request;
-use XoopsModules\Lexikon;
+use XoopsModules\Lexikon\{
+    Helper,
+    Utility
+};
+/** @var Helper $helper */
 
 require_once __DIR__ . '/admin_header.php';
 
-/** @var Lexikon\Helper $helper */
-$helper = Lexikon\Helper::getInstance();
+$helper = Helper::getInstance();
 
 $myts = \MyTextSanitizer::getInstance();
 if (!isset($op)) {
@@ -48,8 +51,7 @@ if (!isset($op)) {
 function lx_Statistics()
 {
     global $xoopsModule, $xoopsConfig;
-    /** @var Lexikon\Helper $helper */
-    $helper = Lexikon\Helper::getInstance();
+    $helper = Helper::getInstance();
     xoops_load('XoopsUserUtility');
     xoops_cp_header();
     $myts = \MyTextSanitizer::getInstance();

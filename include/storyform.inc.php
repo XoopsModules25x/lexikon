@@ -14,8 +14,8 @@ require_once XOOPS_ROOT_PATH . '/modules/lexikon/class/LexikonTree.php'; // -- L
 require XOOPS_ROOT_PATH . '/class/xoopslists.php';
 require XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
 
-/** @var Lexikon\Helper $helper */
-$helper = Lexikon\Helper::getInstance();
+
+$helper = Helper::getInstance();
 
 $guesteditoruse = $helper->getConfig('wysiwyg_guests');
 $myts           = \MyTextSanitizer::getInstance();

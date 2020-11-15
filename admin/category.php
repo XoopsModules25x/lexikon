@@ -7,13 +7,16 @@
 
 use Xmf\Module\Admin;
 use Xmf\Request;
-use XoopsModules\Lexikon;
+use XoopsModules\Lexikon\{
+    Helper
+};
+/** @var Helper $helper */
 
 // -- General Stuff -- //
 require_once __DIR__ . '/admin_header.php';
 
-/** @var Lexikon\Helper $helper */
-$helper = Lexikon\Helper::getInstance();
+
+$helper = Helper::getInstance();
 
 $myts = \MyTextSanitizer::getInstance();
 xoops_cp_header();
@@ -28,6 +31,7 @@ $op = '';
 
 function categoryDefault()
 {
+    $helper = Helper::getInstance();
     $op = 'default';
     require_once XOOPS_ROOT_PATH . '/class/xoopslists.php';
     require_once XOOPS_ROOT_PATH . '/class/pagenav.php';
@@ -123,7 +127,7 @@ function categoryEdit($categoryID = '')
     require_once XOOPS_ROOT_PATH . '/class/uploader.php';
     require_once XOOPS_ROOT_PATH . '/class/xoopsform/grouppermform.php';
 
-    $utility = new Lexikon\Utility();
+    $utility = new Utility();
 
     $weight      = 1;
     $name        = '';
@@ -131,8 +135,8 @@ function categoryEdit($categoryID = '')
     $logourl     = '';
 
     global $xoopsUser, $xoopsConfig, $xoopsDB, $xoopsModule;
-    /** @var Lexikon\Helper $helper */
-    $helper = Lexikon\Helper::getInstance();
+
+    $helper = Helper::getInstance();
 
     // If there is a parameter, and the id exists, retrieve data: we're editing a column
     if ($categoryID) {
@@ -298,8 +302,8 @@ function categorySave($categoryID = '')
     require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
     require_once XOOPS_ROOT_PATH . '/class/uploader.php';
     global $xoopsUser, $xoopsConfig, $xoopsModule, $xoopsDB, $myts, $categoryID;
-    /** @var Lexikon\Helper $helper */
-    $helper = Lexikon\Helper::getInstance();
+
+    $helper = Helper::getInstance();
     //print_r ($_POST);
     $categoryID  = Request::getInt('categoryID', 0);
     $weight      = Request::getInt('weight', 0); //isset($_POST['weight']) ? \Xmf\Request::getInt('weight', 0, 'POST') : \Xmf\Request::getInt('weight', 0, 'GET');

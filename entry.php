@@ -14,8 +14,8 @@ require_once XOOPS_ROOT_PATH . '/header.php';
 global $xoTheme, $xoopsUser, $lexikon_module_header;
 $myts = \MyTextSanitizer::getInstance();
 xoops_load('XoopsUserUtility');
-/** @var Lexikon\Helper $helper */
-$helper = Lexikon\Helper::getInstance();
+
+$helper = Helper::getInstance();
 
 require_once XOOPS_ROOT_PATH . '/modules/lexikon/include/common.inc.php';
 $highlight = $utility::getModuleOption('config_highlighter');
