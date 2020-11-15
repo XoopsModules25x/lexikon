@@ -27,12 +27,10 @@ namespace XoopsModules\Lexikon\Common;
  * echo $choicebyletter->render();
  */
 
-use CriteriaCompo;
-use XoopsModules\Lexikon;
-use XoopsTpl;
-use xos_opal_Theme;
-
-
+use XoopsModules\Lexikon\{
+    Helper
+};
+/** @var Helper $this ->helper */
 
 // require_once  dirname(dirname(__DIR__)) . '/include/common.php';
 
@@ -91,10 +89,9 @@ class LetterChoice
         $extra_arg = '',
         $caseSensitive = false
     ) {
-        /** @var Lexikon\Helper $this ->helper */
         $this->helper     = Helper::getInstance();
         $this->objHandler = $objHandler;
-        $this->criteria   = null === $criteria ? new CriteriaCompo() : $criteria;
+        $this->criteria   = null === $criteria ? new \CriteriaCompo() : $criteria;
         $this->field_name = null === $field_name ? $this->objHandler->identifierName : $field_name;
         //        $this->alphabet   = (count($alphabet) > 0) ? $alphabet : range('a', 'z'); // is there a way to get locale alphabet?
         //        $this->alphabet       = getLocalAlphabet();
@@ -177,10 +174,10 @@ class LetterChoice
         // render output
         if (!isset($GLOBALS['xoTheme']) || !is_object($GLOBALS['xoTheme'])) {
             require_once $GLOBALS['xoops']->path('/class/theme.php');
-            $GLOBALS['xoTheme'] = new xos_opal_Theme();
+            $GLOBALS['xoTheme'] = new \xos_opal_Theme();
         }
         require_once $GLOBALS['xoops']->path('/class/template.php');
-        $choiceByLetterTpl          = new XoopsTpl();
+        $choiceByLetterTpl          = new \XoopsTpl();
         $choiceByLetterTpl->caching = false; // Disable cache
         $choiceByLetterTpl->assign('alphabet', $alphabetArray);
         $ret .= $choiceByLetterTpl->fetch("db:{$this->helper->getDirname()}_letterschoice.tpl");

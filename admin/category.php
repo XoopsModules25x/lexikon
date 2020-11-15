@@ -8,7 +8,8 @@
 use Xmf\Module\Admin;
 use Xmf\Request;
 use XoopsModules\Lexikon\{
-    Helper
+    Helper,
+    Utility
 };
 /** @var Helper $helper */
 

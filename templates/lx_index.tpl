@@ -140,7 +140,7 @@
         <fieldset>
             <legend>&nbsp;<{$smarty.const._MD_LEXIKON_RECENTENT}>&nbsp;</legend>
             <ul>
-                <{foreach item=newentries from=$block.newstuff}>
+                <{foreach item=newentries from=$block.newstuff|default:null}>
                     <li>
                         <a href="<{$xoops_url}>/modules/<{$lang_moduledirname}>/entry.php?entryID=<{$newentries.id}>"><{$newentries.linktext}></a>&nbsp;<{if $showdate == 1}>
                         <span style="font-size: xx-small; color: #456;">[&nbsp;<{$newentries.date}>&nbsp;]</span><{/if}>
@@ -154,7 +154,7 @@
         <fieldset>
             <legend>&nbsp;<{$smarty.const._MD_LEXIKON_POPULARENT}>&nbsp;</legend>
             <ul>
-                <{foreach item=popentries from=$block2.popstuff}>
+                <{foreach item=popentries from=$block2.popstuff|default:null}>
                     <li>
                         <a href="<{$xoops_url}>/modules/<{$lang_moduledirname}>/entry.php?entryID=<{$popentries.id}>"><{$popentries.linktext}></a>&nbsp;<{if $showcount == 1}>
                         <span style="font-size: xx-small; color: #456;">[&nbsp;<{$popentries.counter}>&nbsp;]</span><{/if}>
@@ -174,9 +174,9 @@
                 <{/if}>
             <{/if}>
             <div class="pad4">
-                <h5 class="term"><{$microlinks}><a href="<{$xoops_url}>/modules/<{$lang_moduledirname}>/entry.php?entryID=<{$random.id}>"><{$random.term}></a>
+                <h5 class="term"><{$microlinks|default:''}><a href="<{$xoops_url}>/modules/<{$lang_moduledirname}>/entry.php?entryID=<{$random.id|default:''}>"><{$random.term|default:''}></a>
                 </h5>
-                <div class="nopadding"><{$random.definition}></div>
+                <div class="nopadding"><{$random.definition|default:''}></div>
             </div>
         </fieldset>
     </div>
@@ -187,7 +187,7 @@
                 <div class="submission">
                     <b><{$smarty.const._MD_LEXIKON_SUB}></b>
                     <{if $wehavesubs == '0'}><{$smarty.const._MD_LEXIKON_NOSUB}><{/if}>
-                    <{foreach item=subentries from=$blockS.substuff}>
+                    <{foreach item=subentries from=$blockS.substuff|default:null}>
                         <a href="<{$xoops_url}>/modules/<{$lang_moduledirname}>/admin/entry.php?op=mod&entryID=<{$subentries.id}>"><{$subentries.linktext}></a>
                         &nbsp;
                     <{/foreach}>
@@ -195,7 +195,7 @@
                 <div class="request">
                     <b><{$smarty.const._MD_LEXIKON_REQ}></b>
                     <{if $wehavereqs == '0'}><{$smarty.const._MD_LEXIKON_NOREQ}><{/if}>
-                    <{foreach item=reqentries from=$blockR.reqstuff}>
+                    <{foreach item=reqentries from=$blockR.reqstuff|default:null}>
                         <a href="<{$xoops_url}>/modules/<{$lang_moduledirname}>/admin/entry.php?op=mod&entryID=<{$reqentries.id}>"><{$reqentries.linktext}></a>
                         &nbsp;
                     <{/foreach}>
@@ -214,7 +214,7 @@
                         <span style="font-size:80%;"><{$smarty.const._MD_LEXIKON_REQUESTSUGGEST}></span>
                         <br>
                     <{/if}>
-                    <{foreach item=reqentries from=$blockR.reqstuff}>
+                    <{foreach item=reqentries from=$blockR.reqstuff|default:null}>
                         <a href="<{$xoops_url}>/modules/<{$lang_moduledirname}>/submit.php?suggest=<{$reqentries.id}>"><{$reqentries.linktext}></a>
                         &nbsp;
                     <{/foreach}>

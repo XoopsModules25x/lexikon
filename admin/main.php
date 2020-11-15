@@ -9,7 +9,10 @@
 
 use Xmf\Module\Admin;
 use Xmf\Request;
-use XoopsModules\Lexikon;
+use XoopsModules\Lexikon\{
+    Helper,
+    LexikonTree
+};
 
 require_once __DIR__ . '/admin_header.php';
 xoops_cp_header();
@@ -86,7 +89,7 @@ $result05 = $xoopsDB->query(
 //--- category dropdown
 if (1 == $helper->getConfig('multicats')) {
     // $cattree = new \XoopsTree( $xoopsDB->prefix("lxcategories"), "categoryID", "0" );
-    $cattree = new Lexikon\LexikonTree($xoopsDB->prefix('lxcategories'), 'categoryID', '0');
+    $cattree = new LexikonTree($xoopsDB->prefix('lxcategories'), 'categoryID', '0');
     echo "<table class='outer' style='width:100%;'><tr class='odd'><td>";
 
     echo "</td></tr><tr><td class='head' colspan='2' class='even'><strong>" . _AM_LEXIKON_INVENTORY . '</strong></td></tr>';

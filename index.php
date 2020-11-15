@@ -7,14 +7,20 @@
  * Licence: GNU
  */
 
-use XoopsModules\Lexikon;
+use XoopsModules\Lexikon\{
+    Common\LetterChoice,
+    Helper,
+    Utility
+};
+
+$GLOBALS['xoopsOption']['template_main'] = 'lx_index.tpl';
 
 require __DIR__ . '/header.php';
 
 
 $helper = Helper::getInstance();
+$utility = new Utility();
 
-$GLOBALS['xoopsOption']['template_main'] = 'lx_index.tpl';
 require_once XOOPS_ROOT_PATH . '/header.php';
 require_once XOOPS_ROOT_PATH . '/modules/lexikon/include/common.inc.php';
 global $xoTheme, $xoopsUser;
@@ -95,7 +101,7 @@ $xoopsTpl->assign('letterChoiceTitle', constant('CO_' . $moduleDirNameUpper . '_
 /** @var \XoopsDatabase $db */
 $db                  = \XoopsDatabaseFactory::getDatabaseConnection();
 $objHandler          = Helper::getInstance()->getHandler('Entries');
-$choicebyletter      = new Lexikon\Common\LetterChoice($objHandler, null, null, range('a', 'z'), 'init', LEXIKON_URL . '/letter.php');
+$choicebyletter      = new LetterChoice($objHandler, null, null, range('a', 'z'), 'init', LEXIKON_URL . '/letter.php');
 $catarray['letters'] = $choicebyletter->render($alphaCount, $howmanyother);
 $xoopsTpl->assign('catarray', $catarray);
 
