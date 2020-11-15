@@ -26,6 +26,6 @@ class LexikonCorePreload extends \XoopsPreloadItem
      */
     public static function eventCoreIncludeCommonEnd($args)
     {
-        rerequirequire_once __DIR__ . '/autoloader.php';
+        require __DIR__ . '/autoloader.php';
     }
 }
