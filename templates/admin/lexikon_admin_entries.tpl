@@ -1,7 +1,7 @@
 <{if $entriesRows > 0}>
     <div class="outer">
         <form name="select" action="entries.php?op=" method="POST"
-              onsubmit="if(window.document.select.op.value =='') {return false;} else if (window.document.select.op.value =='delete') {return deleteSubmitValid('entriesId[]');} else if (isOneChecked('entriesId[]')) {return true;} else {alert('<{$smarty.const.AM_ENTRIES_SELECTED_ERROR}>'); return false;}">
+              onsubmit="if(window.document.select.op.value =='') {return false;} else if (window.document.select.op.value =='delete') {return deleteSubmitValid('entriesId[]');} else if (isOneChecked('entriesId[]')) {return true;} else {alert('<{$smarty.const.AM_LEXIKON_SELECTED_ERROR}>'); return false;}">
             <input type="hidden" name="confirm" value="1">
             <div class="floatleft">
                 <select name="op">
