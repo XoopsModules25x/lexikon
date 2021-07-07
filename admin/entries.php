@@ -102,44 +102,44 @@ switch ($op) {
             foreach (array_keys($entriesTempArray) as $i) {
                 //        $field = explode(':', $fields[$i]);
 
-                $selectorentryID = Lexikon\Utility::selectSorting(AM_LEXIKON_ENTRIES_ENTRYID, 'entryID');
+                $selectorentryID = Utility::selectSorting(AM_LEXIKON_ENTRIES_ENTRYID, 'entryID');
                 $GLOBALS['xoopsTpl']->assign('selectorentryID', $selectorentryID);
                 $entriesArray['entryID'] = $entriesTempArray[$i]->getVar('entryID');
 
-                $selectorcategoryID = Lexikon\Utility::selectSorting(AM_LEXIKON_ENTRIES_CATEGORYID, 'categoryID');
+                $selectorcategoryID = Utility::selectSorting(AM_LEXIKON_ENTRIES_CATEGORYID, 'categoryID');
                 $GLOBALS['xoopsTpl']->assign('selectorcategoryID', $selectorcategoryID);
                 $entriesArray['categoryID'] = $categoriesHandler->get($entriesTempArray[$i]->getVar('categoryID'))->getVar('name');
 
-                $selectorterm = Lexikon\Utility::selectSorting(AM_LEXIKON_ENTRIES_TERM, 'term');
+                $selectorterm = Utility::selectSorting(AM_LEXIKON_ENTRIES_TERM, 'term');
                 $GLOBALS['xoopsTpl']->assign('selectorterm', $selectorterm);
                 $entriesArray['term'] = $entriesTempArray[$i]->getVar('term');
 
-                $selectorinit = Lexikon\Utility::selectSorting(AM_LEXIKON_ENTRIES_INIT, 'init');
+                $selectorinit = Utility::selectSorting(AM_LEXIKON_ENTRIES_INIT, 'init');
                 $GLOBALS['xoopsTpl']->assign('selectorinit', $selectorinit);
                 $entriesArray['init'] = $entriesTempArray[$i]->getVar('init');
 
-                $selectordefinition = Lexikon\Utility::selectSorting(AM_LEXIKON_ENTRIES_DEFINITION, 'definition');
+                $selectordefinition = Utility::selectSorting(AM_LEXIKON_ENTRIES_DEFINITION, 'definition');
                 $GLOBALS['xoopsTpl']->assign('selectordefinition', $selectordefinition);
 
-                $entriesArray['definition'] = Lexikon\Utility::truncateTagSafe($entriesTempArray[$i]->getVar('definition'), 80, $etc = '...', $breakWords = false);
+                $entriesArray['definition'] = Utility::truncateTagSafe($entriesTempArray[$i]->getVar('definition'), 80, $etc = '...', $breakWords = false);
 
-                $selectorref = Lexikon\Utility::selectSorting(AM_LEXIKON_ENTRIES_REF, 'ref');
+                $selectorref = Utility::selectSorting(AM_LEXIKON_ENTRIES_REF, 'ref');
                 $GLOBALS['xoopsTpl']->assign('selectorref', $selectorref);
                 $entriesArray['ref'] = $entriesTempArray[$i]->getVar('ref');
 
-                $selectorurl = Lexikon\Utility::selectSorting(AM_LEXIKON_ENTRIES_URL, 'url');
+                $selectorurl = Utility::selectSorting(AM_LEXIKON_ENTRIES_URL, 'url');
                 $GLOBALS['xoopsTpl']->assign('selectorurl', $selectorurl);
                 $entriesArray['url'] = $entriesTempArray[$i]->getVar('url');
 
-                $selectoruid = Lexikon\Utility::selectSorting(AM_LEXIKON_ENTRIES_UID, 'uid');
+                $selectoruid = Utility::selectSorting(AM_LEXIKON_ENTRIES_UID, 'uid');
                 $GLOBALS['xoopsTpl']->assign('selectoruid', $selectoruid);
                 $entriesArray['uid'] = \XoopsUserUtility::getUnameFromId($entriesTempArray[$i]->getVar('uid'));
 
-                $selectorsubmit = Lexikon\Utility::selectSorting(_SUBMIT, 'submit');
+                $selectorsubmit = Utility::selectSorting(_SUBMIT, 'submit');
                 $GLOBALS['xoopsTpl']->assign('selectorsubmit', $selectorsubmit);
                 $entriesArray['submit'] = $entriesTempArray[$i]->getVar('submit');
 
-                $selectordatesub = Lexikon\Utility::selectSorting(AM_LEXIKON_ENTRIES_DATESUB, 'datesub');
+                $selectordatesub = Utility::selectSorting(AM_LEXIKON_ENTRIES_DATESUB, 'datesub');
                 $GLOBALS['xoopsTpl']->assign('selectordatesub', $selectordatesub);
                 //                $entriesArray['datesub'] = date(_DATESTRING, strtotime($entriesTempArray[$i]->getVar('datesub')));
                 $date                    = $entriesTempArray[$i]->getVar('datesub');
@@ -147,48 +147,48 @@ switch ($op) {
 
                 //                formatTimestamp($date, 'd M Y')
 
-                $selectorcounter = Lexikon\Utility::selectSorting(AM_LEXIKON_ENTRIES_COUNTER, 'counter');
+                $selectorcounter = Utility::selectSorting(AM_LEXIKON_ENTRIES_COUNTER, 'counter');
                 $GLOBALS['xoopsTpl']->assign('selectorcounter', $selectorcounter);
                 $entriesArray['counter'] = $entriesTempArray[$i]->getVar('counter');
 
-                $selectorhtml = Lexikon\Utility::selectSorting(AM_LEXIKON_ENTRIES_HTML, 'html');
+                $selectorhtml = Utility::selectSorting(AM_LEXIKON_ENTRIES_HTML, 'html');
                 $GLOBALS['xoopsTpl']->assign('selectorhtml', $selectorhtml);
                 $entriesArray['html'] = $entriesTempArray[$i]->getVar('html');
 
-                $selectorsmiley = Lexikon\Utility::selectSorting(AM_LEXIKON_ENTRIES_SMILEY, 'smiley');
+                $selectorsmiley = Utility::selectSorting(AM_LEXIKON_ENTRIES_SMILEY, 'smiley');
                 $GLOBALS['xoopsTpl']->assign('selectorsmiley', $selectorsmiley);
                 $entriesArray['smiley'] = $entriesTempArray[$i]->getVar('smiley');
 
-                $selectorxcodes = Lexikon\Utility::selectSorting(AM_LEXIKON_ENTRIES_XCODES, 'xcodes');
+                $selectorxcodes = Utility::selectSorting(AM_LEXIKON_ENTRIES_XCODES, 'xcodes');
                 $GLOBALS['xoopsTpl']->assign('selectorxcodes', $selectorxcodes);
                 $entriesArray['xcodes'] = $entriesTempArray[$i]->getVar('xcodes');
 
-                $selectorbreaks = Lexikon\Utility::selectSorting(AM_LEXIKON_ENTRIES_BREAKS, 'breaks');
+                $selectorbreaks = Utility::selectSorting(AM_LEXIKON_ENTRIES_BREAKS, 'breaks');
                 $GLOBALS['xoopsTpl']->assign('selectorbreaks', $selectorbreaks);
                 $entriesArray['breaks'] = $entriesTempArray[$i]->getVar('breaks');
 
-                $selectorblock = Lexikon\Utility::selectSorting(AM_LEXIKON_ENTRIES_BLOCK, 'block');
+                $selectorblock = Utility::selectSorting(AM_LEXIKON_ENTRIES_BLOCK, 'block');
                 $GLOBALS['xoopsTpl']->assign('selectorblock', $selectorblock);
                 $entriesArray['block'] = $entriesTempArray[$i]->getVar('block');
 
-                $selectoroffline = Lexikon\Utility::selectSorting(AM_LEXIKON_ENTRIES_OFFLINE, 'offline');
+                $selectoroffline = Utility::selectSorting(AM_LEXIKON_ENTRIES_OFFLINE, 'offline');
                 $GLOBALS['xoopsTpl']->assign('selectoroffline', $selectoroffline);
                 //                $entriesArray['offline'] = $entriesTempArray[$i]->getVar('offline');
                 $entriesArray['offline'] = (1 == $entriesTempArray[$i]->getVar('offline') ? $icons['1'] : "<border='0'>" . $icons['0']);
 
-                $selectornotifypub = Lexikon\Utility::selectSorting(AM_LEXIKON_ENTRIES_NOTIFYPUB, 'notifypub');
+                $selectornotifypub = Utility::selectSorting(AM_LEXIKON_ENTRIES_NOTIFYPUB, 'notifypub');
                 $GLOBALS['xoopsTpl']->assign('selectornotifypub', $selectornotifypub);
                 $entriesArray['notifypub'] = $entriesTempArray[$i]->getVar('notifypub');
 
-                $selectorrequest = Lexikon\Utility::selectSorting(AM_LEXIKON_ENTRIES_REQUEST, 'request');
+                $selectorrequest = Utility::selectSorting(AM_LEXIKON_ENTRIES_REQUEST, 'request');
                 $GLOBALS['xoopsTpl']->assign('selectorrequest', $selectorrequest);
                 $entriesArray['request'] = $entriesTempArray[$i]->getVar('request');
 
-                $selectorcomments = Lexikon\Utility::selectSorting(AM_LEXIKON_ENTRIES_COMMENTS, 'comments');
+                $selectorcomments = Utility::selectSorting(AM_LEXIKON_ENTRIES_COMMENTS, 'comments');
                 $GLOBALS['xoopsTpl']->assign('selectorcomments', $selectorcomments);
                 $entriesArray['comments'] = $entriesTempArray[$i]->getVar('comments');
 
-                $selectoritem_tag = Lexikon\Utility::selectSorting(AM_LEXIKON_ENTRIES_ITEM_TAG, 'item_tag');
+                $selectoritem_tag = Utility::selectSorting(AM_LEXIKON_ENTRIES_ITEM_TAG, 'item_tag');
                 $GLOBALS['xoopsTpl']->assign('selectoritem_tag', $selectoritem_tag);
                 $entriesArray['item_tag']    = strip_tags($entriesTempArray[$i]->getVar('item_tag'));
                 $entriesArray['edit_delete'] = "<a href='entries.php?op=edit&entryID=" . $i . "'><img src=" . $pathIcon16 . "/edit.png alt='" . _EDIT . "' title='" . _EDIT . "'></a>
@@ -310,7 +310,7 @@ switch ($op) {
 
         $id_field = Request::getString('entryID', '');
 
-        if (Lexikon\Utility::cloneRecord('lexikon_entries', 'entryID', $id_field)) {
+        if (Utility::cloneRecord('lexikon_entries', 'entryID', $id_field)) {
             redirect_header('entries.php', 3, AM_LEXIKON_CLONED_OK);
         } else {
             redirect_header('entries.php', 3, AM_LEXIKON_CLONED_FAILED);
