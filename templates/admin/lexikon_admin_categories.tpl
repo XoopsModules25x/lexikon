@@ -11,7 +11,7 @@
                    <input id="submitUp" class="formButton" type="submit" name="submitselect" value="<{$smarty.const._SUBMIT}>" title="<{$smarty.const._SUBMIT}>"  >
                </div>
             <div class="floatcenter0">
-                <div id="pagenav"><{$pagenav}></div>
+                <div id="pagenav"><{$pagenav|default:''}></div>
             </div>
 
 
@@ -24,7 +24,7 @@
 <{foreach item=categoriesArray from=$categoriesArrays}>
 <tr class="<{cycle values="odd,even"}>">
 
-<td align="center" style="vertical-align:middle;"><input type="checkbox" name="categories_id[]"  title ="categories_id[]" id="categories_id[]" value="<{$categoriesArray.categories_id}>" ></td>
+<td align="center" style="vertical-align:middle;"><input type="checkbox" name="categories_id[]"  title ="categories_id[]" id="categories_id[]" value="<{$categoriesArray.categories_id|default:''}>" ></td>
 <td class='center'><{$categoriesArray.categoryID}></td>
 <td class='center'><{$categoriesArray.name}></td>
 <td class='center'><{$categoriesArray.description}></td>
