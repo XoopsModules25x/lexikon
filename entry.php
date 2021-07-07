@@ -8,6 +8,7 @@
 use Xmf\Request;
 use XoopsModules\Lexikon\{
     Helper,
+    Keyhighlighter,
     Utility
 };
 /** @var Helper $helper */
@@ -193,7 +194,7 @@ while (list($entryID, $categoryID, $term, $init, $definition, $ref, $url, $uid, 
     $thisterm['dir']     = $xoopsModule->dirname();
     if ($highlight && isset($_GET['keywords'])) {
         $keywords               = htmlspecialchars(trim(urldecode($_GET['keywords'])));
-        $h                      = new Lexikon\Keyhighlighter($keywords, true, 'lx_myhighlighter');
+        $h                      = new Keyhighlighter($keywords, true, 'lx_myhighlighter');
         $thisterm['definition'] = $h->highlight($thisterm['definition']);
         $thisterm['ref']        = $h->highlight($thisterm['ref']);
     }

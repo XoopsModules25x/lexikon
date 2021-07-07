@@ -30,6 +30,7 @@ use Xmf\Module\Admin;
 use Xmf\Request;
 use XoopsModules\Lexikon\{
     Helper,
+    LexikonTree,
     Utility
 };
 /** @var Helper $helper */
@@ -84,7 +85,7 @@ switch ($permtoset) {
 }
 $modid      = $xoopsModule->getVar('mid');
 $permform   = new \XoopsGroupPermForm($title, $modid, $perm_name, $permdesc, 'admin/permissions.php');
-$catstree   = new Lexikon\LexikonTree($xoopsDB->prefix('lxcategories'), 'categoryID', '');
+$catstree   = new LexikonTree($xoopsDB->prefix('lxcategories'), 'categoryID', '');
 $catsresult = $xoopsDB->query('SELECT categoryID, name FROM ' . $xoopsDB->prefix('lxcategories') . ' ORDER BY weight');
 while (false !== ($myrow = $xoopsDB->fetchArray($catsresult))) {
     $catid    = $myrow['categoryID'];

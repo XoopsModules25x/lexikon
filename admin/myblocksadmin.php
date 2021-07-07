@@ -7,14 +7,13 @@
 
 use Xmf\Request;
 use XoopsModules\Lexikon\{
+    GroupPermForm,
     Helper,
     Utility
 };
 /** @var Helper $helper */
 
 require_once __DIR__ . '/admin_header.php';
-
-$helper->loadLanguage('admin');
 
 //if (false !== strpos(XOOPS_VERSION, 'XOOPS 2.2')) {
 //    require __DIR__   . '/myblocksadmin2.php';
@@ -28,14 +27,13 @@ $xoops_system_path = XOOPS_ROOT_PATH . '/modules/system';
 
 // language files
 $language = $xoopsConfig['language'];
-if (!file_exists("$xoops_system_path/language/$language/admin/blocksadmin.php")) {
-    $language = 'english';
-}
+$helper->loadLanguage('admin');
+$helper->loadLanguage('blocksadmin');
 
 // to prevent from notice that constants already defined
 $error_reporting_level = error_reporting(0);
 require_once "$xoops_system_path/constants.php";
-require_once "$xoops_system_path/language/$language/admin.php";
+//require_once "$xoops_system_path/language/$language/admin.php";
 //require_once "$xoops_system_path/language/$language/admin/blocksadmin.php";
 
 error_reporting($error_reporting_level);
@@ -338,7 +336,7 @@ function list_groups()
         $item_list[$block_arr[$i]->getVar('bid')] = $block_arr[$i]->getVar('title');
     }
 
-    $form = new Lexikon\GroupPermForm(_MD_AM_ADGS, 1, 'block_read', '');
+    $form = new GroupPermForm(_MD_AM_ADGS, 1, 'block_read', '');
     if ($target_mid > 1) {
         $form->addAppendix('module_admin', $target_mid, $target_mname . ' ' . _AM_ACTIVERIGHTS);
         $form->addAppendix('module_read', $target_mid, $target_mname . ' ' . _AM_ACCESSRIGHTS);
