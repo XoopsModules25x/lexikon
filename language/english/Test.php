@@ -8,7 +8,7 @@ class Test
 {
     const MODULE_NAME = 'Lexikon';
     const ROOT = public $_SERVER['DOCUMENT_ROOT'] . 'project/';
-    const MODULE_DIRNAME = basename(dirname(__DIR__));
+    const MODULE_DIRNAME = \basename(\dirname(__DIR__));
     const MODULE_URL = XOOPS_URL . '/modules/' . self::MODULE_DIRNAME;
     const IMAGES_URL = PUBLISHER_URL . '/assets/images';
     const ADMIN_URL = PUBLISHER_URL . '/admin';

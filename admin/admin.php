@@ -10,13 +10,11 @@
  */
 
 /**
- * @copyright    XOOPS Project https://xoops.org/
+ * @copyright    XOOPS Project (https://xoops.org)
  * @license      GNU GPL 2 or later (https://www.gnu.org/licenses/gpl-2.0.html)
- * @package
- * @since
- * @author       XOOPS Development Team, Kazumi Ono (AKA onokazu)
+ * @author      XOOPS Development Team, Kazumi Ono (AKA onokazu)
  */
-$moduleDirName = basename(dirname(__DIR__));
+$moduleDirName = \basename(\dirname(__DIR__));
 
 $fct = empty($_POST['fct']) ? '' : trim($_POST['fct']);
 $fct = empty($_GET['fct']) ? $fct : trim($_GET['fct']);
@@ -24,7 +22,7 @@ if (empty($fct)) {
     $fct = 'preferences';
 }
 
-require dirname(dirname(dirname(__DIR__))) . '/mainfile.php';
+require dirname(__DIR__, 3) . '/mainfile.php';
 
 require XOOPS_ROOT_PATH . '/include/cp_functions.php';
 

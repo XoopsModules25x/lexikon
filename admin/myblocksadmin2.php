@@ -7,7 +7,7 @@
 
 use Xmf\Request;
 
-require_once dirname(dirname(dirname(__DIR__))) . '/include/cp_header.php';
+require dirname(__DIR__, 3) . '/include/cp_header.php';
 
 require_once __DIR__ . '/mygrouppermform.php';
 require_once XOOPS_ROOT_PATH . '/class/xoopsblock.php';

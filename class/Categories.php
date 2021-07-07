@@ -36,7 +36,7 @@ use XoopsObject;
 
 require_once dirname(__DIR__) . '/include/common.php';
 
-$moduleDirName = basename(dirname(__DIR__));
+$moduleDirName = \basename(\dirname(__DIR__));
 
 $permHelper = new \Xmf\Module\Helper\Permission($moduleDirName);
 

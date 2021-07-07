@@ -15,7 +15,7 @@ use XoopsModules\Lexikon\{
 
 global $xoopsModule, $xoopsUser;
 
-require dirname(dirname(__DIR__)) . '/mainfile.php';
+require_once \dirname(__DIR__, 2) . '/mainfile.php';
 $GLOBALS['xoopsLogger']->activated = false;
 if (function_exists('mb_http_output')) {
     mb_http_output('pass');

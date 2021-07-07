@@ -42,7 +42,7 @@ use XoopsModules\Lexikon\{
  */
 function xoops_module_update_lexikon($module, $prev_version = null)
 {
-    $moduleDirName      = basename(dirname(__DIR__));
+    $moduleDirName      = \basename(\dirname(__DIR__));
     $moduleDirNameUpper = mb_strtoupper($moduleDirName);
 
     $helper       = Helper::getInstance();

@@ -38,17 +38,7 @@ if ((!defined('XOOPS_ROOT_PATH')) || !$GLOBALS['xoopsUser'] instanceof \XoopsUse
 
 require dirname(__DIR__) . '/preloads/autoloader.php';
 
-/**
- * @param string $tablename
- *
- * @return bool
- */
-function tableExists($tablename)
-{
-    $result = $GLOBALS['xoopsDB']->queryF("SHOW TABLES LIKE '$tablename'");
 
-    return ($GLOBALS['xoopsDB']->getRowsNum($result) > 0);
-}
 
 /**
  * Prepares system prior to attempting to install module
@@ -77,12 +67,12 @@ function xoops_module_pre_update_lexikon(\XoopsModule $module)
  */
 function xoops_module_update_lexikon(\XoopsModule $module, $previousVersion = null)
 {
-    $moduleDirName      = basename(dirname(__DIR__));
+    $moduleDirName      = \basename(\dirname(__DIR__));
     $moduleDirNameUpper = mb_strtoupper($moduleDirName);
 
     $helper       = Helper::getInstance();
     $utility      = new Utility();
-    $configurator = Configurator();
+    $configurator = new Configurator();
     $helper->loadLanguage('common');
 
     if ($previousVersion < 240) {

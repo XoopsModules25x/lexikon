@@ -5,7 +5,7 @@
                 href="<{$xoops_url}>/modules/<{$lang_moduledirname}>/"><{$lang_modulename}></a></div>
     <div class="rightheader"><{$lang_modulename}></div>
     <hr style="clear: both;">
-    <{if $empty == 1}>
+    <{if $empty|default:'' == 1}>
         <div class="empty"><{$smarty.const._MD_LEXIKON_STILLNOTHINGHERE}></div>
     <{/if}>
 
@@ -168,7 +168,7 @@
         <fieldset>
             <legend>&nbsp;<{$smarty.const._MD_LEXIKON_RANDOMTERM}>&nbsp;</legend>
             <{if $multicats == 1}>
-                <{if $empty != 1}>
+                <{if $empty|default:'' != 1}>
                     <div class="catname"><a href="<{$xoops_url}>/modules/<{$lang_moduledirname}>/category.php?categoryID=<{$random.categoryID}>"><{$random.categoryname}></a>
                     </div>
                 <{/if}>

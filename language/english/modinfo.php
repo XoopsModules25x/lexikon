@@ -256,7 +256,7 @@ define('_MI_LEXIKON_IMPORT', 'Import');
 
 //1.52
 //Help
-define('_MI_LEXIKON_DIRNAME', basename(dirname(dirname(__DIR__))));
+define('_MI_LEXIKON_DIRNAME', basename(dirname(__DIR__, 2)));
 define('_MI_LEXIKON_HELP_HEADER', __DIR__ . '/help/helpheader.tpl');
 define('_MI_LEXIKON_BACK_2_ADMIN', 'Back to Administration of ');
 define('_MI_LEXIKON_HELP_OVERVIEW', 'Overview');
@@ -344,7 +344,7 @@ define('MI_LEXIKON_FILE_APPROVE_NOTIFY_DESC', 'Allow Facebook comments in the fo
 define('MI_LEXIKON_FILE_APPROVE_NOTIFY_SUBJECT', 'Allow Facebook comments in the form');
 
 // Help
-define('MI_LEXIKON_DIRNAME', basename(dirname(dirname(__DIR__))));
+define('MI_LEXIKON_DIRNAME', basename(dirname(__DIR__, 2)));
 define('MI_LEXIKON_HELP_HEADER', __DIR__ . '/help/helpheader.tpl');
 define('MI_LEXIKON_BACK_2_ADMIN', 'Back to Administration of ');
 define('MI_LEXIKON_OVERVIEW', 'Overview');

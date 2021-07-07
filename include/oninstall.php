@@ -67,7 +67,7 @@ function xoops_module_pre_install_lexikon(\XoopsModule $module)
  */
 function xoops_module_install_lexikon(\XoopsModule $module)
 {
-    $moduleDirName = basename(dirname(__DIR__));
+    $moduleDirName = \basename(\dirname(__DIR__));
 
     $helper       = Helper::getInstance();
     $utility      = new Utility();

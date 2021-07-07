@@ -11,8 +11,11 @@ use Xmf\Module\Admin;
 use Xmf\Request;
 use XoopsModules\Lexikon\{
     Helper,
-    LexikonTree
+    LexikonTree,
+    Utility
 };
+/** @var Helper $helper */
+/** @var Utility $utility */
 
 require_once __DIR__ . '/admin_header.php';
 xoops_cp_header();
@@ -107,8 +110,8 @@ if (1 == $helper->getConfig('multicats')) {
     echo "<br><span style='color:#567; margin:3px 0 12px 0; font-size:small; display:block;'><b>" . _AM_LEXIKON_ALLITEMSMSG . '</b></span>';
 }
 // database update
-if (!lx_FieldExists('logourl', $xoopsDB->prefix('lxcategories'))
-    || lx_FieldExists('parent', $xoopsDB->prefix('lxcategories'))) {
+if (!Utility::fieldExists('logourl', $xoopsDB->prefix('lxcategories'))
+    || Utility::fieldExists('parent', $xoopsDB->prefix('lxcategories'))) {
     //    ++$i;
     echo "<table><tr><td  style='border-bottom: 1px dotted #cfcfcf; line-height: 16px;'><img src='"
          . XOOPS_URL

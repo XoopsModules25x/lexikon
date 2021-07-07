@@ -12,9 +12,7 @@
 /**
  * @copyright    XOOPS Project (https://xoops.org)
  * @license      GNU GPL 2 or later (https://www.gnu.org/licenses/gpl-2.0.html)
- * @package
- * @since
- * @author       XOOPS Development Team
+ * @author      XOOPS Development Team
  */
 
 use Xmf\Module\Admin;
@@ -22,9 +20,12 @@ use XoopsModules\Lexikon\{
     Helper,
     Utility
 };
+/** @var Admin $adminObject */
 /** @var Helper $helper */
 
-$path = dirname(dirname(dirname(__DIR__)));
+require dirname(__DIR__) . '/preloads/autoloader.php';
+
+$path = dirname(__DIR__, 3);
 require_once $path . '/include/cp_header.php';
 
 require_once dirname(__DIR__) . '/include/common.php';
@@ -36,7 +37,7 @@ require_once dirname(__DIR__) . '/admin/functions.php';
 require_once $path . '/class/xoopslists.php';
 require_once $path . '/class/xoopsformloader.php';
 
-$moduleDirName = basename(dirname(__DIR__));
+$moduleDirName = \basename(\dirname(__DIR__));
 
 $helper = Helper::getInstance();
 

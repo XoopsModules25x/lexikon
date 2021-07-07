@@ -25,6 +25,8 @@
 use Xmf\Module\Helper\Permission;
 use Xmf\Request;
 use XoopsModules\Lexikon\{
+    Categories,
+    CategoriesHandler,
     Helper,
     Utility
 };
@@ -42,12 +44,12 @@ xoops_load('XoopsUserUtility');
 
 $adminObject->displayNavigation(basename(__FILE__));
 /** @var Permission $permHelper */
-$permHelper = new \Xmf\Module\Helper\Permission($moduleDirName);
+$permHelper = new Permission($moduleDirName);
 $uploadDir  = XOOPS_UPLOAD_PATH . '/lexikon/images/';
 $uploadUrl  = XOOPS_UPLOAD_URL . '/lexikon/images/';
 
 $db                = \XoopsDatabaseFactory::getDatabaseConnection();
-$categoriesHandler = new Lexikon\CategoriesHandler($db);
+$categoriesHandler = new CategoriesHandler($db);
 
 switch ($op) {
     case 'list':

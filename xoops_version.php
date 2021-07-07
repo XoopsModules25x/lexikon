@@ -41,7 +41,7 @@ $modversion    = [
     'last_update'         => '2015/01/12',
     'module_website_url'  => 'www.xoops.org',
     'module_website_name' => 'XOOPS',
-    'min_php'             => '7.2',
+    'min_php'             => '7.3',
     'min_xoops'           => '2.5.10',
     'min_admin'           => '1.2',
     'min_db'              => ['mysql' => '5.1'],
@@ -142,7 +142,7 @@ if (isset($lxConfig['catsinmenu']) && 1 == $lxConfig['catsinmenu'] && isset($lxC
     }
 }
 
-// blocks
+// ------------------- Blocks ------------------- //
 $modversion['blocks']    = [];
 $modversion['blocks'][1] = [
     'file'        => 'entries_new.php',
@@ -257,81 +257,28 @@ $modversion['blocks'][] = [
     'can_clone'   => true,
 ];
 
-// Templates
-$modversion['templates']    = [];
-$modversion['templates'][1] = [
-    'file'        => 'lx_category.tpl',
-    'description' => 'Display categories',
+// ------------------- Templates ------------------- //
+$modversion['templates'] = [
+    ['file' => 'lx_category.tpl', 'description' => 'Display categories'],
+    ['file' => 'lx_index.tpl', 'description' => 'Display index'],
+    ['file' => 'lx_entry.tpl', 'description' => 'Display term'],
+    ['file' => 'lx_letter.tpl', 'description' => 'Display letter'],
+    ['file' => 'lx_search.tpl', 'description' => 'search glossary'],
+    ['file' => 'lx_request.tpl', 'description' => 'Request a definition'],
+    ['file' => 'lx_submit.tpl', 'description' => 'Submit a definition'],
+    ['file' => 'lx_adminmenu.tpl', 'description' => '(Admin) Tabs bar for administration pages'],
+    ['file' => 'lx_bookmark.tpl', 'description' => 'Social Bookmarking tags',],
+    ['file' => 'lexikon_rss.tpl', 'description' => 'Display Lexikon rss feed'],
+    ['file' => 'lx_profile.tpl', 'description' => 'Glossary-profile of authors'],
+    ['file' => 'lx_authorlist.tpl', 'description' => 'Glossary author List'],
+    ['file' => 'lx_content.tpl', 'description' => 'content syndication dispatcher'],
+    ['file' => 'lx_syndication.tpl', 'description' => 'Webmaster content syndication'],
+    ['file' => 'lx_topten.tpl', 'description' => 'TOP10 Definitions',],
+    ['file' => 'lx_tag_bar.tpl', 'description' => 'Lexikon Definition Tagbar'],
+    ['file' => 'admin/lexikon_admin_entries.tpl', 'description' => ''],
+    ['file' => 'admin/lexikon_admin_categories.tpl', 'description' => ''],
+    ['file' => $modversion['dirname'] . '_letterschoice.tpl', 'description' => ''],
 ];
-$modversion['templates'][]  = [
-    'file'        => 'lx_index.tpl',
-    'description' => 'Display index',
-];
-$modversion['templates'][]  = [
-    'file'        => 'lx_entry.tpl',
-    'description' => 'Display term',
-];
-$modversion['templates'][]  = [
-    'file'        => 'lx_letter.tpl',
-    'description' => 'Display letter',
-];
-$modversion['templates'][]  = [
-    'file'        => 'lx_search.tpl',
-    'description' => 'search glossary',
-];
-$modversion['templates'][]  = [
-    'file'        => 'lx_request.tpl',
-    'description' => 'Request a definition',
-];
-$modversion['templates'][]  = [
-    'file'        => 'lx_submit.tpl',
-    'description' => 'Submit a definition',
-];
-$modversion['templates'][]  = [
-    'file'        => 'lx_adminmenu.tpl',
-    'description' => '(Admin) Tabs bar for administration pages',
-];
-$modversion['templates'][]  = [
-    'file'        => 'lx_bookmark.tpl',
-    'description' => 'Social Bookmarking tags',
-];
-$modversion['templates'][]  = [
-    'file'        => 'lexikon_rss.tpl',
-    'description' => 'Display Lexikon rss feed',
-];
-$modversion['templates'][]  = [
-    'file'        => 'lx_profile.tpl',
-    'description' => 'Glossary-profile of authors',
-];
-$modversion['templates'][]  = [
-    'file'        => 'lx_authorlist.tpl',
-    'description' => 'Glossary author List',
-];
-$modversion['templates'][]  = [
-    'file'        => 'lx_content.tpl',
-    'description' => 'content syndication dispatcher',
-];
-$modversion['templates'][]  = [
-    'file'        => 'lx_syndication.tpl',
-    'description' => 'Webmaster content syndication',
-];
-$modversion['templates'][]  = [
-    'file'        => 'lx_topten.tpl',
-    'description' => 'TOP10 Definitions',
-];
-$modversion['templates'][]  = [
-    'file'        => 'lx_tag_bar.tpl',
-    'description' => 'Lexikon Definition Tagbar',
-];
-
-$modversion['templates'][] = ['file' => 'admin/lexikon_admin_entries.tpl', 'description' => ''];
-$modversion['templates'][] = ['file' => 'admin/lexikon_admin_categories.tpl', 'description' => ''];
-
-$modversion['templates'][] = [
-    'file'        => $modversion['dirname'] . '_letterschoice.tpl',
-    'description' => '',
-];
-
 // Config Settings
 $modversion['config'] = [];
 

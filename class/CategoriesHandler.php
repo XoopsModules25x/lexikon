@@ -26,19 +26,18 @@ namespace XoopsModules\Lexikon;
 
 use Xmf\Module\Helper\Permission;
 use XoopsDatabase;
-use XoopsModules\Lexikon;
-use XoopsPersistableObjectHandler;
 
 
 
-$moduleDirName = basename(dirname(__DIR__));
+
+$moduleDirName = \basename(\dirname(__DIR__));
 
 $permHelper = new Permission($moduleDirName);
 
 /**
  * Class LexikonCategoriesHandler
  */
-class CategoriesHandler extends XoopsPersistableObjectHandler
+class CategoriesHandler extends \XoopsPersistableObjectHandler
 {
     /**
      * Constructor

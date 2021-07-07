@@ -38,9 +38,9 @@ use XoopsModules\Lexikon\{
 };
 use XoopsThemeForm;
 
-require_once dirname(dirname(__DIR__)) . '/config/config.php';
+require_once \dirname(__DIR__, 2) . '/config/config.php';
 
-$moduleDirName = basename(dirname(dirname(__DIR__)));
+$moduleDirName = \basename(\dirname(__DIR__, 2));
 $permHelper    = new \Xmf\Module\Helper\Permission($moduleDirName);
 
 $helper = Helper::getInstance();

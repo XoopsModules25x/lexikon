@@ -40,7 +40,7 @@ $sort  = Request::getString('sort', '');
 
 $adminObject->displayNavigation(basename(__FILE__));
 /** @var Permission $permHelper */
-$permHelper = new \Xmf\Module\Helper\Permission($moduleDirName);
+$permHelper = new Permission($moduleDirName);
 $uploadDir  = XOOPS_UPLOAD_PATH . '/lexikon/images/';
 $uploadUrl  = XOOPS_UPLOAD_URL . '/lexikon/images/';
 
@@ -96,27 +96,27 @@ switch ($op) {
             foreach (array_keys($categoriesTempArray) as $i) {
                 //        $field = explode(':', $fields[$i]);
 
-                $selectorcategoryID = Lexikon\Utility::selectSorting(AM_LEXIKON_CATEGORIES_CATEGORYID, 'categoryID');
+                $selectorcategoryID = Utility::selectSorting(AM_LEXIKON_CATEGORIES_CATEGORYID, 'categoryID');
                 $GLOBALS['xoopsTpl']->assign('selectorcategoryID', $selectorcategoryID);
                 $categoriesArray['categoryID'] = $categoriesTempArray[$i]->getVar('categoryID');
 
-                $selectorname = Lexikon\Utility::selectSorting(AM_LEXIKON_CATEGORIES_NAME, 'name');
+                $selectorname = Utility::selectSorting(AM_LEXIKON_CATEGORIES_NAME, 'name');
                 $GLOBALS['xoopsTpl']->assign('selectorname', $selectorname);
                 $categoriesArray['name'] = $categoriesTempArray[$i]->getVar('name');
 
-                $selectordescription = Lexikon\Utility::selectSorting(AM_LEXIKON_CATEGORIES_DESCRIPTION, 'description');
+                $selectordescription = Utility::selectSorting(AM_LEXIKON_CATEGORIES_DESCRIPTION, 'description');
                 $GLOBALS['xoopsTpl']->assign('selectordescription', $selectordescription);
                 $categoriesArray['description'] = $categoriesTempArray[$i]->getVar('description');
 
-                $selectortotal = Lexikon\Utility::selectSorting(AM_LEXIKON_CATEGORIES_TOTAL, 'total');
+                $selectortotal = Utility::selectSorting(AM_LEXIKON_CATEGORIES_TOTAL, 'total');
                 $GLOBALS['xoopsTpl']->assign('selectortotal', $selectortotal);
                 $categoriesArray['total'] = $categoriesTempArray[$i]->getVar('total');
 
-                $selectorweight = Lexikon\Utility::selectSorting(AM_LEXIKON_CATEGORIES_WEIGHT, 'weight');
+                $selectorweight = Utility::selectSorting(AM_LEXIKON_CATEGORIES_WEIGHT, 'weight');
                 $GLOBALS['xoopsTpl']->assign('selectorweight', $selectorweight);
                 $categoriesArray['weight'] = $categoriesTempArray[$i]->getVar('weight');
 
-                $selectorlogourl = Lexikon\Utility::selectSorting(AM_LEXIKON_CATEGORIES_LOGOURL, 'logourl');
+                $selectorlogourl = Utility::selectSorting(AM_LEXIKON_CATEGORIES_LOGOURL, 'logourl');
                 $GLOBALS['xoopsTpl']->assign('selectorlogourl', $selectorlogourl);
                 $categoriesArray['logourl']     = $categoriesTempArray[$i]->getVar('logourl');
                 $categoriesArray['edit_delete'] = "<a href='categories.php?op=edit&categoryID=" . $i . "'><img src=" . $pathIcon16 . "/edit.png alt='" . _EDIT . "' title='" . _EDIT . "'></a>
@@ -339,7 +339,7 @@ switch ($op) {
 
         $id_field = Request::getString('categoryID', '');
 
-        if (Lexikon\Utility::cloneRecord('lexikon_categories', 'categoryID', $id_field)) {
+        if (Utility::cloneRecord('lexikon_categories', 'categoryID', $id_field)) {
             redirect_header('categories.php', 3, AM_LEXIKON_CLONED_OK);
         } else {
             redirect_header('categories.php', 3, AM_LEXIKON_CLONED_FAILED);

@@ -14,7 +14,7 @@ use XoopsModules\Lexikon\{
 if (function_exists('mb_http_output')) {
     mb_http_output('pass');
 }
-require dirname(dirname(__DIR__)) . '/mainfile.php';
+require_once \dirname(__DIR__, 2) . '/mainfile.php';
 require_once XOOPS_ROOT_PATH . '/header.php';
 require_once XOOPS_ROOT_PATH . '/class/template.php';
 $tpl          = new \XoopsTpl();

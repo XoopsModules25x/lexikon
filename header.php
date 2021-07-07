@@ -13,7 +13,7 @@ use XoopsModules\Lexikon\{
  * {@internal $helper defined in ./include/common.php }}
  */
 
-require dirname(__DIR__, 2) . '/mainfile.php';
+require_once \dirname(__DIR__, 2) . '/mainfile.php';
 require XOOPS_ROOT_PATH . '/header.php';
 
 require __DIR__ . '/preloads/autoloader.php';

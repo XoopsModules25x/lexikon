@@ -9,5 +9,5 @@
  * @since          1.00
  * @package        module::tag
  */
-require dirname(dirname(__DIR__)) . '/mainfile.php';
+require_once \dirname(__DIR__, 2) . '/mainfile.php';
 require XOOPS_ROOT_PATH . '/modules/tag/view.tag.php';

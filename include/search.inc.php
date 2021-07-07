@@ -63,8 +63,11 @@ function lx_search($queryarray, $andor, $limit, $offset, $userid)
     }
     // because count() returns 1 even if a supplied variable
     // is not an array, we must check if $querryarray is really an array
-    $count = count($queryarray);
-    if ($count > 0 && is_array($queryarray)) {
+    $count = 0;
+    if (is_array($queryarray)) {
+        $count = count($queryarray);
+    }
+    if ($count > 0 ) {
         $sql .= "AND ((term LIKE '%$queryarray[0]%' OR definition LIKE '%$queryarray[0]%' OR ref LIKE '%$queryarray[0]%')";
         for ($i = 1; $i < $count; ++$i) {
             $sql .= " $andor ";
@@ -98,7 +101,7 @@ function lx_search($queryarray, $andor, $limit, $offset, $userid)
     //}
     // --- comments search ---
     if ($searchincomments && (isset($limit) && $i <= $limit)) {
-        require_once XOOPS_ROOT_PATH . '/include/comment_constants.php';
+        require XOOPS_ROOT_PATH . '/include/comment_constants.php';
         $ind = $i;
         $sql = 'SELECT com_id, com_modid, com_itemid, com_created, com_uid, com_title, com_text, com_status
                FROM ' . $xoopsDB->prefix('xoopscomments') . "

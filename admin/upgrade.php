@@ -40,12 +40,12 @@ function showerror($msg)
 if ($go) {
     if (is_object($xoopsUser) && $xoopsUser->isAdmin($xoopsModule->mid())) {
         // 0) update the categories table
-        if (!lx_FieldExists('logourl', $xoopsDB->prefix('lxcategories'))) {
+        if (!Utility::fieldExists('logourl', $xoopsDB->prefix('lxcategories'))) {
             $sql = $xoopsDB->queryF('ALTER TABLE ' . $xoopsDB->prefix('lxcategories') . " ADD logourl VARCHAR ( 150 ) NOT NULL DEFAULT '' AFTER weight");
             showerror('Update table "lxcategories" ...');
         }
         // 1) if downgrade
-        if (lx_FieldExists('parent', $xoopsDB->prefix('lxcategories'))) {
+        if (Utility::fieldExists('parent', $xoopsDB->prefix('lxcategories'))) {
             $sql = $xoopsDB->queryF('ALTER TABLE ' . $xoopsDB->prefix('lxcategories') . ' DROP `parent`');
             showerror('Update table "lxcategories" ...');
         }
@@ -64,7 +64,7 @@ if ($go) {
             }
         }
         // 3) tag module
-        if (!lx_FieldExists('item_tag', $xoopsDB->prefix('lxentries'))) {
+        if (!Utility::fieldExists('item_tag', $xoopsDB->prefix('lxentries'))) {
             $sql = $xoopsDB->queryF('ALTER TABLE ' . $xoopsDB->prefix('lxentries') . ' ADD item_tag TEXT NULL AFTER comments');
             showerror('Update table "lxentries" ...');
         }

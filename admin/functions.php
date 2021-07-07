@@ -52,24 +52,6 @@ function lx_adminMenu($currentoption = 0, $breadcrumb = '')
 }
 
 /**
- * Verify that a field exists inside a mysql table
- *
- * @param $fieldname
- * @param $table
- * @return bool
- * @package       Lexikon
- * @author        Instant Zero (http://xoops.instant-zero.com)
- * @copyright (c) Instant Zero
- */
-function lx_FieldExists($fieldname, $table)
-{
-    global $xoopsDB;
-    $result = $xoopsDB->queryF("SHOW COLUMNS FROM   $table LIKE '$fieldname'");
-
-    return ($xoopsDB->getRowsNum($result) > 0);
-}
-
-/**
  * Add a field to a mysql table
  *
  * @param $field

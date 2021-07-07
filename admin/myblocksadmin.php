@@ -315,7 +315,7 @@ function get_block_configs()
 {
     $error_reporting_level = error_reporting(0);
     if (preg_match('/^[.0-9a-zA-Z_-]+$/', @$_GET['dirname'])) {
-        require dirname(dirname(__DIR__)) . '/' . $_GET['dirname'] . '/xoops_version.php';
+        require \dirname(__DIR__, 2) . '/' . $_GET['dirname'] . '/xoops_version.php';
     } else {
         require dirname(__DIR__) . '/xoops_version.php';
     }

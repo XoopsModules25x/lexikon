@@ -33,7 +33,7 @@ use XoopsModules\Lexikon\{
 
 require_once \dirname(\dirname(__DIR__)) . '/config/config.php';
 
-$moduleDirName = \basename(\dirname(\dirname(__DIR__)));
+$moduleDirName = \basename(\dirname(__DIR__, 2));
 
 $helper = Helper::getInstance();
 
