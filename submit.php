@@ -117,9 +117,9 @@ switch ($op) {
         }
 
         $block     = isset($block) ? (int)$block : 1;
-        $smiley    = isset($smiley) ? $smiley : 1;
-        $xcodes    = isset($xcodes) ? $xcodes : 1;
-        $breaks    = isset($breaks) ? $breaks : 1;
+        $smiley    = $smiley ?? 1;
+        $xcodes    = $xcodes ?? 1;
+        $breaks    = $breaks ?? 1;
         $notifypub = !empty($_POST['notifypub']) ? 1 : 0;
 
         if (1 == $helper->getConfig('multicats')) {

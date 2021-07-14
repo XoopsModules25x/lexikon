@@ -41,11 +41,11 @@ $pick       = Request::getInt('pick', $pick, 'POST');
 $statussel = Request::getInt('statussel', 0, 'GET');
 $statussel = Request::getInt('statussel', $statussel, 'POST');
 
-$sortsel = isset($_GET['sortsel']) ? $_GET['sortsel'] : 'entryID';
-$sortsel = isset($_POST['sortsel']) ? $_POST['sortsel'] : $sortsel;
+$sortsel = $_GET['sortsel'] ?? 'entryID';
+$sortsel = $_POST['sortsel'] ?? $sortsel;
 
-$ordersel = isset($_GET['ordersel']) ? $_GET['ordersel'] : 'DESC';
-$ordersel = isset($_POST['ordersel']) ? $_POST['ordersel'] : $ordersel;
+$ordersel = $_GET['ordersel'] ?? 'DESC';
+$ordersel = $_POST['ordersel'] ?? $ordersel;
 
 //--- inventory
 $result = $xoopsDB->query(

@@ -38,7 +38,7 @@ $rndlength = !empty($helper->getConfig('rndlength')) ? (int)$helper->getConfig('
 $grouppermHandler = xoops_getHandler('groupperm');
 $groups           = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
 $module_id        = $xoopsModule->getVar('mid');
-$perm_itemid      = isset($categoryID) ? $categoryID : 0;
+$perm_itemid      = $categoryID ?? 0;
 if (!$grouppermHandler->checkRight('lexikon_view', $perm_itemid, $groups, $module_id)) {
     redirect_header('<script>javascript:history.go(-1)</script>', 2, _NOPERM);
 }
@@ -163,7 +163,7 @@ if ($publishedwords > 0) {
 [$numrows] = $xoopsDB->fetchRow($xoopsDB->query('SELECT COUNT(*) FROM ' . $xoopsDB->prefix('lxentries') . " WHERE submit = 'O' AND offline = '0' " . $catperms . ' '));
 if ($numrows > 1) {
     --$numrows;
-    $entrynumber = mt_rand(0, $numrows);
+    $entrynumber = random_int(0, $numrows);
 } else {
     $entrynumber = 0;
 }

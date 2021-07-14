@@ -51,7 +51,7 @@ $numrows = $xoopsDB->getRowsNum($resultX);
 
 if ($numrows > 1) {
     --$numrows;
-    $entrynumber = mt_rand(0, $numrows);
+    $entrynumber = random_int(0, $numrows);
 } else {
     $entrynumber = 0;
 }
