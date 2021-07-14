@@ -34,6 +34,9 @@ class TestdataButtons
 {
 
     //functions for import buttons
+    /**
+     * @param $adminObject
+     */
     public static function loadButtonConfig($adminObject)
     {
         $moduleDirName      = \basename(\dirname(__DIR__, 2));
@@ -56,6 +59,9 @@ class TestdataButtons
         }
     }
 
+    /**
+     *
+     */
     public static function hideButtons()
     {
         $yamlFile            = \dirname(__DIR__, 2) . '/config/admin.yml';
@@ -65,6 +71,9 @@ class TestdataButtons
         redirect_header('index.php', 0, '');
     }
 
+    /**
+     *
+     */
     public static function showButtons()
     {
         $yamlFile            = \dirname(__DIR__, 2) . '/config/admin.yml';

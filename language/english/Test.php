@@ -2,8 +2,9 @@
 
 namespace XoopsModules\Lexikon;
 
-
-
+/**
+ *
+ */
 class Test
 {
     public const MODULE_NAME = 'Lexikon';

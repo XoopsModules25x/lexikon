@@ -92,6 +92,9 @@ class Utility extends Common\SysUtility
         echo '</select></div>';
     }
 
+    /**
+     *
+     */
     public static function calculateTotals()
     {
         global $xoopsUser, $xoopsDB, $xoopsModule;
@@ -1466,6 +1469,11 @@ class Utility extends Common\SysUtility
 
     // end function
 
+    /**
+     * @param $text
+     * @param $form_sort
+     * @return string
+     */
     public static function selectSorting($text, $form_sort)
     {
         global $start, $order, $file_cat, $sort, $xoopsModule;

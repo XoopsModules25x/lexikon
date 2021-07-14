@@ -326,6 +326,9 @@ function lx_GetStatistics($limit)
 }
 
 //-- build a table header
+/**
+ *
+ */
 function lx_buildTable()
 {
     global $xoopsConfig, $xoopsModuleConfig, $xoopsModule;

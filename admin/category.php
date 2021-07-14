@@ -30,6 +30,9 @@ $op = '';
 
 /* -- Available operations -- */
 
+/**
+ *
+ */
 function categoryDefault()
 {
     $helper = Helper::getInstance();

@@ -31,6 +31,9 @@ $op = '';
 error_reporting(E_ALL);
 error_reporting(E_ERROR | E_WARNING | E_PARSE);
 /* -- Available operations -- */
+/**
+ *
+ */
 function entryDefault()
 {
     global $xoopsUser, $xoopsConfig, $xoopsDB, $xoopsModule, $entryID, $pathIcon16;

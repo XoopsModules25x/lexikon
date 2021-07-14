@@ -87,6 +87,9 @@ while (false !== ($myrow = $db->fetchArray($result))) {
     $block_arr[] = new \XoopsBlock($myrow);
 }
 
+/**
+ *
+ */
 function list_blocks()
 {
     global $query4redirect, $block_arr;
@@ -325,6 +328,9 @@ function get_block_configs()
     return $modversion['blocks'];
 }
 
+/**
+ *
+ */
 function list_groups()
 {
     global $target_mid, $target_mname, $block_arr;

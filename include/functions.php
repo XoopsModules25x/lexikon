@@ -80,6 +80,9 @@ function lx_getuserForm($user)
     echo '</select></div>';
 }
 
+/**
+ *
+ */
 function lx_calculateTotals()
 {
     global $xoopsUser, $xoopsDB, $xoopsModule;

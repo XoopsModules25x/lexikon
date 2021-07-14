@@ -91,6 +91,9 @@ while (list($bid, $bname, $show_func, $func_file, $template) = $db->fetchRow($re
 }
 
 // for 2.2
+/**
+ *
+ */
 function list_blockinstances()
 {
     global $query4redirect, $block_arr;
@@ -338,6 +341,9 @@ function list_blockinstances()
 }
 
 // for 2.2
+/**
+ *
+ */
 function list_groups2()
 {
     global $target_mid, $target_mname, $xoopsDB;
