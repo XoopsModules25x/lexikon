@@ -53,7 +53,7 @@ if ('1' == $helper->getConfig('multicats')) {
 }
 // This part is common to edit/add
 $myts = \MyTextSanitizer::getInstance();
-$term = htmlspecialchars($term);
+$term = htmlspecialchars($term, ENT_QUOTES | ENT_HTML5);
 $sform->addElement(new \XoopsFormText(_MD_LEXIKON_ENTRY, 'term', 50, 80, $term), true);
 
 //editor for guests/users
@@ -90,7 +90,7 @@ if (1 == $utility::getModuleOption('captcha')) {
 } elseif (2 == $utility::getModuleOption('captcha')) {
     $skipMember = 0;
 }
-if (0 != $helper->getConfig('captcha')) {
+if (0 !== $helper->getConfig('captcha')) {
     xoops_load('XoopsFormCaptcha');
     if (class_exists('XoopsFormCaptcha')) {
         $sform->addElement(new \XoopsFormCaptcha('', 'xoopscaptcha', $skipMember), true);

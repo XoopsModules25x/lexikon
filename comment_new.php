@@ -31,10 +31,10 @@ $com_itemid = Request::getInt('com_itemid', 0, 'GET');
 //if (!isset($xoopsModuleConfig)) {
 //    exit();
 //}
-if (0 == $helper->getConfig('com_rule')) {
+if (0 === $helper->getConfig('com_rule')) {
     exit();
 }    // Comments deactivated
-if (0 == $helper->getConfig('com_anonpost') && !is_object($xoopsUser)) {
+if (0 === $helper->getConfig('com_anonpost') && !is_object($xoopsUser)) {
     exit();
 } // Anonymous users can't post
 

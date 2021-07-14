@@ -15,7 +15,10 @@
  * @author      XOOPS Development Team
  */
 
-use XoopsModules\Lexikon;
+use XoopsModules\Lexikon\{
+    Helper
+};
+/** @var Helper $helper */
 
 require_once \dirname(__DIR__, 2) . '/mainfile.php';
 
@@ -27,10 +30,10 @@ global $xoopsModuleConfig, $xoopsUser;
 if (!isset($xoopsModuleConfig)) {
     exit();
 }
-if (0 == $helper->getConfig('com_rule')) {
+if (0 === $helper->getConfig('com_rule')) {
     exit();
 }    // Comments deactivated
-if (0 == $helper->getConfig('com_anonpost') && !is_object($xoopsUser)) {
+if (0 === $helper->getConfig('com_anonpost') && !is_object($xoopsUser)) {
     exit();
 } // Anonymous users can't post
 

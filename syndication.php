@@ -27,7 +27,7 @@ global $xoopsUser, $xoopsDB, $xoopsConfig;
 $myts = MyTextSanitizer:: getInstance();
 
 //if ( !is_object( $xoopsUser ) && $helper->getConfig('contentsyndication') == 0 ) {
-if (0 == $helper->getConfig('contentsyndication')) {
+if (0 === $helper->getConfig('contentsyndication')) {
     echo ' ' . _NOPERM . ' ';
     exit();
 }

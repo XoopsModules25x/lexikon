@@ -20,7 +20,7 @@ $helper = Helper::getInstance();
 
 global $xoTheme, $xoopsUser;
 $myts = \MyTextSanitizer::getInstance();
-if (!is_object($xoopsUser) && 0 == $helper->getConfig('contentsyndication')) {
+if (!is_object($xoopsUser) && 0 === $helper->getConfig('contentsyndication')) {
     redirect_header(XOOPS_URL . '/user.php?xoops_redirect=' . parse_url($_SERVER['SCRIPT_NAME']), 5, _NOPERM);
 }
 

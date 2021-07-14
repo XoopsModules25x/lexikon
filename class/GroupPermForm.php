@@ -18,11 +18,6 @@ use XoopsFormElementTray;
 use XoopsFormHidden;
 use XoopsFormHiddenToken;
 
-
-
-
-
-
 /**
  * @copyright    XOOPS Project (https://xoops.org)
  * @license      GNU GPL 2 or later (https://www.gnu.org/licenses/gpl-2.0.html)
@@ -161,9 +156,11 @@ class GroupPermForm extends XoopsForm
             $this->_itemTree[$item_id]['allchild'] = [];
             $this->_loadAllChildItemIds($item_id, $this->_itemTree[$item_id]['allchild']);
         }
+        /** @var \XoopsGroupPermHandler $grouppermHandler */
         $grouppermHandler = xoops_getHandler('groupperm');
-        $memberHandler    = xoops_getHandler('member');
-        $glist            = $memberHandler->getGroupList();
+        /** @var \XoopsMemberHandler $memberHandler */
+        $memberHandler = xoops_getHandler('member');
+        $glist         = $memberHandler->getGroupList();
         foreach (array_keys($glist) as $i) {
             // get selected item id(s) for each group
             $selected = $grouppermHandler->getItemIds($this->_permName, $i, $this->_modid);

@@ -26,6 +26,7 @@ use Xmf\Module\Helper\Permission;
 use Xmf\Request;
 use XoopsModules\Lexikon\{
     CategoriesHandler,
+    Entries,
     EntriesHandler,
     Helper,
     Utility
@@ -241,6 +242,7 @@ switch ($op) {
         $adminObject->addItemButton(AM_LEXIKON_ENTRIES_LIST, 'entries.php', 'list');
         echo $adminObject->displayButton('left');
 
+        /** @var Entries $entriesObject */
         $entriesObject = $entriesHandler->create();
         $form          = $entriesObject->getForm();
         $form->display();
@@ -315,7 +317,7 @@ switch ($op) {
 
         $id_field = Request::getString('entryID', '');
 
-        if (Utility::cloneRecord('lxentries', 'entryID', $id_field)) {
+        if ((int)$id_field > 0 && Utility::cloneRecord('lxentries', 'entryID', (int)$id_field)) {
             redirect_header('entries.php', 3, AM_LEXIKON_CLONED_OK);
         } else {
             redirect_header('entries.php', 3, AM_LEXIKON_CLONED_FAILED);

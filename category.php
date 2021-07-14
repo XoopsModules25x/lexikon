@@ -161,8 +161,8 @@ if (!$categoryID) {
                 if (!XOOPS_USE_MULTIBYTES) {
                     $eachentry['definition'] = $myts->displayTarea($definition, $html, $smiley, $xcodes, 1, $breaks);
                 }
-                if ((0 != $helper->getConfig('com_rule'))
-                    || ((0 != $helper->getConfig('com_rule'))
+                if ((0 !== $helper->getConfig('com_rule'))
+                    || ((0 !== $helper->getConfig('com_rule'))
                         && is_object($xoopsUser))) {
                     if (0 != $comments) {
                         $eachentry['comments'] = "<a href='entry.php?entryID=" . $eachentry['id'] . "'>" . $comments . '&nbsp;' . _COMMENTS . '</a>';

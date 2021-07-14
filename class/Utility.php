@@ -20,12 +20,9 @@ namespace XoopsModules\Lexikon;
 
 use Xmf\Module\Admin;
 use Xmf\Request;
-use XoopsModules\Lexikon\{
-    Helper
-};
+
 /** @var Helper $helper */
 use XoopsModules\Lexikon\Common;
-use XoopsModules\Lexikon\Constants;
 
 /**
  * Class Utility
@@ -48,6 +45,7 @@ class Utility extends Common\SysUtility
 
         $userid = (int)$userid;
         if ($userid > 0) {
+            /** @var \XoopsMemberHandler $memberHandler */
             $memberHandler = \xoops_getHandler('member');
             $user          = $memberHandler->getUser($userid);
 
@@ -506,6 +504,7 @@ class Utility extends Common\SysUtility
         if (\Xmf\Request::hasVar('xoops_keywords_limit', 'SESSION')) {    // Search the "Minimum keyword length"
             $limit = $_SESSION['xoops_keywords_limit'];
         } else {
+            /** @var \XoopsConfigHandler $configHandler */
             $configHandler                    = \xoops_getHandler('config');
             $xoopsConfigSearch                = $configHandler->getConfigsByCat(\XOOPS_CONF_SEARCH);
             $limit                            = $xoopsConfigSearch['keyword_min'];
@@ -1573,7 +1572,7 @@ class Utility extends Common\SysUtility
 
     /**
      * @param array|string $tableName
-     * @param int          $id_field
+     * @param string       $id_field
      * @param int          $id
      *
      * @return mixed

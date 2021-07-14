@@ -419,3 +419,4 @@ define('AM_LEXIKON_MAINTAINEDBY', 'is maintained by the');
 //define('_AM_ADMINBLOCK', '_AM_ADMINBLOCK');
 
 define('AM_CATEGORIES_SELECTED_ERROR', 'You selected nothing to delete');
+define('_AM_RUSUREDEL', 'Are you sure you want to delete this article and all its comments?');

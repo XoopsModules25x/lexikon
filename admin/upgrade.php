@@ -51,11 +51,9 @@ if ($go) {
         }
 
         // 2) if multicats OFF set categoryID to '1' (prior '0')
-        if (0 == $helper->getConfig('multicats')) {
+        if (0 === $helper->getConfig('multicats')) {
             $result = $xoopsDB->query(
-                'SELECT COUNT(*)
-                                           FROM ' . $xoopsDB->prefix('lxentries') . '
-                                           WHERE categoryID = 0  '
+                'SELECT COUNT(*) FROM ' . $xoopsDB->prefix('lxentries') . ' WHERE categoryID = 0  '
             );
             [$totals] = $xoopsDB->fetchRow($result);
             if ($totals > 0) {

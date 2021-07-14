@@ -5,7 +5,12 @@
  * Licence: GNU
  */
 
-use XoopsModules\Lexikon;
+use XoopsModules\Lexikon\{
+    Helper
+};
+/** @var Helper $helper */
+
+global $xoopsUser;
 
 if (is_object($xoopsUser)) {
     $xoopsModule = XoopsModule::getByDirname('lexikon');

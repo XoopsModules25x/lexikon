@@ -53,7 +53,7 @@ if (!empty($target_module) && is_object($target_module)) {
     $target_mid     = $target_module->getVar('mid');
     $target_mname   = $target_module->getVar('name') . '&nbsp;' . sprintf('(%2.2f)', $target_module->getVar('version') / 100.0);
     $query4redirect = '?dirname=' . urlencode(strip_tags($_GET['dirname']));
-} elseif (Request::hasVar('mid', 'GET') && 0 == $_GET['mid'] || 'blocksadmin' === $xoopsModule->getVar('dirname')) {
+} elseif ((Request::hasVar('mid', 'GET') && 0 == $_GET['mid']) || 'blocksadmin' === $xoopsModule->getVar('dirname')) {
     $target_mid     = 0;
     $target_mname   = '';
     $query4redirect = '?mid=0';
@@ -343,7 +343,7 @@ function list_groups2()
         $item_list[$iid] = $title;
     }
 
-    $form = new \MyXoopsGroupPermForm(_MD_AM_ADGS, 1, 'block_read', '');
+    $form = new GroupPermForm(_MD_AM_ADGS, 1, 'block_read', '');
     if ($target_mid > 1) {
         $form->addAppendix('module_admin', $target_mid, $target_mname . ' ' . _AM_ACTIVERIGHTS);
         $form->addAppendix('module_read', $target_mid, $target_mname . ' ' . _AM_ACCESSRIGHTS);

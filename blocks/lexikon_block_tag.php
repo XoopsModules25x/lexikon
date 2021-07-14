@@ -61,7 +61,7 @@
  *                          $options[1] - time duration, in days, 0 for all the time
  *                          $options[2] - max font size (px or %)
  *                          $options[3] - min font size (px or %)
- * @return array
+ * @return array|bool
  */
 
 function lexikon_tag_block_cloud_show($options)
@@ -93,7 +93,7 @@ function lexikon_tag_block_cloud_edit($options)
 
 /**
  * @param $options
- * @return array
+ * @return array|bool
  */
 function lexikon_tag_block_top_show($options)
 {

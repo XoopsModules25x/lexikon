@@ -79,7 +79,7 @@ if (0 == $permitsubmit && '1' == $helper->getConfig('multicats')) {
 switch ($op) {
     case 'post':
         //--- Captcha
-        if (0 != $helper->getConfig('captcha')) {
+        if (0 !== $helper->getConfig('captcha')) {
             xoops_load('XoopsCaptcha');
             if (@require_once XOOPS_ROOT_PATH . '/class/captcha/xoopscaptcha.php') {
                 $xoopsCaptcha = XoopsCaptcha::getInstance();

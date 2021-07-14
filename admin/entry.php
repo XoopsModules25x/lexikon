@@ -483,16 +483,17 @@ function entrySave($entryID = '')
             // trigger Notification only if its a new submission
             if (!empty($helper->getConfig('notification_enabled'))) {
                 global $xoopsModule;
-                $notificationHandler   = xoops_getHandler('notification');
-                $tags                  = [];
-                $shortdefinition       = htmlspecialchars(xoops_substr(strip_tags($definition), 0, 45));
-                $tags['ITEM_NAME']     = $term;
-                $tags['ITEM_BODY']     = $shortdefinition;
-                $tags['DATESUB']       = formatTimestamp($date, 'd M Y');
-                $tags['ITEM_URL']      = XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/entry.php?entryID=' . $entryID;
-                $sql                   = 'SELECT name FROM ' . $xoopsDB->prefix('lxcategories') . ' WHERE categoryID=' . $categoryID;
-                $result                = $xoopsDB->query($sql);
-                $row                   = $xoopsDB->fetchArray($result);
+                /** @var \XoopsNotificationHandler $notificationHandler */
+                $notificationHandler = xoops_getHandler('notification');
+                $tags                = [];
+                $shortdefinition     = htmlspecialchars(xoops_substr(strip_tags($definition), 0, 45));
+                $tags['ITEM_NAME']   = $term;
+                $tags['ITEM_BODY']   = $shortdefinition;
+                $tags['DATESUB']     = formatTimestamp($date, 'd M Y');
+                $tags['ITEM_URL']    = XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/entry.php?entryID=' . $entryID;
+                $sql                 = 'SELECT name FROM ' . $xoopsDB->prefix('lxcategories') . ' WHERE categoryID=' . $categoryID;
+                $result              = $xoopsDB->query($sql);
+                $row                 = $xoopsDB->fetchArray($result);
                 $tags['CATEGORY_NAME'] = $row['name'];
                 $tags['CATEGORY_URL']  = XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/category.php?categoryID=' . $categoryID;
                 $notificationHandler->triggerEvent('global', 0, 'new_post', $tags);

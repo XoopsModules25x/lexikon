@@ -107,7 +107,7 @@ if (!$init) {
         $eachentry['id']   = (int)$entryID;
         $eachentry['term'] = mb_ucfirst(htmlspecialchars($term));
 
-        if ((0 != $helper->getConfig('com_rule')) || ((0 != $helper->getConfig('com_rule')) && is_object($xoopsUser))) {
+        if ((0 !== $helper->getConfig('com_rule')) || ((0 != $helper->getConfig('com_rule')) && is_object($xoopsUser))) {
             if (0 != $comments) {
                 $eachentry['comments'] = "<a href='entry.php?entryID=" . $eachentry['id'] . "'>" . $comments . '&nbsp;' . _COMMENTS . '</a>';
             } else {
@@ -181,7 +181,7 @@ if (!$init) {
             $eachentry['init'] = $init;
         }
 
-        if ((0 != $helper->getConfig('com_rule')) || ((0 != $helper->getConfig('com_rule')) && is_object($xoopsUser))) {
+        if ((0 !== $helper->getConfig('com_rule')) || ((0 != $helper->getConfig('com_rule')) && is_object($xoopsUser))) {
             if (0 != $comments) {
                 $eachentry['comments'] = "<a href='entry.php?entryID=" . $eachentry['id'] . "'>" . $comments . '&nbsp;' . _COMMENTS . '</a>';
             } else {
