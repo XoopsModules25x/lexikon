@@ -94,7 +94,7 @@ function b_lxspot_show($options)
             $block['catID']      = (int)$options[0];
             $block['catimage']   = stripslashes($logourl);
             $block['termID']     = (int)$entryID;
-            $block['title']      = htmlspecialchars($term);
+            $block['title']      = htmlspecialchars($term, ENT_QUOTES | ENT_HTML5);
             $block['introtext']  = xoops_substr($myts->displayTarea($definition, $html, 1, $xcodes, 1, $breaks), 0, (int)$options[8]);
 
             $block['moduledir'] = $lexikon->dirname();
@@ -117,7 +117,7 @@ function b_lxspot_show($options)
                 if ($i < $options[1]) {
                     $morelinks         = [];
                     $morelinks['id']   = $myrow['entryID'];
-                    $morelinks['head'] = xoops_substr(htmlspecialchars($myrow['term']), 0, (int)$options[9]);
+                    $morelinks['head'] = xoops_substr(htmlspecialchars($myrow['term'], ENT_QUOTES | ENT_HTML5), 0, (int)$options[9]);
 
                     $morelinks['subdate'] = formatTimestamp($datesub, 'd M Y');
                     ++$i;
@@ -177,8 +177,8 @@ function b_lxspot_edit($options)
     $form .= "<option value='term' " . (('term' === $options[7]) ? ' selected' : '') . '>' . _MB_LEXIKON_NAME . "</option>\n";
     $form .= "</select>\n";
 
-    $form .= "&nbsp;<tr><td style='vertical-align: top;'>" . _MB_LEXIKON_CHARS . "</td><td>&nbsp;<input type='text' name='options[8]' value='" . htmlspecialchars($options[8]) . "' >&nbsp;" . _MB_LEXIKON_LENGTH . '';
-    $form .= "&nbsp;<tr><td style='vertical-align: top;'>" . _MB_LEXIKON_CHARSTERM . "</td><td>&nbsp;<input type='text' name='options[9]' value='" . htmlspecialchars($options[9]) . "' >&nbsp;" . _MB_LEXIKON_LENGTH . '';
+    $form .= "&nbsp;<tr><td style='vertical-align: top;'>" . _MB_LEXIKON_CHARS . "</td><td>&nbsp;<input type='text' name='options[8]' value='" . htmlspecialchars($options[8], ENT_QUOTES | ENT_HTML5) . "' >&nbsp;" . _MB_LEXIKON_LENGTH . '';
+    $form .= "&nbsp;<tr><td style='vertical-align: top;'>" . _MB_LEXIKON_CHARSTERM . "</td><td>&nbsp;<input type='text' name='options[9]' value='" . htmlspecialchars($options[9], ENT_QUOTES | ENT_HTML5) . "' >&nbsp;" . _MB_LEXIKON_LENGTH . '';
 
     $form .= '</td></tr>';
     $form .= '</table>';

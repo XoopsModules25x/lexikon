@@ -170,7 +170,7 @@ function list_blockinstances()
         $title      = $instances[$i]->getVar('title');
         $bcachetime = $instances[$i]->getVar('bcachetime');
         $bid        = $instances[$i]->getVar('bid');
-        $name       = htmlspecialchars($block_arr[$bid]['name']);
+        $name       = htmlspecialchars($block_arr[$bid]['name'], ENT_QUOTES | ENT_HTML5);
 
         $visiblein = $instances[$i]->getVisibleIn();
 
@@ -313,7 +313,7 @@ function list_blockinstances()
         echo "
         <tr>
             <td class='$class' align='left'>
-                " . htmlspecialchars($block['name']) . "
+                " . htmlspecialchars($block['name'], ENT_QUOTES | ENT_HTML5) . "
             </td>
             <td class='$class' align='left' colspan='4'>
                 $description4show

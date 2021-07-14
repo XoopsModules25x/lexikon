@@ -87,7 +87,7 @@ if (!$categoryID) {
     $resultA = $xoopsDB->query($queryA, $helper->getConfig('indexperpage'), $start);
     while (list($categoryID, $name, $description, $total, $weight, $logourl) = $xoopsDB->fetchRow($resultA)) {
         if ($logourl && 'http://' !== $logourl) {
-            $logourl = htmlspecialchars($logourl);
+            $logourl = htmlspecialchars($logourl, ENT_QUOTES | ENT_HTML5);
         } else {
             $logourl = '';
         }
@@ -95,7 +95,7 @@ if (!$categoryID) {
         $xoopsModule            = XoopsModule::getByDirname('lexikon');
         $eachcat['dir']         = $xoopsModule->dirname();
         $eachcat['id']          = (int)$categoryID;
-        $eachcat['name']        = htmlspecialchars($name);
+        $eachcat['name']        = htmlspecialchars($name, ENT_QUOTES | ENT_HTML5);
         $eachcat['description'] = $myts->displayTarea($description, 1, 1, 1, 1, 1);
         $eachcat['image']       = $logourl;
 
@@ -112,11 +112,11 @@ if (!$categoryID) {
     $xoopsTpl->assign('catsarray', $catsarray);
     $xoopsTpl->assign('pagetype', '0');
 
-    $utility::createPageTitle(htmlspecialchars(_MD_LEXIKON_ALLCATS));
+    $utility::createPageTitle(htmlspecialchars(_MD_LEXIKON_ALLCATS, ENT_QUOTES | ENT_HTML5));
     // Meta data
     $meta_description = xoops_substr(strip_tags($eachcat['description']), 0, 150);
-    $utility::extractKeywords(htmlspecialchars($xoopsModule->name()) . ', ' . $eachcat['name'] . ', ' . $meta_description);
-    $utility::getMetaDescription(htmlspecialchars($xoopsModule->name()) . ' ' . $eachcat['name'] . ' ' . $meta_description);
+    $utility::extractKeywords(htmlspecialchars($xoopsModule->name(), ENT_QUOTES | ENT_HTML5) . ', ' . $eachcat['name'] . ', ' . $meta_description);
+    $utility::getMetaDescription(htmlspecialchars($xoopsModule->name(), ENT_QUOTES | ENT_HTML5) . ' ' . $eachcat['name'] . ' ' . $meta_description);
 } else {
     // There IS a $categoryID, thus we show only that category's description
 
@@ -134,9 +134,9 @@ if (!$categoryID) {
             $singlecat                = [];
             $singlecat['dir']         = $xoopsModule->dirname();
             $singlecat['id']          = $categoryID;
-            $singlecat['name']        = htmlspecialchars($name);
+            $singlecat['name']        = htmlspecialchars($name, ENT_QUOTES | ENT_HTML5);
             $singlecat['description'] = html_entity_decode($myts->displayTarea($description, 1, 1, 1, 1, 1)); // LionHell ajout html_entity ...
-            $singlecat['image']       = htmlspecialchars($logourl);
+            $singlecat['image']       = htmlspecialchars($logourl, ENT_QUOTES | ENT_HTML5);
 
             // Total entries in this category
             //$entriesincat = $utility::countByCategory($categoryID);
@@ -157,7 +157,7 @@ if (!$categoryID) {
                 $xoopsModule       = XoopsModule::getByDirname('lexikon');
                 $eachentry['dir']  = $xoopsModule->dirname();
                 $eachentry['id']   = $entryID;
-                $eachentry['term'] = ucfirst(htmlspecialchars($term));
+                $eachentry['term'] = ucfirst(htmlspecialchars($term, ENT_QUOTES | ENT_HTML5));
                 if (!XOOPS_USE_MULTIBYTES) {
                     $eachentry['definition'] = $myts->displayTarea($definition, $html, $smiley, $xcodes, 1, $breaks);
                 }
@@ -185,12 +185,12 @@ if (!$categoryID) {
 
     $xoopsTpl->assign('entriesarray', $entriesarray);
     $xoopsTpl->assign('pagetype', '1');
-    $xoopsTpl->assign('xoops_pagetitle', htmlspecialchars(_MD_LEXIKON_ENTRYCATEGORY . ' ' . $singlecat['name']) . ' - ' . htmlspecialchars($xoopsModule->name()));
+    $xoopsTpl->assign('xoops_pagetitle', htmlspecialchars(_MD_LEXIKON_ENTRYCATEGORY . ' ' . $singlecat['name'], ENT_QUOTES | ENT_HTML5) . ' - ' . htmlspecialchars($xoopsModule->name(), ENT_QUOTES | ENT_HTML5));
     // Meta data
     if ($entriesincat > 0) {
         $meta_description = xoops_substr(strip_tags($singlecat['description']), 0, 150);
-        $utility::extractKeywords(htmlspecialchars($xoopsModule->name()) . ', ' . $singlecat['name'] . ', ' . $eachentry['term'] . ', ' . $meta_description);
-        $utility::getMetaDescription(htmlspecialchars($xoopsModule->name()) . ' ' . $singlecat['name'] . '  ' . $eachentry['term'] . ' ' . $meta_description);
+        $utility::extractKeywords(htmlspecialchars($xoopsModule->name(), ENT_QUOTES | ENT_HTML5) . ', ' . $singlecat['name'] . ', ' . $eachentry['term'] . ', ' . $meta_description);
+        $utility::getMetaDescription(htmlspecialchars($xoopsModule->name(), ENT_QUOTES | ENT_HTML5) . ' ' . $singlecat['name'] . '  ' . $eachentry['term'] . ' ' . $meta_description);
     }
 }
 

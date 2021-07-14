@@ -161,10 +161,10 @@ if (!$query) {
             $eachresult['dir']        = $xoopsModule->dirname();
             $eachresult['id']         = $entryID;
             $eachresult['categoryID'] = $categoryID;
-            $eachresult['term']       = ucfirst(htmlspecialchars($term));
+            $eachresult['term']       = ucfirst(htmlspecialchars($term, ENT_QUOTES | ENT_HTML5));
             $eachresult['date']       = formatTimestamp($datesub, $helper->getConfig('dateformat'));
-            $eachresult['ref']        = $utility::getHTMLHighlight($query, htmlspecialchars($ref), '<b style="background-color: #FFFF80; ">', '</b>');
-            $eachresult['catname']    = htmlspecialchars($catname);
+            $eachresult['ref']        = $utility::getHTMLHighlight($query, htmlspecialchars($ref, ENT_QUOTES | ENT_HTML5), '<b style="background-color: #FFFF80; ">', '</b>');
+            $eachresult['catname']    = htmlspecialchars($catname, ENT_QUOTES | ENT_HTML5);
             $tempdef                  = $myts->displayTarea($definition, 1, 1, 1, 1, 1);
             $eachresult['definition'] = $utility::getHTMLHighlight($query, $tempdef, '<b style="background-color: #FFFF80; ">', '</b>');
             if ($highlight) {
@@ -195,10 +195,10 @@ $xoopsTpl->assign('lang_modulename', $xoopsModule->name());
 $xoopsTpl->assign('lang_moduledirname', $xoopsModule->getVar('dirname'));
 
 $xoopsTpl->assign('xoops_module_header', '<link rel="stylesheet" type="text/css" href="assets/css/style.css">');
-$xoopsTpl->assign('xoops_pagetitle', _MD_LEXIKON_SEARCHENTRY . ' - ' . htmlspecialchars($xoopsModule->name()));
+$xoopsTpl->assign('xoops_pagetitle', _MD_LEXIKON_SEARCHENTRY . ' - ' . htmlspecialchars($xoopsModule->name(), ENT_QUOTES | ENT_HTML5));
 
 // Meta data
-$meta_description = _MD_LEXIKON_SEARCHENTRY . ' - ' . htmlspecialchars($xoopsModule->name());
+$meta_description = _MD_LEXIKON_SEARCHENTRY . ' - ' . htmlspecialchars($xoopsModule->name(), ENT_QUOTES | ENT_HTML5);
 if (isset($xoTheme) && is_object($xoTheme)) {
     $xoTheme->addMeta('meta', 'description', $meta_description);
 } else {

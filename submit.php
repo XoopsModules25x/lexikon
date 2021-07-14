@@ -133,7 +133,7 @@ switch ($op) {
             $url = '';
         }
         // this is for terms with umlaut or accented initials
-        $term4sql = $utility::sanitizeFieldName(htmlspecialchars($_POST['term']));
+        $term4sql = $utility::sanitizeFieldName(htmlspecialchars($_POST['term'], ENT_QUOTES | ENT_HTML5));
         $init     = mb_substr($term4sql, 0, 1);
         $init     = preg_match('/[a-zA-Zа-яА-Я0-9]/u', $init) ? mb_strtoupper($init) : '#';
 
@@ -180,7 +180,7 @@ switch ($op) {
             /** @var XoopsNotificationHandler $notificationHandler */
             $notificationHandler   = xoops_getHandler('notification');
             $tags                  = [];
-            $shortdefinition       = htmlspecialchars(xoops_substr(strip_tags($definition), 0, 45));
+            $shortdefinition       = htmlspecialchars(xoops_substr(strip_tags($definition), 0, 45), ENT_QUOTES | ENT_HTML5);
             $tags['ITEM_NAME']     = $term;
             $tags['ITEM_BODY']     = $shortdefinition;
             $tags['DATESUB']       = formatTimestamp($datesub, 'd M Y');
@@ -308,10 +308,10 @@ switch ($op) {
 
         $xoopsTpl->assign('lang_modulename', $xoopsModule->name());
         $xoopsTpl->assign('lang_moduledirname', $xoopsModule->getVar('dirname'));
-        $xoopsTpl->assign('xoops_pagetitle', htmlspecialchars($xoopsModule->name()) . ' - ' . _MD_LEXIKON_SUBMITART);
+        $xoopsTpl->assign('xoops_pagetitle', htmlspecialchars($xoopsModule->name(), ENT_QUOTES | ENT_HTML5) . ' - ' . _MD_LEXIKON_SUBMITART);
         $xoopsTpl->assign('xoops_module_header', '<link rel="stylesheet" type="text/css" href="assets/css/style.css">');
         // Meta data
-        $meta_description = _MD_LEXIKON_SUBMITART . ' - ' . htmlspecialchars($xoopsModule->name());
+        $meta_description = _MD_LEXIKON_SUBMITART . ' - ' . htmlspecialchars($xoopsModule->name(), ENT_QUOTES | ENT_HTML5);
         if (isset($xoTheme) && is_object($xoTheme)) {
             $xoTheme->addMeta('meta', 'description', $meta_description);
         } else {

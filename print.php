@@ -54,14 +54,14 @@ function printPage($entryID)
     [$authorname, $username] = $xoopsDB->fetchRow($result3);
 
     $datetime     = formatTimestamp($datesub, 'D, d-M-Y, H:i');
-    $categoryname = htmlspecialchars($name);
-    $term         = htmlspecialchars($term);
+    $categoryname = htmlspecialchars($name, ENT_QUOTES | ENT_HTML5);
+    $term         = htmlspecialchars($term, ENT_QUOTES | ENT_HTML5);
     $definition   = str_replace('[pagebreak]', '<br style="page-break-after:always;">', $definition);
     $definition   = &$myts->displayTarea($definition, $html, $smiley, $xcodes, '', $breaks);
     if ('' == $authorname) {
-        $authorname = htmlspecialchars($username);
+        $authorname = htmlspecialchars($username, ENT_QUOTES | ENT_HTML5);
     } else {
-        $authorname = htmlspecialchars($authorname);
+        $authorname = htmlspecialchars($authorname, ENT_QUOTES | ENT_HTML5);
     }
     echo "<!DOCTYPE HTML>\n";
     echo "<html>\n<head>\n";

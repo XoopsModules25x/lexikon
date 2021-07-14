@@ -185,14 +185,14 @@ class Utility extends Common\SysUtility
                 $catlinks = [];
                 ++$count;
                 if ($logourl && 'http://' !== $logourl) {
-                    $logourl = htmlspecialchars($logourl);
+                    $logourl = htmlspecialchars($logourl, ENT_QUOTES | ENT_HTML5);
                 } else {
                     $logourl = '';
                 }
                 $xoopsModule          = \XoopsModule::getByDirname('lexikon');
                 $catlinks['id']       = (int)$catID;
                 $catlinks['total']    = (int)$total;
-                $catlinks['linktext'] = htmlspecialchars($name);
+                $catlinks['linktext'] = htmlspecialchars($name, ENT_QUOTES | ENT_HTML5);
                 $catlinks['image']    = $logourl;
                 $catlinks['count']    = $count;
 

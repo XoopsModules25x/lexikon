@@ -88,7 +88,7 @@ function categoryDefault()
         $class = 'odd';
         if ($numrows > 0) { // That is, if there ARE columns in the system
             while (list($categoryID, $name, $description, $total, $weight, $logourl) = $xoopsDB->fetchRow($resultC2)) {
-                $name        = htmlspecialchars($name);
+                $name        = htmlspecialchars($name, ENT_QUOTES | ENT_HTML5);
                 $description = strip_tags(htmlspecialchars_decode($description));
                 $modify      = "<a href='category.php?op=mod&categoryID=" . $categoryID . "'><img src=" . $pathIcon16 . "/edit.png alt='" . _AM_LEXIKON_EDITCAT . "'></a>";
                 $delete      = "<a href='category.php?op=del&categoryID=" . $categoryID . "'><img src=" . $pathIcon16 . "/delete.png  alt='" . _AM_LEXIKON_DELETECAT . "'></a>";
@@ -153,7 +153,7 @@ function categoryEdit($categoryID = '')
 
         [$categoryID, $name, $description, $total, $weight, $logourl] = $xoopsDB->fetchRow($result);
         $myts = \MyTextSanitizer::getInstance();
-        $name = htmlspecialchars($name);
+        $name = htmlspecialchars($name, ENT_QUOTES | ENT_HTML5);
         //permissions
         /** @var \XoopsMemberHandler $memberHandler */
         $memberHandler = xoops_getHandler('member');
@@ -312,7 +312,7 @@ function categorySave($categoryID = '')
     $categoryID  = Request::getInt('categoryID', 0);
     $weight      = Request::getInt('weight', 0); //isset($_POST['weight']) ? \Xmf\Request::getInt('weight', 0, 'POST') : \Xmf\Request::getInt('weight', 0, 'GET');
     $name        = Request::getString('name', ''); //isset($_POST['name']) ? htmlspecialchars($_POST['name']) : htmlspecialchars($_GET['name']);
-    $description = htmlspecialchars(Request::getString('description', '')); //isset($_POST['description']) ? htmlspecialchars($_POST['description']) : htmlspecialchars($_GET['description']);
+    $description = htmlspecialchars(Request::getString('description', ''), ENT_QUOTES | ENT_HTML5); //isset($_POST['description']) ? htmlspecialchars($_POST['description']) : htmlspecialchars($_GET['description']);
     $description = &$myts->xoopsCodeDecode($myts->censorString($description), $allowimage = 1);
     $name        = $myts->addSlashes(Request::getString('name', '', 'POST'));
     $logourl     = $myts->addSlashes(Request::getString('logourl', '', 'POST'));

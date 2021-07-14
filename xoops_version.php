@@ -133,7 +133,7 @@ if (isset($lxConfig['catsinmenu']) && 1 == $lxConfig['catsinmenu'] && isset($lxC
     $sql  = $xoopsDB->query('SELECT categoryID, name FROM ' . $xoopsDB->prefix('lxcategories') . ' ORDER BY weight ASC');
     while (list($categoryID, $name) = $xoopsDB->fetchRow($sql)) {
         if ($grouppermHandler->checkRight('lexikon_view', $categoryID, $groups, $lexikon->getVar('mid'))) {
-            $name                          = htmlspecialchars($name);
+            $name                          = htmlspecialchars($name, ENT_QUOTES | ENT_HTML5);
             $categoryID                    = (int)$categoryID;
             $modversion['sub'][$i]['name'] = $name;
             $modversion['sub'][$i]['url']  = 'category.php?categoryID=' . $categoryID;

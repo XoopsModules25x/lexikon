@@ -131,7 +131,7 @@ if ($publishedwords > 0) { // If there are definitions
     while (list($entryID, $categoryID, $term, $datesub) = $xoopsDB->fetchRow($result05)) {
         $newentries             = [];
         $xoopsModule            = XoopsModule::getByDirname('lexikon');
-        $linktext               = mb_ucfirst(htmlspecialchars($term));
+        $linktext               = mb_ucfirst(htmlspecialchars($term, ENT_QUOTES | ENT_HTML5));
         $newentries['linktext'] = $linktext;
         $newentries['id']       = $entryID;
         $newentries['date']     = formatTimestamp($datesub, 's');
@@ -149,7 +149,7 @@ if ($publishedwords > 0) {
     while (list($entryID, $term, $counter) = $xoopsDB->fetchRow($result06)) {
         $popentries             = [];
         $xoopsModule            = XoopsModule::getByDirname('lexikon');
-        $linktext               = mb_ucfirst(htmlspecialchars($term));
+        $linktext               = mb_ucfirst(htmlspecialchars($term, ENT_QUOTES | ENT_HTML5));
         $popentries['linktext'] = $linktext;
         $popentries['id']       = $entryID;
         $popentries['counter']  = (int)$counter;
@@ -205,7 +205,7 @@ if ($xoopsUser && $xoopsUser->isAdmin()) {
         while (list($entryID, $term) = $xoopsDB->fetchRow($resultS)) {
             $subentries             = [];
             $xoopsModule            = XoopsModule::getByDirname('lexikon');
-            $linktext               = mb_ucfirst(htmlspecialchars($term));
+            $linktext               = mb_ucfirst(htmlspecialchars($term, ENT_QUOTES | ENT_HTML5));
             $subentries['linktext'] = $linktext;
             $subentries['id']       = $entryID;
 
@@ -225,7 +225,7 @@ if ($xoopsUser && $xoopsUser->isAdmin()) {
         while (list($entryID, $term) = $xoopsDB->fetchRow($resultR)) {
             $reqentries             = [];
             $xoopsModule            = XoopsModule::getByDirname('lexikon');
-            $linktext               = mb_ucfirst(htmlspecialchars($term));
+            $linktext               = mb_ucfirst(htmlspecialchars($term, ENT_QUOTES | ENT_HTML5));
             $reqentries['linktext'] = $linktext;
             $reqentries['id']       = $entryID;
 
@@ -246,7 +246,7 @@ if ($xoopsUser && $xoopsUser->isAdmin()) {
         while (list($entryID, $term) = $xoopsDB->fetchRow($resultR)) {
             $reqentries             = [];
             $xoopsModule            = XoopsModule::getByDirname('lexikon');
-            $linktext               = mb_ucfirst(htmlspecialchars($term));
+            $linktext               = mb_ucfirst(htmlspecialchars($term, ENT_QUOTES | ENT_HTML5));
             $reqentries['linktext'] = $linktext;
             $reqentries['id']       = $entryID;
 
@@ -274,10 +274,10 @@ if (1 == $helper->getConfig('syndication')) {
 if ($xoopsUser) {
     $xoopsTpl->assign('syndication', true);
 }
-$xoopsTpl->assign('xoops_pagetitle', htmlspecialchars($xoopsModule->name()));
+$xoopsTpl->assign('xoops_pagetitle', htmlspecialchars($xoopsModule->name(), ENT_QUOTES | ENT_HTML5));
 
 // Meta data
-$meta_description = htmlspecialchars($xoopsModule->name());
+$meta_description = htmlspecialchars($xoopsModule->name(), ENT_QUOTES | ENT_HTML5);
 if (isset($xoTheme) && is_object($xoTheme)) {
     $xoTheme->addMeta('meta', 'description', $meta_description);
 } else {

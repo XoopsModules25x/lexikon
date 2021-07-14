@@ -125,8 +125,8 @@ function entryDefault()
             [$name] = $xoopsDB->fetchRow($resultA3);
 
             $sentby  = \XoopsUserUtility::getUnameFromId($uid);
-            $catname = htmlspecialchars($name);
-            $term    = htmlspecialchars($term);
+            $catname = htmlspecialchars($name, ENT_QUOTES | ENT_HTML5);
+            $term    = htmlspecialchars($term, ENT_QUOTES | ENT_HTML5);
             $created = formatTimestamp($created, 's');
             $modify  = "<a href='entry.php?op=mod&entryID=" . $entryID . "'><img src=" . $pathIcon16 . "/edit.png alt='" . _AM_LEXIKON_EDITENTRY . "'></a>";
             $delete  = "<a href='entry.php?op=del&entryID=" . $entryID . "'><img src=" . $pathIcon16 . "/delete.png alt='" . _AM_LEXIKON_DELETEENTRY . "'></a>";
@@ -239,7 +239,7 @@ function entryEdit($entryID = '')
         if (!$xoopsDB->getRowsNum($result)) {
             redirect_header('index.php', 1, _AM_LEXIKON_NOENTRYTOEDIT);
         }
-        $term = (htmlspecialchars($term));
+        $term = (htmlspecialchars($term, ENT_QUOTES | ENT_HTML5));
 
         echo "<strong style='color: #2F5376; margin-top:6px; font-size:medium'>" . _AM_LEXIKON_ADMINENTRYMNGMT . '</strong>';
         $sform = new \XoopsThemeForm(_AM_LEXIKON_MODENTRY . ": $term", 'op', xoops_getenv('SCRIPT_NAME'), 'post', true);
@@ -457,7 +457,7 @@ function entrySave($entryID = '')
                 /** @var XoopsNotificationHandler $notificationHandler */
                 $notificationHandler   = xoops_getHandler('notification');
                 $tags                  = [];
-                $shortdefinition       = htmlspecialchars(xoops_substr(strip_tags($definition), 0, 45));
+                $shortdefinition       = htmlspecialchars(xoops_substr(strip_tags($definition), 0, 45), ENT_QUOTES | ENT_HTML5);
                 $tags['ITEM_NAME']     = $term;
                 $tags['ITEM_BODY']     = $shortdefinition;
                 $tags['DATESUB']       = formatTimestamp($date, 'd M Y');
@@ -487,7 +487,7 @@ function entrySave($entryID = '')
                 /** @var \XoopsNotificationHandler $notificationHandler */
                 $notificationHandler = xoops_getHandler('notification');
                 $tags                = [];
-                $shortdefinition     = htmlspecialchars(xoops_substr(strip_tags($definition), 0, 45));
+                $shortdefinition     = htmlspecialchars(xoops_substr(strip_tags($definition), 0, 45), ENT_QUOTES | ENT_HTML5);
                 $tags['ITEM_NAME']   = $term;
                 $tags['ITEM_BODY']   = $shortdefinition;
                 $tags['DATESUB']     = formatTimestamp($date, 'd M Y');

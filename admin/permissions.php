@@ -89,7 +89,7 @@ $catstree   = new LexikonTree($xoopsDB->prefix('lxcategories'), 'categoryID', ''
 $catsresult = $xoopsDB->query('SELECT categoryID, name FROM ' . $xoopsDB->prefix('lxcategories') . ' ORDER BY weight');
 while (false !== ($myrow = $xoopsDB->fetchArray($catsresult))) {
     $catid    = $myrow['categoryID'];
-    $cattitle = htmlspecialchars($myrow['name']);
+    $cattitle = htmlspecialchars($myrow['name'], ENT_QUOTES | ENT_HTML5);
     $permform->addItem($catid, $cattitle);
 }
 

@@ -50,7 +50,7 @@ function b_lxentries_new_show($options)
     if ($totalwords > 0) { // If there are definitions
         while (list($entryID, $categoryID, $term, $datesub) = $xoopsDB->fetchRow($result)) {
             $newentries             = [];
-            $linktext               = ucfirst(htmlspecialchars($term));
+            $linktext               = ucfirst(htmlspecialchars($term, ENT_QUOTES | ENT_HTML5));
             $newentries['dir']      = $lexikon->dirname();
             $newentries['linktext'] = $linktext;
             $newentries['id']       = (int)$entryID;

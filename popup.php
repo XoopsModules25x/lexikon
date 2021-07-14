@@ -33,9 +33,9 @@ if (1 == $helper->getConfig('multicats')) {
     $cID       = $sqlfetch['categoryID'];
     $sqlquery2 = $xoopsDB->query('SELECT name FROM ' . $xoopsDB->prefix('lxcategories') . " WHERE categoryID = $cID");
     $sqlfetch2 = $xoopsDB->fetchArray($sqlquery2);
-    $catname   = htmlspecialchars($sqlfetch2['name']);
+    $catname   = htmlspecialchars($sqlfetch2['name'], ENT_QUOTES | ENT_HTML5);
 }
-$term       = htmlspecialchars($sqlfetch['term']);
+$term       = htmlspecialchars($sqlfetch['term'], ENT_QUOTES | ENT_HTML5);
 $definition = $myts->displayTarea($sqlfetch['definition'], $sqlfetch['html'], $sqlfetch['smiley'], 1, 1, 1);
 
 echo '</head><body>

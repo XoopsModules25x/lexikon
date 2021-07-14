@@ -69,7 +69,7 @@ function b_scrolling_term_show($options)
             $items         = [];
             $userlink      = '<a style="cursor:help;background-color: transparent;" href=\"' . XOOPS_URL . '/modules/' . $lexikon->dirname() . '/entry.php?entryID=' . (int)$entryID . '\">';
             $items['id']   = (int)$entryID;
-            $items['term'] = htmlspecialchars($term);
+            $items['term'] = htmlspecialchars($term, ENT_QUOTES | ENT_HTML5);
             if ($options[5] > 0) {
                 $html                = 1 == $html ? 1 : 0;
                 $definition          = preg_replace("/'/", '’', $definition);
