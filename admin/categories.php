@@ -339,7 +339,7 @@ switch ($op) {
 
         $id_field = Request::getString('categoryID', '');
 
-        if (Utility::cloneRecord('lexikon_categories', 'categoryID', $id_field)) {
+        if (Utility::cloneRecord('lxcategories', 'categoryID', $id_field)) {
             redirect_header('categories.php', 3, AM_LEXIKON_CLONED_OK);
         } else {
             redirect_header('categories.php', 3, AM_LEXIKON_CLONED_FAILED);

@@ -20,6 +20,7 @@ use Xmf\Request;
 use Xmf\Yaml;
 use XoopsModules\Lexikon\{
     Common,
+    Common\Configurator,
     Common\TestdataButtons,
     Helper,
     Utility
@@ -34,6 +35,13 @@ require_once __DIR__ . '/admin_header.php';
 xoops_cp_header();
 
 $adminObject = Admin::getInstance();
+
+//check for upload folders, create if needed
+$configurator = new Configurator();
+foreach (array_keys($configurator->uploadFolders) as $i) {
+    $utility::createFolder($configurator->uploadFolders[$i]);
+    $adminObject->addConfigBoxLine($configurator->uploadFolders[$i], 'folder');
+}
 
 //IndexTable();
 $summary = $utility::getSummary();

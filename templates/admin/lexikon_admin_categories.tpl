@@ -27,7 +27,7 @@
 <td align="center" style="vertical-align:middle;"><input type="checkbox" name="categories_id[]"  title ="categories_id[]" id="categories_id[]" value="<{$categoriesArray.categories_id|default:''}>" ></td>
 <td class='center'><{$categoriesArray.categoryID}></td>
 <td class='center'><{$categoriesArray.name}></td>
-<td class='center'><{$categoriesArray.description}></td>
+<td class='left'><{$categoriesArray.description}></td>
 <td class='center'><{$categoriesArray.total}></td>
 <td class='center'><{$categoriesArray.weight}></td>
 <td class='center'><{$categoriesArray.logourl}></td>

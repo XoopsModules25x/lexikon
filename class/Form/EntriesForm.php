@@ -144,6 +144,7 @@ class EntriesForm extends \XoopsThemeForm
         $this->addElement($descEditor);
         // Url
         $this->addElement(new \XoopsFormText(\AM_LEXIKON_ENTRIES_URL, 'url', 50, 255, $this->targetObject->getVar('url')), false);
+
         // Submit
         $submit       = $this->targetObject->isNew() ? 0 : $this->targetObject->getVar('submit');
         $check_submit = new \XoopsFormCheckBox(\_SUBMIT, 'submit', $submit);

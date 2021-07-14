@@ -34,7 +34,7 @@ use XoopsFormHidden;
 use XoopsFormLabel;
 use XoopsFormText;
 use XoopsModules\Lexikon\{
-    Form
+    Helper
 };
 use XoopsThemeForm;
 

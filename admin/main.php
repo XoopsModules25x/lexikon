@@ -242,6 +242,7 @@ $sql = 'SELECT entryID, categoryID, term, uid, datesub, offline
 
 $items = $xoopsDB->query($sql, $helper->getConfig('perpage'), $startentry); //missing nav. extras
 
+$totalItemsOnPage = 0;
 if (is_array($numrows)) {
     $totalItemsOnPage = count($numrows);
 }

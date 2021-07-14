@@ -31,6 +31,7 @@ use XoopsModules\Lexikon\{
     Utility
 };
 /** @var Helper $helper */
+/** @var Admin $adminObject */
 
 require_once __DIR__ . '/admin_header.php';
 xoops_cp_header();
@@ -40,14 +41,16 @@ $order = Request::getString('order', 'desc');
 $sort  = Request::getString('sort', '');
 
 xoops_load('XoopsUserUtility');
+$moduleDirName = \basename(\dirname(__DIR__));
 
 $adminObject->displayNavigation(basename(__FILE__));
 /** @var Permission $permHelper */
 $permHelper = new Permission($moduleDirName);
-$uploadDir  = XOOPS_UPLOAD_PATH . '/lexikon/images/';
-$uploadUrl  = XOOPS_UPLOAD_URL . '/lexikon/images/';
+$uploadDir  = XOOPS_UPLOAD_PATH . "/$moduleDirName/images/";
+$uploadUrl  = XOOPS_UPLOAD_URL . "/$moduleDirName/images/";
 
 $db                = \XoopsDatabaseFactory::getDatabaseConnection();
+$entriesHandler    = new EntriesHandler($db);
 $categoriesHandler = new CategoriesHandler($db);
 
 switch ($op) {
@@ -238,9 +241,6 @@ switch ($op) {
         $adminObject->addItemButton(AM_LEXIKON_ENTRIES_LIST, 'entries.php', 'list');
         echo $adminObject->displayButton('left');
 
-        $entriesHandler    = new EntriesHandler($db);
-        $categoriesHandler = new CategoriesHandler($db);
-
         $entriesObject = $entriesHandler->create();
         $form          = $entriesObject->getForm();
         $form->display();
@@ -263,7 +263,12 @@ switch ($op) {
         $entriesObject->setVar('url', Request::getVar('url', ''));
         $entriesObject->setVar('uid', Request::getVar('uid', ''));
         $entriesObject->setVar('submit', ((1 == Request::getInt('submit', 0)) ? '1' : '0'));
-        $entriesObject->setVar('datesub', date('Y-m-d H:i:s', strtotime($_REQUEST['datesub']['date']) + $_REQUEST['datesub']['time']));
+        $entriesObject->setVar('datesub', strtotime($_REQUEST['datesub']['date']) + $_REQUEST['datesub']['time']);
+        $resDate     = Request::getArray('datesub', [], 'POST');
+        $dateTimeObj = \DateTime::createFromFormat(_SHORTDATESTRING, $resDate['date']);
+        $dateTimeObj->setTime(0, 0, 0);
+        $entriesObject->setVar('datesub', $dateTimeObj->getTimestamp() + $resDate['time']);
+
         $entriesObject->setVar('counter', Request::getVar('counter', ''));
         $entriesObject->setVar('html', ((1 == Request::getInt('html', 0)) ? '1' : '0'));
         $entriesObject->setVar('smiley', ((1 == Request::getInt('smiley', 0)) ? '1' : '0'));
@@ -310,7 +315,7 @@ switch ($op) {
 
         $id_field = Request::getString('entryID', '');
 
-        if (Utility::cloneRecord('lexikon_entries', 'entryID', $id_field)) {
+        if (Utility::cloneRecord('lxentries', 'entryID', $id_field)) {
             redirect_header('entries.php', 3, AM_LEXIKON_CLONED_OK);
         } else {
             redirect_header('entries.php', 3, AM_LEXIKON_CLONED_FAILED);

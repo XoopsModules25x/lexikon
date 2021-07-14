@@ -69,7 +69,6 @@ class Categories extends XoopsObject
      */
     public function getForm()
     {
-        require_once XOOPS_ROOT_PATH . '/modules/lexikon/class/form/categories.php';
 
         $form = new Form\CategoriesForm($this);
 
