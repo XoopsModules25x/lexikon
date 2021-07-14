@@ -45,7 +45,6 @@ xoops_load('XoopsUserUtility');
 $moduleDirName = \basename(\dirname(__DIR__));
 
 $adminObject->displayNavigation(basename(__FILE__));
-/** @var Permission $permHelper */
 $permHelper = new Permission($moduleDirName);
 $uploadDir  = XOOPS_UPLOAD_PATH . "/$moduleDirName/images/";
 $uploadUrl  = XOOPS_UPLOAD_URL . "/$moduleDirName/images/";

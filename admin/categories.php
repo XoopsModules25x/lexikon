@@ -39,7 +39,6 @@ $order = Request::getString('order', 'desc');
 $sort  = Request::getString('sort', '');
 
 $adminObject->displayNavigation(basename(__FILE__));
-/** @var Permission $permHelper */
 $permHelper = new Permission($moduleDirName);
 $uploadDir  = XOOPS_UPLOAD_PATH . '/lexikon/images/';
 $uploadUrl  = XOOPS_UPLOAD_URL . '/lexikon/images/';

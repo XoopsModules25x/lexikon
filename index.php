@@ -98,7 +98,6 @@ $moduleDirNameUpper = mb_strtoupper($moduleDirName);
 
 Helper::getInstance()->loadLanguage('common');
 $xoopsTpl->assign('letterChoiceTitle', constant('CO_' . $moduleDirNameUpper . '_' . 'BROWSETOTOPIC'));
-/** @var \XoopsDatabase $db */
 $db                  = \XoopsDatabaseFactory::getDatabaseConnection();
 $objHandler          = Helper::getInstance()->getHandler('Entries');
 $choicebyletter      = new LetterChoice($objHandler, null, null, range('a', 'z'), 'init', LEXIKON_URL . '/letter.php');

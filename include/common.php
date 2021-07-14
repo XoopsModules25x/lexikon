@@ -31,7 +31,6 @@ require dirname(__DIR__) . '/preloads/autoloader.php';
 $moduleDirName      = \basename(\dirname(__DIR__));
 $moduleDirNameUpper = mb_strtoupper($moduleDirName);
 
-/** @var \XoopsDatabase $db */
 $db      = \XoopsDatabaseFactory::getDatabaseConnection();
 $helper  = Helper::getInstance();
 $utility = new Utility();

@@ -53,8 +53,6 @@ class EntriesForm extends \XoopsThemeForm
      */
     public function __construct($target)
     {
-        /** @var \XoopsDatabase $db */
-
         $db      = \XoopsDatabaseFactory::getDatabaseConnection();
         $helper  = Helper::getInstance();
         $utility = new Utility();
