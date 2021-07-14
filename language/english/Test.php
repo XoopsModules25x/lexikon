@@ -11,8 +11,8 @@ class Test
     public const ROOT = $_SERVER['DOCUMENT_ROOT'] . 'project/';
     public const MODULE_DIRNAME = \basename(\dirname(__DIR__));
     public const MODULE_URL = XOOPS_URL . '/modules/' . self::MODULE_DIRNAME;
-    public const IMAGES_URL = PUBLISHER_URL . '/assets/images';
-    public const ADMIN_URL = PUBLISHER_URL . '/admin';
+    public const IMAGES_URL = LEXIKON_URL . '/assets/images';
+    public const ADMIN_URL = LEXIKON_URL . '/admin';
     public const UPLOADS_URL = XOOPS_URL . '/uploads/' . self::MODULE_DIRNAME;
     public const MODULE_PATH = XOOPS_ROOT_PATH . '/modules/' . self::MODULE_DIRNAME;
     public const UPLOADS_PATH = XOOPS_ROOT_PATH . '/uploads/' . self::MODULE_DIRNAME;
