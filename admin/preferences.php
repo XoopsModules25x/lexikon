@@ -30,7 +30,7 @@ ob_end_clean();
 
 /**
  * @param $buf
- * @return mixed
+ * @return array|string|string[]|null
  */
 function addAdminMenu($buf)
 {

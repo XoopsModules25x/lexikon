@@ -56,7 +56,7 @@ function showerror($msg)
 
 /**
  * @param $text
- * @return mixed
+ * @return array|string|string[]|null
  */
 function import2db($text)
 {

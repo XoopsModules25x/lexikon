@@ -43,7 +43,7 @@ $op = Request::hasVar('post', 'POST') ? 'post' : (Request::hasVar('edit', 'POST'
 if (!function_exists('mb_ucfirst') && function_exists('mb_substr')) {
     /**
      * @param $string
-     * @return false|string
+     * @return string
      */
     function mb_ucfirst($string)
     {

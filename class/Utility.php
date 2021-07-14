@@ -672,7 +672,7 @@ class Utility extends Common\SysUtility
 
     /**
      * @param $document
-     * @return mixed
+     * @return array|string|string[]|null
      */
     public static function convertHtml2text($document)
     {
@@ -1078,7 +1078,7 @@ class Utility extends Common\SysUtility
 
     /**
      * @param $string
-     * @return mixed|string
+     * @return array|string|string[]
      */
     public static function removeAccents($string)
     {
@@ -1218,7 +1218,7 @@ class Utility extends Common\SysUtility
 
     /**
      * @param $field
-     * @return mixed|string
+     * @return string
      */
     public static function sanitizeFieldName($field)
     {
@@ -1396,7 +1396,7 @@ class Utility extends Common\SysUtility
      * @param int           $length
      * @param string        $etc
      * @param bool          $break_words
-     * @return mixed|string
+     * @return string
      * @author   Monte Ohrt <monte at ohrt dot com>, modified by Amos Robinson
      *           <amos dot robinson at gmail dot com>
      *           used in Block entries_scrolling.php
@@ -1583,7 +1583,7 @@ class Utility extends Common\SysUtility
      * @param string       $id_field
      * @param int          $id
      *
-     * @return mixed
+     * @return false|void
      */
     public static function cloneRecord($tableName, $id_field, $id)
     {

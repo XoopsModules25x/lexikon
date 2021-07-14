@@ -10,7 +10,7 @@ defined('XOOPS_ROOT_PATH') || exit('Restricted access');
 /**
  * @param $category
  * @param $item_id
- * @return mixed
+ * @return array|void
  */
 
 

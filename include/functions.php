@@ -947,7 +947,7 @@ function lx_getLinkedProfileFromId($userid)
 // functionset to assign terms with accentuated or umlaut initials to the adequate initial
 /**
  * @param $string
- * @return mixed|string
+ * @return array|string|string[]
  */
 function lx_removeAccents($string)
 {
@@ -1099,7 +1099,7 @@ function lx_seemsUtf8($Str)
 
 /**
  * @param $field
- * @return mixed|null|string|string[]
+ * @return string
  */
 function lx_sanitizeFieldName($field)
 {
