@@ -5,10 +5,10 @@ use Xmf\Request;
 defined('XOOPS_ROOT_PATH') || exit('Restricted access');
 
 /**
- * @param       $db
- * @param       $gperm_modid
- * @param null  $gperm_name
- * @param null  $gperm_itemid
+ * @param \XoopsDatabase $db
+ * @param                $gperm_modid
+ * @param null           $gperm_name
+ * @param null           $gperm_itemid
  * @return bool
  */
 function myDeleteByModule(\XoopsDatabase $db, $gperm_modid, $gperm_name = null, $gperm_itemid = null)

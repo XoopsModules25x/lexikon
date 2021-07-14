@@ -20,7 +20,7 @@
 //error_reporting(E_ALL);
 
 /**
- * @param $xoopsModule
+ * @param \XoopsObject $xoopsModule
  * @return bool
  */
 function xoops_module_install_lexikon(\XoopsObject $xoopsModule)
