@@ -6,6 +6,12 @@
 // ------------------------------------------------------------------------- //
 
 use Xmf\Request;
+use XoopsModules\Lexikon\{
+    GroupPermForm,
+    Helper,
+    Utility
+};
+/** @var Helper $helper */
 
 require dirname(__DIR__, 3) . '/include/cp_header.php';
 
@@ -296,7 +302,7 @@ function list_blockinstances()
             if ($block['show_func'] == $bconf['show_func'] && $block['func_file'] == $bconf['file']
                 && (empty($bconf['template']) || $block['template'] == $bconf['template'])) {
                 if (!empty($bconf['description'])) {
-                    $description4show = htmlspecialchars($bconf['description']);
+                    $description4show = htmlspecialchars($bconf['description'], ENT_QUOTES | ENT_HTML5);
                 }
             }
         }
