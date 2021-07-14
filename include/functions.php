@@ -1068,10 +1068,12 @@ function lx_seemsUtf8($Str)
     for ($i = 0, $iMax = mb_strlen($Str); $i < $iMax; ++$i) {
         if (ord($Str[$i]) < 0x80) {
             continue;
-        } # 0bbbbbbb
-        elseif (0xC0 == (ord($Str[$i]) & 0xE0)) {
+        }
+
+        if (0xC0 == (ord($Str[$i]) & 0xE0)) {
             $n = 1;
-        } # 110bbbbb
+        } # 0bbbbbbb
+        # 110bbbbb
         elseif (0xE0 == (ord($Str[$i]) & 0xF0)) {
             $n = 2;
         } # 1110bbbb
