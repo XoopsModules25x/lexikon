@@ -67,7 +67,7 @@ if (!function_exists('mb_ucfirst') && function_exists('mb_substr')) {
 // Counts
 $xoopsTpl->assign('multicats', (int)$helper->getConfig('multicats'));
 if (1 == $helper->getConfig('multicats')) {
-    $xoopsTpl->assign('totalcats', (int)$utility::countCats());
+    $xoopsTpl->assign('totalcats', $utility::countCats());
 }
 $publishedwords = $utility::countWords();
 $xoopsTpl->assign('publishedwords', $publishedwords);
