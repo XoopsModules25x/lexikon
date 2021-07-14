@@ -109,7 +109,7 @@ class Keyhighlighter
     {
         $buffer              = '>' . $buffer . '<';
         $this->preg_keywords = preg_replace('/[^\w ]/si', '', $this->keywords);
-        $buffer              = preg_replace_callback("/(\>(((?" . ">[^><]+)|(?R))*)\<)/is", [&$this, 'replace'], $buffer);
+        $buffer              = preg_replace_callback('/(\>(((?' . '>[^><]+)|(?R))*)\<)/is', [&$this, 'replace'], $buffer);
         $buffer              = xoops_substr($buffer, 1, -1, $trimmarker = '');
 
         return $buffer;

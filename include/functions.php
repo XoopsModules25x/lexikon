@@ -653,7 +653,7 @@ function lx_html2text($document)
 
     $text = preg_replace($search, $replace, $document);
 
-    $text = preg_replace_callback("&#(\d+)&", create_function('$matches', 'return chr($matches[1]);'), $text);
+    $text = preg_replace_callback('&#(\d+)&', create_function('$matches', 'return chr($matches[1]);'), $text);
 
     return $text;
 }
