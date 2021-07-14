@@ -25,8 +25,7 @@ $xoopsModule = XoopsModule::getByDirname('lexikon');
 
 ob_start();
 //lx_adminmenu(0, _PREFERENCES);
-$btnsbar = ob_get_contents();
-ob_end_clean();
+$btnsbar = ob_get_clean();
 
 /**
  * @param $buf

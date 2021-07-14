@@ -274,14 +274,12 @@ function entryEdit($entryID = '')
     // Author selector
     ob_start();
     $utility::getUserForm((int)$uid);
-    $sform->addElement(new \XoopsFormLabel(_AM_LEXIKON_AUTHOR, ob_get_contents()));
-    ob_end_clean();
+    $sform->addElement(new \XoopsFormLabel(_AM_LEXIKON_AUTHOR, ob_get_clean()));
 
     // Initial selector
     ob_start();
     lx_getinit((int)$init);
-    $sform->addElement(new \XoopsFormLabel(_AM_LEXIKON_INIT, ob_get_contents()));
-    ob_end_clean();
+    $sform->addElement(new \XoopsFormLabel(_AM_LEXIKON_INIT, ob_get_clean()));
 
     // Term, definition, reference and related URL
     $sform->addElement(new \XoopsFormText(_AM_LEXIKON_ENTRYTERM, 'term', 50, 80, $term), true);
