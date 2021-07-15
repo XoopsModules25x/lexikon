@@ -107,15 +107,21 @@ switch ($op) {
 
                 $selectorentryID = Utility::selectSorting(AM_LEXIKON_ENTRIES_ENTRYID, 'entryID');
                 $GLOBALS['xoopsTpl']->assign('selectorentryID', $selectorentryID);
-                $entriesArray['entryID'] = $entriesTempArray[$i]->getVar('entryID');
+                $entryID = $entriesTempArray[$i]->getVar('entryID');
+                $entriesArray['entryID'] = $entryID;
 
                 $selectorcategoryID = Utility::selectSorting(AM_LEXIKON_ENTRIES_CATEGORYID, 'categoryID');
                 $GLOBALS['xoopsTpl']->assign('selectorcategoryID', $selectorcategoryID);
-                $entriesArray['categoryID'] = $categoriesHandler->get($entriesTempArray[$i]->getVar('categoryID'))->getVar('name');
+                $categoryID = $entriesTempArray[$i]->getVar('categoryID');
+                $categoryName = $categoriesHandler->get($entriesTempArray[$i]->getVar('categoryID'))->getVar('name');
+                $entriesArray['categoryID']  = "<a href='../category.php?categoryID=" . $categoryID . "'>" .  $categoryName . "</a>";
 
                 $selectorterm = Utility::selectSorting(AM_LEXIKON_ENTRIES_TERM, 'term');
                 $GLOBALS['xoopsTpl']->assign('selectorterm', $selectorterm);
                 $entriesArray['term'] = $entriesTempArray[$i]->getVar('term');
+                $entryTerm = $entriesTempArray[$i]->getVar('term');
+                $entriesArray['term']  = "<a href='../entry.php?entryID=" . $entryID . "'>" .  $entryTerm . "</a>";
+
 
                 $selectorinit = Utility::selectSorting(AM_LEXIKON_ENTRIES_INIT, 'init');
                 $GLOBALS['xoopsTpl']->assign('selectorinit', $selectorinit);
@@ -134,10 +140,6 @@ switch ($op) {
                 $GLOBALS['xoopsTpl']->assign('selectorurl', $selectorurl);
                 $entriesArray['url'] = $entriesTempArray[$i]->getVar('url');
 
-                $selectoruid = Utility::selectSorting(AM_LEXIKON_ENTRIES_UID, 'uid');
-                $GLOBALS['xoopsTpl']->assign('selectoruid', $selectoruid);
-                $entriesArray['uid'] = \XoopsUserUtility::getUnameFromId($entriesTempArray[$i]->getVar('uid'));
-
                 $selectorsubmit = Utility::selectSorting(_SUBMIT, 'submit');
                 $GLOBALS['xoopsTpl']->assign('selectorsubmit', $selectorsubmit);
                 $entriesArray['submit'] = $entriesTempArray[$i]->getVar('submit');
@@ -149,6 +151,17 @@ switch ($op) {
                 $entriesArray['datesub'] = formatTimestamp($date, _SHORTDATESTRING);
 
                 //                formatTimestamp($date, 'd M Y')
+
+
+                $selectoruid = Utility::selectSorting(AM_LEXIKON_ENTRIES_UID, 'uid');
+                $GLOBALS['xoopsTpl']->assign('selectoruid', $selectoruid);
+                $userId = $entriesTempArray[$i]->getVar('uid');
+                $userName = \XoopsUserUtility::getUnameFromId($entriesTempArray[$i]->getVar('uid'));
+//                $entriesArray['uid'] = \XoopsUserUtility::getUnameFromId($entriesTempArray[$i]->getVar('uid'));
+
+                $entriesArray['uid']  = "<a href='" . XOOPS_URL ."/modules/profile/userinfo.php?uid=" . $userId . "'>" .  $userName . "</a>";
+
+
 
                 $selectorcounter = Utility::selectSorting(AM_LEXIKON_ENTRIES_COUNTER, 'counter');
                 $GLOBALS['xoopsTpl']->assign('selectorcounter', $selectorcounter);

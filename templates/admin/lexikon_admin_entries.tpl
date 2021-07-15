@@ -20,7 +20,6 @@
                     <th align="center" width="5%"><input name="allbox" title="allbox" id="allbox" onclick="xoopsCheckAll('select', 'allbox');" type="checkbox" title="Check All" value="Check All"></th>
                     <th class="center"><{$selectorentryID}></th>
                     <th class="center"><{$selectorcategoryID}></th>
-                    <th class="center"><{$selectoruid}></th>
                     <th class="center"><{$selectorterm}></th>
                     <{*<th class="center"><{$selectorinit}></th>*}>
                     <th class="center"><{$selectordefinition}></th>
@@ -28,6 +27,7 @@
                     <{*<th class="center"><{$selectorurl}></th>*}>
                     <{*<th class="center"><{$selectorsubmit}></th>*}>
                     <th class="center"><{$selectordatesub}></th>
+                    <th class="center"><{$selectoruid}></th>
                     <{*<th class="center"><{$selectorcounter}></th>*}>
                     <{*<th class="center"><{$selectorhtml}></th>*}>
                     <{*<th class="center"><{$selectorsmiley}></th>*}>
@@ -48,7 +48,6 @@
                         <td align="center" style="vertical-align:middle;"><input type="checkbox" name="entries_id[]" title="entries_id[]" id="entries_id[]" value="<{$entriesArray.entries_id|default:''}>"></td>
                         <td class='center'><{$entriesArray.entryID}></td>
                         <td class='center'><{$entriesArray.categoryID}></td>
-                        <td class='center'><{$entriesArray.uid}></td>
                         <td class='left'><{$entriesArray.term}></td>
                         <{*<td class='center'><{$entriesArray.init}></td>*}>
                         <td class='left'><{$entriesArray.definition}></td>
@@ -56,6 +55,7 @@
                         <{*<td class='center'><{$entriesArray.url}></td>*}>
                         <{*<td class='center'><{$entriesArray.submit}></td>*}>
                         <td class='center'><{$entriesArray.datesub}></td>
+                        <td class='center'><{$entriesArray.uid}></td>
                         <{*<td class='center'><{$entriesArray.counter}></td>*}>
                         <{*<td class='center'><{$entriesArray.html}></td>*}>
                         <{*<td class='center'><{$entriesArray.smiley}></td>*}>

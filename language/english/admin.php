@@ -54,7 +54,7 @@ define('_AM_LEXIKON_ENTRYCATNAME', 'Category name');
 define('_AM_LEXIKON_ENTRYCREATED', 'Created');
 define('_AM_LEXIKON_ENTRYCREATEDOK', 'The entry was created successfully!');
 define('_AM_LEXIKON_ENTRYDEF', '[*] Definition');
-define('_AM_LEXIKON_ENTRYID', 'Id');
+define('_AM_LEXIKON_ENTRYID', 'ID');
 define('_AM_LEXIKON_ENTRYISDELETED', 'The entry %s has been deleted.');
 define('_AM_LEXIKON_ENTRYISOFF', 'Entry is offline');
 define('_AM_LEXIKON_ENTRYISON', 'Entry is online');
@@ -328,7 +328,7 @@ define('AM_LEXIKON_CATEGORIES_DELETE', 'Delete categories');
 define('AM_LEXIKON_CATEGORIES_CATEGORYID', 'ID');
 define('AM_LEXIKON_CATEGORIES_NAME', 'Category');
 define('AM_LEXIKON_CATEGORIES_DESCRIPTION', 'Description');
-define('AM_LEXIKON_CATEGORIES_TOTAL', 'Total');
+define('AM_LEXIKON_CATEGORIES_TOTAL', 'Entries');
 define('AM_LEXIKON_CATEGORIES_WEIGHT', 'Weight');
 define('AM_LEXIKON_CATEGORIES_LOGOURL', 'Logo URL');
 // Entries

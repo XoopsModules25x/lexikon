@@ -97,11 +97,17 @@ switch ($op) {
 
                 $selectorcategoryID = Utility::selectSorting(AM_LEXIKON_CATEGORIES_CATEGORYID, 'categoryID');
                 $GLOBALS['xoopsTpl']->assign('selectorcategoryID', $selectorcategoryID);
-                $categoriesArray['categoryID'] = $categoriesTempArray[$i]->getVar('categoryID');
+                $categoryID = $categoriesTempArray[$i]->getVar('categoryID');
+                $categoriesArray['categoryID'] = $categoryID;
 
                 $selectorname = Utility::selectSorting(AM_LEXIKON_CATEGORIES_NAME, 'name');
                 $GLOBALS['xoopsTpl']->assign('selectorname', $selectorname);
-                $categoriesArray['name'] = $categoriesTempArray[$i]->getVar('name');
+//                $categoriesArray['name'] = $categoriesTempArray[$i]->getVar('name');
+
+                $categoriesArray['name'] = "<a href='../category.php?categoryID=" . $categoryID . "'>" . $categoriesTempArray[$i]->getVar('name') . "</a>";
+
+
+
 
                 $selectordescription = Utility::selectSorting(AM_LEXIKON_CATEGORIES_DESCRIPTION, 'description');
                 $GLOBALS['xoopsTpl']->assign('selectordescription', $selectordescription);

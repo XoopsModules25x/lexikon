@@ -25,12 +25,12 @@
 <tr class="<{cycle values="odd,even"}>">
 
 <td align="center" style="vertical-align:middle;"><input type="checkbox" name="categories_id[]"  title ="categories_id[]" id="categories_id[]" value="<{$categoriesArray.categories_id|default:''}>" ></td>
-<td class='center'><{$categoriesArray.categoryID}></td>
-<td class='center'><{$categoriesArray.name}></td>
+<td class='center' width='4%'><{$categoriesArray.categoryID}></td>
+<td class='center' width='7%'><{$categoriesArray.name}></td>
 <td class='left'><{$categoriesArray.description}></td>
-<td class='center'><{$categoriesArray.total}></td>
-<td class='center'><{$categoriesArray.weight}></td>
-<td class='center'><{$categoriesArray.logourl}></td>
+<td class='center' width='6%'><{$categoriesArray.total}></td>
+<td class='center' width='6%'><{$categoriesArray.weight}></td>
+<td class='center' width='7%'><{$categoriesArray.logourl}></td>
 
 
 <td class="center width5"><{$categoriesArray.edit_delete}></td>
