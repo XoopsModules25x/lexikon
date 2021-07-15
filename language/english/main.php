@@ -278,6 +278,7 @@ define('MD_LEXIKON_ENTRIES_NOTIFYPUB', 'Notify on Pub');
 define('MD_LEXIKON_ENTRIES_REQUEST', 'Request');
 define('MD_LEXIKON_ENTRIES_COMMENTS', 'Comments');
 define('MD_LEXIKON_ENTRIES_ITEM_TAG', 'Tag');
+define('MD_LEXIKON_ENTRIES_ONLINE', 'Online');
 
 /**
  * Get local Alphabet

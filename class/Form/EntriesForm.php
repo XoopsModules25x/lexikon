@@ -179,7 +179,7 @@ class EntriesForm extends \XoopsThemeForm
         $this->addElement($check_block);
         // Offline
         $offline       = $this->targetObject->isNew() ? 0 : $this->targetObject->getVar('offline');
-        $check_offline = new \XoopsFormCheckBox(\AM_LEXIKON_ENTRIES_OFFLINE, 'offline', $offline);
+        $check_offline = new \XoopsFormCheckBox(\MD_LEXIKON_ENTRIES_ONLINE, 'offline', $offline);
         $check_offline->addOption(1, ' ');
         $this->addElement($check_offline);
         // Notifypub

@@ -356,6 +356,7 @@ define('AM_LEXIKON_ENTRIES_NOTIFYPUB', 'Notify on Pub');
 define('AM_LEXIKON_ENTRIES_REQUEST', 'Request');
 define('AM_LEXIKON_ENTRIES_COMMENTS', 'Comments');
 define('AM_LEXIKON_ENTRIES_ITEM_TAG', 'Tag');
+define('AM_LEXIKON_ENTRIES_ONLINE', 'Online');
 //Blocks.php
 //Permissions
 define('AM_LEXIKON_PERMISSIONS_GLOBAL', 'Global permissions');

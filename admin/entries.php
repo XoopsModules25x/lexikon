@@ -187,10 +187,10 @@ switch ($op) {
                 $GLOBALS['xoopsTpl']->assign('selectorblock', $selectorblock);
                 $entriesArray['block'] = $entriesTempArray[$i]->getVar('block');
 
-                $selectoroffline = Utility::selectSorting(AM_LEXIKON_ENTRIES_OFFLINE, 'offline');
+                $selectoroffline = Utility::selectSorting(MD_LEXIKON_ENTRIES_ONLINE, 'online');
                 $GLOBALS['xoopsTpl']->assign('selectoroffline', $selectoroffline);
                 //                $entriesArray['offline'] = $entriesTempArray[$i]->getVar('offline');
-                $entriesArray['offline'] = (1 == $entriesTempArray[$i]->getVar('offline') ? $icons['1'] : "<border='0'>" . $icons['0']);
+                $entriesArray['offline'] = (1 == $entriesTempArray[$i]->getVar('offline') ? $icons['0'] : "<border='0'>" . $icons['1']);
 
                 $selectornotifypub = Utility::selectSorting(AM_LEXIKON_ENTRIES_NOTIFYPUB, 'notifypub');
                 $GLOBALS['xoopsTpl']->assign('selectornotifypub', $selectornotifypub);
