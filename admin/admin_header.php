@@ -10,48 +10,52 @@
  */
 
 /**
- * @copyright    XOOPS Project (http://xoops.org)
- * @license      GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
- * @package
- * @since
- * @author       XOOPS Development Team
+ * @copyright    XOOPS Project (https://xoops.org)
+ * @license      GNU GPL 2 or later (https://www.gnu.org/licenses/gpl-2.0.html)
+ * @author      XOOPS Development Team
  */
 
-$path = dirname(dirname(dirname(__DIR__)));
-include_once $path . '/mainfile.php';
-include_once $path . '/include/cp_functions.php';
+use Xmf\Module\Admin;
+use XoopsModules\Lexikon\{
+    Helper,
+    Utility
+};
+/** @var Admin $adminObject */
+/** @var Helper $helper */
+
+require dirname(__DIR__) . '/preloads/autoloader.php';
+
+$path = dirname(__DIR__, 3);
 require_once $path . '/include/cp_header.php';
-xoops_load('XoopsRequest');
+
+require_once dirname(__DIR__) . '/include/common.php';
+
 //if functions.php file exist
-require_once __DIR__ . '/../class/Utility.php';
-//include_once $path."/modules/lexikon/class/Utility.php";
-include_once __DIR__ . '/../admin/functions.php';
-include_once __DIR__ . '/../class/lexikontree.php'; // -- LionHell
-include_once $path . '/class/xoopslists.php';
-include_once $path . '/class/xoopsformloader.php';
+// require_once  dirname(__DIR__) . '/class/Utility.php';
+require_once dirname(__DIR__) . '/admin/functions.php';
+// require_once  dirname(__DIR__) . '/class/LexikonTree.php'; // -- LionHell
+require_once $path . '/class/xoopslists.php';
+require_once $path . '/class/xoopsformloader.php';
 
-if (!isset($moduleDirName)) {
-    $moduleDirName = basename(dirname(__DIR__));
-}
+$moduleDirName = \basename(\dirname(__DIR__));
 
-if (false !== ($moduleHelper = Xmf\Module\Helper::getHelper($moduleDirName))) {
-} else {
-    $moduleHelper = Xmf\Module\Helper::getHelper('system');
-}
-$adminObject = \Xmf\Module\Admin::getInstance();
+$helper = Helper::getInstance();
 
-$pathIcon16    = \Xmf\Module\Admin::iconUrl('', 16);
-$pathIcon32    = \Xmf\Module\Admin::iconUrl('', 32);
-$pathModIcon32 = $moduleHelper->getModule()->getInfo('modicons32');
+/** @var Xmf\Module\Admin $adminObject */
+$adminObject = Admin::getInstance();
+
+$pathIcon16    = Admin::iconUrl('', 16);
+$pathIcon32    = Admin::iconUrl('', 32);
+$pathModIcon32 = $helper->getModule()->getInfo('modicons32');
 
 // Load language files
-$moduleHelper->loadLanguage('admin');
-$moduleHelper->loadLanguage('modinfo');
-$moduleHelper->loadLanguage('main');
+$helper->loadLanguage('admin');
+$helper->loadLanguage('modinfo');
+$helper->loadLanguage('main');
 
-$myts = MyTextSanitizer::getInstance();
+$myts = \MyTextSanitizer::getInstance();
 
-if (!isset($GLOBALS['xoopsTpl']) || !($GLOBALS['xoopsTpl'] instanceof XoopsTpl)) {
-    include_once $GLOBALS['xoops']->path('class/template.php');
-    $xoopsTpl = new XoopsTpl();
+if (!isset($GLOBALS['xoopsTpl']) || !($GLOBALS['xoopsTpl'] instanceof \XoopsTpl)) {
+    require_once $GLOBALS['xoops']->path('class/template.php');
+    $xoopsTpl = new \XoopsTpl();
 }

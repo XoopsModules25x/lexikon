@@ -1,38 +1,44 @@
 <?php
 /**
- *
  * Module: Lexikon - glossary module
- * Version: v 1.00
- * Release Date: 18 Dec 2011
  * Author: Yerres
  * Licence: GNU
  */
 
+
+use Xmf\Request;
+use XoopsModules\Lexikon\{
+    Helper,
+    Utility
+};
+/** @var Helper $helper */
+
 global $xoopsModule, $xoopsUser;
 
-include __DIR__ . '/../../mainfile.php';
+require_once \dirname(__DIR__, 2) . '/mainfile.php';
 $GLOBALS['xoopsLogger']->activated = false;
 if (function_exists('mb_http_output')) {
     mb_http_output('pass');
 }
 //error_reporting(E_ALL |E_ERROR | E_WARNING | E_PARSE);
 header('Content-Type:text/xml; charset=utf-8');
-include_once $GLOBALS['xoops']->path('class/template.php');
-$tpl                 = new XoopsTpl();
+require_once $GLOBALS['xoops']->path('class/template.php');
+$tpl                 = new \XoopsTpl();
 $tpl->caching        = 0;
 $tpl->cache_lifetime = 3600;
 
-$db           = XoopsDatabaseFactory::getDatabaseConnection();
-$myts         = MyTextSanitizer::getInstance();
-$category_rss = isset($_GET['categoryID']) ? $_GET['categoryID'] : 0;
+$db           = \XoopsDatabaseFactory::getDatabaseConnection();
+$myts         = \MyTextSanitizer::getInstance();
+$category_rss = Request::getInt('categoryID', 0, 'GET');
 //permissions
-$gpermHandler = xoops_getHandler('groupperm');
-$groups        = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
-/** @var XoopsModuleHandler $moduleHandler */
+/** @var \XoopsGroupPermHandler $grouppermHandler */
+$grouppermHandler = xoops_getHandler('groupperm');
+$groups           = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
+/** @var \XoopsModuleHandler $moduleHandler */
 $moduleHandler = xoops_getHandler('module');
 $module        = $moduleHandler->getByDirname('lexikon');
 $module_id     = $module->getVar('mid');
-$allowed_cats  = $gpermHandler->getItemIds('lexikon_view', $groups, $module_id);
+$allowed_cats  = $grouppermHandler->getItemIds('lexikon_view', $groups, $module_id);
 $catids        = implode(',', $allowed_cats);
 $catperms      = " AND categoryID IN ($catids) ";
 
@@ -93,14 +99,17 @@ if (!$tpl->is_cached('db:lexikon_rss.tpl')) {
         $tpl->assign('image_width', $width);
         $tpl->assign('image_height', $height);
     }
-    while ($row = $db->fetchArray($result)) {
-        $tpl->append('items', array(
-            'title'       => htmlspecialchars($row['term'], ENT_QUOTES, 'utf-8'),
-            'link'        => XOOPS_URL . '/modules/lexikon/entry.php?entryID=' . $row['entryID'],
-            'guid'        => XOOPS_URL . '/modules/lexikon/entry.php?entryID=' . $row['entryID'],
-            'pubdate'     => formatTimestamp($row['datesub'], 'rss'),
-            'description' => htmlspecialchars($myts->displayTarea($row['definition'], 1, 1, 1), ENT_QUOTES)
-        ));
+    while (false !== ($row = $db->fetchArray($result))) {
+        $tpl->append(
+            'items',
+            [
+                'title'       => htmlspecialchars($row['term'], ENT_QUOTES, 'utf-8'),
+                'link'        => XOOPS_URL . '/modules/lexikon/entry.php?entryID=' . $row['entryID'],
+                'guid'        => XOOPS_URL . '/modules/lexikon/entry.php?entryID=' . $row['entryID'],
+                'pubdate'     => formatTimestamp($row['datesub'], 'rss'),
+                'description' => htmlspecialchars($myts->displayTarea($row['definition'], 1, 1, 1), ENT_QUOTES),
+            ]
+        );
     }
 }
 $tpl->display('db:lexikon_rss.tpl');

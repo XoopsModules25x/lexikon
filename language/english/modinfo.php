@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * Module: Lexikon - glossary module
  * Version: v 1.00
  * Release Date: 8 May 2004
@@ -82,8 +81,7 @@ define('_MI_LEXIKON_MAILTOADMINDSC', "If set to 'Yes', the manager will receive 
 
 ++$cf;
 define('_MI_LEXIKON_MAILTOSENDER', "$cf. Send mail to user on each new submission?");
-define('_MI_LEXIKON_MAILTOSENDERDSC',
-       "If set to 'Yes', the user will receive a confirmation e-mail for every modified, submitted or requested entry. If 'Notify on publish' is ticked, the user will as well receive a confirmation e-mail on publication of the entry.");
+define('_MI_LEXIKON_MAILTOSENDERDSC', "If set to 'Yes', the user will receive a confirmation e-mail for every modified, submitted or requested entry. If 'Notify on publish' is ticked, the user will as well receive a confirmation e-mail on publication of the entry.");
 ++$cf;
 
 define('_MI_LEXIKON_RANDOMLENGTH', "$cf. Length of string to show in random definitions?");
@@ -95,8 +93,7 @@ define('_MI_LEXIKON_LINKTERMSDSC', "If set to 'yes', will automatically link in 
 
 ++$cf;
 define('_MI_LEXIKON_FORM_OPTIONS', "$cf. Form Option");
-define('_MI_LEXIKON_FORM_OPTIONSDSC',
-       'What kind of editor would you like to use. <br>Please note that if you choose any other editor than the Xoops-DHTML-Editor, it must be installed under class/xoopseditor.');
+define('_MI_LEXIKON_FORM_OPTIONSDSC', 'What kind of editor would you like to use. <br>Please note that if you choose any other editor than the Xoops-DHTML-Editor, it must be installed under class/xoopseditor.');
 
 ++$cf;
 define('_MI_LEXIKON_EDIGUEST', "$cf. Form Options for submissions");
@@ -162,13 +159,12 @@ define('_MI_LEXIKON_SYNDICATIONDSC', "If you set this option to 'Yes', users wil
 
 // new configs in version 1.52
 $cf++;
-define("_MI_LEXIKON_IMGUPLOADWD","$cf. Max height/width for image upload");
-define("_MI_LEXIKON_IMGUPLOADWD_DESC","Define the maximum height/width in pixel for uploading an image");
+define('_MI_LEXIKON_IMGUPLOADWD', "$cf. Max height/width for image upload");
+define('_MI_LEXIKON_IMGUPLOADWD_DESC', 'Define the maximum height/width in pixel for uploading an image');
 $cf++;
-define("_MI_LEXIKON_IMGUPLOADSIZE","$cf. Max size for image upload");
-define("_MI_LEXIKON_IMGUPLOADSIZE_DESC","Define the maximum size in bytes (10485760 = 1 MB) for uploading an image");
+define('_MI_LEXIKON_IMGUPLOADSIZE', "$cf. Max size for image upload");
+define('_MI_LEXIKON_IMGUPLOADSIZE_DESC', 'Define the maximum size in bytes (10485760 = 1 MB) for uploading an image');
 // end new configs in 1.52
-
 
 // bookmarks
 define('_MI_LEXIKON_ADDTHIS1', 'Use Addthis Popup window');
@@ -256,13 +252,126 @@ define('_MI_LEXIKON_TERM_APPROVE_NOTIFYCAP', 'Notify me when this term is approv
 define('_MI_LEXIKON_TERM_APPROVE_NOTIFYDSC', 'Receive notification when this term is approved.');
 define('_MI_LEXIKON_TERM_APPROVE_NOTIFYSBJ', '[{X_SITENAME}] {X_MODULE} auto-notify : Term approved');
 
-//
 define('_MI_LEXIKON_IMPORT', 'Import');
 
 //1.52
 //Help
-define('_MI_LEXIKON_DIRNAME', basename(dirname(dirname(__DIR__))));
-define('_MI_LEXIKON_HELP_HEADER', __DIR__ . '/help/helpheader.html');
+define('_MI_LEXIKON_DIRNAME', basename(dirname(__DIR__, 2)));
+define('_MI_LEXIKON_HELP_HEADER', __DIR__ . '/help/helpheader.tpl');
 define('_MI_LEXIKON_BACK_2_ADMIN', 'Back to Administration of ');
 define('_MI_LEXIKON_HELP_OVERVIEW', 'Overview');
 define('_MI_LEXIKON_NAME', 'Lexikon');
+
+define('_MI_LEXIKON_BLOCKADMIN', 'Blocks Admin');
+
+define('_MI_LEXIKON_SHOWSUBMISSIONS', 'Submissions');
+define('_MI_LEXIKON_HOME', 'Home');
+define('_MI_LEXIKON_ABOUT', 'About');
+
+// Admin
+define('MI_LEXIKON_NAME', 'Lexikon');
+define('MI_LEXIKON_DESC', 'This module is for doing following...');
+//Menu
+define('MI_LEXIKON_ADMENU1', 'Home');
+define('MI_LEXIKON_ADMENU2', 'Category');
+define('MI_LEXIKON_ADMENU3', 'Entries');
+define('MI_LEXIKON_ADMENU4', 'Permissions');
+define('MI_LEXIKON_ADMENU5', 'About');
+//Blocks
+define('MI_LEXIKON_CATEGORY_BLOCK', 'Category block');
+define('MI_LEXIKON_ENTRIES_BLOCK', 'Entries block');
+//Config
+define('MI_LEXIKON_EDITOR_ADMIN', 'Editor: Admin');
+define('MI_LEXIKON_EDITOR_ADMIN_DESC', 'Select the Editor to use by the Admin');
+define('MI_LEXIKON_EDITOR_USER', 'Editor: User');
+define('MI_LEXIKON_EDITOR_USER_DESC', 'Select the Editor to use by the User');
+define('MI_LEXIKON_KEYWORDS', 'Keywords');
+define('MI_LEXIKON_KEYWORDS_DESC', 'Insert here the keywords (separate by comma)');
+define('MI_LEXIKON_ADMINPAGER', 'Admin: records / page');
+define('MI_LEXIKON_ADMINPAGER_DESC', 'Admin: # of records shown per page');
+define('MI_LEXIKON_USERPAGER', 'User: records / page');
+define('MI_LEXIKON_USERPAGER_DESC', 'User: # of records shown per page');
+define('MI_LEXIKON_MAXSIZE', 'Max size');
+define('MI_LEXIKON_MAXSIZE_DESC', 'Set a number of max size uploads file in byte');
+define('MI_LEXIKON_MIMETYPES', 'Mime Types');
+define('MI_LEXIKON_MIMETYPES_DESC', 'Set the mime types selected');
+define('MI_LEXIKON_IDPAYPAL', 'Paypal ID');
+define('MI_LEXIKON_IDPAYPAL_DESC', 'Insert here your PayPal ID for donactions.');
+define('MI_LEXIKON_ADVERTISE', 'Advertisement Code');
+define('MI_LEXIKON_ADVERTISE_DESC', 'Insert here the advertisement code');
+define('MI_LEXIKON_BOOKMARKS', 'Social Bookmarks');
+define('MI_LEXIKON_BOOKMARKS_DESC', 'Show Social Bookmarks in the form');
+define('MI_LEXIKON_FBCOMMENTS', 'Facebook comments');
+define('MI_LEXIKON_FBCOMMENTS_DESC', 'Allow Facebook comments in the form');
+// Notifications
+define('MI_LEXIKON_GLOBAL_NOTIFY', 'Allow Facebook comments in the form');
+define('MI_LEXIKON_GLOBAL_NOTIFY_DESC', 'Allow Facebook comments in the form');
+define('MI_LEXIKON_CATEGORY_NOTIFY', 'Allow Facebook comments in the form');
+define('MI_LEXIKON_CATEGORY_NOTIFY_DESC', 'Allow Facebook comments in the form');
+define('MI_LEXIKON_FILE_NOTIFY', 'Allow Facebook comments in the form');
+define('MI_LEXIKON_FILE_NOTIFY_DESC', 'Allow Facebook comments in the form');
+define('MI_LEXIKON_GLOBAL_NEWCATEGORY_NOTIFY', 'Allow Facebook comments in the form');
+define('MI_LEXIKON_GLOBAL_NEWCATEGORY_NOTIFY_CAPTION', 'Allow Facebook comments in the form');
+define('MI_LEXIKON_GLOBAL_NEWCATEGORY_NOTIFY_DESC', 'Allow Facebook comments in the form');
+define('MI_LEXIKON_GLOBAL_NEWCATEGORY_NOTIFY_SUBJECT', 'Allow Facebook comments in the form');
+define('MI_LEXIKON_GLOBAL_FILEMODIFY_NOTIFY', 'Allow Facebook comments in the form');
+define('MI_LEXIKON_GLOBAL_FILEMODIFY_NOTIFY_CAPTION', 'Allow Facebook comments in the form');
+define('MI_LEXIKON_GLOBAL_FILEMODIFY_NOTIFY_DESC', 'Allow Facebook comments in the form');
+define('MI_LEXIKON_GLOBAL_FILEMODIFY_NOTIFY_SUBJECT', 'Allow Facebook comments in the form');
+define('MI_LEXIKON_GLOBAL_FILEBROKEN_NOTIFY', 'Allow Facebook comments in the form');
+define('MI_LEXIKON_GLOBAL_FILEBROKEN_NOTIFY_CAPTION', 'Allow Facebook comments in the form');
+define('MI_LEXIKON_GLOBAL_FILEBROKEN_NOTIFY_DESC', 'Allow Facebook comments in the form');
+define('MI_LEXIKON_GLOBAL_FILEBROKEN_NOTIFY_SUBJECT', 'Allow Facebook comments in the form');
+define('MI_LEXIKON_GLOBAL_FILESUBMIT_NOTIFY', 'Allow Facebook comments in the form');
+define('MI_LEXIKON_GLOBAL_FILESUBMIT_NOTIFY_CAPTION', 'Allow Facebook comments in the form');
+define('MI_LEXIKON_GLOBAL_FILESUBMIT_NOTIFY_DESC', 'Allow Facebook comments in the form');
+define('MI_LEXIKON_GLOBAL_FILESUBMIT_NOTIFY_SUBJECT', 'Allow Facebook comments in the form');
+define('MI_LEXIKON_GLOBAL_NEWFILE_NOTIFY', 'Allow Facebook comments in the form');
+define('MI_LEXIKON_GLOBAL_NEWFILE_NOTIFY_CAPTION', 'Allow Facebook comments in the form');
+define('MI_LEXIKON_GLOBAL_NEWFILE_NOTIFY_DESC', 'Allow Facebook comments in the form');
+define('MI_LEXIKON_GLOBAL_NEWFILE_NOTIFY_SUBJECT', 'Allow Facebook comments in the form');
+define('MI_LEXIKON_CATEGORY_FILESUBMIT_NOTIFY', 'Allow Facebook comments in the form');
+define('MI_LEXIKON_CATEGORY_FILESUBMIT_NOTIFY_CAPTION', 'Allow Facebook comments in the form');
+define('MI_LEXIKON_CATEGORY_FILESUBMIT_NOTIFY_DESC', 'Allow Facebook comments in the form');
+define('MI_LEXIKON_CATEGORY_FILESUBMIT_NOTIFY_SUBJECT', 'Allow Facebook comments in the form');
+define('MI_LEXIKON_CATEGORY_NEWFILE_NOTIFY', 'Allow Facebook comments in the form');
+define('MI_LEXIKON_CATEGORY_NEWFILE_NOTIFY_CAPTION', 'Allow Facebook comments in the form');
+define('MI_LEXIKON_CATEGORY_NEWFILE_NOTIFY_DESC', 'Allow Facebook comments in the form');
+define('MI_LEXIKON_CATEGORY_NEWFILE_NOTIFY_SUBJECT', 'Allow Facebook comments in the form');
+define('MI_LEXIKON_FILE_APPROVE_NOTIFY', 'Allow Facebook comments in the form');
+define('MI_LEXIKON_FILE_APPROVE_NOTIFY_CAPTION', 'Allow Facebook comments in the form');
+define('MI_LEXIKON_FILE_APPROVE_NOTIFY_DESC', 'Allow Facebook comments in the form');
+define('MI_LEXIKON_FILE_APPROVE_NOTIFY_SUBJECT', 'Allow Facebook comments in the form');
+
+// Help
+define('MI_LEXIKON_DIRNAME', basename(dirname(__DIR__, 2)));
+define('MI_LEXIKON_HELP_HEADER', __DIR__ . '/help/helpheader.tpl');
+define('MI_LEXIKON_BACK_2_ADMIN', 'Back to Administration of ');
+define('MI_LEXIKON_OVERVIEW', 'Overview');
+// The name of this module
+//define('MI_LEXIKON_NAME', 'YYYYY Module Name');
+
+//define('MI_LEXIKON_HELP_DIR', __DIR__);
+
+//help multi-page
+define('MI_LEXIKON_DISCLAIMER', 'Disclaimer');
+define('MI_LEXIKON_LICENSE', 'License');
+define('MI_LEXIKON_SUPPORT', 'Support');
+//define('MI_LEXIKON_REQUIREMENTS', 'Requirements');
+//define('MI_LEXIKON_CREDITS', 'Credits');
+//define('MI_LEXIKON_HOWTO', 'How To');
+//define('MI_LEXIKON_UPDATE', 'Update');
+//define('MI_LEXIKON_INSTALL', 'Install');
+//define('MI_LEXIKON_HISTORY', 'History');
+//define('MI_LEXIKON_HELP1', 'YYYYY');
+//define('MI_LEXIKON_HELP2', 'YYYYY');
+//define('MI_LEXIKON_HELP3', 'YYYYY');
+//define('MI_LEXIKON_HELP4', 'YYYYY');
+//define('MI_LEXIKON_HELP5', 'YYYYY');
+//define('MI_LEXIKON_HELP6', 'YYYYY');
+
+// Permissions Groups
+define('MI_LEXIKON_GROUPS', 'Groups access');
+define('MI_LEXIKON_GROUPS_DESC', 'Select general access permission for groups.');
+define('MI_LEXIKON_ADMINGROUPS', 'Admin Group Permissions');
+define('MI_LEXIKON_ADMINGROUPS_DESC', 'Which groups have access to tools and permissions page');

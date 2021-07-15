@@ -1,59 +1,111 @@
 <?php
 /**
- *
  * Module: lexikon
  * Licence: GNU
  */
 
+use Xmf\Module\Admin;
+use XoopsModules\Lexikon\{
+    Helper
+};
+/** @var Admin $adminObject */
+/** @var Helper $helper */
 
 
-if (!isset($moduleDirName)) {
-    $moduleDirName = basename(dirname(__DIR__));
+include dirname(__DIR__) . '/preloads/autoloader.php';
+
+$moduleDirName = \basename(\dirname(__DIR__));
+$moduleDirNameUpper = mb_strtoupper($moduleDirName);
+
+$helper = Helper::getInstance();
+$helper->loadLanguage('common');
+$helper->loadLanguage('feedback');
+
+$pathIcon32 = Admin::menuIconPath('');
+$pathModIcon32 = XOOPS_URL .   '/modules/' . $moduleDirName . '/assets/images/icons/32/';
+if (is_object($helper->getModule()) && false !== $helper->getModule()->getInfo('modicons32')) {
+    $pathModIcon32 = $helper->url($helper->getModule()->getInfo('modicons32'));
 }
 
-if (false !== ($moduleHelper = Xmf\Module\Helper::getHelper($moduleDirName))) {
-} else {
-    $moduleHelper = Xmf\Module\Helper::getHelper('system');
+
+$adminmenu[] = [
+    'title' => _MI_LEXIKON_HOME,
+    'link'  => 'admin/index.php',
+    'icon'  => $pathIcon32 . '/home.png',
+];
+
+//$adminmenu[] = [
+//    'title' => _MI_LEXIKON_ADMENU1,
+//    'link'  => 'admin/main.php',
+//    'icon'  => $pathIcon32 . '/manage.png',
+//];
+//
+//$adminmenu[] = [
+//    'title' => _MI_LEXIKON_ADMENU2,
+//    'link'  => 'admin/category.php',
+//    'icon'  => $pathIcon32 . '/category.png',
+//];
+//
+//$adminmenu[] = [
+//    'title' => _MI_LEXIKON_ADMENU3,
+//    'link'  => 'admin/entry.php',
+//    'icon'  => $pathIcon32 . '/add.png',
+//];
+
+$adminmenu[] = [
+    'title' => _MI_LEXIKON_ADMENU2,
+    'link'  => 'admin/categories.php',
+    'icon'  => $pathIcon32 . '/category.png',
+];
+
+$adminmenu[] = [
+    'title' => _MI_LEXIKON_ADMENU3,
+    'link'  => 'admin/entries.php',
+    'icon'  => $pathIcon32 . '/add.png',
+];
+
+$adminmenu[] = [
+    'title' => _MI_LEXIKON_ADMENU12,
+    'link'  => 'admin/statistics.php',
+    'icon'  => $pathIcon32 . '/stats.png',
+];
+
+$adminmenu[] = [
+    'title' => _MI_LEXIKON_SHOWSUBMISSIONS,
+    'link'  => 'admin/submissions.php',
+    'icon'  => $pathIcon32 . '/event.png',
+];
+
+$adminmenu[] = [
+    'title' => _MI_LEXIKON_ADMENU9,
+    'link'  => 'admin/permissions.php',
+    'icon'  => $pathIcon32 . '/permissions.png',
+];
+
+$adminmenu[] = [
+    'title' => _MI_LEXIKON_BLOCKADMIN,
+    'link'  => 'admin/myblocksadmin.php',
+    'icon'  => $pathIcon32 . '/block.png',
+];
+
+$adminmenu[] = [
+    'title' => _MI_LEXIKON_IMPORT,
+    'link'  => 'admin/importwordbook.php',
+    'icon'  => $pathIcon32 . '/compfile.png',
+];
+
+if (is_object($helper->getModule()) && $helper->getConfig('displayDeveloperTools')) {
+    $adminmenu[] = [
+        'title' => constant('CO_' . $moduleDirNameUpper . '_' . 'ADMENU_MIGRATE'),
+        'link' => 'admin/migrate.php',
+        'icon' => $pathIcon32 . '/database_go.png',
+    ];
 }
-$adminObject = \Xmf\Module\Admin::getInstance();
 
-$pathIcon32    = \Xmf\Module\Admin::menuIconPath('');
-//$pathModIcon32 = $moduleHelper->getModule()->getInfo('modicons32');
+$adminmenu[] = [
+    'title' => _MI_LEXIKON_ABOUT,
+    'link'  => 'admin/about.php',
+    'icon'  => $pathIcon32 . '/about.png',
+];
 
-$moduleHelper->loadLanguage('modinfo');
 
-$adminObject              = array();
-$i                      = 0;
-$adminmenu[$i]['title'] = _AM_MODULEADMIN_HOME;
-$adminmenu[$i]['link']  = 'admin/index.php';
-$adminmenu[$i]['icon']  = $pathIcon32 . '/home.png';
-++$i;
-$adminmenu[$i]['title'] = _MI_LEXIKON_ADMENU1;
-$adminmenu[$i]['link']  = 'admin/main.php';
-$adminmenu[$i]['icon']  = $pathIcon32 . '/manage.png';
-++$i;
-$adminmenu[$i]['title'] = _MI_LEXIKON_ADMENU2;
-$adminmenu[$i]['link']  = 'admin/category.php';
-$adminmenu[$i]['icon']  = $pathIcon32 . '/category.png';
-++$i;
-$adminmenu[$i]['title'] = _MI_LEXIKON_ADMENU3;
-$adminmenu[$i]['link']  = 'admin/entry.php';
-$adminmenu[$i]['icon']  = $pathIcon32 . '/add.png';
-++$i;
-$adminmenu[$i]['title'] = _MI_LEXIKON_ADMENU12;
-$adminmenu[$i]['link']  = 'admin/statistics.php';
-$adminmenu[$i]['icon']  = $pathIcon32 . '/stats.png';
-++$i;
-$adminmenu[$i]['title'] = _MI_LEXIKON_ADMENU9;
-$adminmenu[$i]['link']  = 'admin/permissions.php';
-$adminmenu[$i]['icon']  = $pathIcon32 . '/permissions.png';
-
-++$i;
-$adminmenu[$i]['title'] = _MI_LEXIKON_IMPORT;
-$adminmenu[$i]['link']  = 'admin/importwordbook.php';
-$adminmenu[$i]['icon']  = $pathIcon32 . '/compfile.png';
-
-++$i;
-$adminmenu[$i]['title'] = _AM_MODULEADMIN_ABOUT;
-$adminmenu[$i]['link']  = 'admin/about.php';
-$adminmenu[$i]['icon']  = $pathIcon32 . '/about.png';

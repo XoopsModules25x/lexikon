@@ -1,4 +1,4 @@
-Lexikon Language Differences 
+Lexikon Language Differences
 
 Legend :
 + Added

@@ -1,4 +1,19 @@
-1.52 Beta 2         2017-02-06
+<h5>1.53 Beta 2   [2020-11-15]</h5>  Dev: XOOPS 2.5.11, PHP 7.4.12, PHP 8.0 RC 4
+<hr>
+- PHP7, PHP8 adjustments (mamba)
+- testdata (mamba)
+- migrate (mamba)
+
+
+<h5>1.53 Beta 1     [NOT RELEASED]</h5>  Dev: Xoops 2.5.9, PHP 7.2.3
+<hr>
+- replaced $xoopsGTicket to $GLOBALS['xoopsSecurity'] (mamba)
+- added namespaces (mamba)
+- added Request (mamba)
+- added LetterChoice highlighting available items (mamba)
+
+
+1.52 Beta 2       NOT RELEASED
 =================================
 - started conversion to XMF (mamba)
 - standard copyright headers (mamba)
@@ -7,7 +22,6 @@
 - adjusted DB defaults for 'item_tag' (mamba)
 - changed extensions to .tpl (mamba)
 - redirect changes it case of error (aerograf/bleekk)
-
 
 1.52 Beta 1       NOT RELEASED
 =================================
@@ -48,7 +62,7 @@ Remaining bugs: Tags keywords not saved on item creation. Must be re-entered on 
 - Replaced text by language constant in importwordbook.php
 - Category image by default fixed.
 - HTML bug on category startpage fixed.
-- XoopsUserUtlity bug in statistics.php fixed.
+- \XoopsUserUtlity bug in statistics.php fixed.
 
 Remaining bugs: XoopsTree deprecated , tags keywords not saved on item creation. Must be re-entered on item edit.
 

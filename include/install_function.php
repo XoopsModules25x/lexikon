@@ -10,11 +10,9 @@
  */
 
 /**
- * @copyright    {@link http://xoops.org/ XOOPS Project}
- * @license      {@link http://www.gnu.org/licenses/gpl-2.0.html GNU GPL 2 or later}
- * @package
- * @since
- * @author       XOOPS Development Team
+ * @copyright    {@link https://xoops.org/ XOOPS Project}
+ * @license      {@link https://www.gnu.org/licenses/gpl-2.0.html GNU GPL 2 or later}
+ * @author      XOOPS Development Team
  */
 
 //from extgallery
@@ -22,13 +20,15 @@
 //error_reporting(E_ALL);
 
 /**
- * @param $xoopsModule
+ * @param \XoopsObject $xoopsModule
  * @return bool
  */
-function xoops_module_install_lexikon(XoopsObject $xoopsModule)
+function xoops_module_install_lexikon(\XoopsObject $xoopsModule)
 {
     $module_id = $xoopsModule->getVar('mid');
-    $gpermHandler  = xoops_getHandler('groupperm');
+    /** @var \XoopsGroupPermHandler $grouppermHandler */
+    $grouppermHandler = xoops_getHandler('groupperm');
+    /** @var \XoopsConfigHandler $configHandler */
     $configHandler = xoops_getHandler('config');
 
     /**
@@ -36,62 +36,72 @@ function xoops_module_install_lexikon(XoopsObject $xoopsModule)
      */
 
     // Access right
-    $gpermHandler->addRight('lexikon_view', 1, XOOPS_GROUP_ADMIN, $module_id);
-    $gpermHandler->addRight('lexikon_view', 1, XOOPS_GROUP_USERS, $module_id);
-    $gpermHandler->addRight('lexikon_view', 1, XOOPS_GROUP_ANONYMOUS, $module_id);
+    $grouppermHandler->addRight('lexikon_view', 1, XOOPS_GROUP_ADMIN, $module_id);
+    $grouppermHandler->addRight('lexikon_view', 1, XOOPS_GROUP_USERS, $module_id);
+    $grouppermHandler->addRight('lexikon_view', 1, XOOPS_GROUP_ANONYMOUS, $module_id);
 
     // Public submit
-    $gpermHandler->addRight('lexikon_submit', 1, XOOPS_GROUP_ADMIN, $module_id);
-    $gpermHandler->addRight('lexikon_submit', 1, XOOPS_GROUP_USERS, $module_id);
+    $grouppermHandler->addRight('lexikon_submit', 1, XOOPS_GROUP_ADMIN, $module_id);
+    $grouppermHandler->addRight('lexikon_submit', 1, XOOPS_GROUP_USERS, $module_id);
 
     // Public request
-    $gpermHandler->addRight('lexikon_request', 1, XOOPS_GROUP_ADMIN, $module_id);
-    $gpermHandler->addRight('lexikon_request', 1, XOOPS_GROUP_USERS, $module_id);
-    $gpermHandler->addRight('lexikon_request', 1, XOOPS_GROUP_ANONYMOUS, $module_id);
+    $grouppermHandler->addRight('lexikon_request', 1, XOOPS_GROUP_ADMIN, $module_id);
+    $grouppermHandler->addRight('lexikon_request', 1, XOOPS_GROUP_USERS, $module_id);
+    $grouppermHandler->addRight('lexikon_request', 1, XOOPS_GROUP_ANONYMOUS, $module_id);
 
     /**
      * Create default upload directories
      */
     // Copy base file
-    $indexFile = XOOPS_UPLOAD_PATH.'/index.html';
-    $blankFile = XOOPS_UPLOAD_PATH.'/blank.gif';
+    $indexFile = XOOPS_UPLOAD_PATH . '/index.html';
+    $blankFile = XOOPS_UPLOAD_PATH . '/blank.gif';
     // Making of uploads/lexikon folder
-    $p_lexikon = XOOPS_UPLOAD_PATH.'/lexikon';
-    if(!is_dir($p_lexikon)) {
-        mkdir($p_lexikon, 0777);
+    $p_lexikon = XOOPS_UPLOAD_PATH . '/lexikon';
+    if (!is_dir($p_lexikon)) {
+        if (!mkdir($p_lexikon, 0777) && !is_dir($p_lexikon)) {
+            throw new \RuntimeException(sprintf('Directory "%s" was not created', $p_lexikon));
+        }
         chmod($p_lexikon, 0777);
     }
-    copy($indexFile, $p_lexikon.'/index.html');
+    copy($indexFile, $p_lexikon . '/index.html');
     // Making of categories folder
-    $pl_categories = $p_lexikon.'/categories';
-    if(!is_dir($pl_categories)) {
-        mkdir($pl_categories, 0777);
+    $pl_categories = $p_lexikon . '/categories';
+    if (!is_dir($pl_categories)) {
+        if (!mkdir($pl_categories, 0777) && !is_dir($pl_categories)) {
+            throw new \RuntimeException(sprintf('Directory "%s" was not created', $pl_categories));
+        }
         chmod($pl_categories, 0777);
     }
-    copy($indexFile, $pl_categories.'/index.html');
+    copy($indexFile, $pl_categories . '/index.html');
 
-    $plc_images = $pl_categories.'/images';
-    if(!is_dir($plc_images)) {
-        mkdir($plc_images, 0777);
+    $plc_images = $pl_categories . '/images';
+    if (!is_dir($plc_images)) {
+        if (!mkdir($plc_images, 0777) && !is_dir($plc_images)) {
+            throw new \RuntimeException(sprintf('Directory "%s" was not created', $plc_images));
+        }
         chmod($plc_images, 0777);
     }
-    copy($indexFile, $plc_images.'/index.html');
-    copy($blankFile, $plc_images.'/blank.gif');
+    copy($indexFile, $plc_images . '/index.html');
+    copy($blankFile, $plc_images . '/blank.gif');
     // Making of entries folder
-    $pl_entries = $p_lexikon.'/entries';
-    if(!is_dir($pl_entries)) {
-        mkdir($pl_entries, 0777);
+    $pl_entries = $p_lexikon . '/entries';
+    if (!is_dir($pl_entries)) {
+        if (!mkdir($pl_entries, 0777) && !is_dir($pl_entries)) {
+            throw new \RuntimeException(sprintf('Directory "%s" was not created', $pl_entries));
+        }
         chmod($pl_entries, 0777);
     }
-    copy($indexFile, $pl_entries.'/index.html');
+    copy($indexFile, $pl_entries . '/index.html');
 
-    $ple_images = $pl_entries.'/images';
-    if(!is_dir($ple_images)) {
-        mkdir($ple_images, 0777);
+    $ple_images = $pl_entries . '/images';
+    if (!is_dir($ple_images)) {
+        if (!mkdir($ple_images, 0777) && !is_dir($ple_images)) {
+            throw new \RuntimeException(sprintf('Directory "%s" was not created', $ple_images));
+        }
         chmod($ple_images, 0777);
     }
-    copy($indexFile, $ple_images.'/index.html');
-    copy($blankFile, $ple_images.'/blank.gif');
+    copy($indexFile, $ple_images . '/index.html');
+    copy($blankFile, $ple_images . '/blank.gif');
 
     return true;
 }

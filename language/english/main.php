@@ -1,6 +1,6 @@
 <?php
+
 /**
- *
  * Module: Lexikon - glossary module
  * Version: v 1.00
  * Release Date: 8 May 2004
@@ -52,8 +52,10 @@ define('_MD_LEXIKON_INTENTRYFOUND', 'Here is an interesting entry I have found a
 define('_MD_LEXIKON_INTROREQUEST', "You didn't find the definition you were looking for? Submit the term to us by filling this form. We will look for its definition and add it to the database.");
 define('_MD_LEXIKON_LOOKON', 'Search');
 define('_MD_LEXIKON_MAINHEAD', 'Welcome to %s');
-define('_MD_LEXIKON_MAININTRO',
-       'In this area of the site you will find our catalogue of glossary entries, as well as the latest entry from each of our categories. Click on a category&#8217s name to see all the entries associated with that category, or on an entry&#8217s name to read directly the entry. Depending on privileges, you can rate each entry, select notification options or leave your comments.');
+define(
+    '_MD_LEXIKON_MAININTRO',
+    'In this area of the site you will find our catalogue of glossary entries, as well as the latest entry from each of our categories. Click on a category&#8217s name to see all the entries associated with that category, or on an entry&#8217s name to read directly the entry. Depending on privileges, you can rate each entry, select notification options or leave your comments.'
+);
 define('_MD_LEXIKON_MAINNOSELECTCAT', 'You did not select a valid category');
 define('_MD_LEXIKON_MAINNOTOPICS', 'There are no entries in this category');
 define('_MD_LEXIKON_MESSAGESENT', 'Message to %s sent.');
@@ -91,12 +93,16 @@ define('_MD_LEXIKON_SENDSTORY', 'Send this entry to a friend');
 define('_MD_LEXIKON_SENDTOFRIEND', 'Send this term to a friend');
 define('_MD_LEXIKON_SENT', 'Submitted on: ');
 define('_MD_LEXIKON_SENTCONFIRMMAIL', 'Your comments have been sent to <b>%s</b> as a confirmation email.');
-define('_MD_LEXIKON_STILLNOTHINGHERE',
-       "<h4 style='margin: 0;'>Glossaries empty</h4>Sorry: We don't have any entries in our glossaries yet. You can help us by requesting some entries whose definition you'd like to know. If you're a registered user, you can also help by submitting some terms whose definition you know.");
+define(
+    '_MD_LEXIKON_STILLNOTHINGHERE',
+    "<h4 style='margin: 0;'>Glossaries empty</h4>Sorry: We don't have any entries in our glossaries yet. You can help us by requesting some entries whose definition you'd like to know. If you're a registered user, you can also help by submitting some terms whose definition you know."
+);
 define('_MD_LEXIKON_SUB_SMNAME', 'Fill this form to send your entry');
 define('_MD_LEXIKON_SUB_SNEWNAME', 'Submit an entry to %s');
-define('_MD_LEXIKON_SUB_SNEWNAMEDESC',
-       'please fill the following form to submit your new entry to our site. As you&#8217re well aware, it&#8217ll have to be validated by an administrator before it gets published. However, if the administrator has activated the auto-approve setting, your entry will be published instantly.');
+define(
+    '_MD_LEXIKON_SUB_SNEWNAMEDESC',
+    'please fill the following form to submit your new entry to our site. As you&#8217re well aware, it&#8217ll have to be validated by an administrator before it gets published. However, if the administrator has activated the auto-approve setting, your entry will be published instantly.'
+);
 define('_MD_LEXIKON_SUBMIT', 'Submit request');
 define('_MD_LEXIKON_SUBMITART', 'Submit an entry');
 define('_MD_LEXIKON_SUBMITENTRY', 'Submit an entry');
@@ -197,8 +203,10 @@ define('_MD_LEXIKON_WWW', 'WWW');
 define('_MD_LEXIKON_RANDOMIZE', 'next Definition');
 define('_MD_LEXIKON_TERMOFTHEDAY', 'Term of the day');
 define('_MD_LEXIKON_SYNDICATION', 'Webmastercontent');
-define('_MD_LEXIKON_SYNCODE',
-       "&lt;iframe style='background-color: #FFFFFF'; marginwidth=0 marginheight=0 width='220' height='260' src='%s/modules/%s/syndication.php' frameborder='0' topmargin='0' leftmargin='0' scrolling='no' allowtransparency='true' /&gt; [Your user agent does not support frames or is currently configured not to display frames.]</iframe>");
+define(
+    '_MD_LEXIKON_SYNCODE',
+    "&lt;iframe style='background-color: #FFFFFF'; marginwidth=0 marginheight=0 width='220' height='260' src='%s/modules/%s/syndication.php' frameborder='0' topmargin='0' leftmargin='0' scrolling='no' allowtransparency='true' > [Your user agent does not support frames or is currently configured not to display frames.]</iframe>"
+);
 define('_MD_LEXIKON_SUB_SYNNAME', 'Free Webmastercontent for your Site');
 define('_MD_LEXIKON_INTROCONTENTSYN', 'You like the glossary definitions at %s ? You may now easily integrate our glossary-definitions at your site. Simply copy the below HTML-code.');
 define('_MD_LEXIKON_POWER', 'Powered by ');
@@ -223,6 +231,99 @@ define('_MD_LEXIKON_THANKYOU2', 'Thank you for updating a definition.\nYou will 
 define('_MD_LEXIKON_THANKYOU3', 'Thank you for submitting a definition.\nYou will receive a message as soon as the definition has been approved.');
 define('_MD_LEXIKON_SUBMISSIONSENT', 'Message to %s sent.');
 //1.52
-define('_MD_AM_ADGS', 'ADGS');
+define('_MD_AM_ADGS', 'Groups');
 define('_MD_AM_DBUPDATED', 'Database updated');
 define('_MD_LEXIKON_MUSTREGFIRST', 'You must register first');
+
+define('MD_LEXIKON_ADMIN', 'Admin');
+define('MD_LEXIKON_INDEX', 'Home');
+define('MD_LEXIKON_ACTION', 'Action');
+define('MD_LEXIKON_VIEW', 'View');
+define('MD_LEXIKON_PRINT', 'Print');
+define('MD_LEXIKON_TELL_A_FRIEND', 'Tell A Friend');
+
+define('MD_LEXIKON_TITLE', 'Lexikon');
+define('MD_LEXIKON_DESC', 'This module is for doing following...');
+define('MD_LEXIKON_INDEX_DESC', 'This module is for doing following...');
+// Category
+define('MD_LEXIKON_CATEGORIES', 'Category');
+define('MD_LEXIKON_CATEGORIES_DESC', 'Category description');
+define('MD_LEXIKON_CATEGORIES_CATEGORYID', 'ID');
+define('MD_LEXIKON_CATEGORIES_NAME', 'Category');
+define('MD_LEXIKON_CATEGORIES_DESCRIPTION', 'Description');
+define('MD_LEXIKON_CATEGORIES_TOTAL', 'Total');
+define('MD_LEXIKON_CATEGORIES_WEIGHT', 'Weight');
+define('MD_LEXIKON_CATEGORIES_LOGOURL', 'Logo URL');
+// Entries
+define('MD_LEXIKON_ENTRIES', 'Entries');
+define('MD_LEXIKON_ENTRIES_DESC', 'Entries description');
+define('MD_LEXIKON_ENTRIES_ENTRYID', 'ID');
+define('MD_LEXIKON_ENTRIES_CATEGORYID', 'Category');
+define('MD_LEXIKON_ENTRIES_TERM', 'Term');
+define('MD_LEXIKON_ENTRIES_INIT', 'Init');
+define('MD_LEXIKON_ENTRIES_DEFINITION', 'Definition');
+define('MD_LEXIKON_ENTRIES_REF', 'Reference');
+define('MD_LEXIKON_ENTRIES_URL', 'URL');
+define('MD_LEXIKON_ENTRIES_UID', 'User');
+define('MD_LEXIKON_ENTRIES_SUBMIT', 'Submitter');
+define('MD_LEXIKON_ENTRIES_DATESUB', 'Submitted');
+define('MD_LEXIKON_ENTRIES_COUNTER', 'Counter');
+define('MD_LEXIKON_ENTRIES_HTML', 'HTML');
+define('MD_LEXIKON_ENTRIES_SMILEY', 'Smiley');
+define('MD_LEXIKON_ENTRIES_XCODES', 'xCodes');
+define('MD_LEXIKON_ENTRIES_BREAKS', 'Breaks');
+define('MD_LEXIKON_ENTRIES_BLOCK', 'Block');
+define('MD_LEXIKON_ENTRIES_OFFLINE', 'Offline');
+define('MD_LEXIKON_ENTRIES_NOTIFYPUB', 'Notify on Pub');
+define('MD_LEXIKON_ENTRIES_REQUEST', 'Request');
+define('MD_LEXIKON_ENTRIES_COMMENTS', 'Comments');
+define('MD_LEXIKON_ENTRIES_ITEM_TAG', 'Tag');
+define('MD_LEXIKON_ENTRIES_ONLINE', 'Online');
+
+/**
+ * Get local Alphabet
+ * @return array
+ */
+function getAlphabet()
+{
+    $alphabet = [
+        '0',
+        '1',
+        '2',
+        '3',
+        '4',
+        '5',
+        '6',
+        '7',
+        '8',
+        '9',
+        'A',
+        'B',
+        'C',
+        'D',
+        'E',
+        'F',
+        'G',
+        'H',
+        'I',
+        'J',
+        'K',
+        'L',
+        'M',
+        'N',
+        'O',
+        'P',
+        'Q',
+        'R',
+        'S',
+        'T',
+        'U',
+        'V',
+        'W',
+        'X',
+        'Y',
+        'Z',
+    ];
+
+    return $alphabet;
+}

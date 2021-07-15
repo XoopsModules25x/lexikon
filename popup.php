@@ -1,34 +1,41 @@
 <?php
 /**
- *
  * Module: Lexikon - glossary module
- * Version: v 1.00
- * Release Date: 18 Dec 2011
  * orig. Author: nagl@dictionary
  * Licence: GNU
  */
 
-include __DIR__ . '/header.php';
-include XOOPS_ROOT_PATH . '/header.php';
+use Xmf\Request;
+use XoopsModules\Lexikon\{
+    Helper,
+    Utility
+};
+/** @var Helper $helper */
+
+require __DIR__ . '/header.php';
+require XOOPS_ROOT_PATH . '/header.php';
 
 xoops_header(false);
 
-$entryID = isset($_GET['entryID']) ? (int)((int)$_GET['entryID']) : 0;
+
+$helper = Helper::getInstance();
+
+$entryID = isset($_GET['entryID']) ? Request::getInt('entryID', 0, 'GET') : 0;
 if (!$entryID) {
     exit();
 }
-//global $xoopsModuleConfig;
-$myts = MyTextSanitizer::getInstance();
+
+$myts = \MyTextSanitizer::getInstance();
 
 $sqlQuery = $xoopsDB->query('SELECT * FROM ' . $xoopsDB->prefix('lxentries') . " WHERE entryID=$entryID");
 $sqlfetch = $xoopsDB->fetchArray($sqlQuery);
-if ($xoopsModuleConfig['multicats'] == 1) {
+if (1 == $helper->getConfig('multicats')) {
     $cID       = $sqlfetch['categoryID'];
     $sqlquery2 = $xoopsDB->query('SELECT name FROM ' . $xoopsDB->prefix('lxcategories') . " WHERE categoryID = $cID");
     $sqlfetch2 = $xoopsDB->fetchArray($sqlquery2);
-    $catname   = $myts->htmlSpecialChars($sqlfetch2['name']);
+    $catname   = htmlspecialchars($sqlfetch2['name'], ENT_QUOTES | ENT_HTML5);
 }
-$term       = $myts->htmlSpecialChars($sqlfetch['term']);
+$term       = htmlspecialchars($sqlfetch['term'], ENT_QUOTES | ENT_HTML5);
 $definition = $myts->displayTarea($sqlfetch['definition'], $sqlfetch['html'], $sqlfetch['smiley'], 1, 1, 1);
 
 echo '</head><body>
@@ -37,7 +44,7 @@ echo '</head><body>
          <th class="head">' . $term . '</th>
       </tr>
     </table>';
-if ($xoopsModuleConfig['multicats'] == 1) {
+if (1 == $helper->getConfig('multicats')) {
     echo '<div class="itemBody">' . _MD_LEXIKON_ENTRYCATEGORY . '' . $catname . '</div>';
 }
 echo '<div class="itemBody"><p class="itemText">' . $definition . '</p></div>

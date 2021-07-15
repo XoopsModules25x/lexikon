@@ -1,7 +1,7 @@
 
 Module Purpose
 -----------------------------------------------------------------------
-Lexikon is designed as a user-friendly glossary application for the XOOPS portal system. 
+Lexikon is designed as a user-friendly glossary application for the XOOPS portal system.
 
 
 Installation Requirements
@@ -15,7 +15,7 @@ Lexikon is installed as a regular XOOPS module:
 1. Copy the complete lexikon folder into the /modules directory of your website.
 2. Upload the files to your website: XOOPS_ROOT_URL/modules/lexikon
 3. Log in to your site as administrator.
-4. Update (or Install) the module using the XOOPS module administration panel 
+4. Update (or Install) the module using the XOOPS module administration panel
    at 'System Admin -> Modules'.
 
 5. In case you upgrade the module from a previous version run lexikon/admin/upgrade.php

@@ -10,18 +10,20 @@
  */
 
 /**
- * @copyright    XOOPS Project (http://xoops.org)
- * @license      GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
- * @package
- * @since
- * @author       XOOPS Development Team
+ * @copyright    XOOPS Project (https://xoops.org)
+ * @license      GNU GPL 2 or later (https://www.gnu.org/licenses/gpl-2.0.html)
+ * @author      XOOPS Development Team
  */
+
+use Xmf\Module\Admin;
+
+/** @var Admin $adminObject */
 
 require_once __DIR__ . '/admin_header.php';
 xoops_cp_header();
 
 $adminObject->displayNavigation(basename(__FILE__));
-\Xmf\Module\Admin::setPaypal('6KJ7RW5DR3VTJ');
+$adminObject::setPaypal('xoopsfoundation@gmail.com');
 $adminObject->displayAbout(false);
 
 require_once __DIR__ . '/admin_footer.php';
