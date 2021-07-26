@@ -46,7 +46,7 @@ $uploadUrl  = XOOPS_UPLOAD_URL . '/lexikon/images/';
 switch ($op) {
     case 'list':
     default:
-        $adminObject->addItemButton(AM_LEXIKON_ADD_CATEGORIES, 'categories.php?op=new', 'add');
+        $adminObject->addItemButton(_AM_LEXIKON_ADD_CATEGORIES, 'categories.php?op=new', 'add');
         echo $adminObject->displayButton('left');
         $start                     = Request::getInt('start', 0);
         $categoriesPaginationLimit = $GLOBALS['xoopsModuleConfig']['userpager'];
@@ -95,12 +95,12 @@ switch ($op) {
             foreach (array_keys($categoriesTempArray) as $i) {
                 //        $field = explode(':', $fields[$i]);
 
-                $selectorcategoryID = Utility::selectSorting(AM_LEXIKON_CATEGORIES_CATEGORYID, 'categoryID');
+                $selectorcategoryID = Utility::selectSorting(_AM_LEXIKON_CATEGORIES_CATEGORYID, 'categoryID');
                 $GLOBALS['xoopsTpl']->assign('selectorcategoryID', $selectorcategoryID);
                 $categoryID = $categoriesTempArray[$i]->getVar('categoryID');
                 $categoriesArray['categoryID'] = $categoryID;
 
-                $selectorname = Utility::selectSorting(AM_LEXIKON_CATEGORIES_NAME, 'name');
+                $selectorname = Utility::selectSorting(_AM_LEXIKON_CATEGORIES_NAME, 'name');
                 $GLOBALS['xoopsTpl']->assign('selectorname', $selectorname);
 //                $categoriesArray['name'] = $categoriesTempArray[$i]->getVar('name');
 
@@ -109,19 +109,19 @@ switch ($op) {
 
 
 
-                $selectordescription = Utility::selectSorting(AM_LEXIKON_CATEGORIES_DESCRIPTION, 'description');
+                $selectordescription = Utility::selectSorting(_AM_LEXIKON_CATEGORIES_DESCRIPTION, 'description');
                 $GLOBALS['xoopsTpl']->assign('selectordescription', $selectordescription);
                 $categoriesArray['description'] = $categoriesTempArray[$i]->getVar('description');
 
-                $selectortotal = Utility::selectSorting(AM_LEXIKON_CATEGORIES_TOTAL, 'total');
+                $selectortotal = Utility::selectSorting(_AM_LEXIKON_CATEGORIES_TOTAL, 'total');
                 $GLOBALS['xoopsTpl']->assign('selectortotal', $selectortotal);
                 $categoriesArray['total'] = $categoriesTempArray[$i]->getVar('total');
 
-                $selectorweight = Utility::selectSorting(AM_LEXIKON_CATEGORIES_WEIGHT, 'weight');
+                $selectorweight = Utility::selectSorting(_AM_LEXIKON_CATEGORIES_WEIGHT, 'weight');
                 $GLOBALS['xoopsTpl']->assign('selectorweight', $selectorweight);
                 $categoriesArray['weight'] = $categoriesTempArray[$i]->getVar('weight');
 
-                $selectorlogourl = Utility::selectSorting(AM_LEXIKON_CATEGORIES_LOGOURL, 'logourl');
+                $selectorlogourl = Utility::selectSorting(_AM_LEXIKON_CATEGORIES_LOGOURL, 'logourl');
                 $GLOBALS['xoopsTpl']->assign('selectorlogourl', $selectorlogourl);
                 $categoriesArray['logourl']     = $categoriesTempArray[$i]->getVar('logourl');
                 $categoriesArray['edit_delete'] = "<a href='categories.php?op=edit&categoryID=" . $i . "'><img src=" . $pathIcon16 . "/edit.png alt='" . _EDIT . "' title='" . _EDIT . "'></a>
@@ -168,7 +168,7 @@ switch ($op) {
 
         break;
     case 'new':
-        $adminObject->addItemButton(AM_LEXIKON_CATEGORIES_LIST, 'categories.php', 'list');
+        $adminObject->addItemButton(_AM_LEXIKON_CATEGORIES_LIST, 'categories.php', 'list');
         echo $adminObject->displayButton('left');
 
         $categoriesObject = $categoriesHandler->create();
@@ -318,8 +318,8 @@ switch ($op) {
         $form->display();
         break;
     case 'edit':
-        $adminObject->addItemButton(AM_LEXIKON_ADD_CATEGORIES, 'categories.php?op=new', 'add');
-        $adminObject->addItemButton(AM_LEXIKON_CATEGORIES_LIST, 'categories.php', 'list');
+        $adminObject->addItemButton(_AM_LEXIKON_ADD_CATEGORIES, 'categories.php?op=new', 'add');
+        $adminObject->addItemButton(_AM_LEXIKON_CATEGORIES_LIST, 'categories.php', 'list');
         echo $adminObject->displayButton('left');
         $categoriesObject = $categoriesHandler->get(Request::getString('categoryID', ''));
         $form             = $categoriesObject->getForm();
@@ -337,7 +337,7 @@ switch ($op) {
                 echo $categoriesObject->getHtmlErrors();
             }
         } else {
-            xoops_confirm(['ok' => 1, 'categoryID' => Request::getString('categoryID', ''), 'op' => 'delete'], Request::getCmd('REQUEST_URI', '', 'SERVER'), sprintf(AM_LEXIKON_FORMSUREDEL, $categoriesObject->getVar('categoryID')));
+            xoops_confirm(['ok' => 1, 'categoryID' => Request::getString('categoryID', ''), 'op' => 'delete'], Request::getCmd('REQUEST_URI', '', 'SERVER'), sprintf(_AM_LEXIKON_FORMSUREDEL, $categoriesObject->getVar('categoryID')));
         }
         break;
     case 'clone':

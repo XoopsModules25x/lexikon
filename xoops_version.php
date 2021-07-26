@@ -641,8 +641,8 @@ $modversion['config'][] = [
 
 $modversion['config'][] = [
     'name'        => 'adminpager',
-    'title'       => 'MI_LEXIKON_ADMINPAGER',
-    'description' => 'MI_LEXIKON_ADMINPAGER_DESC',
+    'title'       => '_MI_LEXIKON_ADMINPAGER',
+    'description' => '_MI_LEXIKON_ADMINPAGER_DESC',
     'formtype'    => 'textbox',
     'valuetype'   => 'int',
     'default'     => 10,
@@ -650,8 +650,8 @@ $modversion['config'][] = [
 
 $modversion['config'][] = [
     'name'        => 'userpager',
-    'title'       => 'MI_LEXIKON_USERPAGER',
-    'description' => 'MI_LEXIKON_USERPAGER_DESC',
+    'title'       => '_MI_LEXIKON_USERPAGER',
+    'description' => '_MI_LEXIKON_USERPAGER_DESC',
     'formtype'    => 'textbox',
     'valuetype'   => 'int',
     'default'     => 10,

@@ -1,22 +1,22 @@
-Hello {X_UNAME},
+Hallo {X_UNAME},
 
-A new definition "{ITEM_NAME}" has been added in category "{CATEGORY_NAME}" in {X_MODULE} at {X_SITENAME}.
+Eine neue Definition "{ITEM_NAME}" wurde bei der Kategorie "{CATEGORY_NAME}" in {X_MODULE} auf {X_SITENAME} hinzugefügt.
 
-You can view this definition here:
+Sie können die Defintion hier anzeigen:
 {ITEM_URL}
 
-You can view the whole category here:
+Sie können die gesamte Kategorie hier anzeigen:
 {CATEGORY_URL}
 
 -----------
 
-You are receiving this message because you selected to be notified when new terms are added to our site.
-If this is an error or you wish not to receive further such notifications, please update your subscriptions by visiting the link below:
+Sie erhalten diese Nachricht, weil Sie benachrichtigt werden wollen, wenn neue Begriffe auf Ihrer Seite hinzugefügt werden.
+Wenn diese Benachrichtigung ein Fehler ist oder keine weiteren gew&uuml;nscht sind, bitte die Benachrichtigungseinstellungen &auml;ndern:
 {X_UNSUBSCRIBE_URL}
 
-Please do not reply to this message.
+Bitte nicht auf diese Nachricht antworten.
 
 -----------
 {X_SITENAME} ({X_SITEURL})
-The webmaster
+Ihr Webmaster
 {X_ADMINMAIL}
