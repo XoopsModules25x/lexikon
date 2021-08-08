@@ -89,7 +89,7 @@
             <td style="font-size: 10px; text-align: left; color: #2F5376; padding: 0 6px; line-height: 18px;">
                 <{foreach from=$headermenu key=itemnum item=menuitem}>
                     <a class="nobutton" href="<{$menuitem.link}>"><{$menuitem.title}></a>
-                    <{if ($itemnum + 1) != $headermenucount}>
+                    <{if ($itemnum|default:0 + 1) != $headermenucount|default:0}>
                         |
                     <{/if}>
                 <{/foreach}>
@@ -103,7 +103,7 @@
 <div id="buttonbar">
     <ul>
         <{foreach from=$adminmenu key=itemnum item=menuitem}>
-            <{if $itemnum==$current}>
+            <{if $itemnum|default:0 == $current|default:0}>
                 <li id="current">
                     <{else}>
                 <li>

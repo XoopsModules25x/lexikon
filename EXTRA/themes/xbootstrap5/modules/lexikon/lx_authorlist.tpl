@@ -22,22 +22,22 @@
 
     <div class="clearer">
 
-        <{if $authorlistext}>
+        <{if $authorlistext|default:false}>
 
         <{/if}>
 
-        <{if $authorlistext}>
+        <{if $authorlistext|default:false}>
 
         <{/if}>
 
         <{foreach item=author from=$authors}>
             ">
 
-            <{if $authorlistext}>
+            <{if $authorlistext|default:false}>
 
             <{/if}>
 
-            <{if $authorlistext}>
+            <{if $authorlistext|default:false}>
 
             <{/if}>
 

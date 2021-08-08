@@ -2,7 +2,7 @@
     <div style="background-color: #F5F5F5;font-family:verdana,arial, sans-serif; font-size:small; text-align: center;  padding-bottom: 8px; margin: 0 0 4px 0; border-bottom: 1px dotted #ccc; ">
         <a style="color:#000;font-weight:bold;text-decoration:none;" target="_blank" href="<{$xoops_url}>"><{$lang_modulename}> - <{$smarty.const._MD_LEXIKON_TERMOFTHEDAY}></a>
     </div>
-    <{if $multicats == 1}>
+    <{if $multicats|default:0 == 1}>
     <div style="padding-bottom: 10px;text-align:left;font-family:verdana,arial, sans-serif; font-size:small;"><{$smarty.const._MD_LEXIKON_ENTRYCATEGORY}>
         <a style="color:#000;font-weight:bold;text-decoration:none;" target="_blank" href="<{$xoops_url}>/modules/<{$lang_moduledirname}>/category.php?categoryID=<{$syndication.id}>"><{$syndication.categoryname}></a>
     </div>

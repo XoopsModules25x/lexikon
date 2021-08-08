@@ -20,7 +20,7 @@
             <fieldset>
                 <legend>&nbsp;<{$smarty.const._MD_LEXIKON_WEHAVE}>:&nbsp;</legend>
                 <b><{$smarty.const._MD_LEXIKON_DEFS}></b><{$publishedwords}><br>
-                <b><{if $multicats == 1}><{$smarty.const._MD_LEXIKON_CATS}></b><{$totalcats}><br><{/if}>
+                <b><{if $multicats|default:0 == 1}><{$smarty.const._MD_LEXIKON_CATS}></b><{$totalcats}><br><{/if}>
                 <input class="btnDefault" type="button" value="<{$smarty.const._MD_LEXIKON_SUBMITENTRY}>"
                        onclick="location.href = 'submit.php'"><br>
                 <input class="btnDefault" type="button" value="<{$smarty.const._MD_LEXIKON_REQUESTDEF}>"
@@ -28,7 +28,7 @@
             </fieldset>
         </div>
     </div>
-    <{if $teaser === true}>
+    <{if $teaser|default:false === true}>
         <div class="teaser"><{$teaser}></div>
     <{/if}>
 
@@ -43,15 +43,15 @@
                 </div>
                 <div class="search_abc_c">&nbsp;|
                     <{foreach item=letterlinks from=$alpha.initial}>
-                        <{if $letterlinks.total > 0}>&nbsp;<a href="<{$xoops_url}>/modules/<{$lang_moduledirname}>/letter.php?init=<{$letterlinks.id}>"><abbr name="[&nbsp;<{$letterlinks.total}>&nbsp;]"><{/if}><{$letterlinks.linktext}></abbr>
-                        <{if $letterlinks.total > 0}></a><{/if}>&nbsp;|
+                        <{if $letterlinks.total|default:0 > 0}>&nbsp;<a href="<{$xoops_url}>/modules/<{$lang_moduledirname}>/letter.php?init=<{$letterlinks.id}>"><abbr name="[&nbsp;<{$letterlinks.total}>&nbsp;]"><{/if}><{$letterlinks.linktext}></abbr>
+                        <{if $letterlinks.total|default:0 > 0}></a><{/if}>&nbsp;|
                     <{/foreach}>
                 </div>
                 <div class="search_abc_r">
-                    <{if $totalother > 0}>&nbsp;<a
+                    <{if $totalother|default:0 > 0}>&nbsp;<a
                             href="<{$xoops_url}>/modules/<{$lang_moduledirname}>/letter.php?init=<{$smarty.const._MD_LEXIKON_OTHER}>"
                     ><abbr name="[&nbsp;<{$totalother}>&nbsp;]"><{/if}><{$smarty.const._MD_LEXIKON_OTHER}></abbr>
-                        <{if $totalother > 0}></a><{/if}>
+                        <{if $totalother|default:0 > 0}></a><{/if}>
                 </div>
             </fieldset>
         </div>
@@ -73,8 +73,8 @@
 
 
     <{* Category block *}>
-    <{if $layout == '0'}>
-        <{if $multicats == 1 && count($block0.categories) gt 0 }>
+    <{if $layout|default:'' == '0'}>
+        <{if $multicats|default:0 == 1 && count($block0.categories|default:0) gt 0 }>
             <div class="clearer">
                 <fieldset>
                     <legend>&nbsp;<{$smarty.const._MD_LEXIKON_BROWSECAT}>&nbsp;</legend>
@@ -88,19 +88,19 @@
                             <!-- Start category loop -->
                             <{foreach item=catlinks from=$block0.categories}>
                             <td>
-                                <{if $catlinks.image != "" && $show_screenshot === true}>
+                                <{if $catlinks.image|default:'' != "" && $show_screenshot|default:false === true}>
                                     <a href="<{$xoops_url}>/modules/<{$lang_moduledirname}>/category.php?categoryID=<{$catlinks.id}>"
                                        target="_parent"><img
                                                 src="<{$xoops_url}>/uploads/<{$lang_moduledirname}>/categories/images/<{$catlinks.image}>"
                                                 style="width:<{$logo_maximgwidth}>; text-align: left;" class="floatLeft"
                                                 alt="[&nbsp;<{$catlinks.name}>&nbsp;]&nbsp;[&nbsp;<{$catlinks.total}>&nbsp;]"></a>
                                 <{/if}>
-                                <{if $catlinks.count > 0}>
-                                    <{if $catlinks.total > 0}><a href="<{$xoops_url}>/modules/<{$lang_moduledirname}>/category.php?categoryID=<{$catlinks.id}>" title="[&nbsp;<{$catlinks.total}>&nbsp;]"><{/if}><{$catlinks.linktext}>
-                                    <{if $catlinks.total > 0}></a>&nbsp;<{/if}>[&nbsp;<{$catlinks.total}>&nbsp;]
+                                <{if $catlinks.count|default:0 > 0}>
+                                    <{if $catlinks.total|default:0 > 0}><a href="<{$xoops_url}>/modules/<{$lang_moduledirname}>/category.php?categoryID=<{$catlinks.id}>" title="[&nbsp;<{$catlinks.total}>&nbsp;]"><{/if}><{$catlinks.linktext}>
+                                    <{if $catlinks.total|default:0 > 0}></a>&nbsp;<{/if}>[&nbsp;<{$catlinks.total}>&nbsp;]
                                 <{/if}>
                             </td>
-                            <{if $catlinks.count % 4 == 0}>
+                            <{if $catlinks.count|default:0 % 4 == 0}>
                         </tr>
                         <tr>
                             <{/if}>
@@ -112,21 +112,21 @@
             </fieldset>
         <{/if}>
     <{else}>
-        <{if $multicats == 1}>
+        <{if $multicats|default:0 == 1}>
             <div class="clearer">
                 <fieldset>
                     <legend>&nbsp;<{$smarty.const._MD_LEXIKON_BROWSECAT}>&nbsp;</legend>
                     <div class="letters">
                         <{foreach item=catlinks from=$block0.categories}>
-                        <{if $catlinks.image != "" && $show_screenshot === true}>
+                        <{if $catlinks.image|default:'' != "" && $show_screenshot|default:false === true}>
                             <a href="<{$xoops_url}>/modules/<{$lang_moduledirname}>/category.php?categoryID=<{$category.id}>"
                                target="_parent">
                                 <img src="<{$xoops_url}>/uploads/<{$lang_moduledirname}>/categories/images/<{$catlinks.image}>"
                                      style="width:<{$logo_maximgwidth}> vertical-align:middle;"
                                      alt="[&nbsp;<{$catlinks.total}>&nbsp;]"></a>
                         <{/if}>
-                        <{if $catlinks.total > 0}>&nbsp;<a href="<{$xoops_url}>/modules/<{$lang_moduledirname}>/category.php?categoryID=<{$catlinks.id}>" title="[&nbsp;<{$catlinks.total}>&nbsp;]"><{/if}><{$catlinks.linktext}>
-                        <{if $catlinks.total > 0}></a>&nbsp;<{/if}>[&nbsp;<{$catlinks.total}>&nbsp;]
+                        <{if $catlinks.total|default:0 > 0}>&nbsp;<a href="<{$xoops_url}>/modules/<{$lang_moduledirname}>/category.php?categoryID=<{$catlinks.id}>" title="[&nbsp;<{$catlinks.total}>&nbsp;]"><{/if}><{$catlinks.linktext}>
+                        <{if $catlinks.total|default:0 > 0}></a>&nbsp;<{/if}>[&nbsp;<{$catlinks.total}>&nbsp;]
                         <{/foreach}>&nbsp;
                         <a href="<{$xoops_url}>/modules/<{$lang_moduledirname}>/category.php"
                            title="[&nbsp;<{$publishedwords}>&nbsp;]"><{$smarty.const._MD_LEXIKON_ALLCATS}></a>&nbsp;[&nbsp;<{$publishedwords}>&nbsp;]
@@ -167,7 +167,7 @@
     <div class="float30random">
         <fieldset>
             <legend>&nbsp;<{$smarty.const._MD_LEXIKON_RANDOMTERM}>&nbsp;</legend>
-            <{if $multicats == 1}>
+            <{if $multicats|default:0 == 1}>
                 <{if $empty|default:'' != 1}>
                     <div class="catname"><a href="<{$xoops_url}>/modules/<{$lang_moduledirname}>/category.php?categoryID=<{$random.categoryID}>"><{$random.categoryname}></a>
                     </div>
@@ -222,7 +222,7 @@
             </fieldset>
         </div>
     <{/if}>
-    <{if $syndication === true}>
+    <{if $syndication|default:false === true}>
         <div class="rss_bottom">
             <a href="rss.php" title="recent glossary definitions"><img src="assets/images/rss.gif" ALT="RSS"></a>
         </div>

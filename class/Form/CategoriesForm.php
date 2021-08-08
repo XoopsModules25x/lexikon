@@ -64,7 +64,7 @@ class CategoriesForm extends XoopsThemeForm
         global $helper;
         $this->targetObject = $target;
 
-        $title = $this->targetObject->isNew() ? \sprintf(\AM_LEXIKON_CATEGORIES_ADD) : \sprintf(\AM_LEXIKON_CATEGORIES_EDIT);
+        $title = $this->targetObject->isNew() ? sprintf(\_AM_LEXIKON_CATEGORIES_ADD) : sprintf(AM_LEXIKON_CATEGORIES_EDIT);
         parent::__construct($title, 'form', \xoops_getenv('SCRIPT_NAME'), 'post', true);
         $this->setExtra('enctype="multipart/form-data"');
 
@@ -75,9 +75,9 @@ class CategoriesForm extends XoopsThemeForm
         unset($hidden);
 
         // CategoryID
-        $this->addElement(new XoopsFormLabel(\AM_LEXIKON_CATEGORIES_CATEGORYID, $this->targetObject->getVar('categoryID'), 'categoryID'));
+        $this->addElement(new XoopsFormLabel(\_AM_LEXIKON_CATEGORIES_CATEGORYID, $this->targetObject->getVar('categoryID'), 'categoryID'));
         // Name
-        $this->addElement(new XoopsFormText(\AM_LEXIKON_CATEGORIES_NAME, 'name', 50, 255, $this->targetObject->getVar('name')), false);
+        $this->addElement(new XoopsFormText(\_AM_LEXIKON_CATEGORIES_NAME, 'name', 50, 255, $this->targetObject->getVar('name')), false);
         // Description
         if (\class_exists('XoopsFormEditor')) {
             $editorOptions           = [];
@@ -88,22 +88,22 @@ class CategoriesForm extends XoopsThemeForm
             $editorOptions['width']  = '100%';
             $editorOptions['height'] = '400px';
             //$editorOptions['editor'] = xoops_getModuleOption('lexikon_editor', 'lexikon');
-            //$this->addElement( new \XoopsFormEditor(AM_LEXIKON_CATEGORIES_DESCRIPTION, 'description', $editorOptions), false  );
+            //$this->addElement( new \XoopsFormEditor(\_AM_LEXIKON_CATEGORIES_DESCRIPTION, 'description', $editorOptions), false  );
             if ($helper->isUserAdmin()) {
-                $descEditor = new XoopsFormEditor(\AM_LEXIKON_CATEGORIES_DESCRIPTION, $helper->getConfig('lexikonEditorAdmin'), $editorOptions, $nohtml = false, $onfailure = 'textarea');
+                $descEditor = new XoopsFormEditor(\_AM_LEXIKON_CATEGORIES_DESCRIPTION, $helper->getConfig('lexikonEditorAdmin'), $editorOptions, $nohtml = false, $onfailure = 'textarea');
             } else {
-                $descEditor = new XoopsFormEditor(\AM_LEXIKON_CATEGORIES_DESCRIPTION, $helper->getConfig('lexikonEditorUser'), $editorOptions, $nohtml = false, $onfailure = 'textarea');
+                $descEditor = new XoopsFormEditor(\_AM_LEXIKON_CATEGORIES_DESCRIPTION, $helper->getConfig('lexikonEditorUser'), $editorOptions, $nohtml = false, $onfailure = 'textarea');
             }
         } else {
-            $descEditor = new XoopsFormDhtmlTextArea(\AM_LEXIKON_CATEGORIES_DESCRIPTION, 'description', $this->targetObject->getVar('description', 'e'), '100%', '100%');
+            $descEditor = new XoopsFormDhtmlTextArea(\_AM_LEXIKON_CATEGORIES_DESCRIPTION, 'description', $this->targetObject->getVar('description', 'e'), '100%', '100%');
         }
         $this->addElement($descEditor);
         // Total
-        $this->addElement(new XoopsFormText(\AM_LEXIKON_CATEGORIES_TOTAL, 'total', 50, 255, $this->targetObject->getVar('total')), false);
+        $this->addElement(new XoopsFormText(\_AM_LEXIKON_CATEGORIES_TOTAL, 'total', 50, 255, $this->targetObject->getVar('total')), false);
         // Weight
-        $this->addElement(new XoopsFormText(\AM_LEXIKON_CATEGORIES_WEIGHT, 'weight', 50, 255, $this->targetObject->getVar('weight')), false);
+        $this->addElement(new XoopsFormText(\_AM_LEXIKON_CATEGORIES_WEIGHT, 'weight', 50, 255, $this->targetObject->getVar('weight')), false);
         // Logourl
-        $this->addElement(new XoopsFormText(\AM_LEXIKON_CATEGORIES_LOGOURL, 'logourl', 50, 255, $this->targetObject->getVar('logourl')), false);
+        $this->addElement(new XoopsFormText(\_AM_LEXIKON_CATEGORIES_LOGOURL, 'logourl', 50, 255, $this->targetObject->getVar('logourl')), false);
 
         //permissions
         /** @var \XoopsMemberHandler $memberHandler */
@@ -136,7 +136,7 @@ class CategoriesForm extends XoopsThemeForm
         $cat_gperms_read     = $grouppermHandler->getGroupIds('lexikon_view', $this->targetObject->getVar('categoryID'), $mid);
         $arr_cat_gperms_read = $this->targetObject->isNew() ? '0' : $cat_gperms_read;
 
-        $permsTray = new XoopsFormElementTray(\AM_LEXIKON_PERMISSIONS_VIEW, '');
+        $permsTray = new XoopsFormElementTray(\_AM_LEXIKON_PERMISSIONS_VIEW, '');
 
         $selectAllReadCheckbox = new XoopsFormCheckBox('', 'adminbox1', 1);
         $selectAllReadCheckbox->addOption('allbox', \_AM_SYSTEM_ALL);
@@ -164,7 +164,7 @@ class CategoriesForm extends XoopsThemeForm
         $cat_gperms_create     = $grouppermHandler->getGroupIds('lexikon_submit', $this->targetObject->getVar('categoryID'), $mid);
         $arr_cat_gperms_create = $this->targetObject->isNew() ? '0' : $cat_gperms_create;
 
-        $permsTray = new XoopsFormElementTray(\AM_LEXIKON_PERMISSIONS_SUBMIT, '');
+        $permsTray = new XoopsFormElementTray(\_AM_LEXIKON_PERMISSIONS_SUBMIT, '');
 
         $selectAllSubmitCheckbox = new XoopsFormCheckBox('', 'adminbox2', 1);
         $selectAllSubmitCheckbox->addOption('allbox', \_AM_SYSTEM_ALL);
@@ -191,7 +191,7 @@ class CategoriesForm extends XoopsThemeForm
         $cat_gperms_admin     = $grouppermHandler->getGroupIds('lexikon_approve', $this->targetObject->getVar('categoryID'), $mid);
         $arr_cat_gperms_admin = $this->targetObject->isNew() ? '0' : $cat_gperms_admin;
 
-        $permsTray = new XoopsFormElementTray(\AM_LEXIKON_PERMISSIONS_APPROVE, '');
+        $permsTray = new XoopsFormElementTray(\_AM_LEXIKON_PERMISSIONS_APPROVE, '');
 
         $selectAllModerateCheckbox = new XoopsFormCheckBox('', 'adminbox3', 1);
         $selectAllModerateCheckbox->addOption('allbox', \_AM_SYSTEM_ALL);

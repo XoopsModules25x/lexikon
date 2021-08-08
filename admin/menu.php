@@ -78,7 +78,7 @@ $adminmenu[] = [
 
 $adminmenu[] = [
     'title' => _MI_LEXIKON_IMPORT,
-    'link'  => 'admin/importwordbook.php',
+    'link'  => 'admin/import.php',
     'icon'  => $pathIcon32 . '/compfile.png',
 ];
 

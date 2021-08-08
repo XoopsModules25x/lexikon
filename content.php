@@ -12,8 +12,9 @@ use XoopsModules\Lexikon\{
 /** @var Helper $helper */
 
 $GLOBALS['xoopsOption']['template_main'] = 'lx_content.tpl';
+
 require __DIR__ . '/header.php';
-require XOOPS_ROOT_PATH . '/header.php';
+require_once XOOPS_ROOT_PATH . '/header.php';
 
 
 $helper = Helper::getInstance();
@@ -46,4 +47,4 @@ if (isset($xoTheme) && is_object($xoTheme)) {
     $xoopsTpl->assign('xoops_meta_description', $meta_description);
 }
 
-require XOOPS_ROOT_PATH . '/footer.php';
+require_once XOOPS_ROOT_PATH . '/footer.php';

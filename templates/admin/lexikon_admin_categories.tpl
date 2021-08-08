@@ -1,12 +1,12 @@
 <{if $categoriesRows > 0}>
     <div class="outer">
          <form name="select" action="categories.php?op=" method="POST"
-              onsubmit="if(window.document.select.op.value =='') {return false;} else if (window.document.select.op.value =='delete') {return deleteSubmitValid('categoriesId[]');} else if (isOneChecked('categoriesId[]')) {return true;} else {alert('<{$smarty.const.AM_CATEGORIES_SELECTED_ERROR}>'); return false;}">
+              onsubmit="if(window.document.select.op.value =='') {return false;} else if (window.document.select.op.value =='delete') {return deleteSubmitValid('categoriesId[]');} else if (isOneChecked('categoriesId[]')) {return true;} else {alert('<{$smarty.const._AM_CATEGORIES_SELECTED_ERROR}>'); return false;}">
             <input type="hidden" name="confirm" value="1">
             <div class="floatleft">
                    <select name="op">
-                       <option value=""><{$smarty.const.AM_LEXIKON_SELECT}></option>
-                       <option value="delete"><{$smarty.const.AM_LEXIKON_SELECTED_DELETE}></option>
+                       <option value=""><{$smarty.const._AM_LEXIKON_SELECT}></option>
+                       <option value="delete"><{$smarty.const._AM_LEXIKON_SELECTED_DELETE}></option>
                    </select>
                    <input id="submitUp" class="formButton" type="submit" name="submitselect" value="<{$smarty.const._SUBMIT}>" title="<{$smarty.const._SUBMIT}>"  >
                </div>
@@ -19,7 +19,7 @@
           <table class="$categories" cellpadding="0" cellspacing="0" width="100%">
             <tr><th align="center" width="5%"><input name="allbox" title="allbox" id="allbox" onclick="xoopsCheckAll('select', 'allbox');" type="checkbox" title="Check All"  value="Check All" ></th>  <th class="center"><{$selectorcategoryID}></th>  <th class="center"><{$selectorname}></th>  <th class="center"><{$selectordescription}></th>  <th class="center"><{$selectortotal}></th>  <th class="center"><{$selectorweight}></th>  <th class="center"><{$selectorlogourl}></th>
 
-<th class="center width5"><{$smarty.const.AM_LEXIKON_FORM_ACTION}></th>
+<th class="center width5"><{$smarty.const._AM_LEXIKON_FORM_ACTION}></th>
 </tr>
 <{foreach item=categoriesArray from=$categoriesArrays}>
 <tr class="<{cycle values="odd,even"}>">
@@ -45,7 +45,7 @@
 
 <th align="center" width="5%"><input name="allbox" title="allbox" id="allbox" onclick="xoopsCheckAll('select', 'allbox');" type="checkbox" title="Check All"  value="Check All" ></th>  <th class="center"><{$selectorcategoryID}></th>  <th class="center"><{$selectorname}></th>  <th class="center"><{$selectordescription}></th>  <th class="center"><{$selectortotal}></th>  <th class="center"><{$selectorweight}></th>  <th class="center"><{$selectorlogourl}></th>
 
-<th class="center width5"><{$smarty.const.AM_LEXIKON_FORM_ACTION}></th>
+<th class="center width5"><{$smarty.const._AM_LEXIKON_FORM_ACTION}></th>
 </tr>
 <tr>
 <td class="errorMsg" colspan="11">There are no $categories</td>

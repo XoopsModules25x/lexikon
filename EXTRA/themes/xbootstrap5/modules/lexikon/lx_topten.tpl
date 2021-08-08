@@ -29,7 +29,7 @@
     <table>
         <tbody>
         <tr>
-            <th class="head" colspan="6"><{if $multicats == 1}><{$lang_category}>: <{/if}><a style="color:#FFFFFF;" href="<{$xoops_url}>/modules/<{$lang_moduledirname}>/category.php?categoryID=<{$ranking.cid}>"><{$ranking.title}></a>
+            <th class="head" colspan="6"><{if $multicats|default:0 == 1}><{$lang_category}>: <{/if}><a style="color:#FFFFFF;" href="<{$xoops_url}>/modules/<{$lang_moduledirname}>/category.php?categoryID=<{$ranking.cid}>"><{$ranking.title}></a>
                 (<{$lang_sortby}>)
             </th>
         </tr>

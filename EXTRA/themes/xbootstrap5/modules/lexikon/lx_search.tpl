@@ -22,7 +22,7 @@
         <h3><{$smarty.const._MD_LEXIKON_WEHAVE}></h3>
 
         <{$smarty.const._MD_LEXIKON_DEFS}><{$publishedwords}><br>
-        <{if $multicats == 1}><{$smarty.const._MD_LEXIKON_CATS}><{$totalcats}><br><{/if}>
+        <{if $multicats|default:0 == 1}><{$smarty.const._MD_LEXIKON_CATS}><{$totalcats}><br><{/if}>
         <br>
         <input class="btn btn-primary btn-sm form-control" type="button" value="<{$smarty.const._MD_LEXIKON_SUBMITENTRY}>" onclick="location.href = 'submit.php'">
         <input class="btn btn-info btn-sm form-control" type="button" value="<{$smarty.const._MD_LEXIKON_REQUESTDEF}>" onclick="location.href = 'request.php'">
@@ -41,14 +41,14 @@
                 <a href="<{$xoops_url}>/modules/<{$eachresult.dir}>/entry.php?entryID=<{$eachresult.id}><{if $highlight == 1}><{$eachresult.keywords}><{/if}>">
                     <{$eachresult.term}>
                 </a>
-                <{if $multicats == 1}>
+                <{if $multicats|default:0 == 1}>
                     <a href="<{$xoops_url}>/modules/<{$eachresult.dir}>/category.php?categoryID=<{$eachresult.categoryID}>">
                         [<{$eachresult.catname}>]
                     </a>
                 <{/if}>
             </h4>
             <p><{$eachresult.definition}></p>
-            <{if $eachresult.ref}>
+            <{if $eachresult.ref|default:''}>
                 <i><{$eachresult.ref}></i>
             <{/if}>
         <{/foreach}>

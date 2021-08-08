@@ -30,7 +30,7 @@
     <div class="col-md-6">
         <h3 style="padding-bottom: 10px;"><{$smarty.const._MD_LEXIKON_WEHAVE}></h3>
         <{$smarty.const._MD_LEXIKON_DEFS}><{$publishedwords}><br>
-        <{if $multicats == 1}><{$smarty.const._MD_LEXIKON_CATS}><{$totalcats}><br><{/if}>
+        <{if $multicats|default:0 == 1}><{$smarty.const._MD_LEXIKON_CATS}><{$totalcats}><br><{/if}>
         <div style="padding-top: 10px">
             <input class="btn btn-primary btn-sm form-control" type="button" value="<{$smarty.const._MD_LEXIKON_SUBMITENTRY}>" onclick="location.href = 'submit.php'">
             <input class="btn btn-info btn-sm form-control" type="button" value="<{$smarty.const._MD_LEXIKON_REQUESTDEF}>" onclick="location.href = 'request.php' ">
@@ -48,7 +48,7 @@
         <ul class="pagination pagination-sm">
             <li class="nav-item"><a class="nav-link" href="<{$xoops_url}>/modules/<{$lang_moduledirname}>/letter.php" title="[ <{$publishedwords}> ]"><{$smarty.const._MD_LEXIKON_ALL}></a></li>
             <{foreach item=letterlinks from=$alpha.initial}>
-                <{if $letterlinks.total > 0}>
+                <{if $letterlinks.total|default:0 > 0}>
                     <li class="nav-item"><a class="nav-link" href="<{$xoops_url}>/modules/<{$lang_moduledirname}>/letter.php?init=<{$letterlinks.id}>" title="[ <{$letterlinks.total}> ]">
                             <{$letterlinks.linktext}>
                         </a></li>
@@ -57,7 +57,7 @@
                 <{/if}>
             <{/foreach}>
 
-            <{if $totalother > 0}>
+            <{if $totalother|default:0 > 0}>
                 <li class="nav-item"><a class="nav-link" href="<{$xoops_url}>/modules/<{$lang_moduledirname}>/letter.php?init=<{$smarty.const._MD_LEXIKON_OTHER}>" title="[ <{$totalother}> ]">
                         <{$smarty.const._MD_LEXIKON_OTHER}>
                     </a></li>
@@ -72,8 +72,8 @@
 
 <{* Category block *}>
 <!-- $layout 0 and 1 are the same. if you want to change first change CONFIG_CATEGORY_LAYOUT_PLAIN in inlcude/common.inc.php -->
-<{if $layout == '0'}>
-    <{if $multicats == 1 && count($block0.categories) gt 0 }>
+<{if $layout|default:'' == '0'}>
+    <{if $multicats|default:0 == 1 && count($block0.categories|default:0) gt 0 }>
         <div class="row" style="margin-bottom: 20px">
             <div class="col-md-12">
                 <h3> <{$smarty.const._MD_LEXIKON_BROWSECAT}> </h3>
@@ -81,7 +81,7 @@
         </div>
         <{foreach item=catlinks from=$block0.categories}>
 
-            <{if $catlinks.count is div by 4}>
+            <{if $catlinks.count|default:0 is div by 4}>
 
             <{/if}>
         <{/foreach}>
@@ -96,17 +96,17 @@
                 </td>
                 <!-- Start category loop -->
                 <td>
-                    <{if $catlinks.image != "" && $show_screenshot == true}>
+                    <{if $catlinks.image|default:'' != "" && $show_screenshot|default:false === true}>
                         <a href="<{$xoops_url}>/modules/<{$lang_moduledirname}>/category.php?categoryID=<{$catlinks.id}>" target="_parent">
                             <img src="<{$xoops_url}>/uploads/<{$lang_moduledirname}>/categories/images/<{$catlinks.image}>" width="<{$logo_maximgwidth}>" align="left" class="floatLeft" alt="[<{$catlinks.name}>]&nbsp;[<{$catlinks.total}>]">
                         </a>
                     <{/if}>
-                    <{if $catlinks.count > 0}>
-                        <{if $catlinks.total > 0}>
+                    <{if $catlinks.count|default:0 > 0}>
+                        <{if $catlinks.total|default:0 > 0}>
                             <a href="<{$xoops_url}>/modules/<{$lang_moduledirname}>/category.php?categoryID=<{$catlinks.id}>" title="[<{$catlinks.total}>]">
                         <{/if}>
                         <{$catlinks.linktext}>
-                        <{if $catlinks.total > 0}>
+                        <{if $catlinks.total|default:0 > 0}>
                             </a>
                         <{/if}>
                         [<{$catlinks.total}>]
@@ -120,7 +120,7 @@
         </table>
     <{/if}>
 <{else}>
-    <{if $multicats == 1}>
+    <{if $multicats|default:0 == 1}>
         <div class="row" style="margin-bottom: 20px">
             <div class="col-md-12">
                 <h3> <{$smarty.const._MD_LEXIKON_BROWSECAT}> </h3>
@@ -128,7 +128,7 @@
         </div>
         <{foreach item=catlinks from=$block0.categories}>
 
-            <{if $catlinks.count is div by 4}>
+            <{if $catlinks.count|default:0 is div by 4}>
 
             <{/if}>
         <{/foreach}>
@@ -137,17 +137,17 @@
             <tr>
                 <!-- Start category loop -->
                 <td>
-                    <{if $catlinks.image != "" && $show_screenshot == true}>
+                    <{if $catlinks.image|default:'' != "" && $show_screenshot|default:false === true}>
                         <a href="<{$xoops_url}>/modules/<{$lang_moduledirname}>/category.php?categoryID=<{$catlinks.id}>" target="_parent">
                             <img src="<{$xoops_url}>/uploads/<{$lang_moduledirname}>/categories/images/<{$catlinks.image}>" width="<{$logo_maximgwidth}>" align="left" class="floatLeft" alt="[<{$catlinks.name}>]&nbsp;[<{$catlinks.total}>]">
                         </a>
                     <{/if}>
-                    <{if $catlinks.count > 0}>
-                        <{if $catlinks.total > 0}>
+                    <{if $catlinks.count|default:0 > 0}>
+                        <{if $catlinks.total|default:0 > 0}>
                             <a href="<{$xoops_url}>/modules/<{$lang_moduledirname}>/category.php?categoryID=<{$catlinks.id}>" title="[<{$catlinks.total}>]">
                         <{/if}>
                         <{$catlinks.linktext}>
-                        <{if $catlinks.total > 0}>
+                        <{if $catlinks.total|default:0 > 0}>
                             </a>
                         <{/if}>
                         [<{$catlinks.total}>]
@@ -195,7 +195,7 @@
 
     <div class="col-md-4 col-sm-12">
         <h3><{$smarty.const._MD_LEXIKON_RANDOMTERM}></h3>
-        <{if $multicats == 1}>
+        <{if $multicats|default:0 == 1}>
            <{if $empty|default:false != 1}>
                 <div class="catname"><a href="<{$xoops_url}>/modules/<{$lang_moduledirname}>/category.php?categoryID=<{$random.categoryID}>"><{$random.categoryname}></a>
                 </div>
