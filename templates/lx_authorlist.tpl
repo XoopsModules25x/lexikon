@@ -20,12 +20,12 @@
             </tr>-->
                 <tr class="odd" style="text-align:center;">
                     <td>#</td>
-                    <{if $authorlistext}>
+                    <{if $authorlistext|default:false}>
                         <td><{$smarty.const._MD_LEXIKON_MAIL}></td>
                     <{/if}>
                     <td><{$smarty.const._MD_LEXIKON_AUTHOR}></td>
                     <td><{$smarty.const._MD_LEXIKON_TOTAL}></td>
-                    <{if $authorlistext}>
+                    <{if $authorlistext|default:false}>
                         <td><{$smarty.const._MD_LEXIKON_PM}></td>
                         <td><{$smarty.const._MD_LEXIKON_LOCATION}></td>
                         <td><{$smarty.const._MD_LEXIKON_WWW}></td>
@@ -34,13 +34,13 @@
                 <{foreach item=author from=$authors}>
                     <tr class="<{cycle values="even,odd"}>">
                         <td style="text-align:center;"><{$author.id}></td>
-                        <{if $authorlistext}>
+                        <{if $authorlistext|default:false}>
                             <td style="text-align:center;"><{$author.email}></td>
                         <{/if}>
                         <td style="font-size:12px; text-align:center;"><a href="<{$xoops_url}>/modules/<{$lang_moduledirname}>/profile.php?uid=<{$author.uid}>"><{$author.name}></a>
                         </td>
                         <td align="center"><{$author.total}></td>
-                        <{if $authorlistext}>
+                        <{if $authorlistext|default:false}>
                             <td style="text-align:center;"><{$author.pm}></td>
                             <td style="text-align:center;"><{$author.location}></td>
                             <td style="text-align:center;"><{$author.url}></td>

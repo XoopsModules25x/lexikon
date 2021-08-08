@@ -7,6 +7,7 @@
 - fixed bug in lx_content.tpl (goffy)
 - fixed problems with template_main (goffy)
 - updated german language files (goffy)
+- added smarty defaults (goffy)
 
 <h5>1.53 Beta 1     [NOT RELEASED]</h5>  Dev: Xoops 2.5.9, PHP 7.2.3
 <hr>

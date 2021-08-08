@@ -36,7 +36,7 @@ $modversion    = [
     'modicons32' => 'assets/images/icons/32',
 
     'license_file'        => XOOPS_URL . '/modules/lexikon/gpl.txt',
-    'status_version'      => 1.52,
+    'status_version'      => 1.53,
     'release'             => '2012-05-10',
     'last_update'         => '2015/01/12',
     'module_website_url'  => 'www.xoops.org',
@@ -282,7 +282,7 @@ $modversion['templates'] = [
 // Config Settings
 $modversion['config'] = [];
 
-$modversion['config'][1] = [
+$modversion['config'][] = [
     'name'        => 'multicats',
     'title'       => '_MI_LEXIKON_MULTICATS',
     'description' => '_MI_LEXIKON_MULTICATSDSC',
@@ -649,7 +649,8 @@ $modversion['config'][] = [
 ];
 
 $modversion['config'][] = [
-    'name'        => 'userpager',
+    'name'        => '
+    ',
     'title'       => '_MI_LEXIKON_USERPAGER',
     'description' => '_MI_LEXIKON_USERPAGER_DESC',
     'formtype'    => 'textbox',

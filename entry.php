@@ -25,9 +25,6 @@ $helper = Helper::getInstance();
 
 require_once XOOPS_ROOT_PATH . '/modules/lexikon/include/common.inc.php';
 $highlight = $utility::getModuleOption('config_highlighter');
-if ($highlight) {
-    require_once XOOPS_ROOT_PATH . '/modules/lexikon/class/keyhighlighter.class.php';
-}
 
 $entryID = Request::getInt('entryID', 0, 'GET');
 if (empty($entryID)) {
