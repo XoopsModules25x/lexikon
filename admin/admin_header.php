@@ -23,22 +23,22 @@ use XoopsModules\Lexikon\{
 /** @var Admin $adminObject */
 /** @var Helper $helper */
 
-require dirname(__DIR__) . '/preloads/autoloader.php';
+require \dirname(__DIR__) . '/preloads/autoloader.php';
 
-$path = dirname(__DIR__, 3);
+$path = \dirname(__DIR__, 3);
 require_once $path . '/include/cp_header.php';
 
-require_once dirname(__DIR__) . '/include/common.php';
+require_once \dirname(__DIR__) . '/include/common.php';
 
 //if functions.php file exist
-// require_once  dirname(__DIR__) . '/class/Utility.php';
-require_once dirname(__DIR__) . '/admin/functions.php';
-// require_once  dirname(__DIR__) . '/class/LexikonTree.php'; // -- LionHell
+// require_once  \dirname(__DIR__) . '/class/Utility.php';
+require_once \dirname(__DIR__) . '/admin/functions.php';
+// require_once  \dirname(__DIR__) . '/class/LexikonTree.php'; // -- LionHell
 require_once $path . '/class/xoopslists.php';
 require_once $path . '/class/xoopsformloader.php';
 
 $moduleDirName = \basename(\dirname(__DIR__));
-
+$moduleDirNameUpper = mb_strtoupper($moduleDirName);
 $helper = Helper::getInstance();
 
 /** @var Xmf\Module\Admin $adminObject */
@@ -52,6 +52,7 @@ $pathModIcon32 = $helper->getModule()->getInfo('modicons32');
 $helper->loadLanguage('admin');
 $helper->loadLanguage('modinfo');
 $helper->loadLanguage('main');
+$helper->loadLanguage('common');
 
 $myts = \MyTextSanitizer::getInstance();
 

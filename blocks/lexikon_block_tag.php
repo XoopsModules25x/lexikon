@@ -72,7 +72,7 @@ function lexikon_tag_block_cloud_show($options)
 
     if (xoops_isActiveModule('tag')) {
         require_once XOOPS_ROOT_PATH . '/modules/tag/blocks/block.php';
-        //$module_dirname = basename( dirname( __DIR__ ) ) ;
+        //$module_dirname = basename( \dirname( __DIR__ ) ) ;
         //return tag_block_cloud_show($options, $module_dirname);
         return tag_block_cloud_show($options, $module->getVar('dirname'));
     }

@@ -34,7 +34,7 @@ use XoopsObject;
 
 
 
-require_once dirname(__DIR__) . '/include/common.php';
+require_once \dirname(__DIR__) . '/include/common.php';
 
 $moduleDirName = \basename(\dirname(__DIR__));
 
@@ -53,12 +53,12 @@ class Categories extends XoopsObject
     public function __construct()
     {
         parent::__construct();
-        $this->initVar('categoryID', XOBJ_DTYPE_INT);
-        $this->initVar('name', XOBJ_DTYPE_TXTBOX);
-        $this->initVar('description', XOBJ_DTYPE_OTHER);
-        $this->initVar('total', XOBJ_DTYPE_INT);
-        $this->initVar('weight', XOBJ_DTYPE_INT);
-        $this->initVar('logourl', XOBJ_DTYPE_TXTBOX);
+        $this->initVar('categoryID', \XOBJ_DTYPE_INT);
+        $this->initVar('name', \XOBJ_DTYPE_TXTBOX);
+        $this->initVar('description', \XOBJ_DTYPE_OTHER);
+        $this->initVar('total', \XOBJ_DTYPE_INT);
+        $this->initVar('weight', \XOBJ_DTYPE_INT);
+        $this->initVar('logourl', \XOBJ_DTYPE_TXTBOX);
     }
 
     /**

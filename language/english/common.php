@@ -186,3 +186,5 @@ $moduleDirNameUpper = mb_strtoupper($moduleDirName);
 \define('CO_' . $moduleDirNameUpper . '_' . 'TOTAL_PUBLISHED', 'Published');
 \define('CO_' . $moduleDirNameUpper . '_' . 'TOTAL_REJECTED', 'Rejected');
 \define('CO_' . $moduleDirNameUpper . '_' . 'TOTAL_SUBMITTED', 'Submitted');
+
+\define('CO_' . $moduleDirNameUpper . '_' . 'ERROR403', 'You are not allowed to view this page!');

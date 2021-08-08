@@ -12,15 +12,23 @@
 /**
  * @copyright    XOOPS Project (https://xoops.org)
  * @license      GNU GPL 2 or later (https://www.gnu.org/licenses/gpl-2.0.html)
- * @author      XOOPS Development Team, Kazumi Ono (AKA onokazu)
+ * @author       XOOPS Development Team, Kazumi Ono (AKA onokazu)
  */
 
 use Xmf\Request;
+use XoopsModules\Lexikon\{Helper
+};
+
+$moduleDirName      = \basename(\dirname(__DIR__));
+$moduleDirNameUpper = \mb_strtoupper($moduleDirName);
+
+$helper = Helper::getInstance();
+$helper->loadLanguage('admin');
 
 if (!is_object($xoopsUser) || !is_object($xoopsModule) || !$xoopsUser->isAdmin($xoopsModule->mid())) {
     exit('Access Denied');
 }
-require_once XOOPS_ROOT_PATH . '/class/xoopsblock.php';
+require_once XOOPS_ROOT_PATH . '/kernel/block.php';
 //mb require_once XOOPS_ROOT_PATH . '/modules/system/admin/blocksadmin/blocksadmin.php';
 
 $op = 'list';
@@ -93,8 +101,8 @@ if (Request::hasVar('previewblock', 'POST')) {
     $block['ctype']     = $bctype ?? $myblock->getVar('c_type');
     $block['is_custom'] = true;
     $block['cachetime'] = $bcachetime;
-    echo '<a href="myblocksadmin.php">' . _AM_BADMIN . '</a>&nbsp;<span style="font-weight:bold;">&raquo;&raquo;</span>&nbsp;' . $block['form_title'] . '<br><br>';
-    require_once dirname(__DIR__) . '/admin/myblockform.php'; //GIJ
+    echo '<a href="myblocksadmin.php">' . constant('CO_' . $moduleDirNameUpper . '_' . 'BADMIN') . '</a>&nbsp;<span style="font-weight:bold;">&raquo;&raquo;</span>&nbsp;' . $block['form_title'] . '<br><br>';
+    require_once \dirname(__DIR__) . '/admin/myblockform.php'; //GIJ
 
     //    $xoopsGTicket->addTicketXoopsFormElement($form, __LINE__, 1800, 'myblocksadmin'); //GIJ
     $form->display();
@@ -346,8 +354,8 @@ if ('edit' === $op) {
         'submit_button' => _SUBMIT,
     ];
 
-    echo '<a href="myblocksadmin.php">' . _AM_BADMIN . '</a>&nbsp;<span style="font-weight:bold;">&raquo;&raquo;</span>&nbsp;' . _AM_EDITBLOCK . '<br><br>';
-    require dirname(__DIR__) . '/admin/myblockform.php'; //GIJ
+    echo '<a href="myblocksadmin.php">' . constant('CO_' . $moduleDirNameUpper . '_' . 'BADMIN') . '</a>&nbsp;<span style="font-weight:bold;">&raquo;&raquo;</span>&nbsp;' . _AM_EDITBLOCK . '<br><br>';
+    require \dirname(__DIR__) . '/admin/myblockform.php'; //GIJ
     //    $xoopsGTicket->addTicketXoopsFormElement($form, __LINE__, 1800, 'myblocksadmin'); //GIJ
     $form->display();
     // end of edit_block() GIJ
@@ -387,7 +395,7 @@ if ('clone' === $op) {
         'submit_button' => _CLONE,
     ];
     echo '<a href="myblocksadmin.php">' . _AM_SYSTEM_BLOCKS_ADMIN . '</a>&nbsp;<span style="font-weight:bold;">&raquo;&raquo;</span>&nbsp;' . _AM_SYSTEM_BLOCKS_CLONEBLOCK . '<br><br>';
-    require dirname(__DIR__) . '/admin/myblockform.php';
+    require \dirname(__DIR__) . '/admin/myblockform.php';
     //    $xoopsGTicket->addTicketXoopsFormElement($form, __LINE__, 1800, 'myblocksadmin'); //GIJ
     $form->display();
     xoops_cp_footer();

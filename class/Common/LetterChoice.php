@@ -115,10 +115,10 @@ class LetterChoice
     {
         $moduleDirName      = \basename(\dirname(__DIR__, 2));
         $moduleDirNameUpper = mb_strtoupper($moduleDirName);
-        xoops_loadLanguage('common', $moduleDirName);
-        xoops_loadLanguage('alphabet', $moduleDirName);
-        $all   = constant('CO_' . $moduleDirNameUpper . '_ALL');
-        $other = constant('CO_' . $moduleDirNameUpper . '_OTHER');
+        \xoops_loadLanguage('common', $moduleDirName);
+        \xoops_loadLanguage('alphabet', $moduleDirName);
+        $all   = \constant('CO_' . $moduleDirNameUpper . '_ALL');
+        $other = \constant('CO_' . $moduleDirNameUpper . '_OTHER');
 
         $ret = '';
 
@@ -172,7 +172,7 @@ class LetterChoice
         $alphabetArray[$letter] = $letter_array;
 
         // render output
-        if (!isset($GLOBALS['xoTheme']) || !is_object($GLOBALS['xoTheme'])) {
+        if (!isset($GLOBALS['xoTheme']) || !\is_object($GLOBALS['xoTheme'])) {
             require_once $GLOBALS['xoops']->path('/class/theme.php');
             $GLOBALS['xoTheme'] = new \xos_opal_Theme();
         }

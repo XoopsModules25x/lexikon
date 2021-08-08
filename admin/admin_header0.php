@@ -7,7 +7,7 @@
  * Licence: GNU
  */
 
-require dirname(__DIR__, 3) . '/include/cp_header.php';
+require \dirname(__DIR__, 3) . '/include/cp_header.php';
 
 xoops_loadLanguage('main', basename(dirname(__DIR__)));
 

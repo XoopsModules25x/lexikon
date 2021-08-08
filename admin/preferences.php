@@ -8,7 +8,7 @@
 
 use Xmf\Request;
 
-require dirname(__DIR__, 3) . '/mainfile.php';
+require \dirname(__DIR__, 3) . '/mainfile.php';
 
 require_once XOOPS_ROOT_PATH . '/kernel/module.php';
 require_once XOOPS_ROOT_PATH . '/modules/lexikon/class/LexikonTree.php'; // -- LionHell
