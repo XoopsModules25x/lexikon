@@ -16,7 +16,7 @@
     -->
 </style>
 <{* needed for baloon tips*}>
-<{if $balloontips}>
+<{if $balloontips|default:false}>
     <div id="bubble_tooltip">
         <div class="bubble_top"><span></span></div>
         <div class="bubble_middle">
@@ -41,7 +41,7 @@
         <ul class="pagination pagination-sm">
             <li class="nav-item"><a class="nav-link" href="<{$xoops_url}>/modules/<{$lang_moduledirname}>/letter.php" title="[ <{$publishedwords}> ]"><{$smarty.const._MD_LEXIKON_ALL}></a></li>
             <{foreach item=letterlinks from=$alpha.initial}>
-                <{if $letterlinks.total > 0}>
+                <{if $letterlinks.total|default:0 > 0}>
                     <li class="nav-item"><a class="nav-link" href="<{$xoops_url}>/modules/<{$lang_moduledirname}>/letter.php?init=<{$letterlinks.id}>" title="[ <{$letterlinks.total}> ]">
                             <{$letterlinks.linktext}>
                         </a></li>
@@ -50,7 +50,7 @@
                 <{/if}>
             <{/foreach}>
 
-            <{if $totalother > 0}>
+            <{if $totalother|default:0 > 0}>
                 <li class="nav-item"><a class="nav-link" href="<{$xoops_url}>/modules/<{$lang_moduledirname}>/letter.php?init=<{$smarty.const._MD_LEXIKON_OTHER}>" title="[ <{$totalother}> ]">
                         <{$smarty.const._MD_LEXIKON_OTHER}>
                     </a></li>
@@ -67,7 +67,7 @@
     <div class="col-md-12">
         <div style="margin-bottom: 15px">
             <h4><{$thisterm.term}><{$microlinks}></h4>
-            <{if $multicats == 1}>
+            <{if $multicats|default:0 == 1}>
                 <a href="<{$xoops_url}>/modules/<{$thisterm.dir}>/category.php?categoryID=<{$thisterm.categoryID}>"><span class="label label-info"><{$thisterm.catname}></span></a>
             <{/if}>
         </div>
@@ -75,11 +75,11 @@
             <span style="display: block"><{$thisterm.definition}></span>
         </p>
 
-        <{if $thisterm.ref}>
+        <{if $thisterm.ref|default:false}>
             <p style="margin-bottom: 10px"><b><{$smarty.const._MD_LEXIKON_ENTRYREFERENCE}></b><{$thisterm.ref}></p>
         <{/if}>
 
-        <{if $thisterm.url}>
+        <{if $thisterm.url|default:false}>
             <p style="margin-bottom: 10px"><b><{$smarty.const._MD_LEXIKON_ENTRYRELATEDURL}></b><{$thisterm.url}></p>
         <{/if}>
 
@@ -91,7 +91,7 @@
             <span class="standard">
                 <span style="color: #4e505c; ">
                     <{$smarty.const._MD_LEXIKON_SUBMITTED}>
-                    <{if $showsubmitter }><{$submitter}><{/if}> <{$submittedon}><br>
+                    <{if $showsubmitter|default:false}><{$submitter}><{/if}> <{$submittedon}><br>
                     <{$counter}>
                 </span>
             </span>
@@ -101,7 +101,7 @@
         <div class="entryfooter">
             <span class="standard">
                 <{$microlinksnew}>
-                <{if $bookmarkme == 3}>
+                <{if $bookmarkme|default:0 == 3}>
                     &nbsp; <!-- AddThis Bookmark Button -->
                     <a href="http://www.addthis.com/bookmark.php" onclick="addthis_url = location.href; addthis_title = document.title; return addthis_click(this);" target="_blank">
                     <img src="assets/images/addthis_button1-bm.gif" align="absmiddle" width="125" height="16" border="0" alt="AddThis Social Bookmark Button">
@@ -109,7 +109,7 @@
                     <script type="text/javascript">var addthis_pub = 'JJXUY2C9CQIWTKI1';</script>
                     <script type="text/javascript" src="http://s9.addthis.com/js/widget.php?v=10"></script>
 
-<{elseif $bookmarkme == 4}>
+<{elseif $bookmarkme|default:0 == 4}>
                 &nbsp; <!-- AddThis Bookmark dropdown -->
 
                     <script type="text/javascript">
@@ -126,7 +126,7 @@
 
 <div class="row">
     <div class="col-md-12">
-        <{if $bookmarkme == 2}>
+        <{if $bookmarkme|default:0 == 2}>
             <{include file="db:lx_bookmark.tpl"}>
         <{/if}>
         <{if $tagbar|default:false}>
@@ -146,11 +146,11 @@
 
         <div style="margin: 3px; padding: 3px;">
             <!-- start comments loop -->
-            <{if $comment_mode == "flat"}>
+            <{if $comment_mode|default:0 == "flat"}>
                 <{include file="db:system_comments_flat.tpl"}>
-            <{elseif $comment_mode == "thread"}>
+            <{elseif $comment_mode|default:0 == "thread"}>
                 <{include file="db:system_comments_thread.tpl"}>
-            <{elseif $comment_mode == "nest"}>
+            <{elseif $comment_mode|default:0 == "nest"}>
                 <{include file="db:system_comments_nest.tpl"}>
             <{/if}>
             <!-- end comments loop -->

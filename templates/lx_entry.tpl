@@ -1,5 +1,5 @@
 <{* needed for baloon tips*}>
-<{if $balloontips}>
+<{if $balloontips|default:false}>
     <div id="bubble_tooltip">
         <div class="bubble_top"><span></span></div>
         <div class="bubble_middle"><span id="bubble_tooltip_content">Content is coming here as you probably can see.</span></div>
@@ -22,20 +22,20 @@
                     <a href="<{$xoops_url}>/modules/<{$lang_moduledirname}>/letter.php"><abbr name="[&nbsp;<{$publishedwords}>&nbsp;]"><{$smarty.const._MD_LEXIKON_ALL}></abbr></a></div>
                 <div class="search_abc_c">&nbsp;|
                     <{foreach item=letterlinks from=$alpha.initial}>
-                        <{if $letterlinks.total > 0}>&nbsp;<a href="<{$xoops_url}>/modules/<{$lang_moduledirname}>/letter.php?init=<{$letterlinks.id}>"><abbr name="[&nbsp;<{$letterlinks.total}>&nbsp;]"><{/if}><{$letterlinks.linktext}></abbr>
-                        <{if $letterlinks.total > 0}></a><{/if}>&nbsp;|
+                        <{if $letterlinks.total|default:0 > 0}>&nbsp;<a href="<{$xoops_url}>/modules/<{$lang_moduledirname}>/letter.php?init=<{$letterlinks.id}>"><abbr name="[&nbsp;<{$letterlinks.total}>&nbsp;]"><{/if}><{$letterlinks.linktext}></abbr>
+                        <{if $letterlinks.total|default:0 > 0}></a><{/if}>&nbsp;|
                     <{/foreach}></div>
                 <div class="search_abc_r">
-                    <{if $totalother > 0}>&nbsp;<a href="<{$xoops_url}>/modules/<{$lang_moduledirname}>/letter.php?init=<{$smarty.const._MD_LEXIKON_OTHER}>"><abbr name="[&nbsp;<{$totalother}>&nbsp;]"><{/if}><{$smarty.const._MD_LEXIKON_OTHER}></abbr>
-                        <{if $totalother > 0}></a><{/if}>
+                    <{if $totalother|default:0 > 0}>&nbsp;<a href="<{$xoops_url}>/modules/<{$lang_moduledirname}>/letter.php?init=<{$smarty.const._MD_LEXIKON_OTHER}>"><abbr name="[&nbsp;<{$totalother}>&nbsp;]"><{/if}><{$smarty.const._MD_LEXIKON_OTHER}></abbr>
+                        <{if $totalother|default:0 > 0}></a><{/if}>
                 </div>
             </fieldset>
         </div>
     </div>
 
     <{* Category block *}>
-    <{if $layout == '0'}>
-        <{if $multicats == 1 && count($block0.categories) gt 0 }>
+    <{if $layout|default:'' == '0'}>
+        <{if $multicats|default:0 == 1 && count($block0.categories|default:0) gt 0 }>
             <div class="clearer">
                 <fieldset>
                     <legend>&nbsp;<{$smarty.const._MD_LEXIKON_BROWSECAT}>&nbsp;</legend>
@@ -49,19 +49,19 @@
                             <!-- Start category loop -->
                             <{foreach item=catlinks from=$block0.categories}>
                             <td>
-                                <{if $catlinks.image != "" && $show_screenshot === true}>
+                                <{if $catlinks.image|default:'' != "" && $show_screenshot|default:false === true}>
                                     <a href="<{$xoops_url}>/modules/<{$lang_moduledirname}>/category.php?categoryID=<{$catlinks.id}>"
                                        target="_parent"><img
                                                 src="<{$xoops_url}>/uploads/<{$lang_moduledirname}>/categories/images/<{$catlinks.image}>"
                                                 style="width:<{$logo_maximgwidth}>; text-align: left;" class="floatLeft"
                                                 alt="[&nbsp;<{$catlinks.name}>&nbsp;]&nbsp;[&nbsp;<{$catlinks.total}>&nbsp;]"></a>
                                 <{/if}>
-                                <{if $catlinks.count > 0}>
-                                    <{if $catlinks.total > 0}><a href="<{$xoops_url}>/modules/<{$lang_moduledirname}>/category.php?categoryID=<{$catlinks.id}>" title="[&nbsp;<{$catlinks.total}>&nbsp;]"><{/if}><{$catlinks.linktext}>
-                                    <{if $catlinks.total > 0}></a>&nbsp;<{/if}>[&nbsp;<{$catlinks.total}>&nbsp;]
+                                <{if $catlinks.count|default:0 > 0}>
+                                    <{if $catlinks.total|default:0 > 0}><a href="<{$xoops_url}>/modules/<{$lang_moduledirname}>/category.php?categoryID=<{$catlinks.id}>" title="[&nbsp;<{$catlinks.total}>&nbsp;]"><{/if}><{$catlinks.linktext}>
+                                    <{if $catlinks.total|default:0 > 0}></a>&nbsp;<{/if}>[&nbsp;<{$catlinks.total}>&nbsp;]
                                 <{/if}>
                             </td>
-                            <{if $catlinks.count % 4 == 0}>
+                            <{if $catlinks.count|default:0 % 4 == 0}>
                         </tr>
                         <tr>
                             <{/if}>
@@ -73,21 +73,21 @@
             </fieldset>
         <{/if}>
     <{else}>
-        <{if $multicats == 1}>
+        <{if $multicats|default:0 == 1}>
             <div class="clearer">
                 <fieldset>
                     <legend>&nbsp;<{$smarty.const._MD_LEXIKON_BROWSECAT}>&nbsp;</legend>
                     <div class="letters">
                         <{foreach item=catlinks from=$block0.categories}>
-                        <{if $catlinks.image != "" && $show_screenshot === true}>
+                        <{if $catlinks.image|default:'' != "" && $show_screenshot|default:false === true}>
                             <a href="<{$xoops_url}>/modules/<{$lang_moduledirname}>/category.php?categoryID=<{$category.id}>"
                                target="_parent">
                                 <img src="<{$xoops_url}>/uploads/<{$lang_moduledirname}>/categories/images/<{$catlinks.image}>"
                                      style="width:<{$logo_maximgwidth}> vertical-align:middle;"
                                      alt="[&nbsp;<{$catlinks.total}>&nbsp;]"></a>
                         <{/if}>
-                        <{if $catlinks.total > 0}>&nbsp;<a href="<{$xoops_url}>/modules/<{$lang_moduledirname}>/category.php?categoryID=<{$catlinks.id}>" title="[&nbsp;<{$catlinks.total}>&nbsp;]"><{/if}><{$catlinks.linktext}>
-                        <{if $catlinks.total > 0}></a>&nbsp;<{/if}>[&nbsp;<{$catlinks.total}>&nbsp;]
+                        <{if $catlinks.total|default:0 > 0}>&nbsp;<a href="<{$xoops_url}>/modules/<{$lang_moduledirname}>/category.php?categoryID=<{$catlinks.id}>" title="[&nbsp;<{$catlinks.total}>&nbsp;]"><{/if}><{$catlinks.linktext}>
+                        <{if $catlinks.total|default:0 > 0}></a>&nbsp;<{/if}>[&nbsp;<{$catlinks.total}>&nbsp;]
                         <{/foreach}>&nbsp;
                         <a href="<{$xoops_url}>/modules/<{$lang_moduledirname}>/category.php"
                            title="[&nbsp;<{$publishedwords}>&nbsp;]"><{$smarty.const._MD_LEXIKON_ALLCATS}></a>&nbsp;[&nbsp;<{$publishedwords}>&nbsp;]
@@ -97,7 +97,7 @@
         <{/if}>
     <{/if}>
 
-    <{if $multicats == 1}>
+    <{if $multicats|default:0 == 1}>
         <div class="catback"><b><{$smarty.const._MD_LEXIKON_ENTRYCATEGORY}></b>
             <a href="<{$xoops_url}>/modules/<{$thisterm.dir}>/category.php?categoryID=<{$thisterm.categoryID}>"><{$thisterm.catname}></a>
         </div>
@@ -107,23 +107,23 @@
     <b><{$smarty.const._MD_LEXIKON_ENTRYDEFINITION}></b>
     <div class="small"><{$thisterm.definition}></div>
 
-    <{if $thisterm.ref}>
+    <{if $thisterm.ref|default:false}>
         <div class="small"><b><{$smarty.const._MD_LEXIKON_ENTRYREFERENCE}></b><{$thisterm.ref}></div>
     <{/if}>
 
-    <{if $thisterm.url}>
+    <{if $thisterm.url|default:false}>
         <div class="xsmall"><b><{$smarty.const._MD_LEXIKON_ENTRYRELATEDURL}></b><{$thisterm.url}></div>
     <{/if}>
 
     <div class="clearer">
         <div style="margin:0 1.0em 0 0; text-align:right;"><br><span class="standard"><span style="color: #4e505c; ">
 <{$smarty.const._MD_LEXIKON_SUBMITTED}>
-                    <{if $showsubmitter }><{$submitter}><{/if}> <{$submittedon}><br>
+                    <{if $showsubmitter|default:false}><{$submitter}><{/if}> <{$submittedon}><br>
                     <{$counter}> </span></span></p></div>
 
         <div class="entryfooter">
 <span class="standard"><{$microlinksnew}>
-    <{if $bookmarkme == 3}>
+    <{if $bookmarkme|default:0 == 3}>
         &nbsp; <!-- AddThis Bookmark Button -->
         <a href="http://www.addthis.com/bookmark.php"
            onclick="addthis_url = location.href; addthis_title = document.title; return addthis_click(this);"
@@ -131,7 +131,7 @@
         <script type="text/javascript">var addthis_pub = 'JJXUY2C9CQIWTKI1';</script>
         <script type="text/javascript" src="http://s9.addthis.com/js/widget.php?v=10"></script>
 
-<{elseif $bookmarkme == 4}>
+<{elseif $bookmarkme|default:0 == 4}>
     &nbsp; <!-- AddThis Bookmark dropdown -->
 
 
@@ -144,7 +144,7 @@
     <{/if}>
 </span>
         </div>
-        <{if $bookmarkme == 2}>
+        <{if $bookmarkme|default:0 == 2}>
             <{include file="db:lx_bookmark.tpl"}>
         <{/if}>
         <{if $tagbar|default:false}>
@@ -155,17 +155,17 @@
 
         <!-- start comments -->
         <div class="pad5">
-            <{$commentsnav}>
-            <{$lang_notice}>
+            <{$commentsnav|default:''}>
+            <{$lang_notice|default:''}>
         </div>
 
         <div class="pad5">
             <!-- start comments loop -->
-            <{if $comment_mode == "flat"}>
+            <{if $comment_mode|default:0 == "flat"}>
                 <{include file="db:system_comments_flat.tpl"}>
-            <{elseif $comment_mode == "thread"}>
+            <{elseif $comment_mode|default:0 == "thread"}>
                 <{include file="db:system_comments_thread.tpl"}>
-            <{elseif $comment_mode == "nest"}>
+            <{elseif $comment_mode|default:0 == "nest"}>
                 <{include file="db:system_comments_nest.tpl"}>
             <{/if}>
             <!-- end comments loop -->

@@ -3,7 +3,11 @@
 - PHP7, PHP8 adjustments (mamba)
 - testdata (mamba)
 - migrate (mamba)
-
+- uniform usage of language defines ('_AM_' instead of 'AM_', '_MD_' instead of 'MD_', '_MI_' instead of 'MI_') (goffy)
+- fixed bug in lx_content.tpl (goffy)
+- fixed problems with template_main (goffy)
+- updated german language files (goffy)
+- added smarty defaults (goffy)
 
 <h5>1.53 Beta 1     [NOT RELEASED]</h5>  Dev: Xoops 2.5.9, PHP 7.2.3
 <hr>

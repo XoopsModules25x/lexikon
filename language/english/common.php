@@ -78,8 +78,8 @@ $moduleDirNameUpper = mb_strtoupper($moduleDirName);
 \define('CO_' . $moduleDirNameUpper . '_' . 'EXPORT_SCHEMA_ERROR', 'ERROR: Export of DB Schema to YAML failed');
 \define('CO_' . $moduleDirNameUpper . '_' . 'SHOW_SAMPLE_BUTTON', 'Show Sample Button?');
 \define('CO_' . $moduleDirNameUpper . '_' . 'SHOW_SAMPLE_BUTTON_DESC', 'If yes, the "Add Sample Data" button will be visible to the Admin. It is Yes as a default for first installation.');
-\define('CO_' . $moduleDirNameUpper . '_' . 'HIDE_SAMPLEDATA_BUTTONS', 'Hide the Import buttons)');
-\define('CO_' . $moduleDirNameUpper . '_' . 'SHOW_SAMPLEDATA_BUTTONS', 'Show the Import buttons)');
+\define('CO_' . $moduleDirNameUpper . '_' . 'HIDE_SAMPLEDATA_BUTTONS', 'Hide the Import buttons');
+\define('CO_' . $moduleDirNameUpper . '_' . 'SHOW_SAMPLEDATA_BUTTONS', 'Show the Import buttons');
 
 \define('CO_' . $moduleDirNameUpper . '_' . 'CONFIRM', 'Confirm');
 
@@ -176,8 +176,6 @@ $moduleDirNameUpper = mb_strtoupper($moduleDirName);
 
 \define('CO_' . $moduleDirNameUpper . '_' . 'IMAGE_FILE_SIZE', 'Image File Size (in Bytes)');
 \define('CO_' . $moduleDirNameUpper . '_' . 'IMAGE_FILE_SIZE_DSC','The maximum file size of the image file (in Bytes)');
-
-
 //Module Stats
 \define('CO_' . $moduleDirNameUpper . '_' . 'STATS_SUMMARY', 'Module Statistics');
 \define('CO_' . $moduleDirNameUpper . '_' . 'TOTAL_CATEGORIES', 'Categories:');

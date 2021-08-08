@@ -56,7 +56,7 @@ $categoriesHandler = new CategoriesHandler($db);
 switch ($op) {
     case 'list':
     default:
-        $adminObject->addItemButton(AM_LEXIKON_ADD_ENTRIES, 'entries.php?op=new', 'add');
+        $adminObject->addItemButton(_AM_LEXIKON_ADD_ENTRIES, 'entries.php?op=new', 'add');
         echo $adminObject->displayButton('left');
         $start                  = Request::getInt('start', 0);
         $entriesPaginationLimit = $GLOBALS['xoopsModuleConfig']['userpager'];
@@ -105,38 +105,38 @@ switch ($op) {
             foreach (array_keys($entriesTempArray) as $i) {
                 //        $field = explode(':', $fields[$i]);
 
-                $selectorentryID = Utility::selectSorting(AM_LEXIKON_ENTRIES_ENTRYID, 'entryID');
+                $selectorentryID = Utility::selectSorting(_AM_LEXIKON_ENTRIES_ENTRYID, 'entryID');
                 $GLOBALS['xoopsTpl']->assign('selectorentryID', $selectorentryID);
                 $entryID = $entriesTempArray[$i]->getVar('entryID');
                 $entriesArray['entryID'] = $entryID;
 
-                $selectorcategoryID = Utility::selectSorting(AM_LEXIKON_ENTRIES_CATEGORYID, 'categoryID');
+                $selectorcategoryID = Utility::selectSorting(_AM_LEXIKON_ENTRIES_CATEGORYID, 'categoryID');
                 $GLOBALS['xoopsTpl']->assign('selectorcategoryID', $selectorcategoryID);
                 $categoryID = $entriesTempArray[$i]->getVar('categoryID');
                 $categoryName = $categoriesHandler->get($entriesTempArray[$i]->getVar('categoryID'))->getVar('name');
                 $entriesArray['categoryID']  = "<a href='../category.php?categoryID=" . $categoryID . "'>" .  $categoryName . "</a>";
 
-                $selectorterm = Utility::selectSorting(AM_LEXIKON_ENTRIES_TERM, 'term');
+                $selectorterm = Utility::selectSorting(_AM_LEXIKON_ENTRIES_TERM, 'term');
                 $GLOBALS['xoopsTpl']->assign('selectorterm', $selectorterm);
                 $entriesArray['term'] = $entriesTempArray[$i]->getVar('term');
                 $entryTerm = $entriesTempArray[$i]->getVar('term');
                 $entriesArray['term']  = "<a href='../entry.php?entryID=" . $entryID . "'>" .  $entryTerm . "</a>";
 
 
-                $selectorinit = Utility::selectSorting(AM_LEXIKON_ENTRIES_INIT, 'init');
+                $selectorinit = Utility::selectSorting(_AM_LEXIKON_ENTRIES_INIT, 'init');
                 $GLOBALS['xoopsTpl']->assign('selectorinit', $selectorinit);
                 $entriesArray['init'] = $entriesTempArray[$i]->getVar('init');
 
-                $selectordefinition = Utility::selectSorting(AM_LEXIKON_ENTRIES_DEFINITION, 'definition');
+                $selectordefinition = Utility::selectSorting(_AM_LEXIKON_ENTRIES_DEFINITION, 'definition');
                 $GLOBALS['xoopsTpl']->assign('selectordefinition', $selectordefinition);
 
                 $entriesArray['definition'] = Utility::truncateTagSafe($entriesTempArray[$i]->getVar('definition'), 80, $etc = '...', $breakWords = false);
 
-                $selectorref = Utility::selectSorting(AM_LEXIKON_ENTRIES_REF, 'ref');
+                $selectorref = Utility::selectSorting(_AM_LEXIKON_ENTRIES_REF, 'ref');
                 $GLOBALS['xoopsTpl']->assign('selectorref', $selectorref);
                 $entriesArray['ref'] = $entriesTempArray[$i]->getVar('ref');
 
-                $selectorurl = Utility::selectSorting(AM_LEXIKON_ENTRIES_URL, 'url');
+                $selectorurl = Utility::selectSorting(_AM_LEXIKON_ENTRIES_URL, 'url');
                 $GLOBALS['xoopsTpl']->assign('selectorurl', $selectorurl);
                 $entriesArray['url'] = $entriesTempArray[$i]->getVar('url');
 
@@ -144,7 +144,7 @@ switch ($op) {
                 $GLOBALS['xoopsTpl']->assign('selectorsubmit', $selectorsubmit);
                 $entriesArray['submit'] = $entriesTempArray[$i]->getVar('submit');
 
-                $selectordatesub = Utility::selectSorting(AM_LEXIKON_ENTRIES_DATESUB, 'datesub');
+                $selectordatesub = Utility::selectSorting(_AM_LEXIKON_ENTRIES_DATESUB, 'datesub');
                 $GLOBALS['xoopsTpl']->assign('selectordatesub', $selectordatesub);
                 //                $entriesArray['datesub'] = date(_DATESTRING, strtotime($entriesTempArray[$i]->getVar('datesub')));
                 $date                    = $entriesTempArray[$i]->getVar('datesub');
@@ -153,7 +153,7 @@ switch ($op) {
                 //                formatTimestamp($date, 'd M Y')
 
 
-                $selectoruid = Utility::selectSorting(AM_LEXIKON_ENTRIES_UID, 'uid');
+                $selectoruid = Utility::selectSorting(_AM_LEXIKON_ENTRIES_UID, 'uid');
                 $GLOBALS['xoopsTpl']->assign('selectoruid', $selectoruid);
                 $userId = $entriesTempArray[$i]->getVar('uid');
                 $userName = \XoopsUserUtility::getUnameFromId($entriesTempArray[$i]->getVar('uid'));
@@ -163,48 +163,48 @@ switch ($op) {
 
 
 
-                $selectorcounter = Utility::selectSorting(AM_LEXIKON_ENTRIES_COUNTER, 'counter');
+                $selectorcounter = Utility::selectSorting(_AM_LEXIKON_ENTRIES_COUNTER, 'counter');
                 $GLOBALS['xoopsTpl']->assign('selectorcounter', $selectorcounter);
                 $entriesArray['counter'] = $entriesTempArray[$i]->getVar('counter');
 
-                $selectorhtml = Utility::selectSorting(AM_LEXIKON_ENTRIES_HTML, 'html');
+                $selectorhtml = Utility::selectSorting(_AM_LEXIKON_ENTRIES_HTML, 'html');
                 $GLOBALS['xoopsTpl']->assign('selectorhtml', $selectorhtml);
                 $entriesArray['html'] = $entriesTempArray[$i]->getVar('html');
 
-                $selectorsmiley = Utility::selectSorting(AM_LEXIKON_ENTRIES_SMILEY, 'smiley');
+                $selectorsmiley = Utility::selectSorting(_AM_LEXIKON_ENTRIES_SMILEY, 'smiley');
                 $GLOBALS['xoopsTpl']->assign('selectorsmiley', $selectorsmiley);
                 $entriesArray['smiley'] = $entriesTempArray[$i]->getVar('smiley');
 
-                $selectorxcodes = Utility::selectSorting(AM_LEXIKON_ENTRIES_XCODES, 'xcodes');
+                $selectorxcodes = Utility::selectSorting(_AM_LEXIKON_ENTRIES_XCODES, 'xcodes');
                 $GLOBALS['xoopsTpl']->assign('selectorxcodes', $selectorxcodes);
                 $entriesArray['xcodes'] = $entriesTempArray[$i]->getVar('xcodes');
 
-                $selectorbreaks = Utility::selectSorting(AM_LEXIKON_ENTRIES_BREAKS, 'breaks');
+                $selectorbreaks = Utility::selectSorting(_AM_LEXIKON_ENTRIES_BREAKS, 'breaks');
                 $GLOBALS['xoopsTpl']->assign('selectorbreaks', $selectorbreaks);
                 $entriesArray['breaks'] = $entriesTempArray[$i]->getVar('breaks');
 
-                $selectorblock = Utility::selectSorting(AM_LEXIKON_ENTRIES_BLOCK, 'block');
+                $selectorblock = Utility::selectSorting(_AM_LEXIKON_ENTRIES_BLOCK, 'block');
                 $GLOBALS['xoopsTpl']->assign('selectorblock', $selectorblock);
                 $entriesArray['block'] = $entriesTempArray[$i]->getVar('block');
 
-                $selectoroffline = Utility::selectSorting(MD_LEXIKON_ENTRIES_ONLINE, 'online');
+                $selectoroffline = Utility::selectSorting(_MD_LEXIKON_ENTRIES_ONLINE, 'online');
                 $GLOBALS['xoopsTpl']->assign('selectoroffline', $selectoroffline);
                 //                $entriesArray['offline'] = $entriesTempArray[$i]->getVar('offline');
                 $entriesArray['offline'] = (1 == $entriesTempArray[$i]->getVar('offline') ? $icons['0'] : "<border='0'>" . $icons['1']);
 
-                $selectornotifypub = Utility::selectSorting(AM_LEXIKON_ENTRIES_NOTIFYPUB, 'notifypub');
+                $selectornotifypub = Utility::selectSorting(_AM_LEXIKON_ENTRIES_NOTIFYPUB, 'notifypub');
                 $GLOBALS['xoopsTpl']->assign('selectornotifypub', $selectornotifypub);
                 $entriesArray['notifypub'] = $entriesTempArray[$i]->getVar('notifypub');
 
-                $selectorrequest = Utility::selectSorting(AM_LEXIKON_ENTRIES_REQUEST, 'request');
+                $selectorrequest = Utility::selectSorting(_AM_LEXIKON_ENTRIES_REQUEST, 'request');
                 $GLOBALS['xoopsTpl']->assign('selectorrequest', $selectorrequest);
                 $entriesArray['request'] = $entriesTempArray[$i]->getVar('request');
 
-                $selectorcomments = Utility::selectSorting(AM_LEXIKON_ENTRIES_COMMENTS, 'comments');
+                $selectorcomments = Utility::selectSorting(_AM_LEXIKON_ENTRIES_COMMENTS, 'comments');
                 $GLOBALS['xoopsTpl']->assign('selectorcomments', $selectorcomments);
                 $entriesArray['comments'] = $entriesTempArray[$i]->getVar('comments');
 
-                $selectoritem_tag = Utility::selectSorting(AM_LEXIKON_ENTRIES_ITEM_TAG, 'item_tag');
+                $selectoritem_tag = Utility::selectSorting(_AM_LEXIKON_ENTRIES_ITEM_TAG, 'item_tag');
                 $GLOBALS['xoopsTpl']->assign('selectoritem_tag', $selectoritem_tag);
                 $entriesArray['item_tag']    = strip_tags($entriesTempArray[$i]->getVar('item_tag'));
                 $entriesArray['edit_delete'] = "<a href='entries.php?op=edit&entryID=" . $i . "'><img src=" . $pathIcon16 . "/edit.png alt='" . _EDIT . "' title='" . _EDIT . "'></a>
@@ -251,7 +251,7 @@ switch ($op) {
 
         break;
     case 'new':
-        $adminObject->addItemButton(AM_LEXIKON_ENTRIES_LIST, 'entries.php', 'list');
+        $adminObject->addItemButton(_AM_LEXIKON_ENTRIES_LIST, 'entries.php', 'list');
         echo $adminObject->displayButton('left');
 
         /** @var Entries $entriesObject */
@@ -303,8 +303,9 @@ switch ($op) {
         $form->display();
         break;
     case 'edit':
-        $adminObject->addItemButton(AM_LEXIKON_ADD_ENTRIES, 'entries.php?op=new', 'add');
-        $adminObject->addItemButton(AM_LEXIKON_ENTRIES_LIST, 'entries.php', 'list');
+    case 'mod':
+        $adminObject->addItemButton(_AM_LEXIKON_ADD_ENTRIES, 'entries.php?op=new', 'add');
+        $adminObject->addItemButton(_AM_LEXIKON_ENTRIES_LIST, 'entries.php', 'list');
         echo $adminObject->displayButton('left');
         $entriesObject = $entriesHandler->get(Request::getString('entryID', ''));
         $form          = $entriesObject->getForm();
@@ -322,7 +323,7 @@ switch ($op) {
                 echo $entriesObject->getHtmlErrors();
             }
         } else {
-            xoops_confirm(['ok' => 1, 'entryID' => Request::getString('entryID', ''), 'op' => 'delete'], Request::getCmd('REQUEST_URI', '', 'SERVER'), sprintf(AM_LEXIKON_FORMSUREDEL, $entriesObject->getVar('term')));
+            xoops_confirm(['ok' => 1, 'entryID' => Request::getString('entryID', ''), 'op' => 'delete'], Request::getCmd('REQUEST_URI', '', 'SERVER'), sprintf(_AM_LEXIKON_FORMSUREDEL, $entriesObject->getVar('term')));
         }
         break;
     case 'clone':

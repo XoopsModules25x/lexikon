@@ -18,7 +18,7 @@
     <br>
     <div class="category">
         <div class="catname">
-            <{if $nothing==false}>
+            <{if $nothing|default:false == false}>
                 <img src='<{$xoops_url}>/modules/<{$lang_moduledirname}>/assets/images/square-green.gif' style="vertical-align:middle;" alt="square-green">
                 <{$submitted}>
                 <br>
@@ -38,7 +38,7 @@
                 <td><{$smarty.const._MD_LEXIKON_TERMS}></td>
                 <td><{$smarty.const._MD_LEXIKON_HITS}></td>
             </tr>
-            <{if $nothing==false}>
+            <{if $nothing|default:false == false}>
                 <{foreach item=d from=$entries}>
                     <tr class="<{cycle values="even,odd"}>">
                         <td style="font-size:11px; text-align:center;"><{$d.date}></td>
@@ -48,7 +48,7 @@
                 <{/foreach}>
             <{/if}>
         </table>
-        <{if $navi==true}>
+        <{if $navi|default:false == true}>
             <div class="search_abc_l"></div>
             <div class="search_abc_c">[&nbsp;<a href='javascript:history.go(-1)'><{$smarty.const._MD_LEXIKON_RETURN}></a><b>&nbsp;|&nbsp;</b><a href='./'><{$smarty.const._MD_LEXIKON_RETURN2INDEX}></a>&nbsp;]
             </div>
@@ -56,5 +56,5 @@
         <{/if}></div>
 
     <div style="text-align: center; font-size: small;">
-        <{if $nothing==true}><{$nothing}><{/if}>
+        <{if $nothing|default:false == true}><{$nothing}><{/if}>
     </div>

@@ -25,7 +25,7 @@
 <br><br>
 <div class="clearer">
     <div style="text-align: left; font-size: small;">
-        <{if $nothing==false}>
+        <{if $nothing|default:false == false}>
             <img src='<{$xoops_url}>/modules/<{$lang_moduledirname}>/assets/images/square-green.gif' align='absmiddle'>
             <{$submitted}>
             <br>
@@ -38,7 +38,7 @@
 
 <div class="clearer">
 
-    <{if $nothing==false}>
+    <{if $nothing|default:false == false}>
         <{foreach item=d from=$entries}>
             ">
 
@@ -60,12 +60,12 @@
         <td align="center"><{$d.counter}></td>
         </tr></tbody>
     </table>
-    <{if $navi==true}>
+    <{if $navi|default:false == true}>
     <div style="text-align: right; font-size: small;">
         <{$authortermsarr.navbar}>
     </div>
 </div><{/if}>
 
 <div style="text-align: center; font-size: small;">
-    <{if $nothing==true}><{$nothing}><{/if}>
+    <{if $nothing|default:false == true}><{$nothing}><{/if}>
 </div>

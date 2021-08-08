@@ -1,22 +1,22 @@
-Hello {X_UNAME},
+Hallo {X_UNAME},
 
-A new Category "{ITEM_NAME}" has been created in {X_MODULE} at {X_SITENAME}.
+Eine neue Kategorie "{ITEM_NAME}" wurde in {X_MODULE} auf {X_SITENAME} erstellt.
 
-Follow this link to the {X_MODULE}
+Folgen Sie dem Link auf {X_MODULE}
 {X_MODULE_URL}
 
-Follow this link to the new category "{ITEM_NAME}" :
+Folgen Sie dem Link zur neuen Kategorie auf {X_MODULE}
 {ITEM_URL}
 
 -----------
 
-You are receiving this message because you selected to be notified when new terms are added to our site.
-If this is an error or you wish not to receive further such notifications, please update your subscriptions by visiting the link below:
+Sie erhalten diese Nachricht, weil Sie benachrichtigt werden wollen, wenn neue Begriffe auf Ihrer Seite hinzugefügt werden.
+Wenn diese Benachrichtigung ein Fehler ist oder keine weiteren gew&uuml;nscht sind, bitte die Benachrichtigungseinstellungen &auml;ndern:
 {X_UNSUBSCRIBE_URL}
 
-Please do not reply to this message.
+Bitte nicht auf diese Nachricht antworten.
 
 -----------
 {X_SITENAME} ({X_SITEURL})
-The webmaster
+Ihr Webmaster
 {X_ADMINMAIL}

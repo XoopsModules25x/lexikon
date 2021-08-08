@@ -6,7 +6,7 @@
                     <img width="220" src="<{$xoops_url}>/images/logo_mini.png" alt="SHMEL.ORG"><br>
                     <A STYLE='color:#000;font-weight:bold;text-decoration:none;' TARGET='_blank' HREF=<{$xoops_url}>><{$lang_modulename}> - <{$smarty.const._MD_LEXIKON_TERMOFTHEDAY}></A>
                 </div>
-                <{if $multicats == 1}>
+                <{if $multicats|default:0 == 1}>
                     <div style='padding-bottom: 10px;text-align:left;font-family:verdana,arial, sans-serif; font-size:small;'><{$smarty.const._MD_LEXIKON_ENTRYCATEGORY}>
                         <b><{$syndication.categoryname}></b>
                     </div>

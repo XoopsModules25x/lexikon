@@ -12,8 +12,10 @@ use XoopsModules\Lexikon\{
 };
 /** @var Helper $helper */
 
-require __DIR__ . '/header.php';
 
+$GLOBALS['xoopsOption']['template_main'] = 'lx_request.tpl';
+
+require __DIR__ . '/header.php';
 
 $helper = Helper::getInstance();
 global $xoTheme, $xoopsUser, $xoopsModule;
@@ -28,7 +30,6 @@ if (!$grouppermHandler->checkRight('lexikon_request', $perm_itemid, $groups, $mo
     redirect_header('history.go(-1)', 3, _ERRORS);
 }
 if (!Request::hasVar('submit', 'POST')) {
-    $GLOBALS['xoopsOption']['template_main'] = 'lx_request.tpl';
     require_once XOOPS_ROOT_PATH . '/header.php';
     require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
     $username_v = !empty($xoopsUser) ? $xoopsUser->getVar('uname', 'E') : '';

@@ -1,21 +1,21 @@
-Hello {X_UNAME},
+Hallo {X_UNAME},
 
-A new Definition "{ITEM_NAME}" has been submitted in {X_MODULE} at {X_SITENAME} and is awaiting approval.
+Eine neue Definition "{ITEM_NAME}" wurde in {X_MODULE} auf {X_SITENAME} eingesendet und wartet auf Freigabe.
 
-You can view this submission here:
+Sie können die eingesendete Defintion hier anzeigen:
 {ITEM_URL}
 
 -----------
 
-You are receiving this message because you selected to be notified when new links are submitted to our site.
+Sie erhalten diese Nachricht, weil Sie benachrichtigt werden wollen, wenn neue Begriffe auf Ihrer Seite eingesendet werden.
 
-If this is an error or you wish not to receive further such notifications, please update your subscriptions by visiting the link below:
+Wenn diese Benachrichtigung ein Fehler ist oder keine weiteren gew&uuml;nscht sind, bitte die Benachrichtigungseinstellungen &auml;ndern:
 {X_UNSUBSCRIBE_URL}
 
-Please do not reply to this message.
+Bitte nicht auf diese Nachricht antworten.
 
 -----------
 
 {X_SITENAME} ({X_SITEURL})
-The webmaster
+Ihr Webmaster
 {X_ADMINMAIL}

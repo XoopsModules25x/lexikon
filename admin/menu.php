@@ -34,24 +34,6 @@ $adminmenu[] = [
     'icon'  => $pathIcon32 . '/home.png',
 ];
 
-//$adminmenu[] = [
-//    'title' => _MI_LEXIKON_ADMENU1,
-//    'link'  => 'admin/main.php',
-//    'icon'  => $pathIcon32 . '/manage.png',
-//];
-//
-//$adminmenu[] = [
-//    'title' => _MI_LEXIKON_ADMENU2,
-//    'link'  => 'admin/category.php',
-//    'icon'  => $pathIcon32 . '/category.png',
-//];
-//
-//$adminmenu[] = [
-//    'title' => _MI_LEXIKON_ADMENU3,
-//    'link'  => 'admin/entry.php',
-//    'icon'  => $pathIcon32 . '/add.png',
-//];
-
 $adminmenu[] = [
     'title' => _MI_LEXIKON_ADMENU2,
     'link'  => 'admin/categories.php',
@@ -90,7 +72,7 @@ $adminmenu[] = [
 
 $adminmenu[] = [
     'title' => _MI_LEXIKON_IMPORT,
-    'link'  => 'admin/importwordbook.php',
+    'link'  => 'admin/import.php',
     'icon'  => $pathIcon32 . '/compfile.png',
 ];
 
