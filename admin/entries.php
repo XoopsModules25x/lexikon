@@ -114,13 +114,13 @@ switch ($op) {
                 $GLOBALS['xoopsTpl']->assign('selectorcategoryID', $selectorcategoryID);
                 $categoryID = $entriesTempArray[$i]->getVar('categoryID');
                 $categoryName = $categoriesHandler->get($entriesTempArray[$i]->getVar('categoryID'))->getVar('name');
-                $entriesArray['categoryID']  = "<a href='../category.php?categoryID=" . $categoryID . "'>" .  $categoryName . "</a>";
+                $entriesArray['categoryID']  = "<a href='../category.php?categoryID=" . $categoryID . "'>" .  $categoryName . '</a>';
 
                 $selectorterm = Utility::selectSorting(_AM_LEXIKON_ENTRIES_TERM, 'term');
                 $GLOBALS['xoopsTpl']->assign('selectorterm', $selectorterm);
                 $entriesArray['term'] = $entriesTempArray[$i]->getVar('term');
                 $entryTerm = $entriesTempArray[$i]->getVar('term');
-                $entriesArray['term']  = "<a href='../entry.php?entryID=" . $entryID . "'>" .  $entryTerm . "</a>";
+                $entriesArray['term']  = "<a href='../entry.php?entryID=" . $entryID . "'>" .  $entryTerm . '</a>';
 
 
                 $selectorinit = Utility::selectSorting(_AM_LEXIKON_ENTRIES_INIT, 'init');
@@ -159,7 +159,7 @@ switch ($op) {
                 $userName = \XoopsUserUtility::getUnameFromId($entriesTempArray[$i]->getVar('uid'));
 //                $entriesArray['uid'] = \XoopsUserUtility::getUnameFromId($entriesTempArray[$i]->getVar('uid'));
 
-                $entriesArray['uid']  = "<a href='" . XOOPS_URL ."/modules/profile/userinfo.php?uid=" . $userId . "'>" .  $userName . "</a>";
+                $entriesArray['uid']  = "<a href='" . XOOPS_URL . '/modules/profile/userinfo.php?uid=' . $userId . "'>" . $userName . '</a>';
 
 
 

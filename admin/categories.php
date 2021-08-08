@@ -104,7 +104,7 @@ switch ($op) {
                 $GLOBALS['xoopsTpl']->assign('selectorname', $selectorname);
 //                $categoriesArray['name'] = $categoriesTempArray[$i]->getVar('name');
 
-                $categoriesArray['name'] = "<a href='../category.php?categoryID=" . $categoryID . "'>" . $categoriesTempArray[$i]->getVar('name') . "</a>";
+                $categoriesArray['name'] = "<a href='../category.php?categoryID=" . $categoryID . "'>" . $categoriesTempArray[$i]->getVar('name') . '</a>';
 
 
 
