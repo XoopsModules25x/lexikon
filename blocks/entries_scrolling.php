@@ -135,7 +135,7 @@ function b_scrolling_term_edit($options)
     $form .= "<option value='DESC' " . (('DESC' === $options[9]) ? ' selected' : '') . '>' . _DESCENDING . "</option>\n";
     $form .= '</select></td></tr>';
     //--- get allowed categories
-    $isAll       = empty($options[10]) ? true : false;
+    $isAll       = empty($options[10]);
     $options_cat = array_slice($options, 10);
     $form        .= "<tr><td class='even'>" . _MB_LEXIKON_CATEGORY . "</td><td class='odd'><select name=\"options[]\" multiple=\"multiple\">";
     $form        .= '<option value="0" ';
