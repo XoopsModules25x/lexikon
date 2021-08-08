@@ -295,7 +295,7 @@ switch ($op) {
         $entriesObject->setVar('comments', Request::getVar('comments', ''));
         $entriesObject->setVar('item_tag', Request::getVar('item_tag', ''));
         if ($entriesHandler->insert($entriesObject)) {
-            redirect_header('entries.php?op=list', 2, AM_LEXIKON_FORMOK);
+            redirect_header('entries.php?op=list', 2, _AM_LEXIKON_FORMOK);
         }
 
         echo $entriesObject->getHtmlErrors();
@@ -318,7 +318,7 @@ switch ($op) {
                 redirect_header('entries.php', 3, implode(', ', $GLOBALS['xoopsSecurity']->getErrors()));
             }
             if ($entriesHandler->delete($entriesObject)) {
-                redirect_header('entries.php', 3, AM_LEXIKON_FORMDELOK);
+                redirect_header('entries.php', 3, _AM_LEXIKON_FORMDELOK);
             } else {
                 echo $entriesObject->getHtmlErrors();
             }
@@ -331,9 +331,9 @@ switch ($op) {
         $id_field = Request::getString('entryID', '');
 
         if ((int)$id_field > 0 && Utility::cloneRecord('lxentries', 'entryID', (int)$id_field)) {
-            redirect_header('entries.php', 3, AM_LEXIKON_CLONED_OK);
+            redirect_header('entries.php', 3, _AM_LEXIKON_CLONED_OK);
         } else {
-            redirect_header('entries.php', 3, AM_LEXIKON_CLONED_FAILED);
+            redirect_header('entries.php', 3, _AM_LEXIKON_CLONED_FAILED);
         }
 
         break;
