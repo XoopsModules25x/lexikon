@@ -22,12 +22,12 @@ if (empty($fct)) {
     $fct = 'preferences';
 }
 
-require dirname(__DIR__, 3) . '/mainfile.php';
+require \dirname(__DIR__, 3) . '/mainfile.php';
 
 require XOOPS_ROOT_PATH . '/include/cp_functions.php';
 
 require_once XOOPS_ROOT_PATH . '/kernel/module.php';
-//require_once  dirname(__DIR__) . '/include/gtickets.php';// GIJ
+//require_once  \dirname(__DIR__) . '/include/gtickets.php';// GIJ
 
 $admintest = 0;
 

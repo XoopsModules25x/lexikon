@@ -26,7 +26,7 @@ use XoopsModules\Lexikon\{
 /** @var Helper $helper */
 /** @var Utility $utility */
 
-require dirname(__DIR__) . '/preloads/autoloader.php';
+require \dirname(__DIR__) . '/preloads/autoloader.php';
 
 $moduleDirName      = \basename(\dirname(__DIR__));
 $moduleDirNameUpper = mb_strtoupper($moduleDirName);

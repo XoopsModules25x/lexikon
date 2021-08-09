@@ -104,7 +104,7 @@ switch ($op) {
                 $GLOBALS['xoopsTpl']->assign('selectorname', $selectorname);
 //                $categoriesArray['name'] = $categoriesTempArray[$i]->getVar('name');
 
-                $categoriesArray['name'] = "<a href='../category.php?categoryID=" . $categoryID . "'>" . $categoriesTempArray[$i]->getVar('name') . "</a>";
+                $categoriesArray['name'] = "<a href='../category.php?categoryID=" . $categoryID . "'>" . $categoriesTempArray[$i]->getVar('name') . '</a>';
 
 
 
@@ -310,7 +310,7 @@ switch ($op) {
         //===============================================================
 
         if ($categoriesHandler->insert($categoriesObject)) {
-            redirect_header('categories.php?op=list', 2, AM_LEXIKON_FORMOK);
+            redirect_header('categories.php?op=list', 2, _AM_LEXIKON_FORMOK);
         }
 
         echo $categoriesObject->getHtmlErrors();
@@ -332,7 +332,7 @@ switch ($op) {
                 redirect_header('categories.php', 3, implode(', ', $GLOBALS['xoopsSecurity']->getErrors()));
             }
             if ($categoriesHandler->delete($categoriesObject)) {
-                redirect_header('categories.php', 3, AM_LEXIKON_FORMDELOK);
+                redirect_header('categories.php', 3, _AM_LEXIKON_FORMDELOK);
             } else {
                 echo $categoriesObject->getHtmlErrors();
             }
@@ -345,9 +345,9 @@ switch ($op) {
         $id_field = Request::getString('categoryID', '');
 
         if (Utility::cloneRecord('lxcategories', 'categoryID', $id_field)) {
-            redirect_header('categories.php', 3, AM_LEXIKON_CLONED_OK);
+            redirect_header('categories.php', 3, _AM_LEXIKON_CLONED_OK);
         } else {
-            redirect_header('categories.php', 3, AM_LEXIKON_CLONED_FAILED);
+            redirect_header('categories.php', 3, _AM_LEXIKON_CLONED_FAILED);
         }
 
         break;

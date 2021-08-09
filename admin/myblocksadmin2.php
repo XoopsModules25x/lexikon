@@ -13,12 +13,15 @@ use XoopsModules\Lexikon\{
 };
 /** @var Helper $helper */
 
-require dirname(__DIR__, 3) . '/include/cp_header.php';
+require \dirname(__DIR__, 3) . '/include/cp_header.php';
 
 require_once __DIR__ . '/mygrouppermform.php';
-require_once XOOPS_ROOT_PATH . '/class/xoopsblock.php';
+require_once XOOPS_ROOT_PATH . '/kernel/block.php';
 
 $xoops_system_path = XOOPS_ROOT_PATH . '/modules/system';
+
+$moduleDirName      = \basename(\dirname(__DIR__));
+$moduleDirNameUpper = \mb_strtoupper($moduleDirName);
 
 // language files
 $language = $xoopsConfig['language'];
@@ -102,17 +105,17 @@ function list_blockinstances()
 
     // cachetime options
     $cachetimes = [
-        '0'       => _NOCACHE,
-        '30'      => sprintf(_SECONDS, 30),
-        '60'      => _MINUTE,
-        '300'     => sprintf(_MINUTES, 5),
-        '1800'    => sprintf(_MINUTES, 30),
-        '3600'    => _HOUR,
-        '18000'   => sprintf(_HOURS, 5),
-        '86400'   => _DAY,
-        '259200'  => sprintf(_DAYS, 3),
-        '604800'  => _WEEK,
-        '2592000' => _MONTH,
+        0       => _NOCACHE,
+        30      => sprintf(_SECONDS, 30),
+        60      => _MINUTE,
+        300     => sprintf(_MINUTES, 5),
+        1800    => sprintf(_MINUTES, 30),
+        3600    => _HOUR,
+        18000   => sprintf(_HOURS, 5),
+        86400   => _DAY,
+        259200  => sprintf(_DAYS, 3),
+        604800  => _WEEK,
+        2592000 => _MONTH,
     ];
 
     // displaying TH
@@ -120,12 +123,12 @@ function list_blockinstances()
     <form action='admin.php' name='blockadmin' method='post'>
         <table width='95%' class='outer' cellpadding='4' cellspacing='1'>
         <tr valign='middle'>
-            <th>" . _AM_TITLE . "</th>
-            <th align='center' nowrap='nowrap'>" . _AM_SIDE . "</th>
-            <th align='center'>" . _AM_WEIGHT . "</th>
-            <th align='center'>" . _AM_VISIBLEIN . "</th>
-            <th align='center'>" . _AM_BCACHETIME . "</th>
-            <th align='right'>" . _AM_ACTION . "</th>
+            <th>" . _AM_SYSTEM_BLOCKS_TITLE . "</th>
+            <th align='center' nowrap='nowrap'>" . constant('CO_' . $moduleDirNameUpper . '_' . 'SIDE') . "</th>
+            <th align='center'>" . constant('CO_' . $moduleDirNameUpper . '_' . 'WEIGHT') . "</th>
+            <th align='center'>" . _AM_SYSTEM_BLOCKS_VISIBLEIN . "</th>
+            <th align='center'>" . _AM_SYSTEM_BLOCKS_BCACHETIME . "</th>
+            <th align='right'>" . constant('CO_' . $moduleDirNameUpper . '_' . 'ACTION') . "</th>
         </tr>\n";
 
     // get block instances
@@ -357,8 +360,8 @@ function list_groups2()
 
     $form = new GroupPermForm(_MD_AM_ADGS, 1, 'block_read', '');
     if ($target_mid > 1) {
-        $form->addAppendix('module_admin', $target_mid, $target_mname . ' ' . _AM_ACTIVERIGHTS);
-        $form->addAppendix('module_read', $target_mid, $target_mname . ' ' . _AM_ACCESSRIGHTS);
+        $form->addAppendix('module_admin', $target_mid, $target_mname . ' ' . constant('CO_' . $moduleDirNameUpper . '_' . 'ACTIVERIGHTS'));
+        $form->addAppendix('module_read', $target_mid, $target_mname . ' ' . constant('CO_' . $moduleDirNameUpper . '_' . 'ACCESSRIGHTS'));
     }
     foreach ($item_list as $item_id => $item_name) {
         $form->addItem($item_id, $item_name);
@@ -383,7 +386,7 @@ require_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->dirname() . '/admin/f
 //echo "<h3 style='text-align:left;'>$target_mname</h3>\n" ;
 
 if (!empty($block_arr)) {
-    echo "<h4 style='text-align:left;'>" . _AM_BADMIN . "</h4>\n";
+    echo "<h4 style='text-align:left;'>" . constant('CO_' . $moduleDirNameUpper . '_' . 'BADMIN') . "</h4>\n";
     list_blockinstances();
 }
 

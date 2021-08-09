@@ -40,7 +40,7 @@ class Helper extends \Xmf\Module\Helper
      *
      * @return \XoopsModules\Lexikon\Helper
      */
-    public static function getInstance($debug = false)
+    public static function getInstance(bool $debug = false): Helper
     {
         static $instance;
         if (null === $instance) {

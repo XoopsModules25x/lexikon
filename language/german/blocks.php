@@ -43,7 +43,7 @@ define('_MB_LEXIKON_BY', 'von ');
 define('_MB_LEXIKON_CATEGORY', 'Kategorie:');
 define('_MB_LEXIKON_HIT', 'Hits: ');
 define('_MB_LEXIKON_MOREHERE', 'mehr Einträge in dieser Kategorie...');
-define('_MB_LEXIKON_NOTHINGYET', "Es gibt zur Zeit keine Spotlight Definition weil noch keine Begriffe im Lexikon sind. Bitten Sie den Webmaster freundlich welche einzutragen...");
+define('_MB_LEXIKON_NOTHINGYET', 'Es gibt zur Zeit keine Spotlight Definition weil noch keine Begriffe im Lexikon sind. Bitten Sie den Webmaster freundlich welche einzutragen...');
 define('_MB_LEXIKON_CHARS', 'Länge der Spotlight Definition');
 define('_MB_LEXIKON_CHARSTERM', 'Länge der Begriffe');
 define('_MB_LEXIKON_LENGTH', ' Zeichen');

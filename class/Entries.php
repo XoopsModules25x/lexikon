@@ -55,7 +55,7 @@ class Entries extends \XoopsObject
         $this->initVar('url', \XOBJ_DTYPE_TXTBOX);
         $this->initVar('uid', \XOBJ_DTYPE_INT);
         $this->initVar('submit', \XOBJ_DTYPE_INT);
-        $this->initVar('datesub', \XOBJ_DTYPE_INT, time(), false);
+        $this->initVar('datesub', \XOBJ_DTYPE_INT, \time(), false);
         $this->initVar('counter', \XOBJ_DTYPE_INT);
         $this->initVar('html', \XOBJ_DTYPE_INT);
         $this->initVar('smiley', \XOBJ_DTYPE_INT);
