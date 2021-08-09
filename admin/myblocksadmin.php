@@ -20,8 +20,8 @@ require_once __DIR__ . '/admin_header.php';
 //    exit;
 //}
 
-require_once XOOPS_ROOT_PATH . '/class/xoopsblock.php';
-//require_once  dirname(__DIR__) . '/include/gtickets.php';// GIJ
+require_once XOOPS_ROOT_PATH . '/kernel/block.php';
+//require_once  \dirname(__DIR__) . '/include/gtickets.php';// GIJ
 
 $xoops_system_path = XOOPS_ROOT_PATH . '/modules/system';
 
@@ -93,35 +93,41 @@ while (false !== ($myrow = $db->fetchArray($result))) {
 function list_blocks()
 {
     global $query4redirect, $block_arr;
+    $moduleDirName      = \basename(\dirname(__DIR__));
+    $moduleDirNameUpper = \mb_strtoupper($moduleDirName);
+
+    xoops_loadLanguage('admin', 'system');
+    xoops_loadLanguage('admin/blocksadmin', 'system');
+    xoops_loadLanguage('admin/groups', 'system');
 
     // cachetime options
     $cachetimes = [
-        '0'       => _NOCACHE,
-        '30'      => sprintf(_SECONDS, 30),
-        '60'      => _MINUTE,
-        '300'     => sprintf(_MINUTES, 5),
-        '1800'    => sprintf(_MINUTES, 30),
-        '3600'    => _HOUR,
-        '18000'   => sprintf(_HOURS, 5),
-        '86400'   => _DAY,
-        '259200'  => sprintf(_DAYS, 3),
-        '604800'  => _WEEK,
-        '2592000' => _MONTH,
+        0       => _NOCACHE,
+        30      => sprintf(_SECONDS, 30),
+        60      => _MINUTE,
+        300     => sprintf(_MINUTES, 5),
+        1800    => sprintf(_MINUTES, 30),
+        3600    => _HOUR,
+        18000   => sprintf(_HOURS, 5),
+        86400   => _DAY,
+        259200  => sprintf(_DAYS, 3),
+        604800  => _WEEK,
+        2592000 => _MONTH,
     ];
 
     // displaying TH
     lx_collapsableBar('default', 'defaultIcon');
-    echo "<img  onclick=\"toggle('default'); toggleIcon('defaultIcon');\" id='defaultIcon' src='" . XOOPS_URL . "/modules/lexikon/assets/images/close12.gif' alt=''></a>&nbsp; " . _AM_BADMIN . '<br><br>';
+    echo "<img  onclick=\"toggle('default'); toggleIcon('defaultIcon');\" id='defaultIcon' src='" . XOOPS_URL . "/modules/lexikon/assets/images/close12.gif' alt=''></a>&nbsp; " . constant('CO_' . $moduleDirNameUpper . '_' . 'BADMIN') . '<br><br>';
     echo "<div id='default' style='float:left; width:100%;'>";
     echo "<form action='admin.php' name='blockadmin' method='post'>
         <table width='95%' class='outer' cellpadding='4' cellspacing='1'>
         <tr valign='middle'>
-            <th>" . _AM_TITLE . "</th>
-            <th align='center' nowrap='nowrap'>" . _AM_SIDE . "<div style='font-size:smaller;'>" . _LEFT . '-' . _CENTER . '-' . _RIGHT . "</div></th>
-            <th align='center'>" . _AM_WEIGHT . "</th>
-            <th align='center'>" . _AM_VISIBLEIN . "</th>
-            <th align='center'>" . _AM_BCACHETIME . "</th>
-            <th align='right'>" . _AM_ACTION . "</th>
+            <th>" . _AM_SYSTEM_BLOCKS_TITLE . "</th>
+            <th align='center' nowrap='nowrap'>" . constant('CO_' . $moduleDirNameUpper . '_' . 'SIDE') . "<div style='font-size:smaller;'>" . _LEFT . '-' . _CENTER . '-' . _RIGHT . "</div></th>
+            <th align='center'>" . constant('CO_' . $moduleDirNameUpper . '_' . 'WEIGHT') . "</th>
+            <th align='center'>" . _AM_SYSTEM_BLOCKS_VISIBLEIN . "</th>
+            <th align='center'>" . _AM_SYSTEM_BLOCKS_BCACHETIME . "</th>
+            <th align='right'>" . constant('CO_' . $moduleDirNameUpper . '_' . 'ACTION') . "</th>
         </tr>\n";
 
     // blocks displaying loop
@@ -201,8 +207,8 @@ function list_blocks()
         $criteria      = new \CriteriaCompo(new \Criteria('hasmain', 1));
         $criteria->add(new \Criteria('isactive', 1));
         $module_list     = $moduleHandler->getList($criteria);
-        $module_list[-1] = _AM_TOPPAGE;
-        $module_list[0]  = _AM_ALLPAGES;
+        $moduleList[-1] = _AM_SYSTEM_BLOCKS_TOPPAGE;
+        $moduleList[0]  = _AM_SYSTEM_BLOCKS_ALLPAGES;
         ksort($module_list);
         $module_options = '';
         foreach ($module_list as $mid => $mname) {
@@ -318,7 +324,7 @@ function get_block_configs()
     if (preg_match('/^[.0-9a-zA-Z_-]+$/', @$_GET['dirname'])) {
         require \dirname(__DIR__, 2) . '/' . $_GET['dirname'] . '/xoops_version.php';
     } else {
-        require dirname(__DIR__) . '/xoops_version.php';
+        require \dirname(__DIR__) . '/xoops_version.php';
     }
     error_reporting($error_reporting_level);
     if (empty($modversion['blocks'])) {
@@ -334,6 +340,8 @@ function get_block_configs()
 function list_groups()
 {
     global $target_mid, $target_mname, $block_arr;
+    $moduleDirName      = \basename(\dirname(__DIR__));
+    $moduleDirNameUpper = \mb_strtoupper($moduleDirName);
     lx_collapsableBar('groups', 'groupIcon');
     echo "<img  onclick=\"toggle('groups'); toggleIcon('groupsIcon');\" id='groupsIcon' src='" . XOOPS_URL . "/modules/lexikon/assets/images/close12.gif' alt='' ></a>&nbsp; " . _MD_AM_ADGS . ' <br>';
     echo "<div id='groups' style='float:left; width:100%;'>";
@@ -344,8 +352,8 @@ function list_groups()
 
     $form = new GroupPermForm(_MD_AM_ADGS, 1, 'block_read', '');
     if ($target_mid > 1) {
-        $form->addAppendix('module_admin', $target_mid, $target_mname . ' ' . _AM_ACTIVERIGHTS);
-        $form->addAppendix('module_read', $target_mid, $target_mname . ' ' . _AM_ACCESSRIGHTS);
+        $form->addAppendix('module_admin', $target_mid, $target_mname . ' ' . constant('CO_' . $moduleDirNameUpper . '_' . 'ACTIVERIGHTS'));
+        $form->addAppendix('module_read', $target_mid, $target_mname . ' ' . constant('CO_' . $moduleDirNameUpper . '_' . 'ACCESSRIGHTS'));
     }
     foreach ($item_list as $item_id => $item_name) {
         $form->addItem($item_id, $item_name);
@@ -367,7 +375,7 @@ xoops_cp_header();
 require_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->dirname() . '/admin/functions.php';
 
 if (!empty($block_arr)) {
-    echo "<h4 style='text-align:left;'>$target_mname : " . _AM_BADMIN . "</h4>\n";
+    echo "<h4 style='text-align:left;'>$target_mname : " . constant('CO_' . $moduleDirNameUpper . '_' . 'BADMIN') . "</h4>\n";
     list_blocks();
 }
 

@@ -31,7 +31,7 @@ use XoopsModules\Lexikon\{
 };
 
 
-require_once dirname(__DIR__, 2) . '/config/config.php';
+require_once \dirname(__DIR__, 2) . '/config/config.php';
 
 $moduleDirName = \basename(\dirname(__DIR__, 2));
 

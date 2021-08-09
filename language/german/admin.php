@@ -131,7 +131,7 @@ define('_AM_LEXIKON_ABOUT_MODULE_STATUS', 'Status');
 define('_AM_LEXIKON_ABOUT_MODULE_TEAM', 'Team Mitglieder');
 define('_AM_LEXIKON_ABOUT_AUTHOR_INFO', 'Autor Info');
 define('_AM_LEXIKON_ABOUT_AUTHOR_NAME', 'Autor Name');
-define('_AM_LEXIKON_ABOUT_AUTHOR_WORD', "Bemerkungen des Entwicklers");
+define('_AM_LEXIKON_ABOUT_AUTHOR_WORD', 'Bemerkungen des Entwicklers');
 define('_AM_LEXIKON_ABOUT_DISCLAIMER', 'Haftungsausschluß');
 define(
     '_AM_LEXIKON_ABOUT_DISCLAIMER_TEXT',
@@ -373,7 +373,7 @@ define('_AM_LEXIKON_PERMISSIONS_NOPERMSSET', 'Berechtigungen konnten nicht geset
 
 //Errors
 define('_AM_LEXIKON_UPGRADEFAILED0', "Update fehlgeschlagen - konnte Feld '%s' nicht umbenennen");
-define('_AM_LEXIKON_UPGRADEFAILED1', "Update fehlgeschlagen - konnte neues Feld nicht erstellen");
+define('_AM_LEXIKON_UPGRADEFAILED1', 'Update fehlgeschlagen - konnte neues Feld nicht erstellen');
 define('_AM_LEXIKON_UPGRADEFAILED2', "Update fehlgeschlagen - konnte Feld '%s' nicht umbenennen");
 define('_AM_LEXIKON_ERROR_COLUMN', 'Konnte Spalte in Datenbasis nicht erstellen: %s');
 define('_AM_LEXIKON_ERROR_BAD_XOOPS', 'Dieses Modul benötigt XOOPS %s+ (%s installiert)');
