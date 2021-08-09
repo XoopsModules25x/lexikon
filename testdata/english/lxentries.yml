@@ -68,13 +68,13 @@
     entryID: '4'
     categoryID: '2'
     term: 'PHP Namespaces'
-    init: X
+    init: P
     definition: '<p class="simpara">What are namespaces? In the broadest definition namespaces are a way of encapsulating items. This can be seen as an abstract concept in many places. For example, in any operating system directories serve to group related files, and act as a namespace for the files within them. As a concrete example, the file&nbsp;<code class="literal">foo.txt</code>&nbsp;can exist in both directory&nbsp;<code class="literal">/home/greg</code>&nbsp;and in&nbsp;<code class="literal">/home/other</code>, but two copies of&nbsp;<code class="literal">foo.txt</code>&nbsp;cannot co-exist in the same directory. In addition, to access the&nbsp;<code class="literal">foo.txt</code>&nbsp;file outside of the&nbsp;<code class="literal">/home/greg</code>&nbsp;directory, we must prepend the directory name to the file name using the directory separator to get&nbsp;<code class="literal">/home/greg/foo.txt</code>. This same principle extends to namespaces in the programming world.</p><p class="simpara">In the PHP world, namespaces are designed to solve two problems that authors of libraries and applications encounter when creating re-usable code elements such as classes or functions:</p><p class="para"></p><ol type="1"><li class="listitem"><span class="simpara">Name collisions between code you create, and internal PHP classes/functions/constants or third-party classes/functions/constants.</span></li><li class="listitem"><span class="simpara">Ability to alias (or shorten) Extra_Long_Names designed to alleviate the first problem, improving readability of source code.</span></li></ol><p class="simpara">PHP Namespaces provide a way in which to group related classes, interfaces, functions and constants. Here is an example of namespace syntax in PHP:</p>'
     ref: 'PHP Namespaces'
     url: 'https://www.php.net/manual/en/language.namespaces.rationale.php'
     uid: '1'
     submit: '0'
-    datesub: '1626311400'
+    datesub: '1626312000'
     counter: '0'
     html: '1'
     smiley: '1'
