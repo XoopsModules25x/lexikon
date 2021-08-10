@@ -178,7 +178,7 @@
         <a href='./index.php'><{$smarty.const._MD_LEXIKON_RETURN2INDEX}></a> ]
             </div>
             <{* syndication *}>
-            <{if $syndication == true}>
+            <{if $syndication === true}>
                 <div align="center" style="padding: 4px;"><br><br>
                     <a href="rss.php" title="recent entries"><img src="assets/images/rss.gif" border="0"></a>
                 </div>
@@ -218,7 +218,7 @@
 </div>
 
 <{* syndication *}>
-<{if $syndication == true}>
+<{if $syndication === true}>
     <div align="center" style="padding: 4px;"><br><br>
         <a href="rss.php?categoryID=<{$singlecat.id}>" title="Recent terms in this category"><img src="assets/images/rss.gif" border="0"></a>
     </div>

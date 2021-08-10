@@ -61,9 +61,9 @@ define('_AM_LEXIKON_ENTRYISON', 'Eintrag ist online');
 define('_AM_LEXIKON_ENTRYMODIFIED', 'Der Eintrag wurde erfolgreich verändert!');
 define('_AM_LEXIKON_ENTRYNOTCREATED', 'Verzeihung, es war nicht möglich, diesen Eintrag zu erstellen!');
 define('_AM_LEXIKON_ENTRYNOTUPDATED', 'Verzeihung, es war nicht möglich, diesen Eintrag zu aktualisieren!');
-define('_AM_LEXIKON_ENTRYREFERENCE', "Referenz<span style='font-size: xx-small; font-weight: normal; display: block;'>(Schreiben Sie die Quelle Ihrer<br />Definition, wie Buch,<br />Artikel oder Person.)</span>");
+define('_AM_LEXIKON_ENTRYREFERENCE', "Referenz<span style='font-size: xx-small; font-weight: normal; display: block;'>(Schreiben Sie die Quelle Ihrer<br>Definition, wie Buch,<br>Artikel oder Person.)</span>");
 define('_AM_LEXIKON_ENTRYTERM', '[*] Begriff');
-define('_AM_LEXIKON_ENTRYURL', "Verknüpfte Seite<span style='font-size: xx-small; font-weight: normal; display: block;'>(Bitte geben sie eine gültige URL<br />mit oder ohne HTTP-Präfix an)</span>");
+define('_AM_LEXIKON_ENTRYURL', "Verknüpfte Seite<span style='font-size: xx-small; font-weight: normal; display: block;'>(Bitte geben sie eine gültige URL<br>mit oder ohne HTTP-Präfix an)</span>");
 define('_AM_LEXIKON_ITEMEXISTS', 'Ein Begriff mit diesem Namen existiert bereits im Lexikon. Bitte wählen Sie einen anderen Begriff!');
 define('_AM_LEXIKON_FILEEXISTS', 'Eine Datei mit diesem Namen existiert bereits auf dem Server. Bitte wählen Sie eine andere Datei!');
 define('_AM_LEXIKON_GOMOD', 'Zum Modul');
@@ -113,7 +113,7 @@ define('_AM_LEXIKON_INIT', 'Buchstabe');
 
 //mondarse
 define('_AM_LEXIKON_IMPORT', 'Über');
-define('_AM_LEXIKON_IMPORTWARN', 'Achtung!!<br />Machen Sie immer ein Backup Ihrer Datenbank bevor sie importieren. Das Import-Skript kann unter Umständen Korruption/Verlust von Daten verursachen.');
+define('_AM_LEXIKON_IMPORTWARN', 'Achtung!!<br>Machen Sie immer ein Backup Ihrer Datenbank bevor sie importieren. Das Import-Skript kann unter Umständen Korruption/Verlust von Daten verursachen.');
 
 // update. menue
 
@@ -225,7 +225,7 @@ define(
 );
 define('_AM_LEXIKON_SUBMITFORM_DSC', 'Den Benutzern erlauben, Einträge einzusenden, und nach deren Veröffentlichung zu bearbeiten<br>Einsenden per Kategorie erlauben.');
 define('_AM_LEXIKON_REQUESTFORM_DSC', 'Die definierte Gruppe wird ein Zugriffsrecht auf das Anfrageformular haben.');
-define('_AM_LEXIKON_MODIFYFORM_DSC', 'Die angegebene Gruppe wird die Berechtigung zum Bearbeiten der Definitionen haben.<br />Ein User ist immer berechtigt, seine eigenen Einträge zu bearbeiten.');
+define('_AM_LEXIKON_MODIFYFORM_DSC', 'Die angegebene Gruppe wird die Berechtigung zum Bearbeiten der Definitionen haben.<br>Ein User ist immer berechtigt, seine eigenen Einträge zu bearbeiten.');
 
 //1.51
 

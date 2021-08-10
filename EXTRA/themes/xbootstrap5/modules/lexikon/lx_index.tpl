@@ -4,11 +4,11 @@
     <li><{$lang_modulename}></li>
 </ol>
 
-<{if $empty|default:false == 1}>
+<{if $empty|default:false === 1}>
     <div class="alert alert-warning" role="alert"><{$smarty.const._MD_LEXIKON_STILLNOTHINGHERE}></div>
 <{/if}>
 
-<{if $teaser == true}>
+<{if $teaser === true}>
     <div class="row">
         <div class="col-md-12">
             <div class="panel panel-default">
@@ -196,7 +196,7 @@
     <div class="col-md-4 col-sm-12">
         <h3><{$smarty.const._MD_LEXIKON_RANDOMTERM}></h3>
         <{if $multicats|default:0 == 1}>
-           <{if $empty|default:false != 1}>
+           <{if $empty|default:false !== 1}>
                 <div class="catname"><a href="<{$xoops_url}>/modules/<{$lang_moduledirname}>/category.php?categoryID=<{$random.categoryID}>"><{$random.categoryname}></a>
                 </div>
             <{/if}>
@@ -265,7 +265,7 @@
     </dl>
 <{/if}>
 
-<{if $syndication == true}>
+<{if $syndication === true}>
     <div align="center" class="clearer" style="padding: 4px;"><br><br>
         <a href="rss.php" title="recent glossary definitions">
             <img src="assets/images/rss.gif" alt="RSS" border="0">

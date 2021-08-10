@@ -84,7 +84,7 @@ define('_MI_LEXIKON_METANUM_60', '60');
 define('_MI_LEXIKON_METANUM_70', '70');
 define('_MI_LEXIKON_METANUM_80', '80');
 define('_MI_LEXIKON_USESHOTS', 'Kategoriebilder verwenden?');
-define('_MI_LEXIKON_USESHOTSDSC', 'Wenn `Ja` dann werden Kategorienbilder dargestellt.<br /> <em>Das Uploadverzeichnis für Kategoriebilder ist uploads/lexikon/categories/images</em>');
+define('_MI_LEXIKON_USESHOTSDSC', 'Wenn `Ja` dann werden Kategorienbilder dargestellt.<br> <em>Das Uploadverzeichnis für Kategoriebilder ist uploads/lexikon/categories/images</em>');
 define('_MI_LEXIKON_LOGOWIDTH', 'Breite der Kategoriebilder im Menü:');
 define('_MI_LEXIKON_LOGOWIDTHDSC', 'Größe der Vorschaubilder im Menü (Standardwert: 20px)');
 define('_MI_LEXIKON_IMCATWD', 'Breite der Kategoriebilder bei Kategorie-Ansicht:');
