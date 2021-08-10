@@ -415,7 +415,7 @@ class Utility extends Common\SysUtility
     /**
      * @return string
      */
-    public static function showSearchForm()
+    public static function searchForm($type = '3', $categoryID = '0', $term = '')
     {
         global $xoopsUser, $xoopsDB, $xoopsModule, $xoopsConfig;
 
@@ -423,38 +423,39 @@ class Utility extends Common\SysUtility
 
         $grouppermHandler = \xoops_getHandler('groupperm');
         $groups           = \is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
+        $action = $_SERVER['REQUEST_URI'];
 
-        $searchform = '<table style="width:100%;">';
-        $searchform .= '<form name="op" id="op" action="search.php" method="post">';
-        $searchform .= '<tr><td style="text-align: right; line-height: 200%; width:150px;">';
-        $searchform .= _MD_LEXIKON_LOOKON . '</td><td style="width:10px;">&nbsp;</td><td style="text-align: left;">';
-        $searchform .= '<select name="type"><option value="1">' . _MD_LEXIKON_TERMS . '</option><option value="2">' . _MD_LEXIKON_DEFINS . '</option>';
-        $searchform .= '<option SELECTED value="3">' . _MD_LEXIKON_TERMSDEFS . '</option></select></td></tr>';
-
+        // Get Theme Form
+        \xoops_load('XoopsFormLoader');
+        $form = new \XoopsThemeForm(_MD_LEXIKON_LOOKON, 'form', 'search.php', 'post', true);
+        $form->setExtra('enctype="multipart/form-data"');
+        // Form select search type
+        $searchTypeSelect = new \XoopsFormSelect(\_MD_LEXIKON_LOOKON, 'type', $type);
+        $searchTypeSelect->addOption('1', _MD_LEXIKON_TERMS);
+        $searchTypeSelect->addOption('2', _MD_LEXIKON_DEFINS);
+        $searchTypeSelect->addOption('3', _MD_LEXIKON_TERMSDEFS);
+        $form->addElement($searchTypeSelect);
+        // form select cats
         if (1 == $helper->getConfig('multicats')) {
-            $searchform .= '<tr><td style="text-align: right; line-height: 200%;">' . _MD_LEXIKON_CATEGORY . '</td>';
-            $searchform .= '<td>&nbsp;</td><td style="text-align: left;">';
             $resultcat  = $xoopsDB->query('SELECT categoryID, name FROM ' . $xoopsDB->prefix('lxcategories') . ' ORDER BY categoryID');
-            $searchform .= '<select name="categoryID">';
-            $searchform .= '<option value="0">' . _MD_LEXIKON_ALLOFTHEM . '</option>';
-
+            $searchCatSelect = new \XoopsFormSelect(\_MD_LEXIKON_LOOKON, 'categoryID', $categoryID);
+            $searchCatSelect->addOption(0, _MD_LEXIKON_ALLOFTHEM);
             while (list($categoryID, $name) = $xoopsDB->fetchRow($resultcat)) {
                 if ($grouppermHandler->checkRight('lexikon_view', (int)$categoryID, $groups, $xoopsModule->getVar('mid'))) {
-                    $searchform .= "<option value=\"$categoryID\">$categoryID : $name</option>";
+                    $searchCatSelect->addOption($categoryID, $categoryID . ' : ' . $name);
                 }
             }
-            $searchform .= '</select></td></tr>';
+            $form->addElement($searchCatSelect);
         }
+        // Form Text term
+        $form->addElement(new \XoopsFormText(\_MD_LEXIKON_TERM, 'term', 30, 255, $term), true);
+         // To Save
+        $form->addElement(new \XoopsFormHidden('op', 'save'));
+        $form->addElement(new \XoopsFormButton('', 'submit', \_MD_LEXIKON_SEARCH, 'submit'));
 
-        $searchform .= '<tr><td style="text-align: right; line-height: 200%;">';
-        $searchform .= _MD_LEXIKON_TERM . '</td><td>&nbsp;</td><td style="text-align: left;">';
-        $searchform .= '<input type="text" name="term" class="searchBox" ></td></tr><tr>';
-        $searchform .= '<td>&nbsp;</td><td>&nbsp;</td><td><input type="submit" class="btnDefault" value="' . _MD_LEXIKON_SEARCH . '" >';
-        $searchform .= '</td></tr></form></table>';
-
-        return $searchform;
+        return $form;
     }
-
+    
     /**
      * @param $needle
      * @param $haystack
