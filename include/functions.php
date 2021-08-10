@@ -267,6 +267,7 @@ function lx_serviceLinks($variable)
     $moduleHandler = xoops_getHandler('module');
     $moduleInfo    = $moduleHandler->get($xoopsModule->getVar('mid'));
     $pathIcon16    = $xoopsModule->getInfo('icons16');
+    $helper = Helper::getInstance();
 
     $srvlinks = '';
     if ($xoopsUser) {

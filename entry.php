@@ -22,6 +22,7 @@ $myts = \MyTextSanitizer::getInstance();
 xoops_load('XoopsUserUtility');
 
 $helper = Helper::getInstance();
+$utility = new Utility();
 
 require_once XOOPS_ROOT_PATH . '/modules/lexikon/include/common.inc.php';
 $highlight = $utility::getModuleOption('config_highlighter');

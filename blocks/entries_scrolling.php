@@ -8,6 +8,11 @@
  * Author : Yerres
  * Licence : GPL
  */
+
+use XoopsModules\Lexikon\{
+    Utility
+};
+
 defined('XOOPS_ROOT_PATH') || exit('Restricted access');
 
 /**
@@ -18,6 +23,7 @@ function b_scrolling_term_show($options)
 {
     global $xoopsDB, $xoopsUser;
     $myts = MyTextSanitizer:: getInstance();
+    $utility = new Utility();
 
     /** @var \XoopsModuleHandler $moduleHandler */
     $moduleHandler = xoops_getHandler('module');

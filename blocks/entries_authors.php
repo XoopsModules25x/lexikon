@@ -5,6 +5,11 @@
  * Author: adapted from AMS
  * Licence: GNU
  */
+
+use XoopsModules\Lexikon\{
+    Utility
+};
+
 defined('XOOPS_ROOT_PATH') || exit('Restricted access');
 
 /**
@@ -14,6 +19,7 @@ defined('XOOPS_ROOT_PATH') || exit('Restricted access');
 function b_lx_author_show($options)
 {
     $myts = \MyTextSanitizer::getInstance();
+    $utility = new Utility();
     /** @var \XoopsModuleHandler $moduleHandler */
     $moduleHandler = xoops_getHandler('module');
     $lexikon       = $moduleHandler->getByDirname('lexikon');
