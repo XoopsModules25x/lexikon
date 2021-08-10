@@ -10,7 +10,7 @@
 
     <p class="even">Es sind keine speziellen Maßnahmen erforderlich, führen Sie den Standardinstallationsprozess aus -
         Extrahieren Sie den Module-Ordner in das Module-Verzeichnis. Installiere das 
-        Modul über Administration -> System Module ->  Module<br/><br/>
+        Modul über Administration -> System Module ->  Module<br><br>
         Detailierte Instruktionen zur Installation finden Sie in
         <a href="https://xoops.gitbook.io/xoops-operations-guide/" target="_blank">Kapitel 2.12 des XOOPS Operations Manual
             Benutzerhandbuches</a></p>
@@ -21,7 +21,7 @@
     Dieses Modul und dessen Handhabung sind einfach gestaltet.<br> <br>
     Detailierte Anweisungen betreffend der Gestaltung der allgemeinen Zugriffsrechte für Gruppen und Mitglieder finden Sie unter
     <a href="https://xoops.gitbook.io/xoops-operations-guide/" target="_blank">XOOPS Benutzerhandbuch</a><br>
-    <br />
+    <br>
 
     <h4 class="odd">Benutzerhinweise</h4> <br>
 

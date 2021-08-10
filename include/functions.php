@@ -267,6 +267,7 @@ function lx_serviceLinks($variable)
     $moduleHandler = xoops_getHandler('module');
     $moduleInfo    = $moduleHandler->get($xoopsModule->getVar('mid'));
     $pathIcon16    = $xoopsModule->getInfo('icons16');
+    $helper = Helper::getInstance();
 
     $srvlinks = '';
     if ($xoopsUser) {
@@ -746,12 +747,6 @@ function &lx_getWysiwygForm($caption, $name, $value = '', $width = '100%', $heig
 
     // Only for Xoops 2.0.x
     switch ($editor_option) {
-        case 'fckeditor':
-            if (is_readable(XOOPS_ROOT_PATH . '/class/fckeditor/formfckeditor.php')) {
-                require_once XOOPS_ROOT_PATH . '/class/fckeditor/formfckeditor.php';
-                $editor = new \XoopsFormFckeditor($caption, $name, $value);
-            }
-            break;
         case 'htmlarea':
             if (is_readable(XOOPS_ROOT_PATH . '/class/htmlarea/formhtmlarea.php')) {
                 require_once XOOPS_ROOT_PATH . '/class/htmlarea/formhtmlarea.php';

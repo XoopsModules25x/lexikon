@@ -21,7 +21,7 @@
         <h3><{$storyform.title}></h3>
         <form id="sub-lex" name="<{$storyform.name}>" action="<{$storyform.action}>" method="<{$storyform.method}>" <{$storyform.extra}>="">
         <{foreach item=element from=$storyform.elements}>
-        <{if $element.hidden != true}>
+        <{if $element.hidden !== true}>
             <div class="mb-3">
                 <label><{$element.caption}></label>
                 <{$element.body}>

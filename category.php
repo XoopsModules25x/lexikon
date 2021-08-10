@@ -13,6 +13,7 @@ use XoopsModules\Lexikon\{
     Utility
 };
 /** @var Helper $helper */
+/** @var Utility $utility */
 
 $GLOBALS['xoopsOption']['template_main'] = 'lx_category.tpl';
 require __DIR__ . '/header.php';

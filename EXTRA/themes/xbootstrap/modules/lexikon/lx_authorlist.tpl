@@ -1,9 +1,9 @@
 <table id="moduleheader">
     <tr>
         <td width="100%"><span class="leftheader"><a href="<{$xoops_url}>"><{$smarty.const._MD_LEXIKON_HOME}></a> <img
-                        src='assets/images/arrow.gif' align='absmiddle'/> <a
+                        src='assets/images/arrow.gif' align='absmiddle'> <a
                         href="<{$xoops_url}>/modules/<{$lang_moduledirname}>/index.php"><{$lang_modulename}></a> <img
-                        src='assets/images/arrow.gif' align='absmiddle'/> <a
+                        src='assets/images/arrow.gif' align='absmiddle'> <a
                         href="<{$xoops_url}>/modules/<{$lang_moduledirname}>/authorlist.php"><{$smarty.const._MD_LEXIKON_CONTRIBUTORS}></a></span>
         </td>
         </span></td>

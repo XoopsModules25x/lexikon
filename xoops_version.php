@@ -17,8 +17,8 @@ $moduleDirNameUpper = mb_strtoupper($moduleDirName);
 
 $modversion    = [
     'version'       => 1.53,
-    'module_status' => 'Beta 2',
-    'release_date'  => '2021/08/08',
+    'module_status' => 'RC 1',
+    'release_date'  => '2021/08/10',
     'name'          => _MI_LEXIKON_MD_NAME,
     'description'   => _MI_LEXIKON_MD_DESC,
     'author'        => 'Yerres',

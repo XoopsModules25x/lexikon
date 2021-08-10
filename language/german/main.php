@@ -7,7 +7,7 @@
  * Author: hsalazar
  * Licence: GNU
  */
-define('_AM_LEXIKON_NOCOLEXISTS', 'Verzeihung, aber es ist bis jetzt noch keine Kategorie angelegt worden.<br />Bitte teilen Sie dies dem Webmaster mit.');
+define('_AM_LEXIKON_NOCOLEXISTS', 'Verzeihung, aber es ist bis jetzt noch keine Kategorie angelegt worden.<br>Bitte teilen Sie dies dem Webmaster mit.');
 define('_MD_LEXIKON_ALL', 'Alle');
 define('_MD_LEXIKON_ALLCATS', 'Alle Newsletterkategorien');
 define('_MD_LEXIKON_ALLOFTHEM', '0 : Alle Kategorien');
@@ -65,7 +65,7 @@ define('_MD_LEXIKON_NORESULTS', 'Es gibt keine Übereinstimmungen mit dem Suchbe
 define('_MD_LEXIKON_NOSEARCHTERM', 'Sie haben keinen Suchbegriff angegeben. Bitte holen Sie es jetzt nach.');
 define('_MD_LEXIKON_NOTERMSINLETTER', 'Es gibt keine Einträge die mit diesem Buchstaben beginnen.');
 define('_MD_LEXIKON_NOTIFY', 'Bei Veröffentlichung benachrichtigen?');
-define('_MD_LEXIKON_NOTIFYONPUB', 'Der User wollte benachrichtigt werden, wenn wir etwas mit der Definition machen.<br />');
+define('_MD_LEXIKON_NOTIFYONPUB', 'Der User wollte benachrichtigt werden, wenn wir etwas mit der Definition machen.<br>');
 define('_MD_LEXIKON_OTHER', 'Andere');
 define('_MD_LEXIKON_POPULARENT', 'Populäre Eintrage');
 define('_MD_LEXIKON_POSTED', 'geschrieben');
@@ -75,7 +75,7 @@ define('_MD_LEXIKON_RANDOMTERM', 'Zufälliger Begriff');
 define('_MD_LEXIKON_RECEIVED', 'Wir haben den Eintrag erhalten. Wir werden ihn schnellstmöglich bearbeiten.');
 define('_MD_LEXIKON_RECEIVEDANDAPPROVED', 'Wir haben den Eintrag erhalten. Da die automatische Freigabe aktiviert ist, wird der Eintrag sofort veröffentlicht.');
 define('_MD_LEXIKON_RECENTENT', 'Aktuelle Einträge');
-define('_MD_LEXIKON_REFERENCE', "Referenz<br /><span style='font-size: x-small; font-weight: normal; display: block;line-height:1em;'>(Sie können optional die Quelle der Definition angeben.)</span>");
+define('_MD_LEXIKON_REFERENCE', "Referenz<br><span style='font-size: x-small; font-weight: normal; display: block;line-height:1em;'>(Sie können optional die Quelle der Definition angeben.)</span>");
 define('_MD_LEXIKON_REQRCVD', 'Wir haben Ihre Anfrage erhalten und werden sie schnellstmöglich bearbeiten.');
 define('_MD_LEXIKON_REQSEND', 'Anfrage abgeschickt');
 define('_MD_LEXIKON_REQTERM', '[*] Zu definierender Begriff');
@@ -115,7 +115,7 @@ define('_MD_LEXIKON_SUBMITTER', 'Einsender:');
 define('_MD_LEXIKON_TERM', 'zu suchender Begriff');
 define('_MD_LEXIKON_TERMS', 'Begriffe');
 define('_MD_LEXIKON_TERMSDEFS', 'Begriffe und Definitionen');
-define('_MD_LEXIKON_THANKS1', 'Vielen Dank für Ihre Beteiligung!<br />');
+define('_MD_LEXIKON_THANKS1', 'Vielen Dank für Ihre Beteiligung!<br>');
 define('_MD_LEXIKON_THANKS2', 'Vielen Dank, dass Sie nach einer Definition gefragt haben!');
 define('_MD_LEXIKON_THANKYOU', 'Vielen Dank, dass Sie sich die Zeit genommen haben eine Definition anzufragen die das Glossar auf %s bereichern wird.');
 define('_MD_LEXIKON_THEREWERE', 'Es gibt %s Einträge die dem Suchbegriff entsprechen: <b>%s</b>.');

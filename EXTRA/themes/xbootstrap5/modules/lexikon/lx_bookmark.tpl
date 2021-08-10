@@ -1,6 +1,6 @@
 <!-- Bookmarks -->
 <div class="socbookmark" align="center" style="clear: both; margin:0 1.0em 0 0;">
-    <!--// <a target="_blank" title="<{$smarty.const._MD_LEXIKON_BKMK_TO_DIIGO}>" href="http://www.furl.net/storeIt.jsp?t=<{$encoded_title}>&u=<{$xoops_url}>/modules/<{$lang_moduledirname}>/entry.php?entryID=<{$thisterm.id}>" Target="_new"><img border="0" alt="<{$smarty.const._MD_LEXIKON_BKMK_TO_DIIGO}>" src="<{$xoops_url}>/modules/<{$lang_moduledirname}>/assets/images/bookmark/diigo.gif" width="18" height="18" /></a>&nbsp;
+    <!--// <a target="_blank" title="<{$smarty.const._MD_LEXIKON_BKMK_TO_DIIGO}>" href="http://www.furl.net/storeIt.jsp?t=<{$encoded_title}>&u=<{$xoops_url}>/modules/<{$lang_moduledirname}>/entry.php?entryID=<{$thisterm.id}>" Target="_new"><img border="0" alt="<{$smarty.const._MD_LEXIKON_BKMK_TO_DIIGO}>" src="<{$xoops_url}>/modules/<{$lang_moduledirname}>/assets/images/bookmark/diigo.gif" width="18" height="18"></a>&nbsp;
      -->
     <a target="_blank" title="<{$smarty.const._MD_LEXIKON_BKMK_TO_FARK}>" href="http://www.fark.com/cgi/farkit.pl?h=<{$xoops_url}>/modules/<{$lang_moduledirname}>/entry.php?entryID=<{$thisterm.id}>&title=<{$encoded_title}>"><img border="0" alt="<{$smarty.const._MD_LEXIKON_BKMK_TO_FARK}>"
                                                                                                                                                                                                                                          src="<{$xoops_url}>/modules/<{$lang_moduledirname}>/assets/images/bookmark/fark.png"

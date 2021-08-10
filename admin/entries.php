@@ -22,9 +22,11 @@
  * @since           1.0.0
  */
 
+use Xmf\Module\Admin;
 use Xmf\Module\Helper\Permission;
 use Xmf\Request;
 use XoopsModules\Lexikon\{
+    Common\Configurator,
     CategoriesHandler,
     Entries,
     EntriesHandler,
@@ -40,6 +42,9 @@ xoops_cp_header();
 $op    = Request::getString('op', 'list');
 $order = Request::getString('order', 'desc');
 $sort  = Request::getString('sort', '');
+
+$configurator = new Configurator();
+$icons = $configurator->icons;
 
 xoops_load('XoopsUserUtility');
 $moduleDirName = \basename(\dirname(__DIR__));

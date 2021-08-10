@@ -12,7 +12,7 @@ namespace XoopsModules\Lexikon\Common;
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
-use \XoopsModules\Lexikon\Common;
+use XoopsModules\Lexikon\Common;
 
 /**
  * Class Migrate synchronize existing tables with target schema

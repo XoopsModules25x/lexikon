@@ -85,7 +85,7 @@ class Entries extends \XoopsObject
     }
 
     /**
-     * @return XoopsForm
+     * @return \XoopsThemeForm
      */
     public function getFormFilter()
     {

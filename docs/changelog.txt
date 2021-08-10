@@ -1,3 +1,7 @@
+<h5>1.53 RC 1   [2021-08-10]</h5>  Dev: XOOPS 2.5.11, PHP 7.4.22, PHP 8.0.9
+<hr>
+
+
 <h5>1.53 Beta 2   [2021-08-08]</h5>  Dev: XOOPS 2.5.11, PHP 7.4.22, PHP 8.0.9
 <hr>
 - PHP7, PHP8 adjustments (mamba)

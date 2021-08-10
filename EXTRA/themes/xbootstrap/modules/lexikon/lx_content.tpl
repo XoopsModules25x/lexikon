@@ -31,14 +31,14 @@
     <form name="<{$yform.name}>" action="" method="<{$yform.method}>" <{$yform.extra}> >
         <label><{$yform.elements.txt.caption}></td></label>
         <{$yform.elements.txt.body}>
-        <input type=button value="select" style="margin-top: 5px" class="btn btn-success btn-sm" onClick="this.form.txt.focus();this.form.txt.select(); document.execCommand('Copy')" />
+        <input type=button value="select" style="margin-top: 5px" class="btn btn-success btn-sm" onClick="this.form.txt.focus();this.form.txt.select(); document.execCommand('Copy')">
     </form>
 
         <div align="center">
             <h4><{$smarty.const._PREVIEW}></h4><br>
             <IFRAME style="background-color: #FFFFFF;" ; src="<{$xoops_url}>/modules/<{$lang_moduledirname}>/syndication.php"
                     frameborder="0" width="240" height="280" allowtransparency="true" topmargin="0"
-                    leftmargin="0" scrolling='no' marginwidth="0" marginheight="0"/>
+                    leftmargin="0" scrolling='no' marginwidth="0" marginheight="0">
             [Your user agent does not support frames or is currently configured not to display frames.]
             </IFRAME>
         </div>
