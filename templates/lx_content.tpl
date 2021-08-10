@@ -33,7 +33,7 @@
                                     <td style="line-height: 200%; width:160px;">&nbsp;</td>
                                     <td style="text-align: left;">
                                         <{*<input type=button value="select all" onClick="javascript:this.form.txt.focus();this.form.txt.select();"  style="font-size: 12px; font-family: arial,verdana; border: 1 solid #336699;">*}>
-                                        <input type=button value="<{$smarty.const._MD_LEXIKON_SELECTALL}>" onClick="this.form.txt.focus();this.form.txt.select(); document.execCommand('Copy')" style="font-size: 12px; font-family: verdana,arial; ">
+                                        <input type=button value="<{$smarty.const._MD_LEXIKON_SELECTALL}>" onClick="this.form.txt.focus();this.form.txt.select(); document.execCommand('Copy')" style="font-size: 12px; font-family: verdana,arial,sans-serif; ">
                                     </td>
                                 </tr>
                         </table>
