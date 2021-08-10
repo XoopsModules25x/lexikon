@@ -750,6 +750,7 @@ class Utility extends Common\SysUtility
             /** @var \XoopsModuleHandler $moduleHandler */
             $moduleHandler = \xoops_getHandler('module');
             $module        = $moduleHandler->getByDirname($repmodule);
+            /** @var \XoopsConfigHandler $configHandler */
             $configHandler = \xoops_getHandler('config');
             if ($module) {
                 $moduleConfig = $configHandler->getConfigsByCat(0, $module->getVar('mid'));
