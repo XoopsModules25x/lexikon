@@ -97,14 +97,14 @@ if (!$query) {
     // Display message saying there's no term and explaining how to search
     $xoopsTpl->assign('intro', _MD_LEXIKON_NOSEARCHTERM);
     // Display search form
-    $searchform = $utility::searchForm($type, $categoryID, $query);
+    $searchform = $utility::getFormSearch($type, $categoryID, $query);
     $xoopsTpl->assign('searchform', $searchform->render());
 } else {
     // Security Check
     if (!$GLOBALS['xoopsSecurity']->check()) {
         //\redirect_header('index.php', 3, \implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
     }
-    $searchform = $utility::searchForm($type, $categoryID, $query);
+    $searchform = $utility::getFormSearch($type, $categoryID, $query);
     // IF results, count number
     $catrestrict = " categoryID IN ($catids) ";
     $searchquery = $xoopsDB->query('SELECT COUNT(*) as nrows FROM ' . $xoopsDB->prefix('lxentries') . " w WHERE offline='0' AND " . $catrestrict . ' ' . $andcatid . " AND $searchtype   ORDER BY term DESC");

@@ -85,6 +85,50 @@ class Entries extends \XoopsObject
     }
 
     /**
+     * @return XoopsForm
+     */
+    public function getFormFilter()
+    {
+        global $xoopsUser, $xoopsDB, $xoopsModule, $xoopsConfig;
+
+        $helper = Helper::getInstance();
+
+        $grouppermHandler = \xoops_getHandler('groupperm');
+        $groups           = \is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
+        $action = $_SERVER['REQUEST_URI'];
+
+        // Get Theme Form
+        \xoops_load('XoopsFormLoader');
+        $form = new \XoopsThemeForm(_MD_LEXIKON_LOOKON, 'form', 'search.php', 'post', true);
+        $form->setExtra('enctype="multipart/form-data"');
+        // Form select search type
+        $searchTypeSelect = new \XoopsFormSelect(\_MD_LEXIKON_LOOKON, 'type', $type);
+        $searchTypeSelect->addOption('1', _MD_LEXIKON_TERMS);
+        $searchTypeSelect->addOption('2', _MD_LEXIKON_DEFINS);
+        $searchTypeSelect->addOption('3', _MD_LEXIKON_TERMSDEFS);
+        $form->addElement($searchTypeSelect);
+        // form select cats
+        if (1 == $helper->getConfig('multicats')) {
+            $resultcat  = $xoopsDB->query('SELECT categoryID, name FROM ' . $xoopsDB->prefix('lxcategories') . ' ORDER BY categoryID');
+            $searchCatSelect = new \XoopsFormSelect(\_MD_LEXIKON_LOOKON, 'categoryID', $categoryID);
+            $searchCatSelect->addOption(0, _MD_LEXIKON_ALLOFTHEM);
+            while (list($categoryID, $name) = $xoopsDB->fetchRow($resultcat)) {
+                if ($grouppermHandler->checkRight('lexikon_view', (int)$categoryID, $groups, $xoopsModule->getVar('mid'))) {
+                    $searchCatSelect->addOption($categoryID, $categoryID . ' : ' . $name);
+                }
+            }
+            $form->addElement($searchCatSelect);
+        }
+        // Form Text term
+        $form->addElement(new \XoopsFormText(\_MD_LEXIKON_TERM, 'term', 30, 255, $term), true);
+        // To Save
+        $form->addElement(new \XoopsFormHidden('op', 'save'));
+        $form->addElement(new \XoopsFormButton('', 'submit', \_MD_LEXIKON_SEARCH, 'submit'));
+
+        return $form;
+    }
+
+    /**
      * @return array|null
      */
     public function getGroupsRead()

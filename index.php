@@ -78,7 +78,7 @@ if (0 == $publishedwords) {
 }
 
 // To display the search form
-$formSearch = $utility::searchForm();
+$formSearch = $utility::getFormSearch();
 $xoopsTpl->assign('searchform', $formSearch->render());
 
 //--------------------------------------------------------------

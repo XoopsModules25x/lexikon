@@ -413,9 +413,9 @@ class Utility extends Common\SysUtility
     }
 
     /**
-     * @return string
+     * @return XoopsForm
      */
-    public static function searchForm($type = '3', $categoryID = '0', $term = '')
+    public static function getFormSearch($type = '3', $categoryID = '0', $term = '')
     {
         global $xoopsUser, $xoopsDB, $xoopsModule, $xoopsConfig;
 

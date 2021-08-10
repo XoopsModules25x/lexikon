@@ -1,3 +1,9 @@
+<{if $formFilter|default:false}>
+    <div class="pull-right">
+        <{$formFilter}>
+    </div>
+<{/if}>
+
 <{if $entriesRows > 0}>
     <div class="outer">
         <form name="select" action="entries.php?op=" method="POST"
@@ -10,9 +16,11 @@
                 </select>
                 <input id="submitUp" class="formButton" type="submit" name="submitselect" value="<{$smarty.const._SUBMIT}>" title="<{$smarty.const._SUBMIT}>">
             </div>
+            <{if $pagenav|default:false}>
             <div class="floatcenter0">
                 <div id="pagenav"><{$pagenav|default:''}></div>
             </div>
+            <{/if}>
 
 
             <table class="$entries" cellpadding="0" cellspacing="0" width="100%">
