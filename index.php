@@ -97,11 +97,11 @@ $xoopsTpl->assign('totalother', $howmanyother);
 $moduleDirName      = basename(__DIR__);
 $moduleDirNameUpper = mb_strtoupper($moduleDirName);
 
-Helper::getInstance()->loadLanguage('common');
+$helper->loadLanguage('common');
 $xoopsTpl->assign('letterChoiceTitle', constant('CO_' . $moduleDirNameUpper . '_' . 'BROWSETOTOPIC'));
 $db                  = \XoopsDatabaseFactory::getDatabaseConnection();
-$objHandler          = Helper::getInstance()->getHandler('Entries');
-$choicebyletter      = new LetterChoice($objHandler, null, null, range('a', 'z'), 'init', LEXIKON_URL . '/letter.php');
+$objHandler          = $helper->getHandler('Entries');
+$choicebyletter      = new LetterChoice($objHandler, null, null, range('a', 'z'), 'init', $helper->path('letter.php'));
 $catarray['letters'] = $choicebyletter->render($alphaCount, $howmanyother);
 $xoopsTpl->assign('catarray', $catarray);
 
