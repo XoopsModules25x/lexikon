@@ -1597,7 +1597,7 @@ class Utility extends Common\SysUtility
         // set the auto-incremented id's value to blank.
         unset($tempTable[$id_field]);
         // insert cloned copy of the original  record
-        $result = $GLOBALS['xoopsDB']->queryF("INSERT INTO $table (" . \implode(', ', \array_keys($tempTable)) . ") VALUES ('" . \implode("', '", \array_values($tempTable)) . "')") || exit($GLOBALS['xoopsDB']->error());
+        $result = $GLOBALS['xoopsDB']->queryF("INSERT INTO $table (" . \implode(', ', \array_keys($tempTable)) . ") VALUES ('" . \implode("', '", $tempTable) . "')") || exit($GLOBALS['xoopsDB']->error());
 
         if ($result) {
             // Return the new id
