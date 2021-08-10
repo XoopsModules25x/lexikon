@@ -59,7 +59,7 @@ switch ($op) {
         $adminObject->addItemButton(_AM_LEXIKON_ADD_ENTRIES, 'entries.php?op=new', 'add');
         echo $adminObject->displayButton('left');
         $start                  = Request::getInt('start', 0);
-        $entriesPaginationLimit = $GLOBALS['xoopsModuleConfig']['userpager'];
+        $entriesPaginationLimit = $GLOBALS['xoopsModuleConfig']['perpage'];
 
         $criteria = new \CriteriaCompo();
         $criteria->setSort('entryID ASC, term');

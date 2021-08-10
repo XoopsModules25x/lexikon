@@ -639,25 +639,6 @@ $modversion['config'][] = [
     'default'     => 1,
 ];
 
-$modversion['config'][] = [
-    'name'        => 'adminpager',
-    'title'       => '_MI_LEXIKON_ADMINPAGER',
-    'description' => '_MI_LEXIKON_ADMINPAGER_DESC',
-    'formtype'    => 'textbox',
-    'valuetype'   => 'int',
-    'default'     => 10,
-];
-
-$modversion['config'][] = [
-    'name'        => '
-    ',
-    'title'       => '_MI_LEXIKON_USERPAGER',
-    'description' => '_MI_LEXIKON_USERPAGER_DESC',
-    'formtype'    => 'textbox',
-    'valuetype'   => 'int',
-    'default'     => 10,
-];
-
 /**
  * Make Sample button visible?
  */
