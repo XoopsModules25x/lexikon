@@ -78,7 +78,8 @@ if (0 == $publishedwords) {
 }
 
 // To display the search form
-$xoopsTpl->assign('searchform', $utility::showSearchForm());
+$formSearch = $utility::getFormSearch();
+$xoopsTpl->assign('searchform', $formSearch->render());
 
 //--------------------------------------------------------------
 // To display the linked letter list

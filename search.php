@@ -18,7 +18,6 @@ $GLOBALS['xoopsOption']['template_main'] = 'lx_search.tpl';
 require __DIR__ . '/header.php';
 require XOOPS_ROOT_PATH . '/header.php';
 
-
 $helper = Helper::getInstance();
 
 global $xoTheme, $xoopsDB, $xoopsModule, $xoopsModuleConfig, $searchtype;
@@ -51,11 +50,11 @@ $catids           = implode(',', $allowed_cats);
 //extract($_GET);
 //extract($_POST, EXTR_OVERWRITE);
 
-$action     = Request::getCmd('action', 'search', 'GET'); //isset($action) ? trim($action) : 'search';
-$query      = Request::getString('term', '', 'GET'); //isset($term) ? trim($term) : '';
-$start      = Request::getInt('start', 0, 'GET'); //isset($start) ? (int)$start : 0;
-$categoryID = Request::getInt('categoryID', 0, 'GET'); //isset($categoryID) ? (int)$categoryID : 0;
-$type       = Request::getInt('type', 3, 'GET'); //isset($type) ? (int)$type : 3;
+$action     = Request::getCmd('action', 'search'); //isset($action) ? trim($action) : 'search';
+$query      = Request::getString('term', ''); //isset($term) ? trim($term) : '';
+$start      = Request::getInt('start', 0); //isset($start) ? (int)$start : 0;
+$categoryID = Request::getInt('categoryID', 0); //isset($categoryID) ? (int)$categoryID : 0;
+$type       = Request::getInt('type', 3); //isset($type) ? (int)$type : 3;
 $queries    = [];
 
 if (1 == $helper->getConfig('multicats')) {
@@ -68,13 +67,13 @@ if (1 == $helper->getConfig('multicats')) {
 
 // Configure search parameters according to selector
 $query = stripslashes($query);
-if ('1' == $type) {
+if (1 == $type) {
     $searchtype = "( w.term LIKE '%$query%' )";
 }
-if ('2' == $type) {
+if (2 == $type) {
     $searchtype = "( definition LIKE '%$query%' )";
 }
-if ('3' == $type) {
+if (3 == $type) {
     $searchtype = "(( term LIKE '%$query%' OR definition LIKE '%$query%' OR ref LIKE '%$query%' ))";
 }
 
@@ -98,9 +97,14 @@ if (!$query) {
     // Display message saying there's no term and explaining how to search
     $xoopsTpl->assign('intro', _MD_LEXIKON_NOSEARCHTERM);
     // Display search form
-    $searchform = $utility::showSearchForm();
-    $xoopsTpl->assign('searchform', $searchform);
+    $searchform = $utility::getFormSearch($type, $categoryID, $query);
+    $xoopsTpl->assign('searchform', $searchform->render());
 } else {
+    // Security Check
+    if (!$GLOBALS['xoopsSecurity']->check()) {
+        //\redirect_header('index.php', 3, \implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
+    }
+    $searchform = $utility::getFormSearch($type, $categoryID, $query);
     // IF results, count number
     $catrestrict = " categoryID IN ($catids) ";
     $searchquery = $xoopsDB->query('SELECT COUNT(*) as nrows FROM ' . $xoopsDB->prefix('lxentries') . " w WHERE offline='0' AND " . $catrestrict . ' ' . $andcatid . " AND $searchtype   ORDER BY term DESC");
@@ -111,8 +115,7 @@ if (!$query) {
         $xoopsTpl->assign('intro', _MD_LEXIKON_NORESULTS);
 
         // Display search form
-        $searchform = $utility::showSearchForm();
-        $xoopsTpl->assign('searchform', $searchform);
+        $xoopsTpl->assign('searchform', $searchform->render());
         // $results > 0 -> there were search results
     } else {
         // Show paginated list of results
@@ -186,8 +189,7 @@ if (!$query) {
         $xoopsTpl->assign('resultset', $resultset);
 
         // Display search form
-        $searchform = $utility::showSearchForm();
-        $xoopsTpl->assign('searchform', $searchform);
+        $xoopsTpl->assign('searchform', $searchform->render());
     }
 }
 // Assign variables and close

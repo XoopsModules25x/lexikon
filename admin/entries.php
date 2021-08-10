@@ -59,7 +59,7 @@ switch ($op) {
         $adminObject->addItemButton(_AM_LEXIKON_ADD_ENTRIES, 'entries.php?op=new', 'add');
         echo $adminObject->displayButton('left');
         $start                  = Request::getInt('start', 0);
-        $entriesPaginationLimit = $GLOBALS['xoopsModuleConfig']['userpager'];
+        $entriesPaginationLimit = $GLOBALS['xoopsModuleConfig']['perpage'];
 
         $criteria = new \CriteriaCompo();
         $criteria->setSort('entryID ASC, term');
@@ -67,13 +67,7 @@ switch ($op) {
         $criteria->setLimit($entriesPaginationLimit);
         $criteria->setStart($start);
         $entriesTempRows  = $entriesHandler->getCount();
-        $entriesTempArray = $entriesHandler->getAll($criteria); /*
-//
-//
-                    <th class='center width5'>".AM_LEXIKON_FORM_ACTION."</th>
-//                    </tr>";
-//            $class = "odd";
-*/
+        $entriesTempArray = $entriesHandler->getAll($criteria);
 
         // Display Page Navigation
         if ($entriesTempRows > $entriesPaginationLimit) {
@@ -86,12 +80,7 @@ switch ($op) {
         $GLOBALS['xoopsTpl']->assign('entriesRows', $entriesTempRows);
         $entriesArray = [];
 
-        //    $fields = explode('|', entryID:int:8::NOT NULL::primary:ID|categoryID:tinyint:4::NOT NULL:0::Category|term:varchar:255::NOT NULL:0::Term|init:varchar:1::NOT NULL:0::Init|definition:text:0::NOT NULL:::Definition|ref:text:0::NOT NULL:::Reference|url:varchar:255::NOT NULL:0::URL|uid:int:6::NULL:1::User|submit:datetime:1::NOT NULL:0::Submitter|datesub:datetime:11::NOT NULL:1033141070::Submitted|counter:int:8:unsigned:NOT NULL:0::Counter|html:int:11::NOT NULL:0::HTML|smiley:int:11::NOT NULL:0::Smiley|xcodes:int:11::NOT NULL:0::xCodes|breaks:int:11::NOT NULL:1::Breaks|block:int:11::NOT NULL:0::Block|offline:int:11::NOT NULL:0::Offline|notifypub:int:11::NOT NULL:0::Notify on Pub|request:int:11::NOT NULL:0::Request|comments:int:11:unsigned:NOT NULL:0::Comments|item_tag:text:0::NULL:::Tag);
-        //    $fieldsCount    = count($fields);
-
         $criteria = new \CriteriaCompo();
-
-        //$criteria->setOrder('DESC');
         $criteria->setSort($sort);
         $criteria->setOrder($order);
         $criteria->setLimit($entriesPaginationLimit);
@@ -100,11 +89,8 @@ switch ($op) {
         $entriesCount     = $entriesHandler->getCount($criteria);
         $entriesTempArray = $entriesHandler->getAll($criteria);
 
-        //    for ($i = 0; $i < $fieldsCount; ++$i) {
         if ($entriesCount > 0) {
             foreach (array_keys($entriesTempArray) as $i) {
-                //        $field = explode(':', $fields[$i]);
-
                 $selectorentryID = Utility::selectSorting(_AM_LEXIKON_ENTRIES_ENTRYID, 'entryID');
                 $GLOBALS['xoopsTpl']->assign('selectorentryID', $selectorentryID);
                 $entryID = $entriesTempArray[$i]->getVar('entryID');
@@ -121,7 +107,6 @@ switch ($op) {
                 $entriesArray['term'] = $entriesTempArray[$i]->getVar('term');
                 $entryTerm = $entriesTempArray[$i]->getVar('term');
                 $entriesArray['term']  = "<a href='../entry.php?entryID=" . $entryID . "'>" .  $entryTerm . '</a>';
-
 
                 $selectorinit = Utility::selectSorting(_AM_LEXIKON_ENTRIES_INIT, 'init');
                 $GLOBALS['xoopsTpl']->assign('selectorinit', $selectorinit);
@@ -146,22 +131,15 @@ switch ($op) {
 
                 $selectordatesub = Utility::selectSorting(_AM_LEXIKON_ENTRIES_DATESUB, 'datesub');
                 $GLOBALS['xoopsTpl']->assign('selectordatesub', $selectordatesub);
-                //                $entriesArray['datesub'] = date(_DATESTRING, strtotime($entriesTempArray[$i]->getVar('datesub')));
                 $date                    = $entriesTempArray[$i]->getVar('datesub');
                 $entriesArray['datesub'] = formatTimestamp($date, _SHORTDATESTRING);
-
-                //                formatTimestamp($date, 'd M Y')
-
 
                 $selectoruid = Utility::selectSorting(_AM_LEXIKON_ENTRIES_UID, 'uid');
                 $GLOBALS['xoopsTpl']->assign('selectoruid', $selectoruid);
                 $userId = $entriesTempArray[$i]->getVar('uid');
                 $userName = \XoopsUserUtility::getUnameFromId($entriesTempArray[$i]->getVar('uid'));
-//                $entriesArray['uid'] = \XoopsUserUtility::getUnameFromId($entriesTempArray[$i]->getVar('uid'));
 
                 $entriesArray['uid']  = "<a href='" . XOOPS_URL . '/modules/profile/userinfo.php?uid=' . $userId . "'>" . $userName . '</a>';
-
-
 
                 $selectorcounter = Utility::selectSorting(_AM_LEXIKON_ENTRIES_COUNTER, 'counter');
                 $GLOBALS['xoopsTpl']->assign('selectorcounter', $selectorcounter);
@@ -222,31 +200,8 @@ switch ($op) {
                 $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav(4));
             }
 
-            //                     echo "<td class='center width5'>
-
-            //                    <a href='entries.php?op=edit&entryID=".$i."'><img src=".$pathIcon16."/edit.png alt='"._EDIT."' title='"._EDIT."'></a>
-            //                    <a href='entries.php?op=delete&entryID=".$i."'><img src=".$pathIcon16."/delete.png alt='"._DELETE."' title='"._DELETE."'></a>
-            //                    </td>";
-
-            //                echo "</tr>";
-
-            //            }
-
-            //            echo "</table><br><br>";
-
-            //        } else {
-
-            //            echo "<table width='100%' cellspacing='1' class='outer'>
-
-            //                    <tr>
-
-            //                     <th class='center width5'>".AM_LEXIKON_FORM_ACTION."XXX</th>
-            //                    </tr><tr><td class='errorMsg' colspan='22'>There are noXXX entries</td></tr>";
-            //            echo "</table><br><br>";
-
-            //-------------------------------------------
-
             echo $GLOBALS['xoopsTpl']->fetch(XOOPS_ROOT_PATH . '/modules/' . $GLOBALS['xoopsModule']->getVar('dirname') . '/templates/admin/lexikon_admin_entries.tpl');
+
         }
 
         break;

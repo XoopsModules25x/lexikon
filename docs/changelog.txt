@@ -10,7 +10,9 @@
 - added smarty defaults (goffy)
 - Packed hashtable optimizations (mamba)
 - fix Unqualified function/constant reference (mamba)
-
+- fixed bug with search (goffy)
+- replaced hard coded search form by xoops form (goffy)
+- removed duplicated preferences for admin/user pages (goffy)
 
 <h5>1.53 Beta 1     [NOT RELEASED]</h5>  Dev: Xoops 2.5.9, PHP 7.2.3
 <hr>

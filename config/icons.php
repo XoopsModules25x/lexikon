@@ -7,8 +7,21 @@ use Xmf\Module\Admin;
 $pathIcon16    = Admin::iconUrl('', 16);
 $moduleDirName = \basename(\dirname(__DIR__));
 
+if (!\defined('_PRINT')) {
+    \define('_PRINT', 'Print');
+}
+if (!\defined('_PDF')) {
+    \define('_PDF', 'Pdf');
+}
+if (!\defined('_OFF')) {
+    \define('_OFF', 'Off');
+}
+if (!\defined('_ON')) {
+    \define('_ON', 'On');
+}
+
 return (object)[
-    'name'  => mb_strtoupper($moduleDirName) . ' IconConfigurator',
+    'name'  => \mb_strtoupper($moduleDirName) . ' IconConfigurator',
     'edit'    => "<img src='" . $pathIcon16 . "/edit.png'  alt=" . _EDIT . ' title=' . _EDIT . " align='middle'>",
     'delete'  => "<img src='" . $pathIcon16 . "/delete.png' alt=" . _DELETE . ' title=' . _DELETE . " align='middle'>",
     'clone'   => "<img src='" . $pathIcon16 . "/editcopy.png' alt=" . _CLONE . ' title=' . _CLONE . " align='middle'>",

@@ -66,12 +66,6 @@ $adminmenu[] = [
 
 $adminmenu[] = [
     'title' => _MI_LEXIKON_BLOCKADMIN,
-    'link'  => 'admin/myblocksadmin.php',
-    'icon'  => $pathIcon32 . '/block.png',
-];
-
-$adminmenu[] = [
-    'title' => _MI_LEXIKON_BLOCKADMIN,
     'link'  => 'admin/blocksadmin.php',
     'icon'  => $pathIcon32 . '/block.png',
 ];
@@ -95,7 +89,7 @@ $adminmenu[] = [
     'link'  => 'admin/about.php',
     'icon'  => $pathIcon32 . '/about.png',
 ];
-
+/*
 $adminmenu[] = [
     'title' => _MI_LEXIKON_ADMENU1,
     'link'  => 'admin/main.php',
@@ -113,5 +107,5 @@ $adminmenu[] = [
     'link'  => 'admin/entry.php',
     'icon'  => $pathIcon32 . '/add.png',
 ];
-
+*/
 

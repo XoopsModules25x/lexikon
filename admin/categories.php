@@ -49,7 +49,7 @@ switch ($op) {
         $adminObject->addItemButton(_AM_LEXIKON_ADD_CATEGORIES, 'categories.php?op=new', 'add');
         echo $adminObject->displayButton('left');
         $start                     = Request::getInt('start', 0);
-        $categoriesPaginationLimit = $GLOBALS['xoopsModuleConfig']['userpager'];
+        $categoriesPaginationLimit = $GLOBALS['xoopsModuleConfig']['perpage'];
 
         $criteria = new \CriteriaCompo();
         $criteria->setSort('categoryID ASC, categoryID');
