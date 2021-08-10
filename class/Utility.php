@@ -413,7 +413,7 @@ class Utility extends Common\SysUtility
     }
 
     /**
-     * @return XoopsForm
+     * @return \XoopsThemeForm
      */
     public static function getFormSearch($type = '3', $categoryID = '0', $term = '')
     {
