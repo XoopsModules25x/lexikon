@@ -22,6 +22,7 @@
  * @since           1.0.0
  */
 
+use Xmf\Module\Admin;
 use Xmf\Module\Helper\Permission;
 use Xmf\Request;
 use XoopsModules\Lexikon\{
